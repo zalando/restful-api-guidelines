@@ -5,6 +5,7 @@
 node_modules
 
 # gitbook
+*/_book
 _book
 *.epub
 *.mobi

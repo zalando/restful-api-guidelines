@@ -7,16 +7,10 @@ visible. Use the parameter definitions of the resource HTTP methods.
 
 |Header field name | Type    | Description                       | Example                |
 |------------------|---------|-----------------------------------|------------------------|
-| X-Flow-Id        | String  | The flow id of the request, which | GKY7oDhpSiKY_gAAAABZ_A |
-|                  |         | is written into the logs and      |                        |
-|                  |         | passed to called services.        |                        |
-|                  |         | Helpful for operational           |                        |
-|                  |         | troubleshooting and log analysis. |                        |
+| X-Flow-Id        | String  | The flow id of the request, which is written into the logs and passed to called services. Helpful for operational troubleshooting and log analysis. | GKY7oDhpSiKY_gAAAABZ_A |
 |------------------|---------|-----------------------------------|------------------------|
-| X-App-Domain     | Integer | The app domain (i.e. shop channel | 16                     |
-|                  |         | context) of the request           |                        |
+| X-App-Domain     | Integer | The app domain (i.e. shop channel context) of the request | 16 |
 |------------------|---------|-----------------------------------|------------------------|
-| X-Tenant-Id      | String  | The tenant id for future platform | Zalando-Fashion-Store  |
-|                  |         | multitenancy support.             |                        |
+| X-Tenant-Id      | String  | The tenant id for future platform multitenancy support. | Zalando-Fashion-Store  |
 
 Remember that HTTP header fields are not case-sensitive.
