@@ -17,4 +17,5 @@ The added benefit is that you already have a service for browsing and filtering 
 
 [M] Keep URLs Verb-Free
 
-The API describes resources, so the only place where actions should appear is in the HTTP methods. In URLs, use only nouns.
+The API describes resources, so the only place where actions should appear is in the HTTP methods.
+In URLs, use only nouns.

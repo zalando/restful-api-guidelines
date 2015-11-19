@@ -2,7 +2,9 @@
 
 [S] Use HATEOAS
 
-This is a challenging topic. We don’t have specific recommendations yet; we expect them to emerge from trial and error, and from the API Guild’s ongoing research. For now, we strongly encourage teams to apply this principle and document results.
+This is a challenging topic. We don’t have specific recommendations yet; we expect them to emerge
+from trial and error, and from the API Guild’s ongoing research. For now, we strongly encourage
+teams to apply this principle and document results.
 
 Notes on aspects to be analyzed:
 
@@ -27,4 +29,7 @@ Further reading:
     
 [S] Consider Using a Standard for Links
 
-For HTTP Link headers, consider using a format like [HAL](http://stateless.co/hal_specification.html), [JSON-LD](http://json-ld.org/) with [Hydra](http://www.markus-lanthaler.com/hydra/spec/latest/core/), or [Siren](https://github.com/kevinswiber/siren). For a comparison of these hypermedia types, see [Kevin Sookocheff’s post](http://sookocheff.com/post/api/on-choosing-a-hypermedia-format/).
+For HTTP Link headers, consider using a format like [HAL](http://stateless.co/hal_specification.html),
+[JSON-LD](http://json-ld.org/) with [Hydra](http://www.markus-lanthaler.com/hydra/spec/latest/core/),
+or [Siren](https://github.com/kevinswiber/siren). For a comparison of these hypermedia types, see
+[Kevin Sookocheff’s post](http://sookocheff.com/post/api/on-choosing-a-hypermedia-format/).

@@ -123,11 +123,10 @@ Example:
 
 
 This is different from [semantic version information](http://semver.org/), which is used for APIs of
-released services or libraries but inadequate for versioning API descriptions. During a
-long-running API review phase you need different versions of the API
-description. These versions may include changes that are incompatible with
-earlier draft versions. We recommend using the draft version only for unreleased
-API definitions that are still under review .
+released services or libraries but inadequate for versioning API descriptions. During a long-running
+API review phase you need different versions of the API description. These versions may include
+changes that are incompatible with earlier draft versions. We recommend using the draft version only
+for unreleased API definitions that are still under review .
 
 For example:
 

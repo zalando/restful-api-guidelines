@@ -21,13 +21,23 @@ Use the following common money structure:
         - amount
         - currency
 
-Make sure that you don’t convert the “amount” field to `float` / `double` types when implementing this interface in a specific language or when doing calculations. Otherwise, you might lose precision. Instead, use exact formats like Java’s [`BigDecimal`](https://docs.oracle.com/javase/8/docs/api/java/math/BigDecimal.html). See [Stack Overflow](http://stackoverflow.com/a/3730040/342852) for more info.
+Make sure that you don’t convert the “amount” field to `float` / `double` types when implementing
+this interface in a specific language or when doing calculations. Otherwise, you might lose
+precision. Instead, use exact formats like
+Java’s [`BigDecimal`](https://docs.oracle.com/javase/8/docs/api/java/math/BigDecimal.html).
+See [Stack Overflow](http://stackoverflow.com/a/3730040/342852) for more info.
 
-Some JSON parsers (NodeJS’s, for example) convert numbers to floats by default. After discussing the [pros and cons](https://docs.google.com/spreadsheets/d/12wTj-2w39f69XZGwRDrosNc1yWPwQpGgEs_DCt5ODaQ), we’ve decided on "decimal" as our amount format. It is not a standard Swagger format, but should help us to avoid parsing numbers as float / doubles. 
+Some JSON parsers (NodeJS’s, for example) convert numbers to floats by default. After discussing the
+[pros and cons](https://docs.google.com/spreadsheets/d/12wTj-2w39f69XZGwRDrosNc1yWPwQpGgEs_DCt5ODaQ),
+we’ve decided on "decimal" as our amount format. It is not a standard Swagger format, but should
+help us to avoid parsing numbers as float / doubles. 
 
 [S] Use Common Address Fields
 
-Address structures play a role in different functional and use-case contexts, including country variances. The address structure below should be sufficient for most of our business-related use cases. Use it in our APIs, unless it does not fit to required functionality and need — preferable compatible extension — changes:
+Address structures play a role in different functional and use-case contexts, including country
+variances. The address structure below should be sufficient for most of our business-related use
+cases. Use it in our APIs, unless it does not fit to required functionality and need — preferable
+compatible extension — changes:
 
     address:
         description:
@@ -80,9 +90,15 @@ Address structures play a role in different functional and use-case contexts, in
 
 [M] Use Common Error Return Objects
 
-`application/x.problem+json` is an  example of a common error return object derived from an [Internet draft specification](https://tools.ietf.org/html/draft-nottingham-http-problem-07) for error objects that have never reached registered [media type status](http://www.iana.org/assignments/media-types/media-types.xhtml#application). The  media type name is prefixed with “x.” to denote its status. 
+`application/x.problem+json` is an  example of a common error return object derived from an
+[Internet draft specification](https://tools.ietf.org/html/draft-nottingham-http-problem-07) for
+error objects that have never reached registered
+[media type status](http://www.iana.org/assignments/media-types/media-types.xhtml#application).
+The media type name is prefixed with “x.” to denote its status. 
 
-APIs may define custom problems types with extension properties, according to their specific needs.  [Go here](https://docs.pennybags.zalan.do/problems) for a more detailed explanation (IAM login required). 
+APIs may define custom problems types with extension properties, according to their specific needs.
+[Go here](https://docs.pennybags.zalan.do/problems) for a more detailed explanation
+(IAM login required). 
 
     Problem:
      type: object
@@ -132,4 +148,5 @@ The reasons:
 
 * The API would leak implementation details to the outside world.
 * Other teams would possibly rely on the stack trace and a refactoring would be hard.
-* Brand partners and other third parties receiving the API, might receive leaked, sensitive information
+* Brand partners and other third parties receiving the API, might receive leaked, sensitive
+  information

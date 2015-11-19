@@ -23,3 +23,11 @@ Timestamps are passed in UTC-related format via APIs and should be stored in UTC
 * * [BCP-47](https://tools.ietf.org/html/bcp47) (based on ISO 639-1) for language variants
 
 * [ISO 4217 currency codes](http://en.wikipedia.org/wiki/ISO_4217)
+
+
+[C] Use Application-Specific Content Types
+
+For instance, `application/x.zalando.article+json`. For complex types, it’s better to have a
+specific content type. For simple use cases this isn’t necessary. We can attach version info to
+media type names and support content negotiation to get different representations, e.g.
+`application/x.zalando.article+json;version=2`.

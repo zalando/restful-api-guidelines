@@ -11,7 +11,8 @@ public APIs for our external business partners to use via third-party applicatio
 With this in mind, we’ve adopted “API First” as one of our key engineering principles.
 Microservices development begins with API definition outside the code and ideally involves ample
 peer-review feedback to achieve high-quality APIs. API First encompasses a set of quality-related
-standards and fosters a peer review culture including a lightweight [review procedure](https://docs.google.com/document/d/19aVhUS5I9d9C01b_ckRJCrKmEpXDW0PJ3rxZshRxwYk/edit).
+standards and fosters a peer review culture including a lightweight [review
+procedure](https://docs.google.com/document/d/19aVhUS5I9d9C01b_ckRJCrKmEpXDW0PJ3rxZshRxwYk/edit).
 We encourage our teams to follow them to ensure that our APIs:
 
 - are easy to understand and learn 
@@ -24,8 +25,9 @@ We encourage our teams to follow them to ensure that our APIs:
 Ideally, all Zalando APIs will look like the same author created them. 
 
 The purpose of our “RESTful API guidelines” is to define standards to successfully establish
-“consistent API look and feel” quality. The [API Guild](https://techwiki.zalando.net/display/GUL/API) drafted and owns this document.
-Teams are responsible to fulfill these guidelines during API development. 
+“consistent API look and feel” quality. The [API Guild](https://techwiki.zalando.net/display/GUL/API)
+drafted and owns this document. Teams are responsible to fulfill these guidelines during API
+development. 
 
 Note: These guidelines will, to some extent, remain a work in progress as our work evolves, but
 teams can confidently follow and trust them.
