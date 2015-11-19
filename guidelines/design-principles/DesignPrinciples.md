@@ -10,7 +10,10 @@ API Design Principles
 
 1. We prefer REST-based APIs with JSON payloads
 2. We prefer systems to be truly RESTful
-3. We strive to build interoperating distributed systems that different teams can evolve in parallel 
+3. We strive to build interoperating distributed systems that different teams can evolve in parallel
+
+
+
 
 An important principle for (RESTful) API design and usage is Postel's Law, aka [the
 Robustness Principle](http://en.wikipedia.org/wiki/Robustness_principle) (RFC 1122):

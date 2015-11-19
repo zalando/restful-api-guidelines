@@ -2,11 +2,11 @@
 
 [M] Use HTTP Methods Correctly
 
-See [Best Practices](https://docs.google.com/document/d/1Dqgkfxm2Jt9mVSraOYWSfKq3cKaZwf_VOgYDRuUf7kI/edit#heading=h.nkp61pevkdh6)
+* See [Best Practices](https://docs.google.com/document/d/1Dqgkfxm2Jt9mVSraOYWSfKq3cKaZwf_VOgYDRuUf7kI/edit#heading=h.nkp61pevkdh6)
 
 [M] Use Meaningful HTTP Status Codes
 
-See [Best Practices](https://docs.google.com/document/d/1Dqgkfxm2Jt9mVSraOYWSfKq3cKaZwf_VOgYDRuUf7kI/edit#heading=h.nkp61pevkdh6)
+* See [Best Practices](https://docs.google.com/document/d/1Dqgkfxm2Jt9mVSraOYWSfKq3cKaZwf_VOgYDRuUf7kI/edit#heading=h.nkp61pevkdh6)
 
 ## Reducing Bandwidth Needs and Improving Responsiveness
 
@@ -20,7 +20,7 @@ Common techniques include:
 
 * gzip compression
 * querying field filters to retrieve a subset of resource attributes
-* ETag (and if-[None-]Match) headers to avoid refetch of unchanged resources
+* `ETag` (and If-[None-]Match) headers to avoid refetch of unchanged resources
 * pagination for incremental access of larger (result) lists
 
 Each of these items is described in greater detail below.
