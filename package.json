@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "gitbook-cli": "^1.0.0",
+    "gitbook-plugin-include-codeblock": "*",
+    "gh-pages": "^0.4.0"
+  }
+}
