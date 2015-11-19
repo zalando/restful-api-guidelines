@@ -1,2 +1,11 @@
 !.gitignore
 .*
+
+# node
+node_modules
+
+# gitbook
+_book
+*.epub
+*.mobi
+*.pdf
