@@ -16,39 +16,39 @@ url=http://pages.github.bus.zalan.do/apiguild/api-guidelines
 all: help
 
 help:
-    @echo ""
-    @echo "make setup   - install dependencies"
-    @echo "make init    - initialize book"
-    @echo "make serve   - serve book locally: http://localhost:4000"
-    @echo "make build   - update the '_book/' files"
-    @echo "make publish - update pages served by GitHub: $(url)"
-    @echo ""
+	@echo ""
+	@echo "make setup   - install dependencies"
+	@echo "make init    - initialize book"
+	@echo "make serve   - serve book locally: http://localhost:4000"
+	@echo "make build   - update the '_book/' files"
+	@echo "make publish - update pages served by GitHub: $(url)"
+	@echo ""
 
 setup: | $(gitbook)
 
 init: | $(gitbook)
-    $(gitbook) init
+	$(gitbook) init
 
 serve: | $(gitbook)
-    $(gitbook) serve
+	$(gitbook) serve
 
 build: | $(gitbook)
-    $(gitbook) build ./reference
+	$(gitbook) build ./guidelines
 
-publish: build ./reference | $(gh_pages)
-    $(gh_pages) -d _book
+publish: build ./guidelines | $(gh_pages)
+	$(gh_pages) -d _book
 
 #---
 $(NODE_MODULES)/gitbook-plugin-%/package.json: | $(gitbook)
-    $(gitbook) install
+	$(gitbook) install
 
 #---
 $(NODE_MODULES)/.bin/%:
-    npm install
+	npm install
 
 #---
 echo:
-    @echo $aaa
+	@echo $aaa
 
 .PHONY: all help setup init serve build publish echo
 
