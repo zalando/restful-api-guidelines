@@ -11,7 +11,7 @@ NODE_MODULES=node_modules
 gitbook=$(NODE_MODULES)/.bin/gitbook
 gh_pages=$(NODE_MODULES)/.bin/gh-pages
 
-url=http://pages.github.bus.zalan.do/apiguild/api-guidelines
+url=http://pages.github.bus.zalan.do/ApiGuild/RestfulApiGuidelines
 
 all: help
 
@@ -33,9 +33,9 @@ serve: | $(gitbook)
 	$(gitbook) serve
 
 build: | $(gitbook)
-	$(gitbook) build ./guidelines
+	$(gitbook) build
 
-publish: build ./guidelines | $(gh_pages)
+publish: build | $(gh_pages)
 	$(gh_pages) -d _book
 
 #---
