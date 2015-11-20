@@ -1,13 +1,13 @@
 # General Guidelines
 
-The titles are marked with the corresponding letters for: [M]ust, [S]hould, [C]ould.
+The titles are marked with the corresponding letters for: {{ book.must }}ust, {{ book.should }}hould, {{ book.could }}ould.
  
-[M] API First: Define APIs using  Swagger YAML or JSON
+{{ book.must }} API First: Define APIs using  Swagger YAML or JSON
 
 API First is one of our architecture principles, as per our Architecture Rules of Play.
 Define, document and review your APIs before delivering them (also see API review procedure). 
 
-[S] Provide External Documentation
+{{ book.should }} Provide External Documentation
 
 In addition to defining the API with Swagger, it’s good practice to provide documentation that
 describes the API’s scope and purpose; architecture and use-case context (including figures);
@@ -15,9 +15,9 @@ sequence flows; edge cases and possible error situations, etc. Include a link to
 using the “externalDocs” property in your RESTful API Swagger definition and post it online on
 GitHub Enterprise pages, on specific team web servers, or as a Google doc. 
 
-[M] Write APIs in U.S. English  
+{{ book.must }} Write APIs in U.S. English  
 
-[M] Avoid Actions — Think About Resources
+{{ book.must }} Avoid Actions — Think About Resources
 
 REST is all about your resources, so consider the kinds of entities that take part in this action,
 and aim to model your API around these. For instance, if an application has to lock articles
@@ -30,7 +30,7 @@ Request:
 
 The added benefit is that you already have a service for browsing and filtering article locks.
 
-[M] Keep URLs Verb-Free
+{{ book.must }} Keep URLs Verb-Free
 
 The API describes resources, so the only place where actions should appear is in the HTTP methods.
 In URLs, use only nouns.

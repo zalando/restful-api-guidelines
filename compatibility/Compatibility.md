@@ -1,7 +1,7 @@
 Compatibility
 =============
 
-[M] Don’t Break Backward Compatibility
+{{ book.must }} Don’t Break Backward Compatibility
 
 Change APIs, but keep all consumers
 running. Consumers usually have independent release lifecycles, focus on
@@ -17,7 +17,7 @@ We strongly encourage using compatible API extensions and discourage versioning.
 With Postel’s Law in mind, here are some rules for providers and consumers that
 allow us to make compatible changes without versioning:
 
-[S] Prefer Compatible Extensions
+{{ book.should }} Prefer Compatible Extensions
 
 Apply the following rules to evolve RESTful APIs in a backward-compatible way:
 
@@ -37,7 +37,7 @@ Apply the following rules to evolve RESTful APIs in a backward-compatible way:
  ([301 Moved Permanently](https://en.wikipedia.org/wiki/HTTP_301))
 
  
-[M] Prepare Clients for Compatible API Extensions (the Robustness Principle)
+{{ book.must }} Prepare Clients for Compatible API Extensions (the Robustness Principle)
 
 How to do this:
 
@@ -47,7 +47,7 @@ How to do this:
   provide default behavior for unknown values, if applicable
 * Follow the redirect when the server returns an “HTTP 301 Moved Permanently” response code
 
-[S] Avoid Versioning
+{{ book.should }} Avoid Versioning
 
 When changing your RESTful APIs,
 do so in a compatible way and avoid generating additional API versions. Multiple
@@ -96,13 +96,13 @@ issue](https://github.com/swagger-api/swagger-spec/issues/146#issuecomment-11728
 a workaround (using a fragment identifier that
 gets stripped off).
 
-[M] Use Media Type Versioning, Not URL Versioning
+{{ book.must }} Use Media Type Versioning, Not URL Versioning
 
 Why: URL versioning leads to tighter coupling of a (hyperlinked) consumer and producer
 with higher complexity of release management. Media type versioning is less
 tightly coupled and supports content negotiation (see above).
 
-[S] Provide Version Information in Swagger API Documentation
+{{ book.should }} Provide Version Information in Swagger API Documentation
 
 Only the documentation, not the API itself, needs this information. Given a version number
 `MAJOR.MINOR.DRAFT`,
