@@ -2,7 +2,7 @@ Common Data Objects
 
 Definitions of data objects that are good candidates for wider usage:
 
-[S] Use a Common Money Object
+{{ book.should }} Use a Common Money Object
 
 Use the following common money structure: 
 
@@ -32,7 +32,7 @@ Some JSON parsers (NodeJS’s, for example) convert numbers to floats by default
 we’ve decided on "decimal" as our amount format. It is not a standard Swagger format, but should
 help us to avoid parsing numbers as float / doubles. 
 
-[S] Use Common Address Fields
+{{ book.should }} Use Common Address Fields
 
 Address structures play a role in different functional and use-case contexts, including country
 variances. The address structure below should be sufficient for most of our business-related use
@@ -88,7 +88,7 @@ compatible extension — changes:
           - zip
           - country_code
 
-[M] Use Common Error Return Objects
+{{ book.must }} Use Common Error Return Objects
 
 `application/x.problem+json` is an  example of a common error return object derived from an
 [Internet draft specification](https://tools.ietf.org/html/draft-nottingham-http-problem-07) for
@@ -142,7 +142,7 @@ APIs may define custom problems types with extension properties, according to th
        - status
 
 
-[M] An error message must not contain the stack trace.
+{{ book.must }} An error message must not contain the stack trace.
 
 The reasons:
 

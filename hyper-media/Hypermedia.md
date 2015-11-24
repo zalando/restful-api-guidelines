@@ -1,6 +1,6 @@
 # Hypermedia
 
-[S] Use HATEOAS
+{{ book.should }} Use HATEOAS
 
 This is a challenging topic. We don’t have specific recommendations yet; we expect them to emerge
 from trial and error, and from the API Guild’s ongoing research. For now, we strongly encourage
@@ -17,7 +17,7 @@ Further reading:
 * http://en.wikipedia.org/wiki/HATEOAS
 * https://spring.io/understanding/HATEOAS
 
-[C] Use URIs for Custom Link Relations
+{{ book.could }} Use URIs for Custom Link Relations
 
     {
       “_links”: {
@@ -27,7 +27,7 @@ Further reading:
       }
     }
     
-[S] Consider Using a Standard for Links
+{{ book.should }} Consider Using a Standard for Links
 
 For HTTP Link headers, consider using a format like [HAL](http://stateless.co/hal_specification.html),
 [JSON-LD](http://json-ld.org/) with [Hydra](http://www.markus-lanthaler.com/hydra/spec/latest/core/),

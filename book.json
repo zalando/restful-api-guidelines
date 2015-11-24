@@ -1,0 +1,7 @@
+{
+  "variables": {
+    "should": "<span style=\"color:darkgoldenrod;font-weight:bold\">Should:</span>",
+    "could": "<span style=\"color:green;font-weight:bold\">Could:</span>",
+    "must": "<span style=\"color:red;font-weight:bold\">Must:</span>"
+  }
+}

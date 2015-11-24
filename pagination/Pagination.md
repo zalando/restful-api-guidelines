@@ -1,6 +1,6 @@
 # Pagination
 
-[M] Support Pagination
+{{ book.must }} Support Pagination
 
 For batch processing, and for optimizing the client iteration experience, access to lists of data
 items must support pagination. This holds for all lists that are (potentially) larger than just a
@@ -15,7 +15,7 @@ There are two page iteration techniques:
   [Facebook’s guide](https://developers.facebook.com/docs/graph-api/using-graph-api/v2.4#paging))
 
 
-[S] Prefer Cursor-Based Pagination, Avoid Offset-Based Pagination 
+{{ book.should }} Prefer Cursor-Based Pagination, Avoid Offset-Based Pagination 
 
 Cursor-based pagination is better for more efficient implementation, especially when it comes to
 high-data volumes and / or storage in NoSQL databases. 
@@ -44,7 +44,7 @@ Further reading:
 * [Twitter](https://dev.twitter.com/rest/public/timelines)
 * [Use the Index, Luke](http://use-the-index-luke.com/no-offset)
 
-[C] Use Pagination Headers Where Applicable
+{{ book.could }} Use Pagination Headers Where Applicable
 
 * Set `X-Total-Count` to send back the total count of entities. 
 * Set the [link headers](http://tools.ietf.org/html/rfc5988#section-5)

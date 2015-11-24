@@ -1,6 +1,6 @@
 # API Discovery
 
-[M] Applications Must Provide Online Access to Their API (Swagger) Definitions
+{{ book.must }} Applications Must Provide Online Access to Their API (Swagger) Definitions
 
 In our dynamic and complex service infrastructure, it is important to provide a central place with
 online access to the API definitions of all running applications. All service applications must
