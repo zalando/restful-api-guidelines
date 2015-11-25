@@ -1,10 +1,10 @@
-Common Data Objects
+# Common Data Objects
 
 Definitions of data objects that are good candidates for wider usage:
 
-{{ book.should }} Use a Common Money Object
+## {{ book.should }} Use a Common Money Object
 
-Use the following common money structure: 
+Use the following common money structure:
 
     Money:
       type: object
@@ -30,9 +30,9 @@ See [Stack Overflow](http://stackoverflow.com/a/3730040/342852) for more info.
 Some JSON parsers (NodeJS’s, for example) convert numbers to floats by default. After discussing the
 [pros and cons](https://docs.google.com/spreadsheets/d/12wTj-2w39f69XZGwRDrosNc1yWPwQpGgEs_DCt5ODaQ),
 we’ve decided on "decimal" as our amount format. It is not a standard Swagger format, but should
-help us to avoid parsing numbers as float / doubles. 
+help us to avoid parsing numbers as float / doubles.
 
-{{ book.should }} Use Common Address Fields
+## {{ book.should }} Use Common Address Fields
 
 Address structures play a role in different functional and use-case contexts, including country
 variances. The address structure below should be sufficient for most of our business-related use
@@ -88,17 +88,17 @@ compatible extension — changes:
           - zip
           - country_code
 
-{{ book.must }} Use Common Error Return Objects
+## {{ book.must }} Use Common Error Return Objects
 
 `application/x.problem+json` is an  example of a common error return object derived from an
 [Internet draft specification](https://tools.ietf.org/html/draft-nottingham-http-problem-07) for
 error objects that have never reached registered
 [media type status](http://www.iana.org/assignments/media-types/media-types.xhtml#application).
-The media type name is prefixed with “x.” to denote its status. 
+The media type name is prefixed with “x.” to denote its status.
 
 APIs may define custom problems types with extension properties, according to their specific needs.
 [Go here](https://docs.pennybags.zalan.do/problems) for a more detailed explanation
-(IAM login required). 
+(IAM login required).
 
     Problem:
      type: object
@@ -114,8 +114,8 @@ APIs may define custom problems types with extension properties, according to th
        title:
          type: string
          description: |
-           A short, summary of the problem type. Written in english and readable 
-           for engineers (usually not suited for non technical stakeholders and 
+           A short, summary of the problem type. Written in english and readable
+           for engineers (usually not suited for non technical stakeholders and
            not localized); example: Service Unavailable
        status:
          type: integer
@@ -142,7 +142,7 @@ APIs may define custom problems types with extension properties, according to th
        - status
 
 
-{{ book.must }} An error message must not contain the stack trace.
+## {{ book.must }} An error message must not contain the stack trace.
 
 The reasons:
 

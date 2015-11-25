@@ -1,6 +1,6 @@
 # Hypermedia
 
-{{ book.should }} Use HATEOAS
+## {{ book.should }} Use HATEOAS
 
 This is a challenging topic. We don’t have specific recommendations yet; we expect them to emerge
 from trial and error, and from the API Guild’s ongoing research. For now, we strongly encourage
@@ -8,7 +8,7 @@ teams to apply this principle and document results.
 
 Notes on aspects to be analyzed:
 
-* Security concerns with respect to  passing OAuth2 tokens 
+* Security concerns with respect to  passing OAuth2 tokens
 * API discovery by client programmers vs. automated hypermedia driven workflows
 * Additional development work vs. reduced refactoring work
 
@@ -17,7 +17,7 @@ Further reading:
 * http://en.wikipedia.org/wiki/HATEOAS
 * https://spring.io/understanding/HATEOAS
 
-{{ book.could }} Use URIs for Custom Link Relations
+## {{ book.could }} Use URIs for Custom Link Relations
 
     {
       “_links”: {
@@ -26,8 +26,8 @@ Further reading:
         }]
       }
     }
-    
-{{ book.should }} Consider Using a Standard for Links
+
+## {{ book.should }} Consider Using a Standard for Links
 
 For HTTP Link headers, consider using a format like [HAL](http://stateless.co/hal_specification.html),
 [JSON-LD](http://json-ld.org/) with [Hydra](http://www.markus-lanthaler.com/hydra/spec/latest/core/),

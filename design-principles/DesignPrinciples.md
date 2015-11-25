@@ -4,9 +4,9 @@ To compare the interface design approaches of SOAP-based web services to those o
 the former tend to be centered around operations that are usually use-case specific and specialized.
 In contrast, REST is all about (business) entities found in the system and exposed as resource
 endpoints — leading to interfaces that are more broadly usable (here, clients sometimes have to
-filter out unnecessary information). 
+filter out unnecessary information).
 
-API Design Principles                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+## API Design Principles
 
 1. We prefer REST-based APIs with JSON payloads
 2. We prefer systems to be truly RESTful
@@ -20,7 +20,7 @@ Robustness Principle](http://en.wikipedia.org/wiki/Robustness_principle) (RFC 11
 “Be liberal in what you accept, be conservative in what you send.”
 
 Read the following to gain additional insight on the RESTful service architecture paradigm and
-general RESTful API design style: 
+general RESTful API design style:
 
 - Fielding Dissertation: [Architectural Styles and the Design of Network-Based Software
   Architectures](http://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm)
