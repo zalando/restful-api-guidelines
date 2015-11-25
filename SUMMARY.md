@@ -1,5 +1,6 @@
 # Summary
 
+* [Table of Contents](TOC.md)
 * [Design Principles](design-principles/DesignPrinciples.md)
 * [General Guidelines](general-guidelines/GeneralGuidelines.md)
 * [Compatibility](compatibility/Compatibility.md)
@@ -11,4 +12,3 @@
 * [Common Data Objects](common-data-objects/CommonDataObjects.md)
 * [Common Headers](common-headers/CommonHeaders.md)
 * [API Discovery](api-discovery/ApiDiscovery.md)
-* [Table of Contents](TOC.md)
