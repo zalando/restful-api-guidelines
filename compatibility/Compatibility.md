@@ -1,14 +1,13 @@
-Compatibility
-=============
+#Compatibility
 
-{{ book.must }} Don’t Break Backward Compatibility
+## {{ book.must }} Don’t Break Backward Compatibility
 
 Change APIs, but keep all consumers
 running. Consumers usually have independent release lifecycles, focus on
 stability, and avoid changes that do not provide additional value. APIs are
 service contracts that cannot be broken via unilateral decisions.
 
-There are two techniques to change APIs without breaking them: 
+There are two techniques to change APIs without breaking them:
 
 - follow rules for compatible extensions
 - introduce new API versions that alsore support older versions
@@ -17,7 +16,7 @@ We strongly encourage using compatible API extensions and discourage versioning.
 With Postel’s Law in mind, here are some rules for providers and consumers that
 allow us to make compatible changes without versioning:
 
-{{ book.should }} Prefer Compatible Extensions
+## {{ book.should }} Prefer Compatible Extensions
 
 Apply the following rules to evolve RESTful APIs in a backward-compatible way:
 
@@ -36,8 +35,8 @@ Apply the following rules to evolve RESTful APIs in a backward-compatible way:
 * Support redirection in case an URL has to change
  ([301 Moved Permanently](https://en.wikipedia.org/wiki/HTTP_301))
 
- 
-{{ book.must }} Prepare Clients for Compatible API Extensions (the Robustness Principle)
+
+## {{ book.must }} Prepare Clients for Compatible API Extensions (the Robustness Principle)
 
 How to do this:
 
@@ -47,7 +46,7 @@ How to do this:
   provide default behavior for unknown values, if applicable
 * Follow the redirect when the server returns an “HTTP 301 Moved Permanently” response code
 
-{{ book.should }} Avoid Versioning
+## {{ book.should }} Avoid Versioning
 
 When changing your RESTful APIs,
 do so in a compatible way and avoid generating additional API versions. Multiple
@@ -96,13 +95,13 @@ issue](https://github.com/swagger-api/swagger-spec/issues/146#issuecomment-11728
 a workaround (using a fragment identifier that
 gets stripped off).
 
-{{ book.must }} Use Media Type Versioning, Not URL Versioning
+## {{ book.must }} Use Media Type Versioning, Not URL Versioning
 
 Why: URL versioning leads to tighter coupling of a (hyperlinked) consumer and producer
 with higher complexity of release management. Media type versioning is less
 tightly coupled and supports content negotiation (see above).
 
-{{ book.should }} Provide Version Information in Swagger API Documentation
+## {{ book.should }} Provide Version Information in Swagger API Documentation
 
 Only the documentation, not the API itself, needs this information. Given a version number
 `MAJOR.MINOR.DRAFT`,
