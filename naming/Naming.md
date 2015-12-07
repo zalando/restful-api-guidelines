@@ -95,5 +95,6 @@ following standardized naming conventions:
   Hint: In combination with limit, you can use page as an alternative to offset.
 * `sort` — comma-separated list of fields to sort. Means “descending.”
 * `fields` — to retrieve a subset of fields. See Support Filtering of Resource Fields below
-* `expand` — to expand embedded entities (ie.: inside of an article entity, expand silhouette code
-  into the silhouette object). Implementing “expand” correctly is difficult, so do it with care.
+* `embed` — to expand embedded entities (ie.: inside of an article entity, expand silhouette code
+  into the silhouette object). Implementing “expand” correctly is difficult, so do it with care. See
+  [*Embedding resources*](../hyper-media/Hypermedia.md#should-allow-embedding-of-complex-subresources) for more details.
