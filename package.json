@@ -3,6 +3,7 @@
     "gitbook-cli": "^1.0.0",
     "gitbook-plugin-include-codeblock": "*",
     "gh-pages": "^0.4.0",
-    "gitbook-structured-toc": "*"
+    "gitbook-plugin-structured-toc": "*",
+    "gitbook-plugin-restructure-navigation": "*"
   }
 }
