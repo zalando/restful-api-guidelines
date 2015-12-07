@@ -30,6 +30,13 @@ Request:
 
 The added benefit is that you already have a service for browsing and filtering article locks.
 
+## {{ book.should }} Define *useful* resources
+
+As a rule of thumb resources should be defined to cover 90% of all its client's use cases. A *useful* resource should
+contain as much information as necessary, but as little as possible. A great way to support the last 10% is to allow
+clients to specify their needs for more/less information by supporting filtering and 
+[embedding](../hyper-media/Hypermedia.md#should-allow-embedding-of-complex-subresources).
+
 ## {{ book.must }} Keep URLs Verb-Free
 
 The API describes resources, so the only place where actions should appear is in the HTTP methods.
