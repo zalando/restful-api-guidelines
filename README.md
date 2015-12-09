@@ -1,7 +1,7 @@
 # Introduction
 
 Zalando’s software architecture centers around decoupled microservices that provide functionality
-via RESTful APIs with a JSON payload. Small teams own, deploy and operate these microservices in
+via RESTful APIs with a JSON payload. Small engineering teams own, deploy and operate these microservices in
 their AWS (team) accounts. Our APIs most purely express what our systems do, and are therefore
 highly valuable business assets. Designing high-quality, long-lasting APIs has become even more
 critical for us since we started developing our new open platform strategy, which transforms Zalando
