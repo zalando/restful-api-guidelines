@@ -8,6 +8,7 @@
 * [Naming](naming/Naming.md)
 * [HTTP](http/Http.md)
 * [Pagination](pagination/Pagination.md)
+* [HTTP Status Codes](http-status/HttpStatusCodes.md)
 * [Hypermedia](hyper-media/Hypermedia.md)
 * [Data Formats](data-formats/DataFormats.md)
 * [Common Data Objects](common-data-objects/CommonDataObjects.md)
