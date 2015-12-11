@@ -1,3 +1,5 @@
+![APIGuild icon](api-zalando-small.jpg)   
+
 # Introduction
 
 Zalando’s software architecture centers around decoupled microservices that provide functionality
