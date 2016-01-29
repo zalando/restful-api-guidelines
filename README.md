@@ -14,7 +14,7 @@ With this in mind, we’ve adopted “API First” as one of our key engineering
 Microservices development begins with API definition outside the code and ideally involves ample
 peer-review feedback to achieve high-quality APIs. API First encompasses a set of quality-related
 standards and fosters a peer review culture including a lightweight [review
-procedure](https://docs.google.com/document/d/19aVhUS5I9d9C01b_ckRJCrKmEpXDW0PJ3rxZshRxwYk/edit).
+procedure](https://github.bus.zalan.do/ApiGuild/ApiReviewProcedure).
 We encourage our teams to follow them to ensure that our APIs:
 
 - are easy to understand and learn 
