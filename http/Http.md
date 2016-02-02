@@ -44,7 +44,19 @@ allowing the client to select a subset of fields to be returned using the fields
 See [Google AppEngine API's partial response
 example](https://cloud.google.com/appengine/docs/python/taskqueue/rest/performance#partial-response).
 
-Hint: OpenAPI doesn't allow you to formally specify  whether depending on a given parameter will
+The approach we recommend for field is a Zalando Github project,
+[json-fields](https://github.com/zalando/json-fields). It defines a formal grammar for the ANTLR
+ parser generator and provides a ready-to use library for Java / Jackson based projects
+ ([Maven link](http://mvnrepository.com/artifact/org.zalando.guild.api/json-fields-jackson)).
+Teams that use other JSON serializers are encouraged to create their own parser / framework based
+on this grammar.
+
+Other approaches we have considered are JSONPath or GraphQL. While they have advantages, neither of
+them can easily be plugged into an existing serialization process, so they require an additional,
+manual serialization process, whereas the above solution can easily be introduced with a minimum
+of effort.
+
+Hint: OpenAPI doesn't allow you to formally specify whether depending on a given parameter will
 return different parts of the specified result schema. Explain this in English in the parameter
 description.
 
