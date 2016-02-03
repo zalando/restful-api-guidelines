@@ -48,8 +48,8 @@ The approach we recommend for field is a Zalando Github project,
 [json-fields](https://github.com/zalando/json-fields). It defines a formal grammar for the ANTLR
  parser generator and provides a ready-to use library for Java / Jackson based projects
  ([Maven link](http://mvnrepository.com/artifact/org.zalando.guild.api/json-fields-jackson)).
-Teams that use other JSON serializers are encouraged to create their own parser / framework based
-on this grammar.
+Teams that use other JSON serializers are encouraged to contribute to the open source project and
+create their own parser / framework based on this grammar.
 
 Other approaches we have considered are JSONPath or GraphQL. While they have advantages, neither of
 them can easily be plugged into an existing serialization process, so they require an additional,
