@@ -53,8 +53,8 @@ create their own parser / framework based on this grammar.
 
 Other approaches we have considered are JSONPath or GraphQL. While they have advantages, neither of
 them can easily be plugged into an existing serialization process, so they require an additional,
-manual serialization process, whereas the above solution can easily be introduced with a minimum
-of effort.
+manual serialization process, whereas the above solution addresses our main filter use cases and
+can easily be introduced with a minimum of effort.
 
 Hint: OpenAPI doesn't allow you to formally specify whether depending on a given parameter will
 return different parts of the specified result schema. Explain this in English in the parameter
