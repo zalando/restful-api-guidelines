@@ -14,7 +14,7 @@ securityDefinitions:
     authorizationUrl: https://auth.zalando.com/oauth2/access_token?realm=services
     scopes:
       uid: Unique identifier of the user accessing the service.
-      sales-order-service.sales_order.read: Allows to read sales orders.
+      fulfillment-order-service.read: Allows to read from the fulfillment order service.
 ```
 
 In order to see how to define and assign scopes, please refer to the next section.
