@@ -57,4 +57,4 @@ paths:
           - sales-order-service.sales_order.read
 ```
 
-In very rare cases a whole API or some selected endpoints may not require specific access control. One should assign the `uid` scope in this case. It's available to every OAuth2 account by default.
+In very rare cases a whole API or some selected endpoints may not require specific access control. However, to make this explicit you should assign the `uid` scope in this case. It's available to every OAuth2 account by default.
