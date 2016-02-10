@@ -34,6 +34,8 @@ Every API needs to define scopes and every endpoint needs to have a at least one
 <resource-id> ::= <free identifier following application-id syntax>
 ```
 
+APIs should stick to standard scopes by default -- for the majority of use cases, restricting access to specific APIs (with read vs. write differentiation) is sufficient for controlling access for client types like merchant or retailer business partners, customers or operational staff. We want to avoid too many, fine grained scopes increasing governance complexity without real value add. In some situations, where some API serves very different types of resources interesting for different stakeholder types, resource specific scopes may make sense.
+
 Some examples for standard and resource-specific scopes:
 
 | Application ID              | Resource ID      | Access Type | Example                                   |
