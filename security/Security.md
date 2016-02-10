@@ -45,7 +45,7 @@ Some examples for standard and resource-specific scopes:
 | `sales-order-service`       | `sales_order`    | `read`      | `sales-order-service.sales_order.read`    |
 | `sales-order-service`       | `shipment_order` | `read`      | `sales-order-service.shipment_order.read` |
 
-After scopes names are defined and the scope is declared in the security definition at the top of an API specification it can be assigned to one or more operations by specifying a [`security` requirement](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#securityRequirementObject) like this:
+After scopes names are defined and the scope is declared in the security definition at the top of an API specification it should be assigned to each API operation by specifying a [`security` requirement](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#securityRequirementObject) like this:
 
 ```yaml
 paths:
