@@ -3,7 +3,7 @@
 ## {{ book.must }} Secure endpoints with OAuth 2.0
 
 Every API endpoint needs to be secured using OAuth 2.0. Please refer to the 
-[official Swagger spec](https://github.com/swagger-api/swagger-spec/blob/master/versions/2.0.md#security-definitions-object)
+[official OpenAPI spec](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#security-definitions-object)
 on how to specify security definitions in you API specification or take a look at the following example.
 
 ```yaml

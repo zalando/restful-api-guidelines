@@ -41,7 +41,7 @@ See also: [HTTP Headers are case-insensitive
 ## {{ book.could }} Use Standardized Headers
 
 Use [this list](http://en.wikipedia.org/wiki/List_of_HTTP_header_fields) and mention its support in
-your Swagger API definition.
+your OpenAPI definition.
 
 ## {{ book.must }} Always Pluralize Resource Names
 
