@@ -29,7 +29,7 @@ See [Stack Overflow](http://stackoverflow.com/a/3730040/342852) for more info.
 
 Some JSON parsers (NodeJS’s, for example) convert numbers to floats by default. After discussing the
 [pros and cons](https://docs.google.com/spreadsheets/d/12wTj-2w39f69XZGwRDrosNc1yWPwQpGgEs_DCt5ODaQ),
-we’ve decided on "decimal" as our amount format. It is not a standard Swagger format, but should
+we’ve decided on "decimal" as our amount format. It is not a standard OpenAPI format, but should
 help us to avoid parsing numbers as float / doubles.
 
 ## {{ book.should }} Use Common Address Fields

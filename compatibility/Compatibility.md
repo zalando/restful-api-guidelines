@@ -26,9 +26,9 @@ Apply the following rules to evolve RESTful APIs in a backward-compatible way:
   only with new values (i.e. a server must continue to support all values which were previously valid).
 * For values sent from the server to the client, reduce enum ranges (i.e., a server can stop sending
   something), not larger (i.e., the server must not send values which previously were not in the
-  Swagger definition). When a finite set of values can be returned from (or
+  OpenAPI definition). When a finite set of values can be returned from (or
   sent to) the server, or can grow in the future, use x-extensible-enum (same
-  syntax as Swagger's enum). This is to be handled by clients as a list of example
+  syntax as OpenAPI's enum). This is to be handled by clients as a list of example
   values (maybe with defined meanings), not a list of "only these values can be
   sent”. (If appropriate, the description should tell how unknown values are to be
   handled.)
@@ -89,9 +89,9 @@ Using header versioning should:
 * include versions in request and response headers to increase visibility
 * include Content-Type in the Vary header to enable proxy caches to differ between versions
 
-Hint: [Swagger currently doesn’t support content
-negotiation](https://github.com/swagger-api/swagger-spec/issues/146), though [a comment in this
-issue](https://github.com/swagger-api/swagger-spec/issues/146#issuecomment-117288707) mentions
+Hint: [OpenAPI currently doesn’t support content
+negotiation](https://github.com/OAI/OpenAPI-Specification/issues/146), though [a comment in this
+issue](https://github.com/OAI/OpenAPI-Specification/issues/146#issuecomment-117288707) mentions
 a workaround (using a fragment identifier that
 gets stripped off).
 
@@ -101,7 +101,7 @@ Why: URL versioning leads to tighter coupling of a (hyperlinked) consumer and pr
 with higher complexity of release management. Media type versioning is less
 tightly coupled and supports content negotiation (see above).
 
-## {{ book.should }} Provide Version Information in Swagger API Documentation
+## {{ book.should }} Provide Version Information in OpenAPI Documentation
 
 Only the documentation, not the API itself, needs this information. Given a version number
 `MAJOR.MINOR.DRAFT`,

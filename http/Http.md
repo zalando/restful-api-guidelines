@@ -44,7 +44,7 @@ allowing the client to select a subset of fields to be returned using the fields
 See [Google AppEngine API's partial response
 example](https://cloud.google.com/appengine/docs/python/taskqueue/rest/performance#partial-response).
 
-Hint: Swagger doesn't allow you to formally specify  whether depending on a given parameter will
+Hint: OpenAPI doesn't allow you to formally specify  whether depending on a given parameter will
 return different parts of the specified result schema. Explain this in English in the parameter
 description.
 

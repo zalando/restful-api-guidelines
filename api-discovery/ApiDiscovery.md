@@ -6,10 +6,10 @@ In our dynamic and complex service infrastructure, it is important to provide a 
 online access to the API definitions of all running applications. All service applications must
 provide the following two API endpoints:
 
-* endpoint(s) for GET access on its API Swagger definition(s), for instance
-  `https://twintip.stups.zalan.do/swagger.json`. Either .json or .yaml formats are supported.
-* “Twintip” discovery endpoint `<myapp.myteam.zalan.de>/.well-known/schema-discovery` that delivers
-  the API Swagger definition endpoint(s) above
+* endpoint(s) for GET access on its API OpenAPI definition(s), for instance
+  `https://<myapp.myteam.zalan.do>/swagger.json`. Either .json or .yaml formats are supported.
+* “Twintip” discovery endpoint `https://<myapp.myteam.zalan.do>/.well-known/schema-discovery` that delivers
+  the OpenAPI definition endpoint(s) above
 
 Background: [Twintip](http://docs.stups.io/en/latest/components/twintip.html) is an API definition
 crawler of the STUPS infrastructure; it checks all running applications via the endpoint above and
