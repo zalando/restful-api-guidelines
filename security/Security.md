@@ -30,7 +30,7 @@ Every API needs to define scopes and every endpoint needs to have a at least one
 <resource-specific-scope> ::= <application-id>.<resource-id>.<access-type>
 
 <application-id> ::= <as defined via STUPS>
-<access-type> ::= read | write            -- might be extended in future
+<access-type> ::= read | write           -- might be extended in future
 <resource-id> ::= <free identifier following application-id syntax>
 ```
 
@@ -38,12 +38,12 @@ APIs should stick to standard scopes by default -- for the majority of use cases
 
 Some examples for standard and resource-specific scopes:
 
-| Application ID              | Resource ID      | Access Type | Example                                   |
-|-----------------------------|------------------|-------------|-------------------------------------------|
-| `fulfillment-order-service` |                  | `read`      | `fulfillment-order-service.read`          |
-| `fulfillment-order-service` |                  | `write`     | `fulfillment-order-service.write`         |
-| `sales-order-service`       | `sales_order`    | `read`      | `sales-order-service.sales_order.read`    |
-| `sales-order-service`       | `shipment_order` | `read`      | `sales-order-service.shipment_order.read` |
+| Application ID      | Resource ID      | Access Type | Example                           |
+|---------------------|------------------|-------------|-----------------------------------|
+| `fulfillment-order` |                  | `read`      | `fulfillment-order.read`          |
+| `fulfillment-order` |                  | `write`     | `fulfillment-order.write`         |
+| `sales-order`       | `sales_order`    | `read`      | `sales-order.sales_order.read`    |
+| `sales-order`       | `shipment_order` | `read`      | `sales-order.shipment_order.read` |
 
 After scopes names are defined and the scope is declared in the security definition at the top of an API specification it should be assigned to each API operation by specifying a [`security` requirement](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#securityRequirementObject) like this:
 
