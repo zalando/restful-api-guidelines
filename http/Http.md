@@ -41,8 +41,45 @@ compression via the Content-Encoding header.
 
 Depending on your use case and payload size, you can significantly reduce network bandwidth load by
 allowing the client to select a subset of fields to be returned using the fields query parameter.
-See [Google AppEngine API's partial response
-example](https://cloud.google.com/appengine/docs/python/taskqueue/rest/performance#partial-response).
+See the following example or alternatively [Google AppEngine API's partial response](https://cloud.google.com/appengine/docs/python/taskqueue/rest/performance#partial-response):
+
+### Unfiltered
+
+```http
+GET http://api.example.org/resources/123 HTTP/1.1
+
+HTTP/1.1 200 OK
+Content-Type: application/x.person+json
+
+{
+  "id": "cddd5e44-dae0-11e5-8c01-63ed66ab2da5",
+  "name": "John Doe",
+  "address": "1600 Pennsylvania Avenue Northwest, Washington, DC, United States",
+  "birthday": "1984-09-13",
+  "partner": {
+    "id": "1fb43648-dae1-11e5-aa01-1fbc3abb1cd0",
+    "name": "Jane Doe",
+    "address": "1600 Pennsylvania Avenue Northwest, Washington, DC, United States",
+    "birthday": "1988-04-07"
+  }
+}
+```
+
+### Filtered
+
+```http
+GET http://api.example.org/resources/123?fields=(name,partner(name)) HTTP/1.1
+
+HTTP/1.1 200 OK
+Content-Type: application/x.person+json;fields=(name,partner(name))
+
+{
+  "name": "John Doe",
+  "partner": {
+    "name": "Jane Doe"
+  }
+}
+```
 
 The approach we recommend for field is a Zalando Github project,
 [json-fields](https://github.com/zalando/json-fields). It defines a formal grammar for the ANTLR
