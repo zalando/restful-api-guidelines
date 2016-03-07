@@ -31,6 +31,6 @@ The purpose of our “RESTful API guidelines” is to define standards to succes
 drafted and owns this document. Teams are responsible to fulfill these guidelines during API
 development and are encouraged to contribute to guideline evolution via pull requests. 
 
-Note: These guidelines will, to some extent, remain a work in progress as our work evolves, but
+Note: These guidelines will, to some extent, remain work in progress as our work evolves, but
 teams can confidently follow and trust them.
 
