@@ -41,10 +41,59 @@ compression via the Content-Encoding header.
 
 Depending on your use case and payload size, you can significantly reduce network bandwidth load by
 allowing the client to select a subset of fields to be returned using the fields query parameter.
-See [Google AppEngine API's partial response
-example](https://cloud.google.com/appengine/docs/python/taskqueue/rest/performance#partial-response).
+See the following example or alternatively [Google AppEngine API's partial response](https://cloud.google.com/appengine/docs/python/taskqueue/rest/performance#partial-response):
 
-Hint: OpenAPI doesn't allow you to formally specify  whether depending on a given parameter will
+### Unfiltered
+
+```http
+GET http://api.example.org/resources/123 HTTP/1.1
+
+HTTP/1.1 200 OK
+Content-Type: application/x.person+json
+
+{
+  "id": "cddd5e44-dae0-11e5-8c01-63ed66ab2da5",
+  "name": "John Doe",
+  "address": "1600 Pennsylvania Avenue Northwest, Washington, DC, United States",
+  "birthday": "1984-09-13",
+  "partner": {
+    "id": "1fb43648-dae1-11e5-aa01-1fbc3abb1cd0",
+    "name": "Jane Doe",
+    "address": "1600 Pennsylvania Avenue Northwest, Washington, DC, United States",
+    "birthday": "1988-04-07"
+  }
+}
+```
+
+### Filtered
+
+```http
+GET http://api.example.org/resources/123?fields=(name,partner(name)) HTTP/1.1
+
+HTTP/1.1 200 OK
+Content-Type: application/x.person+json;fields=(name,partner(name))
+
+{
+  "name": "John Doe",
+  "partner": {
+    "name": "Jane Doe"
+  }
+}
+```
+
+The approach we recommend for field is a Zalando Github project,
+[json-fields](https://github.com/zalando/json-fields). It defines a formal grammar for the ANTLR
+ parser generator and provides a ready-to use library for Java / Jackson based projects
+ ([Maven link](http://mvnrepository.com/artifact/org.zalando.guild.api/json-fields-jackson)).
+Teams that use other JSON serializers are encouraged to contribute to the open source project and
+create their own parser / framework based on this grammar.
+
+Other approaches we have considered are JSONPath or GraphQL. While they have advantages, neither of
+them can easily be plugged into an existing serialization process, so they require an additional,
+manual serialization process, whereas the above solution addresses our main filter use cases and
+can easily be introduced with a minimum of effort.
+
+Hint: OpenAPI doesn't allow you to formally specify whether depending on a given parameter will
 return different parts of the specified result schema. Explain this in English in the parameter
 description.
 
