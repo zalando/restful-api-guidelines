@@ -2,7 +2,105 @@
 
 ## {{ book.must }} Use HTTP Methods Correctly
 
-* See [Best Practices](https://docs.google.com/document/d/1Dqgkfxm2Jt9mVSraOYWSfKq3cKaZwf_VOgYDRuUf7kI/edit#heading=h.nkp61pevkdh6)
+
+###GET
+Retrieve a single entity (with id) or a list of entities (without id).
+A GET request must not have a request body or side effects on the server.
+
+Examples:
+
+```http
+GET /weekdays
+
+// Output is a listing (JSON array):
+[
+  {"offset":0,"name":"Sunday"},
+  {"offset":1,"name":"Monday"},
+  {"offset":2,"name":"Tuesday"},
+  {"offset":3,"name":"Wednesday"},
+  {"offset":4,"name":"Thursday"},
+  {"offset":5,"name":"Friday"},
+  {"offset":6,"name":"Saturday"}
+]
+
+GET /weekdays/1
+
+// output is an object
+{"offset":1,"name":"Monday"}```
+
+###POST
+
+The classic usage pattern for POST is to create a new entity on the server side with each request
+(non-idempotent). Clients code will usually not specify the entity id, hence POST requests should be
+accepted only by the listing resource (e.g. /users), not by a resource with an id (e.g. /users/123).
+
+It is good practice, but not mandatory, for the response of such a request to contain the generated
+resource ID.
+
+Example:
+
+```http
+POST /events
+{
+"type":"cart.add",
+"customer_reference":"abc123",
+"article_reference":"xyz789"
+}
+
+output:
+{
+"event_id":"def456"
+}```
+
+The second accepted usage pattern for POST is actually a workaround for the limitations of GET.
+POST can be used to send a query object in the request body. In this case, GET semantics apply
+(query must be idempotent and must not have side effects on the server). Note that this usage
+pattern is not encouraged, but accepted as a workaround and must be explicitly documented as such
+in the Swagger API definition.
+
+The response will usually be a list (JSON array). 
+
+Example:
+
+```http
+POST /recipes
+{
+  "ingredients" : {"and": ["pasta", "basil"] },
+  "servings":5
+}
+
+output:
+[
+  {"title":"Spaghetti Napoli"},
+  {"title":"Chicken Pesto with Tagliatelle"}
+]```
+
+###PUT
+PUT creates or updates an entity, usually with a client-supplied ID (!).
+This operation must be idempotent and will usually be exposed by an endpoint with an ID
+(e.g. /users/123). It can also be exposed by a collection resource (e.g. /users), but then a
+PUT request would imply replacing the previously existing collection with the request body,
+which is usually not desirable.
+
+###DELETE
+DELETE removes an entity, if it exists.
+This operation is idempotent.
+
+###PATCH
+update only a part of the entity by sending just the updated fields.
+In this case the server is responsible for correctly updating the entity
+(for example by reading current state to memory, updating, and writing
+the whole entity to the database). Servers should indicate a custom media
+type for patches using the Accept-Patch header.
+
+###OPTIONS
+Retrieve all valid HTTP methods of the specified endpoint available at the current point in time
+
+###HEAD
+This does exactly the same as GET on the same resource, but doesn't return the
+content (only the headers). A client can choose to use this instead of GET
+if only interested in some header fields, or the pure existence of a resource. 
+
 
 ## {{ book.must }} Use Meaningful HTTP Status Codes
 
