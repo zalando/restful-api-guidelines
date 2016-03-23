@@ -56,9 +56,12 @@ The second accepted usage pattern for POST is actually a workaround for the limi
 POST can be used to send a query object in the request body. In this case, GET semantics apply
 (query must be idempotent and must not have side effects on the server). Note that this usage
 pattern is not encouraged, but accepted as a workaround and must be explicitly documented as such
-in the Swagger API definition.
+in the Swagger API definition. Also be aware when emulating a GET, that POST responses are only
+cacheable when they include specific freshness information and that caching of POSTs is not widely
+implemented (see [Section 4.2.3 of RFC7231](http://tools.ietf.org/html/rfc7231#section-4.3.3)).
 
-The response will usually be a list (JSON array). 
+
+The response will usually be a list (JSON array).
 
 Example:
 
@@ -99,7 +102,7 @@ Retrieve all valid HTTP methods of the specified endpoint available at the curre
 ###HEAD
 This does exactly the same as GET on the same resource, but doesn't return the
 content (only the headers). A client can choose to use this instead of GET
-if only interested in some header fields, or the pure existence of a resource. 
+if only interested in some header fields, or the pure existence of a resource.
 
 
 ## {{ book.must }} Use Meaningful HTTP Status Codes
