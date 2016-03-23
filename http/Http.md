@@ -79,7 +79,7 @@ output:
 ]```
 
 ###PUT
-PUT creates or updates an entity, usually with a client-supplied ID (!).
+PUT creates or replaces an entity, usually with a client-supplied ID (!).
 This operation must be idempotent and will usually be exposed by an endpoint with an ID
 (e.g. /users/123). It can also be exposed by a collection resource (e.g. /users), but then a
 PUT request would imply replacing the previously existing collection with the request body,
