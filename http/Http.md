@@ -30,7 +30,7 @@ Be compliant with the standardized HTTP method semantics summarized as follows:
 ###DELETE:
 
 - deletes a resource instance
-- usually robust against non existence of the entity
+- should return either status 404 (Not found) or 410 (Gone) if the resource does not exist
 
 ###POST:
 
