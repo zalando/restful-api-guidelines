@@ -40,11 +40,30 @@ Be compliant with the standardized HTTP method semantics summarized as follows:
   For instance, GET with complex (e.g. sql like structured) query that needs to be passed as
   request body payload
 
+## {{book.must}}  HTTP Methods must Fulfill Safeness and Idempotency Properties
 
+An operation can be...
+
+- idempotent, i.e. operation will produce the same results if executed once or multiple times
+- safe, i.e. must not have side effects such as state changes
+
+Method implementations must fulfill the following basic properties:
+
+| HTTP method  |  safe  |  idempotent |
+| --           |  --    |  --         |
+| POST         |  No    |  No         |
+| GET          |  Yes   |  Yes        |
+| PUT          |  No    |  Yes        |
+| DELETE       |  No    |  Yes        |
+| OPTIONS      |  Yes   |  Yes        |
+| PATCH        |  No    |  No         |
+
+Hint: Please see also [Best Practises](https://goo.gl/vhwh8a) for further practises on how to support the
+different HTTP methods on resources.
 
 ## {{ book.must }} Use Meaningful HTTP Status Codes
 
-* See [Best Practices](https://docs.google.com/document/d/1Dqgkfxm2Jt9mVSraOYWSfKq3cKaZwf_VOgYDRuUf7kI/edit#heading=h.nkp61pevkdh6)
+* See [Best Practices](https://goo.gl/vhwh8a)
 
 ## Reducing Bandwidth Needs and Improving Responsiveness
 
