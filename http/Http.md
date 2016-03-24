@@ -48,6 +48,17 @@ Be compliant with the standardized HTTP method semantics summarized as follows:
   For instance, GET with complex (e.g. sql like structured) query that needs to be passed as
   request body payload
 
+###HEAD
+
+- has exactly the same semantics as GET, but returns headers only, no body
+
+###OPTIONS
+
+- returns the available operations (methods) on a given endpoint
+- this operation is rarely implemented, though it could be used to self-describe the full functionality
+  of a resource.
+
+
 ## {{book.must}}  HTTP Methods must Fulfill Safeness and Idempotency Properties
 
 An operation can be...
