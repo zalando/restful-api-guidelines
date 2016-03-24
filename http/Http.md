@@ -70,11 +70,12 @@ Method implementations must fulfill the following basic properties:
 
 | HTTP method  |  safe  |  idempotent |
 | --           |  --    |  --         |
-| POST         |  No    |  No         |
+| OPTIONS      |  Yes   |  Yes        |
+| HEAD         |  Yes   |  Yes        |
 | GET          |  Yes   |  Yes        |
 | PUT          |  No    |  Yes        |
+| POST         |  No    |  No         |
 | DELETE       |  No    |  Yes        |
-| OPTIONS      |  Yes   |  Yes        |
 | PATCH        |  No    |  No         |
 
 Please see also [Best Practices](https://goo.gl/vhwh8a) for further hints on how to support the
