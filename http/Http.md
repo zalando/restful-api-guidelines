@@ -22,7 +22,7 @@ Be compliant with the standardized HTTP method semantics summarized as follows:
 
 - partial upload, i.e. only a specific subset of resource fields are replaced
 - partial resource representation passed as payload has either resource content type with optional
-  fields or a custom content type (e.g. [RFC 5789](https://tools.ietf.org/html/rfc5789)), which should
+  fields or a custom content type (e.g. [RFC 6902](https://tools.ietf.org/html/rfc6902)), which should
   include instructions of how to modify the resource
 - usually not robust against non existence of the entity
 
