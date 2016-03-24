@@ -24,9 +24,8 @@ Be compliant with the standardized HTTP method semantics summarized as follows:
 ###PATCH:
 
 - partial upload, i.e. only a specific subset of resource fields are replaced
-- partial resource representation passed as payload has either resource content type with optional
-  fields or a custom content type (e.g. [RFC 6902](https://tools.ietf.org/html/rfc6902)), which should
-  include instructions of how to modify the resource
+- partial resource representation passed as payload has either resource content type with optional fields (to be
+  updated) or a custom content type that also may include instructions of how to change the resource
 - usually accepted only by single resources, because the semantics for PATCH on a collection resource
   are very hard to define
 - usually not robust against non existence of the entity
