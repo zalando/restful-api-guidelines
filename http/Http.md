@@ -2,107 +2,44 @@
 
 ## {{ book.must }} Use HTTP Methods Correctly
 
+Be compliant with the standardized HTTP method semantics summarized as follows:
 
 ###GET
-Retrieve a single entity (with id) or a list of entities (without id).
-A GET request must not have a request body or side effects on the server.
 
-Examples:
+- reads a resource or set of resource instances, respectively
+- usually returns error (404) if resource does not exist;
+  however, may also be robust against non-existence, if there are sensible defaults
+- must NOT have request body payload
 
-```http
-GET /weekdays
+###PUT:
 
-// Output is a listing (JSON array):
-[
-  {"offset":0,"name":"Sunday"},
-  {"offset":1,"name":"Monday"},
-  {"offset":2,"name":"Tuesday"},
-  {"offset":3,"name":"Wednesday"},
-  {"offset":4,"name":"Thursday"},
-  {"offset":5,"name":"Friday"},
-  {"offset":6,"name":"Saturday"}
-]
+- fully uploads an entity, i.e. provides a complete replacement by the resource representation
+  passed as payload
+- resource instance id(s) are maintained by the client and passed as input data
+- usually robust against non-existence of the entity by implicit creation before update
 
-GET /weekdays/1
+###PATCH:
 
-// output is an object
-{"offset":1,"name":"Monday"}```
-
-###POST
-
-The classic usage pattern for POST is to create a new entity on the server side with each request
-(non-idempotent). Clients code will usually not specify the entity id, hence POST requests should be
-accepted only by the listing resource (e.g. /users), not by a resource with an id (e.g. /users/123).
-
-It is good practice, but not mandatory, for the response of such a request to contain the generated
-resource ID.
-
-Example:
-
-```http
-POST /events
-{
-"type":"cart.add",
-"customer_reference":"abc123",
-"article_reference":"xyz789"
-}
-
-output:
-{
-"event_id":"def456"
-}```
-
-The second accepted usage pattern for POST is actually a workaround for the limitations of GET.
-POST can be used to send a query object in the request body. In this case, GET semantics apply
-(query must be idempotent and must not have side effects on the server). Note that this usage
-pattern is not encouraged, but accepted as a workaround and must be explicitly documented as such
-in the Swagger API definition. Also be aware when emulating a GET, that POST responses are only
-cacheable when they include specific freshness information and that caching of POSTs is not widely
-implemented (see [Section 4.2.3 of RFC7231](http://tools.ietf.org/html/rfc7231#section-4.3.3)).
+- partial upload, i.e. only a specific subset of resource fields are replaced
+- partial resource representation passed as payload has either resource content type with optional
+  fields or a custom content type
+- payload may also include instructions of how to modify the resource
+- usually not robust against non existence of the entity
 
 
-The response will usually be a list (JSON array).
+###DELETE:
 
-Example:
+- deletes a resource instance
+- usually robust against non existence of the entity
 
-```http
-POST /recipes
-{
-  "ingredients" : {"and": ["pasta", "basil"] },
-  "servings":5
-}
+###POST:
 
-output:
-[
-  {"title":"Spaghetti Napoli"},
-  {"title":"Chicken Pesto with Tagliatelle"}
-]```
+- creates a resource instance
+- resource instance id(s) are mastered by server and returned with output payload
+- more generally, POST should be used for scenarios that cannot be covered by the other methods.
+  For instance, GET with complex (e.g. sql like structured) query that needs to be passed as
+  request body payload
 
-###PUT
-PUT creates or replaces an entity, usually with a client-supplied ID (!).
-This operation must be idempotent and will usually be exposed by an endpoint with an ID
-(e.g. /users/123). It can also be exposed by a collection resource (e.g. /users), but then a
-PUT request would imply replacing the previously existing collection with the request body,
-which is usually not desirable.
-
-###DELETE
-DELETE removes an entity, if it exists.
-This operation is idempotent.
-
-###PATCH
-update only a part of the entity by sending just the updated fields.
-In this case the server is responsible for correctly updating the entity
-(for example by reading current state to memory, updating, and writing
-the whole entity to the database). Servers should indicate a custom media
-type for patches using the Accept-Patch header.
-
-###OPTIONS
-Retrieve all valid HTTP methods of the specified endpoint available at the current point in time
-
-###HEAD
-This does exactly the same as GET on the same resource, but doesn't return the
-content (only the headers). A client can choose to use this instead of GET
-if only interested in some header fields, or the pure existence of a resource.
 
 
 ## {{ book.must }} Use Meaningful HTTP Status Codes
