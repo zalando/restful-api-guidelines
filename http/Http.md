@@ -63,7 +63,31 @@ different HTTP methods on resources.
 
 ## {{ book.must }} Use Meaningful HTTP Status Codes
 
-* See [Best Practices](https://goo.gl/vhwh8a)
+###Success Codes:
+
+| Code | Meaning | Methods |
+| --   | --      | --                 |
+| 200  | OK - this is the standard success response | All |
+| 201  | Created - Returned on successful entity creation. You are free to return either an empty response or the created resource in conjunction with the Content-Location header.  Always set the Location header. | POST, PUT |
+| 202  | Accepted - The request was successful and will be processed asynchronously. | POST, PUT, DELETE, PATCH |
+| 204  | No content - There is no response body | PUT, DELETE |
+
+###Client Side error codes:
+
+| Code | Meaning | Methods |
+| --   | --      | --                 |
+| 400 | Bad request - generic / unknown error | All |
+| 401 | Unauthorized - the users must log in (this often means “Unauthenticated”) | All |
+| 403 | Forbidden - the user is not authorized to use this resource | All |
+| 404 | Not found - the resource is not found | All |
+| 405 | Method Not Allowed - the method is not supported, see OPTIONS | All |
+| 408 | Request timeout - the server times out waiting for the resource | All |
+| 409 | Conflict - returned if, e.g. when two clients try to create the same resource or if there are concurrent, conflicting updates | PUT, DELETE, PATCH |
+| 412 | Precondition Failed - returned for conditional requests, e.g. If-Match if the condition failed. Used for optimistic locking. | PUT, DELETE, PATCH |
+| 415 | Unsupported Media Type - e.g. clients sends request body without content type | PUT, DELETE, PATCH
+| 422 | Unprocessable Entity - semantic error (as opposed to a syntax error which would usually trigger a 400) | POST, PUT, DELETE, PATCH |
+| 423 | Locked - Pessimistic locking, e.g. processing states | PUT, DELETE, PATCH |
+| 429 | Too many requests - the client does not consider rate limiting and sent too many requests | All |
 
 ## Reducing Bandwidth Needs and Improving Responsiveness
 
