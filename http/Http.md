@@ -66,7 +66,7 @@ Method implementations must fulfill the following basic properties:
 | OPTIONS      |  Yes   |  Yes        |
 | PATCH        |  No    |  No         |
 
-Hint: Please see also [Best Practises](https://goo.gl/vhwh8a) for further practises on how to support the
+Please see also [Best Practices](https://goo.gl/vhwh8a) for further hints on how to support the
 different HTTP methods on resources.
 
 ## {{ book.must }} Use Meaningful HTTP Status Codes
