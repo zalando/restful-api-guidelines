@@ -6,6 +6,8 @@ Example:
 
     /shipment-orders/{shipment-order-id}
 
+This applies to concrete path segments and not the names of path parameters. For example `{shipment_order_id}` would be ok as a path parameter. 
+
 ## {{ book.must }} Query parameters must be snake_case (never camelCase)
 
 Examples:
