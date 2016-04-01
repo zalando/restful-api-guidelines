@@ -1,17 +1,13 @@
 # Build
 
-## Install dependencies
+## Install all dependencies
 
-* gitbook-cli
-* gitbook-plugin-include-codeblock
-* gitbook-plugin-structured-toc
-* gh-pages
-
-    make setup
+    make init
 
 ## Build static page
 
     make build
+    open _book/index.html
 
 ## Publish github page
 
