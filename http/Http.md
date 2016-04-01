@@ -99,7 +99,7 @@ different HTTP methods on resources.
 | Code | Meaning | Methods |
 | --   | --      | --                 |
 | 301 | Moved Permamently - This and all future requests should be directed to the given URI. | All |
-| 303 | See Other - The response to the request can be found under another URI using a GET method.  | POST, PUT, DELETE |
+| 303 | See Other - The response to the request can be found under another URI using a GET method.  | PATCH, POST, PUT, DELETE |
 | 304 | Not Modified - resource has not been modified since the date or version passed via request headers If-Modified-Since or If-None-Match. | GET |
 
 ###Client Side Error Codes:
