@@ -94,7 +94,15 @@ different HTTP methods on resources.
 | 202  | Accepted - The request was successful and will be processed asynchronously. | POST, PUT, DELETE, PATCH |
 | 204  | No content - There is no response body | PUT, DELETE |
 
-###Client Side error codes:
+###Redirection Codes:
+
+| Code | Meaning | Methods |
+| --   | --      | --                 |
+| 301 | Moved Permamently - This and all future requests should be directed to the given URI. | All |
+| 303 | See Other - The response to the request can be found under another URI using a GET method.  | POST, PUT, DELETE |
+| 304 | Not Modified - resource has not been modified since the date or version passed via request headers If-Modified-Since or If-None-Match. | GET |
+
+###Client Side Error Codes:
 
 | Code | Meaning | Methods |
 | --   | --      | --                 |
@@ -103,15 +111,33 @@ different HTTP methods on resources.
 | 403 | Forbidden - the user is not authorized to use this resource | All |
 | 404 | Not found - the resource is not found | All |
 | 405 | Method Not Allowed - the method is not supported, see OPTIONS | All |
+| 406 | Not Acceptable - resource can only generate content not acceptable according to the Accept headers sent in the request | All |
 | 408 | Request timeout - the server times out waiting for the resource | All |
 | 409 | Conflict - returned if, e.g. when two clients try to create the same resource or if there are concurrent, conflicting updates | PUT, DELETE, PATCH |
 | 412 | Precondition Failed - returned for conditional requests, e.g. If-Match if the condition failed. Used for optimistic locking. | PUT, DELETE, PATCH |
 | 415 | Unsupported Media Type - e.g. clients sends request body without content type | PUT, DELETE, PATCH
 | 422 | Unprocessable Entity - semantic error (as opposed to a syntax error which would usually trigger a 400) | POST, PUT, DELETE, PATCH |
 | 423 | Locked - Pessimistic locking, e.g. processing states | PUT, DELETE, PATCH |
+| 428 | Precondition Required - server requires the request to be conditional (e.g. to make sure that the “lost update problem” is avoided). | All |
 | 429 | Too many requests - the client does not consider rate limiting and sent too many requests | All |
 
-## Reducing Bandwidth Needs and Improving Responsiveness
+###Client Side Error Codes:
+
+| Code | Meaning | Methods |
+| --   | --      | --                 |
+| 500 | Internal Server Error - a generic error indication for an unexpected server execution problem (here, client retry may be senseful) | All |
+| 501 | Not Implemented -  server cannot fulfill the request (usually implies future availability, e.g. new feature). | All |
+| 503 | Service Unavailable - server is (temporarily) not available (e.g. due to overload) -- client retry may be senseful. | All |
+
+All error codes you can find at [W3C](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html) and [Wikipedia](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes) or via https://httpstatuses.com/<error_code>.
+
+## {{ book.must }} Providing Error Documentation
+
+APIs should define the functional, business view and abstract from implementation aspects. Errors become a key element providing context and visibility into how to use an API. The error object should be extended by an application-specific error identifier since the HTTP status code often is not specific enough to articulate the domain error situation. For this reason, we use a standardized error return object definition — see [*Use Common Error Return Objects*](../common-data-objects/CommonDataObjects.md#must-use-common-error-return-objects) below.
+
+The OpenAPI specification shall include definition of all error status codes and error descriptions that possibly will be returned; they are part of the interface definition and provide important information for service clients to handle exceptional situations and support troubleshooting. You should also think about a troubleshooting board — it is part of the associated online API documentation, provides information and handling guidance on application-specific errors and is referenced via links of the API definition. This can reduce service support tasks and contribute to service client and provider performance.
+
+## {{ book.should }} Reducing Bandwidth Needs and Improving Responsiveness
 
 APIs should support techniques for reducing bandwidth based on client needs. This holds for APIs
 that (might) have high payloads and/or are used in high-traffic scenarios like the public Internet
@@ -134,17 +160,12 @@ Compress the payload of your API’s responses with gzip (GNU zip), unless there
 to — for example,  you are serving so many requests that the time to compress becomes a bottleneck.
 This helps to transport data faster over the network (fewer bytes) and makes frontends respond faster.
 
-Though gzip compression might be the default choice for server payload, the server should also
-support payload without compression. The client may activate or deactivate via `Accept-Encoding`
-header server compression of payload -- see also [RFC 7231 Section
-5.3.4](http://tools.ietf.org/html/rfc7231#section-5.3.4). The server should indicate used gzip
+Though gzip compression might be the default choice for server payload, the server should also support payload without compression and its client control via Accept-Encoding request header -- see also [RFC 7231 Section 5.3.4](http://tools.ietf.org/html/rfc7231#section-5.3.4). The server should indicate used gzip
 compression via the Content-Encoding header.
 
 ## {{ book.should }} Support Filtering of Resource Fields
 
-Depending on your use case and payload size, you can significantly reduce network bandwidth load by
-allowing the client to select a subset of fields to be returned using the fields query parameter.
-See the following example or alternatively [Google AppEngine API's partial response](https://cloud.google.com/appengine/docs/python/taskqueue/rest/performance#partial-response):
+Depending on your use case and payload size, you can significantly reduce network bandwidth need by support filtering of returned entity fields. Here, the client can determine the subset of fields he wants to receive via the fields query parameter — example see [Google AppEngine API's partial response](https://cloud.google.com/appengine/docs/python/taskqueue/rest/performance#partial-response):
 
 ### Unfiltered
 

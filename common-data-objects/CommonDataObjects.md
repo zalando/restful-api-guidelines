@@ -36,8 +36,7 @@ help us to avoid parsing numbers as float / doubles.
 
 Address structures play a role in different functional and use-case contexts, including country
 variances. The address structure below should be sufficient for most of our business-related use
-cases. Use it in our APIs, unless it does not fit to required functionality and need — preferable
-compatible extension — changes:
+cases. Use it in your APIs — and compatible extend it if necessary for your API concerns:
 
     address:
         description:
@@ -46,7 +45,8 @@ compatible extension — changes:
         properties:
           salutation:
             type: string
-            description: A salutation and/or title which may be used for personal contacts
+            description: |
+              A salutation and/or title which may be used for personal contacts. Hint: not to be confused with the gender information that is stored per customer account
             example: Mr
           first_name:
             type: string
@@ -66,7 +66,7 @@ compatible extension — changes:
             example: Schönhauser Allee 103
           additional:
             type: string
-            description: further details like suite, apt #, etc.
+            description: further details like suite, apt no, etc.
             example: 2. Hinterhof rechts
           city:
             type: string
@@ -94,7 +94,7 @@ compatible extension — changes:
 [Internet draft specification](https://tools.ietf.org/html/draft-nottingham-http-problem-07) for
 error objects that have never reached registered
 [media type status](http://www.iana.org/assignments/media-types/media-types.xhtml#application).
-The media type name is prefixed with “x.” to denote its status.
+The media type name is prefixed with “x.” to denote its status. Hint: APIs may define custom problem types with extension properties, according to their specific needs.
 
 APIs may define custom problems types with extension properties, according to their specific needs.
 [Go here](https://docs.pennybags.zalan.do/problems) for a more detailed explanation
@@ -147,6 +147,4 @@ APIs may define custom problems types with extension properties, according to th
 The reasons:
 
 * The API would leak implementation details to the outside world.
-* Other teams would possibly rely on the stack trace and a refactoring would be hard.
-* Brand partners and other third parties receiving the API, might receive leaked, sensitive
-  information
+* Clients may not rely on pure API implementation details.
