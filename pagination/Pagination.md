@@ -27,7 +27,7 @@ Carefully consider the following trade-offs:
     is easier to use for API clients
 * Use case: Jump to a certain page
 * * If jumping to a particular page in a range (e.g., 51 of 100) is really a required use case,
-    cursor-based is not feasible
+    cursor-based navigation is not feasible
 * Variability of data may lead to anomalies in result pages
 * * Using offset will create duplicates or lead to missed entries if rows are inserted or  deleted,
     respectively, between fetching two pages
