@@ -30,6 +30,4 @@ general RESTful API design style:
 - Lessons-learned blog: [Thoughts on RESTful API
   Design](http://restful-api-design.readthedocs.org/en/latest/)
 
-See [RESTful API
-Practices](https://docs.google.com/document/d/1Dqgkfxm2Jt9mVSraOYWSfKq3cKaZwf_VOgYDRuUf7kI/edit) for
-knowledge-sharing on our design and implementation of RESTful APIs.
+We apply the RESTful web service principles to all kind of application components, whether they provide functionality via the internet or via the intranet as larger application elements. We strive to build interoperating distributed systems that different teams can evolve in parallel.

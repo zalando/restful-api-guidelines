@@ -25,6 +25,15 @@ Timestamps are passed in UTC-related format via APIs and should be stored in UTC
 * [ISO 4217 currency codes](http://en.wikipedia.org/wiki/ISO_4217)
 
 
+## {{ book.could }} Use Standards for Country, Language and Currency Codes
+
+Use the following standard formats for country, language and currency codes:
+* [ISO 3166-1-alpha2 country codes](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
+* * (It is “GB”, not “UK”, even though “UK” has seen some use at Zalando)
+* [ISO 639-1 language code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes)
+* * [BCP-47](https://tools.ietf.org/html/bcp47) (based on ISO 639-1) for language variants
+* [ISO 4217 currency codes](https://en.wikipedia.org/wiki/ISO_4217)
+
 ## {{ book.could }} Use Application-Specific Content Types
 
 For instance, `application/x.zalando.article+json`. For complex types, it’s better to have a
