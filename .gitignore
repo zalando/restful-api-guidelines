@@ -1,3 +1,5 @@
+.grunt/
+
 # node
 node_modules
 
