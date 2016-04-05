@@ -6,4 +6,4 @@ node_js:
 script:
   - gitbook init
   - gitbook build
-  - gitbook publish
+  - gh-pages -d _build
