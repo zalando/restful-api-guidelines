@@ -7,4 +7,3 @@ Together with the next point of the guidelines we can ensure to have very focuse
 as fast.
 
 Pull requests should only be merged after all discussions have been concluded and at least 1 reviewer gave his approval
-
