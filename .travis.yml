@@ -3,6 +3,10 @@ language: node_js
 node_js:
   - "5.1"
 
+before_install:
+  - sudo apt-get -qq update
+  - sudo apt-get install -y calibre
+
 script:
   - gitbook init
   - gitbook build
