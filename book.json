@@ -1,4 +1,7 @@
 {
+  "pdf": {
+    "fontSize": 12
+  },
   "variables": {
     "should": "<span style=\"color:darkgoldenrod;font-weight:bold\">Should:</span>",
     "could": "<span style=\"color:green;font-weight:bold\">Could:</span>",
