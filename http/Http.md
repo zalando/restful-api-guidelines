@@ -80,7 +80,7 @@ Method implementations must fulfill the following basic properties:
 | DELETE       |  No    |  Yes        |
 | PATCH        |  No    |  No         |
 
-Please see also [Best Practices](https://goo.gl/vhwh8a) for further hints on how to support the
+Please see also [Best Practices](https://goo.gl/vhwh8a) [internal link] for further hints on how to support the
 different HTTP methods on resources.
 
 ## {{ book.must }} Use Meaningful HTTP Status Codes
