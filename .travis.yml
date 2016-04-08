@@ -6,6 +6,7 @@ node_js:
 script:
   - gitbook init
   - gitbook build
+  - gitbook pdf . _book/guidelines.pdf
   - grunt deploy
 
 env:
