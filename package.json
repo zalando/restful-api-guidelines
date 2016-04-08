@@ -8,6 +8,7 @@
     "gitbook-plugin-include-codeblock": "*",
     "gh-pages": "^0.4.0",
     "gitbook-plugin-structured-toc": "*",
-    "gitbook-plugin-restructure-navigation": "*"
+    "gitbook-plugin-restructure-navigation": "*",
+    "ebook-convert": "*"
   }
 }
