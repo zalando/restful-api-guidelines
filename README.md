@@ -1,39 +1,21 @@
-[Zalando's Restful API Guidelines](http://zalando.github.io/restful-api-guidelines)
+# Zalando's Restful API Guidelines
 
-![APIGuild icon](api-zalando-small.jpg)   
+Latest published version: [HTML](http://zalando.github.io/restful-api-guidelines) | [PDF](http://zalando.github.io/restful-api-guidelines/guidelines.pdf)
 
-# Introduction
+Purpose
+-------
+All Zalando APIs should look like they were designed by one team. This pushes adoption of our APIs and lowers effort for clients to use them properly. For that, we are constantly working on decent set of rules and best practices in form of these guidelines to build great APIs.
 
-Zalando’s software architecture centers around decoupled microservices that provide functionality
-via RESTful APIs with a JSON payload. Small engineering teams own, deploy and operate these microservices in
-their AWS (team) accounts. Our APIs most purely express what our systems do, and are therefore
-highly valuable business assets. Designing high-quality, long-lasting APIs has become even more
-critical for us since we started developing our new open platform strategy, which transforms Zalando
-from an online shop into an expansive fashion platform. Our strategy emphasizes developing lots of
-public APIs for our external business partners to use via third-party applications.
+Usage
+-----
+We encourage our teams to challenge their APIs according to these guidelines. Feel free to use them as a guidance for your APIs.
 
-With this in mind, we’ve adopted “API First” as one of our key engineering principles.
-Microservices development begins with API definition outside the code and ideally involves ample
-peer-review feedback to achieve high-quality APIs. API First encompasses a set of quality-related
-standards and fosters a peer review culture including a lightweight review procedure.
-We encourage our teams to follow them to ensure that our APIs:
+License
+-------
+The MIT License (MIT) Copyright © 2016 Zalando SE, https://tech.zalando.com
 
-- are easy to understand and learn
-- are general and abstracted from specific implementation and use cases
-- are robust and easy to use
-- have a common look and feel
-- follow a consistent RESTful style and syntax
-- are consistent with other teams’ APIs and our global architecture
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-Ideally, all Zalando APIs will look like the same author created them.
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-## Zalando specific information
-
-The purpose of our “RESTful API guidelines” is to define standards to successfully establish
-“consistent API look and feel” quality. The [API Guild \[internal link\]](https://techwiki.zalando.net/display/GUL/API) drafted and owns this document. Teams are responsible to fulfill these guidelines during API
-development and are encouraged to contribute to guideline evolution via pull requests.
-
-Furthermore, teams should take part in [API review process \[internal link\]](https://github.bus.zalan.do/ApiGuild/ApiReviewProcedure).
-
-Note: These guidelines will, to some extent, remain work in progress as our work evolves, but
-teams can confidently follow and trust them.
+THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
