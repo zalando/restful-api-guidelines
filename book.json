@@ -1,4 +1,7 @@
 {
+  "structure": {
+    "readme": "Introduction.md"
+  },
   "pdf": {
     "fontSize": 12
   },
