@@ -12,4 +12,4 @@ We encourage our teams to challenge their APIs according to these guidelines. Fe
 
 License
 -------
-We publish this guidelines under CC-BY (Creative commons Attribution 4.0) license. Please see LICENSE file.
+We publish these guidelines under CC-BY (Creative commons Attribution 4.0) license. Please see [LICENSE file](LICENSE).
