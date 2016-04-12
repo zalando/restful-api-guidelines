@@ -90,7 +90,7 @@ different HTTP methods on resources.
 | Code | Meaning | Methods |
 | --   | --      | --                 |
 | 200  | OK - this is the standard success response | All |
-| 201  | Created - Returned on successful entity creation. You are free to return either an empty response or the created resource in conjunction with the Content-Location header. (More details found [here](../headers/CommonHeaders.html).) *Always* set the Location header. | POST, PUT |
+| 201  | Created - Returned on successful entity creation. You are free to return either an empty response or the created resource in conjunction with the Content-Location header. (More details found in the [Common Headers section](../headers/CommonHeaders.html).) *Always* set the Location header. | POST, PUT |
 | 202  | Accepted - The request was successful and will be processed asynchronously. | POST, PUT, DELETE, PATCH |
 | 204  | No content - There is no response body | PUT, DELETE |
 
