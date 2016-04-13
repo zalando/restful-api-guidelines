@@ -30,14 +30,7 @@ Related or even embedded (sub-) resources should be linked via “meta link attr
 
 To represent hypermedia links in payload results, we should consider using a standard format like [HAL](http://stateless.co/hal_specification.html), [JSON API](http://jsonapi.org/), [JSON-LD](http://json-ld.org/) with [Hydra](http://www.hydra-cg.com/spec/latest/core/), or [Siren](https://github.com/kevinswiber/siren).  (Hint: Read [Kevin Sookocheff’s post](http://sookocheff.com/post/api/on-choosing-a-hypermedia-format/), for instance, to learn more about the hypermedia types.)
 
-## {{ book.should }} Consider Using a Standard for linked/embedded resources
-
-For HTTP Link headers, consider using a format like [HAL](http://stateless.co/hal_specification.html),
-[JSON-LD](http://json-ld.org/) with [Hydra](http://www.markus-lanthaler.com/hydra/spec/latest/core/),
-or [Siren](https://github.com/kevinswiber/siren). For a comparison of these hypermedia types, see
-[Kevin Sookocheff’s post](http://sookocheff.com/post/api/on-choosing-a-hypermedia-format/).
-
-## {{ book.should }} Allow embedding of complex sub-resources
+## {{ book.should }} Allow Optional Embedding of Sub-Resources
 
 Embedding related resources (also know as *Resource expansion*) is a great way to reduce the number of requests. In
 cases where clients know upfront that they need some related resources they can instruct the server to prefetch that
@@ -46,7 +39,7 @@ proxy that transparently embeds resources, is up the implementation.
 
 See [*Conventional Query Strings*](../naming/Naming.md#could-use-conventional-query-strings) for naming.
 
-## {{ book.must}} Modify the Content-Type for embedded resources
+## {{ book.must}} Modify the Content-Type for Embedded Resources
 
 Embedded resources requires to change the media type of the response accordingly:
 
