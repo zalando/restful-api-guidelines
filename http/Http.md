@@ -24,12 +24,15 @@ Be compliant with the standardized HTTP method semantics summarized as follows:
 ###PATCH:
 
 - partial upload, i.e. only a specific subset of resource fields are replaced
-- partial resource representation passed as payload has either resource content type with optional fields (to be
-  updated) or a custom content type that also may include instructions of how to change the resource
-- usually accepted only by single resources, because the semantics for PATCH on a collection resource
-  are very hard to define
 - usually not robust against non existence of the entity
+- since implementing PATCH correctly is a bit tricky we strongly suggest go for the following:
 
+1. use PUT with a custom media type and only if that isn't sufficient anymore
+2. use PATCH with [JSON Merge Patch](https://tools.ietf.org/html/rfc7386), a specialized media type 
+   `application/merge-patch+json` that is a partial resource representation. If updates are too complex to be expressed
+   with a merge patch, you should
+3. use PATCH with [JSON Patch](http://tools.ietf.org/html/rfc6902), a specialized media type 
+   `application/json-patch+json` that includes instructions on how to change the resource
 
 ###DELETE:
 
