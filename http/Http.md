@@ -28,7 +28,7 @@ Be compliant with the standardized HTTP method semantics summarized as follows:
 - since implementing PATCH correctly is a bit tricky we strongly suggest to go for the following:
 
 1. use PUT with a custom media type and only if that isn't sufficient anymore
-2. use PATCH with [JSON Merge Patch](https://tools.ietf.org/html/rfc7386), a specialized media type 
+2. use PATCH with [JSON Merge Patch](https://tools.ietf.org/html/rfc7396), a specialized media type 
    `application/merge-patch+json` that is a partial resource representation. If updates are too complex to be expressed
    with a merge patch, you should
 3. use PATCH with [JSON Patch](http://tools.ietf.org/html/rfc6902), a specialized media type 
