@@ -10,7 +10,7 @@
 * [HTTP](http/Http.md)
 * [Pagination](pagination/Pagination.md)
 * [Hypermedia](hyper-media/Hypermedia.md)
-* [Data Formats](data-formats/DataFormats.md)
+* [Data Object Formats](data-formats/DataFormats.md)
 * [Common Data Objects](common-data-objects/CommonDataObjects.md)
 * [Common Headers](common-headers/CommonHeaders.md)
 * [API Discovery](api-discovery/ApiDiscovery.md)
