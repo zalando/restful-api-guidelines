@@ -10,7 +10,9 @@ JSON-encode the body payload. The JSON payload must follow RFC-7158 and be compa
 
 * In HTTP headers (including the proprietary headers), use the [HTTP date format defined in RFC 7231](http://tools.ietf.org/html/rfc7231#section-7.1.1.1).
 
-Timestamps are passed in UTC-related format via APIs and should be stored in UTC (i.e. without any offset information). Localization based on UTC should be done by the services that provide user interfaces, if required.
+A zone offset may be used (both, in request and responses) -- this is simply defined by the standards. However, we encourage to restrict to UTC (and go without offsets) when dates are passed and returned. From experience we know that zone offsets are not easy to understand and often not correctly handled. Note also, that zone offsets are different from local times that may include daylight saving time.
+
+When it comes to storage, all dates should be consistently stored in UTC without zone offset. Localization should be done locally by the services that provide user interfaces, if required.
 
 ## {{ book.could }} Use Standard Data Formats
 
