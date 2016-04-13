@@ -4,14 +4,14 @@
 
 Be compliant with the standardized HTTP method semantics summarized as follows:
 
-###GET
+### GET
 
 - reads a resource or set of resource instances, respectively
 - individual resources will usually generate a 404 if the resource does not exist;
   collection resources may return either 200 or 404 if the listing is empty
 - must NOT have request body payload
 
-###PUT:
+### PUT
 
 - fully uploads an entity, i.e. provides a complete replacement by the resource representation
   passed as payload
@@ -21,7 +21,7 @@ Be compliant with the standardized HTTP method semantics summarized as follows:
   PUT on a collection would imply replacing the entire collection
 - usually robust against non-existence of the entity by implicit creation before update
 
-###PATCH:
+### PATCH
 
 - partial upload, i.e. only a specific subset of resource fields are replaced
 - usually not robust against non existence of the entity
@@ -33,14 +33,14 @@ Be compliant with the standardized HTTP method semantics summarized as follows:
     3. use PATCH with [JSON Patch](http://tools.ietf.org/html/rfc6902), a specialized media type 
        `application/json-patch+json` that includes instructions on how to change the resource
 
-###DELETE:
+### DELETE
 
 - deletes a resource instance
 - DELETE operations are usually only accepted by single resources, not collection resources, as
   DELETE on a collection would imply deleting the entire collection
 - should return either status 404 (Not found) or 410 (Gone) if the resource does not exist
 
-###POST:
+### POST
 
 - creates a resource instance
 - resource instance id(s) are created and maintained by server and returned with the output payload
@@ -50,11 +50,11 @@ Be compliant with the standardized HTTP method semantics summarized as follows:
   request body payload. In such cases, make sure to document the fact that POST is used as a
   workaround
 
-###HEAD
+### HEAD
 
 - has exactly the same semantics as GET, but returns headers only, no body
 
-###OPTIONS
+### OPTIONS
 
 - returns the available operations (methods) on a given endpoint (usually either as a comma separated list
   of methods or as a structured list of link templates)
@@ -87,7 +87,7 @@ different HTTP methods on resources.
 
 ## {{ book.must }} Use Meaningful HTTP Status Codes
 
-###Success Codes:
+### Success Codes
 
 | Code | Meaning | Methods |
 | --   | --      | --                 |
@@ -96,7 +96,7 @@ different HTTP methods on resources.
 | 202  | Accepted - The request was successful and will be processed asynchronously. | POST, PUT, DELETE, PATCH |
 | 204  | No content - There is no response body | PUT, DELETE |
 
-###Redirection Codes:
+### Redirection Codes
 
 | Code | Meaning | Methods |
 | --   | --      | --                 |
@@ -104,7 +104,7 @@ different HTTP methods on resources.
 | 303 | See Other - The response to the request can be found under another URI using a GET method.  | PATCH, POST, PUT, DELETE |
 | 304 | Not Modified - resource has not been modified since the date or version passed via request headers If-Modified-Since or If-None-Match. | GET |
 
-###Client Side Error Codes:
+### Client Side Error Codes
 
 | Code | Meaning | Methods |
 | --   | --      | --                 |
@@ -123,7 +123,7 @@ different HTTP methods on resources.
 | 428 | Precondition Required - server requires the request to be conditional (e.g. to make sure that the “lost update problem” is avoided). | All |
 | 429 | Too many requests - the client does not consider rate limiting and sent too many requests. See ["Use 429 with Headers for Rate Limits"](#must-use-429-with-headers-for-rate-limits). | All |
 
-###Server Side Error Codes:
+### Server Side Error Codes:
 
 | Code | Meaning | Methods |
 | --   | --      | --                 |
