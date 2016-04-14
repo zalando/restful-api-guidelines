@@ -90,15 +90,22 @@ cases. Use it in your APIs — and compatible extend it if necessary for your AP
 
 ## {{ book.must }} Use Common Error Return Objects
 
-`application/x.problem+json` is an  example of a common error return object derived from an
-[Internet draft specification](https://tools.ietf.org/html/draft-nottingham-http-problem-07) for
-error objects that have never reached registered
-[media type status](http://www.iana.org/assignments/media-types/media-types.xhtml#application).
-The media type name is prefixed with “x.” to denote its status. Hint: APIs may define custom problem types with extension properties, according to their specific needs.
+[RFC 7807](http://tools.ietf.org/html/rfc7807) defines the media type `application/problem+json`
+for a common error return object (and the format of the contained JSON object).
+Operations should return that (together with a suitable status code) when any problem
+occurred during processing and you can give more details than the status code itself
+can supply, whether it be caused by the client or the server (i.e. both for 4xx or 5xx errors).
+
+A previous version of this guideline (before the publication of that RFC and the
+registration of the media type) told to return `application/x.problem+json` in these
+cases (with the same contents).
+Servers for APIs defined before this change should pay attention to the `Accept` header sent
+by the client and set the `Content-Type` header of the problem response correspondingly.
+Clients of such APIs should accept both media types.
 
 APIs may define custom problems types with extension properties, according to their specific needs.
-[Go here](https://docs.pennybags.zalan.do/problems) for a more detailed explanation
-(IAM login required).
+
+Here is the definition in Open API 2.0 YAML format in the case you don't need any extensions:
 
     Problem:
      type: object

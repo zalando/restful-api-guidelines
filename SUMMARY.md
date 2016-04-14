@@ -6,6 +6,7 @@
 * [Security](security/Security.md)
 * [Compatibility](compatibility/Compatibility.md)
 * [Naming](naming/Naming.md)
+* [Resources](resources/Resources.md)
 * [HTTP](http/Http.md)
 * [Pagination](pagination/Pagination.md)
 * [Hypermedia](hyper-media/Hypermedia.md)
