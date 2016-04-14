@@ -1,4 +1,4 @@
-# Common Headers
+# Proprietary Headers
 
 This section shares definitions of proprietary headers that should be named consistently because
 they address overarching service-related concerns. Whether services support these concerns or not is
