@@ -11,7 +11,8 @@ point.)
 Common techniques include:
 
 * gzip compression
-* querying field filters to retrieve a subset of resource attributes
+* querying field filters to retrieve a subset of resource attributes (see [*Support Filtering of Resource Fields*](../performance/Performance.md#should-support-filtering-of-resource-fields)
+below)
 * `ETag` (and If-[None-]Match) headers to avoid refetch of unchanged resources
 * pagination for incremental access of larger (result) lists
 
