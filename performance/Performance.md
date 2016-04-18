@@ -88,10 +88,7 @@ description.
 
 If a resource changes, the contents of the [`ETag`](https://en.wikipedia.org/wiki/HTTP_ETag) header
 must also change. Combined with the `If-Match` and `If-None-Match` headers, the `ETag` header allows
-for:
-
-* caching of entities
-* optimistic locking
+caching of entities.
 
 Its possible contents:
 
