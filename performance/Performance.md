@@ -19,7 +19,7 @@ Each of these items is described in greater detail below.
 
 ## {{ book.should }} gzip Compression
 
-Compress the payload of your API’s responses with gzip (GNU zip), unless there’s a good reason not
+Compress the payload of your API’s responses with gzip, unless there’s a good reason not
 to — for example,  you are serving so many requests that the time to compress becomes a bottleneck.
 This helps to transport data faster over the network (fewer bytes) and makes frontends respond faster.
 
