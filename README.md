@@ -1,6 +1,6 @@
 #Developing Restful APIs: A Comprehensive Set of Guidelines by Zalando 
 
-Latest published version: [HTML](http://zalando.github.io/restful-api-guidelines) | [PDF](http://zalando.github.io/restful-api-guidelines/guidelines.pdf)
+Latest published version: **[HTML](http://zalando.github.io/restful-api-guidelines) | [PDF](http://zalando.github.io/restful-api-guidelines/guidelines.pdf)**
 
 Purpose
 -------

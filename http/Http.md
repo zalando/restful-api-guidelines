@@ -165,7 +165,7 @@ compression via the Content-Encoding header.
 
 ## {{ book.should }} Support Filtering of Resource Fields
 
-Depending on your use case and payload size, you can significantly reduce network bandwidth need by support filtering of returned entity fields. Here, the client can determine the subset of fields he wants to receive via the fields query parameter — example see [Google AppEngine API's partial response](https://cloud.google.com/appengine/docs/python/taskqueue/rest/performance#partial-response):
+Depending on your use case and payload size, you can significantly reduce network bandwidth need by support filtering of returned entity fields. Here, the client can determine the subset of fields he wants to receive via the 'fields' query parameter — see example below (or e.g. [Google AppEngine API's partial response](https://cloud.google.com/appengine/docs/python/taskqueue/rest/performance#partial-response)):
 
 ### Unfiltered
 
@@ -205,14 +205,17 @@ Content-Type: application/x.person+json;fields=(name,partner(name))
 }
 ```
 
-The approach we recommend for field is a Zalando Github project,
-[json-fields](https://github.com/zalando/json-fields). It defines a formal grammar for the ANTLR
+We standardized the 'field' query parameter notation via a generic syntax for 
+field filtering; it should be supported by our APIs and referenced in the description 
+of its API definition. Field query parameter syntax and a Java
+parser library are provided via public Zalando Github project 
+[json-fields](https://github.com/zalando-incubator/json-fields). It defines a formal grammar for the ANTLR
  parser generator and provides a ready-to use library for Java / Jackson based projects
  ([Maven link](http://mvnrepository.com/artifact/org.zalando.guild.api/json-fields-jackson)).
-Teams that use other JSON serializers are encouraged to contribute to the open source project and
+Teams that use other JSON serializers and languages are encouraged to contribute to the open source project and
 create their own parser / framework based on this grammar.
 
-Other approaches we have considered are JSONPath or GraphQL. While they have advantages, neither of
+Remark: Other approaches we have considered are JSONPath or GraphQL. While they have advantages, neither of
 them can easily be plugged into an existing serialization process, so they require an additional,
 manual serialization process, whereas the above solution addresses our main filter use cases and
 can easily be introduced with a minimum of effort.
