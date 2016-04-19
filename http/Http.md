@@ -27,12 +27,12 @@ Be compliant with the standardized HTTP method semantics summarized as follows:
 - usually not robust against non existence of the entity
 - since implementing PATCH correctly is a bit tricky we strongly suggest to choose one and only one of the following patterns per endpoint, unless forced by [a backwards compatible change](../compatibility/Compatibility#compatibility):
     1. use PUT with a custom media type and only if that isn't sufficient anymore
-    2. use PATCH with [JSON Merge Patch](https://tools.ietf.org/html/rfc7396), a specialized media type 
+    2. use PATCH with [JSON Merge Patch](https://tools.ietf.org/html/rfc7396), a specialized media type
        `application/merge-patch+json` that is a partial resource representation. If updates are too complex to be
        expressed with a merge patch, you should
-    3. use PATCH with [JSON Patch](http://tools.ietf.org/html/rfc6902), a specialized media type 
+    3. use PATCH with [JSON Patch](http://tools.ietf.org/html/rfc6902), a specialized media type
        `application/json-patch+json` that includes instructions on how to change the resource
-    4. use POST if the PATCH request does not modify the resource in a way defined by the 
+    4. use POST if the PATCH request does not modify the resource in a way defined by the
        semantics of the media type
 
 ### DELETE
@@ -210,7 +210,7 @@ Content-Type: application/x.person+json;fields=(name,partner(name))
 ```
 
 The approach we recommend for field is a Zalando Github project,
-[json-fields](https://github.com/zalando/json-fields). It defines a formal grammar for the ANTLR
+[json-fields](https://github.com/zalando-incubator/json-fields). It defines a formal grammar for the ANTLR
  parser generator and provides a ready-to use library for Java / Jackson based projects
  ([Maven link](http://mvnrepository.com/artifact/org.zalando.guild.api/json-fields-jackson)).
 Teams that use other JSON serializers are encouraged to contribute to the open source project and
