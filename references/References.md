@@ -6,7 +6,7 @@ This section collects links to documents to which we refer, and base our guideli
 
 * [OpenAPI Specification](https://github.com/OAI/OpenAPI-Specification/)
 
-## RFCs
+## Publications, specifications and standards
 
 * [RFC 3339: Date and Time on the Internet: Timestamps](https://tools.ietf.org/html/rfc3339)
 * [RFC 5988: Web Linking](https://tools.ietf.org/html/rfc5988)
@@ -23,7 +23,8 @@ This section collects links to documents to which we refer, and base our guideli
 ## Dissertations
 
 * [Roy Thomas Fielding - Architectural Styles and the Design of Network-Based Software
-  Architectures](http://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm)
+  Architectures](http://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm).
+  This is the text which defines what REST is.
 
 ## Books
 
