@@ -8,6 +8,7 @@
 * [Naming](naming/Naming.md)
 * [Resources](resources/Resources.md)
 * [HTTP](http/Http.md)
+* [Performance](performance/Performance.md)
 * [Pagination](pagination/Pagination.md)
 * [Hypermedia](hyper-media/Hypermedia.md)
 * [Data Formats](data-formats/DataFormats.md)
