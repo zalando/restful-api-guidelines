@@ -129,7 +129,7 @@ different HTTP methods on resources.
 | 501 | Not Implemented -  server cannot fulfill the request (usually implies future availability, e.g. new feature). | All |
 | 503 | Service Unavailable - server is (temporarily) not available (e.g. due to overload) -- client retry may be senseful. | All |
 
-All error codes you can find at [W3C](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html) and [Wikipedia](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes) or via https://httpstatuses.com/<error_code>.
+All error codes you can find in [RFC7231](https://tools.ietf.org/html/rfc7231#section-6) and [Wikipedia](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes) or via https://httpstatuses.com/<error_code>.
 
 ## {{ book.must }} Providing Error Documentation
 

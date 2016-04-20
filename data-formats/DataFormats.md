@@ -2,7 +2,8 @@
 
 ## {{ book.must }} Use JSON as the Body Payload
 
-JSON-encode the body payload. The JSON payload must follow RFC-7158 and be compatible with RFC-4627 clients by having (if possible) a serialized object or array as the top-level object.
+JSON-encode the body payload. The JSON payload must follow [RFC-7159](https://tools.ietf.org/html/rfc7159) by having
+(if possible) a serialized object or array as the top-level object.
 
 ## {{ book.must }} Use Standard Date and Time Formats
 
