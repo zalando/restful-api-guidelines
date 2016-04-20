@@ -5,7 +5,7 @@
 APIs should support techniques for reducing bandwidth based on client needs. This holds for APIs
 that (might) have high payloads and/or are used in high-traffic scenarios like the public Internet
 and telecommunication networks. Typical examples are APIs used by mobile web app clients with
-(often) less bandwidth connectivity. (Zalando is a “Mobile “First” company, so be mindful of this
+(often) less bandwidth connectivity. (Zalando is a 'Mobile First' company, so be mindful of this
 point.)
 
 Common techniques include:
@@ -30,7 +30,7 @@ compression via the Content-Encoding header.
 
 ## {{ book.should }} Support Filtering of Resource Fields
 
-Depending on your use case and payload size, you can significantly reduce network bandwidth need by support filtering of returned entity fields. Here, the client can determine the subset of fields he wants to receive via the fields query parameter — example see [Google AppEngine API's partial response](https://cloud.google.com/appengine/docs/python/taskqueue/rest/performance#partial-response):
+Depending on your use case and payload size, you can significantly reduce network bandwidth need by supporting filtering of returned entity fields. Here, the client can determine the subset of fields he wants to receive via the fields query parameter — example see [Google AppEngine API's partial response](https://cloud.google.com/appengine/docs/python/taskqueue/rest/performance#partial-response):
 
 ### Unfiltered
 
@@ -70,7 +70,7 @@ Content-Type: application/x.person+json;fields=(name,partner(name))
 }
 ```
 
-The approach we recommend for field is a Zalando Github project,
+The approach we recommend for field filtering is a Zalando Github project,
 [json-fields](https://github.com/zalando/json-fields). It defines a formal grammar for the ANTLR
  parser generator and provides a ready-to use library for Java / Jackson based projects
  ([Maven link](http://mvnrepository.com/artifact/org.zalando.guild.api/json-fields-jackson)).
