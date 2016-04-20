@@ -90,7 +90,7 @@ different HTTP methods on resources.
 | Code | Meaning | Methods |
 | --   | --      | --                 |
 | 200  | OK - this is the standard success response | All |
-| 201  | Created - Returned on successful entity creation. You are free to return either an empty response or the created resource in conjunction with the Content-Location header.  Always set the Location header. | POST, PUT |
+| 201  | Created - Returned on successful entity creation. You are free to return either an empty response or the created resource in conjunction with the Content-Location header. (More details found in the [Common Headers section](../headers/CommonHeaders.html).) *Always* set the Location header. | POST, PUT |
 | 202  | Accepted - The request was successful and will be processed asynchronously. | POST, PUT, DELETE, PATCH |
 | 204  | No content - There is no response body | PUT, DELETE |
 
@@ -129,7 +129,7 @@ different HTTP methods on resources.
 | 501 | Not Implemented -  server cannot fulfill the request (usually implies future availability, e.g. new feature). | All |
 | 503 | Service Unavailable - server is (temporarily) not available (e.g. due to overload) -- client retry may be senseful. | All |
 
-All error codes you can find at [W3C](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html) and [Wikipedia](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes) or via https://httpstatuses.com/<error_code>.
+All error codes you can find in [RFC7231](https://tools.ietf.org/html/rfc7231#section-6) and [Wikipedia](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes) or via https://httpstatuses.com/<error_code>.
 
 ## {{ book.must }} Providing Error Documentation
 
