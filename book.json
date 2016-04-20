@@ -1,4 +1,7 @@
 {
+  "structure": {
+    "readme": "Introduction.md"
+  },
   "pdf": {
     "fontSize": 12
   },
@@ -9,7 +12,8 @@
   },
   "plugins": [
     "structured-toc",
-    "restructure-navigation"
+    "restructure-navigation",
+    "anchors"
   ],
   "pluginsConfig": {
     "structured-toc": {},

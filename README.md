@@ -1,39 +1,33 @@
-[Zalando's Restful API Guidelines](http://zalando.github.io/restful-api-guidelines)
+#Developing Restful APIs: A Comprehensive Set of Guidelines by Zalando 
 
-![APIGuild icon](api-zalando-small.jpg)   
+Latest published version: **[HTML](http://zalando.github.io/restful-api-guidelines) | [PDF](http://zalando.github.io/restful-api-guidelines/guidelines.pdf)**
 
-# Introduction
+Purpose
+-------
+Great RESTful APIs look like they were designed by a single team. This promotes API adoption, reduces friction, and enables clients to use them properly. To build APIs that meet this standard, and to answer many common questions encountered along the way of RESTful API development, the Zalando Tech team has created this comprehensive set of guidelines. We have shared it with you to inspire additional discussion and refinement within and among your teams, and contribute our learnings and suggestions to the tech community at large.
 
-Zalando’s software architecture centers around decoupled microservices that provide functionality
-via RESTful APIs with a JSON payload. Small engineering teams own, deploy and operate these microservices in
-their AWS (team) accounts. Our APIs most purely express what our systems do, and are therefore
-highly valuable business assets. Designing high-quality, long-lasting APIs has become even more
-critical for us since we started developing our new open platform strategy, which transforms Zalando
-from an online shop into an expansive fashion platform. Our strategy emphasizes developing lots of
-public APIs for our external business partners to use via third-party applications.
+Usage
+-----
+Feel free to use these guidelines as a guidance for your own development. Note that we encourage our own teams to use them in order to challenge their APIs. As such, you should consider this to be a living, evolving document. We will revise and update based on our learnings and experiences.
 
-With this in mind, we’ve adopted “API First” as one of our key engineering principles.
-Microservices development begins with API definition outside the code and ideally involves ample
-peer-review feedback to achieve high-quality APIs. API First encompasses a set of quality-related
-standards and fosters a peer review culture including a lightweight review procedure.
-We encourage our teams to follow them to ensure that our APIs:
+Table of Contents
+-------
+After a short Introduction, these guidelines include chapters on the following topics: 
+- Design Principles
+- General Guidelines
+- Security
+- Compatibility
+- Naming 
+- Resources 
+- HTTP 
+- Pagination
+- Hypermedia
+- Data Formats
+- Common Data Objects
+- Common Headers
+- Proprietary Headers
+- API Discovery
 
-- are easy to understand and learn
-- are general and abstracted from specific implementation and use cases
-- are robust and easy to use
-- have a common look and feel
-- follow a consistent RESTful style and syntax
-- are consistent with other teams’ APIs and our global architecture
-
-Ideally, all Zalando APIs will look like the same author created them.
-
-## Zalando specific information
-
-The purpose of our “RESTful API guidelines” is to define standards to successfully establish
-“consistent API look and feel” quality. The [API Guild \[internal link\]](https://techwiki.zalando.net/display/GUL/API) drafted and owns this document. Teams are responsible to fulfill these guidelines during API
-development and are encouraged to contribute to guideline evolution via pull requests.
-
-Furthermore, teams should take part in [API review process \[internal link\]](https://github.bus.zalan.do/ApiGuild/ApiReviewProcedure).
-
-Note: These guidelines will, to some extent, remain work in progress as our work evolves, but
-teams can confidently follow and trust them.
+License
+-------
+We have published these guidelines under the CC-BY (Creative commons Attribution 4.0) license. Please see [LICENSE file](LICENSE).

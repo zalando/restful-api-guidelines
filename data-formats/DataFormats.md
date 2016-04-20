@@ -2,7 +2,8 @@
 
 ## {{ book.must }} Use JSON as the Body Payload
 
-JSON-encode the body payload. The JSON payload must follow RFC-7158 and be compatible with RFC-4627 clients by having (if possible) a serialized object or array as the top-level object.
+JSON-encode the body payload. The JSON payload must follow [RFC-7159](https://tools.ietf.org/html/rfc7159) by having
+(if possible) a serialized object or array as the top-level object.
 
 ## {{ book.must }} Use Standard Date and Time Formats
 
@@ -10,20 +11,9 @@ JSON-encode the body payload. The JSON payload must follow RFC-7158 and be compa
 
 * In HTTP headers (including the proprietary headers), use the [HTTP date format defined in RFC 7231](http://tools.ietf.org/html/rfc7231#section-7.1.1.1).
 
-Timestamps are passed in UTC-related format via APIs and should be stored in UTC (i.e. without any offset information). Localization based on UTC should be done by the services that provide user interfaces, if required.
+A zone offset may be used (both, in request and responses) -- this is simply defined by the standards. However, we encourage to restrict to UTC (and go without offsets) when dates are passed and returned. From experience we know that zone offsets are not easy to understand and often not correctly handled. Note also, that zone offsets are different from local times that may include daylight saving time.
 
-## {{ book.could }} Use Standard Data Formats
-
-* [ISO 3166-1-alpha2 country codes](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
-
-* * (It's “GB”, not “UK”, even though “UK” has seen some use at Zalando)
-
-* [ISO 639-1 language code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes)
-
-* * [BCP-47](https://tools.ietf.org/html/bcp47) (based on ISO 639-1) for language variants
-
-* [ISO 4217 currency codes](http://en.wikipedia.org/wiki/ISO_4217)
-
+When it comes to storage, all dates should be consistently stored in UTC without zone offset. Localization should be done locally by the services that provide user interfaces, if required.
 
 ## {{ book.could }} Use Standards for Country, Language and Currency Codes
 
