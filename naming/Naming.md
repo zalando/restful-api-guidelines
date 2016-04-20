@@ -1,4 +1,4 @@
-# Naming
+# API Naming
 
 ## {{ book.must }} Path segments must be lowercase separate words with hyphens
 
@@ -13,15 +13,6 @@ This applies to concrete path segments and not the names of path parameters. For
 Examples:
 
     customer_number, order_id, billing_address
-
-## {{ book.must }} JSON field names must be snake_case (never camelCase)
-
-Intentionally consistent with the query parameters.
-Examples see above (Query Parameters).
-
-Why: It’s essential to establish a  consistent  look and feel. No established industry standard
-exists, but many popular Internet companies prefer snake_case:  e.g. GitHub, Stack Exchange, Twitter.
-Others, like Google and Amazon, use both — but not only camelCase.
 
 ## {{ book.must }} You Must Hyphenate HTTP Headers
 
