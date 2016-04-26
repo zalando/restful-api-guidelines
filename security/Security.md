@@ -21,7 +21,7 @@ In order to see how to define and assign scopes, please refer to the next sectio
 
 ## {{ book.must }} Define and assign scopes
 
-Every API needs to define scopes and every endpoint needs to have a at least one scope assigned. Scopes are defined by a name and a description once per API specification, as shown in the previous section. Please refer to the following rules when creating scope names:
+Every API needs to define scopes and every endpoint needs to have at least one scope assigned. Scopes are defined by a name and a description once per API specification, as shown in the previous section. Please refer to the following rules when creating scope names:
 
 ```
 <scope> ::= <standard-scope> |           -- should be sufficient for majority of use cases 
