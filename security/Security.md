@@ -21,7 +21,7 @@ In order to see how to define and assign scopes, please refer to the next sectio
 
 ## {{ book.must }} Define and assign scopes
 
-Every API needs to define scopes and every endpoint needs to have a at least one scope assigned. Scopes are defined by a name and a description once per API specification, as shown in the previous section. Please refer to the following rules when creating scope names:
+Every API needs to define scopes and every endpoint needs to have at least one scope assigned. Scopes are defined by a name and a description once per API specification, as shown in the previous section. Please refer to the following rules when creating scope names:
 
 ```
 <scope> ::= <standard-scope> |           -- should be sufficient for majority of use cases 
@@ -34,7 +34,7 @@ Every API needs to define scopes and every endpoint needs to have a at least one
 <resource-id> ::= <free identifier following application-id syntax>
 ```
 
-APIs should stick to standard scopes by default -- for the majority of use cases, restricting access to specific APIs (with read vs. write differentiation) is sufficient for controlling access for client types like merchant or retailer business partners, customers or operational staff. We want to avoid too many, fine grained scopes increasing governance complexity without real value add. In some situations, where some API serves very different types of resources interesting for different stakeholder types, resource specific scopes may make sense.
+APIs should stick to standard scopes by default -- for the majority of use cases, restricting access to specific APIs (with read vs. write differentiation) is sufficient for controlling access for client types like merchant or retailer business partners, customers or operational staff. We want to avoid too many, fine grained scopes increasing governance complexity without real value add. In some situations, where the API serves different types of resources for different owners, resource specific scopes may make sense.
 
 Some examples for standard and resource-specific scopes:
 
@@ -45,7 +45,7 @@ Some examples for standard and resource-specific scopes:
 | `sales-order`       | `sales_order`    | `read`      | `sales-order.sales_order.read`    |
 | `sales-order`       | `shipment_order` | `read`      | `sales-order.shipment_order.read` |
 
-After scopes names are defined and the scope is declared in the security definition at the top of an API specification it should be assigned to each API operation by specifying a [`security` requirement](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#securityRequirementObject) like this:
+After scopes names are defined and the scope is declared in the security definition at the top of an API specification, it should be assigned to each API operation by specifying a [`security` requirement](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#securityRequirementObject) like this:
 
 ```yaml
 paths:
