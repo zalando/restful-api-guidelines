@@ -121,7 +121,7 @@ different HTTP methods on resources.
 | 428 | Precondition Required - server requires the request to be conditional (e.g. to make sure that the “lost update problem” is avoided). | All |
 | 429 | Too many requests - the client does not consider rate limiting and sent too many requests | All |
 
-###Client Side Error Codes:
+###Server Side Error Codes:
 
 | Code | Meaning | Methods |
 | --   | --      | --                 |

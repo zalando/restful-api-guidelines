@@ -66,7 +66,7 @@ cases. Use it in your APIs — and compatible extend it if necessary for your AP
             example: Schönhauser Allee 103
           additional:
             type: string
-            description: further details like suite, apt no, etc.
+            description: further details like suite, apartment number, etc.
             example: 2. Hinterhof rechts
           city:
             type: string
