@@ -7,6 +7,7 @@ The following frameworks were specifically designed to support the API First wor
 * [Connexion: OpenAPI First framework for Python on top of Flask](https://github.com/zalando/connexion)
 * [Friboo: utility library to write microservices in Clojure with support for Swagger and OAuth](https://github.com/zalando-stups/friboo)
 * [Play Swagger: build RESTful Play services from OpenAPI specification](https://github.com/zalando/play-swagger)
+* [Swagger Codegen: template-driven engine to generate client code in different languages by parsing your Swagger Resource Declaration](https://github.com/swagger-api/swagger-codegen)
 * [Swagger Codegen Tooling: plugin for Maven that generates pieces of code from OpenAPI specification](https://github.com/zalando-stups/swagger-codegen-tooling)
 
 The Swagger/OpenAPI homepage lists more [Community-Driven Language Integrations](http://swagger.io/open-source-integrations/),
