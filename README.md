@@ -1,6 +1,6 @@
-#Developing Restful APIs: A Comprehensive Set of Guidelines by Zalando 
+#Developing Restful APIs: A Comprehensive Set of Guidelines by Zalando
 
-Latest published version: **[HTML](http://zalando.github.io/restful-api-guidelines) | [PDF](http://zalando.github.io/restful-api-guidelines/guidelines.pdf)**
+Latest published version: **[HTML](http://zalando.github.io/restful-api-guidelines) | [PDF](http://zalando.github.io/restful-api-guidelines/guidelines.pdf)** (only to provide easy way of single-page search)
 
 Purpose
 -------
@@ -12,14 +12,15 @@ Feel free to use these guidelines as a guidance for your own development. Note t
 
 Table of Contents
 -------
-After a short Introduction, these guidelines include chapters on the following topics: 
+After a short Introduction, these guidelines include chapters on the following topics:
 - Design Principles
 - General Guidelines
 - Security
 - Compatibility
-- Naming 
-- Resources 
-- HTTP 
+- Naming
+- Resources
+- HTTP
+- Performance
 - Pagination
 - Hypermedia
 - Data Formats
@@ -27,6 +28,7 @@ After a short Introduction, these guidelines include chapters on the following t
 - Common Headers
 - Proprietary Headers
 - API Discovery
+- Tooling
 
 License
 -------
