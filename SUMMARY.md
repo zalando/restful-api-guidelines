@@ -5,6 +5,7 @@
 * [General Guidelines](general-guidelines/GeneralGuidelines.md)
 * [Security](security/Security.md)
 * [Compatibility](compatibility/Compatibility.md)
+* [JSON Guidelines](json-guidelines/JsonGuidelines.md)
 * [Naming](naming/Naming.md)
 * [Resources](resources/Resources.md)
 * [HTTP](http/Http.md)
