@@ -28,7 +28,7 @@ Ideally, all Zalando APIs will look like the same author created them.
 ## Zalando specific information
 
 The purpose of our “RESTful API guidelines” is to define standards to successfully establish
-“consistent API look and feel” quality. The [API Guild \[internal link\]](https://techwiki.zalando.net/display/GUL/API) drafted and owns this document. Teams are responsible to fulfill these guidelines during API
+“consistent API look and feel” quality. The [API Guild \[internal link\]](https://techwiki.zalando.net/display/GUL/API+Guild) drafted and owns this document. Teams are responsible to fulfill these guidelines during API
 development and are encouraged to contribute to guideline evolution via pull requests.
 
 Furthermore, teams should take part in [API review process \[internal link\]](https://github.bus.zalan.do/ApiGuild/ApiReviewProcedure).
