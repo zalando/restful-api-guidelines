@@ -17,3 +17,4 @@
 * [Proprietary Headers](headers/ProprietaryHeaders.md)
 * [API Discovery](api-discovery/ApiDiscovery.md)
 * [References](references/References.md)
+* [Tooling](tooling/Tooling.md)
