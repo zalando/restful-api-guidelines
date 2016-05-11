@@ -1,16 +1,10 @@
 # Hypermedia
 
-## {{ book.should }} Use HATEOAS
+## {{ book.could }} Use HATEOAS
 
-This is a challenging topic. We don’t have specific recommendations yet; we expect them to emerge
-from trial and error, and from the API Guild’s ongoing research. For now, we strongly encourage
-teams to apply this principle and document results.
+We prefer [REST Maturity Level 2](http://martinfowler.com/articles/richardsonMaturityModel.html#level2). Only if HATEOAS - as [Level 3](http://martinfowler.com/articles/richardsonMaturityModel.html#level3) - adds value to your API, consider using it. Because we are following API First, HATEOAS adds not much value for us in terms of self-descriptiveness. And we don't believe in generic HATEOAS clients which crawl and use APIs on their own. So, only use HATEOAS if your API really defines possible client actions (one part of hypermedia) and leverages other HATEOAS features.
 
-Notes on aspects to be analyzed:
-
-* Security concerns with respect to  passing OAuth2 tokens
-* API discovery by client programmers vs. automated hypermedia driven workflows
-* Additional client development work vs. reduced efforts in case of API and state handling changes
+Decoupled from HATEOAS, adding links and relationships should be considered as useful addition to APIs as it adds context and helps navigation in APIs to decent degree.
 
 Additional resources: [Wikipedia](http://en.wikipedia.org/wiki/HATEOAS), [The RESTful CookBook](http://restcookbook.com/Basics/hateoas/)
 
