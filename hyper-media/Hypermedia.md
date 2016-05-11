@@ -4,7 +4,7 @@
 
 We prefer [REST Maturity Level 2](http://martinfowler.com/articles/richardsonMaturityModel.html#level2). Only if HATEOAS - as [Level 3](http://martinfowler.com/articles/richardsonMaturityModel.html#level3) - adds value to your API, consider using it. Because we are following API First, HATEOAS adds not much value for us in terms of self-descriptiveness. And we don't believe in generic HATEOAS clients which crawl and use APIs on their own. So, only use HATEOAS if your API really defines possible client actions (one part of hypermedia) and leverages other HATEOAS features.
 
-Decoupled from HATEOAS, adding links and relationships should be considered as usefull addition to APIs as it adds context and helps navigation in APIs to decent degree.
+Decoupled from HATEOAS, adding links and relationships should be considered as useful addition to APIs as it adds context and helps navigation in APIs to decent degree.
 
 Additional resources: [Wikipedia](http://en.wikipedia.org/wiki/HATEOAS), [The RESTful CookBook](http://restcookbook.com/Basics/hateoas/)
 
