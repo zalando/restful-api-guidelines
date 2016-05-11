@@ -17,5 +17,6 @@
 * [Common Headers](headers/CommonHeaders.md)
 * [Proprietary Headers](headers/ProprietaryHeaders.md)
 * [API Discovery](api-discovery/ApiDiscovery.md)
+* [Events](events/events.md)
 * [References](references/References.md)
 * [Tooling](tooling/Tooling.md)
