@@ -21,8 +21,8 @@ allow us to make compatible changes without versioning:
 Apply the following rules to evolve RESTful APIs in a backward-compatible way:
 
 * Ignore unknown fields in the payload
-* Add optional, non mandatory fields
-* Never change and only extend a field’s meaning
+* Add only optional, never mandatory fields
+* Never change the meaning of a field.
 * Enum ranges cannot not be extended when used for output parameters — clients
   may not be prepared to handle it. However, enum ranges can be extended when
   used for input parameters.
@@ -58,10 +58,10 @@ If changing an API can’t be done in a compatible way, then proceed in one of t
 three ways:
 
 * create a new resource (variant) in addition to the old resource variant
-* create a new service endpoint — i.e. a new microservice application with a new API (variant)
+* create a new service endpoint — i.e. a new application with a new API (with a new domain name)
 * create a new API version supported in parallel with the old API by the same microservice
 
-Avoiding versioning also means preferring the first two variants.
+As we discourage versioning by all means because of the manifold disadvantages, we suggest to only use the first two approaches.
 
 ## {{ book.must }} Use Media Type Versioning
 
