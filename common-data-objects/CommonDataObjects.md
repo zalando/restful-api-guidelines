@@ -1,4 +1,4 @@
-# Common Data Objects
+﻿# Common Data Objects
 
 Definitions of data objects that are good candidates for wider usage:
 
@@ -151,7 +151,6 @@ Here is the definition in Open API 2.0 YAML format in the case you don't need an
 
 ## {{ book.must }} An error message must not contain the stack trace.
 
-The reasons:
-
-* The API would leak implementation details to the outside world.
-* Clients may not rely on pure API implementation details.
+Stack traces contain implementation details that are not part of an API, and on which clients
+should never rely. Moreover, stack traces can leak sensitive information that partners and third
+parties are not allowed to receive and may disclose insights about vulnerabilities to attackers.
