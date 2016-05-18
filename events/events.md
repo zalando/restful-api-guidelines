@@ -62,9 +62,7 @@ There are cases where it could make sense to define data change events that don'
  
  - Where the API resource representations are very different from the datastore representation, but the physical data are easier to reliably process for data integration.
 
- - Publishing aggregated event data that rolls up a set of changes. 
- 
- - Using events to indicate changes in relationship between entities, for example indicating items have had a tag applied to them, or have been classified in some way. 
+ - Publishing aggregated data. For example a data change to an individual entity might cause an event to be published that contains a coarser representation than that defined for an API
 
  - Events that are the result of a computation, such as a matching algorithm, or the generation of enriched data, and which might not be stored as entity by the service. 
 
