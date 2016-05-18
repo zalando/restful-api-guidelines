@@ -114,11 +114,7 @@ The following existing guidelines for API data are applicable to events -
 
 There are a couple of technical considerations to bear in mind when defining event schema -
 
- - Nakadi currently requires JSON Schema format, and does not yet support Open API YAML. It's ok to define your events for peer review in YAML to avoid maintaining duplicate representations.
-
- - Open API's use of JSON Schema varies from the JSON Schema draft-4 specification. An example of this is Open API allowing extension structures such as `x-extensible-enum` that aren't directly expressible in JSON Schema. 
-
-These are best understood as point in time guidance around using Nakadi - as the project develops it may support consuming Open API (or other) structures directly, and the guidance here will be updated. 
+Note that Nakadi currently requires Open API event definitions to be submitted in JSON Schema syntax, and does not yet support Open API YAML. It's ok to define your events for peer review in YAML to avoid maintaining duplicate representations. This is best understood as point in time guidance - as the project develops it may support consuming Open API YAML (or other) structures directly, and the guidance here will be updated. 
 
 ## {{ book.must }} Maintain backwards compatibility for Events
 
