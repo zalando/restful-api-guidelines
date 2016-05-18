@@ -62,9 +62,7 @@ There are cases where it could make sense to define data change events that don'
  
  - Where the API resource representations are very different from the datastore representation, but the physical data are easier to reliably process for data integration.
 
- - Publishing aggregated event data that rolls up a set of changes. 
- 
- - Using events to indicate changes in relationship between entities, for example indicating items have had a tag applied to them, or have been classified in some way. 
+ - Publishing aggregated data. For example a data change to an individual entity might cause an event to be published that contains a coarser representation than that defined for an API
 
  - Events that are the result of a computation, such as a matching algorithm, or the generation of enriched data, and which might not be stored as entity by the service. 
 
@@ -114,11 +112,7 @@ The following existing guidelines for API data are applicable to events -
 
 There are a couple of technical considerations to bear in mind when defining event schema -
 
- - Nakadi currently requires JSON Schema format, and does not yet support Open API YAML. It's ok to define your events for peer review in YAML to avoid maintaining duplicate representations.
-
- - Open API's use of JSON Schema varies from the JSON Schema draft-4 specification. An example of this is Open API allowing extension structures such as `x-extensible-enum` that aren't directly expressible in JSON Schema. 
-
-These are best understood as point in time guidance around using Nakadi - as the project develops it may support consuming Open API (or other) structures directly, and the guidance here will be updated. 
+Note that Nakadi currently requires Open API event definitions to be submitted in JSON Schema syntax, and does not yet support Open API YAML. It's ok to define your events for peer review in YAML to avoid maintaining duplicate representations. This is best understood as point in time guidance - as the project develops it may support consuming Open API YAML (or other) structures directly, and the guidance here will be updated. 
 
 ## {{ book.must }} Maintain backwards compatibility for Events
 
