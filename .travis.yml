@@ -5,9 +5,7 @@ node_js:
 
 before_install:
   - sudo -v && wget -nv -O- https://raw.githubusercontent.com/kovidgoyal/calibre/master/setup/linux-installer.py | sudo python -c "import sys; main=lambda:sys.stderr.write('Download failed\n'); exec(sys.stdin.read()); main(install_dir='/usr/local')"
-
-install:
-  - npm install -g
+  - npm install -g gitbook@2.6.7
 
 script:
   - gitbook build
