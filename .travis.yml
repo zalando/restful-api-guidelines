@@ -5,12 +5,10 @@ node_js:
 
 before_install:
   - sudo -v && wget -nv -O- https://raw.githubusercontent.com/kovidgoyal/calibre/master/setup/linux-installer.py | sudo python -c "import sys; main=lambda:sys.stderr.write('Download failed\n'); exec(sys.stdin.read()); main(install_dir='/usr/local')"
-  - npm install -g gitbook@2.6.7
-  - npm install -g gitbook-cli@2.1.3
 
 script:
-  - gitbook build
-  - gitbook pdf . _book/guidelines.pdf
+  - ./node_modules/.bin/gitbook build
+  - ./node_modules/.bin/gitbook pdf . _book/guidelines.pdf
   - grunt deploy
 
 env:
