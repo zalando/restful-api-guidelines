@@ -7,9 +7,8 @@ before_install:
   - sudo -v && wget -nv -O- https://raw.githubusercontent.com/kovidgoyal/calibre/master/setup/linux-installer.py | sudo python -c "import sys; main=lambda:sys.stderr.write('Download failed\n'); exec(sys.stdin.read()); main(install_dir='/usr/local')"
 
 script:
-  - gitbook init
-  - gitbook build
-  - gitbook pdf . _book/guidelines.pdf
+  - gitbook build -v 2.6.7
+  - gitbook pdf -v 2.6.7 . _book/guidelines.pdf
   - grunt deploy
 
 env:
