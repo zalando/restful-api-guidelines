@@ -9,6 +9,7 @@ The following frameworks were specifically designed to support the API First wor
 * [Play Swagger: build RESTful Play services from OpenAPI specification](https://github.com/zalando/play-swagger)
 * [Swagger Codegen: template-driven engine to generate client code in different languages by parsing Swagger Resource Declaration](https://github.com/swagger-api/swagger-codegen)
 * [Swagger Codegen Tooling: plugin for Maven that generates pieces of code from OpenAPI specification](https://github.com/zalando-stups/swagger-codegen-tooling)
+* [Swagger Plugin for IntelliJ IDEA: plugin to help you easily edit Swagger specification files inside IntelliJ IDEA](https://github.com/zalando/intellij-swagger)
 
 The Swagger/OpenAPI homepage lists more [Community-Driven Language Integrations](http://swagger.io/open-source-integrations/),
 but most of them do not fit our API First approach.
