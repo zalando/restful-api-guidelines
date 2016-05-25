@@ -2,10 +2,11 @@
 
 The titles are marked with the corresponding labels: {{ book.must }}, {{ book.should }}, {{ book.could }}.
 
-## {{ book.must }} API First: Define APIs using  OpenAPI YAML or JSON
+## {{ book.must }} API First: Define APIs using OpenAPI
 
 API First is one of our architecture principles, as per our Architecture Rules of Play.
 Define, document and review your APIs before delivering them (also see API review procedure).
+Whether you choose YAML or JSON as a format of your specification file is up to you.
 
 ## {{ book.should }} Provide External Documentation
 
