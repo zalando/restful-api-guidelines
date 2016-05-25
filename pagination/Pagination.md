@@ -56,24 +56,36 @@ Further reading:
 * [Twitter](https://dev.twitter.com/rest/public/timelines)
 * [Use the Index, Luke](http://use-the-index-luke.com/no-offset)
 
-## {{ book.could }} Use Pagination Headers Where Applicable
+## {{ book.could }} Use Pagination Links Where Applicable
 
 * Set `X-Total-Count` to send back the total count of entities.
-* Set the [link headers](http://tools.ietf.org/html/rfc5988#section-5)
-  to provide information to the client about subsequent paging options.
+* Set links to provide information to the client about subsequent paging options.
 
 For example:
 
-    Link: <http://catalog-service.zalando.net/articles?cursor=62726863268328&limit=100>;
-          rel="next"; title="next chunk of articles"
+```http
+HTTP/1.1 200 OK
+Content-Type: application/x.zalando.products+json
+X-Total-Count: 1309
 
-or
-
-    Link: <http://catalog-service.zalando.net/articles?offset=5&limit=100>;
-          rel="prev"; title="previous chunk of articles"
-    Link: <http://catalog-service.zalando.net/articles?offset=205&limit=100>;
-          rel="next"; title="next chunk of articles"
-
+{
+  "_links": {
+    "next": {
+      "href": "http://catalog-service.zalando.net/products?offset=15&limit=5"
+    },
+    "prev": {
+      "href": "http://catalog-service.zalando.net/products?offset=5&limit=5"
+    }
+  },
+  "products": [
+    {"id": "7e4ab218-1772-11e6-892c-836df3feeaee"},
+    {"id": "9469725a-1772-11e6-83c2-ab22ac368913"},
+    {"id": "a3625d80-1772-11e6-9213-d3a20f9e6bf4"},
+    {"id": "a802f070-1772-11e6-a772-c3020d55eb5f"},
+    {"id": "adb407ac-1772-11e6-b255-078fb28ff55b"}
+  ]
+}
+```
 
 [Possible relations](http://www.iana.org/assignments/link-relations/link-relations.xml):
 `next`, `prev`, `last`, `first`

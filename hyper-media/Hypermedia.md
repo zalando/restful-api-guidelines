@@ -39,6 +39,12 @@ Interesting articles for comparisons of different hypermedia formats:
 * [Kevin Sookocheff’s On choosing a hypermedia type for your API](http://sookocheff.com/post/api/on-choosing-a-hypermedia-format/)
 * [Mike Stowe's API Best Practices: Hypermedia](http://blogs.mulesoft.com/dev/api-dev/api-best-practices-hypermedia-part-3/)
 
+## {{ book.must }} Do Not Use Link Headers with JSON entities
+
+We don't allow the use of the [`Link` Header defined by RFC 5988 ](http://tools.ietf.org/html/rfc5988#section-5) 
+in conjunction with JSON media types, and favor [HAL](#must-use-hal) instead. The primary reason is to have a consistent
+place for links as well as the better support for links in JSON payloads compared to the uncommon link header syntax.
+
 ## {{ book.could }} Use URIs for Custom Link Relations
 
 You should consider using a custom link relation if and only if standard [link relations](http://www.iana.org/assignments/link-relations/link-relations.xml)
