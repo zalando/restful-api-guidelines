@@ -14,8 +14,7 @@ Links to other resources must be defined exclusively using [HAL](http://stateles
 preferably using standard [link relations](http://www.iana.org/assignments/link-relations/link-relations.xml).
 
 Clients and Servers are required to support `_links` with its `href` and `rel` attributes, not only at the root level
-but also in nested objects. To reduce the effort needed by clients to process hypertext data from servers it's not
-required to implement CURIEs, URI templates or embedded resources. Nor is it required to support the HAL media type
+but also in nested objects. To reduce the effort needed by clients to process hypertext data from servers it's not recommended to serve data with CURIEs, URI templates or embedded resources. Nor is it required to support the HAL media type
 `application/hal+json`.
 
 We opted for this subset of HAL after conducting a comparison of different hypermedia formats based on properties like:
