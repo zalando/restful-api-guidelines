@@ -1,4 +1,4 @@
-﻿# Common Data Objects
+# Common Data Objects
 
 Definitions of data objects that are good candidates for wider usage:
 
