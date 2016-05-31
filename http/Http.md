@@ -150,6 +150,6 @@ The 'X-RateLimit' headers are:
 
 - `X-RateLimit-Limit`: The maximum number of requests that the client is allowed to make in this window.
 - `X-RateLimit-Remaining`: The number of requests allowed in the current window.
-- `X-RateLimit-Reset`: The time at which the current rate limit window will be reset in seconds as a [Unix timestamp](http://en.wikipedia.org/wiki/Unix_time).
+- `X-RateLimit-Reset`: The relative time in seconds when the rate limit window will be reset.
 
 The reason to allow both approaches is that APIs can have different needs. Retry-After is often sufficient for general load handling and request throttling scenarios and notably, does not strictly require the concept of a calling entity such as a tenant or named account. In turn this allows resource owners to minimise the amount of state they have to carry with respect to client requests. The 'X-RateLimit' headers are suitable for scenarios where clients are associated with pre-existing account or tenancy structures. 'X-RateLimit' headers are generally returned on every request and not just on a 429, which implies the service implementing the API is carrying sufficient state to track the number of requests made within a given window for each named entity.
