@@ -3,7 +3,13 @@
 ## {{ book.must }} Use JSON as the Body Payload
 
 JSON-encode the body payload. The JSON payload must follow [RFC-7159](https://tools.ietf.org/html/rfc7159) by having
-(if possible) a serialized object or array as the top-level object.
+(if possible) a serialized object or array as the top-level object. Please see our [JSON Guidelines](../json-guidelines/JsonGuidelines.md) for
+more guidance.
+
+## {{ book.could }} Use other Media Types than JSON
+
+If for given use case JSON does not make sense, for instance when providing attachments in form of PDFs, you should
+use another, more sufficient media type. But only do this if you can not transfer the information in JSON.
 
 ## {{ book.must }} Use Standard Date and Time Formats
 
