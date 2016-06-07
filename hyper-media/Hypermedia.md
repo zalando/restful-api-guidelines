@@ -28,7 +28,8 @@ We opted for this subset of HAL after conducting a comparison of different hyper
 
 | Standard                                                       | Simplicity | Compatibility | Adoption | Primary Focus           | Docs |
 |----------------------------------------------------------------|------------|---------------|----------|-------------------------|------|
-| [HAL](http://stateless.co/hal_specification.html)              | ✓          | ✓             | ✓        | Links and relationships | ✓    |
+| HAL Subset                                                     | ✓          | ✓             | ✓        | Links and relationships | ✓    |
+| [HAL](http://stateless.co/hal_specification.html)              | ✗          | ✓             | ✓        | Links and relationships | ✓    |
 | [JSON API](http://jsonapi.org/)                                | ✗          | ✗             | ✓        | Response format         | ✓    |
 | [JSON-LD](http://json-ld.org/)                                 | ✗          | ✓             | ?        | Link data               | ?    |
 | [Siren](https://github.com/kevinswiber/siren)                  | ✗          | ✗             | ✗        | Entities and navigation | ✗    |
