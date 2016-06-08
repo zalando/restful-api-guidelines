@@ -143,3 +143,13 @@ are still under review; for example:
 Hint: This versioning scheme differs in the less strict DRAFT aspect from
 [semantic version information](http://semver.org) used for released APIs and
 service applications.
+
+## Deprecating an API
+
+Sometimes it is necessary to phase out an API endpoint (or version). I.E. this may be necessary if a field is no longer supported in the result or a whole business functionality behind an endpoint has to be shut down. There are multiple other reasons as well.
+
+First of all the provider must make sure, that there is no downwards compatible way to maintain the API any longer.
+
+Before shutting down an API (or version of an API) the producer must make sure, that all clients have given their consent to shut down the endpoint. Producers should help consumers to migrate to a potential new endpoint (i.e. by providing a migration manual). After all clients are migrated, the producer may shut down the deprecated API.
+
+If the API is consumed by any external partner, the producer must define a reasonable timespan that the API will be maintained after the producer has announced deprecation. The external partner (client) must agree to this minimum after-deprecation-lifespan before he starts using the API.
