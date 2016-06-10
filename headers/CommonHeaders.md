@@ -1,6 +1,6 @@
 # Common Headers
 
-This section describes a handful of headers, which we found raised the most questions in our daily usage.
+This section describes a handful of headers, which we found raised the most questions in our daily usage, or which are useful in particular circumstances but not widely known.
 
 ## Content-Location
 
@@ -30,3 +30,28 @@ If your API returns the new representation after a PUT, PATCH, or POST you shoul
 to make it explicit, that the returned resource is an up-to-date version.
 
 More details in [rfc7231](https://tools.ietf.org/html/rfc7231#section-3.1.4.2)
+
+
+## {{ book.could }} Use the Prefer header to indicate processing preferences
+
+The  `Prefer` header defined in [RFC7240](https://tools.ietf.org/html/rfc7240) allows clients to request processing behaviors from servers. [RFC7240](https://tools.ietf.org/html/rfc7240) pre-defines a number of preferences and is extensible, to allow others to be defined. Support for the Prefer header is entirely optional and at the discretion of API designers, but as an existing Internet Standard, is recommended over defining proprietary "X-" headers for processing directives. 
+
+The `Prefer` header can defined like this in an API definition:
+
+```yaml
+  Prefer:
+    name: Prefer
+    description: |
+      The RFC7240 Prefer header indicates that particular server 
+      behaviors are preferred by the client but are not required 
+      for successful completion of the request. 
+
+      # (indicate the preferences supported by the API)
+
+    in: header
+    type: string  
+    required: false
+```
+
+Supporting APIs may return the `Preference-Applied` header also defined in [RFC7240](https://tools.ietf.org/html/rfc7240) to indicate whether the preference was applied.
+
