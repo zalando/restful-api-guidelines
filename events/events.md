@@ -50,7 +50,13 @@ Nakadi defines an event for signalling data changes, called a [DataChangeEvent](
 
 - Change events must be published reliably by the service.
 
-- When the `hash` partition strategy is used, change events should identify a partition key that allows all related events for the entity to be consistently to assigned to a partition.
+## {{ book.should }} Use the hash partition strategy for Data Change Events
+
+The `hash` partition strategy allows a producer to define which fields in an event are used as input to compute the partition the event should be added to. 
+
+The `hash` option is particulary useful for data changes as it allows all related events for an entity to be consistently assigned to a partition, providing an ordered stream of events for that entity as they arrive at Nakadi. This is because while each partition has a total ordering, ordering across partitions is not assured, thus it is possible for events sent across partitions to appear in a different order to consumers that the order they arrived at the server. Note that as of the time of writing, random is the default option in Nakadi and thus the `hash` option must be declared when creating the event type.
+
+There may be exceptional cases where data change events could have their partition strategy set to be the producer defined or random options, but generally `hash` is the right option - that is while the guidelines here are a "should", they can be read as "must, unless you have a very good reason". 
 
 ## {{ book.should }} Data Change Events should match API representations
 
