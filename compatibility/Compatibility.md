@@ -152,4 +152,6 @@ First of all the provider must make sure, that there is no downwards compatible 
 
 Before shutting down an API (or version of an API) the producer must make sure, that all clients have given their consent to shut down the endpoint. Producers should help consumers to migrate to a potential new endpoint (i.e. by providing a migration manual). After all clients are migrated, the producer may shut down the deprecated API.
 
+During deprecation phase, the producer should add a `Warning` header field with a message in form of *"The path/operation/parameter/... {name} is deprecated and will be removed by {date}. Please see {link} for details."* with a link to a documantation describing why the API is no longer supported in the current form and what clients should do about it. Clients should monitor the `Warning` header in HTTP responses. Adding the `Warning` header is no sufficient to gain client consent to shut down an API.
+
 If the API is consumed by any external partner, the producer must define a reasonable timespan that the API will be maintained after the producer has announced deprecation. The external partner (client) must agree to this minimum after-deprecation-lifespan before he starts using the API.
