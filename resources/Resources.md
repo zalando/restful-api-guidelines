@@ -50,7 +50,7 @@ However, if the resource can be accessed directly via its unique id, then the AP
 
 ## {{ book.should }} Limit of Resources
 
-To keep maintenance and service evolution manageable, we should follow "functional segmentation" and "separation of concern" design principles and do not mix different business functionalities in same microservice API definition. In this sense the number of resources exposed via API should be limited - our experience is that a typical range for a functional focussed good API is some 4-8 different resources. There may be exceptions with more complex business domains that require more resources, but you should first check if you can split them into separate subdomains with distinct APIs.
+To keep maintenance and service evolution manageable, we should follow "functional segmentation" and "separation of concern" design principles and do not mix different business functionalities in same API definition. In this sense the number of resources exposed via API should be limited - our experience is that a typical range of resources for a well-designed API is between 4 and 8. There may be exceptions with more complex business domains that require more resources, but you should first check if you can split them into separate subdomains with distinct APIs.
 
 ## {{ book.should }} Limit of Sub-Resource Levels
 
