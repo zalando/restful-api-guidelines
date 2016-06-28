@@ -27,9 +27,49 @@ There are several other concerns regarding the promised advantages of HATEOAS (s
 
 If you use HATEOAS please present your findings in the [API Guild \[internal link\]](https://techwiki.zalando.net/display/GUL/API+Guild).
 
+## {{ book.must }} Use a well-defined subset of HAL
+
+Links to other resources must be defined exclusively using [HAL](http://stateless.co/hal_specification.html) and
+preferably using standard [link relations](http://www.iana.org/assignments/link-relations/link-relations.xml).
+
+Clients and Servers are required to support `_links` with its `href` and `rel` attributes, not only at the root level
+but also in nested objects. To reduce the effort needed by clients to process hypertext data from servers it's not recommended to serve data with CURIEs, URI templates or embedded resources. Nor is it required to support the HAL media type
+`application/hal+json`.
+
+We opted for this subset of HAL after conducting a comparison of different hypermedia formats based on properties like:
+
+* Simplicity: resource link syntax and concepts are easy to understand and interpret for API clients.
+* Compatibility: introducing and adding links to resources is not breaking existing API clients.
+* Adoption: use in open-source libraries and tools as well as other companies
+* Docs: degree of good documentation
+
+<p></p>
+
+| Standard                                                       | Simplicity | Compatibility | Adoption | Primary Focus           | Docs |
+|----------------------------------------------------------------|------------|---------------|----------|-------------------------|------|
+| HAL Subset                                                     | ✓          | ✓             | ✓        | Links and relationships | ✓    |
+| [HAL](http://stateless.co/hal_specification.html)              | ✗          | ✓             | ✓        | Links and relationships | ✓    |
+| [JSON API](http://jsonapi.org/)                                | ✗          | ✗             | ✓        | Response format         | ✓    |
+| [JSON-LD](http://json-ld.org/)                                 | ✗          | ✓             | ?        | Link data               | ?    |
+| [Siren](https://github.com/kevinswiber/siren)                  | ✗          | ✗             | ✗        | Entities and navigation | ✗    |
+| [Collection+JSON](http://amundsen.com/media-types/collection/) | ✗          | ✗             | ✗        | Collections and queries | ✗    |
+
+Interesting articles for comparisons of different hypermedia formats:
+* [Kevin Sookocheff’s On choosing a hypermedia type for your API](http://sookocheff.com/post/api/on-choosing-a-hypermedia-format/)
+* [Mike Stowe's API Best Practices: Hypermedia](http://blogs.mulesoft.com/dev/api-dev/api-best-practices-hypermedia-part-3/)
+
+## {{ book.must }} Do Not Use Link Headers with JSON entities
+
+We don't allow the use of the [`Link` Header defined by RFC 5988](http://tools.ietf.org/html/rfc5988#section-5)
+in conjunction with JSON media types, and favor [HAL](#must-use-hal) instead. The primary reason is to have a consistent
+place for links as well as the better support for links in JSON payloads compared to the uncommon link header syntax.
+
 ## {{ book.could }} Use URIs for Custom Link Relations
 
-Related or even embedded (sub-) resources should be linked via “meta link attributes” within the response payload; use here the following [HAL](http://stateless.co/hal_specification.html) compliant syntax:
+You should consider using a custom link relation if and only if standard [link relations](http://www.iana.org/assignments/link-relations/link-relations.xml)
+are not sufficient to express a relation.
+Related or even embedded (sub-) resources should be linked via “meta link attributes” within the response payload; use
+the following [HAL](http://stateless.co/hal_specification.html) compliant syntax:
 
     {
       ...
@@ -39,29 +79,6 @@ Related or even embedded (sub-) resources should be linked via “meta link attr
         }]
       }
     }
-
-Or the [JSON API](http://jsonapi.org/) compliant one where you also embed the entities directly:
-
-    {
-      ...
-      “relationships”: {
-        "my-entities": {
-          "data": [
-            {"id": 1, "type": "my-entity"}
-          ],
-          "links": {
-            "related": "/my-entities/123"
-          }
-        }
-      }
-    }
-
-## {{ book.should }} Use Standards for Hypermedia Link Types, HAL or JSON API recommended
-
-To represent hypermedia links in payload results, we should consider using a standard format like [HAL](http://stateless.co/hal_specification.html), [JSON API](http://jsonapi.org/), [JSON-LD](http://json-ld.org/) with [Hydra](http://www.hydra-cg.com/spec/latest/core/), or [Siren](https://github.com/kevinswiber/siren).  (Hint: Read [Kevin Sookocheff’s post](http://sookocheff.com/post/api/on-choosing-a-hypermedia-format/), for instance, to learn more about the hypermedia types.)
-
-We are in an ongoing discussion in the API guild which standard should be recommended for a certain use case. In the meantime
-we recommend to use [HAL](http://stateless.co/hal_specification.html) or [JSON API](http://jsonapi.org/).
 
 ## {{ book.should }} Allow Optional Embedding of Sub-Resources
 
@@ -77,7 +94,7 @@ See [*Conventional Query Strings*](../naming/Naming.md#could-use-conventional-qu
 Embedded resources requires to change the media type of the response accordingly:
 
 ```http
-GET /order/123?embed=(items)
+GET /order/123?embed=(items) HTTP/1.1
 Accept: application/x.order+json
 ```
 
