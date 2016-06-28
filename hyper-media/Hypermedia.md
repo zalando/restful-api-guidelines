@@ -1,12 +1,31 @@
 # Hypermedia
 
+## {{ book.must }} Use REST Maturity Level 2
+
+We strive for a good implementation of [REST Maturity Level 2](http://martinfowler.com/articles/richardsonMaturityModel.html#level2) as it enables
+us to build resource-oriented APIs that make full use of HTTP verbs and status codes.
+You can see this expressed by many rules throughout these guidelines, e.g.:
+- [Avoid Actions — Think About Resources](../resources/Resources.md#must-avoid-actions-—-think-about-resources)
+- [Keep URLs Verb-Free](../resources/Resources.md#must-keep-urls-verbfree)
+- [Use HTTP Methods Correctly](../http/Http.md#must-use-http-methods-correctly)
+- [Use Meaningful HTTP Status Codes](../http/Http.md#must-use-meaningful-http-status-codes)
+
+Although this is not HATEOAS, it should not prevent you from designing proper link relationships in your APIs as stated in rules below.
+
 ## {{ book.could }} Use HATEOAS
 
-We prefer [REST Maturity Level 2](http://martinfowler.com/articles/richardsonMaturityModel.html#level2). Only if HATEOAS - as [Level 3](http://martinfowler.com/articles/richardsonMaturityModel.html#level3) - adds value to your API, consider using it. Because we are following API First, HATEOAS adds not much value for us in terms of self-descriptiveness. And we don't believe in generic HATEOAS clients which crawl and use APIs on their own. So, only use HATEOAS if your API really defines possible client actions (one part of hypermedia) and leverages other HATEOAS features.
+Although we prefer [REST Maturity Level 2](http://martinfowler.com/articles/richardsonMaturityModel.html#level2), we do not forbid implementing [Level 3](http://martinfowler.com/articles/richardsonMaturityModel.html#level3), which is HATEOAS (Hypertext As the Engine Of Application State). But you should be aware of the shortcomings in our setup.
 
-Decoupled from HATEOAS, adding [links and relationships](#must-use-hal) should be considered as useful addition to APIs as it adds context and helps navigation in APIs to decent degree.
+Because we are following API First principles, HATEOAS brings nothing new to the table in terms of API self-descriptiveness. Furthermore, generic HATEOAS clients which crawl and use APIs on their own are only a theoretical concept so far.
+Our whole internal tooling around APIs like Twintip isn't adjusted for HATEOAS neither. For now, we have not
+seen a good reason to implement HATEOAS in an API.
 
-Additional resources: [Wikipedia](http://en.wikipedia.org/wiki/HATEOAS), [The RESTful CookBook](http://restcookbook.com/Basics/hateoas/)
+There are several other concerns regarding the promised advantages of HATEOAS (see [RESTistential Crisis over Hypermedia APIs](https://www.infoq.com/news/2014/03/rest-at-odds-with-web-apis for detailed discussion)):
+- Hypermedia does not prevent clients from required manual changes when domain model changes over time
+- Hypermedia makes sense for humans, not machines
+- Hypermedia does not prevent API clients to implement shortcuts and directly target resources without 'discovering' them
+
+If you use HATEOAS please present your findings in the [API Guild \[internal link\]](https://techwiki.zalando.net/display/GUL/API+Guild).
 
 ## {{ book.must }} Use a well-defined subset of HAL
 
@@ -41,7 +60,7 @@ Interesting articles for comparisons of different hypermedia formats:
 
 ## {{ book.must }} Do Not Use Link Headers with JSON entities
 
-We don't allow the use of the [`Link` Header defined by RFC 5988](http://tools.ietf.org/html/rfc5988#section-5) 
+We don't allow the use of the [`Link` Header defined by RFC 5988](http://tools.ietf.org/html/rfc5988#section-5)
 in conjunction with JSON media types, and favor [HAL](#must-use-hal) instead. The primary reason is to have a consistent
 place for links as well as the better support for links in JSON payloads compared to the uncommon link header syntax.
 
