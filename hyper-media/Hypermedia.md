@@ -12,18 +12,23 @@ You can see this expressed by many rules throughout these guidelines, e.g.:
 
 Although this is not HATEOAS, it should not prevent you from designing proper link relationships in your APIs as stated in rules below.
 
-## {{ book.could }} Use HATEOAS
+## {{ book.could }} Use REST Maturity Level 3 - HATEOAS
 
-Although we prefer [REST Maturity Level 2](http://martinfowler.com/articles/richardsonMaturityModel.html#level2), we do not forbid implementing [Level 3](http://martinfowler.com/articles/richardsonMaturityModel.html#level3), which is HATEOAS (Hypertext As the Engine Of Application State). But you should be aware of the shortcomings in our setup.
+We do not forbid implementing [REST Maturity Level 3](http://martinfowler.com/articles/richardsonMaturityModel.html#level3).
+But you should be aware of the shortcomings in our setup.
 
-Because we are following API First principles, HATEOAS brings nothing new to the table in terms of API self-descriptiveness. Furthermore, generic HATEOAS clients which crawl and use APIs on their own are only a theoretical concept so far.
-Our whole internal tooling around APIs like Twintip isn't adjusted for HATEOAS neither. For now, we have not
-seen a good reason to implement HATEOAS in an API.
+Because we are following API First principles, HATEOAS brings nothing new to the table in terms of API self-descriptiveness:
+a client finds necessary links in the API definition anyway. Furthermore, generic HATEOAS clients which crawl and
+use APIs on their own are only a theoretical concept so far. Our whole internal tooling around APIs like Twintip isn't
+adjusted for HATEOAS neither. For now, we have not seen a good reason to implement HATEOAS in an API as we are also mostly
+doing service-2-service communication in the backend. We still think that it could be useful in frontend-facing services.
 
 There are several other concerns regarding the promised advantages of HATEOAS (see [RESTistential Crisis over Hypermedia APIs](https://www.infoq.com/news/2014/03/rest-at-odds-with-web-apis for detailed discussion)):
 - Hypermedia does not prevent clients from required manual changes when domain model changes over time
 - Hypermedia makes sense for humans, not machines
 - Hypermedia does not prevent API clients to implement shortcuts and directly target resources without 'discovering' them
+
+As described, HATEOAS brings more complexity than value-add in our setup, so please design your API without it.
 
 If you use HATEOAS please present your findings in the [API Guild \[internal link\]](https://techwiki.zalando.net/display/GUL/API+Guild).
 
