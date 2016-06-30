@@ -21,7 +21,7 @@ Because we are following API First principles, HATEOAS brings nothing new to the
 a client finds necessary links in the API definition anyway. Furthermore, generic HATEOAS clients which crawl and
 use APIs on their own are only a theoretical concept so far. Our whole internal tooling around APIs like Twintip isn't
 adjusted for HATEOAS neither. For now, we have not seen a good reason to implement HATEOAS in an API as we are also mostly
-doing service-2-service communication in the backend. We still think that it could be useful in frontend and human-facing services.
+doing service-to-service communication in the backend. We still think that it could be useful in frontend and human-facing services.
 
 There are several other concerns regarding the promised advantages of HATEOAS (see [RESTistential Crisis over Hypermedia APIs](https://www.infoq.com/news/2014/03/rest-at-odds-with-web-apis for detailed discussion)):
 - Hypermedia does not prevent clients from required manual changes when domain model changes over time
