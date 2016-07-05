@@ -46,6 +46,7 @@ How to do this:
 * Be prepared for new enum values declared with x-extensible-enum (see above);
   provide default behavior for unknown values, if applicable
 * Follow the redirect when the server returns an “HTTP 301 Moved Permanently” response code
+* Be prepared for unexpected status codes, and in case of doubt handle them like you would handle the corresponding x00 code
 
 ## {{ book.should }} Avoid Versioning
 
