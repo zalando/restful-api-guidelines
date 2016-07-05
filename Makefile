@@ -33,7 +33,7 @@ serve: | $(gitbook)
 	$(gitbook) serve
 
 build: | $(gitbook)
-	$(gitbook) build
+	$(gitbook) build -v 2.6.7
 
 publish: build | $(gh_pages)
 	$(gh_pages) -d _book

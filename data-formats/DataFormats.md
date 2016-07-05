@@ -3,8 +3,9 @@
 ## {{ book.must }} Use JSON as the Body Payload
 
 JSON-encode the body payload. The JSON payload must follow [RFC-7159](https://tools.ietf.org/html/rfc7159) by having
-(if possible) a serialized object or array as the top-level object. Please see our [JSON Guidelines](../json-guidelines/JsonGuidelines.md) for
-more guidance.
+(if possible) a serialized object as the top-level structure, since it would allow for future extension.
+This also applies for collection resources where one naturally would assume an array. See the
+[pagination](../pagination/Pagination.md#could-use-pagination-links-where-applicable) section for an example.
 
 ## {{ book.could }} Use other Media Types than JSON
 
@@ -13,13 +14,11 @@ use another, more sufficient media type. But only do this if you can not transfe
 
 ## {{ book.must }} Use Standard Date and Time Formats
 
-* Inside the JSON payload, use the date and time formats defined by [RFC 3339](http://tools.ietf.org/html/rfc3339#section-5.6) — e.g. `2015-05-28T14:09:17+02:00` for a point in time (note that the  [OpenAPI format](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types) "date-time" corresponds to "date-time" in the RFC) and `2015-05-28` for a date (note that the OpenAPI format "date" corresponds to "full-date" in the RFC). Both are specific profiles, a subset of the international standard [ISO 8601](http://en.wikipedia.org/wiki/ISO_8601).
+###JSON Payload
+Read more about date and time format in [Json Guideline](../json-guidelines/JsonGuidelines.md#date-property-values-should-conform-to-rfc-3399).
 
-* In HTTP headers (including the proprietary headers), use the [HTTP date format defined in RFC 7231](http://tools.ietf.org/html/rfc7231#section-7.1.1.1).
-
-A zone offset may be used (both, in request and responses) -- this is simply defined by the standards. However, we encourage to restrict to UTC (and go without offsets) when dates are passed and returned. From experience we know that zone offsets are not easy to understand and often not correctly handled. Note also, that zone offsets are different from local times that may include daylight saving time.
-
-When it comes to storage, all dates should be consistently stored in UTC without zone offset. Localization should be done locally by the services that provide user interfaces, if required.
+###HTTP headers
+Http headers including the proprietary headers. Use the [HTTP date format defined in RFC 7231](http://tools.ietf.org/html/rfc7231#section-7.1.1.1).
 
 ## {{ book.could }} Use Standards for Country, Language and Currency Codes
 
