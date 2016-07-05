@@ -7,6 +7,11 @@ JSON-encode the body payload. The JSON payload must follow [RFC-7159](https://to
 This also applies for collection resources where one naturally would assume an array. See the
 [pagination](../pagination/Pagination.md#could-use-pagination-links-where-applicable) section for an example.
 
+## {{ book.could }} Use other Media Types than JSON
+
+If for given use case JSON does not make sense, for instance when providing attachments in form of PDFs, you should
+use another, more sufficient media type. But only do this if you can not transfer the information in JSON.
+
 ## {{ book.must }} Use Standard Date and Time Formats
 
 ###JSON Payload
