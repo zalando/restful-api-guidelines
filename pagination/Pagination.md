@@ -2,7 +2,7 @@
 
 ## {{ book.must }} Support Pagination
 
-For client side batch processing and iteration experience, access to lists of data items must support pagination. This holds for all lists that are (potentially) larger than just a
+Access to lists of data items must support pagination for best client side batch processing and iteration experience. This holds true for all lists that are (potentially) larger than just a
 few hundred entries.
 
 There are two page iteration techniques:
@@ -20,15 +20,14 @@ cursor-based over offset-based pagination.
 
 ## {{ book.should }} Prefer Cursor-Based Pagination, Avoid Offset-Based Pagination
 
-Cursor-based pagination is better for more efficient implementation, especially when it comes to
+Cursor-based pagination is usually better and more efficient when compared to offset-based pagination. Especially when it comes to
 high-data volumes and / or storage in NoSQL databases.
 
-Before choosing offset-based pagination,  make sure that it is feasible for efficient realization.
-Carefully consider the following trade-offs:
+Before choosing cursor-based pagination, consider the following trade-offs:
 
 * Usability/framework support:
 
-    * offset/limit pagination is more familiar than cursor-based, so it has more framework support and
+    * Offset / limit based pagination is more known than cursor-based pagination, so it has more framework support and
       is easier to use for API clients
 
 * Use case: Jump to a certain page
@@ -38,42 +37,55 @@ Carefully consider the following trade-offs:
 
 * Variability of data may lead to anomalies in result pages
 
-    * Using offset will create duplicates or lead to missed entries if rows are inserted or  deleted,
-      respectively, between fetching two pages
+    * Offset-based pagination may create duplicates or lead to missing entries if rows are inserted or deleted between two subsequent paging requests.
     * When using cursor-based pagination, paging cannot continue when the cursor entry has been
       deleted while fetching two pages
 
-* Performance considerations
-  Efficient server-side processing using offset-based pagination is hardly feasible for...
+* Performance considerations - efficient server-side processing using offset-based pagination is hardly feasible for:
 
-    * higher data list volumes, especially if they do not reside in the database’s main memory
-    * sharded or NoSQL databases
+    * Higher data list volumes, especially if they do not reside in the database’s main memory
+    * Sharded or NoSQL databases
 
-  This also holds for total count and backward iteration support
+* Cursor-based navigation may not work if you need the total count of results and / or backward iteration support
+
 
 Further reading:
 
 * [Twitter](https://dev.twitter.com/rest/public/timelines)
 * [Use the Index, Luke](http://use-the-index-luke.com/no-offset)
+* [Paging in PostgreSQL](https://www.citusdata.com/blog/1872-joe-nelson/409-five-ways-paginate-postgres-basic-exotic)
 
-## {{ book.could }} Use Pagination Headers Where Applicable
+
+## {{ book.could }} Use Pagination Links Where Applicable
 
 * Set `X-Total-Count` to send back the total count of entities.
-* Set the [link headers](http://tools.ietf.org/html/rfc5988#section-5)
-  to provide information to the client about subsequent paging options.
+* Set links to provide information to the client about subsequent paging options.
 
 For example:
 
-    Link: <http://catalog-service.zalando.net/articles?cursor=62726863268328&limit=100>;
-          rel="next"; title="next chunk of articles"
+```http
+HTTP/1.1 200 OK
+Content-Type: application/x.zalando.products+json
+X-Total-Count: 1309
 
-or
-
-    Link: <http://catalog-service.zalando.net/articles?offset=5&limit=100>;
-          rel="prev"; title="previous chunk of articles"
-    Link: <http://catalog-service.zalando.net/articles?offset=205&limit=100>;
-          rel="next"; title="next chunk of articles"
-
+{
+  "_links": {
+    "next": {
+      "href": "http://catalog-service.zalando.net/products?offset=15&limit=5"
+    },
+    "prev": {
+      "href": "http://catalog-service.zalando.net/products?offset=5&limit=5"
+    }
+  },
+  "products": [
+    {"id": "7e4ab218-1772-11e6-892c-836df3feeaee"},
+    {"id": "9469725a-1772-11e6-83c2-ab22ac368913"},
+    {"id": "a3625d80-1772-11e6-9213-d3a20f9e6bf4"},
+    {"id": "a802f070-1772-11e6-a772-c3020d55eb5f"},
+    {"id": "adb407ac-1772-11e6-b255-078fb28ff55b"}
+  ]
+}
+```
 
 [Possible relations](http://www.iana.org/assignments/link-relations/link-relations.xml):
 `next`, `prev`, `last`, `first`
