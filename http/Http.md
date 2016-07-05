@@ -147,7 +147,7 @@ The OpenAPI specification shall include definitions for error descriptions that 
 Service providers should differentiate between technical and functional errors. In most cases it's not useful to document technical errors that are not in control of the service provider unless the status code convey application-specific semantics. The list of status code that can be omitted from API specifications includes but is not limited to:
 - `401 Unauthorized`
 - `403 Forbidden`
-- `404 Not Found` unless it
+- `404 Not Found` unless it has some additional semantics
 - `405 Method Not Allowed`
 - `406 Not Acceptable`
 - `408 Request Timeout`
