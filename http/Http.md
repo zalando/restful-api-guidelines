@@ -161,7 +161,7 @@ Service providers should differentiate between technical and functional errors. 
 
 Even though they might not be documented - they may very much occur in production, so clients should be prepared for unexpected response codes, and in case of doubt handle them like they would handle the corresponding x00 code. Adding new response codes (specially error responses) should be considered a compatible API evolution.
 
-Functional errors on the other hand, that convey domain-specific semantics, must be documented and are are strongly encouraged to be expressed with [*Problem types*](../common-data-objects/CommonDataObjects.md#must-use-common-error-return-objects).
+Functional errors on the other hand, that convey domain-specific semantics, must be documented and are strongly encouraged to be expressed with [*Problem types*](../common-data-objects/CommonDataObjects.md#must-use-common-error-return-objects).
 
 ## {{ book.must }} Use 429 with Headers for Rate Limits
 
