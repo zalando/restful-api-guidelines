@@ -21,7 +21,7 @@ The example defines OAuth2 with implicit flow as security standard used for auth
 
 ## {{ book.must }} Define and Assign Access Rights (Scopes)
 
-Every API needs to define access rights, called scopes here, and every endpoint needs to have at least one scope assigned. Scopes are defined by a name and a description once per API specification, as shown in the previous section. Please refer to the following rules when creating scope names:
+Every API needs to define access rights, called scopes here, and every endpoint needs to have at least one scope assigned. Scopes are defined by name and description per API specification, as shown in the previous section. Please refer to the following rules when creating scope names:
 
 ```
 <api-scope> ::= <api-standard-scope> |            -- should be sufficient for majority of use cases 
