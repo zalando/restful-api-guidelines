@@ -21,3 +21,8 @@ API Viewer (Swagger-UI) for central access to all discovered API definitions.
 For the time being, this document is an appropriate place to mention this rule, even though it is
 not a RESTful API definition rule or related to our STUPS infrastructure for application service
 management.
+
+
+Further reading:
+
+* [Library to make your Spring Boot service crawlable via Twintip](https://github.com/zalando-stups/twintip-spring-web)
