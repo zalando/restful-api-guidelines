@@ -21,3 +21,12 @@ API Viewer (Swagger-UI) for central access to all discovered API definitions.
 For the time being, this document is an appropriate place to mention this rule, even though it is
 not a RESTful API definition rule or related to our STUPS infrastructure for application service
 management.
+
+## {{ book.should }} Enable environment specific host configuration
+
+With [Twintip](http://docs.stups.io/en/latest/components/twintip.html) we also provide a central
+Swagger UI installation from which every API can be used. Every service which implements an API
+should therefore support environment specific host configuration in its OpenAPI definition:
+the endpoint where the service is running should express the actual environment, e.g. for a
+staging system it should be the endpoint of the service in this staging system and not the one for
+production - and vice versa.
