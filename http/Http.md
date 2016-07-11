@@ -25,15 +25,18 @@ Be compliant with the standardized HTTP method semantics summarized as follows:
 
 - partial upload, i.e. only a specific subset of resource fields are replaced
 - usually not robust against non existence of the entity
-- since implementing PATCH correctly is a bit tricky we strongly suggest to choose one and only one of the following patterns per endpoint, unless forced by [a backwards compatible change](../compatibility/Compatibility#compatibility):
-    1. use PUT with a custom media type and only if that isn't sufficient anymore
-    2. use PATCH with [JSON Merge Patch](https://tools.ietf.org/html/rfc7396), a specialized media type 
-       `application/merge-patch+json` that is a partial resource representation. If updates are too complex to be
-       expressed with a merge patch, you should
-    3. use PATCH with [JSON Patch](http://tools.ietf.org/html/rfc6902), a specialized media type 
-       `application/json-patch+json` that includes instructions on how to change the resource
-    4. use POST if the PATCH request does not modify the resource in a way defined by the 
-       semantics of the media type
+- since implementing PATCH correctly is a bit tricky we strongly suggest to choose one
+  and only one of the following patterns per endpoint, unless forced by
+  [a backwards compatible change](../compatibility/Compatibility#compatibility).
+  In preference order:
+     1. use PUT with complete objects to update a resource as long as feasible (i.e. do not use PATCH at all).
+     2. use PATCH with partial objects to only update parts of a resource, when ever possible.
+       (This is basically  [JSON Merge Patch](https://tools.ietf.org/html/rfc7396), a specialized media type
+       `application/merge-patch+json` that is a partial resource representation.)
+     3. use PATCH with [JSON Patch](http://tools.ietf.org/html/rfc6902), a specialized media type
+       `application/json-patch+json` that includes instructions on how to change the resource.
+     4. use POST (with a proper description of what is happening) instead of PATCH if the request does
+        not modify the resource in a way defined by the semantics of the media type.
 
 ### DELETE
 
