@@ -1,6 +1,6 @@
 # Security
 
-## {{ book.must }} Secure endpoints with OAuth 2.0
+## {{ book.must }} Secure Endpoints with OAuth 2.0
 
 Every API endpoint needs to be secured using OAuth 2.0. Please refer to the 
 [official OpenAPI spec](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#security-definitions-object)
@@ -13,25 +13,28 @@ securityDefinitions:
     flow: implicit
     authorizationUrl: https://auth.zalando.com/oauth2/access_token?realm=services
     scopes:
-      uid: Unique identifier of the user accessing the service.
-      fulfillment-order-service.read: Allows to read from the fulfillment order service.
+      fulfillment-order-service.read: Access right needed to read from the fulfillment order service.
+      fulfillment-order-service.write: Access right needed to write to the fulfillment order service.      
 ```
 
-In order to see how to define and assign scopes, please refer to the next section.
+The example defines OAuth2 with implicit flow as security standard used for authentication when accessing endpoints; additionally, there are two API access rights defined via the scopes section for later endpoint authorization usage - please see next section.
 
-## {{ book.must }} Define and assign scopes
+## {{ book.must }} Define and Assign Access Rights (Scopes)
 
-Every API needs to define scopes and every endpoint needs to have at least one scope assigned. Scopes are defined by a name and a description once per API specification, as shown in the previous section. Please refer to the following rules when creating scope names:
+Every API needs to define access rights, called scopes here, and every endpoint needs to have at least one scope assigned. Scopes are defined by name and description per API specification, as shown in the previous section. Please refer to the following rules when creating scope names:
 
 ```
-<scope> ::= <standard-scope> |           -- should be sufficient for majority of use cases 
-            <resource-specific-scope>    -- for special security access differentiation use cases 
-<standard-scope> ::= <application-id>.<access-type> 
-<resource-specific-scope> ::= <application-id>.<resource-id>.<access-type>
+<api-scope> ::= <api-standard-scope> |            -- should be sufficient for majority of use cases 
+                <api-resource-specific-scope> |   -- for special security access differentiation use cases 
+                <api-pseudo-scope>                -- used to explicitly indicate that access is not restricted
+                
+<api-standard-scope>          ::= <application-id>.<access-type> 
+<api-resource-specific-scope> ::= <application-id>.<resource-id>.<access-type>
+<api-pseudo-scope>            ::= uid
 
 <application-id> ::= <as defined via STUPS>
-<access-type> ::= read | write           -- might be extended in future
-<resource-id> ::= <free identifier following application-id syntax>
+<access-type>    ::= read | write           -- might be extended in future
+<resource-id>    ::= <free identifier following application-id syntax>
 ```
 
 APIs should stick to standard scopes by default -- for the majority of use cases, restricting access to specific APIs (with read vs. write differentiation) is sufficient for controlling access for client types like merchant or retailer business partners, customers or operational staff. We want to avoid too many, fine grained scopes increasing governance complexity without real value add. In some situations, where the API serves different types of resources for different owners, resource specific scopes may make sense.
@@ -57,4 +60,20 @@ paths:
           - sales-order-service.sales_order.read
 ```
 
-In very rare cases a whole API or some selected endpoints may not require specific access control. However, to make this explicit you should assign the `uid` scope in this case. It's available to every OAuth2 account by default.
+In very rare cases a whole API or some selected endpoints may not require specific access control. However, to make this explicit you should assign the `uid` pseudo access right scope in this case. It is the user id and always available as OAuth2 default scope. 
+
+```yaml
+paths:
+  /public-information:
+    get:
+      summary: Provides public information about ... 
+               Accessible by any user; no access rights needed. 
+      security:
+        - oauth2:
+          - uid
+```
+
+Hint: you need not explicitly define the "Authorization" header; it is a standard header so to say implicitly defined via the security section.
+
+
+
