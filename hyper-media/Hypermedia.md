@@ -12,20 +12,18 @@ You can see this expressed by many rules throughout these guidelines, e.g.:
 
 Although this is not HATEOAS, it should not prevent you from designing proper link relationships in your APIs as stated in rules below.
 
-## {{ book.could }} Use HATEOAS
+## {{ book.could }} Use REST Maturity Level 3 - HATEOAS
 
-Although we prefer [REST Maturity Level 2](http://martinfowler.com/articles/richardsonMaturityModel.html#level2), we do not forbid implementing [Level 3](http://martinfowler.com/articles/richardsonMaturityModel.html#level3), which is HATEOAS (Hypertext As the Engine Of Application State). But you should be aware of the shortcomings in our setup.
+We do not generally recommend to implement [REST Maturity Level 3](http://martinfowler.com/articles/richardsonMaturityModel.html#level3). HATEOAS comes with additional API complexity without real value in our SOA context where client and server interact via REST APIs and provide complex business functions as part of our e-commerce platform.
 
-Because we are following API First principles, HATEOAS brings nothing new to the table in terms of API self-descriptiveness. Furthermore, generic HATEOAS clients which crawl and use APIs on their own are only a theoretical concept so far.
-Our whole internal tooling around APIs like Twintip isn't adjusted for HATEOAS neither. For now, we have not
-seen a good reason to implement HATEOAS in an API.
-
-There are several other concerns regarding the promised advantages of HATEOAS (see [RESTistential Crisis over Hypermedia APIs](https://www.infoq.com/news/2014/03/rest-at-odds-with-web-apis for detailed discussion)):
-- Hypermedia does not prevent clients from required manual changes when domain model changes over time
-- Hypermedia makes sense for humans, not machines
+Our major concerns regarding the promised advantages of HATEOAS (see also [RESTistential Crisis over Hypermedia APIs](https://www.infoq.com/news/2014/03/rest-at-odds-with-web-apis for detailed discussion), [Why I Hate HATEOAS](https://jeffknupp.com/blog/2014/06/03/why-i-hate-hateoas/) and others):
+- We follow API First principle with APIs explicitly defined outside the code with standard specification language. HATEOAS does not really add value for SOA client engineers in terms of API self-descriptiveness: a client anyway finds necessary links and description how to use methods on endpoints depending on its state in the API definition.
+- Generic HATEOAS clients which need no prior knowledge about APIs and explore API capabilities based on hypermedia information provided, is a theoretical concept that we haven't seen working in practise and does not fit to our SOA set-up. The OpenAPI description format (and tooling based on OpenAPI) doesn't provide sufficient support for HATEOAS either.
+- In practice relevant HATEOAS approximations (e.g. following specifications like HAL or JSON API) support API navigation by abstracting from URL endpoint and HTTP method aspects via link types. So, Hypermedia does not prevent clients from required manual changes when domain model changes over time.
+- Hypermedia make sense for humans, less for SOA machine clients. We would expect use cases where it may provide value more likely in the frontend and human facing service domain.
 - Hypermedia does not prevent API clients to implement shortcuts and directly target resources without 'discovering' them
 
-If you use HATEOAS please present your findings in the [API Guild \[internal link\]](https://techwiki.zalando.net/display/GUL/API+Guild).
+However, we do not forbid HATEOAS; you could use it, if you checked its limitations and still see clear value for your usage scenario that justifies its additional complexity. If you use HATEOAS please share experience and present your findings in the [API Guild \[internal link\]](https://techwiki.zalando.net/display/GUL/API+Guild).
 
 ## {{ book.must }} Use a well-defined subset of HAL
 
