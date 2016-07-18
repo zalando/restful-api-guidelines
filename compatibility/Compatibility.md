@@ -144,7 +144,7 @@ Hint: This versioning scheme differs in the less strict DRAFT aspect from
 [semantic version information](http://semver.org) used for released APIs and
 service applications.
 
-## Deprecating an API
+## {{ book.must }} Deprecating an API
 
 Sometimes it is necessary to phase out an API endpoint (or version). I.e. this may be necessary if a field is no longer supported in the result or a whole business functionality behind an endpoint has to be shut down. There are multiple other reasons as well.
 
