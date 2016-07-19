@@ -16,6 +16,7 @@
 * [Common Data Objects](common-data-objects/CommonDataObjects.md)
 * [Common Headers](headers/CommonHeaders.md)
 * [Proprietary Headers](headers/ProprietaryHeaders.md)
+* [Deprecation](deprecation/Deprecation.md)
 * [API Discovery](api-discovery/ApiDiscovery.md)
 * [Events](events/events.md)
 * [References](references/References.md)
