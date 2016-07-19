@@ -38,7 +38,7 @@ section of the API definition.
 
 ## {{ book.should }} Monitor Usage of Deprecated APIs
 
-Producers should monitor usage of deprecated APIs.
+Producers should monitor usage of deprecated APIs until it the API can be shut down.
 
 ## {{ book.should }} Add a Warning Header to Responses
 
