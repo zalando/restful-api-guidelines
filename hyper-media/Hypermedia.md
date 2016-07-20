@@ -31,8 +31,32 @@ Links to other resources must be defined exclusively using [HAL](http://stateles
 preferably using standard [link relations](http://www.iana.org/assignments/link-relations/link-relations.xml).
 
 Clients and Servers are required to support `_links` with its `href` and `rel` attributes, not only at the root level
-but also in nested objects. To reduce the effort needed by clients to process hypertext data from servers it's not recommended to serve data with CURIEs, URI templates or embedded resources. Nor is it required to support the HAL media type
-`application/hal+json`.
+but also in nested objects. To reduce the effort needed by clients to process hypertext data from servers it's not recommended to serve data with CURIEs, URI templates or embedded resources. Nor is it required to support the HAL media type `application/hal+json`. The following snippet specifies the HAL link structure in JSONSchema:
+
+```yaml
+Link:
+  type: object
+  properties:
+    href:
+      type: string
+      format: uri
+      example: https://api.example.com/sales-orders/10101058747628
+  required:
+    - href
+Links:
+  type: object
+  description: |
+    Values can be either a single Link or an array of Links
+    See https://docs.pennybags.zalan.do/ for more.
+  additionalProperties:
+    # keys are link relations
+    type: array
+    items:
+      $ref: '#/definitions/Link'
+  example:
+    'self':
+      - href: https://api.example.com/sales-orders/10101058747628
+```
 
 We opted for this subset of HAL after conducting a comparison of different hypermedia formats based on properties like:
 
