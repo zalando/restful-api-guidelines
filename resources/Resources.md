@@ -45,8 +45,8 @@ If a sub-resource is only accessible via its parent resource and may not exists 
 
 However, if the resource can be accessed directly via its unique id, then the API should expose it as a top-level resource. For example, customer is a collection for sales orders; however, sales orders have globally unique id and some services may choose to access the orders directly, for instance:
 
-    /customer/1681e6b88ec1
-    /sales-order/5273gh3k525a
+    /customers/1681e6b88ec1
+    /sales-orders/5273gh3k525a
 
 ## {{ book.should }} Limit of Resources
 
