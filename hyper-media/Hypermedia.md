@@ -74,7 +74,7 @@ We opted for this subset of HAL after conducting a comparison of different hyper
 | [JSON API](http://jsonapi.org/)                                | ✗          | ✗             | ✓        | Response format         | ✓    |
 | [JSON-LD](http://json-ld.org/)                                 | ✗          | ✓             | ?        | Link data               | ?    |
 | [Siren](https://github.com/kevinswiber/siren)                  | ✗          | ✗             | ✗        | Entities and navigation | ✗    |
-| [Collection+JSON](http://amundsen.com/media-types/collection/) | ✗          | ✗             | ✗        | Collections and queries | ✗    |
+| [Collection+JSON](http://amundsen.com/media-types/collection/) | ✗          | ✗             | ✗        | Collections and queries | ✓    |
 
 Interesting articles for comparisons of different hypermedia formats:
 * [Kevin Sookocheff’s On choosing a hypermedia type for your API](http://sookocheff.com/post/api/on-choosing-a-hypermedia-format/)
