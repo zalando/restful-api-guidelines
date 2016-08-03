@@ -46,7 +46,7 @@ How to do this:
 * Be prepared for new enum values declared with x-extensible-enum (see above);
   provide default behavior for unknown values, if applicable
 * Follow the redirect when the server returns an “HTTP 301 Moved Permanently” response code
-* Be prepared for unexpected status codes, and in case of doubt handle them like you would handle the corresponding x00 code
+* Be prepared to handle HTTP status codes not explicitly specified in endpoint definitions! Note also, that status codes are extensible -- default handling is how you would treat the corresponding x00 code (see [RFC7231  Section 6](https://tools.ietf.org/html/rfc7231#section-6))
 
 ## {{ book.should }} Avoid Versioning
 
