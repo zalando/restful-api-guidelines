@@ -136,14 +136,32 @@ different HTTP methods on resources.
 | 501 | Not Implemented -  server cannot fulfill the request (usually implies future availability, e.g. new feature). | All |
 | 503 | Service Unavailable - server is (temporarily) not available (e.g. due to overload) -- client retry may be senseful. | All |
 
-All error codes you can find in [RFC7231](https://tools.ietf.org/html/rfc7231#section-6) and [Wikipedia](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes) or via https://httpstatuses.com/<error_code>.
+All error codes can be found in [RFC7231](https://tools.ietf.org/html/rfc7231#section-6) and [Wikipedia](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes) or via https://httpstatuses.com/<error_code>.
 
 ## {{ book.must }} Providing Error Documentation
 
-APIs should define the functional, business view and abstract from implementation aspects. Errors become a key element providing context and visibility into how to use an API. The error object should be extended by an application-specific error identifier since the HTTP status code often is not specific enough to articulate the domain error situation. For this reason, we use a standardized error return object definition — see [*Use Common Error Return Objects*](../common-data-objects/CommonDataObjects.md#must-use-common-error-return-objects).
+APIs should define the functional, business view and abstract from implementation aspects. Errors become a key element providing context and visibility into how to use an API. The error object should be extended by an application-specific error identifier if and only if the HTTP status code is not specific enough to convey the domain-specific error semantic. For this reason, we use a standardized error return object definition — see [*Use Common Error Return Objects*](../common-data-objects/CommonDataObjects.md#must-use-common-error-return-objects).
 
 The OpenAPI specification shall include definitions for error descriptions that will be returned; they are part of the interface definition and provide important information for service clients to handle exceptional situations and support troubleshooting. You should also think about a troubleshooting board — it is part of the associated online API documentation, provides information and handling guidance on application-specific errors and is referenced via links of the API definition. This can reduce service support tasks and contribute to service client and provider performance.
 
+Service providers should differentiate between technical and functional errors. In most cases it's not useful to document technical errors that are not in control of the service provider unless the status code convey application-specific semantics. The list of status code that can be omitted from API specifications includes but is not limited to:
+- `401 Unauthorized`
+- `403 Forbidden`
+- `404 Not Found` unless it has some additional semantics
+- `405 Method Not Allowed`
+- `406 Not Acceptable`
+- `408 Request Timeout`
+- `413 Payload Too Large`
+- `414 URI Too Long`
+- `415 Unsupported Media Type`
+- `500 Internal Server Error`
+- `502 Bad Gateway`
+- `503 Service Unavailable`
+- `504 Gateway Timeout`
+
+Even though they might not be documented - they may very much occur in production, so clients should be prepared for unexpected response codes, and in case of doubt handle them like they would handle the corresponding x00 code. Adding new response codes (specially error responses) should be considered a compatible API evolution.
+
+Functional errors on the other hand, that convey domain-specific semantics, must be documented and are strongly encouraged to be expressed with [*Problem types*](../common-data-objects/CommonDataObjects.md#must-use-common-error-return-objects).
 
 ## {{ book.must }} Use 429 with Headers for Rate Limits
 
