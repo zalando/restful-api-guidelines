@@ -76,6 +76,8 @@ We opted for this subset of HAL after conducting a comparison of different hyper
 | [Siren](https://github.com/kevinswiber/siren)                  | ✗          | ✗             | ✗        | Entities and navigation | ✗    |
 | [Collection+JSON](http://amundsen.com/media-types/collection/) | ✗          | ✗             | ✗        | Collections and queries | ✓    |
 
+We define HAL links to be extensible, i.e. to contain additional properties if needed. For consistency extensions should reuse attributes from the [`Link` header](https://tools.ietf.org/html/rfc5988#section-5). 
+
 Interesting articles for comparisons of different hypermedia formats:
 * [Kevin Sookocheff’s On choosing a hypermedia type for your API](http://sookocheff.com/post/api/on-choosing-a-hypermedia-format/)
 * [Mike Stowe's API Best Practices: Hypermedia](http://blogs.mulesoft.com/dev/api-dev/api-best-practices-hypermedia-part-3/)
