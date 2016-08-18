@@ -2,6 +2,19 @@
 
 This section describes a handful of headers, which we found raised the most questions in our daily usage, or which are useful in particular circumstances but not widely known.
 
+## Content Headers
+
+Content or entity headers are headers with a `Content-` prefix. They describe the content of the body of the message and
+they can be used in both, HTTP requests and responses. Commonly used content headers include but are not limited to:
+
+ - `Content-Disposition`
+ - `Content-Encoding`
+ - `Content-Length`
+ - `Content-Language`
+ - `Content-Location`
+ - `Content-Range`
+ - `Content-Type`
+
 ## Content-Location
 
 This header is used in the response of either a successful read (GET, HEAD) or successful write operation (PUT, POST or PATCH).
