@@ -88,7 +88,7 @@ We don't allow the use of the [`Link` Header defined by RFC 5988](http://tools.i
 in conjunction with JSON media types, and favor [HAL](#must-use-hal) instead. The primary reason is to have a consistent
 place for links as well as the better support for links in JSON payloads compared to the uncommon link header syntax.
 
-## {{ book.could }} Use URIs for Custom Link Relations
+## {{ book.could }} Use Custom Link Relations
 
 You should consider using a custom link relation if and only if standard [link relations](http://www.iana.org/assignments/link-relations/link-relations.xml)
 are not sufficient to express a relation.
@@ -98,11 +98,14 @@ the following [HAL](http://stateless.co/hal_specification.html) compliant syntax
     {
       ...
       “_links”: {
-        “https://docs.team.zalan.do/rels/my-entity”: [{
+        “my-entity”: {
           “href”: “https://service.team.zalan.do/my-entities/123”
-        }]
+        }
       }
     }
+
+In earlier versions of this rule we proposed URIs but dropped that in favor of readability. Since link relations are
+properties in the `_links` object you should define and describe them individually in the API specification. 
 
 ## {{ book.should }} Allow Optional Embedding of Sub-Resources
 
