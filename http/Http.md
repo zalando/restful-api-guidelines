@@ -123,7 +123,6 @@ different HTTP methods on resources.
 | 409 | Conflict - returned if, e.g. when two clients try to create the same resource or if there are concurrent, conflicting updates | PUT, DELETE, PATCH |
 | 412 | Precondition Failed - returned for conditional requests, e.g. If-Match if the condition failed. Used for optimistic locking. | PUT, DELETE, PATCH |
 | 415 | Unsupported Media Type - e.g. clients sends request body without content type | PUT, DELETE, PATCH
-| 422 | Unprocessable Entity - semantic error (as opposed to a syntax error which would usually trigger a 400) | POST, PUT, DELETE, PATCH |
 | 423 | Locked - Pessimistic locking, e.g. processing states | PUT, DELETE, PATCH |
 | 428 | Precondition Required - server requires the request to be conditional (e.g. to make sure that the “lost update problem” is avoided). | All |
 | 429 | Too many requests - the client does not consider rate limiting and sent too many requests. See ["Use 429 with Headers for Rate Limits"](#must-use-429-with-headers-for-rate-limits). | All |
