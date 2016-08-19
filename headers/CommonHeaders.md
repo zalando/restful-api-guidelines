@@ -7,13 +7,13 @@ This section describes a handful of headers, which we found raised the most ques
 Content or entity headers are headers with a `Content-` prefix. They describe the content of the body of the message and
 they can be used in both, HTTP requests and responses. Commonly used content headers include but are not limited to:
 
- - `Content-Disposition`
- - `Content-Encoding`
- - `Content-Length`
- - `Content-Language`
- - `Content-Location`
- - `Content-Range`
- - `Content-Type`
+ - [`Content-Disposition`](https://tools.ietf.org/html/rfc6266)
+ - [`Content-Encoding`](https://tools.ietf.org/html/rfc7231#section-3.1.2.2)
+ - [`Content-Length`](https://tools.ietf.org/html/rfc7230#section-3.3.2)
+ - [`Content-Language`](https://tools.ietf.org/html/rfc7231#section-3.1.3.2)
+ - [`Content-Location`](https://tools.ietf.org/html/rfc7231#section-3.1.4.2)
+ - [`Content-Range`](https://tools.ietf.org/html/rfc7233#section-4.2)
+ - [`Content-Type`](https://tools.ietf.org/html/rfc7231#section-3.1.1.5)
 
 ## Content-Location
 
