@@ -1,5 +1,8 @@
 # Pagination
 
+## {{book.must}} Always Return JSON Objects To Support Future Pagination
+When returning a collection, you must always return a JSON object (and not i.e. an array). This holds true for all collections. If you need to add pagination later, you can easily do so by extending the JSON object without breaking the API.
+
 ## {{ book.must }} Support Pagination
 
 Access to lists of data items must support pagination for best client side batch processing and iteration experience. This holds true for all lists that are (potentially) larger than just a
