@@ -49,7 +49,7 @@ How to do this:
 * Be prepared to handle HTTP status codes not explicitly specified in endpoint definitions! Note also, that status codes are extensible -- default handling is how you would treat the corresponding x00 code (see [RFC7231  Section 6](https://tools.ietf.org/html/rfc7231#section-6))
 
 ## {{book.must}} Always Return JSON Objects As Top-Level Data Structures To Support Extensibility
-In a response body, you must always return a JSON objects (and not i.e. arrays) as a top level data structure to support future extensibility. JSON objects support compatible extension by additional attributes. This allows you to easily extend your response and i.e. add pagination later, without breaking the API.
+In a response body, you must always return a JSON objects (and not i.e. an array) as a top level data structure to support future extensibility. JSON objects support compatible extension by additional attributes. This allows you to easily extend your response and i.e. add pagination later, without breaking the API.
 
 ## {{ book.should }} Avoid Versioning
 
