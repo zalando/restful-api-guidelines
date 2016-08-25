@@ -116,7 +116,7 @@ responses:
         
 ```
 
-## {{ book.must }} An error message must not contain the stack trace.
+## {{ book.must }} Do not expose Stack Traces.
 
 Stack traces contain implementation details that are not part of an API, and on which clients
 should never rely. Moreover, stack traces can leak sensitive information that partners and third

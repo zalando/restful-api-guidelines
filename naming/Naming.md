@@ -8,13 +8,13 @@ Example:
 
 This applies to concrete path segments and not the names of path parameters. For example `{shipment_order_id}` would be ok as a path parameter.
 
-## {{ book.must }} Query parameters must be snake_case (never camelCase)
+## {{ book.must }} Use snake_case (never camelCase) for Query Parameters
 
 Examples:
 
     customer_number, order_id, billing_address
 
-## {{ book.must }} You Must Hyphenate HTTP Headers
+## {{ book.must }} Use Hyphenated HTTP Headers
 
 ## {{ book.should }} Prefer Hyphenated-Pascal-Case for HTTP header Fields
 
