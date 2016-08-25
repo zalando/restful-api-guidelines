@@ -1,6 +1,6 @@
 # API Naming
 
-## {{ book.must }} Path segments must be lowercase separate words with hyphens
+## {{ book.must }} Use lowercase separate words with hyphens for Path Segments
 
 Example:
 
@@ -36,11 +36,11 @@ See also: [HTTP Headers are case-insensitive
 Use [this list](http://en.wikipedia.org/wiki/List_of_HTTP_header_fields) and mention its support in
 your OpenAPI definition.
 
-## {{ book.must }} Always Pluralize Resource Names
+## {{ book.must }} Pluralize Resource Names
 
 Usually, a collection of resource instances is provided (at least API should be ready here). The special case of a resource singleton is a collection with cardinality 1.
 
-## {{ book.could }} First Path segment May be /api
+## {{ book.could }} Use /api as first Path Segment
 
 In most cases, all resources provided by a service are part of the public API, and therefore should
 be made available under the root “/” base path. If  the service should also support non-public,
