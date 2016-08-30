@@ -39,12 +39,12 @@ resource IDs. If URIs are not available POST should be preferred.
 
 POST requests are idiomatically used to create single resources, but other semantics on
 collection resources are equally possible. The semantic is best described as »*please add the
-enclosed representation or execute well a specified request to/on the collection resource
+enclosed representation or execute a well specified request to/on the collection resource
 identified by the URL*«.
 
-- POST request should only be applied to collection resources, and not to single resource, as this
-  has an unclear semantic
-- on successful POST requests, the server will create one or multiple a new resources and provide
+- POST request should only be applied to collection resources, and normally not on single resource,
+  as this has an undefined semantic
+- on successful POST requests, the server will create one or multiple new resources and provide
   their URI/URLs in the response
 - successful POST requests will usually generate 200, if a resources have been updated, 201 if the
   resources have been created, and 202, if the request was accepted but has not been finished
@@ -57,7 +57,7 @@ document the fact that POST is used as a workaround.
 **Note:** Resource IDs for POST are created and maintained by server and returned with response
 payload. Posting the same resource twice is by itself **not** required to be idempotent and may
 result in multiple resource instances. Anyhow, in the presence of external URIs it is best practice
-to provide implement and POST idempotent.
+to implement POST in an idempotent way.
 
 ### PATCH
 
@@ -66,9 +66,9 @@ subset of resource fields should be replaced. The semantic is best described as 
 the resource identified by the URL according to my change request*«. The semantic of the change
 request is undefined and must be described in the API specification.
 
-- PATCH requests are usually applied to single resources, not on collection resources, as this
+- PATCH requests are usually applied to single resources, and not on collection resources, as this
   would imply patching on the entire collection
-- PATCH requests are usually not robust against non existence of resource instances
+- PATCH requests are usually not robust against non-existence of resource instances
 - on successful PATCH requests, the server will update parts of the resource addressed by the URL
   as defined by the change request in the payload
 - successful PATCH requests will usually generate 200, if the resources is updated, or 204, if no
@@ -110,8 +110,8 @@ HEAD request are used to header information of single resources and resource col
 
 OPTIONS are used to inspect the available operations (HTTP methods) of a given endpoint.
 
-- OPTIONS requests usually either return a comma separated list of methods or as a structured list
-  of link templates
+- OPTIONS requests usually either return a comma separated list of methods (provided by an
+  `Allow:`-Header) or as a structured list of link templates
 
 **Note:** OPTIONS is rarely implemented, though it could be used to self-describe the full
 functionality of a resource.
