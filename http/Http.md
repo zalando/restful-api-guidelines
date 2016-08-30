@@ -9,11 +9,12 @@ Be compliant with the standardized HTTP method semantics summarized as follows:
 GET requests are used to read a single resource or query set of resources.
 
 - GET requests for individual resources will usually generate a 404 if the resource does not exist
-- GET requests for collection resources may return either 200 or 404 if the listing is empty
+- GET requests for collection resources may return either 200 (if the listing is empty) or 404 (if
+  the list is missing)
 - GET requests must NOT have request body payload
 
 **Note:** GET requests on collection resources should provide a sufficient filter mechanism as well
-as pagination.
+as [pagination](../pagination/Pagination.md).
 
 ### PUT
 
@@ -27,52 +28,55 @@ the URL*«.
   updating
 - on successful PUT requests, the server will replace the entire resource addressed by the URL with
   the representation passed in the payload
-- successful PUT requests will usually generate 200, if the resources is updated, 201, if the
-  resource is created, or 204, if no content is returned
+- successful PUT requests will usually generate 200 or 204 (if the resources was updated - with or
+  without actual content returned), and 201 (if the resource was created)
 
-**Note:** Resource IDs for PUT are maintained by the client and passed as a URL path segment.
-Putting the same resource twice is required to be idempotent and to result in the same single
-resource instance. If PUT is applied for creating a resource, only URIs should be allowed as
-resource IDs. If URIs are not available POST should be preferred.
+**Note:** Resource IDs with respect PUT requests are maintained by the client and passed as a URL
+path segment. Putting the same resource twice is required to be idempotent and to result in the
+same single resource instance. If PUT is applied for creating a resource, only URIs should be
+allowed as resource IDs. If URIs are not available POST should be preferred.
 
 ### POST
 
-POST requests are idiomatically used to create single resources, but other semantics on
-collection resources are equally possible. The semantic is best described as »*please add the
-enclosed representation or execute a well specified request to/on the collection resource
-identified by the URL*«.
+POST requests are idiomatically used to create single resources on a collection resource endpoint,
+but other semantics on single resources endpoint are equally possible. The semantic for collection
+endpoints is best described as »*please add the enclosed representation to the collection resource
+identified by the URL*«. The semantic for single resource endpoints is best described as »*please
+execute the given well specified request on the collection resource identified by the URL*«.
 
 - POST request should only be applied to collection resources, and normally not on single resource,
   as this has an undefined semantic
 - on successful POST requests, the server will create one or multiple new resources and provide
   their URI/URLs in the response
-- successful POST requests will usually generate 200, if a resources have been updated, 201 if the
-  resources have been created, and 202, if the request was accepted but has not been finished
+- successful POST requests will usually generate 200 (if resources have been updated), 201 (if
+  resources have been created), and 202 (if the request was accepted but has not been finished yet)
 
 **More generally:** POST should be used for scenarios that cannot be covered by the other methods
 sufficiently. For instance, GET with complex (e.g. SQL like structured) query that needs to be
 passed as request body payload because of the URL-length constraint. In such cases, make sure to
 document the fact that POST is used as a workaround.
 
-**Note:** Resource IDs for POST are created and maintained by server and returned with response
-payload. Posting the same resource twice is by itself **not** required to be idempotent and may
-result in multiple resource instances. Anyhow, in the presence of external URIs it is best practice
-to implement POST in an idempotent way.
+**Note:** Resource IDs with respect to POST requests are created and maintained by server and
+returned with response payload. Posting the same resource twice is by itself **not** required to
+be idempotent and may result in multiple resource instances. Anyhow, if external URIs are present
+that can be used to identity duplicate requests, it is best practice to implement POST in an
+idempotent way.
 
 ### PATCH
 
 PATCH request are only used for partial update of single resources, i.e. where only a specific
 subset of resource fields should be replaced. The semantic is best described as »*please change
 the resource identified by the URL according to my change request*«. The semantic of the change
-request is undefined and must be described in the API specification.
+request is not defined in the HTTP standard and must be described in the API specification by
+using suitable media types.
 
 - PATCH requests are usually applied to single resources, and not on collection resources, as this
   would imply patching on the entire collection
 - PATCH requests are usually not robust against non-existence of resource instances
 - on successful PATCH requests, the server will update parts of the resource addressed by the URL
   as defined by the change request in the payload
-- successful PATCH requests will usually generate 200, if the resources is updated, or 204, if no
-  content is returned
+- successful PATCH requests will usually generate 200 or 204 (if resources have been updated
+  - with or without updated content returned)
 
 **Note:** since implementing PATCH correctly is a bit tricky, we strongly suggest to choose one and
 only one of the following patterns per endpoint, unless forced by a [backwards compatible change](
@@ -88,10 +92,11 @@ only one of the following patterns per endpoint, unless forced by a [backwards c
 4. use POST (with a proper description of what is happening) instead of PATCH if the request does
    not modify the resource in a way defined by the semantics of the media type.
 
-In practice [JSON Merge Patch](https://tools.ietf.org/html/rfc7396) quickly turns out to to
-limited, especially when trying to update single objects in large collections. In this cases
-[JSON Patch](http://tools.ietf.org/html/rfc6902) can shown its full power while still showing
-readable patch requests ([see also](http://erosb.github.io/post/json-patch-vs-merge-patch)).
+In practice [JSON Merge Patch](https://tools.ietf.org/html/rfc7396) quickly turns out to be too
+limited, especially when trying to update single objects in large collections (as part of the
+resource). In this cases [JSON Patch](http://tools.ietf.org/html/rfc6902) can shown its full power
+while still showing readable patch requests
+([see also](http://erosb.github.io/post/json-patch-vs-merge-patch)).
 
 ### DELETE
 
@@ -100,14 +105,14 @@ resource identified by the URL*«.
 
 - DELETE requests are usually applied to single resources, not on collection resources, as this
   would imply deleting the entire collection
-- successful DELETE request will usually generate 200, if the deleted resource is returned, or 204,
-  if no content is returned
-- failed DELETE request will usually generate 404, if the resource cannot be found, or 410, if the
-  resource does not exist
+- successful DELETE request will usually generate 200 (if the deleted resource is returned) or 204
+  (if no content is returned)
+- failed DELETE request will usually generate 404 (if the resource cannot be found) or 410 (if the
+  resource was already deleted before)
 
 ### HEAD
 
-HEAD request are used to header information of single resources and resource collections.
+HEAD requests are used retrieve to header information of single resources and resource collections.
 
 - HEAD has exactly the same semantics as GET, but returns headers only, no body.
 
@@ -175,7 +180,8 @@ different HTTP methods on resources.
 | 405 | Method Not Allowed - the method is not supported, see OPTIONS | All |
 | 406 | Not Acceptable - resource can only generate content not acceptable according to the Accept headers sent in the request | All |
 | 408 | Request timeout - the server times out waiting for the resource | All |
-| 409 | Conflict - returned if, e.g. when two clients try to create the same resource or if there are concurrent, conflicting updates | PUT, DELETE, PATCH |
+| 409 | Conflict - request cannot be completed due to conflict, e.g. when two clients try to create the same resource or if there are concurrent, conflicting updates | PUT, DELETE, PATCH |
+| 410 | Gone - resource does not exist any longer, e.g. when accessing a resource that has intentionally been deleted | All |
 | 412 | Precondition Failed - returned for conditional requests, e.g. If-Match if the condition failed. Used for optimistic locking. | PUT, DELETE, PATCH |
 | 415 | Unsupported Media Type - e.g. clients sends request body without content type | PUT, DELETE, PATCH
 | 423 | Locked - Pessimistic locking, e.g. processing states | PUT, DELETE, PATCH |
