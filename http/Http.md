@@ -88,6 +88,11 @@ only one of the following patterns per endpoint, unless forced by a [backwards c
 4. use POST (with a proper description of what is happening) instead of PATCH if the request does
    not modify the resource in a way defined by the semantics of the media type.
 
+In practice [JSON Merge Patch](https://tools.ietf.org/html/rfc7396) quickly turns out to to
+limited, especially when trying to update single objects in large collections. In this cases
+[JSON Patch](http://tools.ietf.org/html/rfc6902) can shown its full power while still showing
+readable patch requests ([see also](http://erosb.github.io/post/json-patch-vs-merge-patch)).
+
 ### DELETE
 
 DELETE request are used to delete resources. The semantic is best described as »*please delete the
