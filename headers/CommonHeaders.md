@@ -2,7 +2,7 @@
 
 This section describes a handful of headers, which we found raised the most questions in our daily usage, or which are useful in particular circumstances but not widely known.
 
-## Content Headers
+## {{ book.must }} Use Content Headers Correctly
 
 Content or entity headers are headers with a `Content-` prefix. They describe the content of the body of the message and
 they can be used in both, HTTP requests and responses. Commonly used content headers include but are not limited to:
@@ -15,7 +15,7 @@ they can be used in both, HTTP requests and responses. Commonly used content hea
  - [`Content-Range`](https://tools.ietf.org/html/rfc7233#section-4.2) is used in responses to range requests to indicate which part of the requested resource representation is delivered with the body.
  - [`Content-Type`](https://tools.ietf.org/html/rfc7231#section-3.1.1.5) indicates the media type of the body content.
 
-## Content-Location
+## {{ book.must }} Use Content-Location Correctly
 
 This header is used in the response of either a successful read (GET, HEAD) or successful write operation (PUT, POST or PATCH).
 
