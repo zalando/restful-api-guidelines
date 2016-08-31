@@ -28,12 +28,12 @@ the URL*«.
   updating
 - on successful PUT requests, the server will replace the entire resource addressed by the URL with
   the representation passed in the payload
-- successful PUT requests will usually generate 200 or 204 (if the resources was updated - with or
+- successful PUT requests will usually generate 200 or 204 (if the resource was updated - with or
   without actual content returned), and 201 (if the resource was created)
 
-**Note:** Resource IDs with respect PUT requests are maintained by the client and passed as a URL
-path segment. Putting the same resource twice is required to be idempotent and to result in the
-same single resource instance. If PUT is applied for creating a resource, only URIs should be
+**Note:** Resource IDs with respect to PUT requests are maintained by the client and passed as a
+URL path segment. Putting the same resource twice is required to be idempotent and to result in
+the same single resource instance. If PUT is applied for creating a resource, only URIs should be
 allowed as resource IDs. If URIs are not available POST should be preferred.
 
 ### POST
@@ -59,7 +59,7 @@ document the fact that POST is used as a workaround.
 **Note:** Resource IDs with respect to POST requests are created and maintained by server and
 returned with response payload. Posting the same resource twice is by itself **not** required to
 be idempotent and may result in multiple resource instances. Anyhow, if external URIs are present
-that can be used to identity duplicate requests, it is best practice to implement POST in an
+that can be used to identify duplicate requests, it is best practice to implement POST in an
 idempotent way.
 
 ### PATCH
