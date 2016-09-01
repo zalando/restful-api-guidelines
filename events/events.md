@@ -8,13 +8,13 @@ Nakadi is a key element for data integration in the architecture, and the standa
 
 Events are part of a service’s interface to the outside world equivalent in standing to a service’s REST API. Services publishing data for integration must treat their events as a first class design concern, just as they would an API. For example this means approaching events with the "API first" principle in mind [as described in the Introduction](../Introduction.md) and making them available for review.
 
-## {{ book.must }} Events define useful business resources
+## {{ book.must }} Ensure that Events define useful business resources
  
  Events are intended to be used by other services including business process/data analytics and monitoring. They should be based around the resources and business processes you have defined for your service domain and adhere to its natural lifecycle (see also "Should: Define useful resources" in the [General Guidelines](../general-guidelines/GeneralGuidelines.md)).
  
  As there is a cost in creating an explosion of event types and topics, prefer to define event types that are abstract/generic enough to be valuable for multiple use cases, and avoid publishing event types without a clear need.
 
-## {{ book.must }} Event Types conform to Nakadi's API
+## {{ book.must }} Ensure that Event Types conform to Nakadi's API
 
 Nakadi defines a structure called an _EventType_, which describes details for a particular kind of event. The EventType declares standard information, such as a name, an owning application (and by implication, an owning team), a well known event category (business process or data change), and a schema defining the event payload. It also allows the declaration of validation and enrichment strategies for events, along with supplemental information such as how events are partitioned in the stream. 
 
@@ -58,7 +58,7 @@ The `hash` option is particulary useful for data changes as it allows all relate
 
 There may be exceptional cases where data change events could have their partition strategy set to be the producer defined or random options, but generally `hash` is the right option - that is while the guidelines here are a "should", they can be read as "must, unless you have a very good reason". 
 
-## {{ book.should }} Data Change Events match API representations
+## {{ book.should }} Ensure that Data Change Events match API representations
 
 A data change event's representation of an entity should correspond to the REST API representation. 
 
@@ -73,13 +73,13 @@ There are cases where it could make sense to define data change events that don'
  - Events that are the result of a computation, such as a matching algorithm, or the generation of enriched data, and which might not be stored as entity by the service. 
 
 
-## {{ book.must }} Event Types indicate ownership
+## {{ book.must }} Indicate ownership of Event Types
 
 Event definitions must have clear ownership - this can be indicated via the `owning_application` field of the EventType. 
 
 Typically there is one producer application, which owns the EventType and is responsible for its definition, akin to how RESTful API definitions are managed. However, the owner may also be a particular service from a set of multiple services that are producing the same kind of event. Please note indicating that a specific application is producing or consuming a specific event type is not yet defined explicitly, but a subject of Nakadi service discovery support functions.
 
-## {{ book.must }} Event Payloads are defined in accordance with the overall Guidelines
+## {{ book.must }} Define Event Payloads in accordance with the overall Guidelines
 
 Events must be consistent with other API data and the API Guidelines in general. 
 
