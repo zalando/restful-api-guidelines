@@ -2,7 +2,7 @@
 
 These guidelines provides recommendations for defining JSON data at Zalando. JSON here refers to [RFC 7159](http://www.rfc-editor.org/rfc/rfc7159.txt) (which updates [RFC 4627](https://www.ietf.org/rfc/rfc4627.txt)), the “application/json” media type and custom JSON media types defined for APIs. The guidelines clarifies some specific cases to allow Zalando JSON data to have an idiomatic form across teams and services. 
 
-## Property Naming
+## {{ book.must }} Use Consistent Property Names
 
 ### {{ book.must }} Property names must be snake_case (and never camelCase).
 
@@ -20,7 +20,7 @@ Most API content is consumed by non-JavaScript clients today, but for security a
 
 To indicate they contain multiple values prefer to pluralize array names. This implies that object names should in turn be singular.
 
-## Property Values
+## {{ book.must }} Use Consistent Property Values
 
 ### {{ book.must }} Boolean property values must not be null
 

@@ -1,6 +1,6 @@
 # Performance
 
-## {{ book.should }} Reducing Bandwidth Needs and Improving Responsiveness
+## {{ book.should }} Reduce Bandwidth Needs and Improve Responsiveness
 
 APIs should support techniques for reducing bandwidth based on client needs. This holds for APIs
 that (might) have high payloads and/or are used in high-traffic scenarios like the public Internet
@@ -19,7 +19,7 @@ below)
 
 Each of these items is described in greater detail below.
 
-## {{ book.should }} gzip Compression
+## {{ book.should }} Use gzip Compression
 
 Compress the payload of your API’s responses with gzip, unless there’s a good reason not
 to — for example,  you are serving so many requests that the time to compress becomes a bottleneck.

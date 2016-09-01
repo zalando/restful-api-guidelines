@@ -67,7 +67,7 @@ Be compliant with the standardized HTTP method semantics summarized as follows:
   of a resource.
 
 
-## {{book.must}}  HTTP Methods must Fulfill Safeness and Idempotency Properties
+## {{book.must}} Fulfill Safeness and Idempotency Properties
 
 An operation can be...
 
@@ -137,7 +137,7 @@ different HTTP methods on resources.
 
 All error codes can be found in [RFC7231](https://tools.ietf.org/html/rfc7231#section-6) and [Wikipedia](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes) or via https://httpstatuses.com/<error_code>.
 
-## {{ book.must }} Providing Error Documentation
+## {{ book.must }} Provide Error Documentation
 
 APIs should define the functional, business view and abstract from implementation aspects. Errors become a key element providing context and visibility into how to use an API. The error object should be extended by an application-specific error identifier if and only if the HTTP status code is not specific enough to convey the domain-specific error semantic. For this reason, we use a standardized error return object definition — see [*Use Common Error Return Objects*](../common-data-objects/CommonDataObjects.md#must-use-common-error-return-objects).
 
