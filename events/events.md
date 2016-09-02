@@ -56,6 +56,8 @@ The `hash` partition strategy allows a producer to define which fields in an eve
 
 The `hash` option is particulary useful for data changes as it allows all related events for an entity to be consistently assigned to a partition, providing an ordered stream of events for that entity as they arrive at Nakadi. This is because while each partition has a total ordering, ordering across partitions is not assured, thus it is possible for events sent across partitions to appear in a different order to consumers that the order they arrived at the server. Note that as of the time of writing, random is the default option in Nakadi and thus the `hash` option must be declared when creating the event type.
 
+When using the `hash` strategy the partition key in almost all cases should represent the entity being changed and not a per event identifier such as the `eid` field. This ensures data changes arrive at the same partition and can be consumed effectively by clients.
+
 There may be exceptional cases where data change events could have their partition strategy set to be the producer defined or random options, but generally `hash` is the right option - that is while the guidelines here are a "should", they can be read as "must, unless you have a very good reason". 
 
 ## {{ book.should }} Ensure that Data Change Events match API representations
