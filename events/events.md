@@ -56,6 +56,8 @@ The `hash` partition strategy allows a producer to define which fields in an eve
 
 The `hash` option is particulary useful for data changes as it allows all related events for an entity to be consistently assigned to a partition, providing an ordered stream of events for that entity as they arrive at Nakadi. This is because while each partition has a total ordering, ordering across partitions is not assured, thus it is possible for events sent across partitions to appear in a different order to consumers that the order they arrived at the server. Note that as of the time of writing, random is the default option in Nakadi and thus the `hash` option must be declared when creating the event type.
 
+When using the `hash` strategy the partition key in almost all cases should represent the entity being changed and not a per event or change identifier such as the `eid` field or a timestamp. This ensures data changes arrive at the same partition for a given entity and can be consumed effectively by clients.
+
 There may be exceptional cases where data change events could have their partition strategy set to be the producer defined or random options, but generally `hash` is the right option - that is while the guidelines here are a "should", they can be read as "must, unless you have a very good reason". 
 
 ## {{ book.should }} Ensure that Data Change Events match API representations
@@ -87,34 +89,17 @@ Everything expressed in the [Introduction to these Guidelines](../Introduction.m
 
 What distinguishes events from other kinds of data is the delivery style used, asynchronous publish-subscribe messaging. But there is no reason why they could not be made available using a REST API, for example via a search request or as a paginated feed, and it will be common to base events on the models created for the service’s REST API. 
 
-The following existing guidelines for API data are applicable to events -
+The following existing guideline sections are applicable to events -
 
-[General Guidelines](../general-guidelines/GeneralGuidelines.md) -
+- [General Guidelines](../general-guidelines/GeneralGuidelines.md) 
 
-- Must: API First: Define APIs using OpenAPI YAML or JSON
-- Must: Write in U.S. English
+- [Naming](../naming/Naming.md)
 
-[Naming](../naming/Naming.md) -
+- [Data Formats](../data-formats/DataFormats.md)
 
-- Must: JSON field names must be snake_case (never camelCase)
+- [Common Data Objects](../common-data-objects/CommonDataObjects.md)
 
-[Data Formats](../data-formats/DataFormats.md) -
-
-- Must: Use JSON as the Body Payload
-- Must: Use Standard Date and Time Formats
-- Could: Use Standards for Country, Language and Currency Codes
-- Could: Use Application-Specific Content Types
-
-[Common Data Objects](../common-data-objects/CommonDataObjects.md) -
-
-- Should: Use a Common Money Object
-- Should: Use Common Address Fields
-
-[Hypermedia](../hyper-media/Hypermedia.md) - 
-
-- Should: Use HATEOAS. The use of hypermedia techniques are equally applicable to events.
-- Could: Use URIs for Custom Link Relations
-- Should: Consider Using a Standard for linked/embedded resources. 
+- [Hypermedia](../hyper-media/Hypermedia.md) - 
 
 There are a couple of technical considerations to bear in mind when defining event schema -
 
