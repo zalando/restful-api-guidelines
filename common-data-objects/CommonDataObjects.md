@@ -121,3 +121,17 @@ responses:
 Stack traces contain implementation details that are not part of an API, and on which clients
 should never rely. Moreover, stack traces can leak sensitive information that partners and third
 parties are not allowed to receive and may disclose insights about vulnerabilities to attackers.
+
+### {{ book.must }} Use common field names
+
+There are some data fields that come up again and again in API data. We describe four here:
+
+- `id`: the identity of the object. If used, IDs must opaque strings and not numbers. IDs are unique within some documented context, are stable and don't change for a given object once assigned, and are never recycled cross entities. 
+
+- `created`: when the object was created. If used this must be a date-time construct.
+
+- `modified`: when the object was updated. If used this must be a date-time construct.
+
+- `type`: the kind of thing this object is. If used this should be a string. Types allow runtime information on the entity provided that otherwise requires examining the Open API file. 
+
+These properties are not always strictly neccessary, but making them idiomatic allows API client developers to build up a common understanding of Zalando's resources. There is very little utility for API consumers in having different names or value types for these fields across APIs. 
