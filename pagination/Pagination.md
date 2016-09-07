@@ -58,7 +58,6 @@ Further reading:
 
 ## {{ book.could }} Use Pagination Links Where Applicable
 
-* Set `X-Total-Count` to send back the total count of entities.
 * Set links to provide information to the client about subsequent paging options.
 
 For example:
@@ -66,7 +65,6 @@ For example:
 ```http
 HTTP/1.1 200 OK
 Content-Type: application/x.zalando.products+json
-X-Total-Count: 1309
 
 {
   "_links": {
@@ -77,6 +75,7 @@ X-Total-Count: 1309
       "href": "http://catalog-service.zalando.net/products?offset=5&limit=5"
     }
   },
+  "total_count": 42,
   "products": [
     {"id": "7e4ab218-1772-11e6-892c-836df3feeaee"},
     {"id": "9469725a-1772-11e6-83c2-ab22ac368913"},
@@ -88,4 +87,14 @@ X-Total-Count: 1309
 ```
 
 [Possible relations](http://www.iana.org/assignments/link-relations/link-relations.xml):
-`next`, `prev`, `last`, `first`
+`next`, `prev`, `last`, `first`.
+
+Previous editions of the guidelines documented the `X-Total-Count` header to send back the total count of entities in conjunction with the `Link` header, which has since been deprecated. Instead when returning an object structure, the count can be added as a JSON property, and this is the preferred way to return count (or other result level) information. 
+
+The `X-Total-Count` is applicable in these cases:
+
+* The API design is still using the `Link` header.
+* The API is returning a non-JSON response media type, and isn't able to carry the information.
+* The JSON response is an array and not an object.
+
+You should avoid providing a total count in your API unless there's a clear need to do so. Very often, there are systems and performance implications to supporting full counts, especially as datasets grow and requests become complex queries or filters that drive full scans (e.g., your database might need to look at all candidate items to count them). While this is an implementation detail relative to the API, it's important to consider your ability to support serving counts over the life of a service.
