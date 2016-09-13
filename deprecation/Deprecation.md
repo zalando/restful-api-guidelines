@@ -38,7 +38,7 @@ section of the API definition.
 
 ## {{ book.must }} Monitor Usage of Deprecated APIs
 
-Producers of APIs with an established productive history must monitor usage of deprecated APIs until the API can be shut down. To identify clients still using a deprecated API, monitoring can e.g. be implemented by logging the client-id retreived from the OAuth token.
+Owners of APIs used in production must monitor usage of deprecated APIs until the API can be shut down. Clients still using a deprecated API can be detected by logging the client-id retrieved via the OAuth token.
 
 ## {{ book.should }} Add a Warning Header to Responses
 
