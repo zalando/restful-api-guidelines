@@ -36,9 +36,9 @@ If `deprecated` is set to `true`, the producer must describe what clients
 should use instead and when the API will be shut down in the `description`
 section of the API definition. 
 
-## {{ book.should }} Monitor Usage of Deprecated APIs
+## {{ book.must }} Monitor Usage of Deprecated APIs
 
-Producers should monitor usage of deprecated APIs until it the API can be shut down.
+Producers of APIs with an established productive history must monitor usage of deprecated APIs until the API can be shut down. To identify clients still using a deprecated API, monitoring can e.g. be implemented by logging the client-id retreived from the OAuth token.
 
 ## {{ book.should }} Add a Warning Header to Responses
 
