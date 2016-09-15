@@ -1,4 +1,4 @@
-# API Discovery
+# API Operation
 
 ## {{ book.must }} Applications Must Provide Online Access to Their API (Swagger) Definitions
 
@@ -26,3 +26,10 @@ management.
 Further reading:
 
 * [Library to make your Spring Boot service crawlable via Twintip](https://github.com/zalando-stups/twintip-spring-web)
+
+## {{ book.should }} Monitor API Usage
+Owners of APIs used in production should monitor API service to get information about its using clients.
+This information, for instance, is useful to identify potential review partner for API changes.
+
+Hint: A preferred way of client detection implementation is by logging of the client-id retrieved from the OAuth token.
+

@@ -17,7 +17,7 @@
 * [Common Headers](headers/CommonHeaders.md)
 * [Proprietary Headers](headers/ProprietaryHeaders.md)
 * [Deprecation](deprecation/Deprecation.md)
-* [API Discovery](api-discovery/ApiDiscovery.md)
+* [API Operation](api-operation/ApiOperation.md)
 * [Events](events/events.md)
 * [References](references/References.md)
 * [Tooling](tooling/Tooling.md)
