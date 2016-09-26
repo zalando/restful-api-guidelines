@@ -98,5 +98,34 @@ Its possible contents:
 * hash of the response body
 * hash of the entity’s last modified field
 
-Also see [*Allow Embedding of Complex Sub-Resources*](../hyper-media/Hypermedia.md#should-allow-embedding-of-complex-subresources)
-below as contribution to performance optimization as to avoid multiple requests for sub-resources.
+Also see [*Allow Embedding of Complex Sub-Resources*](../performance/Performance.md#should-allow-embedding-of-complex-subresources)
+below as contribution to performance optimization to avoid multiple requests for sub-resources.
+
+## {{ book.should }} Allow Optional Embedding of Sub-Resources
+
+Embedding related resources (also know as *Resource expansion*) is a great way to reduce the number of requests. In
+cases where clients know upfront that they need some related resources they can instruct the server to prefetch that
+data eagerly. Whether this is optimized on the server, e.g. a database join, or done in a generic way, e.g. an HTTP
+proxy that transparently embeds resources, is up to the implementation.
+
+See [*Conventional Query Strings*](../naming/Naming.md#could-use-conventional-query-strings) for naming. Please use [json-fields](https://github.com/zalando/json-fields) library, already mentioned above for filtering, when it comes to an embedding query syntax.
+
+Embedding a sub-resource can possibly look like this where an order resource has its order items as sub-resource (/order/{orderId}/items):
+
+```http
+GET /order/123?embed=(items) HTTP/1.1
+
+{
+  "orderId": 123,
+  "items": [
+    {
+      "position": 1,
+      "sku": "1234-ABCD-7890",
+      "price": {
+        "amount": 71.99,
+        "currency": "EUR"
+      }
+    }
+  ]
+}
+```
