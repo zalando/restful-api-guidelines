@@ -126,7 +126,7 @@ These are considered backwards-incompatible changes, as seen by consumers  -
 - Changing the type of a field, object, enum or array.
 - Changing the order of values with different type in an array (also known as a tuple).
 - Adding a new optional field to redefine the meaning of an existing field (also known as a co-occurrence constraint).
-- Adding a value to an enumeration (note that `x-extensible-enum` is not available in JSON Schema).
+- Adding a value to an enumeration (note that [`x-extensible-enum`](../compatibility/Compatibility.md#should-used-openended-list-of-values-xextensibleenum-instead-of-enumerations) is not available in JSON Schema).
 
 ## {{ book.must }} Use unique Event identifiers
 
