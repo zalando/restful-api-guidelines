@@ -116,16 +116,18 @@ Embedding a sub-resource can possibly look like this where an order resource has
 GET /order/123?embed=(items) HTTP/1.1
 
 {
-  "orderId": 123,
-  "items": [
-    {
-      "position": 1,
-      "sku": "1234-ABCD-7890",
-      "price": {
-        "amount": 71.99,
-        "currency": "EUR"
+  "id": "123",
+  "_embedded": {
+    "items": [
+      {
+        "position": 1,
+        "sku": "1234-ABCD-7890",
+        "price": {
+          "amount": 71.99,
+          "currency": "EUR"
+        }
       }
-    }
-  ]
+    ]
+  }
 }
 ```
