@@ -22,6 +22,14 @@ An EventType is registered with Nakadi via its _Schema Registry API_. Once the E
 
 The service specific data defined for an event is called the _payload_. Only this non-Nakadi defined part of the event is expected to be submitted with the EventType schema.  When defining an EventType's payload schema as part of your API and for review purposes, it's ok to declare the payload as an object definition using Open API, but please note that Nakadi currently expects the EventType's schema to be submitted as JSON Schema and not as Open API JSON or YAML. Further details on how to register EventTypes are available in the Nakadi project's documentation.
 
+## {{ book.must }} Events must not provide sensitive customer personal data.
+
++Similar to API permission scopes, there will be Event Type permissions passed via an OAuth token supported in near future by the Nakadi API. Hence, Nakadi will restrict event data access to clients with sufficient authorization. However, teams are asked to note the following:
+
+ - Sensitive data, such as (e-mail addresses, phone numbers, etc) are subject to strict access and data protection controls. 
+ 
+ - Event type owners **must not** publish sensitive information unless it's mandatory or neccessary to do so. For example, events sometimes need to provide personal data, such as delivery addresses in shipment orders  (as do other APIs), and this is fine.
+
 ## {{ book.must }} Use Business Events to signal steps and arrival points in business processes
 
 Nakadi defines a specific event type for business processes, called [BusinessEvent](https://github.com/zalando/nakadi/blob/nakadi-jvm/api/nakadi-event-bus-api.yaml#/definitions/BusinessEvent). When publishing events that represent steps in a business process, event types must be based on the BusinessEvent type.
