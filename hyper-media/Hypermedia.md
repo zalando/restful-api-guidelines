@@ -76,7 +76,7 @@ We opted for this subset of HAL after conducting a comparison of different hyper
 | [Siren](https://github.com/kevinswiber/siren)                  | ✗          | ✗             | ✗        | Entities and navigation | ✗    |
 | [Collection+JSON](http://amundsen.com/media-types/collection/) | ✗          | ✗             | ✗        | Collections and queries | ✓    |
 
-We define HAL links to be extensible, i.e. to contain additional properties if needed. For consistency extensions should reuse attributes from the [`Link` header](https://tools.ietf.org/html/rfc5988#section-5). 
+We define HAL links to be extensible, i.e. to contain additional properties if needed. For consistency extensions should reuse attributes from the [`Link` header](https://tools.ietf.org/html/rfc5988#section-5).
 
 Interesting articles for comparisons of different hypermedia formats:
 * [Kevin Sookocheff’s On choosing a hypermedia type for your API](http://sookocheff.com/post/api/on-choosing-a-hypermedia-format/)
@@ -98,34 +98,11 @@ the following [HAL](http://stateless.co/hal_specification.html) compliant syntax
     {
       ...
       “_links”: {
-        “my-entity”: {
+        “my-relation”: {
           “href”: “https://service.team.zalan.do/my-entities/123”
         }
       }
     }
 
 In earlier versions of this rule we proposed URIs but dropped that in favor of readability. Since link relations are
-properties in the `_links` object you should define and describe them individually in the API specification. 
-
-## {{ book.should }} Allow Optional Embedding of Sub-Resources
-
-Embedding related resources (also know as *Resource expansion*) is a great way to reduce the number of requests. In
-cases where clients know upfront that they need some related resources they can instruct the server to prefetch that
-data eagerly. Whether this is optimized on the server, e.g. a database join, or done in a generic way, e.g. an HTTP
-proxy that transparently embeds resources, is up to the implementation.
-
-See [*Conventional Query Strings*](../naming/Naming.md#could-use-conventional-query-strings) for naming.
-
-## {{ book.must}} Modify the Content-Type for Embedded Resources
-
-Embedded resources requires to change the media type of the response accordingly:
-
-```http
-GET /order/123?embed=(items) HTTP/1.1
-Accept: application/x.order+json
-```
-
-```http
-HTTP/1.1 200 OK
-Content-Type: application/x.order+json;embed=(items)
-```
+properties in the `_links` object you should define and describe them individually in the API specification.
