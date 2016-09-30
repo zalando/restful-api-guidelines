@@ -9,7 +9,7 @@ Define, document and review your APIs before delivering them (also see API revie
 Whether you choose YAML or JSON as a format of your OpenAPI API specification file is up to you; 
 however, YAML is generally preferred due to its improved readability. 
 We also call the OpenAPI API specification the "API Reference Definition"; 
-it provides all information needed by an experienced API user developer to use this API. 
+it provides all information needed by an experienced API client developer to use this API. 
 
 
 
