@@ -1,5 +1,6 @@
 # Summary
 
+* [Introduction](README.md)
 * [Table of Contents](TOC.md)
 * [Design Principles](design-principles/DesignPrinciples.md)
 * [General Guidelines](general-guidelines/GeneralGuidelines.md)
@@ -21,3 +22,4 @@
 * [Events](events/events.md)
 * [References](references/References.md)
 * [Tooling](tooling/Tooling.md)
+* [Changelog](changelog/Changelog.md)
