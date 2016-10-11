@@ -55,7 +55,7 @@ it provides all information needed by an experienced API client developer to use
 
 The OpenAPI API specification file should be subject of version control together with source code management. 
 Services also have to support an
-[access endpoint to the API Reference definition](../api-operation/ApiOperation.md#must-Provide-Online-Access-to-OpenAPI-Reference-Definition) for their external API(s). 
+[endpoint to access the API Reference definition](../api-operation/ApiOperation.md#must-Provide-Online-Access-to-OpenAPI-Reference-Definition) for their external API(s). 
 
 
 ## {{ book.should }} Provide User Manual Documentation
