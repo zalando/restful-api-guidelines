@@ -40,4 +40,4 @@ Previously, this guideline allowed the use of custom media types like `applicati
 This usage is not recommended anymore and should be avoided, except where it is necessary for cases
 of [media type versioning](../compatibility/Compatibility.md#must-use-media-type-versioning). Instead, the standard media type name `application/json` (or [`application/problem+json` for HTTP error details](http://zalando.github.io/restful-api-guidelines/common-data-objects/CommonDataObjects.html#must-use-problem-json)) should be used for JSON-formatted data.
 
-Custom media types with subtypes beginning with `x` bring no advantage compared to the standard media type for JSON, and make automated processing more difficult. They are also discouraged by [RFC 6838](https://tools.ietf.org/html/rfc6838#section-3.4).
+Custom media types with subtypes beginning with `x` bring no advantage compared to the standard media type for JSON, and make automated processing more difficult. They are also [discouraged by RFC 6838](https://tools.ietf.org/html/rfc6838#section-3.4).
