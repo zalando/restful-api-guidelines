@@ -2,7 +2,7 @@
 
 ## {{ book.must }} Provide Online Access to OpenAPI Reference Definition
 
-All service applications must online provide the OpenAPI Reference Definition for their external APIs — it 
+All service applications must support access to the OpenAPI Reference Definitions of their external APIs — it 
 is optional for internal APIs — via the following two API endpoints:  
 
 * endpoint(s) for GET access on its OpenAPI definition(s), for instance
@@ -13,9 +13,9 @@ is optional for internal APIs — via the following two API endpoints:
 Hint: Though discovery endpoints have to be supported, they should not be specified in the OpenAPI definition 
 as they are generic and provide no API specific information.
 
-We differ between internal and external APIs of an application which is owned by a specific team and often 
-implemented via small set of services. An external API is used by clients outside the team - usually an 
-other application owned by a different team or even an external business partner user of our platform. 
+We distinguish between internal and external APIs of an application which is owned by a specific team and often 
+implemented via small set of services. An external API is used by clients outside the team - usually 
+another application owned by a different team or even an external business partner user of our platform. 
 An internal API is only used within the application and only by the owning team, for instance, 
 for operational or implementation internal purposes. 
 
