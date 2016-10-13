@@ -1,26 +1,33 @@
 # API Operation
 
-## {{ book.must }} Applications Must Provide Online Access to Their API (Swagger) Definitions
+## {{ book.must }} Provide Online Access to OpenAPI Reference Definition
 
-In our dynamic and complex service infrastructure, it is important to provide a central place with
-online access to the API definitions of all running applications. All service applications must
-provide the following two API endpoints:
+All service applications must support access to the OpenAPI Reference Definitions of their external APIs — it 
+is optional for internal APIs — via the following two API endpoints:  
 
-* endpoint(s) for GET access on its API OpenAPI definition(s), for instance
+* endpoint(s) for GET access on its OpenAPI definition(s), for instance
   `https://example.com/swagger.json` or `https://example.com/swagger.yaml`.
 * “Twintip” discovery endpoint `https://example.com/.well-known/schema-discovery` that delivers
   the OpenAPI definition endpoint(s) above (see the link below for a description of its format).
 
-Note, these discovery endpoints have to be supported but need not be part of the OpenAPI definition as there is no API specific information in their description.
+Hint: Though discovery endpoints have to be supported, they should not be specified in the OpenAPI definition 
+as they are generic and provide no API specific information.
 
-Background: [Twintip](http://docs.stups.io/en/latest/components/twintip.html) is an API definition
-crawler of the STUPS infrastructure; it checks all running applications via the endpoint above and
+We distinguish between internal and external APIs of an application which is owned by a specific team and often 
+implemented via small set of services. An external API is used by clients outside the team - usually 
+another application owned by a different team or even an external business partner user of our platform. 
+An internal API is only used within the application and only by the owning team, for instance, 
+for operational or implementation internal purposes. 
+
+Background: In our dynamic and complex service infrastructure, it is important to provide API client 
+developers a central place with online access to the OpenAPI reference definitions of all running applications. 
+[Twintip](http://docs.stups.io/en/latest/components/twintip.html) is an API definition
+crawler of the Zalando platform infrastructure; it checks all running applications via the endpoint above and
 stores the discovered API definitions. Twintip itself provides a RESTful API as well as an
 API Viewer (Swagger-UI) for central access to all discovered API definitions.
 
-For the time being, this document is an appropriate place to mention this rule, even though it is
-not a RESTful API definition rule or related to our STUPS infrastructure for application service
-management.
+Editorial: For the time being, this document is an appropriate place to mention this rule, even though it is
+not a RESTful API definition rule but related to service implementation obligations to support client developer API discovery. 
 
 
 Further reading:
