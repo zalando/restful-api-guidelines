@@ -21,3 +21,4 @@
 * [Events](events/events.md)
 * [References](references/References.md)
 * [Tooling](tooling/Tooling.md)
+* [Changelog](changelog/Changelog.md)
