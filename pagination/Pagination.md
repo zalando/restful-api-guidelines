@@ -63,8 +63,11 @@ Further reading:
 For example:
 
 ```http
+GET http://catalog-service.zalando.net/products?offset=10&limit=5 HTTP/1.1
+Accept: application/json
+
 HTTP/1.1 200 OK
-Content-Type: application/x.zalando.products+json
+Content-Type: application/json
 
 {
   "_links": {

@@ -38,7 +38,7 @@ Depending on your use case and payload size, you can significantly reduce networ
 GET http://api.example.org/resources/123 HTTP/1.1
 
 HTTP/1.1 200 OK
-Content-Type: application/x.person+json
+Content-Type: application/json
 
 {
   "id": "cddd5e44-dae0-11e5-8c01-63ed66ab2da5",
@@ -60,7 +60,7 @@ Content-Type: application/x.person+json
 GET http://api.example.org/resources/123?fields=(name,partner(name)) HTTP/1.1
 
 HTTP/1.1 200 OK
-Content-Type: application/x.person+json;fields=(name,partner(name))
+Content-Type: application/json
 
 {
   "name": "John Doe",

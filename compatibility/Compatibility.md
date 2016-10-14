@@ -105,12 +105,16 @@ application/x.zalando.cart+json;version=2. For incompatible changes, a new
 media type version for the resource is created. To generate the new
 representation version, consumer and producer can do content negotiation using
 the HTTP Content-Type and Accept headers. Note: This versioning only applies to
-the content schema, not to URI or method semantics.
+the request and response content schema, not to URI or method semantics.
 
-In this example, a client wants only the new version:
+In this example, a client wants only the new version of the response:
+
+    Accept: application/x.zalando.cart+json;version=2
+
+A server responding to this, as well as a client sending a request with content should use the Content-Type header, declaring that one is sending the new version:
 
     Content-Type: application/x.zalando.cart+json;version=2
-    Accept: application/x.zalando.cart+json;version=2
+
 
 Using header versioning should:
 
@@ -120,8 +124,12 @@ Using header versioning should:
 Hint: [OpenAPI currently doesn’t support content
 negotiation](https://github.com/OAI/OpenAPI-Specification/issues/146), though [a comment in this
 issue](https://github.com/OAI/OpenAPI-Specification/issues/146#issuecomment-117288707) mentions
-a workaround (using a fragment identifier that
-gets stripped off).
+a workaround (using a fragment identifier that gets stripped off).
+Another way would be to document just the new version, but let the server accept the old
+one (with the previous content-type).
+
+Until an incompatible change is necessary, it is recommended to stay with the standard
+`application/json` media type.
 
 ## {{ book.must }} Do Not Use URI Versioning
 

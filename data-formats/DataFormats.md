@@ -34,9 +34,10 @@ Use the following standard formats for country, language and currency codes:
 
 * [ISO 4217 currency codes](https://en.wikipedia.org/wiki/ISO_4217)
 
-## {{ book.could }} Use Application-Specific Content Types
+## {{ book.should }} Prefer standard Media type name `application/json`
 
-For instance, `application/x.zalando.article+json`. For complex types, it’s better to have a
-specific content type. For simple use cases this isn’t necessary. We can attach version info to
-media type names and support content negotiation to get different representations, e.g.
-`application/x.zalando.article+json;version=2`.
+Previously, this guideline allowed the use of custom media types like `application/x.zalando.article+json`.
+This usage is not recommended anymore and should be avoided, except where it is necessary for cases
+of [media type versioning](../compatibility/Compatibility.md#must-use-media-type-versioning). Instead, the standard media type name `application/json` (or [`application/problem+json` for HTTP error details](http://zalando.github.io/restful-api-guidelines/common-data-objects/CommonDataObjects.html#must-use-problem-json)) should be used for JSON-formatted data.
+
+Custom media types with subtypes beginning with `x` bring no advantage compared to the standard media type for JSON, and make automated processing more difficult. They are also [discouraged by RFC 6838](https://tools.ietf.org/html/rfc6838#section-3.4).
