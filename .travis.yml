@@ -1,5 +1,9 @@
 language: node_js
 
+cache:
+  directories:
+    - node_modules
+
 node_js:
   - "5.1"
 
@@ -7,6 +11,7 @@ before_install:
   - sudo -v && wget -nv -O- https://raw.githubusercontent.com/kovidgoyal/calibre/master/setup/linux-installer.py | sudo python -c "import sys; main=lambda:sys.stderr.write('Download failed\n'); exec(sys.stdin.read()); main(install_dir='/usr/local')"
 
 script:
+  - gitbook install -v 2.6.7
   - gitbook build -v 2.6.7
   - gitbook pdf -v 2.6.7 . _book/guidelines.pdf
   - grunt deploy

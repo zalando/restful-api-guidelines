@@ -13,7 +13,8 @@
   "plugins": [
     "structured-toc",
     "restructure-navigation",
-    "anchors"
+    "anchors",
+    "edit-link"
   ],
   "pluginsConfig": {
     "structured-toc": {},
@@ -24,6 +25,9 @@
           "to": 1
         }
       ]
+    },
+    "edit-link": {
+      "base": "https://github.com/zalando/restful-api-guidelines/edit/master"
     }
   }
 }
