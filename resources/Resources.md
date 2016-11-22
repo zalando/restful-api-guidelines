@@ -37,6 +37,14 @@ Examples:
     /carts/1681e6b88ec1/items
     /carts/1681e6b88ec1/items/1
 
+
+## {{ book.should }} Only Use UUID If Necessary
+
+In most situations, using either an integer ID or a manually assigned code (like `WH-DE-EF` for the Erfurt warehouse, and `WH-IT-ST` for Stradella) is better than using a UUID. UUID's are very long (36 characters), which makes them hard to read, remember and reason about &mdash; both for developers, and even more so for end users (in case the ID is ever exposed to them). Use of UUID's is especially discouraged for any kind of reference data with low cardinality.
+
+The main advantage of UUID's is the fact that they can be generated in a distributed fashion without risk of conflict, but they should only be used as a "measure of last resort".
+
+
 ## {{ book.could }} Consider Using (Non-) Nested URLs
 
 If a sub-resource is only accessible via its parent resource and may not exists without parent resource, consider using a nested URL structure, for instance:
