@@ -19,7 +19,7 @@ securityDefinitions:
 
 The example defines OAuth2 with password flow as security standard used for authentication when accessing endpoints; additionally, there are two API access rights defined via the scopes section for later endpoint authorization usage - please see next section.
 
-It little sense specifying the flow to retrieve OAuth tokens in the `securityDefinitions` section, as API endpoints should not care, how OAuth tokens were created. Unfortunately the `flow` field is mandatory and cannot be ommited. API endpoints should always set `flow: password` and ignore this information.
+It makes little sense specifying the flow to retrieve OAuth tokens in the `securityDefinitions` section, as API endpoints should not care, how OAuth tokens were created. Unfortunately the `flow` field is mandatory and cannot be ommited. API endpoints should always set `flow: password` and ignore this information.
 
 ## {{ book.must }} Define and Assign Access Rights (Scopes)
 
