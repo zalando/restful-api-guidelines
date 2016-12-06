@@ -17,11 +17,17 @@ they can be used in both, HTTP requests and responses. Commonly used content hea
 
 ## {{ book.must }} Use Content-Location Correctly
 
-This header is used in the response of either a successful read (GET, HEAD) or successful write operation (PUT, POST or PATCH).
+The Content-Location header is *optional* and can be used in successful write operations (PUT, POST or PATCH) or read operations (GET, HEAD) to signal the receiver the actual location of the resource transmitted in the response body. This allows clients to identify the resource and to update their local copy when receiving a response with this header.
 
-In the case of the GET requests it points to a location where an alternate representation of the
-entity in the response body can be found. In this case one
-has to set the Content-Type header as well. For example:
+The Content-Location header can be used to support the following use cases:
+
+- For reading operations GET and HEAD, a different location than the requested URI can be used to indicate that the returned resource is subject to content negotiations, and that the value provides a more specific identifier of the resource.
+- For writing operations PUT and PATCH, an identical location to the requested URI, can be used to explicitly indicate that the returned resource is the current representation of the newly created or updated resource.
+- For writing operations POST and DELETE, a content location can be used to indicate that the body contains a status report resource in response to the requested action, which is available at provided location.
+
+**Note**: The standard application of the last use case is the creation of resource via POST, where the Content-Location is used to provide the location and identity of the created resource.
+
+When using the Content-Location header, the Content-Type header has to be set as well. For example:
 
 ```http
 GET /products/123/images HTTP/1.1
@@ -31,18 +37,9 @@ Content-Type: image/png
 Content-Location: /products/123/images?format=raw
 ```
 
-In the case of mutating HTTP methods, the Content-Location header can be used when there is a response body,
-and then it indicates that the included response body can be found at the location indicated in the header.
+As the correct interpretation of Content-Location with respect to semantics and cache results is difficult, we advise to not make use of Content-Location at all. It is sufficient to direct the clients to the resource location by the Location header instead.
 
-If the header value is the same as the location of the created resource (as indicated by the Location header
-after POST) or the modified resource (as indicated by the request URI after PUT / PATCH), then the returned
-body is indeed the current representation of the entity making a subsequent GET operation from the client side
-not necessary.
-
-If your API returns the new representation after a PUT, PATCH, or POST you should include the Content-Location header
-to make it explicit, that the returned resource is an up-to-date version.
-
-More details in [rfc7231](https://tools.ietf.org/html/rfc7231#section-3.1.4.2)
+More details in RFC 7231 [7.1.2 Location](https://tools.ietf.org/html/rfc7231#section-7.1.2), [3.1.4.2 Content-Location](https://tools.ietf.org/html/rfc7231#section-3.1.4.2)
 
 
 ## {{ book.could }} Use the Prefer header to indicate processing preferences
