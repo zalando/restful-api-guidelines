@@ -40,11 +40,33 @@ Examples:
 
 ## {{ book.should }} Only Use UUIDs If Necessary
 
-The main advantage of UUIDs is the fact that they can be generated in a distributed way without risk of conflict, and that they are unique across different resources. Nevertheless, they should only be used if those properties are really needed.
+Generating IDs can be a scaling problem in high frequency and near real time use cases. 
+UUIDs solve this problem, as they can be generated without collisions in a distributed, 
+non-coordinated way and without additional server roundtrips.
 
-In most situations, using either an integer ID or a (manually assigned) code string is better than using a UUID. They are very long (36 characters), which makes them hard to read, memorize and reason about &mdash; both for internal users, and even more so for end users (in case the ID is ever exposed to them).
+However, they also come with some disadvantages:
 
-Use of UUIDs is especially discouraged for any kind of reference data with low cardinality.
+* pure technical key without meaning; not ready for naming or name scope conventions 
+that might be helpful for pragmatic reasons, e.g. we learned to use names for 
+product attributes, instead of UUIDs 
+* less usable, because...
+   * cannot be memorized and easily communicated by humans
+   * harder to use in debugging and logging analysis
+   * less convenient for consumer facing usage
+* quite long: readable representation requires 36 characters and comes with 
+higher memory and bandwidth consumption 
+* not ordered along their creation history and no indication of used id volume
+* may be in conflict with additional backward compatibility support of legacy ids
+
+UUIDs should be avoided were not needed for large scale id generation. 
+Instead, for instance, server side support with id generation can be preferred (POST on id resource, 
+followed by idempotent PUT on entity resource). 
+Usage of UUIDs is especially discouraged as primary keys of master and configuration data, 
+like brand-ids or attribute-ids which have low id volume but widespread steering functionality. 
+
+In any case, we should always use string rather than number type for identifiers. 
+This gives us more flexibility to evolve the identifier naming scheme. 
+Accordingly, if used as identifiers, UUIDs should not be qualified using a format property.
 
 
 ## {{ book.could }} Consider Using (Non-) Nested URLs
