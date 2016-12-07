@@ -8,8 +8,8 @@ the former tend to be centered around operations that are usually use-case speci
 In contrast, REST is centered around business (data) entities exposed as resources 
 that are identified via URIs and can be manipulated via standardized CRUD-like methods 
 using different representations, self-descriptive messages and hypermedia. 
-RESTful APIs tend to be less use-case specific, comes with less rigid client / server coupling 
-and are more suitable as platform interface being open for diverse client applications. 
+RESTful APIs tend to be less use-case specific and comes with less rigid client / server coupling 
+and are more suitable as a platform interface being open for diverse client applications. 
 
 * We prefer REST-based APIs with JSON payloads
 * We prefer systems to be truly RESTful
@@ -36,10 +36,9 @@ general RESTful API design style:
 
 ## API as a Product
 
-As mentioned above, Zalando transforms from an online shop into an expansive fashion platform comprising a 
-rich set of products following a Software as a Platform (SaaS) model for our business partners. 
+As mentioned above, Zalando is transforming from an online shop into an expansive fashion platform 
+comprising a rich set of products following a Software as a Platform (SaaS) model for our business partners. 
 As a company we want to deliver products to our (internal and external) customers which can be consumed like a service. 
-
 
 Platform products provide their functionality via (public) APIs; 
 hence, the design of our APIs should be based on the API as a Product principle:
