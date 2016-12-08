@@ -29,7 +29,7 @@ After a short Introduction, these guidelines include chapters on the following t
 - [Common Data Objects](http://zalando.github.io/restful-api-guidelines/common-data-objects/CommonDataObjects.html)
 - [Common Headers](http://zalando.github.io/restful-api-guidelines/headers/CommonHeaders.html)
 - [Proprietary Headers](http://zalando.github.io/restful-api-guidelines/headers/ProprietaryHeaders.html)
-- [API Discovery](http://zalando.github.io/restful-api-guidelines/api-discovery/ApiDiscovery.html)
+- [API Operation](http://zalando.github.io/restful-api-guidelines/api-operation/ApiOperation.html)
 - [Events](http://zalando.github.io/restful-api-guidelines/events/events.html)
 - [Tooling](http://zalando.github.io/restful-api-guidelines/tooling/Tooling.html)
 
