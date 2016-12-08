@@ -2,7 +2,7 @@
 
 ## Install all dependencies
 
-    make init
+    npm install
 
 ## Build static page
 

@@ -10,14 +10,16 @@ on how to specify security definitions in you API specification or take a look a
 securityDefinitions:
   oauth2:
     type: oauth2
-    flow: implicit
+    flow: password
     authorizationUrl: https://auth.zalando.com/oauth2/access_token?realm=services
     scopes:
       fulfillment-order-service.read: Access right needed to read from the fulfillment order service.
       fulfillment-order-service.write: Access right needed to write to the fulfillment order service.      
 ```
 
-The example defines OAuth2 with implicit flow as security standard used for authentication when accessing endpoints; additionally, there are two API access rights defined via the scopes section for later endpoint authorization usage - please see next section.
+The example defines OAuth2 with password flow as security standard used for authentication when accessing endpoints; additionally, there are two API access rights defined via the scopes section for later endpoint authorization usage - please see next section.
+
+It makes little sense specifying the flow to retrieve OAuth tokens in the `securityDefinitions` section, as API endpoints should not care, how OAuth tokens were created. Unfortunately the `flow` field is mandatory and cannot be ommited. API endpoints should always set `flow: password` and ignore this information.
 
 ## {{ book.must }} Define and Assign Access Rights (Scopes)
 
