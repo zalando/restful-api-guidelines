@@ -9,5 +9,7 @@ To see a list of all changes, please have a look at the [commit list in Github](
 ## Rule Changes
 
 * `2016-12-07:` Introduced "API as a Product" principle
+* `2016-12-06:` New guideline: "Should Only Use UUIDs If Necessary"
+* `2016-12-04:` Changed OAuth flow example from implicit to password in [Security section](../security/Security.md).
 * `2016-10-13:` [Officially deprecated using custom media types instead of application/json](../data-formats/DataFormats.md#should-prefer-standard-media-type-name-applicationjson).
 * `2016-10-10:` Introduced the changelog. From now on all rule changes on API guidelines will be recorded here.
