@@ -68,6 +68,11 @@ In any case, we should always use string rather than number type for identifiers
 This gives us more flexibility to evolve the identifier naming scheme. 
 Accordingly, if used as identifiers, UUIDs should not be qualified using a format property.
 
+Hint: Usually, random UUID is used - see UUID version 4 in [RFC 4122](https://tools.ietf.org/html/rfc4122). 
+Though UUID version 1 also contains leading timestamps it is not reflected by its lexicographic sorting.
+This deficit is addressed by [ULID](https://github.com/alizain/ulid) (Universally Unique Lexicographically Sortable Identifier). 
+You may favour ULID instead of UUID, for instance, for pagination use cases ordered along creation time. 
+
 
 ## {{ book.could }} Consider Using (Non-) Nested URLs
 
