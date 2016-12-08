@@ -44,7 +44,7 @@ Platform products provide their functionality via (public) APIs;
 hence, the design of our APIs should be based on the API as a Product principle:
 
 * Treat your API as product and understand the needs of its customers
-* Take ownership and advocate for the customer and continual improvement
+* Take ownership and advocate for the customer and continuous improvement
 * Emphasize easy understanding, discovery and usage of APIs; design APIs irresistible for client engineers
 * Actively improve and maintain API consistency over the long term
 * Make use of customer feedback and provide service level support
