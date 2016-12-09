@@ -1,5 +1,32 @@
 # Principles
 
+## API as a Product
+
+As mentioned above, Zalando is transforming from an online shop into an expansive fashion platform 
+comprising a rich set of products following a Software as a Platform (SaaS) model for our business partners. 
+As a company we want to deliver products to our (internal and external) customers which can be consumed like a service. 
+
+Platform products provide their functionality via (public) APIs; 
+hence, the design of our APIs should be based on the API as a Product principle:
+
+* Treat your API as product and understand the needs of its customers
+* Take ownership and advocate for the customer and continuous improvement
+* Emphasize easy understanding, discovery and usage of APIs; design APIs irresistible for client engineers
+* Actively improve and maintain API consistency over the long term
+* Make use of customer feedback and provide service level support
+
+RESTful API as a Product makes the difference between enterprise integration business and agile, 
+innovative product service business built on a platform of APIs.
+
+
+Based on your concrete customer use cases, you should carefully check the trade-offs of API design variants 
+and avoid short-term server side implementation optimizations at the expense of unnecessary client side 
+obligations and have a high attention on API quality and client developer experience. 
+
+API as a Product is closely related to our 
+[API First principle](../general-guidelines/GeneralGuidelines.md#Must-Follow-API-First-Principle) 
+(see next chapter) which is more focussed on how we engineer high quality APIs. 
+
 
 ## API Design Principles
 
@@ -32,32 +59,3 @@ general RESTful API design style:
 * InfoQ eBook: [Web APIs: From Start to Finish](http://www.infoq.com/minibooks/emag-web-api)
 * Lessons-learned blog: [Thoughts on RESTful API Design](http://restful-api-design.readthedocs.org/en/latest/)
 * Fielding Dissertation: [Architectural Styles and the Design of Network-Based Software Architectures](http://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm)
-
-
-## API as a Product
-
-As mentioned above, Zalando is transforming from an online shop into an expansive fashion platform 
-comprising a rich set of products following a Software as a Platform (SaaS) model for our business partners. 
-As a company we want to deliver products to our (internal and external) customers which can be consumed like a service. 
-
-Platform products provide their functionality via (public) APIs; 
-hence, the design of our APIs should be based on the API as a Product principle:
-
-* Treat your API as product and understand the needs of its customers
-* Take ownership and advocate for the customer and continuous improvement
-* Emphasize easy understanding, discovery and usage of APIs; design APIs irresistible for client engineers
-* Actively improve and maintain API consistency over the long term
-* Make use of customer feedback and provide service level support
-
-RESTful API as a Product makes the difference between enterprise integration business and agile, 
-innovative product service business built on a platform of APIs.
-
-
-Based on your concrete customer use cases, you should carefully check the trade-offs of API design variants 
-and avoid short-term server side implementation optimizations at the expense of unnecessary client side 
-obligations and have a high attention on API quality and client developer experience. 
-
-API as a Product is closely related to our 
-[API First principle](../general-guidelines/GeneralGuidelines.md#Must-Follow-API-First-Principle) 
-(see next chapter) which is more focussed on how we engineer high quality APIs. 
-
