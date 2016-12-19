@@ -15,11 +15,26 @@ public class AvoidTrailingSlashesRuleTest {
     private static final String GOOD_PATH = "/api/test-api";
 
     @Test
-    public void avoidTrailingSlashesRule() {
+    public void emptyAPI() {
+        assertThat(new AvoidTrailingSlashesRule().validate(null)).isEmpty();
+    }
+
+    @Test
+    public void withoutAnyViolations() {
         AvoidTrailingSlashesRule rule = new AvoidTrailingSlashesRule();
-        assertThat(rule.validate(null)).isEmpty();
         Swagger testAPI = new Swagger();
-        HashMap<String,Path> paths = new HashMap<>();
+        HashMap<String, Path> paths = new HashMap<>();
+        paths.put(GOOD_PATH, null);
+        testAPI.setPaths(paths);
+        List<Violation> violations = rule.validate(testAPI);
+        assertThat(violations).isEmpty();
+    }
+
+    @Test
+    public void withViolations() {
+        AvoidTrailingSlashesRule rule = new AvoidTrailingSlashesRule();
+        Swagger testAPI = new Swagger();
+        HashMap<String, Path> paths = new HashMap<>();
         paths.put(TEST_PATH, null);
         paths.put(GOOD_PATH, null);
         testAPI.setPaths(paths);
