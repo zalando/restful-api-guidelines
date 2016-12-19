@@ -6,6 +6,8 @@ import java.util.Optional;
 
 public class Violation {
 
+    public static final String DEFAULT_GUIDELINES_LINK = "http://zalando.github.io/restful-api-guidelines";
+
     private final String title;
     private final String description;
     private final ViolationType violationType;
