@@ -86,3 +86,4 @@ definitions:
         enum:
         - MUST
         - SHOULD
+        - COULD
