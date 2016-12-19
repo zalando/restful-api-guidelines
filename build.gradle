@@ -24,6 +24,8 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
+    compile("io.swagger:swagger-parser:1.0.23")
+    compile("org.atteo:evo-inflector:1.2.1")
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-actuator")
     compile('org.zalando.stups:stups-spring-oauth2-server:1.0.15')
