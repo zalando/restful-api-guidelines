@@ -1,11 +1,39 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.2.RELEASE")
+    }
+}
+
 apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+
+jar {
+    baseName = 'zally'
+    version =  '0.0.1'
+}
 
 repositories {
     jcenter()
+    mavenCentral()
 }
 
-dependencies {
-    compile 'org.slf4j:slf4j-api:1.7.21'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
-    testCompile 'junit:junit:4.12'
+dependencies {
+    // tag::jetty[]
+    compile("org.springframework.boot:spring-boot-starter-web") {
+        exclude module: "spring-boot-starter-tomcat"
+    }
+    compile("org.springframework.boot:spring-boot-starter-jetty")
+    // end::jetty[]
+    // tag::actuator[]
+    compile("org.springframework.boot:spring-boot-starter-actuator")
+    // end::actuator[]
+
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+//    testCompile 'junit:junit:4.12'
 }
