@@ -7,13 +7,14 @@ import io.swagger.models.Swagger;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LowerCaseWordsWithHyphensInPath implements Rule {
+public class LowerCaseWordsWithHyphensInPathRule implements Rule {
 
     //only accepts lower case and hyphens
     private String pattern = "^[a-z-]*$";
     String title = "lowercase words with hyphens";
     String description = "Use lowercase separate words with hyphens for path segments";
-    String ruleLink = "http://zalando.github.io/restful-api-guidelines/naming/Naming.html";
+    String ruleLink = "http://zalando.github.io/restful-api-guidelines/naming/Naming.html" +
+            "#must-use-lowercase-separate-words-with-hyphens-for-path-segments";
 
     public List<Violation> validate (Swagger swagger) {
 
