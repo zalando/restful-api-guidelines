@@ -12,7 +12,7 @@ public class Violation {
     private final String description;
     private final ViolationType violationType;
     private final String ruleLink;
-    private final Optional<Path> path;
+    private final Optional<String> path;
     private final Optional<Integer> lineNumber;
     private final Optional<Integer> columnNumber;
 
@@ -28,7 +28,7 @@ public class Violation {
     }
 
     public Violation(String title, String description,
-                     ViolationType violationType, String ruleLink, Path path) {
+                     ViolationType violationType, String ruleLink, String path) {
         this.title = title;
         this.description = description;
         this.violationType = violationType;
@@ -52,7 +52,7 @@ public class Violation {
 
     public Violation(String title, String description,
                      ViolationType violationType, String ruleLink,
-                     Path path, int lineNumber, int columnNumber) {
+                     String path, int lineNumber, int columnNumber) {
         this.title = title;
         this.description = description;
         this.violationType = violationType;
@@ -78,7 +78,7 @@ public class Violation {
         return ruleLink;
     }
 
-    public Optional<Path> getPath() {
+    public Optional<String> getPath() {
         return path;
     }
 
