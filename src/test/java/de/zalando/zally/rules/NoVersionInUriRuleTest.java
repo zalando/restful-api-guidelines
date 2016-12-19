@@ -26,6 +26,14 @@ public class NoVersionInUriRuleTest {
         assertEquals(rule.LINK, violation.getRuleLink());
     }
 
+    private void assertNoViolations(String basePath) {
+        Swagger swagger = new Swagger();
+        swagger.basePath(basePath);
+
+        List<Violation> violations = rule.validate(swagger);
+        assertEquals(0, violations.size());
+    }
+
     @Test
     public void returnsViolationsWhenVersionIsInTheBeginingOfBasePath() {
         assertViolationOccurs("/v1/tests");
@@ -48,10 +56,11 @@ public class NoVersionInUriRuleTest {
 
     @Test
     public void returnsEmptyViolationListWhenNoVersionFoundInURL() {
-        Swagger swagger = new Swagger();
-        swagger.basePath("/violations/");
+        assertNoViolations("/violations/");
+    }
 
-        List<Violation> violations = rule.validate(swagger);
-        assertEquals(0, violations.size());
+    @Test
+    public void returnsEmptyViolationListWhenBasePathIsNull() {
+        assertNoViolations(null);
     }
 }

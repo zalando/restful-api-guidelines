@@ -25,7 +25,7 @@ public class NoVersionInUriRule implements Rule {
 
         Pattern pattern = Pattern.compile(PATTERN);
 
-        if (pattern.matcher(basePath).matches()) {
+        if (basePath != null && pattern.matcher(basePath).matches()) {
             violations.add(
                 new Violation(
                     "Do Not Use URI Versioning",
