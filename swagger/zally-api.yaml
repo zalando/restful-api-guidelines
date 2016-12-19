@@ -12,7 +12,7 @@ schemes:
 basePath: /
 security:
   - oauth:
-    - zally.linting
+    - uid
 parameters:
   Authorization:
     name: Authorization
