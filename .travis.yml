@@ -6,4 +6,4 @@ jdk:
   - oraclejdk8
 
 install: true
-script: gradle test
+script: gradle test --info
