@@ -8,7 +8,7 @@ buildscript {
 }
 
 apply plugin: 'java'
-apply plugin: 'org.springframework.boot'
+apply plugin: 'spring-boot'
 
 jar {
     baseName = 'zally'
@@ -24,16 +24,10 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
-    // tag::jetty[]
-    compile("org.springframework.boot:spring-boot-starter-web") {
-        exclude module: "spring-boot-starter-tomcat"
-    }
-    compile("org.springframework.boot:spring-boot-starter-jetty")
-    // end::jetty[]
-    // tag::actuator[]
+    compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-actuator")
-    // end::actuator[]
-
+    compile('org.zalando.stups:stups-spring-oauth2-server:1.0.15')
+    compile('org.zalando:twintip-spring-web:1.1.0')
     testCompile("org.springframework.boot:spring-boot-starter-test")
-//    testCompile 'junit:junit:4.12'
+    testCompile('org.assertj:assertj-core:3.5.2')
 }

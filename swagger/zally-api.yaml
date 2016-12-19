@@ -24,7 +24,7 @@ parameters:
 
 paths:
   '/api-violations':
-    put:
+    post:
       summary:
         Retrieves list of API violations based on the uploaded swagger file
       description:
