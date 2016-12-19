@@ -89,4 +89,34 @@ public class Violation {
     public Optional<Integer> getColumnNumber() {
         return columnNumber;
     }
+
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (!(object instanceof Violation)) return false;
+        if (!super.equals(object)) return false;
+
+        Violation violation = (Violation) object;
+
+        if (!title.equals(violation.title)) return false;
+        if (!description.equals(violation.description)) return false;
+        if (!violationType.equals(violation.violationType)) return false;
+        if (!ruleLink.equals(violation.ruleLink)) return false;
+        if (!path.equals(violation.path)) return false;
+        if (!lineNumber.equals(violation.lineNumber)) return false;
+        if (!columnNumber.equals(violation.columnNumber)) return false;
+
+        return true;
+    }
+
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + title.hashCode();
+        result = 31 * result + description.hashCode();
+        result = 31 * result + violationType.hashCode();
+        result = 31 * result + ruleLink.hashCode();
+        result = 31 * result + path.hashCode();
+        result = 31 * result + lineNumber.hashCode();
+        result = 31 * result + columnNumber.hashCode();
+        return result;
+    }
 }
