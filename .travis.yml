@@ -5,6 +5,5 @@ language: java
 jdk:
   - oraclejdk8
 
-# TODO: Remove the following lines once gradlew assemble will be in place
 install: true
-script: echo "Tests are passing"
+script: gradle test
