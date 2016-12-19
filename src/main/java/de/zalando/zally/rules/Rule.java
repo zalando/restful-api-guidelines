@@ -5,7 +5,7 @@ import io.swagger.models.Swagger;
 
 import java.util.List;
 
-interface Rule {
+public interface Rule {
 
     List<Violation> validate(Swagger swagger);
 }
