@@ -93,7 +93,6 @@ public class Violation {
     public boolean equals(Object object) {
         if (this == object) return true;
         if (!(object instanceof Violation)) return false;
-        if (!super.equals(object)) return false;
 
         Violation violation = (Violation) object;
 
