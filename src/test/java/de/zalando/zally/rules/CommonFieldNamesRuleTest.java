@@ -9,34 +9,54 @@ import org.junit.Test;
 
 import java.util.List;
 
-import static de.zalando.zally.rules.CommonFieldNamesRule.checkCommonFields;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CommonFieldNamesRuleTest {
     private final CommonFieldNamesRule rule = new CommonFieldNamesRule();
 
     @Test
-    public void CheckCommonFieldsEmpty() {
-        assertThat(checkCommonFields("", new StringProperty())).isTrue();
+    public void matchesCommonFieldsTypeEmpty() {
+        assertThat(CommonFieldNamesRule.matchesCommonFieldsType("", new StringProperty())).isTrue();
     }
 
     @Test
-    public void CheckCommonFieldsNotCommon() {
-        assertThat(checkCommonFields("unknown", new StringProperty())).isTrue();
+    public void matchesCommonFieldsTypeNotCommon() {
+        assertThat(CommonFieldNamesRule.matchesCommonFieldsType("unknown", new StringProperty())).isTrue();
     }
 
     @Test
-    public void CheckCommonFields() {
-        assertThat(checkCommonFields("id", new StringProperty())).isTrue();
-        assertThat(checkCommonFields("id", new StringProperty("UUID"))).isTrue();
-        assertThat(checkCommonFields("created", new StringProperty("date-time"))).isTrue();
-        assertThat(checkCommonFields("modified", new StringProperty("date-time"))).isTrue();
-        assertThat(checkCommonFields("type", new StringProperty())).isTrue();
+    public void matchesCommonFieldsType() {
+        assertThat(CommonFieldNamesRule.matchesCommonFieldsType("id", new StringProperty())).isTrue();
+        assertThat(CommonFieldNamesRule.matchesCommonFieldsType("id", new StringProperty("UUID"))).isTrue();
+        assertThat(CommonFieldNamesRule.matchesCommonFieldsType("created", new StringProperty("date-time"))).isTrue();
+        assertThat(CommonFieldNamesRule.matchesCommonFieldsType("modified", new StringProperty("date-time"))).isTrue();
+        assertThat(CommonFieldNamesRule.matchesCommonFieldsType("type", new StringProperty())).isTrue();
     }
 
     @Test
-    public void CheckCommonFieldsInvalid() {
-        assertThat(checkCommonFields("id", new IntegerProperty())).isFalse();
+    public void matchesCommonFieldsTypeInvalid() {
+        assertThat(CommonFieldNamesRule.matchesCommonFieldsType("id", new IntegerProperty())).isFalse();
+    }
+    @Test
+    public void matchesCommonFieldsFormatEmpty() {
+        assertThat(CommonFieldNamesRule.matchesCommonFieldsFormat("", new StringProperty())).isTrue();
+    }
+
+    @Test
+    public void matchesCommonFieldsFormatNotCommon() {
+        assertThat(CommonFieldNamesRule.matchesCommonFieldsFormat("unknown", new StringProperty())).isTrue();
+    }
+
+    @Test
+    public void matchesCommonFieldsFormat() {
+        assertThat(CommonFieldNamesRule.matchesCommonFieldsFormat("id", new StringProperty("UUID"))).isTrue();
+        assertThat(CommonFieldNamesRule.matchesCommonFieldsFormat("created", new StringProperty("date-time"))).isTrue();
+        assertThat(CommonFieldNamesRule.matchesCommonFieldsFormat("modified", new StringProperty("date-time"))).isTrue();
+    }
+
+    @Test
+    public void matchesCommonFieldFormatInvalid() {
+        assertThat(CommonFieldNamesRule.matchesCommonFieldsType("id", new IntegerProperty())).isFalse();
     }
 
     @Test
@@ -53,9 +73,7 @@ public class CommonFieldNamesRuleTest {
 
     @Test
     public void validateAbnormal() {
-        List<Violation> violations = rule.validate(getInvalidSwagger());
-        System.out.print(violations.toString());
-        assertThat(violations.size()).isEqualTo(4);
+        assertThat(rule.validate(getInvalidSwagger()).size()).isEqualTo(5);
     }
 
     private Swagger getInvalidSwagger() {

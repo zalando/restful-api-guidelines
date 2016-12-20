@@ -134,11 +134,14 @@ definitions:
   JobSummary:
     type: object
     required:
+      - id
       - start
       - end
       - partner_id
       - details_url
     properties:
+      id:
+        type: integer
       start:
         type: string
         format: date-time

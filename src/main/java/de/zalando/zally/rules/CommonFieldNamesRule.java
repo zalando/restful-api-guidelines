@@ -23,18 +23,26 @@ public class CommonFieldNamesRule implements Rule {
         commonFields.put("type", new StringProperty());
     }
 
-    static boolean checkCommonFields(String propName, Property property) {
+    static boolean matchesCommonFieldsType(String propName, Property property) {
         if (!commonFields.containsKey(propName)) {
             return true;
         }
-        Property commonProperty = commonFields.get(propName);
-        return (commonProperty.getType().equals(property.getType()) &&
-                (commonProperty.getFormat() == null || commonProperty.getFormat().equals(property.getFormat())));
+        String expectedType = commonFields.get(propName).getType();
+        return expectedType == null || expectedType.equals(property.getType());
+    }
+
+    static boolean matchesCommonFieldsFormat(String propName, Property property) {
+        if (!commonFields.containsKey(propName)) {
+            return true;
+        }
+        String expectedFormat = commonFields.get(propName).getFormat();
+        return expectedFormat == null || expectedFormat.equals(property.getFormat());
     }
 
     private final String title = "Use common field names";
     private final String link = "http://zalando.github.io/restful-api-guidelines/common-data-objects/CommonDataObjects.html" +
             "#must-use-common-field-names";
+    private final ViolationType violationType = ViolationType.MUST;
 
     @Override
     public List<Violation> validate(Swagger swagger) {
@@ -44,17 +52,28 @@ public class CommonFieldNamesRule implements Rule {
             return violations;
         }
 
-        for (Model definition : swagger.getDefinitions().values()) {
-            for (Map.Entry<String, Property> entry: definition.getProperties().entrySet()) {
-                String name = entry.getKey();
-                Property property = entry.getValue();
-                if (!checkCommonFields(name, property)) {
-                    String description = "Common field " + name + " in definition " + definition.getTitle() + " was of type " + property.getType() + ". Expected type " + commonFields.get(name);
-                    violations.add(new Violation(title, description, ViolationType.MUST, link));
+        for (Map.Entry<String, Model> definitionEntry : swagger.getDefinitions().entrySet()) {
+            String definition = definitionEntry.getKey();
+            Model model = definitionEntry.getValue();
+            for (Map.Entry<String, Property> propertyEntry: model.getProperties().entrySet()) {
+                String name = propertyEntry.getKey();
+                Property property = propertyEntry.getValue();
+                if (!matchesCommonFieldsType(name, property)) {
+                    String description = createDescription(definition, name, "type",property.getType(), commonFields.get(name).getType());
+                    violations.add(new Violation(title, description, violationType, link));
+                } else if (!matchesCommonFieldsFormat(name, property)) {
+                    String description = createDescription(definition, name, "format",property.getFormat(), commonFields.get(name).getFormat());
+                    violations.add(new Violation(title, description, violationType, link));
                 }
             }
         }
 
         return violations;
+    }
+
+    private String createDescription(String definition, String propertyName, String problemField, String problemValue, String expectedValue) {
+        String description = "Property " + definition + "." + propertyName + " has invalid " + problemField + " " + problemValue + ". ";
+        description += "Expected idiomatic " + problemField + " " + expectedValue + ".";
+        return description;
     }
 }
