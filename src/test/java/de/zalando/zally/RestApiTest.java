@@ -65,7 +65,6 @@ public class RestApiTest {
     @LocalServerPort
     private int port;
 
-    private final ObjectMapper mapper = new ObjectMapper();
     private final TestRestTemplate restTemplate = new TestRestTemplate();
 
     @Test

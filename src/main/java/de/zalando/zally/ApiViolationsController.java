@@ -26,14 +26,18 @@ public class ApiViolationsController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity validate(@RequestBody JsonNode request) {
+    public ResponseEntity<JsonNode> validate(@RequestBody JsonNode request) {
         if (!request.has("api_definition")) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity
+                    .badRequest()
+                    .body(mapper.createObjectNode().put("error", "no api_definition field in request json body"));
         }
 
         final Swagger parsedSwagger = new SwaggerParser().parse(request.get("api_definition").toString());
         if (parsedSwagger == null) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity
+                    .badRequest()
+                    .body(mapper.createObjectNode().put("error", "no valid swagger definition"));
         }
 
         ObjectNode response = mapper.createObjectNode();
