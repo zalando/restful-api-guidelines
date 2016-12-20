@@ -7,10 +7,10 @@ import io.swagger.models.Swagger;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LowerCaseWordsWithHyphensInPathRule implements Rule {
+public class KebabCaseInPathSegmentsRule implements Rule {
 
-    //only accepts lower case and hyphens
-    private String pattern = "^[a-z-]*$";
+    //only accepts lower case and hyphens (kebab case)
+    static private String pattern = "^[a-z-]*$";
     String title = "lowercase words with hyphens";
     String description = "Use lowercase separate words with hyphens for path segments";
     String ruleLink = "http://zalando.github.io/restful-api-guidelines/naming/Naming.html" +
@@ -38,11 +38,11 @@ public class LowerCaseWordsWithHyphensInPathRule implements Rule {
         return violations;
     }
 
-    boolean isPathVariable(String input ) {
+    static boolean isPathVariable(String input ) {
         return input.startsWith("{") && input.endsWith("}");
     }
 
-    boolean isLowerCaseAndHyphens(String input){
+    static boolean isLowerCaseAndHyphens(String input){
         return input.matches(pattern);
     }
 
