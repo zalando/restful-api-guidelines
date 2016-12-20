@@ -5,5 +5,7 @@ repositories {
 }
 
 dependencies {
+    compile 'com.github.ryenus:rop:1.1.1'
+
     testCompile 'junit:junit:4.12'
 }
