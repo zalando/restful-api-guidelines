@@ -18,8 +18,7 @@ public class RulesValidatorConfiguration {
                 new NoVersionInUriRule(),
                 new SnakeCaseForQueryParamsRule(),
                 new AvoidLinkHeadersRule(),
-                new SnakeCaseInPropNameRule(),
-                new AvoidLinkHeadersRule()
+                new SnakeCaseInPropNameRule()
         ));
     }
 }
