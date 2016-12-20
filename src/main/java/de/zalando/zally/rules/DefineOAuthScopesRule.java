@@ -69,7 +69,7 @@ public class DefineOAuthScopesRule implements Rule {
     private List<String> extractAppliedScopes(Operation operation) {
         List<String> scopes = new ArrayList<>();
         List<Map<String, List<String>>> security = operation.getSecurity();
-        if (security != null || !security.isEmpty()) {
+        if (security != null && !security.isEmpty()) {
             security.forEach(securityMap -> {
                 if (securityMap != null) {
                     securityMap.forEach((key, value) -> {
