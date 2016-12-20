@@ -2,6 +2,7 @@ package de.zalando.zally.rules;
 
 import de.zalando.zally.Violation;
 import de.zalando.zally.ViolationType;
+import de.zalando.zally.utils.PatternUtil;
 import io.swagger.models.Swagger;
 
 import java.util.ArrayList;
@@ -9,8 +10,6 @@ import java.util.List;
 
 public class KebabCaseInPathSegmentsRule implements Rule {
 
-    //only accepts lower case and hyphens (kebab case)
-    static private String pattern = "^[a-z-]*$";
     String title = "lowercase words with hyphens";
     String description = "Use lowercase separate words with hyphens for path segments";
     String ruleLink = "http://zalando.github.io/restful-api-guidelines/naming/Naming.html" +
@@ -26,8 +25,8 @@ public class KebabCaseInPathSegmentsRule implements Rule {
 
         for (String path : swagger.getPaths().keySet()) {
             for (String segment: path.split("/")){
-                if(!isPathVariable(segment)){
-                    if(!isLowerCaseAndHyphens(segment)){
+                if(!PatternUtil.isPathVariable(segment)){
+                    if(!PatternUtil.isLowerCaseAndHyphens(segment)){
                         violations.add(new Violation(title, description, ViolationType.MUST, ruleLink, path));
                         break;
                     }
@@ -36,14 +35,6 @@ public class KebabCaseInPathSegmentsRule implements Rule {
         }
 
         return violations;
-    }
-
-    static boolean isPathVariable(String input ) {
-        return input.startsWith("{") && input.endsWith("}");
-    }
-
-    static boolean isLowerCaseAndHyphens(String input){
-        return input.matches(pattern);
     }
 
 }

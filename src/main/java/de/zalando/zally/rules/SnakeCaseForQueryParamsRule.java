@@ -2,21 +2,18 @@ package de.zalando.zally.rules;
 
 import de.zalando.zally.Violation;
 import de.zalando.zally.ViolationType;
+import de.zalando.zally.utils.PatternUtil;
 import io.swagger.models.Swagger;
 import io.swagger.models.parameters.Parameter;
 import io.swagger.models.parameters.QueryParameter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Lint for snake case for query params
  */
 class SnakeCaseForQueryParamsRule implements Rule {
-
-    private static String SNAKE_CASE_PATTERN = "^[a-z]+(?:_[a-z]+)*$";
 
     @Override
     public List<Violation> validate(Swagger swagger) {
@@ -27,7 +24,7 @@ class SnakeCaseForQueryParamsRule implements Rule {
             pathObject.getOperationMap().forEach((httpMethod, operation) -> {
                 operation.getParameters().forEach(param -> {
                     if (param instanceof QueryParameter) {
-                        if (!isSnakeCase(param.getName())) {
+                        if (!PatternUtil.isSnakeCase(param.getName())) {
                             violations.add(getViolation(param));
                         }
                     }
@@ -35,10 +32,6 @@ class SnakeCaseForQueryParamsRule implements Rule {
             });
         });
         return violations;
-    }
-
-    private boolean isSnakeCase(String input) {
-        return input.matches(SNAKE_CASE_PATTERN);
     }
 
     private Violation getViolation(Parameter parameter) {

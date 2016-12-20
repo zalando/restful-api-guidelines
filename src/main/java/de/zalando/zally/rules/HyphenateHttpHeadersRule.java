@@ -2,6 +2,7 @@ package de.zalando.zally.rules;
 
 import de.zalando.zally.Violation;
 import de.zalando.zally.ViolationType;
+import de.zalando.zally.utils.PatternUtil;
 import io.swagger.models.Operation;
 import io.swagger.models.Path;
 import io.swagger.models.Swagger;
@@ -42,16 +43,12 @@ public class HyphenateHttpHeadersRule implements Rule {
         return parameters
                 .stream()
                 .filter(p -> p.getIn().equals("header"))
-                .filter(p -> !PARAMETER_NAMES_WHITELIST.contains(p.getName()) && !isHyphenated(p.getName()))
+                .filter(p -> !PARAMETER_NAMES_WHITELIST.contains(p.getName()) && !PatternUtil.isHyphenated(p.getName()))
                 .map(this::createViolation)
                 .collect(Collectors.toList());
     }
 
     private Violation createViolation(Parameter p) {
         return new Violation(RULE_NAME, String.format(DESC_PATTERN, p.getName()), ViolationType.MUST, RULE_URL);
-    }
-
-    public static boolean isHyphenated(String s) {
-        return Arrays.stream(s.split("-")).allMatch(p -> p.matches("([A-Z][^A-Z ]*)|([^A-Z ]+)"));
     }
 }

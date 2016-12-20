@@ -1,0 +1,97 @@
+swagger: "2.0"
+info:
+  title: Partner Service Adapter
+  description: |
+    Admin APIs for adding, modifying and deleting jobs to retrieve catalog and stock updates from Partners
+  version: "1.0.0"
+  contact:
+    name: Merchant Core - Article (codename ARTMC)
+    email: team-artmc@zalando.de
+host: psa.artmc.zalan.do
+basePath: /
+schemes:
+  - https
+produces:
+  - application/json
+consumes:
+  - application/json
+parameters:
+  Authorization:
+    name: Authorization
+    in: header
+    description: Authorization Token
+    required: true
+    type: string
+    format: JWT Tokens
+  partner-id:
+    name: partner-id
+    in: path
+    description: Uniquely identifies Partner within Zalando platform
+    required: true
+    type: string
+
+paths:
+  /partners:
+    get:
+      summary: returns information about all partners
+      tags:
+        - partner
+      parameters:
+        - $ref: "#/parameters/Authorization"
+      responses:
+        200:
+          description: Success
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Partner"
+
+  /partners/{partner-id}:
+    put:
+      summary: Create or update new Partner
+      tags:
+        - partner
+      description: |
+        Successful requests will create or update a Partner on Zalando platform
+      parameters:
+        - $ref: "#/parameters/Authorization"
+        - $ref: "#/parameters/partner-id"
+        - name: partner
+          in: body
+          description: Partner Resource Object
+          required: true
+          schema:
+            $ref: "#/definitions/Partner"
+      responses:
+        204:
+          description: Success - Partner is created.
+        default:
+          description: unexpected error
+
+    get:
+      summary: returns Partner with provided partner-id
+      tags:
+        - partner
+      parameters:
+        - $ref: "#/parameters/Authorization"
+        - $ref: "#/parameters/partner-id"
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: "#/definitions/Partner"
+        404:
+          description: Partner not found
+
+    delete:
+      summary: delete Partner with provided partner-id
+      tags:
+        - partner
+      parameters:
+        - $ref: "#/parameters/Authorization"
+        - $ref: "#/parameters/partner-id"
+      responses:
+        204:
+          description: Success - Partner is deleted
+        404:
+          description: Partner not found

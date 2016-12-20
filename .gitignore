@@ -6,3 +6,4 @@ build/
 gradle/
 .DS_Store
 scm-source.json
+out/
