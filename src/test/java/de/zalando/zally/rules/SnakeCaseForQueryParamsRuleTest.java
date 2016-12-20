@@ -13,19 +13,19 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Unit test for snake case for query params
  */
-public class SnakeCaseForQueryParamsTest {
+public class SnakeCaseForQueryParamsRuleTest {
 
     private Swagger invalidSwagger = getFixture("fixtures/snakeCaseForQueryParamsInvalid.json");
     private Swagger validSwagger = getFixture("fixtures/snakeCaseForQueryParamsValid.json");
 
     @Test
     public void validCase() {
-        assertThat(new SnakeCaseForQueryParams().validate(validSwagger)).isEmpty();
+        assertThat(new SnakeCaseForQueryParamsRule().validate(validSwagger)).isEmpty();
     }
 
     @Test
     public void invalidCase() {
-        assertThat(new SnakeCaseForQueryParams().validate(invalidSwagger)).isNotEmpty();
+        assertThat(new SnakeCaseForQueryParamsRule().validate(invalidSwagger)).isNotEmpty();
     }
 
     private Swagger getFixture(String fixture) {

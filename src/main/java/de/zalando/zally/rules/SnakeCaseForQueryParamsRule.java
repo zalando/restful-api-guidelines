@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 /**
  * Lint for snake case for query params
  */
-class SnakeCaseForQueryParams {
+class SnakeCaseForQueryParamsRule {
 
     private static String SNAKE_CASE_PATTERN = "^[a-z0-9_]*$";
 
