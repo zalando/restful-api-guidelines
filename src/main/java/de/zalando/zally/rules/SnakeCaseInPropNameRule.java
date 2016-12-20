@@ -18,17 +18,17 @@ public class SnakeCaseInPropNameRule implements Rule {
     String ruleLink = "http://zalando.github.io/restful-api-guidelines/naming/Naming.html" +
             "#must-use-snakecase-never-camelcase-for-query-parameters";
 
-    public List<Violation> validate (Swagger swagger) {
+    public List<Violation> validate(Swagger swagger) {
 
         List<Violation> violations = new ArrayList<Violation>();
 
-        if(swagger.getDefinitions() == null) {
+        if (swagger.getDefinitions() == null) {
             return violations;
         }
 
-        for(Model definition : swagger.getDefinitions().values()) {
+        for (Model definition : swagger.getDefinitions().values()) {
             for (Property property : definition.getProperties().values()) {
-                if(!isSnakeCase(property.getName())){
+                if (!isSnakeCase(property.getName())) {
                     violations.add(new Violation(title, description + "\n Violating property: " + property.getName() + " in definition: " + definition.getTitle(), ViolationType.MUST, ruleLink));
                 }
             }
