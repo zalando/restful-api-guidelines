@@ -1,4 +1,5 @@
 apply plugin: 'java'
+apply plugin: 'gradle-one-jar'
 
 repositories {
     mavenCentral()
@@ -8,4 +9,20 @@ dependencies {
     compile 'com.github.ryenus:rop:1.1.1'
 
     testCompile 'junit:junit:4.12'
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.github.rholder:gradle-one-jar:1.0.4'
+    }
+}
+
+task zallyJar(type: OneJar) {
+    dependsOn build
+    mainClass = 'de.zalando.zally.cli.Main'
+    archiveName = 'zally.jar'
 }
