@@ -16,6 +16,7 @@ public class HyphenateHttpHeadersRule implements Rule {
     public static final String RULE_URL = "http://zalando.github.io/restful-api-guidelines/naming/Naming.html" +
             "#must-use-hyphenated-http-headers";
     public static final String DESC_PATTERN = "Header name '%s' is not hyphenated";
+    private static final Set<String> PARAMETER_NAMES_WHITELIST = new HashSet<>(Arrays.asList("ETag", "TSV", "TE"));
 
     @Override
     public List<Violation> validate(Swagger swagger) {
@@ -41,7 +42,7 @@ public class HyphenateHttpHeadersRule implements Rule {
         return parameters
                 .stream()
                 .filter(p -> p.getIn().equals("header"))
-                .filter(p -> !isHyphenated(p.getName()))
+                .filter(p -> !PARAMETER_NAMES_WHITELIST.contains(p.getName()) && !isHyphenated(p.getName()))
                 .map(this::createViolation)
                 .collect(Collectors.toList());
     }

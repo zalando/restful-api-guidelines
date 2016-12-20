@@ -44,6 +44,17 @@ public class HyphenateHttpHeadersRuleTest {
     }
 
     @Test
+    public void mustAcceptETag() {
+        Swagger swagger = new Swagger();
+        HashMap<String, Parameter> parameters = new HashMap<>();
+        HeaderParameter parameter = new HeaderParameter();
+        parameter.setName("ETag");
+        parameters.put(parameter.getName(), parameter);
+        swagger.setParameters(parameters);
+        assertThat(new HyphenateHttpHeadersRule().validate(swagger)).isEmpty();
+    }
+
+    @Test
     public void emptySwaggerShouldPass() {
         Swagger swagger = new Swagger();
         swagger.setParameters(new HashMap<>());
