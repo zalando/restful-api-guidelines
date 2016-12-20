@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collections;
 import java.util.List;
 
 @RestController(value = "/api-violations")
@@ -29,7 +30,13 @@ public class ApiViolationsController {
     @RequestMapping(method = RequestMethod.POST)
     public JsonNode validate(@RequestBody JsonNode request) {
         Swagger parsedSwagger = new SwaggerParser().parse(request.get("api_definition").toString());
-        List<Violation> violations = rulesValidator.validate(parsedSwagger);
+        final List<Violation> violations;
+        if (parsedSwagger != null) {
+            violations = rulesValidator.validate(parsedSwagger);
+        } else {
+            violations = Collections.emptyList();
+        }
+
         ObjectNode response = mapper.createObjectNode();
         ArrayNode jsonViolations = response.putArray("violations");
         violations.forEach(jsonViolations::addPOJO);
