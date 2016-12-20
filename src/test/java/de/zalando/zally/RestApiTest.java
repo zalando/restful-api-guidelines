@@ -112,10 +112,6 @@ public class RestApiTest {
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
     }
 
-    private ResponseEntity<JsonNode> sendEmptyRequest() {
-        return sendRequest(mapper.createObjectNode());
-    }
-
     private ResponseEntity<JsonNode> sendRequest(JsonNode body) {
         ObjectNode requestBody = new ObjectMapper().createObjectNode();
         requestBody.set("api_definition", body);
