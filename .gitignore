@@ -4,4 +4,4 @@ zally.iml
 build/
 gradle/
 .DS_Store
-
+scm-source.json
