@@ -2,12 +2,11 @@ package de.zalando.zally.rules;
 
 import de.zalando.zally.Violation;
 import de.zalando.zally.ViolationType;
+import de.zalando.zally.utils.PatternUtil;
 import io.swagger.models.Swagger;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 public class NoVersionInUriRule implements Rule {
@@ -15,7 +14,6 @@ public class NoVersionInUriRule implements Rule {
     public final String LINK =
             "https://zalando.github.io/restful-api-guidelines/compatibility/Compatibility.html" +
             "#must-do-not-use-uri-versioning";
-    public final String PATTERN = "(.*)/v[0-9]+(.*)";
 
     @Override
     public List<Violation> validate(Swagger swagger) {
@@ -23,9 +21,7 @@ public class NoVersionInUriRule implements Rule {
 
         String basePath = swagger.getBasePath();
 
-        Pattern pattern = Pattern.compile(PATTERN);
-
-        if (basePath != null && pattern.matcher(basePath).matches()) {
+        if (basePath != null && PatternUtil.hasVersionInUrl(basePath)) {
             violations.add(
                 new Violation(
                     "Do Not Use URI Versioning",

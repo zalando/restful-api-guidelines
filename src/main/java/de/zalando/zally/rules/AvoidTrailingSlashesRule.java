@@ -1,6 +1,7 @@
 package de.zalando.zally.rules;
 
 import de.zalando.zally.Violation;
+import de.zalando.zally.utils.PatternUtil;
 import io.swagger.models.Swagger;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class AvoidTrailingSlashesRule implements Rule {
         List<Violation> violations = new ArrayList<>();
         if (swagger != null && swagger.getPaths() != null) {
             swagger.getPaths().keySet().forEach(path -> {
-                if (path != null && path.trim().endsWith("/")) {
+                if (path != null && PatternUtil.hasTrailingSlash(path)) {
                     violations.add(new Violation(TITLE, DESCRIPTION, MUST, RULE_LINK, path));
                 }
             });
