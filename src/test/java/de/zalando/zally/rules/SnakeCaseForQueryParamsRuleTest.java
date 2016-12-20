@@ -7,6 +7,7 @@ import org.junit.*;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -15,22 +16,34 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 public class SnakeCaseForQueryParamsRuleTest {
 
-    private Swagger invalidSwagger = getFixture("fixtures/snakeCaseForQueryParamsInvalid.json");
     private Swagger validSwagger = getFixture("fixtures/snakeCaseForQueryParamsValid.json");
+    private Swagger invalidSwaggerWithLocalParam = getFixture("fixtures/snakeCaseForQueryParamsInvalidLocalParam.json");
+    private Swagger invalidSwaggerWIthInternalRef = getFixture("fixtures/snakeCaseForQueryParamsInvalidInternalRef.json");
+    //private Swagger invalidSwaggerWithExternalRef = getFixture("fixtures/snakeCaseForQueryParamsInvalidExternalRef.json");
 
     @Test
-    public void validCase() {
+    public void shouldFindNoViolations() {
         assertThat(new SnakeCaseForQueryParamsRule().validate(validSwagger)).isEmpty();
     }
 
     @Test
-    public void invalidCase() {
-        assertThat(new SnakeCaseForQueryParamsRule().validate(invalidSwagger)).isNotEmpty();
+    public void shouldFindViolationsInLocalRef () {
+        assertThat(new SnakeCaseForQueryParamsRule().validate(invalidSwaggerWithLocalParam)).isNotEmpty();
     }
+
+    @Test
+    public void shouldFindViolationsInInternalRef () {
+        assertThat(new SnakeCaseForQueryParamsRule().validate(invalidSwaggerWIthInternalRef)).isNotEmpty();
+    }
+
+    /*@Test
+    public void shouldFindViolationsInExternalRef () {
+        assertThat(new SnakeCaseForQueryParamsRule().validate(invalidSwaggerWithExternalRef)).isNotEmpty();
+    }*/
 
     private Swagger getFixture(String fixture) {
         SwaggerParser parser = new SwaggerParser();
-        return parser.readWithInfo(readFixtureFile(fixture)).getSwagger();
+        return parser.parse(readFixtureFile(fixture));
     }
 
     private String readFixtureFile(String fixtureFile) {

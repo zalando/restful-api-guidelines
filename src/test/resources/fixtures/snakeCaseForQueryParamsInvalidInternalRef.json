@@ -1,0 +1,134 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "title" : "Test Service",
+    "description" : "This is a test service.",
+    "version" : "1.0.0",
+    "contact" : {
+      "name" : "Nehal Shah",
+      "email" : "nehal.shah@zalando.ie"
+    }
+  },
+  "externalDocs" : {
+    "description" : "Some external docs",
+    "url" : "http://some-external-docs.com"
+  },
+  "basePath" : "/api",
+  "schemes" : [ "https" ],
+  "security" : [ {
+    "oauth2" : []
+  } ],
+  "securityDefinitions" : {
+    "oauth2" : {
+      "type" : "oauth2",
+      "flow" : "implicit",
+      "authorizationUrl" : "https://example.com/oauth2/dialog",
+      "scopes" : {
+      }
+    }
+  },
+  "produces" : [ "application/json" ],
+  "paths" : {
+    "/items" : {
+      "get" : {
+        "summary" : "Get items",
+        "description" : "Get items",
+        "parameters" : [ {
+          "$ref" : "#/parameters/Authorization"
+        }, {
+          "$ref" : "#/parameters/FlowId"
+        }, {
+          "$ref" : "#/parameters/QueryPagingLimit"
+        }, {
+          "$ref" : "#/parameters/PagingNextCursor"
+        }, {
+          "name" : "owner_id",
+          "description" : "Owner ID.",
+          "type" : "string",
+          "format" : "uuid",
+          "in" : "query",
+          "required" : false
+        }, {
+          "name" : "json_filter",
+          "description" : "A (url encoded) JSON filter",
+          "type" : "string",
+          "in" : "query",
+          "required" : true
+        } ],
+        "tags" : [ ],
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful",
+            "schema" : {
+              "$ref" : "#/definitions/ProductPage"
+            }
+          },
+          "429" : {
+            "description" : "Too many requests"
+          }
+        },
+        "security" : [ {
+          "oauth2" : [ "uid", "spp-products.products.read" ]
+        } ]
+      }
+    },
+    "/items/{item_id}" : {
+      "head" : {
+        "summary" : "Check if an item exists",
+        "parameters" : [ {
+          "$ref" : "#/parameters/Authorization"
+        }, {
+          "$ref" : "#/parameters/FlowId"
+        } ],
+        "tags" : [],
+        "responses" : {
+          "200" : {
+            "description" : "Exists"
+          },
+          "404" : {
+            "description" : "Unknown"
+          },
+          "429" : {
+            "description" : "Too many requests"
+          }
+        },
+        "security" : [ {
+          "oauth2" : []
+        } ]
+      }
+    }
+  },
+  "parameters" : {
+    "FlowId" : {
+      "name" : "X-Flow-Id",
+      "description" : "A custom header",
+      "in" : "header",
+      "type" : "string",
+      "required" : false
+    },
+    "Authorization" : {
+      "name" : "Authorization",
+      "description" : "Bearer authorization token",
+      "in" : "header",
+      "type" : "string",
+      "required" : true
+    },
+    "QueryPagingLimit" : {
+      "name" : "limit",
+      "in" : "query",
+      "type" : "integer",
+      "format" : "int32",
+      "required" : false,
+      "minimum" : 1,
+      "default" : 100,
+      "maximum" : 1000
+    },
+    "PagingNextCursor" : {
+      "name" : "next_CURSOR",
+      "in" : "query",
+      "type" : "string",
+      "required" : false
+    }
+  }
+}
