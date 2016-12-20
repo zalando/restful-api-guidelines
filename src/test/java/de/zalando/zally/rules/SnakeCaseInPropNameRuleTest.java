@@ -15,11 +15,11 @@ public class SnakeCaseInPropNameRuleTest {
 
     SnakeCaseInPropNameRule rule = new SnakeCaseInPropNameRule();
 
-    Swagger TEST_SWAGGER = new Swagger();
-    ModelImpl TEST_DEFINITION_1 = new ModelImpl();
-    ModelImpl TEST_DEFINITION_2 = new ModelImpl();
-    StringProperty TEST_PORPERTY_1 = new StringProperty();
-    StringProperty TEST_PORPERTY_2 = new StringProperty();
+    Swagger testSwagger = new Swagger();
+    ModelImpl testDefinition1 = new ModelImpl();
+    ModelImpl testDefinition2 = new ModelImpl();
+    StringProperty testPorperty1 = new StringProperty();
+    StringProperty testPorperty2 = new StringProperty();
 
     @Test
     public void isSnakeCaseForEmpty() {
@@ -59,49 +59,49 @@ public class SnakeCaseInPropNameRuleTest {
 
     @Test
     public void validateEmptyPath(){
-        assertThat(rule.validate(TEST_SWAGGER)).isEmpty();
+        assertThat(rule.validate(testSwagger)).isEmpty();
     }
 
     @Test
     public void validateNormalProperty(){
-        TEST_DEFINITION_1.addProperty("test_property", TEST_PORPERTY_1 );
-        TEST_SWAGGER.addDefinition("ExampleDefintion", TEST_DEFINITION_1);
-        assertThat(rule.validate(TEST_SWAGGER)).isEmpty();
+        testDefinition1.addProperty("test_property", testPorperty1);
+        testSwagger.addDefinition("ExampleDefintion", testDefinition1);
+        assertThat(rule.validate(testSwagger)).isEmpty();
     }
 
     @Test
     public void validateMultipleNormalProperties(){
-        TEST_DEFINITION_1.addProperty("test_property", TEST_PORPERTY_1 );
-        TEST_DEFINITION_1.addProperty("test_property_two", TEST_PORPERTY_2 );
-        TEST_SWAGGER.addDefinition("ExampleDefintion", TEST_DEFINITION_1);
-        assertThat(rule.validate(TEST_SWAGGER)).isEmpty();
+        testDefinition1.addProperty("test_property", testPorperty1);
+        testDefinition1.addProperty("test_property_two", testPorperty2);
+        testSwagger.addDefinition("ExampleDefintion", testDefinition1);
+        assertThat(rule.validate(testSwagger)).isEmpty();
     }
 
     @Test
     public void validateMultipleNormalPropertiesInMultipleDefinitions(){
-        TEST_DEFINITION_1.addProperty("test_property", TEST_PORPERTY_1 );
-        TEST_DEFINITION_2.addProperty("test_property_two", TEST_PORPERTY_2 );
-        TEST_SWAGGER.addDefinition("ExampleDefintion", TEST_DEFINITION_1);
-        TEST_SWAGGER.addDefinition("ExampleDefintionTwo", TEST_DEFINITION_2);
-        assertThat(rule.validate(TEST_SWAGGER)).isEmpty();
+        testDefinition1.addProperty("test_property", testPorperty1);
+        testDefinition2.addProperty("test_property_two", testPorperty2);
+        testSwagger.addDefinition("ExampleDefintion", testDefinition1);
+        testSwagger.addDefinition("ExampleDefintionTwo", testDefinition2);
+        assertThat(rule.validate(testSwagger)).isEmpty();
     }
 
     @Test
     public void validateFalseProperty(){
-        TEST_DEFINITION_1.addProperty("TEST_PROPERTY", TEST_PORPERTY_1 );
-        TEST_SWAGGER.addDefinition("ExampleDefintion", TEST_DEFINITION_1);
-        List<Violation> result = rule.validate(TEST_SWAGGER);
+        testDefinition1.addProperty("TEST_PROPERTY", testPorperty1);
+        testSwagger.addDefinition("ExampleDefintion", testDefinition1);
+        List<Violation> result = rule.validate(testSwagger);
         assertThat(result.size()).isEqualTo(1);
         assertThat(result.get(0).getDescription()).contains("\n Violating property: TEST_PROPERTY in definition: ExampleDefintion");
     }
 
     @Test
     public void validateMultipleFalsePropertiesInMultipleDefinitions(){
-        TEST_DEFINITION_1.addProperty("TEST_PROPERTY", TEST_PORPERTY_1 );
-        TEST_DEFINITION_2.addProperty("test_property_TWO", TEST_PORPERTY_2);
-        TEST_SWAGGER.addDefinition("ExampleDefintion", TEST_DEFINITION_1);
-        TEST_SWAGGER.addDefinition("ExampleDefintionTwo", TEST_DEFINITION_2);
-        List<Violation> result = rule.validate(TEST_SWAGGER);
+        testDefinition1.addProperty("TEST_PROPERTY", testPorperty1);
+        testDefinition2.addProperty("test_property_TWO", testPorperty2);
+        testSwagger.addDefinition("ExampleDefintion", testDefinition1);
+        testSwagger.addDefinition("ExampleDefintionTwo", testDefinition2);
+        List<Violation> result = rule.validate(testSwagger);
         assertThat(result.size()).isEqualTo(2);
         assertThat(result.get(0).getDescription()).contains("\n Violating property: TEST_PROPERTY in definition: ExampleDefintion");
         assertThat(result.get(1).getDescription()).contains("\n Violating property: test_property_TWO in definition: ExampleDefintionTwo");
