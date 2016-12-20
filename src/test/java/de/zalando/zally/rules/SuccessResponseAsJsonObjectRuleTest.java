@@ -26,7 +26,7 @@ public class SuccessResponseAsJsonObjectRuleTest {
         SuccessResponseAsJsonObjectRule rule = new SuccessResponseAsJsonObjectRule();
         Swagger swagger = new SwaggerParser().read("/api_spa.yaml");
         List<Violation> violations = rule.validate(swagger);
-        assertThat(violations).isEqualTo(2);
+        assertThat(violations.size()).isEqualTo(2);
         assertTrue(violations.stream().allMatch(v -> ViolationType.MUST.equals(v.getViolationType())));
         assertTrue(violations.stream().allMatch(v -> "Response As JSON Object".equals(v.getTitle())));
 
