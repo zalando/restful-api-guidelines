@@ -16,7 +16,8 @@ public class RulesValidatorConfiguration {
                 new SecureWithOAuth2Rule(),
                 new SuccessResponseAsJsonObjectRule(),
                 new NoVersionInUriRule(),
-                new SnakeCaseForQueryParamsRule()
+                new SnakeCaseForQueryParamsRule(),
+                new AvoidLinkHeadersRule()
         ));
     }
 }
