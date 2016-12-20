@@ -15,11 +15,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.ResourceUtils;
 
 import java.io.IOException;
+import java.net.URI;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -62,21 +65,7 @@ public class RestApiTest {
     @LocalServerPort
     private int port;
 
-    private final ObjectMapper mapper = new ObjectMapper();
     private final TestRestTemplate restTemplate = new TestRestTemplate();
-
-    @Test
-    public void shouldReturnEmptyViolationsWithoutAnyRules() {
-        ResponseEntity<JsonNode> responseEntity = sendEmptyRequest();
-
-        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-
-        JsonNode rootObject = responseEntity.getBody();
-        assertThat(rootObject.has("violations")).isTrue();
-
-        JsonNode violations = rootObject.get("violations");
-        assertThat(violations).isEmpty();
-    }
 
     @Test
     public void shouldValidateGivenApiDefinition() throws IOException {
@@ -92,16 +81,46 @@ public class RestApiTest {
         assertThat(violations.get(0).get("title").asText()).isEqualTo("dummy1");
     }
 
-    private ResponseEntity<JsonNode> sendEmptyRequest() {
-        return sendRequest(mapper.createObjectNode());
+    @Test
+    public void shouldRespondWithBadRequestOnMalformedJson() throws IOException {
+        RequestEntity requestEntity = RequestEntity
+                .post(URI.create(getUrl()))
+                .contentType(MediaType.APPLICATION_JSON)
+                .body("{\"malformed\": \"dummy\"");
+        ResponseEntity<JsonNode> responseEntity = restTemplate.exchange(requestEntity, JsonNode.class);
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+
+    @Test
+    public void shouldRespondWithBadRequestWhenApiDefinitionFieldIsMissing() throws IOException {
+        RequestEntity requestEntity = RequestEntity
+                .post(URI.create(getUrl()))
+                .contentType(MediaType.APPLICATION_JSON)
+                .body("{\"my_api\": \"dummy\"}");
+        ResponseEntity<JsonNode> responseEntity = restTemplate.exchange(requestEntity, JsonNode.class);
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+
+    @Test
+    public void shouldRespondWithBadRequestWhenApiDefinitionFieldIsNotValidSwaggerDefinition() throws IOException {
+        RequestEntity requestEntity = RequestEntity
+                .post(URI.create(getUrl()))
+                .contentType(MediaType.APPLICATION_JSON)
+                .body("{\"api_definition\": \"no swagger definition\"}");
+        ResponseEntity<JsonNode> responseEntity = restTemplate.exchange(requestEntity, JsonNode.class);
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
     }
 
     private ResponseEntity<JsonNode> sendRequest(JsonNode body) {
         ObjectNode requestBody = new ObjectMapper().createObjectNode();
         requestBody.set("api_definition", body);
         return restTemplate.postForEntity(
-                "http://localhost:" + port + "/api-violations",
+                getUrl(),
                 requestBody,
                 JsonNode.class);
+    }
+
+    private String getUrl() {
+        return "http://localhost:" + port + "/api-violations";
     }
 }
