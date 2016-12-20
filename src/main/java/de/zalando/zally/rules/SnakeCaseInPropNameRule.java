@@ -2,6 +2,7 @@ package de.zalando.zally.rules;
 
 import de.zalando.zally.Violation;
 import de.zalando.zally.ViolationType;
+import de.zalando.zally.utils.PatternUtil;
 import io.swagger.models.Model;
 import io.swagger.models.Swagger;
 
@@ -11,8 +12,6 @@ import java.util.Map;
 
 public class SnakeCaseInPropNameRule implements Rule {
 
-    //only accepts lower case and underscores
-    static private String pattern = "^[a-z]+(?:_[a-z]+)*$";
     String title = "snake_case property names";
     String description = "Property names must be snake_case (and never camelCase)";
     String ruleLink = "http://zalando.github.io/restful-api-guidelines/naming/Naming.html" +
@@ -25,16 +24,12 @@ public class SnakeCaseInPropNameRule implements Rule {
             for (Map.Entry<String, Model> entry : definitions.entrySet()) {
                 String definitionName = entry.getKey();
                 for (String propertyName : entry.getValue().getProperties().keySet()) {
-                    if (!isSnakeCase(propertyName)) {
+                    if (!PatternUtil.isSnakeCase(propertyName)) {
                         violations.add(new Violation(title, description + "\n Violating property: " + propertyName + " in definition: " + definitionName, ViolationType.MUST, ruleLink));
                     }
                 }
             }
         }
         return violations;
-    }
-
-    static boolean isSnakeCase(String input) {
-        return input.matches(pattern);
     }
 }

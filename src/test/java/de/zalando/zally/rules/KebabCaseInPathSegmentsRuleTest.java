@@ -1,6 +1,7 @@
 package de.zalando.zally.rules;
 
 import de.zalando.zally.Violation;
+import de.zalando.zally.utils.PatternUtil;
 import io.swagger.models.Path;
 import io.swagger.models.Swagger;
 import org.junit.Test;
@@ -9,8 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static de.zalando.zally.rules.KebabCaseInPathSegmentsRule.isLowerCaseAndHyphens;
-import static de.zalando.zally.rules.KebabCaseInPathSegmentsRule.isPathVariable;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class KebabCaseInPathSegmentsRuleTest {
@@ -26,61 +25,61 @@ public class KebabCaseInPathSegmentsRuleTest {
 
     @Test
     public void isLowerCaseAndHyphensForEmpty() {
-        assertThat(isLowerCaseAndHyphens("")).isTrue();
+        assertThat(PatternUtil.isLowerCaseAndHyphens("")).isTrue();
     }
 
     @Test
     public void isLowerCaseAndHyphensForAllLowerCaseAndHyphen() {
-        assertThat(isLowerCaseAndHyphens("shipment-orders")).isTrue();
+        assertThat(PatternUtil.isLowerCaseAndHyphens("shipment-orders")).isTrue();
     }
 
     @Test
     public void isLowerCaseAndHyphensForAllLowerCase() {
-        assertThat(isLowerCaseAndHyphens("shipment")).isTrue();
+        assertThat(PatternUtil.isLowerCaseAndHyphens("shipment")).isTrue();
     }
 
     @Test
     public void isLowerCaseAndHyphensForHyphen() {
-        assertThat(isLowerCaseAndHyphens("-")).isTrue();
+        assertThat(PatternUtil.isLowerCaseAndHyphens("-")).isTrue();
     }
 
     @Test
     public void isLowerCaseAndHyphensForAllUpperCaseAndHyphen() {
-        assertThat(isLowerCaseAndHyphens("SHIPMENT-ORDERS")).isFalse();
+        assertThat(PatternUtil.isLowerCaseAndHyphens("SHIPMENT-ORDERS")).isFalse();
     }
 
     @Test
     public void isLowerCaseAndHyphensForOneUpperCaseAndHyphen() {
-        assertThat(isLowerCaseAndHyphens("Shipment-orders")).isFalse();
+        assertThat(PatternUtil.isLowerCaseAndHyphens("Shipment-orders")).isFalse();
     }
 
     @Test
     public void isLowerCaseAndHyphensForNumbers() {
-        assertThat(isLowerCaseAndHyphens("orders12")).isFalse();
+        assertThat(PatternUtil.isLowerCaseAndHyphens("orders12")).isFalse();
     }
     @Test
     public void isLowerCaseAndHyphensForSnakeCase() {
-        assertThat(isLowerCaseAndHyphens("shipment_orders")).isFalse();
+        assertThat(PatternUtil.isLowerCaseAndHyphens("shipment_orders")).isFalse();
     }
     @Test
     public void isPathVariableForVariable() {
-        assertThat(isPathVariable("{shipment_orders_id}")).isTrue();
+        assertThat(PatternUtil.isPathVariable("{shipment_orders_id}")).isTrue();
     }
     @Test
     public void isPathVariableForJustCurlyBraces() {
-        assertThat(isPathVariable("{}")).isTrue();
+        assertThat(PatternUtil.isPathVariable("{}")).isTrue();
     }
     @Test
     public void isPathVariableForResourceName() {
-        assertThat(isPathVariable("shipment-orders")).isFalse();
+        assertThat(PatternUtil.isPathVariable("shipment-orders")).isFalse();
     }
     @Test
     public void isPathVariableForResourceNameAndStartingCurlyBrace() {
-        assertThat(isPathVariable("{shipment-orders")).isFalse();
+        assertThat(PatternUtil.isPathVariable("{shipment-orders")).isFalse();
     }
     @Test
     public void isPathVariableForResourceNameTailingCurlyBrace() {
-        assertThat(isPathVariable("shipment-orders}")).isFalse();
+        assertThat(PatternUtil.isPathVariable("shipment-orders}")).isFalse();
     }
 
     @Test

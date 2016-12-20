@@ -2,6 +2,7 @@ package de.zalando.zally.rules;
 
 import de.zalando.zally.Violation;
 import de.zalando.zally.ViolationType;
+import de.zalando.zally.utils.PatternUtil;
 import io.swagger.models.Swagger;
 import io.swagger.models.parameters.HeaderParameter;
 import io.swagger.models.parameters.Parameter;
@@ -71,21 +72,5 @@ public class HyphenateHttpHeadersRuleTest {
     public void positiveCaseTinbox() {
         Swagger swagger = new SwaggerParser().read("api_tinbox.yaml");
         assertThat(new HyphenateHttpHeadersRule().validate(swagger)).isEmpty();
-    }
-
-    @Test
-    public void hyphenationCheck() {
-        assertTrue(isHyphenated("A"));
-        assertTrue(isHyphenated("low"));
-        assertTrue(isHyphenated("Aa"));
-        assertFalse(isHyphenated("aA"));
-        assertFalse(isHyphenated("AA"));
-        assertTrue(isHyphenated("A-A"));
-        assertTrue(isHyphenated("X-Auth-2.0"));
-        assertTrue(isHyphenated("This-Is-Some-Hyphenated-String"));
-        assertTrue(isHyphenated("this-is-other-hyphenated-string"));
-        assertFalse(isHyphenated("Sorry no hyphens here"));
-        assertFalse(isHyphenated("CamelCaseIsNotAcceptableAndShouldBeIllegal"));
-        assertFalse(isHyphenated("a--a"));
     }
 }

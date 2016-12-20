@@ -1,6 +1,7 @@
 package de.zalando.zally.rules;
 
 import de.zalando.zally.Violation;
+import de.zalando.zally.utils.PatternUtil;
 import io.swagger.models.ModelImpl;
 import io.swagger.models.Swagger;
 import io.swagger.models.properties.StringProperty;
@@ -8,7 +9,6 @@ import org.junit.Test;
 
 import java.util.List;
 
-import static de.zalando.zally.rules.SnakeCaseInPropNameRule.isSnakeCase;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class SnakeCaseInPropNameRuleTest {
@@ -23,37 +23,37 @@ public class SnakeCaseInPropNameRuleTest {
 
     @Test
     public void isSnakeCaseForEmpty() {
-        assertThat(isSnakeCase("")).isFalse();
+        assertThat(PatternUtil.isSnakeCase("")).isFalse();
     }
 
     @Test
     public void isSnakeCaseForCorrectInput() {
-        assertThat(isSnakeCase("customer_number")).isTrue();
+        assertThat(PatternUtil.isSnakeCase("customer_number")).isTrue();
     }
 
     @Test
     public void isSnakeCaseForOnlyLowerCase() {
-        assertThat(isSnakeCase("customer")).isTrue();
+        assertThat(PatternUtil.isSnakeCase("customer")).isTrue();
     }
 
     @Test
     public void isSnakeCaseForUnderscore() {
-        assertThat(isSnakeCase("_")).isFalse();
+        assertThat(PatternUtil.isSnakeCase("_")).isFalse();
     }
 
     @Test
     public void isSnakeCaseForAllLowerCaseAndHyphen() {
-        assertThat(isSnakeCase("customer-number")).isFalse();
+        assertThat(PatternUtil.isSnakeCase("customer-number")).isFalse();
     }
 
     @Test
     public void isSnakeCaseForStartWithUnderscore() {
-        assertThat(isSnakeCase("_customer_number")).isFalse();
+        assertThat(PatternUtil.isSnakeCase("_customer_number")).isFalse();
     }
 
     @Test
     public void isSnakeCaseForUpperCaseAndUnderscore() {
-        assertThat(isSnakeCase("CUSTOMER_NUMBER")).isFalse();
+        assertThat(PatternUtil.isSnakeCase("CUSTOMER_NUMBER")).isFalse();
     }
 
 
