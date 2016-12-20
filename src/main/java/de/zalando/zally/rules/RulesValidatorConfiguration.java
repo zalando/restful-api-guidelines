@@ -12,10 +12,11 @@ public class RulesValidatorConfiguration {
     public RulesValidator createRulesValidator() {
         return new RulesValidator(Arrays.asList(
                 new AvoidTrailingSlashesRule(),
-                new LowerCaseWordsWithHyphensInPath(),
+                new KebabCaseInPathSegmentsRule(),
                 new SecureWithOAuth2Rule(),
                 new SuccessResponseAsJsonObjectRule(),
-                new NoVersionInUriRule()
+                new NoVersionInUriRule(),
+                new SnakeCaseInPropNameRule()
         ));
     }
 }
