@@ -1,4 +1,4 @@
-zally.iml
+*.iml
 .gradle/
 .idea/
 build/
