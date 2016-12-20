@@ -12,7 +12,7 @@ import java.util.List;
 public class SnakeCaseInPropNameRule implements Rule {
 
     //only accepts lower case and underscores
-    private String pattern = "^[a-z_]*$";
+    private String pattern = "^[a-z][a-z_]*$";
     String title = "snake_case property names";
     String description = "Property names must be snake_case (and never camelCase)";
     String ruleLink = "http://zalando.github.io/restful-api-guidelines/naming/Naming.html" +

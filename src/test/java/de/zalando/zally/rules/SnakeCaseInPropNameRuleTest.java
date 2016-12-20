@@ -15,7 +15,7 @@ public class SnakeCaseInPropNameRuleTest extends SnakeCaseInPropNameRule {
 
     @Test
     public void isSnakeCaseForEmpty() {
-        assertThat(isSnakeCase("")).isTrue();
+        assertThat(isSnakeCase("")).isFalse();
     }
 
     @Test
@@ -30,12 +30,17 @@ public class SnakeCaseInPropNameRuleTest extends SnakeCaseInPropNameRule {
 
     @Test
     public void isSnakeCaseForUnderscore() {
-        assertThat(isSnakeCase("_")).isTrue();
+        assertThat(isSnakeCase("_")).isFalse();
     }
 
     @Test
     public void isSnakeCaseForAllLowerCaseAndHyphen() {
         assertThat(isSnakeCase("customer-number")).isFalse();
+    }
+
+    @Test
+    public void isSnakeCaseForStartWithUnderscore() {
+        assertThat(isSnakeCase("_customer_number")).isFalse();
     }
 
     @Test
