@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
  */
 class SnakeCaseForQueryParamsRule {
 
-    private static String SNAKE_CASE_PATTERN = "^[a-z0-9_]*$";
+    private static String SNAKE_CASE_PATTERN = "^[a-z]+(?:_[a-z]+)*$";
 
     List<Violation> validate(Swagger swagger) {
         if (swagger == null) return new ArrayList<>();
