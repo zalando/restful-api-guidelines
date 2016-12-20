@@ -22,66 +22,6 @@ public class KebabCaseInPathSegmentsRuleTest {
     String wrongTestPath1 = "/shipment_order/{shipment_order_id}";
     String wrongTestPath2 = "/partner-order/{partner_order_id}/partner-order1/{partner_order_id}";
 
-
-    @Test
-    public void isLowerCaseAndHyphensForEmpty() {
-        assertThat(PatternUtil.isLowerCaseAndHyphens("")).isTrue();
-    }
-
-    @Test
-    public void isLowerCaseAndHyphensForAllLowerCaseAndHyphen() {
-        assertThat(PatternUtil.isLowerCaseAndHyphens("shipment-orders")).isTrue();
-    }
-
-    @Test
-    public void isLowerCaseAndHyphensForAllLowerCase() {
-        assertThat(PatternUtil.isLowerCaseAndHyphens("shipment")).isTrue();
-    }
-
-    @Test
-    public void isLowerCaseAndHyphensForHyphen() {
-        assertThat(PatternUtil.isLowerCaseAndHyphens("-")).isTrue();
-    }
-
-    @Test
-    public void isLowerCaseAndHyphensForAllUpperCaseAndHyphen() {
-        assertThat(PatternUtil.isLowerCaseAndHyphens("SHIPMENT-ORDERS")).isFalse();
-    }
-
-    @Test
-    public void isLowerCaseAndHyphensForOneUpperCaseAndHyphen() {
-        assertThat(PatternUtil.isLowerCaseAndHyphens("Shipment-orders")).isFalse();
-    }
-
-    @Test
-    public void isLowerCaseAndHyphensForNumbers() {
-        assertThat(PatternUtil.isLowerCaseAndHyphens("orders12")).isFalse();
-    }
-    @Test
-    public void isLowerCaseAndHyphensForSnakeCase() {
-        assertThat(PatternUtil.isLowerCaseAndHyphens("shipment_orders")).isFalse();
-    }
-    @Test
-    public void isPathVariableForVariable() {
-        assertThat(PatternUtil.isPathVariable("{shipment_orders_id}")).isTrue();
-    }
-    @Test
-    public void isPathVariableForJustCurlyBraces() {
-        assertThat(PatternUtil.isPathVariable("{}")).isTrue();
-    }
-    @Test
-    public void isPathVariableForResourceName() {
-        assertThat(PatternUtil.isPathVariable("shipment-orders")).isFalse();
-    }
-    @Test
-    public void isPathVariableForResourceNameAndStartingCurlyBrace() {
-        assertThat(PatternUtil.isPathVariable("{shipment-orders")).isFalse();
-    }
-    @Test
-    public void isPathVariableForResourceNameTailingCurlyBrace() {
-        assertThat(PatternUtil.isPathVariable("shipment-orders}")).isFalse();
-    }
-
     @Test
     public void validateEmptyPath(){
         assertThat(RULE.validate(testSwagger)).isEmpty();
