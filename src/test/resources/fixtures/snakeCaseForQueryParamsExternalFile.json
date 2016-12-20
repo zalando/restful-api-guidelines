@@ -25,7 +25,7 @@
       "maximum" : 1000
     },
     "PagingNextCursor" : {
-      "name" : "next_CURSOR",
+      "name" : "nextCursor",
       "in" : "query",
       "type" : "string",
       "required" : false

@@ -19,7 +19,7 @@ public class SnakeCaseForQueryParamsRuleTest {
     private Swagger validSwagger = getFixture("fixtures/snakeCaseForQueryParamsValid.json");
     private Swagger invalidSwaggerWithLocalParam = getFixture("fixtures/snakeCaseForQueryParamsInvalidLocalParam.json");
     private Swagger invalidSwaggerWIthInternalRef = getFixture("fixtures/snakeCaseForQueryParamsInvalidInternalRef.json");
-    //private Swagger invalidSwaggerWithExternalRef = getFixture("fixtures/snakeCaseForQueryParamsInvalidExternalRef.json");
+    private Swagger invalidSwaggerWithExternalRef = getFixture("fixtures/snakeCaseForQueryParamsInvalidExternalRef.json");
 
     @Test
     public void shouldFindNoViolations() {
@@ -36,10 +36,10 @@ public class SnakeCaseForQueryParamsRuleTest {
         assertThat(new SnakeCaseForQueryParamsRule().validate(invalidSwaggerWIthInternalRef)).isNotEmpty();
     }
 
-    /*@Test
+    @Test
     public void shouldFindViolationsInExternalRef () {
         assertThat(new SnakeCaseForQueryParamsRule().validate(invalidSwaggerWithExternalRef)).isNotEmpty();
-    }*/
+    }
 
     private Swagger getFixture(String fixture) {
         return new SwaggerParser().read(fixture);

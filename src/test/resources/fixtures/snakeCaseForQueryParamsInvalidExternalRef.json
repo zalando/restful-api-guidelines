@@ -40,7 +40,7 @@
         }, {
           "$ref" : "#/parameters/QueryPagingLimit"
         }, {
-          "$ref" : "./snakeCaseForQueryParamsExternalFile.json#/parameters/PagingNextCursor"
+          "$ref" : "../src/test/resources/fixtures/snakeCaseForQueryParamsExternalFile.json#/parameters/PagingNextCursor"
         }, {
           "name" : "owner_id",
           "description" : "Owner ID.",
