@@ -15,6 +15,7 @@ public class PatternUtil {
     private static final String SNAKE_CASE_PATTERN = "^[a-z]+(?:_[a-z]+)*$";
     private static final String KEBAB_CASE_PATTERN = "^[a-z]+(?:-[a-z]+)*$";
     private static final String VERSION_IN_URL_PATTERN = "(.*)/v[0-9]+(.*)";
+    private static final String PATH_VARIABLE_PATTERN = "\\{.+\\}$";
 
     public static boolean hasTrailingSlash(String input) {
         return input.trim().endsWith("/");
@@ -25,7 +26,7 @@ public class PatternUtil {
     }
 
     public static boolean isPathVariable(String input) {
-        return input.startsWith("{") && input.endsWith("}");
+        return input.matches(PATH_VARIABLE_PATTERN);
     }
 
     public static boolean isCamelCase(String input) {

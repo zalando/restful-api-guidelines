@@ -18,15 +18,18 @@ public class PatternUtilTest {
     @Test
     public void checkIsLowerCaseAndHyphens() {
         assertTrue(PatternUtil.isLowerCaseAndHyphens("a-b-c"));
+        assertTrue(PatternUtil.isLowerCaseAndHyphens("abc"));
         assertFalse(PatternUtil.isLowerCaseAndHyphens("A-B-C"));
-        assertFalse(PatternUtil.isLowerCaseAndHyphens("abc"));
     }
 
     @Test
     public void checkIsPathVariable() {
-        assertTrue(PatternUtil.isPathVariable("{}"));
-        assertTrue(PatternUtil.isPathVariable(" { } "));
+        assertTrue(PatternUtil.isPathVariable("{test}"));
+        assertFalse(PatternUtil.isPathVariable("{}"));
+        assertFalse(PatternUtil.isPathVariable(" { } "));
         assertFalse(PatternUtil.isPathVariable("abc"));
+        assertFalse(PatternUtil.isPathVariable("{test"));
+        assertFalse(PatternUtil.isPathVariable("test}"));
     }
 
     @Test
@@ -45,16 +48,16 @@ public class PatternUtilTest {
     public void checkIsHyphenatedCamelCase() {
         assertTrue(PatternUtil.isHyphenatedCamelCase("test-Case"));
         assertFalse(PatternUtil.isHyphenatedCamelCase("Test-Case"));
-        assertFalse(PatternUtil.isCamelCase("testCase"));
-        assertFalse(PatternUtil.isCamelCase("TestCase"));
+        assertFalse(PatternUtil.isHyphenatedCamelCase("testCase"));
+        assertFalse(PatternUtil.isHyphenatedCamelCase("TestCase"));
     }
 
     @Test
     public void checkIsHyphenatedPascalCase() {
         assertTrue(PatternUtil.isHyphenatedPascalCase("Test-Case"));
         assertFalse(PatternUtil.isHyphenatedPascalCase("test-Case"));
-        assertFalse(PatternUtil.isPascalCase("TestCase"));
-        assertFalse(PatternUtil.isPascalCase("testCase"));
+        assertFalse(PatternUtil.isHyphenatedPascalCase("TestCase"));
+        assertFalse(PatternUtil.isHyphenatedPascalCase("testCase"));
     }
 
     @Test
