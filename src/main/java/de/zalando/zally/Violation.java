@@ -1,7 +1,5 @@
 package de.zalando.zally;
 
-import io.swagger.models.Path;
-
 import java.util.Optional;
 
 public class Violation {
@@ -117,5 +115,19 @@ public class Violation {
         result = 31 * result + lineNumber.hashCode();
         result = 31 * result + columnNumber.hashCode();
         return result;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Violation{" +
+                "title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", violationType=" + violationType +
+                ", ruleLink='" + ruleLink + '\'' +
+                ", path=" + path +
+                ", lineNumber=" + lineNumber +
+                ", columnNumber=" + columnNumber +
+                '}';
     }
 }
