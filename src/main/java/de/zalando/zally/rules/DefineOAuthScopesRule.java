@@ -6,10 +6,8 @@ import io.swagger.models.Swagger;
 import io.swagger.models.auth.OAuth2Definition;
 import io.swagger.models.auth.SecuritySchemeDefinition;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static de.zalando.zally.ViolationType.MUST;
 import static java.lang.String.format;
@@ -67,20 +65,15 @@ public class DefineOAuthScopesRule implements Rule {
 
     // Extract all oauth2 scopes applied to the given operation into a simple list
     private List<String> extractAppliedScopes(Operation operation) {
-        List<String> scopes = new ArrayList<>();
-        List<Map<String, List<String>>> security = operation.getSecurity();
-        if (security != null && !security.isEmpty()) {
-            security.forEach(securityMap -> {
-                if (securityMap != null) {
-                    securityMap.forEach((key, value) -> {
-                        if (OAUTH2.equals(key) && value != null) {
-                            scopes.addAll(value);
-                        }
-                    });
-                }
-            });
+        List<String> empty = Collections.emptyList();
+        if (operation.getSecurity() == null) {
+            return empty;
         }
-        return scopes;
+        return operation.getSecurity()
+                .stream()
+                .flatMap(map -> (map != null ? map.get(OAUTH2) : empty).stream())
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
     }
 
     // create a violation for an operation under a path
