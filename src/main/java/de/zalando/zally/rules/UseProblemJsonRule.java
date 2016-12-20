@@ -27,19 +27,21 @@ public class UseProblemJsonRule implements Rule {
         }
         for(Map.Entry<String, Path> path: swagger.getPaths().entrySet())
             for(Map.Entry<HttpMethod, Operation> op : path.getValue().getOperationMap().entrySet())
-                for(Map.Entry<String, Response> response: op.getValue().getResponses().entrySet())
+                for(Map.Entry<String, Response> response: op.getValue().getResponses().entrySet()) {
+                    Integer httpCodeInt = null;
                     try {
-                        Integer httpCodeInt = Integer.valueOf(response.getKey());
-                        //TODO: check if schema reference type is Problem := https://github.com/swagger-api/swagger-parser/pull/303/files
-                        if (httpCodeInt >= 400 && httpCodeInt < 600 && response.getValue().getSchema() != null
-                                && !"ref".equals(response.getValue().getSchema().getType())) {
-                            String violationPath = path.getKey() + "/" + op.getKey() + "/" + response.getKey();
-                            violations.add(new Violation(TITLE, DESCRIPTION, VIOLATION_TYPE, RULE_LINK, violationPath));
-                        }
-                    } catch(NumberFormatException nfe) {
-                        // ignore any http codes which are not between 400 and 600
+                        httpCodeInt = Integer.valueOf(response.getKey());
+                    } catch (NumberFormatException nfe) {
+                        // ignore any http codes which are not between 400 and 599
                     }
-
+                    //TODO: check if schema reference type is Problem := https://github.com/swagger-api/swagger-parser/pull/303/files
+                    if (httpCodeInt != null && httpCodeInt >= 400 && httpCodeInt <= 599
+                            && response.getValue().getSchema() != null
+                            && !"ref".equals(response.getValue().getSchema().getType())) {
+                        String violationPath = path.getKey() + "/" + op.getKey() + "/" + response.getKey();
+                        violations.add(new Violation(TITLE, DESCRIPTION, VIOLATION_TYPE, RULE_LINK, violationPath));
+                    }
+                }
         return violations;
     }
 
