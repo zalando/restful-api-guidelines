@@ -76,11 +76,6 @@
     "/items/{item_id}" : {
       "head" : {
         "summary" : "Check if an item exists",
-        "parameters" : [ {
-          "$ref" : "#/parameters/Authorization"
-        }, {
-          "$ref" : "#/parameters/FlowId"
-        } ],
         "tags" : [],
         "responses" : {
           "200" : {
