@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import java.util.List;
 
+import static de.zalando.zally.rules.SnakeCaseInPropNameRule.isSnakeCase;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class SnakeCaseInPropNameRuleTest {
@@ -22,37 +23,37 @@ public class SnakeCaseInPropNameRuleTest {
 
     @Test
     public void isSnakeCaseForEmpty() {
-        assertThat(SnakeCaseInPropNameRule.isSnakeCase("")).isFalse();
+        assertThat(isSnakeCase("")).isFalse();
     }
 
     @Test
     public void isSnakeCaseForCorrectInput() {
-        assertThat(SnakeCaseInPropNameRule.isSnakeCase("customer_number")).isTrue();
+        assertThat(isSnakeCase("customer_number")).isTrue();
     }
 
     @Test
     public void isSnakeCaseForOnlyLowerCase() {
-        assertThat(SnakeCaseInPropNameRule.isSnakeCase("customer")).isTrue();
+        assertThat(isSnakeCase("customer")).isTrue();
     }
 
     @Test
     public void isSnakeCaseForUnderscore() {
-        assertThat(SnakeCaseInPropNameRule.isSnakeCase("_")).isFalse();
+        assertThat(isSnakeCase("_")).isFalse();
     }
 
     @Test
     public void isSnakeCaseForAllLowerCaseAndHyphen() {
-        assertThat(SnakeCaseInPropNameRule.isSnakeCase("customer-number")).isFalse();
+        assertThat(isSnakeCase("customer-number")).isFalse();
     }
 
     @Test
     public void isSnakeCaseForStartWithUnderscore() {
-        assertThat(SnakeCaseInPropNameRule.isSnakeCase("_customer_number")).isFalse();
+        assertThat(isSnakeCase("_customer_number")).isFalse();
     }
 
     @Test
     public void isSnakeCaseForUpperCaseAndUnderscore() {
-        assertThat(SnakeCaseInPropNameRule.isSnakeCase("CUSTOMER_NUMBER")).isFalse();
+        assertThat(isSnakeCase("CUSTOMER_NUMBER")).isFalse();
     }
 
 
