@@ -12,7 +12,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import static de.zalando.zally.rules.HyphenateHttpHeadersRule.isHyphenated;
+import static de.zalando.zally.rules.HyphenateHttpHeadersRule.*;
 import static junit.framework.TestCase.assertFalse;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertTrue;
@@ -39,12 +39,7 @@ public class HyphenateHttpHeadersRuleTest {
         swagger.setParameters(parameters);
         List<Violation> result = new HyphenateHttpHeadersRule().validate(swagger);
         assertThat(result).hasSameElementsAs(Collections.singletonList(
-                new Violation(
-                        "Must: Use Hyphenated HTTP Headers",
-                        "Header name 'CamelCaseName' is not hyphenated",
-                        ViolationType.MUST,
-                        "http://zalando.github.io/restful-api-guidelines/naming/Naming.html")
-                )
+                new Violation(RULE_NAME, "Header name 'CamelCaseName' is not hyphenated", ViolationType.MUST, RULE_URL))
         );
     }
 
