@@ -1,5 +1,6 @@
 package de.zalando.zally.rules;
 
+import com.google.common.collect.Sets;
 import de.zalando.zally.Violation;
 import io.swagger.models.Operation;
 import io.swagger.models.Swagger;
@@ -8,6 +9,7 @@ import io.swagger.models.auth.SecuritySchemeDefinition;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static de.zalando.zally.ViolationType.MUST;
 import static java.lang.String.format;
@@ -23,14 +25,11 @@ public class DefineOAuthScopesRule implements Rule {
     @Override
     public List<Violation> validate(Swagger swagger) {
         List<Violation> violations = new ArrayList<>();
-
         if (swagger == null || swagger.getPaths() == null) {
             return violations;
         }
-
-        Map<String, String> applicableScopes = getDefinedScopes(swagger);
-        applicableScopes.put(UID, "applicable by default");
-
+        Set<String> applicableScopes = new HashSet<>(getDefinedScopes(swagger));
+        applicableScopes.add(UID);
         swagger.getPaths().forEach((pathKey, path) -> {
             if (path != null) {
                 path.getOperations().forEach(operation -> {
@@ -42,38 +41,30 @@ public class DefineOAuthScopesRule implements Rule {
     }
 
     // Validate one endpoint
-    private List<Violation> validateOperation(Operation operation, String path,
-                                              Map<String, String> applicableScopes) {
+    private List<Violation> validateOperation(Operation operation, String path, Set<String> definedScopes) {
         List<Violation> violations = new ArrayList<>();
-
-        boolean validScopePresent = false;
-        for (String appliedScope : extractAppliedScopes(operation)) {
-            if (applicableScopes.containsKey(appliedScope)) {
-                validScopePresent = true;
-            } else {
-                String description = format(INVALID_SCOPE_DESC, appliedScope, operation.getSummary());
-                violations.add(createViolation(path, description));
-            }
-        }
-
-        if (!validScopePresent) {
-            String description = format(NOT_DEFINED_DESC, operation.getSummary());
-            violations.add(createViolation(path, description));
+        Set<String> actualScopes = extractAppliedScopes(operation);
+        Sets.SetView<String> illegalScopes = Sets.difference(actualScopes, definedScopes);
+        violations.addAll(illegalScopes
+                .stream()
+                .map(s -> createViolation(path, format(INVALID_SCOPE_DESC, s, operation.getSummary())))
+                .collect(Collectors.toList()));
+        if (illegalScopes.size() == actualScopes.size()) {
+            violations.add(createViolation(path, format(NOT_DEFINED_DESC, operation.getSummary())));
         }
         return violations;
     }
 
     // Extract all oauth2 scopes applied to the given operation into a simple list
-    private List<String> extractAppliedScopes(Operation operation) {
-        List<String> empty = Collections.emptyList();
+    private Set<String> extractAppliedScopes(Operation operation) {
         if (operation.getSecurity() == null) {
-            return empty;
+            return Collections.emptySet();
         }
         return operation.getSecurity()
                 .stream()
-                .flatMap(map -> (map != null ? map.get(OAUTH2) : empty).stream())
+                .flatMap(map -> map != null ? map.get(OAUTH2).stream() : Stream.empty())
                 .filter(Objects::nonNull)
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
     }
 
     // create a violation for an operation under a path
@@ -82,19 +73,16 @@ public class DefineOAuthScopesRule implements Rule {
     }
 
     // get the scopes from security definition
-    private Map<String, String> getDefinedScopes(Swagger swagger) {
-        Map<String, String> scopes = null;
+    private Set<String> getDefinedScopes(Swagger swagger) {
+        Set<String> result = new HashSet<>();
         if (swagger.getSecurityDefinitions() != null) {
             Map<String, SecuritySchemeDefinition> securityDefinitions = swagger.getSecurityDefinitions();
             SecuritySchemeDefinition securitySchemeDefinition = securityDefinitions.get(OAUTH2);
             if (securitySchemeDefinition != null && securitySchemeDefinition instanceof OAuth2Definition) {
                 OAuth2Definition oAuth2Definition = (OAuth2Definition) securitySchemeDefinition;
-                scopes = oAuth2Definition.getScopes();
+                result = oAuth2Definition.getScopes().keySet();
             }
         }
-        if (scopes == null) {
-            scopes = new HashMap<>();
-        }
-        return scopes;
+        return result;
     }
 }
