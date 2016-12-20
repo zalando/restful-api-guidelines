@@ -26,3 +26,12 @@ task zallyJar(type: OneJar) {
     mainClass = 'de.zalando.zally.cli.Main'
     archiveName = 'zally.jar'
 }
+
+task bin {
+    dependsOn zallyJar
+    copy {
+        from 'build/libs'
+        into 'bin'
+        include '**/zally.jar'
+    }
+}
