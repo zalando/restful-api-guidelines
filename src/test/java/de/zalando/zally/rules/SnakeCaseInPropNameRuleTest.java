@@ -114,20 +114,16 @@ public class SnakeCaseInPropNameRuleTest extends SnakeCaseInPropNameRule {
     public void validateMultipleFalsePropertiesInMultipleDefinitions(){
         Swagger swagger = new Swagger();
         StringProperty property = new StringProperty();
-        property.setName("TEST_PROPERTY");
         StringProperty property2 = new StringProperty();
-        property2.setName("test_property_TWO");
         ModelImpl model = new ModelImpl();
-        model.setTitle("ExampleDefintion");
-        model.addProperty("TEST_PROPERTY", property );
         ModelImpl model2 = new ModelImpl();
-        model2.setTitle("ExampleDefintionTwo");
-        model2.addProperty("test_property_two", property2 );
+        model.addProperty("TEST_PROPERTY", property );
+        model2.addProperty("test_property_TWO", property2 );
         swagger.addDefinition("ExampleDefintion", model);
         swagger.addDefinition("ExampleDefintionTwo", model2);
         List<Violation> result = validate(swagger);
         assertThat(result.size()).isEqualTo(2);
-        assertThat(result.get(0)).isEqualToComparingFieldByField(new Violation(title, description + "\n Violating property: " + property.getName() + " in definition: " + model.getTitle(), ViolationType.MUST, ruleLink));
-        assertThat(result.get(1)).isEqualToComparingFieldByField(new Violation(title, description + "\n Violating property: " + property2.getName() + " in definition: " + model2.getTitle(), ViolationType.MUST, ruleLink));
+        assertThat(result.get(0)).isEqualToComparingFieldByField(new Violation(title, description + "\n Violating property: TEST_PROPERTY in definition: ExampleDefintion", ViolationType.MUST, ruleLink));
+        assertThat(result.get(1)).isEqualToComparingFieldByField(new Violation(title, description + "\n Violating property: test_property_TWO in definition: ExampleDefintionTwo", ViolationType.MUST, ruleLink));
     }
 }

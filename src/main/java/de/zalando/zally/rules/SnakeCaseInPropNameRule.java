@@ -8,6 +8,7 @@ import io.swagger.models.properties.Property;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class SnakeCaseInPropNameRule implements Rule {
 
@@ -26,10 +27,12 @@ public class SnakeCaseInPropNameRule implements Rule {
             return violations;
         }
 
-        for (Model definition : swagger.getDefinitions().values()) {
-            for (Property property : definition.getProperties().values()) {
-                if (!isSnakeCase(property.getName())) {
-                    violations.add(new Violation(title, description + "\n Violating property: " + property.getName() + " in definition: " + definition.getTitle(), ViolationType.MUST, ruleLink));
+        Map<String, Model> definitions = swagger.getDefinitions();
+        for (String definitionName : definitions.keySet()) {
+            Map<String, Property> properties = definitions.get(definitionName).getProperties();
+            for (String propertyName : properties.keySet()) {
+                if (!isSnakeCase(propertyName)) {
+                    violations.add(new Violation(title, description + "\n Violating property: " + propertyName + " in definition: " + definitionName, ViolationType.MUST, ruleLink));
                 }
             }
         }
