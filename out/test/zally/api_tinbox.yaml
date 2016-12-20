@@ -1,0 +1,1331 @@
+---
+swagger: "2.0"
+info:
+  description: "All requests and responses are scoped by the supplier's auth token,\n\
+    i.e. only the subset of resource collections the merchant has access to are exposed.\n"
+  version: "0.1.0"
+  title: "Merchant Inventory Quality - QUALA API"
+  contact:
+    name: "Merchant Inventory Quality (codename Glitch)"
+    email: "team-glitch@zalando.de"
+host: "tinbox.glitch.zalan.do"
+basePath: "/"
+schemes:
+- "https"
+consumes:
+- "application/json"
+produces:
+- "application/json"
+paths:
+  /merchants:
+    get:
+      tags:
+      - "merchants"
+      summary: "Get a list of merchants whose articles have ever been in the review\
+        \ queue."
+      operationId: "getMerchants"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Authorization"
+        in: "header"
+        required: true
+        type: "string"
+      - name: "X-Flow-Id"
+        in: "header"
+        required: false
+        type: "string"
+      responses:
+        400:
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        404:
+          description: "Not Found"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        504:
+          description: "Gateway Timeout"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        403:
+          description: "Forbidden"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        502:
+          description: "Bad Gateway"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        401:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/MerchantsEntityJson"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+  /meta/article_domains:
+    get:
+      tags:
+      - "meta"
+      summary: "Get a list of article domains."
+      operationId: "getMetaArticle_domains"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Authorization"
+        in: "header"
+        required: true
+        type: "string"
+      - name: "X-Flow-Id"
+        in: "header"
+        required: false
+        type: "string"
+      responses:
+        400:
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        404:
+          description: "Not Found"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        504:
+          description: "Gateway Timeout"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        403:
+          description: "Forbidden"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        502:
+          description: "Bad Gateway"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        401:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/ArticleDomainsEntityJson"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+  /meta/colors:
+    get:
+      tags:
+      - "meta"
+      summary: "Get a list of colors."
+      operationId: "getMetaColors"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Authorization"
+        in: "header"
+        required: true
+        type: "string"
+      - name: "X-Flow-Id"
+        in: "header"
+        required: false
+        type: "string"
+      responses:
+        400:
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        404:
+          description: "Not Found"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        504:
+          description: "Gateway Timeout"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        403:
+          description: "Forbidden"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        502:
+          description: "Bad Gateway"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        401:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/ColorsJson"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+  /meta/commodity_groups:
+    get:
+      tags:
+      - "meta"
+      summary: "Get a list of commodity groups."
+      operationId: "getMetaCommodity_groups"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Authorization"
+        in: "header"
+        required: true
+        type: "string"
+      - name: "X-Flow-Id"
+        in: "header"
+        required: false
+        type: "string"
+      responses:
+        400:
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        404:
+          description: "Not Found"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        504:
+          description: "Gateway Timeout"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        403:
+          description: "Forbidden"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        502:
+          description: "Bad Gateway"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        401:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/CommodityGroupsEntityJson"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+  /meta/size_grids:
+    get:
+      tags:
+      - "meta"
+      summary: "Get a list of size grids."
+      operationId: "getMetaSize_grids"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Authorization"
+        in: "header"
+        required: true
+        type: "string"
+      - name: "X-Flow-Id"
+        in: "header"
+        required: false
+        type: "string"
+      responses:
+        400:
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        404:
+          description: "Not Found"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        504:
+          description: "Gateway Timeout"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        403:
+          description: "Forbidden"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        502:
+          description: "Bad Gateway"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        401:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/SizeGridsEntityJson"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+  /meta/tags:
+    get:
+      tags:
+      - "meta"
+      summary: "Get a list of tags."
+      operationId: "getMetaTags"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Authorization"
+        in: "header"
+        required: true
+        type: "string"
+      - name: "X-Flow-Id"
+        in: "header"
+        required: false
+        type: "string"
+      responses:
+        400:
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        404:
+          description: "Not Found"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        504:
+          description: "Gateway Timeout"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        403:
+          description: "Forbidden"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        502:
+          description: "Bad Gateway"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        401:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/TagsEntityJson"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+  /queue/configs/{config-id}:
+    get:
+      tags:
+      - "queue"
+      summary: "Get the details for the given config ID."
+      operationId: "getQueueConfigs"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "config-id"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "Authorization"
+        in: "header"
+        required: true
+        type: "string"
+      - name: "X-Flow-Id"
+        in: "header"
+        required: false
+        type: "string"
+      responses:
+        400:
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        404:
+          description: "Not Found"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        504:
+          description: "Gateway Timeout"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        403:
+          description: "Forbidden"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        502:
+          description: "Bad Gateway"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        401:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/ConfigDetailsJson"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+  /queue/models:
+    get:
+      tags:
+      - "queue"
+      summary: "Get all models to review for given merchant."
+      operationId: "getQueueModels"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "merchant-id"
+        in: "query"
+        required: true
+        type: "string"
+      - name: "Authorization"
+        in: "header"
+        required: true
+        type: "string"
+      - name: "X-Flow-Id"
+        in: "header"
+        required: false
+        type: "string"
+      responses:
+        400:
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        404:
+          description: "Not Found"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        504:
+          description: "Gateway Timeout"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        403:
+          description: "Forbidden"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        502:
+          description: "Bad Gateway"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        401:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/ModelsJson"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+  /queue/models/{model-id}:
+    get:
+      tags:
+      - "queue"
+      summary: "Get one model by given model id"
+      operationId: "getQueueModels"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "model-id"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "Authorization"
+        in: "header"
+        required: true
+        type: "string"
+      - name: "X-Flow-Id"
+        in: "header"
+        required: false
+        type: "string"
+      responses:
+        400:
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        404:
+          description: "Not Found"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        504:
+          description: "Gateway Timeout"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        403:
+          description: "Forbidden"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        502:
+          description: "Bad Gateway"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        401:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/ModelDetailEntityJson"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+  /queue/summaries:
+    get:
+      tags:
+      - "queue"
+      summary: "Get the queue summary for the given merchant, if specified, or the\
+        \ total for all merchants, if none is specified."
+      operationId: "getQueueSummaries"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "merchant-id"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "Authorization"
+        in: "header"
+        required: true
+        type: "string"
+      - name: "X-Flow-Id"
+        in: "header"
+        required: false
+        type: "string"
+      responses:
+        400:
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        404:
+          description: "Not Found"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        504:
+          description: "Gateway Timeout"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        403:
+          description: "Forbidden"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        502:
+          description: "Bad Gateway"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        401:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/QueueSummaries"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+  /rejections:
+    post:
+      tags:
+      - "rejections"
+      summary: "Create a list of rejections and associate them with a given list of\
+        \ article configs"
+      operationId: "postRejections"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Authorization"
+        in: "header"
+        required: true
+        type: "string"
+      - name: "X-Flow-Id"
+        in: "header"
+        required: false
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "RejectionsEntityJson"
+        required: true
+        schema:
+          $ref: "#/definitions/RejectionsEntityJson"
+      responses:
+        400:
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        504:
+          description: "Gateway Timeout"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        403:
+          description: "Forbidden"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        502:
+          description: "Bad Gateway"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        204:
+          description: "No Content"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+        401:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/Errors"
+          headers:
+            X-Flow-Id:
+              type: "string"
+              description: "Unique identifier for the request"
+      security:
+      - tinbox: []
+securityDefinitions:
+  tinbox:
+    type: "oauth2"
+    authorizationUrl: "https://auth.zalando.com/oauth2/authorize"
+    tokenUrl: "https://info.services.auth.zalando.com/oauth2/tokeninfo"
+    flow: "implicit # or whatever you care to implement"
+    scopes:
+      quality-service.all: "This scope grants a service the permission to access all\
+        \ quality-related functions"
+definitions:
+  ConfigDetailsJson:
+    required:
+    - "attributes"
+    - "color"
+    - "config_id"
+    - "images"
+    - "simples"
+    properties:
+      config_id:
+        type: "string"
+      color:
+        $ref: "#/definitions/ColorJson"
+      attributes:
+        type: "array"
+        items:
+          $ref: "#/definitions/ConfigDetailsAttributeJson"
+      simples:
+        type: "array"
+        items:
+          $ref: "#/definitions/SimpleJson"
+      images:
+        type: "array"
+        items:
+          type: "string"
+    description: "ConfigDetailsJson"
+  ModelJson:
+    required:
+    - "merchant_id"
+    - "model"
+    - "summary"
+    properties:
+      merchant_id:
+        type: "string"
+      model:
+        $ref: "#/definitions/Model"
+      summary:
+        $ref: "#/definitions/MerchantSummary"
+    description: "ModelJson"
+  QueueSummaries:
+    required:
+    - "configs"
+    properties:
+      configs:
+        type: "integer"
+        format: "int32"
+      simples:
+        type: "integer"
+        format: "int32"
+    description: "QueueSummaries"
+  PriceRange:
+    required:
+    - "from"
+    - "to"
+    properties:
+      from:
+        $ref: "#/definitions/Price"
+      to:
+        $ref: "#/definitions/Price"
+    description: "PriceRange"
+  ConfigReviewStatusEntityJson:
+    required:
+    - "config_id"
+    - "config_name"
+    - "is_rejected"
+    - "reasons"
+    properties:
+      author:
+        $ref: "#/definitions/UserId"
+      config_id:
+        type: "string"
+      date:
+        type: "ZonedDateTime"
+        description: "java.time.ZonedDateTime"
+      is_rejected:
+        type: "boolean"
+      config_name:
+        type: "string"
+      reasons:
+        type: "array"
+        items:
+          type: "string"
+    description: "ConfigReviewStatusEntityJson"
+  CommodityGroupJson:
+    required:
+    - "children"
+    - "code"
+    - "full_code"
+    - "label"
+    properties:
+      code:
+        type: "string"
+      full_code:
+        type: "string"
+      label:
+        type: "string"
+      children:
+        type: "array"
+        items:
+          $ref: "#/definitions/CommodityGroupJson"
+    description: "CommodityGroupJson"
+  ColorsJson:
+    required:
+    - "colors"
+    properties:
+      colors:
+        type: "array"
+        items:
+          $ref: "#/definitions/ColorJson"
+    description: "ColorsJson"
+  Error:
+    required:
+    - "code"
+    - "title"
+    properties:
+      title:
+        type: "string"
+      code:
+        type: "string"
+    description: "Error"
+  MerchantsEntityJson:
+    required:
+    - "links"
+    - "merchants"
+    properties:
+      merchants:
+        type: "array"
+        items:
+          $ref: "#/definitions/Merchant"
+      links:
+        $ref: "#/definitions/Links"
+    description: "MerchantsEntityJson"
+  Links:
+    required:
+    - "first"
+    - "last"
+    - "next"
+    - "prev"
+    - "self"
+    properties:
+      self:
+        type: "string"
+      prev:
+        type: "string"
+      last:
+        type: "string"
+      next:
+        type: "string"
+      first:
+        type: "string"
+    description: "Links"
+  SizeGridsEntityJson:
+    required:
+    - "links"
+    - "size_grids"
+    properties:
+      size_grids:
+        type: "array"
+        items:
+          $ref: "#/definitions/SizeGridEntityJson"
+      links:
+        $ref: "#/definitions/Links"
+    description: "SizeGridsEntityJson"
+  SimpleJson:
+    required:
+    - "ean"
+    - "simple_id"
+    - "size"
+    properties:
+      simple_id:
+        type: "string"
+      ean:
+        type: "string"
+      size:
+        type: "string"
+    description: "SimpleJson"
+  Price:
+    required:
+    - "currency"
+    - "value"
+    properties:
+      value:
+        type: "number"
+        format: "double"
+      currency:
+        type: "string"
+    description: "Price"
+  TagsEntityJson:
+    required:
+    - "links"
+    - "tags"
+    properties:
+      tags:
+        type: "array"
+        items:
+          $ref: "#/definitions/TagEntityJson"
+      links:
+        $ref: "#/definitions/Links"
+    description: "TagsEntityJson"
+  Simple:
+    required:
+    - "ean"
+    - "simple_id"
+    - "size"
+    properties:
+      simple_id:
+        type: "string"
+      ean:
+        type: "string"
+      size:
+        type: "string"
+    description: "Simple"
+  ColorJson:
+    required:
+    - "data"
+    - "label"
+    properties:
+      label:
+        type: "string"
+      data:
+        type: "string"
+    description: "ColorJson"
+  ModelDetailEntityJson:
+    required:
+    - "age_group"
+    - "article_domains"
+    - "brand"
+    - "commodity_group"
+    - "configs"
+    - "gender"
+    - "name"
+    - "outline"
+    - "season"
+    - "tags"
+    properties:
+      name:
+        type: "string"
+      outline:
+        type: "string"
+      tags:
+        type: "array"
+        items:
+          $ref: "#/definitions/Tag"
+      age_group:
+        type: "string"
+      season:
+        type: "string"
+      brand:
+        type: "string"
+      configs:
+        type: "array"
+        items:
+          $ref: "#/definitions/ConfigReviewStatusEntityJson"
+      commodity_group:
+        $ref: "#/definitions/CommodityGroupJson"
+      article_domains:
+        type: "array"
+        items:
+          type: "string"
+      gender:
+        type: "string"
+    description: "ModelDetailEntityJson"
+  CommodityGroupsEntityJson:
+    required:
+    - "groups"
+    - "links"
+    properties:
+      groups:
+        type: "array"
+        items:
+          $ref: "#/definitions/CommodityGroupJson"
+      links:
+        $ref: "#/definitions/Links"
+    description: "CommodityGroupsEntityJson"
+  RejectionsEntityJson:
+    required:
+    - "comment"
+    - "config_ids"
+    - "merchant_id"
+    - "reason_ids"
+    properties:
+      config_ids:
+        type: "array"
+        items:
+          type: "string"
+      reason_ids:
+        type: "array"
+        items:
+          type: "string"
+      comment:
+        type: "string"
+      merchant_id:
+        type: "string"
+    description: "RejectionsEntityJson"
+  ArticleDomainsEntityJson:
+    required:
+    - "article_domains"
+    - "links"
+    properties:
+      article_domains:
+        type: "array"
+        items:
+          type: "string"
+      links:
+        $ref: "#/definitions/Links"
+    description: "ArticleDomainsEntityJson"
+  Model:
+    required:
+    - "brand_name"
+    - "configs"
+    - "model_id"
+    - "model_name"
+    - "silhouette"
+    properties:
+      silhouette:
+        type: "string"
+      configs:
+        type: "array"
+        items:
+          $ref: "#/definitions/Config"
+      model_id:
+        type: "string"
+      brand_name:
+        type: "string"
+      model_name:
+        type: "string"
+    description: "Model"
+  TagEntityJson:
+    required:
+    - "label"
+    - "value"
+    properties:
+      label:
+        type: "string"
+      value:
+        type: "string"
+    description: "TagEntityJson"
+  SizeGridEntityJson:
+    required:
+    - "size_grid_id"
+    - "sizes"
+    properties:
+      size_grid_id:
+        type: "string"
+      sizes:
+        type: "array"
+        items:
+          type: "string"
+    description: "SizeGridEntityJson"
+  Config:
+    required:
+    - "brand_code"
+    - "color"
+    - "config_id"
+    - "gender"
+    - "images"
+    - "name"
+    - "price_range"
+    - "season"
+    - "silhouette"
+    - "simples"
+    - "size_grid"
+    properties:
+      name:
+        type: "string"
+      config_id:
+        type: "string"
+      silhouette:
+        type: "string"
+      color:
+        $ref: "#/definitions/Color"
+      season:
+        type: "string"
+      simples:
+        type: "array"
+        items:
+          $ref: "#/definitions/Simple"
+      brand_code:
+        type: "string"
+      price_range:
+        $ref: "#/definitions/PriceRange"
+      images:
+        type: "array"
+        items:
+          type: "string"
+      size_grid:
+        type: "string"
+      gender:
+        type: "string"
+    description: "Config"
+  Errors:
+    required:
+    - "error"
+    properties:
+      error:
+        $ref: "#/definitions/Error"
+    description: "Errors"
+  Tag:
+    required:
+    - "label"
+    - "value"
+    properties:
+      label:
+        type: "string"
+      value:
+        type: "string"
+    description: "Tag"
+  UserId:
+    required:
+    - "value"
+    properties:
+      value:
+        type: "string"
+    description: "UserId"
+  ConfigDetailsAttributeJson:
+    required:
+    - "label"
+    - "values"
+    properties:
+      label:
+        type: "string"
+      values:
+        type: "array"
+        items:
+          type: "string"
+    description: "ConfigDetailsAttributeJson"
+  MerchantSummary:
+    required:
+    - "configs"
+    - "simples"
+    properties:
+      configs:
+        type: "integer"
+        format: "int32"
+      simples:
+        type: "integer"
+        format: "int32"
+    description: "MerchantSummary"
+  Color:
+    required:
+    - "data"
+    - "label"
+    properties:
+      label:
+        type: "string"
+      data:
+        type: "string"
+    description: "Color"
+  Merchant:
+    required:
+    - "merchant_id"
+    - "name"
+    properties:
+      merchant_id:
+        type: "string"
+      name:
+        type: "string"
+    description: "Merchant"
+  ModelsJson:
+    required:
+    - "links"
+    - "models"
+    properties:
+      models:
+        type: "array"
+        items:
+          $ref: "#/definitions/ModelJson"
+      links:
+        $ref: "#/definitions/Links"
+    description: "ModelsJson"

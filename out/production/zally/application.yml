@@ -1,0 +1,18 @@
+spring:
+  profiles:
+    active: production
+  oauth2:
+    resource:
+      tokenInfoUri: "https://info.services.auth.zalando.com/oauth2/tokeninfo"
+
+endpoints:
+  enabled: false
+  health:
+    enabled: true
+  metrics:
+    enabled: true
+    sensitive: false
+
+security:
+  basic:
+    enabled: false

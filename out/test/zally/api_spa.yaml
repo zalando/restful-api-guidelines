@@ -1,0 +1,296 @@
+swagger: "2.0"
+info:
+  title: Partner Service Adapter
+  description: |
+    Admin APIs for adding, modifying and deleting jobs to retrieve catalog and stock updates from Partners
+  version: "1.0.0"
+  contact:
+    name: Merchant Core - Article (codename ARTMC)
+    email: team-artmc@zalando.de
+host: psa.artmc.zalan.do
+basePath: /
+schemes:
+  - https
+produces:
+  - application/json
+consumes:
+  - application/json
+parameters:
+  Authorization:
+    name: Authorization
+    in: header
+    description: Authorization Token
+    required: true
+    type: string
+    format: JWT Tokens
+  partner-id:
+    name: partner-id
+    in: path
+    description: Uniquely identifies Partner within Zalando platform
+    required: true
+    type: string
+
+paths:
+  /partners:
+    get:
+      summary: returns information about all partners
+      tags:
+        - partner
+      parameters:
+        - $ref: "#/parameters/Authorization"
+      responses:
+        200:
+          description: Success
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Partner"
+
+  /partners/{partner-id}:
+    put:
+      summary: Create or update new Partner
+      tags:
+        - partner
+      description: |
+        Successful requests will create or update a Partner on Zalando platform
+      parameters:
+        - $ref: "#/parameters/Authorization"
+        - $ref: "#/parameters/partner-id"
+        - name: partner
+          in: body
+          description: Partner Resource Object
+          required: true
+          schema:
+            $ref: "#/definitions/Partner"
+      responses:
+        204:
+          description: Success - Partner is created.
+        default:
+          description: unexpected error
+
+    get:
+      summary: returns Partner with provided partner-id
+      tags:
+        - partner
+      parameters:
+        - $ref: "#/parameters/Authorization"
+        - $ref: "#/parameters/partner-id"
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: "#/definitions/Partner"
+        404:
+          description: Partner not found
+
+    delete:
+      summary: delete Partner with provided partner-id
+      tags:
+        - partner
+      parameters:
+        - $ref: "#/parameters/Authorization"
+        - $ref: "#/parameters/partner-id"
+      responses:
+        204:
+          description: Success - Partner is deleted
+        404:
+          description: Partner not found
+
+  /reports/jobs:
+    get:
+      summary: List job reports
+      tags:
+        - report
+      parameters:
+        - $ref: "#/parameters/Authorization"
+        - name: from
+          in: query
+          description: only list jobs started after this date-time (RFC-3339)
+          type: string
+          format: date-time
+          required: true
+        - name: to
+          in: query
+          description: only list jobs started before this date-time (RFC-3339)
+          required: true
+          type: string
+          format: date-time
+        - name: partner_id
+          in: query
+          type: string
+          description: only list jobs of this partner
+      responses:
+        200:
+          description: list of references to specific job
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/JobSummary"
+
+  /reports/jobs/{job-id}:
+    get:
+      summary: Job details
+      tags:
+        - report
+      parameters:
+        - $ref: "#/parameters/Authorization"
+        - name: job-id
+          in: path
+          description: uniquely identifies job within this API
+          type: string
+          required: true
+      responses:
+        200:
+          description: Job Details
+          schema:
+            $ref: "#/definitions/JobDetails"
+        404:
+          description: Job Details not found
+
+definitions:
+
+  Partner:
+    type: object
+    description: |
+      Represents a Partner job configuration that will run periodically by Partner Server Adapter
+    required:
+      - name
+      - catalogUrl
+      - catalogUsername
+      - catalogPassword
+      - stockUrl
+      - stockUsername
+      - stockPassword
+      - articleServiceUsername
+      - articleServicePassword
+      - channelId
+      - asrFtpUrl
+      - asrFtpPath
+      - asrFtpUsername
+      - asrFtpPassword
+      - active
+    properties:
+      id:
+        type: string
+        readOnly: true
+        description: |
+          Uniquely identifies the Partner within Zalando platform. provided by the client
+      name:
+        type: string
+        description: |
+          Human readable name of the Partner
+      catalogUrl:
+        type: string
+        format: URL
+        description: |
+          URL to catalog feed service of this Partner
+      catalogUsername:
+        type: string
+        description: |
+          Username will be used to authenticate on catalog feed service of this Partner
+      catalogPassword:
+        type: string
+        description: |
+          Password will be used to authenticate on catalog feed service of this Partner
+      stockUrl:
+        type: string
+        format: URL
+        description: |
+          URL to stock feed service of this Partner
+      stockUsername:
+        type: string
+        description: |
+          Username will be used to authenticate on stock feed service of this Partner
+      stockPassword:
+        type: string
+        description: |
+          Password will be used to authenticate on stock feed service of this Partner
+      articleServiceUsername:
+        type: string
+        description: |
+          Username will be used to authenticate for Article-Service
+      articleServicePassword:
+        type: string
+        description: |
+          Password will be used to authenticate for Article-Service
+      channelId:
+        type: string
+        description: |
+          Sales channel identificator
+      asrFtpUrl:
+        type: string
+        description: |
+          URL of FTP server for uploading article status report (ASR)
+      asrFtpPath:
+        type: string
+        description: |
+          Path on FTP server for uploading article status report (ASR)
+      asrFtpUsername:
+        type: string
+        description: |
+          Username for authentication on FTP server
+      asrFtpPassword:
+        type: string
+        description: |
+          Password for authentication on FTP server
+      active:
+        type: boolean
+        description: |
+          A switch to set this Partner job on Partner Service Adapter to active/inactive
+
+  JobSummary:
+    type: object
+    required:
+      - start
+      - end
+      - partner_id
+      - details_url
+    properties:
+      start:
+        type: string
+        format: date-time
+      end:
+        type: string
+        format: date-time
+      partner_id:
+        type: string
+      details_url:
+        type: string
+
+  JobDetails:
+    type: object
+    required:
+      - start
+      - end
+      - partner_id
+      - feed_type
+      - total_count
+      - success_count
+      - failure_count
+      - failures
+    properties:
+      start:
+        type: string
+        format: date-time
+      end:
+        type: string
+        format: date-time
+      partner_id:
+        type: string
+      feed_type:
+        type: string
+        enum: [ "stock", "catalog" ]
+      total_count:
+        type: number
+        format: int32
+      success_count:
+        type: number
+        format: int32
+      failure_count:
+        type: number
+        format: int32
+      failures:
+        type: array
+        items:
+          type: object
+          description: exact object structure depends on failure
