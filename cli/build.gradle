@@ -6,6 +6,7 @@ repositories {
 }
 
 dependencies {
+    compile 'com.eclipsesource.minimal-json:minimal-json:0.9.4'
     compile 'com.github.ryenus:rop:1.1.1'
 
     testCompile 'junit:junit:4.12'
