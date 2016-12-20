@@ -14,11 +14,12 @@ import java.util.regex.Pattern;
 /**
  * Lint for snake case for query params
  */
-class SnakeCaseForQueryParamsRule {
+class SnakeCaseForQueryParamsRule implements Rule {
 
     private static String SNAKE_CASE_PATTERN = "^[a-z]+(?:_[a-z]+)*$";
 
-    List<Violation> validate(Swagger swagger) {
+    @Override
+    public List<Violation> validate(Swagger swagger) {
         if (swagger == null) return new ArrayList<>();
 
         List<Violation> violations = new ArrayList<>();
