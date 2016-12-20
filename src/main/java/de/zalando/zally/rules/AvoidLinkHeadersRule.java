@@ -21,7 +21,7 @@ public class AvoidLinkHeadersRule implements Rule {
 
     @Override
     public List<Violation> validate(Swagger swagger) {
-        List<Violation> violations = new ArrayList();
+        List<Violation> violations = new ArrayList<>();
         if (swagger != null && swagger.getPaths() != null) {
             for (Map.Entry<String, Path> path : swagger.getPaths().entrySet())
                 for (Map.Entry<HttpMethod, Operation> op : path.getValue().getOperationMap().entrySet()) {
