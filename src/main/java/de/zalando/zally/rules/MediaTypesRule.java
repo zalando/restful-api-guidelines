@@ -17,8 +17,6 @@ public class MediaTypesRule implements Rule{
     private static final String DESCRIPTION = "Version information and media type are provided together via the HTTP Content-Type header";
     private static final String RULE_LINK = "http://zalando.github.io/restful-api-guidelines/compatibility/Compatibility.html"+
             "#must-use-media-type-versioning";
-    private static final String APPLICATION_JSON = "application/json";
-    private static final String PROBLEM_JSON = "application/problem+json";
     private static final String PATTERN = "^application/(problem\\+)?json(;v(ersion)?=(\\d)+)?$";
 
     @Override
