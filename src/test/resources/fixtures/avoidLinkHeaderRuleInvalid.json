@@ -1,0 +1,754 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "title" : "Product Service",
+    "description" : "This service allows storage, and retrieval of products in the Smart Product Platform.\n\nA **Product** is represented as a hierarchical group of **product tiers**, where the hierarchy matches that defined\nin the [outline](https://pages.github.bus.zalan.do/FashionInsightsCentre/spp-documentation/spp-design/spp-data-management-apis/#hierarchical-data-through-outlines)\nassociated with the product in question.\n\nEach **product tier** is essentially a collection of attribute data, again, where the attributes must meet the\ncriteria laid down in the associated outline.\n\nEach **tier** has a **unique** ID, and this ID is used to directly interact with this tier (e.g. updating the details\nof a single tier through a `PATCH` operation.)\n\nThe tiers of a product higher than any given tier are refered to as the **ancestor** tiers, while an **ancestor** tier may\ncontain several **children**.\n\nAccess to product data, via a `GET` operation, is driven through the identified **tier** (be it direct \"fetch-by-ID\", or\na query to find data with specific attribute values) - however, regardless of the operation to get data,\nall data for the specific tier, as well as **all** ancestor tiers, is returned.\n\nAn example of a hierarchy that will be used is the `Model/Config/Simple` from the Fashion Store. This is represented\nvia an outline structured with 3 tiers, `model`, `config` and (of course) `simple`.\n\nUpdates can be made by `PATCH`ing, for example, the `config` directly.\n\nQueries that find `config` instances will return data for the `config` tier, as well as the `model` tier.\n\nA `GET` on the ID of a `simple` tier, in this example, would return a result containing data for the ancestor `model`,\nthe direct ancestor (i.e. \"parent\") `config`, as well as the data for the direct `simple` tier itself.\n\n**Please note**, that while this `Model/Config/Simple` hierarchy is used here as an example\n(because of the likely familiarity within Zalando), this hierarchy is by no means the limit of the capabilities of\nthis service, and different hierarchies, for various purposes, will exist over time.\n",
+    "version" : "1.0.0",
+    "contact" : {
+      "name" : "Buffalo",
+      "email" : "team-buffalo@zalando.ie"
+    }
+  },
+  "externalDocs" : {
+    "description" : "An overview of the SPP data management services as a whole",
+    "url" : "https://pages.github.bus.zalan.do/FashionInsightsCentre/spp-documentation/spp-design/spp-data-management-apis/"
+  },
+  "basePath" : "/api",
+  "schemes" : [ "https" ],
+  "security" : [ {
+    "oauth2" : [ "uid", "spp-products.products.write", "spp-products.products.read" ]
+  } ],
+  "securityDefinitions" : {
+    "oauth2" : {
+      "type" : "oauth2",
+      "flow" : "implicit",
+      "authorizationUrl" : "https://example.com/oauth2/dialog",
+      "scopes" : {
+        "uid" : "Unique identifier of the user accessing the service",
+        "spp-products.products.write" : "Write permissions for new products",
+        "spp-products.products.read" : "Read permissions to access products"
+      }
+    }
+  },
+  "produces" : [ "application/json" ],
+  "paths" : {
+    "/products" : {
+      "get" : {
+        "summary" : "Find products based on a query",
+        "description" : "Finds product data based on an attribute query, optionally filtering to a specific `owner` of products.\n\nThe data returned here will be all product data from the _product tier_ containing the specific data, and\nand up through all \"ancestor\" tiers of that data.\n\nFor example, if searching for products with a specific value of `EAN`, this may find that value in the\nattributes of a `simple` tier of a single product. The returned data in this case will include the attributes\nfrom `simple`, as well as its parent `config`, as well as the `config`'s parent also.\nHowever, searching for products based on an attribute that resides in, say, a `config` will only return data\nthat includes `config` and `model` tiers.\n",
+        "parameters" : [ {
+          "$ref" : "#/parameters/Authorization"
+        }, {
+          "$ref" : "#/parameters/FlowId"
+        }, {
+          "$ref" : "#/parameters/QueryPagingLimit"
+        }, {
+          "$ref" : "#/parameters/PagingNextCursor"
+        }, {
+          "name" : "Link",
+          "description" : "optionally filter products to a specific owner.",
+          "type" : "string",
+          "format" : "uuid",
+          "in" : "header",
+          "required" : false
+        }, {
+          "name" : "json_filter",
+          "description" : "A (url encoded) JSON filter, for example `{ \"ean\": 897283718414 }`.\n\nThis JSON filter object aligns with the attribute format as described\nin https://pages.github.bus.zalan.do/FashionInsightsCentre/spp-documentation/spp-api/entity-attributes,\nin that this query endpoint allows searching for product data based on flexible\nattribute access, finding products that have attribute data matching the search criteria.\n\nThere are several restrictions in the capabilities of this query capability:\n\n- this filter **must** contain at least one key/value pair.\n- The `value` must be properly formatted for the type of the attribute referenced by the `label` key.\n- multiple `key:value` pairs within the JSON are supported, but only in an `AND` capacity.\n- single level searching only - it is not possible to search for sub-sections of nested structured attribute data\n- limited support for searching for array values - arrays can be provided, however, the exact/full content,\n  in the *same* order as is stored in the service, must be provided in the query - i.e. this has very\n  limited use.\n",
+          "type" : "string",
+          "in" : "query",
+          "required" : true
+        } ],
+        "tags" : [ "Products" ],
+        "produces" : [ "application/x.zalando.product-page+json" ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful",
+            "schema" : {
+              "$ref" : "#/definitions/ProductPage"
+            }
+          },
+          "429" : {
+            "description" : "Too many requests - the caller has issued too many requests, and is being rate limited.\nPlease refer to https://pages.github.bus.zalan.do/FashionInsightsCentre/spp-documentation/spp-api/rate-limiting\n"
+          }
+        },
+        "security" : [ {
+          "oauth2" : [ "uid", "spp-products.products.read" ]
+        } ]
+      }
+    },
+    "/products/{product_id}" : {
+      "head" : {
+        "summary" : "Check if a product tier exists",
+        "parameters" : [ {
+          "$ref" : "#/parameters/Authorization"
+        }, {
+          "$ref" : "#/parameters/FlowId"
+        }, {
+          "$ref" : "#/parameters/ProductId"
+        } ],
+        "tags" : [ "Products" ],
+        "responses" : {
+          "200" : {
+            "description" : "Exists"
+          },
+          "404" : {
+            "description" : "Unknown"
+          },
+          "429" : {
+            "description" : "Too many requests - the caller has issued too many requests, and is being rate limited.\nPlease refer to https://pages.github.bus.zalan.do/FashionInsightsCentre/spp-documentation/spp-api/rate-limiting\n"
+          }
+        },
+        "security" : [ {
+          "oauth2" : [ "uid", "spp-products.products.read" ]
+        } ]
+      },
+      "get" : {
+        "summary" : "Return specific products",
+        "description" : "As described elsewhere in this API, a fetch at this endpoint will return not just the `ProductTier` for the\nspecified `product_id`, but rather a `Product` that represents **that** tier **as well** as any parent\nand ancestor tiers of this.\n",
+        "parameters" : [ {
+          "$ref" : "#/parameters/Authorization"
+        }, {
+          "$ref" : "#/parameters/FlowId"
+        }, {
+          "$ref" : "#/parameters/ProductId"
+        } ],
+        "tags" : [ "Products" ],
+        "produces" : [ "application/x.zalando.product+json" ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful",
+            "schema" : {
+              "$ref" : "#/definitions/Product"
+            }
+          },
+          "418" : {
+            "description" : "Client requested a product incorrectly thinking it was a coffee pot"
+          },
+          "429" : {
+            "description" : "Too many requests - the caller has issued too many requests, and is being rate limited.\nPlease refer to https://pages.github.bus.zalan.do/FashionInsightsCentre/spp-documentation/spp-api/rate-limiting\n"
+          }
+        },
+        "security" : [ {
+          "oauth2" : [ "uid", "spp-products.products.read" ]
+        } ]
+      },
+      "patch" : {
+        "summary" : "Patch a single product tier",
+        "parameters" : [ {
+          "$ref" : "#/parameters/Authorization"
+        }, {
+          "$ref" : "#/parameters/TenantId"
+        }, {
+          "$ref" : "#/parameters/FlowId"
+        }, {
+          "$ref" : "#/parameters/ProductId"
+        }, {
+          "$ref" : "#/parameters/XRequestGroupId"
+        }, {
+          "name" : "body",
+          "in" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/ProductPatch"
+          }
+        } ],
+        "tags" : [ "Products" ],
+        "consumes" : [ "application/x-zalando-product-patch+json" ],
+        "produces" : [ "application/problem+json" ],
+        "responses" : {
+          "202" : {
+            "description" : "Accepted for asynchronous completion",
+            "headers" : {
+              "Location" : {
+                "type" : "string",
+                "format" : "url",
+                "description" : "A URL that can be used to get updated information on this request.\nFor `PATCH` requests, this URL will be the `/api/products/{product_id}/updates/{update_id}` path, where `update_id` is\nan internally generated identifier that correctly represents this specific request.\n"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Problem"
+              }
+            }
+          },
+          "429" : {
+            "description" : "Too many requests - the caller has issued too many requests, and is being rate limited.\nPlease refer to https://pages.github.bus.zalan.do/FashionInsightsCentre/spp-documentation/spp-api/rate-limiting\n"
+          }
+        },
+        "security" : [ {
+          "oauth2" : [ "uid", "spp-products.products.write" ]
+        } ]
+      }
+    },
+    "/products/{product_id}/children" : {
+      "get" : {
+        "summary" : "Return a page of children of a given product (if any).",
+        "description" : "The data returned here will be the complete product data for all the children (as a paged result).\n\nEach entry will contain data from the child tier, as well as all parent tiers.\n\nFor example, (again using the `Model/Config/Simple` hierarchy, only for familiarity reasons)\nif the `product_id` here represents a single `config`, then the children will be all `simple`,\nbut each record will contain attributes, not just from those `simple` tiers, but also the `config` and `model`\ntiers that are \"ancestors\" to those `simple`s.\n",
+        "parameters" : [ {
+          "$ref" : "#/parameters/Authorization"
+        }, {
+          "$ref" : "#/parameters/FlowId"
+        }, {
+          "$ref" : "#/parameters/ProductId"
+        }, {
+          "$ref" : "#/parameters/QueryPagingLimit"
+        }, {
+          "$ref" : "#/parameters/PagingNextCursor"
+        } ],
+        "tags" : [ "Products" ],
+        "produces" : [ "application/x.zalando.product-page+json" ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful",
+            "schema" : {
+              "$ref" : "#/definitions/ProductPage"
+            }
+          },
+          "418" : {
+            "description" : "Client requested a product incorrectly thinking it was a coffee pot"
+          },
+          "429" : {
+            "description" : "Too many requests - the caller has issued too many requests, and is being rate limited.\nPlease refer to https://pages.github.bus.zalan.do/FashionInsightsCentre/spp-documentation/spp-api/rate-limiting\n"
+          }
+        },
+        "security" : [ {
+          "oauth2" : [ "uid", "spp-products.products.read" ]
+        } ]
+      }
+    },
+    "/products/{product_id}/updates/{update_id}" : {
+      "get" : {
+        "summary" : "Check the status of a product update.",
+        "description" : "This endpoint is returned as a `Location` header, as a way of obtaining further information, for all data modification\noperations.\n\nFor some of these operations, in particular those that are single request operations (e.g. `PATCH`)\nthat `Location` header will contain a reference to this endpoint. The `update_id` in this case is an internally\ngenerated ID used for the purpose of access through this endpoint.\n",
+        "parameters" : [ {
+          "$ref" : "#/parameters/Authorization"
+        }, {
+          "$ref" : "#/parameters/TenantId"
+        }, {
+          "$ref" : "#/parameters/FlowId"
+        }, {
+          "$ref" : "#/parameters/ProductId"
+        }, {
+          "name" : "update_id",
+          "description" : "Id of the specific update",
+          "in" : "path",
+          "type" : "string",
+          "format" : "uuid",
+          "required" : true
+        } ],
+        "tags" : [ "Products" ],
+        "produces" : [ "application/x.zalando.product-update-status+json" ],
+        "responses" : {
+          "200" : {
+            "description" : "Current status of upload",
+            "schema" : {
+              "$ref" : "#/definitions/ProductUpdateStatus"
+            }
+          },
+          "429" : {
+            "description" : "Too many requests - the caller has issued too many requests, and is being rate limited.\nPlease refer to https://pages.github.bus.zalan.do/FashionInsightsCentre/spp-documentation/spp-api/rate-limiting\n"
+          }
+        },
+        "security" : [ {
+          "oauth2" : [ "uid", "spp-products.products.read" ]
+        } ]
+      }
+    },
+    "/product-put-requests/{product_path}" : {
+      "post" : {
+        "summary" : "Submit several requests for the creation or update of product data.",
+        "description" : "This is a \"best effort\" proxy for requesting the equivalent of idempotent `PUT` requests for several, or even many\nindividual tiers of product data.\n\nThis operation takes, as body, an array of hierarchies of product tiers. Each tier in each of these\nhierarchies is effetively converted to a single idempotent `PUT` \"request\" for that tier (with the ID\nof that `PUT` being the enclosed `product_id` of that tier.)\n\nAll tiers contained in a single call to this operation **must** be unique with respect to `product_id`. Any\ncall to this endpoint containing a `product_id` value more than once will be rejected as having invalid input data.\n\nThe requests presented in a single call to this endpoint will be parsed, and enqueued for processing in correct order,\nincluding respecting any internal hierarchical ordering (e.g. for a Model/Config/Simple data model,\nany `model` will be processed before any of that `model`'s `config`s, etc.)\n\nThe specific ordering here is as follows:\n\n - any data involved in a single hierarchy (e.g. Model/Config/Simple) will be placed into the internal processing\n   pipeline in the correct order for that hierarchy (e.g. `model` data queued first, then `config` data, and\n   then `simple` data.)\n - all requests in the provided input array will be enqueued in the order of the input - however, since the internal\n   pipeline supports concurrency of processing, different, non-related, hierarchies may get processed in a different\n   order than that in the input request. (for example, a submission containing `[\"model1\", \"model2\"]` will get\n  enqueued in that order, however the requests may get processed in a different order, where `model1` and `model2`\n  are unrelated.)\n\nThe input data hierarchies **must** be correct in terms of the `product_path`. This `product_path` may\ninclude a partial path through one or more ancestors of product hierarchies, and if so, the\ndata presented to this endpoint must fit into the ([outline defined](https://pages.github.bus.zalan.do/FashionInsightsCentre/spp-documentation/spp-design/spp-data-management-apis/#outline)) structure for that hierarchy, starting\nat the point that the `product_path` ends.\n\nFor example, a `product_path` such as `.../{model_id}/children` would require that the input data hierarchies be\ncorrectly structured for `config` data.\n\nBy \"best effort\", it means, that all requests will be attempted, regardless of other failures within the request.\nThe operation will not stop on the first error, but rather will proceed - several errors may occur, and fetching\nthe associated `summary` (or detailed) status information (e.g. through accessing the URL returned in the `Location` header)\nmay contain several problem details (grouped by individual \"request\".)\n\nThere is no transactional handling around this request.\n\nThere are **no** implicit removals, or any other delta calculations based on the content of this request - rather,\nfor any product data to be removed from availability in the platform, they **must** be updated to change their `status` to `inactive`.\n(This update can be done through this endpoint, or via a sequence of `PATCH` requests for the appropiate\nproducts - the choice of the appropriate one of these operations depends on the volume of requests,\nand also the type of integration/workflow being handled.)\n",
+        "parameters" : [ {
+          "$ref" : "#/parameters/Authorization"
+        }, {
+          "$ref" : "#/parameters/TenantId"
+        }, {
+          "$ref" : "#/parameters/FlowId"
+        }, {
+          "$ref" : "#/parameters/ProductPath"
+        }, {
+          "$ref" : "#/parameters/XRequestGroupId"
+        }, {
+          "$ref" : "#/parameters/XUseLegacyIds"
+        }, {
+          "name" : "body",
+          "in" : "body",
+          "required" : true,
+          "schema" : {
+            "type" : "array",
+            "minItems" : 1,
+            "maxItems" : 100,
+            "items" : {
+              "$ref" : "#/definitions/ProductPutRequest"
+            }
+          }
+        } ],
+        "tags" : [ "Products" ],
+        "consumes" : [ "application/x.zalando.product-put-request-array+json" ],
+        "responses" : {
+          "202" : {
+            "description" : "Accepted for asynchronous completion - Location URL provided in response headers to get further information.",
+            "headers" : {
+              "Link" : {
+                "type" : "string",
+                "format" : "url",
+                "description" : "A URL that can be used by the client to get updates on the status of the request.\nThis URL will be for the `/api/request-groups/{request_group_id}/summaries` path, with the value of `request_group_id`\nbeing that of the provided `RequestGroupId`, or when not provided, the service will use an appropriate value on behalf\nof the calling client.\n"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Problem"
+              }
+            }
+          },
+          "406" : {
+            "description" : "Unacceptable"
+          },
+          "413" : {
+            "description" : "Payload too large. This bulk endpoint allows large input payload, but this still has an upper bound of 2MB.\n"
+          },
+          "422" : {
+            "description" : "Unprocessable request, invalid Product-Id (expected format: UUID)"
+          },
+          "429" : {
+            "description" : "Too many requests - the caller has issued too many requests, and is being rate limited.\nPlease refer to https://pages.github.bus.zalan.do/FashionInsightsCentre/spp-documentation/spp-api/rate-limiting\n"
+          }
+        },
+        "security" : [ {
+          "oauth2" : [ "uid", "spp-products.products.write" ]
+        } ]
+      }
+    },
+    "/request-groups/{request_group_id}/summaries" : {
+      "get" : {
+        "summary" : "Get a summary for an product request group.",
+        "description" : "Provide a summary of all requests made that the calling client tagged with a specific `XRequestGroupId`.\n\nThe returned summary here contains an aggregated summary for all requests within that `XRequestGroup`, for\nthe specified `TenantId` of this call. This includes aggregating multiple requests from within a single **batch**\nrequest, as well as across multiple requests sharing the same `XRequestGroupId`.\n\nThe tracking data underlying the results of this operation will be periodically cleaned up. This data will be retained\nfor at least 7 days.\n",
+        "parameters" : [ {
+          "$ref" : "#/parameters/Authorization"
+        }, {
+          "$ref" : "#/parameters/TenantId"
+        }, {
+          "$ref" : "#/parameters/FlowId"
+        }, {
+          "$ref" : "#/parameters/RequestGroupId"
+        } ],
+        "tags" : [ "RequestGroup" ],
+        "responses" : {
+          "200" : {
+            "description" : "Summary of this request group",
+            "schema" : {
+              "$ref" : "#/definitions/RequestGroupSummary"
+            }
+          },
+          "429" : {
+            "description" : "Too many requests - the caller has issued too many requests, and is being rate limited.\nPlease refer to https://pages.github.bus.zalan.do/FashionInsightsCentre/spp-documentation/spp-api/rate-limiting\n"
+          }
+        },
+        "security" : [ {
+          "oauth2" : [ "uid", "spp-products.products.read" ]
+        } ]
+      }
+    },
+    "/request-groups/{request_group_id}/updates" : {
+      "get" : {
+        "summary" : "Get detailed update records for all products in a request group.",
+        "description" : "Provide details of requests made that the calling client tagged with a specific `XRequestGroupId`.\n\nThe returned details here contain paged data for all requests (or, when filtered, all requests meeting that filter)\nwithin that `XRequestGroup`, for the specified `TenantId` of this call. This includes aggregating multiple\nrequests from within a single **batch** request, as well as across multiple requests sharing the same `XRequestGroupId`.\n\nData returned here will be in the same order as presented in the original requests by the calling client, again\nboth within single **batch** operations (a **batch** being a batch of multiple requests), as well as across multiple operations.\n\nEach \"request\" will have a separate record returned here, so, multiple \"requests\" for the same `ProductId` in the same\n`XRequestGroup` will have multiple update records returned here.\n\nThe tracking data underlying the results of this operation will be periodically cleaned up. This data will be retained\nfor at least 7 days.\n",
+        "parameters" : [ {
+          "$ref" : "#/parameters/Authorization"
+        }, {
+          "$ref" : "#/parameters/TenantId"
+        }, {
+          "$ref" : "#/parameters/FlowId"
+        }, {
+          "$ref" : "#/parameters/RequestGroupId"
+        }, {
+          "name" : "status",
+          "in" : "query",
+          "type" : "string",
+          "x-extensible-enum" : [ "pending", "successful", "failed" ],
+          "required" : false
+        }, {
+          "$ref" : "#/parameters/QueryPagingLimit"
+        }, {
+          "$ref" : "#/parameters/PagingNextCursor"
+        } ],
+        "tags" : [ "ProductRequestGroup" ],
+        "produces" : [ "application/x.zalando.update-status-page+json" ],
+        "responses" : {
+          "200" : {
+            "description" : "Detailed updates for each product in an request group",
+            "schema" : {
+              "$ref" : "#/definitions/ProductUpdateStatusPage"
+            }
+          },
+          "429" : {
+            "description" : "Too many requests - the caller has issued too many requests, and is being rate limited.\nPlease refer to https://pages.github.bus.zalan.do/FashionInsightsCentre/spp-documentation/spp-api/rate-limiting\n"
+          }
+        },
+        "security" : [ {
+          "oauth2" : [ "uid", "spp-products.products.read" ]
+        } ]
+      }
+    }
+  },
+  "parameters" : {
+    "FlowId" : {
+      "name" : "X-Flow-Id",
+      "description" : "A custom header that will be passed onto any further requests and can be used for diagnosing.\n",
+      "in" : "header",
+      "type" : "string",
+      "required" : false
+    },
+    "TenantId" : {
+      "name" : "X-Tenant-Id",
+      "description" : "A custom header for the identification of the tenant.\nThe value of this header must be a correct/valid `business-partner-id` (as per the\n[Business Partner Service](https://techwiki.zalando.net/pages/viewpage.action?spaceKey=TH&title=Business+Partner+Service))\nFor more information on how this is used, please refer to https://pages.github.bus.zalan.do/FashionInsightsCentre/spp-documentation/spp-design/spp-data-management-apis/#ownership\n",
+      "in" : "header",
+      "type" : "string",
+      "format" : "uuid",
+      "required" : true
+    },
+    "Authorization" : {
+      "name" : "Authorization",
+      "description" : "Bearer authorization token",
+      "in" : "header",
+      "type" : "string",
+      "required" : true
+    },
+    "ProductId" : {
+      "name" : "product_id",
+      "description" : "A unique identifier for a single tier of product data.",
+      "in" : "path",
+      "type" : "string",
+      "required" : true
+    },
+    "ProductPath" : {
+      "name" : "product_path",
+      "description" : "Since the SPS supports a model driven approach to multiple business data models,\nthe structure of the path is determined based on the business model in question for the\ndata being provided, insofar as the path details the depth of the data being posted, through `children`\nof identified product data.\n\nThe main business model within Zalando, for example, is the \"Model/Config/Simple\" data model.\nHere, we have the possible paths for this \"model/config/simple\" business model,\n\n  - `<basepath>/\"\"` - posting one or more complete `model` constructs.\n  - `<basepath>/{model_id}` - interacting with a specific `model` (e.g. `PATCH` of `model` attributes)\n  - `<basepath>/{model_id}/children` - posting of one or more complete `config` structures into a specific `model`.\n  - `<basepath>/{model_id}/children/{config_id}` - interacting with a specific `config`\n  - `<basepath>/{model_id}/children/{config_id}/children` - posting one or more pieces of `simple` into a specific `config`.\n  - `<basepath>/{model_id}/children/{config_id}/children/{simple_id}` - interacting with a specific `simple`.\n\nAs is normal in REST paths, \"parent\" resources identified earlier in the path must exist for the operation to\nbe successful. Attempt to perform an operation on a path with an unknown identified resource will fail (unless, of course,\nthe unknown resource is in the tail position of the path, and the operation is a `PUT` to _create_ that identified resource).\nFor example, an attempt to interact with `<basepath>/{model_id}/children` where `model_id` is unknown (to this service) at the\ntime of the attempt, will fail.\n",
+      "in" : "path",
+      "type" : "string",
+      "required" : true
+    },
+    "XRequestGroupId" : {
+      "name" : "X-Request-Group-Id",
+      "description" : "Customer header to allow a client specify a group correlation Id that can be used across several updates.\n\nThis can be used then to track summary information regarding all the updates in that group.\n\nIt is the responsibility of the client to ensure the correct value is specified for updates in the same group,\nand it is also the client's responsibility to ensure correct uniqueness, etc., of this Identifier.\n\nThis value is considered unique per tenant, multiple tenants can use the same value without collision.\n",
+      "in" : "header",
+      "type" : "string",
+      "format" : "uuid",
+      "required" : false
+    },
+    "RequestGroupId" : {
+      "name" : "request_group_id",
+      "in" : "path",
+      "type" : "string",
+      "format" : "uuid",
+      "required" : true
+    },
+    "QueryPagingLimit" : {
+      "name" : "limit",
+      "in" : "query",
+      "type" : "integer",
+      "format" : "int32",
+      "required" : false,
+      "minimum" : 1,
+      "default" : 100,
+      "maximum" : 1000
+    },
+    "PagingNextCursor" : {
+      "name" : "next_cursor",
+      "in" : "query",
+      "type" : "string",
+      "required" : false
+    },
+    "XUseLegacyIds" : {
+      "name" : "X-Use-Legacy-Ids",
+      "in" : "header",
+      "description" : "Custom header to specify that product Ids in the request are allowed to be in a \"legacy\" format. Non legacy\nProduct Ids are enforced to be `UUID` values, however, products being mapped from legacy Catalog Service\nare allowed to retain legacy ID structure.\n\nFor more information please refer to: https://pages.github.bus.zalan.do/FashionInsightsCentre/spp-documentation/spp-design/mapping-catalog-articles/#articleproduct-identification\n\nNote, use of this header is only allowed for specific whitelisted Oauth `uid` values. Not all services are allowed\nto specify this - this restriction is being made to ensure appropriate ID choices.\n",
+      "type" : "boolean",
+      "required" : false
+    }
+  },
+  "definitions" : {
+    "RequestGroupSummary" : {
+      "type" : "object",
+      "required" : [ "request_group_id", "pending", "successful", "failed" ],
+      "properties" : {
+        "request_group_id" : {
+          "type" : "string",
+          "format" : "uuid"
+        },
+        "pending" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "successful" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "failed" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "ProductUpdateStatus" : {
+      "type" : "object",
+      "required" : [ "product_id", "status", "id", "created" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "format" : "uuid",
+          "description" : "The internal identifier for this specific piece of update information. This allows this data to be\nreferenced through the `/products/{product_id}/updates/{update_id}` path, where `update_id` is this value.\n\nThese identifiers are created internally in the service for each \"request\" (be it an actual `PATCH` operation,\nor a single derived request to create/update a product tier from a batch of data `POST`ed to\n"
+        },
+        "product_id" : {
+          "type" : "string",
+          "format" : "uuid",
+          "description" : "This product update status object is associated with an update request against a specific `product_id`. This\nproperty contains the value of that `product_id` that this update is associated with.\n"
+        },
+        "status" : {
+          "type" : "string",
+          "x-extensible-enum" : [ "pending", "successful", "failed" ]
+        },
+        "result" : {
+          "type" : "string",
+          "x-extensible-enum" : [ "inserted", "updated", "not_found", "authorization_error", "validation_error", "internal_error" ]
+        },
+        "problems" : {
+          "description" : "This array contains all problems associated with a single update operation for a single product-tier (identified by the\n\nAn attempt to update (be it insertion, update, or patch), a tier of product data can result in several problems,\nfor example, an attempt to insert some data with invalid attributes could result in several validation problems,\nas the validation engine attempts to discover *all* problems, and not just failing fast on the first error.\n`product_id` property here.)\n",
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Problem"
+          }
+        },
+        "created" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "modified" : {
+          "type" : "string",
+          "format" : "date-time"
+        }
+      }
+    },
+    "ProductStatus" : {
+      "description" : "A product can have one of several statuses.\n\n- `draft` is a product that is being created through several iterative stages.\n  While in `draft`, a product may be submitted that is incomplete (missing some attribute data for example),\n  but any data that **is** provided must be correct.\n  When complete, the draft product needs to be made `active` before it is made available in the platform in general.\n  Once a product is updated out of `draft` it is not possible to return to this state.\n- `active` is a product that is generally available in the platform. Products can be directly uploaded as `active`,\n  or can be created in `draft` and then updated to `active`.\n  Active products can be taken out of availability in the platform by marking them as `inactive`.\n- `inactive` products are ones that are not available in the platform. They can, if necessary, be reactivated however.\n",
+      "type" : "string",
+      "x-extensible-enum" : [ "active", "draft", "inactive" ]
+    },
+    "Product" : {
+      "type" : "object",
+      "description" : "Representation of product data, covering potentially several tiers of hierarchical data (depending on which tier's\n`product_id`, for example, is used to fetch this data.\n\nNote that the status presented in this object is derived from the aggregate of the status each tier of this product.\n\nWhile the individual status of any tier is not made visible, this aggregation allows marking entire\nhierarchies of products inactive by simply updating a single common ancestor, e.g. an entire `model`.\n\nThis status will only be `active` if all tiers' status is `active`.\n\nIf any status is `inactive` then the overall product's status will be `inactive`.\n\nOtherwise, if any status is `draft` then the overall product's status will be `draft`.\n\nFor example, a higher tier, e.g. a `config`, is marked as `inactive`, then the entire product for a child `simple`,\neven an `active` simple, would still be `inactive`.\n",
+      "required" : [ "owner_id", "status", "outlines", "tiers" ],
+      "properties" : {
+        "owner_id" : {
+          "type" : "string",
+          "format" : "uuid",
+          "readOnly" : true,
+          "description" : "the ID of the owner of this product. This value is derived from the TenantId used when this product was created."
+        },
+        "status" : {
+          "$ref" : "#/definitions/ProductStatus"
+        },
+        "outlines" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/OutlineReference"
+          }
+        },
+        "tiers" : {
+          "type" : "object",
+          "description" : "A map of tier name (as defined in the Outline associated with the product) to the tier's specific product information.\nExamples if tier names include `model`, `config` and `simple` for the infamous `Model/Config/Simple` hierarchy.\nTier data will only exist for the specific tier of the product requested, and any ancestor tier.\nNo data for children will be included here - to access children data, a call to the `/children` endpoint\nfor this product is required.\n",
+          "additionalProperties" : {
+            "$ref" : "#/definitions/ProductTier"
+          }
+        }
+      }
+    },
+    "ProductTier" : {
+      "type" : "object",
+      "required" : [ "id", "attributes", "created" ],
+      "properties" : {
+        "id" : {
+          "description" : "The globally unique id for this tier of product data. e.g. a `config_id`",
+          "type" : "string"
+        },
+        "attributes" : {
+          "description" : "JSON object representation of attributes as described in\nhttps://pages.github.bus.zalan.do/FashionInsightsCentre/spp-documentation/spp-api/entity-attributes/\n",
+          "type" : "object"
+        },
+        "created" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "modified" : {
+          "type" : "string",
+          "format" : "date-time"
+        }
+      }
+    },
+    "OutlineReference" : {
+      "type" : "object",
+      "required" : [ "label", "version" ],
+      "properties" : {
+        "label" : {
+          "type" : "string",
+          "pattern" : "^[a-z0-9_]+$"
+        },
+        "version" : {
+          "type" : "string"
+        }
+      }
+    },
+    "ProductPatch" : {
+      "type" : "object",
+      "description" : "Patch product data.\n\nThis definition is used to patch product data, and can be used to patch a specific tier of product data (e.g.\na single `config` in a Model/Config/Simple structured product), or can also be used to patch a complete product\nhierarchy (by using either `global_children` or `specific_children` (or both) to patch the children of the\ntargetted `product_id` being patched.\n`global_children` is a `ProductPatch` object that, if present, gets applied to all children of the product data\nthat is the target of this patch.\n`specific_children` is a map of `product_id` to `ProductPatch` that is applied to children, by the specified\nspecified `product_id`, where that ID is a child of the data being patched.\nIf both `global_children` and `specific_children` are present, then both are applied - global first, and then\nspecific, with the result of the composed patch being the candidate new data (which then needs to pass full validated\nbefore being accepted).\n",
+      "properties" : {
+        "outlines" : {
+          "description" : "Allow changing the outlines of a product.\nNote, outlines are only valid at the top-most tier of a product, and any attempt to add an outline at\na place that is invalid will be rejected.\nThe new outlines specified here will be used to validate the \"new\" (post patching) data for not just the product\ndata being patched, but also for all the children (hierarchical descendents actually) of this data.\nIf present, and non-empty, then the existing outline data in the product data will be replaced with this data.\nIf present, and empty, then the existing outline data in the product data being patched will be removed.\n",
+          "type" : "array",
+          "maxItems" : 1,
+          "items" : {
+            "$ref" : "#/definitions/OutlineReference"
+          }
+        },
+        "status" : {
+          "$ref" : "#/definitions/ProductStatus"
+        },
+        "attributes" : {
+          "description" : "If present, the JSON object here represents a partial object to be used to update the attributes of\nthe product data being patched.\nThis update will use the semantics of JSON Merge Patch as described in https://tools.ietf.org/html/rfc7396.\nFull normal attribute validation will be executed on the resulting updated attribute JSON.\n",
+          "type" : "object"
+        },
+        "global_children" : {
+          "$ref" : "#/definitions/ProductPatch"
+        },
+        "specific_children" : {
+          "type" : "object",
+          "additionalProperties" : {
+            "$ref" : "#/definitions/ProductPatch"
+          }
+        }
+      }
+    },
+    "ProductPutRequest" : {
+      "type" : "object",
+      "description" : "A request representing the equivalent of a sequence of correctly ordered `PUT` commands - i.e. a PutRequest represents\na hierarchy of product tiers, each tier in this request will be submitted in an idempotent manner, for the `product_id`\nembedded within that specific tier.\n\nThe data here is hierarchical based on the structure enforced by the topmost tier's [outline](https://pages.github.bus.zalan.do/FashionInsightsCentre/spp-documentation/spp-design/spp-data-management-apis/#hierarchical-data-through-outlines).\n\nAlso, the exact content of this object depends on the path that this data is presented to.\n\nFor example, consider the enduring `Model/Config/Simple` data model.\n\nFor data being presented to `/api/products`, the object of this type must have data for the `model`,\nand children representing the `config`s of this `model`, and, each `config` then would also have the `simple`s (if any).\nHowever, for data being presented, say, to `/api/products/{model_id}/children`, the objects then must\nrepresent a single `config`, with embedded children directly being `simple`s.\n\nAnd, similarily, data being presented to `/api/products/{model_id}/children/{config_id}/children`, the objects\nwould represent the `simple` instances, which would obviously not have any children.\n\nWith regards to the status of the data being created/updated, Any allowed value of `status` here can be used, however,\nwith some restrictions being applied:\n\n- The `draft` status can only be specified for either (1) new creations, or (2) updates of data that is currently\n  in `draft` - it is not possible to return data to `draft` that is already in one of the other status values.\n- While `inactive` is allowed (and perhaps valuable in some use-cases), it should be carefully considered, as\n  no data is published upwards through the platform that is created `inactive`)\n",
+      "required" : [ "id", "attributes", "status" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "description" : "While this is a freeform string, for any data other than legacy data being migrated from Catalog Service, this ID will be expected to be, and validated as, UUID. Data not meeting these criteria will be rejected as invalid."
+        },
+        "status" : {
+          "$ref" : "#/definitions/ProductStatus"
+        },
+        "attributes" : {
+          "type" : "object",
+          "description" : "JSON object representation of attributes as described in https://pages.github.bus.zalan.do/FashionInsightsCentre/spp-documentation/spp-api/entity-attributes/"
+        },
+        "outlines" : {
+          "description" : "If the instance of this object represents the root (i.e. topmost) tier of a business model (e.g. a `model`\nfrom Model/Config/Simple) then there must be an outline presented.\nHowever, for any non-root tier, there must be no outlines presented (the outline for the overall product\ndata will be taken from the root ancestor (e.g. the outline for a `simple` will be taken from its ancestor `model`)\nNote, this is an array for future proofing, where at some stage in the future, for certain types of\nfuture outlines, it will be allowed to have multiple outlines.\nAt present there are only outlines that can be used in isolation, and as such, for the time being,\nthis array must only contain a single entry if present.\n",
+          "type" : "array",
+          "minItems" : 1,
+          "maxItems" : 1,
+          "items" : {
+            "$ref" : "#/definitions/OutlineReference"
+          }
+        },
+        "children" : {
+          "description" : "The children of this tier of product data, if any. If this array is present, it must contain at least 1 entry.",
+          "type" : "array",
+          "minItems" : 1,
+          "items" : {
+            "$ref" : "#/definitions/ProductPutRequest"
+          }
+        }
+      }
+    },
+    "Problem" : {
+      "type" : "object",
+      "required" : [ "type", "title", "status", "detail" ],
+      "properties" : {
+        "type" : {
+          "type" : "string",
+          "format" : "uri",
+          "description" : "An absolute URI that identified the problem type."
+        },
+        "title" : {
+          "type" : "string",
+          "description" : "A short summary of the problem type."
+        },
+        "status" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The HTTP status code generated by the origin server for this occurrence of the problem"
+        },
+        "detail" : {
+          "type" : "string",
+          "description" : "Detail of the problem"
+        },
+        "tracking_id" : {
+          "type" : "string",
+          "format" : "uuid",
+          "description" : "A server-generated arbitrary identifier, that when present is associated with the specific instance of this problem.\nThis identifier can be used to correlate the problem with its occurence in the service's logs, etc.\n"
+        }
+      }
+    },
+    "Page" : {
+      "type" : "object",
+      "properties" : {
+        "next" : {
+          "type" : "object",
+          "description" : "Details of the next page, if any. The cursor is the appropriate value to use as next_cursor in a fetch. the \"href\" contains a complete URL.",
+          "required" : [ "cursor", "href" ],
+          "properties" : {
+            "cursor" : {
+              "type" : "string"
+            },
+            "href" : {
+              "type" : "string"
+            }
+          }
+        }
+      }
+    },
+    "ProductPage" : {
+      "allOf" : [ {
+        "$ref" : "#/definitions/Page"
+      }, {
+        "type" : "object",
+        "required" : [ "items" ],
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/definitions/Product"
+            }
+          }
+        }
+      } ]
+    },
+    "ProductUpdateStatusPage" : {
+      "allOf" : [ {
+        "$ref" : "#/definitions/Page"
+      }, {
+        "type" : "object",
+        "required" : [ "items" ],
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/definitions/ProductUpdateStatus"
+            }
+          }
+        }
+      } ]
+    }
+  }
+}
