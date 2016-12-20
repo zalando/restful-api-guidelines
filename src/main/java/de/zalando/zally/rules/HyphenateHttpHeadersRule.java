@@ -7,24 +7,27 @@ import io.swagger.models.Path;
 import io.swagger.models.Swagger;
 import io.swagger.models.parameters.Parameter;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class HyphenateHttpHeadersRule implements Rule {
 
+    public static final String RULE_NAME = "Must: Use Hyphenated HTTP Headers";
+    public static final String RULE_URL = "http://zalando.github.io/restful-api-guidelines/naming/Naming.html";
+    public static final String DESC_PATTERN = "Header name '%s' is not hyphenated";
+
     @Override
     public List<Violation> validate(Swagger swagger) {
-        ArrayList<Violation> res = new ArrayList<>();
+        List<Violation> res = new ArrayList<>();
         if (swagger.getParameters() != null) {
             res.addAll(validate(swagger.getParameters().values()));
         }
-        for (Path path : swagger.getPaths().values()) {
-            res.addAll(validate(path.getParameters()));
-            for (Operation operation : path.getOperations()) {
-                res.addAll(validate(operation.getParameters()));
+        if (swagger.getPaths() != null) {
+            for (Path path : swagger.getPaths().values()) {
+                res.addAll(validate(path.getParameters()));
+                for (Operation operation : path.getOperations()) {
+                    res.addAll(validate(operation.getParameters()));
+                }
             }
         }
         return res;
@@ -42,14 +45,11 @@ public class HyphenateHttpHeadersRule implements Rule {
                 .collect(Collectors.toList());
     }
 
-    protected boolean isHyphenated(String s) {
-        return false;
+    public static boolean isHyphenated(String s) {
+        return Arrays.stream(s.split("-")).allMatch(p -> p.matches("([A-Z][^A-Z ]*)|([^A-Z ]+)"));
     }
 
     private Violation createViolation(Parameter p) {
-        return new Violation("Must: Use Hyphenated HTTP Headers",
-                "Header name '" + p.getName() + "' is not hyphenated",
-                ViolationType.MUST,
-                "http://zalando.github.io/restful-api-guidelines/naming/Naming.html");
+        return new Violation(RULE_NAME, String.format(DESC_PATTERN, p.getName()), ViolationType.MUST, RULE_URL);
     }
 }
