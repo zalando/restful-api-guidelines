@@ -32,7 +32,7 @@ public class UseProblemJsonRule implements Rule {
                     try {
                         httpCodeInt = Integer.valueOf(response.getKey());
                     } catch (NumberFormatException nfe) {
-                        // ignore any http codes which are not between 400 and 599
+                        // ignore non integer value e.g. 'default'
                     }
                     //TODO: check if schema reference type is Problem := https://github.com/swagger-api/swagger-parser/pull/303/files
                     if (httpCodeInt != null && httpCodeInt >= 400 && httpCodeInt <= 599
