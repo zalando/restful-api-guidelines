@@ -22,42 +22,6 @@ public class SnakeCaseInPropNameRuleTest {
     StringProperty testPorperty2 = new StringProperty();
 
     @Test
-    public void isSnakeCaseForEmpty() {
-        assertThat(PatternUtil.isSnakeCase("")).isFalse();
-    }
-
-    @Test
-    public void isSnakeCaseForCorrectInput() {
-        assertThat(PatternUtil.isSnakeCase("customer_number")).isTrue();
-    }
-
-    @Test
-    public void isSnakeCaseForOnlyLowerCase() {
-        assertThat(PatternUtil.isSnakeCase("customer")).isTrue();
-    }
-
-    @Test
-    public void isSnakeCaseForUnderscore() {
-        assertThat(PatternUtil.isSnakeCase("_")).isFalse();
-    }
-
-    @Test
-    public void isSnakeCaseForAllLowerCaseAndHyphen() {
-        assertThat(PatternUtil.isSnakeCase("customer-number")).isFalse();
-    }
-
-    @Test
-    public void isSnakeCaseForStartWithUnderscore() {
-        assertThat(PatternUtil.isSnakeCase("_customer_number")).isFalse();
-    }
-
-    @Test
-    public void isSnakeCaseForUpperCaseAndUnderscore() {
-        assertThat(PatternUtil.isSnakeCase("CUSTOMER_NUMBER")).isFalse();
-    }
-
-
-    @Test
     public void validateEmptyPath(){
         assertThat(rule.validate(testSwagger)).isEmpty();
     }

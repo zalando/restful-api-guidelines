@@ -63,8 +63,14 @@ public class PatternUtilTest {
     @Test
     public void checkIsSnakeCase() {
         assertTrue(PatternUtil.isSnakeCase("test_case"));
+        assertTrue(PatternUtil.isSnakeCase("test"));
         assertFalse(PatternUtil.isSnakeCase("TestCase"));
         assertFalse(PatternUtil.isSnakeCase("Test_Case"));
+        assertFalse(PatternUtil.isSnakeCase(""));
+        assertFalse(PatternUtil.isSnakeCase("_"));
+        assertFalse(PatternUtil.isSnakeCase("customer-number"));
+        assertFalse(PatternUtil.isSnakeCase("_customer_number"));
+        assertFalse(PatternUtil.isSnakeCase("CUSTOMER_NUMBER"));
     }
 
     @Test
