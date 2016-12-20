@@ -2,7 +2,11 @@ package de.zalando.zally.rules;
 
 import de.zalando.zally.Violation;
 import de.zalando.zally.ViolationType;
-import io.swagger.models.*;
+import io.swagger.models.HttpMethod;
+import io.swagger.models.Operation;
+import io.swagger.models.Path;
+import io.swagger.models.Response;
+import io.swagger.models.Swagger;
 import io.swagger.models.parameters.Parameter;
 
 import java.util.ArrayList;
@@ -24,13 +28,13 @@ public class AvoidLinkHeadersRule implements Rule {
                     for (Parameter param : op.getValue().getParameters()) {
                         if ("header".equals(param.getIn()) && "Link".equals(param.getName())) {
                             String violationPath = path.getKey() + "/" + op.getKey() + "/" + param.getName();
-                            violations.add(new Violation(TITLE, DESCRIPTION, VIOLATION_TYPE, RULE_LINK, violationPath));
+                            violations.add(createViolation(violationPath));
                         }
                     }
                     for (Map.Entry<String, Response> response : op.getValue().getResponses().entrySet()) {
                         if (response.getValue().getHeaders() != null && response.getValue().getHeaders().containsKey("Link")) {
                             String violationPath = path.getKey() + "/" + op.getKey() + "/" + response.getKey();
-                            violations.add(new Violation(TITLE, DESCRIPTION, VIOLATION_TYPE, RULE_LINK, violationPath));
+                            violations.add(createViolation(violationPath));
                         }
                     }
 
@@ -38,6 +42,10 @@ public class AvoidLinkHeadersRule implements Rule {
 
         }
         return violations;
+    }
+
+    private Violation createViolation(String path) {
+        return new Violation(TITLE, DESCRIPTION, VIOLATION_TYPE, RULE_LINK, path);
     }
 
 }
