@@ -42,20 +42,6 @@ public class SnakeCaseForQueryParamsRuleTest {
     }*/
 
     private Swagger getFixture(String fixture) {
-        SwaggerParser parser = new SwaggerParser();
-        return parser.parse(readFixtureFile(fixture));
-    }
-
-    private String readFixtureFile(String fixtureFile) {
-        String result = "";
-        ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-        try {
-            InputStream is = classloader.getResourceAsStream(fixtureFile);
-            result = IOUtils.toString(is, "UTF-8");
-        }
-        catch (IOException ex) {
-            //TODO: Handle exception
-        }
-        return result;
+        return new SwaggerParser().read(fixture);
     }
 }

@@ -37,9 +37,7 @@ class SnakeCaseForQueryParamsRule {
     }
 
     private boolean isSnakeCase(String input) {
-        Pattern pattern = Pattern.compile(SNAKE_CASE_PATTERN);
-        Matcher matcher = pattern.matcher(input);
-        return matcher.matches();
+        return input.matches(SNAKE_CASE_PATTERN);
     }
 
     private Violation getViolation(Parameter parameter) {
