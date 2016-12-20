@@ -8,38 +8,42 @@ import de.zalando.zally.rules.RulesValidator;
 import io.swagger.models.Swagger;
 import io.swagger.parser.SwaggerParser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Collections;
-import java.util.List;
-
 @RestController(value = "/api-violations")
 public class ApiViolationsController {
 
     private final RulesValidator rulesValidator;
-    private final ObjectMapper mapper = new ObjectMapper();
+    private final ObjectMapper mapper;
 
     @Autowired
-    public ApiViolationsController(RulesValidator rulesValidator) {
+    public ApiViolationsController(RulesValidator rulesValidator, ObjectMapper objectMapper) {
         this.rulesValidator = rulesValidator;
+        this.mapper = objectMapper;
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public JsonNode validate(@RequestBody JsonNode request) {
-        Swagger parsedSwagger = new SwaggerParser().parse(request.get("api_definition").toString());
-        final List<Violation> violations;
-        if (parsedSwagger != null) {
-            violations = rulesValidator.validate(parsedSwagger);
-        } else {
-            violations = Collections.emptyList();
+    public ResponseEntity<JsonNode> validate(@RequestBody JsonNode request) {
+        if (!request.has("api_definition")) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(mapper.createObjectNode().put("error", "no api_definition field in request json body"));
+        }
+
+        final Swagger parsedSwagger = new SwaggerParser().parse(request.get("api_definition").toString());
+        if (parsedSwagger == null) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(mapper.createObjectNode().put("error", "no valid swagger definition"));
         }
 
         ObjectNode response = mapper.createObjectNode();
         ArrayNode jsonViolations = response.putArray("violations");
-        violations.forEach(jsonViolations::addPOJO);
-        return response;
+        rulesValidator.validate(parsedSwagger).forEach(jsonViolations::addPOJO);
+        return ResponseEntity.ok(response);
     }
 }

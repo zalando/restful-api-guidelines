@@ -1,7 +1,6 @@
 package de.zalando.zally.rules;
 
 import de.zalando.zally.Violation;
-import de.zalando.zally.ViolationType;
 import io.swagger.models.Path;
 import io.swagger.models.Swagger;
 import org.junit.Test;
@@ -10,9 +9,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static de.zalando.zally.rules.KebabCaseInPathSegmentsRule.isLowerCaseAndHyphens;
+import static de.zalando.zally.rules.KebabCaseInPathSegmentsRule.isPathVariable;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class LowerCaseWordsWithHyphensInPathTest extends LowerCaseWordsWithHyphensInPath {
+public class KebabCaseInPathSegmentsRuleTest {
+
+    KebabCaseInPathSegmentsRule RULE = new KebabCaseInPathSegmentsRule();
+    Swagger testSwagger = new Swagger();
+    String testPath1 = "/shipment-order/{shipment_order_id}";
+    String testPath2 = "/partner-order/{partner_order_id}";
+    String testPath3 = "/partner-order/{partner_order_id}/partner-order/{partner_order_id}";
+    String wrongTestPath1 = "/shipment_order/{shipment_order_id}";
+    String wrongTestPath2 = "/partner-order/{partner_order_id}/partner-order1/{partner_order_id}";
+
 
     @Test
     public void isLowerCaseAndHyphensForEmpty() {
@@ -75,53 +85,50 @@ public class LowerCaseWordsWithHyphensInPathTest extends LowerCaseWordsWithHyphe
 
     @Test
     public void validateEmptyPath(){
-        Swagger swagger = new Swagger();
-        assertThat(validate(swagger)).isEmpty();
+        assertThat(RULE.validate(testSwagger)).isEmpty();
     }
 
     @Test
     public void validateNormalPath(){
         Map<String, Path> testData = new HashMap<String, Path>();
-        testData.put("/shipment-order/{shipment_order_id}", new Path());
-        Swagger swagger = new Swagger();
-        swagger.paths(testData);
-        assertThat(validate(swagger)).isEmpty();
+        testData.put(testPath1, new Path());
+        testSwagger.paths(testData);
+        assertThat(RULE.validate(testSwagger)).isEmpty();
     }
 
     @Test
     public void validateMultipleNormalPaths(){
         Map<String, Path> testData = new HashMap<String, Path>();
-        testData.put("/shipment-order/{shipment_order_id}", new Path());
-        testData.put("/partner-order/{partner_order_id}", new Path());
-        testData.put("/partner-order/{partner_order_id}/partner-order/{partner_order_id}", new Path());
-        Swagger swagger = new Swagger();
-        swagger.paths(testData);
-        assertThat(validate(swagger)).isEmpty();
+        testData.put(testPath1, new Path());
+        testData.put(testPath2, new Path());
+        testData.put(testPath3, new Path());
+        testSwagger.paths(testData);
+        assertThat(RULE.validate(testSwagger)).isEmpty();
     }
 
     @Test
     public void validateFalsePath(){
         Map<String, Path> testData = new HashMap<String, Path>();
-        testData.put("/shipment_order/{shipment_order_id}", new Path());
-        Swagger swagger = new Swagger();
-        swagger.paths(testData);
-        List<Violation> result = validate(swagger);
+        testData.put(wrongTestPath1, new Path());
+        testSwagger.paths(testData);
+        List<Violation> result = RULE.validate(testSwagger);
         assertThat(result.size()).isEqualTo(1);
-        assertThat(result.get(0)).isEqualToComparingFieldByField(new Violation(title, description, ViolationType.MUST, ruleLink, "/shipment_order/{shipment_order_id}"));
+        assertThat(result.get(0).getPath().get()).isEqualTo(wrongTestPath1);
     }
 
     @Test
     public void validateMultipleFalsePaths(){
         Map<String, Path> testData = new HashMap<String, Path>();
-        testData.put("/shipment_order/{shipment_order_id}", new Path());
-        testData.put("/partner-order/{partner_order_id}", new Path());
-        testData.put("/partner-order/{partner_order_id}/partner-order1/{partner_order_id}", new Path());
-        Swagger swagger = new Swagger();
-        swagger.paths(testData);
-        List<Violation> result = validate(swagger);
+        testData.put(wrongTestPath1, new Path());
+        testData.put(testPath2, new Path());
+        testData.put(wrongTestPath2, new Path());
+        testSwagger.paths(testData);
+        List<Violation> result = RULE.validate(testSwagger);
         assertThat(result.size()).isEqualTo(2);
-        assertThat(result.get(1)).isEqualToComparingFieldByField(new Violation(title, description, ViolationType.MUST, ruleLink, "/shipment_order/{shipment_order_id}"));
-        assertThat(result.get(0)).isEqualToComparingFieldByField(new Violation(title, description, ViolationType.MUST, ruleLink, "/partner-order/{partner_order_id}/partner-order1/{partner_order_id}"));
+        assertThat(result.get(1).getPath().isPresent()).isTrue();
+        assertThat(result.get(1).getPath().get()).isEqualTo(wrongTestPath1);
+        assertThat(result.get(0).getPath().isPresent()).isTrue();
+        assertThat(result.get(0).getPath().get()).isEqualTo(wrongTestPath2);
     }
 
 }

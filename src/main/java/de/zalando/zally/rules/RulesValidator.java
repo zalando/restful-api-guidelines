@@ -23,12 +23,7 @@ public class RulesValidator implements Rule {
     public List<Violation> validate(Swagger swagger) {
         return rules.stream()
                 .flatMap((rule -> rule.validate(swagger).stream()))
-                .sorted((violation, other) -> {
-                    if (!violation.getPath().isPresent() || !other.getPath().isPresent()) {
-                        return 1;
-                    }
-                    return violation.getPath().get().compareToIgnoreCase(other.getPath().get());
-                })
+                .sorted((one, other) -> one.getPath().orElse("").compareToIgnoreCase(other.getPath().orElse("")))
                 .collect(Collectors.toList());
     }
 }

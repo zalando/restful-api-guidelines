@@ -1,5 +1,7 @@
-zally.iml
+*.iml
 .gradle/
 .idea/
 build/
 gradle/
+.DS_Store
+scm-source.json

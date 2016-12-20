@@ -6,8 +6,8 @@ import io.swagger.models.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.Optional;
+import java.util.OptionalInt;
 
 public class SuccessResponseAsJsonObjectRule implements Rule {
     private static final String TITLE = "Response As JSON Object";
@@ -22,7 +22,16 @@ public class SuccessResponseAsJsonObjectRule implements Rule {
             swagger.getPaths().entrySet().stream().
                     forEach(path -> path.getValue().getOperationMap().entrySet().stream().
                             forEach(op -> op.getValue().getResponses().entrySet().stream().
-                                    filter(response -> response.getKey().startsWith("2")).
+                                    filter(response -> {
+                                        try {
+                                            Optional optionInt = Optional.of(Integer.valueOf(response.getKey()));
+                                            int httpCodeInt = Integer.valueOf(response.getKey());
+                                            return httpCodeInt >= 200 && httpCodeInt < 300;
+                                        } catch(NumberFormatException nfe) {
+                                            return false;
+                                            // ignore any http codes which are not between 200 and 300
+                                        }
+                                    }).
                                     filter(response -> response.getValue().getSchema() != null).
                                     filter(response -> !"ref".equals(response.getValue().getSchema().getType())).
                                     forEach(response -> {

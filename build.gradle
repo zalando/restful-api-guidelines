@@ -30,6 +30,7 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-actuator")
     compile('org.zalando.stups:stups-spring-oauth2-server:1.0.15')
     compile('org.zalando:twintip-spring-web:1.1.0')
+    compile('com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.8.0')
     testCompile("org.springframework.boot:spring-boot-starter-test")
     testCompile('org.assertj:assertj-core:3.5.2')
 }
