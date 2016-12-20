@@ -15,7 +15,8 @@ public class RulesValidatorConfiguration {
                 new LowerCaseWordsWithHyphensInPath(),
                 new SecureWithOAuth2Rule(),
                 new SuccessResponseAsJsonObjectRule(),
-                new NoVersionInUriRule()
+                new NoVersionInUriRule(),
+                new SnakeCaseForQueryParamsRule()
         ));
     }
 }
