@@ -20,11 +20,12 @@ import java.util.List;
 public class ApiViolationsController {
 
     private final RulesValidator rulesValidator;
-    private final ObjectMapper mapper = new ObjectMapper();
+    private final ObjectMapper mapper;
 
     @Autowired
-    public ApiViolationsController(RulesValidator rulesValidator) {
+    public ApiViolationsController(RulesValidator rulesValidator, ObjectMapper objectMapper) {
         this.rulesValidator = rulesValidator;
+        this.mapper = objectMapper;
     }
 
     @RequestMapping(method = RequestMethod.POST)
