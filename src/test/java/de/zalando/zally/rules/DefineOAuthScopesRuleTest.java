@@ -12,16 +12,6 @@ import java.nio.file.Files;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class DefineOAuthScopesRuleTest {
-    private static final String API_WITHOUT_SCOPE = "api_without_scopes_defined";
-    private static final int API_WITHOUT_SCOPE_VIOLATION_COUNT = 4;
-    private static final String API_WITH_DEFAULT_SCOPE = "api_with_default_scope";
-    private static final int API_WITH_DEFAULT_SCOPE_VIOLATION_COUNT = 0;
-    private static final String API_WITH_DEFINED_SCOPE = "api_with_defined_scope";
-    private static final int API_WITH_DEFINED_SCOPE_VIOLATION_COUNT = 0;
-    private static final String API_WITH_UNDEFINED_SCOPE = "api_with_undefined_scope";
-    private static final int API_WITH_UNDEFINED_SCOPE_VIOLATION_COUNT = 4;
-    private static final String API_WITH_DEFINED_AND_UNDEFINED_SCOPE = "api_with_defined_and_undefined_scope";
-    private static final int API_WITH_DEFINED_AND_UNDEFINED_SCOPE_VIOLATION_COUNT = 2;
 
     @Test
     public void emptyAPI() {
@@ -30,37 +20,41 @@ public class DefineOAuthScopesRuleTest {
 
     @Test
     public void apiWithoutScope() throws IOException {
-        Swagger swagger = makeSwagger(API_WITHOUT_SCOPE);
-        assertThat(new DefineOAuthScopesRule().validate(swagger)
-                .size()).isEqualTo(API_WITHOUT_SCOPE_VIOLATION_COUNT);
+        int expected_violation_count = 4;
+        Swagger swagger = makeSwagger("api_without_scopes_defined");
+        assertThat(new DefineOAuthScopesRule().validate(swagger).size()).isEqualTo(expected_violation_count);
     }
 
     @Test
     public void apiWithDefultScope() throws IOException {
-        Swagger swagger = makeSwagger(API_WITH_DEFAULT_SCOPE);
+        int expected_violation_count = 0;
+        Swagger swagger = makeSwagger("api_with_default_scope");
         assertThat(new DefineOAuthScopesRule().validate(swagger)
-                .size()).isEqualTo(API_WITH_DEFAULT_SCOPE_VIOLATION_COUNT);
+                .size()).isEqualTo(expected_violation_count);
     }
 
     @Test
     public void apiWithDefinedScope() throws IOException {
-        Swagger swagger = makeSwagger(API_WITH_DEFINED_SCOPE);
+        int expected_violation_count = 0;
+        Swagger swagger = makeSwagger("api_with_defined_scope");
         assertThat(new DefineOAuthScopesRule().validate(swagger)
-                .size()).isEqualTo(API_WITH_DEFINED_SCOPE_VIOLATION_COUNT);
+                .size()).isEqualTo(expected_violation_count);
     }
 
     @Test
     public void apiWithUndefinedScope() throws IOException {
-        Swagger swagger = makeSwagger(API_WITH_UNDEFINED_SCOPE);
+        int expected_violation_count = 4;
+        Swagger swagger = makeSwagger("api_with_undefined_scope");
         assertThat(new DefineOAuthScopesRule().validate(swagger)
-                .size()).isEqualTo(API_WITH_UNDEFINED_SCOPE_VIOLATION_COUNT);
+                .size()).isEqualTo(expected_violation_count);
     }
 
     @Test
     public void apiWithDefinedAndUndefinedScope() throws IOException {
-        Swagger swagger = makeSwagger(API_WITH_DEFINED_AND_UNDEFINED_SCOPE);
+        int expected_violation_count = 2;
+        Swagger swagger = makeSwagger("api_with_defined_and_undefined_scope");
         assertThat(new DefineOAuthScopesRule().validate(swagger)
-                .size()).isEqualTo(API_WITH_DEFINED_AND_UNDEFINED_SCOPE_VIOLATION_COUNT);
+                .size()).isEqualTo(expected_violation_count);
     }
 
     private Swagger makeSwagger(String api) throws IOException {
