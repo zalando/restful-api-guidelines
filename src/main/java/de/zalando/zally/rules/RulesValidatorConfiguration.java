@@ -20,6 +20,7 @@ public class RulesValidatorConfiguration {
                 new AvoidLinkHeadersRule(),
                 new SnakeCaseInPropNameRule(),
                 new UseProblemJsonRule(),
+                new SnakeCaseForQueryParamsRule(),
                 new MediaTypesRule()
         ));
     }
