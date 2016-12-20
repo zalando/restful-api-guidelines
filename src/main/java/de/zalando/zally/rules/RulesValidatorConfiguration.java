@@ -17,7 +17,8 @@ public class RulesValidatorConfiguration {
                 new SuccessResponseAsJsonObjectRule(),
                 new NoVersionInUriRule(),
                 new SnakeCaseInPropNameRule(),
-                new SnakeCaseForQueryParamsRule()
+                new SnakeCaseForQueryParamsRule(),
+                new MediaTypesRule()
         ));
     }
 }

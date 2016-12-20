@@ -1,13 +1,10 @@
 package de.zalando.zally.rules;
 
-import de.zalando.zally.Violation;
 import io.swagger.models.Swagger;
 import io.swagger.parser.SwaggerParser;
 import org.junit.Test;
-import org.springframework.util.ResourceUtils;
 
 import java.io.IOException;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
