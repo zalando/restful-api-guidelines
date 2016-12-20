@@ -19,6 +19,7 @@ public class RulesValidatorConfiguration {
                 new SnakeCaseForQueryParamsRule(),
                 new AvoidLinkHeadersRule(),
                 new SnakeCaseInPropNameRule(),
+                new LimitNumberOfResourcesRule(),
                 new UseProblemJsonRule()
         ));
     }
