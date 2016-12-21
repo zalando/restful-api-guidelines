@@ -25,13 +25,6 @@ public class DefineOAuthScopesRuleTest {
         assertThat(new DefineOAuthScopesRule().validate(swagger).size()).isEqualTo(expected_violation_count);
     }
 
-    @Test
-    public void apiWithDefultScope() throws IOException {
-        int expected_violation_count = 0;
-        Swagger swagger = makeSwagger("api_with_default_scope");
-        assertThat(new DefineOAuthScopesRule().validate(swagger)
-                .size()).isEqualTo(expected_violation_count);
-    }
 
     @Test
     public void apiWithDefinedScope() throws IOException {
