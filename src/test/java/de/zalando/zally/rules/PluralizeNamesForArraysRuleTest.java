@@ -3,7 +3,12 @@ package de.zalando.zally.rules;
 import io.swagger.models.Swagger;
 import io.swagger.parser.SwaggerParser;
 import org.junit.Test;
+import org.springframework.util.ResourceUtils;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,7 +26,7 @@ public class PluralizeNamesForArraysRuleTest {
     }
 
     @Test
-    public void negativeCase () {
+    public void negativeCase() {
         List<String> results = new PluralizeNamesForArraysRule()
                 .validate(invalidSwagger)
                 .stream()
@@ -43,6 +48,15 @@ public class PluralizeNamesForArraysRuleTest {
     }
 
     private Swagger getFixture(String fixture) {
-        return new SwaggerParser().read(fixture);
+        try {
+            File file = ResourceUtils.getFile("src/test/resources/" + fixture);
+            return new SwaggerParser().parse(new String(Files.readAllBytes(file.toPath())));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Unable to read fixture", e);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Unable to read fixture", e);
+        }
     }
 }
