@@ -31,24 +31,32 @@ Minimalistic API linter of awesomeness, bringing order to a sea of APIs.
 - TODO: confirm no other dependencies
 
 
-### Command-line interface
+### Installation
 
-Check CLI tool documentation in [CLI Readme](cli/README.md)
+1. Clone this repository locally
 
+2. Install (Gradle)[https://docs.gradle.org/current/userguide/installation.html]
 
-### Integrating Zally with Github
+3. Download dependencies and build `Zally`:
+    ```bash
+    gradle build
+    ```
 
-- TODO: add github integration instructions
+### Running Zally locally
 
+1. [Optional] Disable OAuth2 authentication for testing purposes:
+    ```bash
+    echo "spring.profiles.active=dev" > application.properties
+    ```
 
-### Contributing
+2. Run Zally server using:
+    ```bash
+    gradle bootRun
+    ```
 
-We are happy to accept contributions. First, take a look at our [contributing guidelines](CONTRIBUTING.md).
+### Checking Zally API
 
-
-### How to test Zally API
-
-1. Generate OAuth2 token
+1. Generate OAuth2 token if needed
 
 2. Wrap your Swagger file inside `api_definition` JSON object and save it as `test.json` file:
     ```json
@@ -80,11 +88,26 @@ We are happy to accept contributions. First, take a look at our [contributing gu
         localhost:8080/api_violations
     ```
 
+### Command-line interface
+
+Check CLI tool documentation in [CLI Readme](cli/README.md)
+
+
+### Integrating Zally with Github
+
+- TODO: add github integration instructions
+
+
+
+### Contributing
+
+We are happy to accept contributions. First, take a look at our [contributing guidelines](CONTRIBUTING.md).
+
 
 ### TODO
 
-- Finish CLI
-- Finish github integration
+Please check the [Issues Page](https://github.com/zalando-incubator/zally/issues)
+for contribution ideas.
 
 
 ### Contact
