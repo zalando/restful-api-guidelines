@@ -24,6 +24,8 @@ public class RulesValidatorConfiguration {
                 new MediaTypesRule(),
                 new NestedPathsCouldBeRootPathsRule(),
                 new NoVersionInUriRule(),
+                new PluralizeNamesForArraysRule(),
+                new PluralizeResourceNamesRule(),
                 new SecureWithOAuth2Rule(),
                 new SnakeCaseForQueryParamsRule(),
                 new SnakeCaseInPropNameRule(),
