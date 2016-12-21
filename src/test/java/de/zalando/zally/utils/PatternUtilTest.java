@@ -57,6 +57,7 @@ public class PatternUtilTest {
     @Test
     public void checkIsHyphenatedPascalCase() {
         assertTrue(isHyphenatedPascalCase("Test-Case"));
+        assertTrue(isHyphenatedPascalCase("X-Flow-Id"));
         assertFalse(isHyphenatedPascalCase("test-Case"));
         assertFalse(isHyphenatedPascalCase("TestCase"));
         assertFalse(isHyphenatedPascalCase("testCase"));
