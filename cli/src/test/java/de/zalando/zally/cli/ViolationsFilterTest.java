@@ -40,12 +40,12 @@ public class ViolationsFilterTest {
         JsonObject mustViolation = new JsonObject();
         mustViolation.add("title", "Test must");
         mustViolation.add("description", "Test must");
-        mustViolation.add("violationType", "MUST");
+        mustViolation.add("violation_type", "MUST");
 
         JsonObject shouldViolation = new JsonObject();
         shouldViolation.add("title", "Test should");
         shouldViolation.add("description", "Test should");
-        shouldViolation.add("violationType", "SHOULD");
+        shouldViolation.add("violation_type", "SHOULD");
 
         violations.add(mustViolation);
         violations.add(shouldViolation);
