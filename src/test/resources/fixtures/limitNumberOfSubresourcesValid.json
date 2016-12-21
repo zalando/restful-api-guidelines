@@ -1,0 +1,73 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "title" : "Test Service",
+    "description" : "This is a test service.",
+    "version" : "1.0.0",
+    "contact" : {
+      "name" : "John Doe",
+      "email" : "john.doe@example.com"
+    }
+  },
+  "externalDocs" : {
+    "description" : "Some external docs",
+    "url" : "http://some-external-docs.com"
+  },
+  "basePath" : "/api",
+  "schemes" : [ "https" ],
+  "security" : [ {
+    "oauth2" : []
+  } ],
+  "securityDefinitions" : {
+    "oauth2" : {
+      "type" : "oauth2",
+      "flow" : "implicit",
+      "authorizationUrl" : "https://example.com/oauth2/dialog",
+      "scopes" : {
+      }
+    }
+  },
+  "produces" : [ "application/json" ],
+  "paths" : {
+    "/items": {
+      "get" : {
+        "responses": {"200": {"description": ""}}
+      }
+    },
+    "/items/{some_id}": {
+      "get" : {
+        "responses": {"200": {"description": ""}}
+      }
+    },
+    "/items/{some_id}/item_level_1": {
+      "get" : {
+        "responses": {"200": {"description": ""}}
+      }
+    },
+    "/items/{some_id}/item_level_1/{level1_id}": {
+      "get" : {
+        "responses": {"200": {"description": ""}}
+      }
+    },
+    "/items/{some_id}/item-level-1/{level1_id}/item-level-2": {
+      "get" : {
+        "responses": {"200": {"description": ""}}
+      }
+    },
+    "/items/{some_id}/item_level_1/{level1_id}/item-level-2/{level2_id}": {
+      "get" : {
+        "responses": {"200": {"description": ""}}
+      }
+    },
+    "/items/{some_id}/item_level_1/{level1_id}/item-level-2/{level2_id}/item-level-3": {
+      "get" : {
+        "responses": {"200": {"description": ""}}
+      }
+    },
+    "/items/{some_id}/item_level_1/{level1_id}/item-level-2/{level2_id}/item-level-3/{level3_id}": {
+      "get" : {
+        "responses": {"200": {"description": ""}}
+      }
+    }
+  }
+}

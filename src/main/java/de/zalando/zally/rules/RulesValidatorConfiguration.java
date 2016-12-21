@@ -25,7 +25,8 @@ public class RulesValidatorConfiguration {
                 new CommonFieldNamesRule(),
                 new DefineOAuthScopesRule(),
                 new HyphenateHttpHeadersRule(),
-                new MediaTypesRule()
+                new MediaTypesRule(),
+                new LimitNumberOfSubresourcesRule()
         ));
     }
 }

@@ -6,6 +6,7 @@ repositories {
 }
 
 dependencies {
+    compile 'com.eclipsesource.minimal-json:minimal-json:0.9.4'
     compile 'com.github.ryenus:rop:1.1.1'
     compile 'com.mashape.unirest:unirest-java:1.4.9'
 
