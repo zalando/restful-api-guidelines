@@ -50,6 +50,14 @@ public class DefineOAuthScopesRuleTest {
                 .size()).isEqualTo(expected_violation_count);
     }
 
+    @Test
+    public void apiWithDefinedTopLevelScope() throws IOException {
+        int expected_violation_count = 0;
+        Swagger swagger = makeSwagger("api_with_toplevel_scope");
+        assertThat(new DefineOAuthScopesRule().validate(swagger)
+                .size()).isEqualTo(expected_violation_count);
+    }
+
     private Swagger makeSwagger(String api) throws IOException {
         File file = ResourceUtils.getFile("src/test/resources/" + api + ".yaml");
         return new SwaggerParser().parse(new String(Files.readAllBytes(file.toPath())));
