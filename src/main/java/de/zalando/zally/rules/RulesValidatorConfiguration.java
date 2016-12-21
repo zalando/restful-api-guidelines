@@ -28,7 +28,8 @@ public class RulesValidatorConfiguration {
                 new MediaTypesRule(),
                 new LimitNumberOfSubresourcesRule(),
                 new NestedPathsCouldBeRootPathsRule(),
-                new EverySecondPathLevelParameterRule()
+                new EverySecondPathLevelParameterRule(),
+                new Use429HeaderForRateLimitRule()
         ));
     }
 }
