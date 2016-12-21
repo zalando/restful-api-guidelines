@@ -10,9 +10,13 @@ host: "localhost:8080"
 schemes:
   - https
 basePath: /
-security:
-  - oauth:
-    - uid
+securityDefinitions:
+  oauth2:
+    type: oauth2
+    authorizationUrl: https://auth.zalando.com/oauth2/authorize
+    flow: password
+    scopes:
+      uid: access for zalando empolyees with zign token
 parameters:
   Authorization:
     name: Authorization
@@ -43,11 +47,14 @@ paths:
         400:
           description: Input file not parsable
           schema:
-            $ref: $ref: 'https://zalando.github.io/problem/schema.yaml#/Problem'
+            $ref: 'https://zalando.github.io/problem/schema.yaml#/Problem'
         default:
           description: An array of error objects
           schema:
-            $ref: $ref: 'https://zalando.github.io/problem/schema.yaml#/Problem'
+            $ref: 'https://zalando.github.io/problem/schema.yaml#/Problem'
+      security:
+        - oauth2:
+          - uid
 
 definitions:
   LintingRequest:

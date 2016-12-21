@@ -1,6 +1,7 @@
 package de.zalando.zally;
 
 import java.util.Optional;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Violation {
 
@@ -60,30 +61,37 @@ public class Violation {
         this.columnNumber = Optional.of(columnNumber);
     }
 
+    @JsonProperty("title")
     public String getTitle() {
         return title;
     }
 
+    @JsonProperty("description")
     public String getDescription() {
         return description;
     }
 
+    @JsonProperty("violation_type")
     public ViolationType getViolationType() {
         return violationType;
     }
 
+    @JsonProperty("rule_link")
     public String getRuleLink() {
         return ruleLink;
     }
 
+    @JsonProperty("path")
     public Optional<String> getPath() {
         return path;
     }
 
+    @JsonProperty("line_number")
     public Optional<Integer> getLineNumber() {
         return lineNumber;
     }
 
+    @JsonProperty("column_number")
     public Optional<Integer> getColumnNumber() {
         return columnNumber;
     }

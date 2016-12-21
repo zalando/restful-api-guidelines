@@ -7,6 +7,8 @@ import io.swagger.models.Swagger;
 import java.util.ArrayList;
 import java.util.List;
 
+import static de.zalando.zally.utils.PatternUtil.isPathVariable;
+
 public class NestedPathsCouldBeRootPathsRule implements Rule {
     private static final String TITLE = "Consider Using (Non-) Nested URLs";
     private static final String DESCRIPTION = "Nested paths / URLs could be top-level resource";
@@ -22,7 +24,8 @@ public class NestedPathsCouldBeRootPathsRule implements Rule {
         for (String path : swagger.getPaths().keySet()) {
             String[] pathSegments = path.split("/");
             // we are only interested in paths that have sub-resource followed by a param: /path1/{param1}/path2/{param2}
-            if (pathSegments.length > 4) {
+            int length = pathSegments.length;
+            if (length > 4 && isPathVariable(pathSegments[length-1])) {
                 violations.add(createViolation(path));
             }
         }
