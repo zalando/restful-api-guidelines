@@ -52,10 +52,10 @@ public class Main {
 
         JsonValue response = sendRequest(body);
 
-        ShowViolations showViolations = new ShowViolations(System.out);
+        ViolationFormatter violationFormatter = new ViolationFormatter(System.out);
 
         try {
-            return showViolations.show(response.asObject());
+            return violationFormatter.show(response.asObject());
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage());
         }
