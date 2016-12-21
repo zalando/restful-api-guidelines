@@ -22,7 +22,7 @@ public class PluralizeNamesForArraysRule implements Rule {
     @Override
     public List<Violation> validate(Swagger swagger) {
         List<Violation> res = new ArrayList<>();
-        if (swagger.getDefinitions() != null) {
+        if (swagger !=null && swagger.getDefinitions() != null) {
             for (Map.Entry<String, Model> entry : swagger.getDefinitions().entrySet()) {
                 String definition = entry.getKey();
                 Model model = entry.getValue();
