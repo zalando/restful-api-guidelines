@@ -1,7 +1,6 @@
 package de.zalando.zally.rules;
 
 import de.zalando.zally.Violation;
-import de.zalando.zally.utils.PatternUtil;
 import io.swagger.models.ModelImpl;
 import io.swagger.models.Swagger;
 import io.swagger.models.properties.StringProperty;
@@ -15,26 +14,26 @@ public class SnakeCaseInPropNameRuleTest {
 
     SnakeCaseInPropNameRule rule = new SnakeCaseInPropNameRule();
 
-    Swagger testSwagger = new Swagger();
-    ModelImpl testDefinition1 = new ModelImpl();
-    ModelImpl testDefinition2 = new ModelImpl();
-    StringProperty testPorperty1 = new StringProperty();
-    StringProperty testPorperty2 = new StringProperty();
+    private Swagger testSwagger = new Swagger();
+    private ModelImpl testDefinition1 = new ModelImpl();
+    private ModelImpl testDefinition2 = new ModelImpl();
+    private StringProperty testPorperty1 = new StringProperty();
+    private StringProperty testPorperty2 = new StringProperty();
 
     @Test
-    public void validateEmptyPath(){
+    public void validateEmptyPath() {
         assertThat(rule.validate(testSwagger)).isEmpty();
     }
 
     @Test
-    public void validateNormalProperty(){
+    public void validateNormalProperty() {
         testDefinition1.addProperty("test_property", testPorperty1);
         testSwagger.addDefinition("ExampleDefintion", testDefinition1);
         assertThat(rule.validate(testSwagger)).isEmpty();
     }
 
     @Test
-    public void validateMultipleNormalProperties(){
+    public void validateMultipleNormalProperties() {
         testDefinition1.addProperty("test_property", testPorperty1);
         testDefinition1.addProperty("test_property_two", testPorperty2);
         testSwagger.addDefinition("ExampleDefintion", testDefinition1);
@@ -42,7 +41,7 @@ public class SnakeCaseInPropNameRuleTest {
     }
 
     @Test
-    public void validateMultipleNormalPropertiesInMultipleDefinitions(){
+    public void validateMultipleNormalPropertiesInMultipleDefinitions() {
         testDefinition1.addProperty("test_property", testPorperty1);
         testDefinition2.addProperty("test_property_two", testPorperty2);
         testSwagger.addDefinition("ExampleDefintion", testDefinition1);
@@ -51,7 +50,7 @@ public class SnakeCaseInPropNameRuleTest {
     }
 
     @Test
-    public void validateFalseProperty(){
+    public void validateFalseProperty() {
         testDefinition1.addProperty("TEST_PROPERTY", testPorperty1);
         testSwagger.addDefinition("ExampleDefintion", testDefinition1);
         List<Violation> result = rule.validate(testSwagger);
@@ -60,7 +59,7 @@ public class SnakeCaseInPropNameRuleTest {
     }
 
     @Test
-    public void validateMultipleFalsePropertiesInMultipleDefinitions(){
+    public void validateMultipleFalsePropertiesInMultipleDefinitions() {
         testDefinition1.addProperty("TEST_PROPERTY", testPorperty1);
         testDefinition2.addProperty("test_property_TWO", testPorperty2);
         testSwagger.addDefinition("ExampleDefintion", testDefinition1);

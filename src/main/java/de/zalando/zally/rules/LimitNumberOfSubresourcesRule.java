@@ -4,7 +4,9 @@ import de.zalando.zally.Violation;
 import de.zalando.zally.ViolationType;
 import io.swagger.models.Swagger;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class LimitNumberOfSubresourcesRule implements Rule {
 
@@ -22,18 +24,19 @@ public class LimitNumberOfSubresourcesRule implements Rule {
                     .count();
             long subresourcesNamesCount = resourcesNamesCount - 1;
             if (subresourcesNamesCount > SUBRESOURCES_LIMIT) {
-                violations.add(getViolation(subresourcesNamesCount));
+                violations.add(getViolation(subresourcesNamesCount, path));
             }
         });
         return violations;
     }
 
-    private Violation getViolation(long numberOfSubresources) {
+    private Violation getViolation(long numberOfSubresources, String path) {
         return new Violation(
                 "Should: Limit number of Sub-resources level",
                 String.format("Number of sub-resources (%s) violates the limit of %s.", numberOfSubresources, SUBRESOURCES_LIMIT),
                 ViolationType.SHOULD,
-                "http://zalando.github.io/restful-api-guidelines/resources/Resources.html#should-limit-number-of-subresource-levels"
+                "http://zalando.github.io/restful-api-guidelines/resources/Resources.html#should-limit-number-of-subresource-levels",
+                path
         );
     }
 }
