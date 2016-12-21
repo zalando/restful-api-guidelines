@@ -13,11 +13,12 @@ import java.util.Map;
 
 public class MediaTypesRule implements Rule{
 
-    private static final String TITLE = "Use Media Type Versioning";
-    private static final String DESCRIPTION = "Version information and media type are provided together via the HTTP Content-Type header";
-    private static final String RULE_LINK = "http://zalando.github.io/restful-api-guidelines/compatibility/Compatibility.html"+
-            "#must-use-media-type-versioning";
-    private static final String PATTERN = "^application/(problem\\+)?json(;v(ersion)?=(\\d)+)?$";
+    private static final String TITLE = "Prefer standard media type names";
+    private static final String DESCRIPTION = "Custom media types should only be used for versioning";
+    private static final String RULE_LINK = "http://zalando.github.io/restful-api-guidelines/data-formats/DataFormats.html"+
+            "#should-prefer-standard-media-type-name-applicationjson";
+    private static final String PATTERN_APPLICATION_PROBLEM_JSON = "^application/(problem\\+)?json$";
+    private static final String PATTERN_CUSTOM_WITH_VERSIONING = "^\\w+/[-+.\\w]+;v(ersion)?=\\d+$";
 
     @Override
     public List<Violation> validate(Swagger swagger) {
@@ -40,20 +41,25 @@ public class MediaTypesRule implements Rule{
                        mediaTypes.addAll(operation.getConsumes());
                     }
                     for(String mediaType : mediaTypes){
-                        if(!isMediaTypeCorrectOrVersion(mediaType)){
-                            violations.add(new Violation(TITLE, DESCRIPTION, ViolationType.MUST, RULE_LINK, verb.name() + " " + pathName));
+                        if(!isApplicationJsonOrProblemJson(mediaType)){
+                            if(!isCustomMediaTypeWithVersioning(mediaType)){
+                                violations.add(new Violation(TITLE, DESCRIPTION, ViolationType.SHOULD, RULE_LINK, verb.name() + " " + pathName));
+                            }
+
                         }
                     }
-
                 }
             }
-
         }
 
         return violations;
     }
 
-    static boolean isMediaTypeCorrectOrVersion(String mediaType) {
-        return mediaType.matches(PATTERN);
+    static boolean isApplicationJsonOrProblemJson(String mediaType) {
+        return mediaType.matches(PATTERN_APPLICATION_PROBLEM_JSON);
+    }
+
+    static boolean isCustomMediaTypeWithVersioning(String mediaType) {
+        return mediaType.matches(PATTERN_CUSTOM_WITH_VERSIONING);
     }
 }

@@ -12,8 +12,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static de.zalando.zally.rules.MediaTypesRule.isMediaTypeCorrectOrVersion;
-
+import static de.zalando.zally.rules.MediaTypesRule.isApplicationJsonOrProblemJson;
+import static de.zalando.zally.rules.MediaTypesRule.isCustomMediaTypeWithVersioning;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class MediaTypesRuleTest {
@@ -26,21 +26,33 @@ public class MediaTypesRuleTest {
 
 
     @Test
-    public void isMediaTypeCorrectOrVersionForValidInput(){
-        assertThat(isMediaTypeCorrectOrVersion("application/json")).isTrue();
-        assertThat(isMediaTypeCorrectOrVersion("application/problem+json")).isTrue();
-        assertThat(isMediaTypeCorrectOrVersion("application/json;v=2")).isTrue();
-        assertThat(isMediaTypeCorrectOrVersion("application/json;version=2")).isTrue();
-        assertThat(isMediaTypeCorrectOrVersion("application/json;version=22")).isTrue();
-        assertThat(isMediaTypeCorrectOrVersion("application/problem+json;v=2")).isTrue();
-        assertThat(isMediaTypeCorrectOrVersion("application/problem+json;version=2")).isTrue();
-        assertThat(isMediaTypeCorrectOrVersion("application/problem+json;version=22")).isTrue();
+    public void isApplicationJsonOrProblemJsonForValidInput(){
+        assertThat(isApplicationJsonOrProblemJson("application/json")).isTrue();
+        assertThat(isApplicationJsonOrProblemJson("application/problem+json")).isTrue();
     }
 
     @Test
-    public void isMediaTypeCorrectOrVersionForInvalidInput(){
-        assertThat(isMediaTypeCorrectOrVersion("application/vnd.api+json")).isFalse();
-        assertThat(isMediaTypeCorrectOrVersion("application/x.zalando.contract+json")).isFalse();
+    public void isApplicationJsonOrProblemJsonForInvalidInput(){
+        assertThat(isApplicationJsonOrProblemJson("application/vnd.api+json")).isFalse();
+        assertThat(isApplicationJsonOrProblemJson("application/x.zalando.contract+json")).isFalse();
+    }
+
+    @Test
+    public void isCustomMediaTypeWithVersioningForValidInput(){
+        assertThat(isCustomMediaTypeWithVersioning("application/vnd.api+json;v=12")).isTrue();
+        assertThat(isCustomMediaTypeWithVersioning("application/x.zalando.contract+json;v=34")).isTrue();
+        assertThat(isCustomMediaTypeWithVersioning("application/vnd.api+json;version=123")).isTrue();
+        assertThat(isCustomMediaTypeWithVersioning("application/x.zalando.contract+json;version=345")).isTrue();
+    }
+
+    @Test
+    public void isCustomMediaTypeWithVersioningForInvalidInput(){
+        assertThat(isCustomMediaTypeWithVersioning("application/vnd.api+json")).isFalse();
+        assertThat(isCustomMediaTypeWithVersioning("application/x.zalando.contract+json")).isFalse();
+        assertThat(isCustomMediaTypeWithVersioning("application/vnd.api+json;ver=1")).isFalse();
+        assertThat(isCustomMediaTypeWithVersioning("application/x.zalando.contract+json;v:1")).isFalse();
+        assertThat(isCustomMediaTypeWithVersioning("application/vnd.api+json;version=")).isFalse();
+        assertThat(isCustomMediaTypeWithVersioning("application/x.zalando.contract+json;")).isFalse();
     }
 
     @Test
@@ -51,6 +63,7 @@ public class MediaTypesRuleTest {
     @Test
     public void isMediaTypeCorrectOrVersionForValidSwagger(){
         testOperation.setProduces(Arrays.asList("application/json", "application/problem+json"));
+        testOperation.setProduces(Arrays.asList("application/x.zalando.contract+json;v=123", "application/vnd.api+json;version=3"));
         testPath.set("get", testOperation);
         Map<String, Path> testData = new HashMap<String, Path>();
         testData.put(testPathName, testPath);
@@ -67,7 +80,7 @@ public class MediaTypesRuleTest {
         List<Violation> result = rule.validate(testSwagger);
         assertThat(result.size()).isEqualTo(1);
         assertThat((result.get(0).getPath().isPresent())).isTrue();
-        assertThat(result.get(0).getPath().get()).isEqualTo("GET /shipment-order/{shipment_order_id}");
+        assertThat(result.get(0).getPath().get()).isEqualTo("GET " + testPathName);
     }
     @Test
     public void isMediaTypeCorrectOrVersionForMultipleViolationsInSwagger(){
