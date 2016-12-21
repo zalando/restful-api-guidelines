@@ -61,20 +61,12 @@ public class Main {
         List<String> mustViolations = violationsFilter.getMustViolations();
         List<String> shouldViolations = violationsFilter.getShouldViolations();
 
-        if (!mustViolations.isEmpty()) {
-            System.out.println("Found the following MUST Violations:\n");
-            System.out.println("------------------------------------\n");
-            for (String violation: mustViolations) {
-                System.out.println(violation);
-            }
-        }
-
-        if (!shouldViolations.isEmpty()) {
-            System.out.println("Found the following SHOULD Violations:\n");
-            System.out.println("--------------------------------------\n");
-            for (String violation: shouldViolations) {
-                System.out.println(violation);
-            }
+        ViolationsPrinter printer = new ViolationsPrinter(System.out);
+        try {
+            printer.print(mustViolations, "must");
+            printer.print(shouldViolations, "should");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
 
         return mustViolations.isEmpty() ? 0 : 1;

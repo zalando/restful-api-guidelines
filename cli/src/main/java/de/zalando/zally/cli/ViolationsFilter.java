@@ -39,7 +39,7 @@ public class ViolationsFilter {
 
 
         if (violations == null || violations.get(VIOLATIONS) == null || !violations.get(VIOLATIONS).isArray()) {
-            throw new RuntimeException("Response JSON is malformed");
+            throw new RuntimeException("Response JSON is malformed:" + violations.asString());
         }
         return violations.get("violations").asArray().values().stream();
     }
