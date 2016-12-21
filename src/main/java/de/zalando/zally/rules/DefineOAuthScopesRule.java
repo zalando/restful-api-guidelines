@@ -3,13 +3,13 @@ package de.zalando.zally.rules;
 import com.google.common.collect.Sets;
 import de.zalando.zally.Violation;
 import io.swagger.models.Operation;
+import io.swagger.models.SecurityRequirement;
 import io.swagger.models.Swagger;
 import io.swagger.models.auth.OAuth2Definition;
 import io.swagger.models.auth.SecuritySchemeDefinition;
 
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static de.zalando.zally.ViolationType.MUST;
 import static java.lang.String.format;
@@ -26,11 +26,14 @@ public class DefineOAuthScopesRule implements Rule {
         if (swagger == null || swagger.getPaths() == null) {
             return violations;
         }
+
+
         Set<String> applicableScopes = new HashSet<>(getDefinedScopes(swagger));
+        boolean isTopLevelScopeDefined = isTopLevelScopeDefined(swagger, applicableScopes);
         swagger.getPaths().forEach((pathKey, path) -> {
             if (path != null) {
                 path.getOperations().forEach(operation -> {
-                    violations.addAll(validateOperation(operation, pathKey, applicableScopes));
+                    violations.addAll(validateOperation(operation, pathKey, applicableScopes, isTopLevelScopeDefined));
                 });
             }
         });
@@ -38,7 +41,7 @@ public class DefineOAuthScopesRule implements Rule {
     }
 
     // Validate one endpoint
-    private List<Violation> validateOperation(Operation operation, String path, Set<String> definedScopes) {
+    private List<Violation> validateOperation(Operation operation, String path, Set<String> definedScopes, boolean isToplevelScopeDefined) {
         List<Violation> violations = new ArrayList<>();
         Set<String> actualScopes = extractAppliedScopes(operation);
         Sets.SetView<String> illegalScopes = Sets.difference(actualScopes, definedScopes);
@@ -46,7 +49,7 @@ public class DefineOAuthScopesRule implements Rule {
                 .stream()
                 .map(s -> createViolation(path, format(INVALID_SCOPE_DESC, s, operation.getSummary())))
                 .collect(Collectors.toList()));
-        if (illegalScopes.size() == actualScopes.size()) {
+        if (illegalScopes.size() == actualScopes.size() && !isToplevelScopeDefined) {
             violations.add(createViolation(path, format(NOT_DEFINED_DESC, operation.getSummary())));
         }
         return violations;
@@ -92,5 +95,26 @@ public class DefineOAuthScopesRule implements Rule {
             });
         }
         return result;
+    }
+
+    private boolean isTopLevelScopeDefined(Swagger swagger, Set<String> applicableScopes) {
+        if (swagger.getSecurity() != null) {
+            for (SecurityRequirement securityGroupDefinition : swagger.getSecurity()) {
+                if (securityGroupDefinition != null) {
+                    for (Map.Entry<String, List<String>> entry : securityGroupDefinition.getRequirements().entrySet()) {
+                        String group = entry.getKey();
+                        List<String> scopes = entry.getValue();
+                        if (group != null && scopes != null) {
+                            for (String scope : scopes) {
+                                if (applicableScopes.contains(group + ":" + scope)) {
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false;
     }
 }
