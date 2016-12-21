@@ -1,7 +1,9 @@
 package de.zalando.zally.cli;
 
+import com.eclipsesource.json.Json;
 import com.eclipsesource.json.JsonArray;
 import com.eclipsesource.json.JsonObject;
+import com.eclipsesource.json.JsonValue;
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
@@ -34,10 +36,12 @@ public class ViolationsPrinterTest {
         JsonObject violationOne = new JsonObject();
         violationOne.add("title", "Violation 1");
         violationOne.add("description", "Violation 1 Description");
+        violationOne.add("path", "Violation 1 Path");
 
         JsonObject violationTwo = new JsonObject();
         violationTwo.add("title", "Violation 2");
         violationTwo.add("description", "Violation 2 Description");
+        violationTwo.add("path", Json.NULL);
 
         violations.add(violationOne);
         violations.add(violationTwo);
@@ -45,7 +49,7 @@ public class ViolationsPrinterTest {
 
         String expectedResult = "Found the following MUST violations\n" +
                 "===================================\n" +
-                "Violation 1:\n\tViolation 1 Description\n" +
+                "Violation 1:\n\tViolation 1 Description\n\tViolation 1 Path\n" +
                 "Violation 2:\n\tViolation 2 Description\n";
 
         assertEquals(expectedResult, outContent.toString());
@@ -56,6 +60,7 @@ public class ViolationsPrinterTest {
         JsonObject violation = new JsonObject();
         violation.add("title", "Test title");
         violation.add("description", "Test description");
+        violation.add("path", Json.NULL);
 
         String result = ViolationsPrinter.formatViolation(violation);
 

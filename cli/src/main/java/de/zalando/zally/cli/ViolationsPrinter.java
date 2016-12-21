@@ -37,6 +37,8 @@ public class ViolationsPrinter {
     }
 
     public static String formatViolation(JsonObject violation) {
-        return violation.get("title").asString() + ":\n\t" + violation.get("description").asString();
+        return violation.get("title").asString()
+                + ":\n\t" + violation.get("description").asString()
+                + (!violation.get("path").isNull() ? ("\n\t" + violation.get("path").asString()) : "");
     }
 }
