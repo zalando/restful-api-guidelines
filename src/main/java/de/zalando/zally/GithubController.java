@@ -44,17 +44,19 @@ public class GithubController {
                 if (violations.isEmpty()) {
                     githubClient.setCommitStatus(repoUrl, commitSha, "success", "", "Zally check passed");
                 } else {
+                    boolean hasMust = violations.stream().anyMatch(v -> v.getViolationType() == ViolationType.MUST);
+                    String status = hasMust ? "failure" : "success";
                     String id = mapper.createObjectNode()
                             .put("swagger_path", swaggerPath)
                             .put("repo_url", repoUrl)
                             .put("commit_sha", commitSha).toString();
                     String detailsUrl = EXTERNAL_URL + "/details/" + GithubClient.encode(id);
-                    githubClient.setCommitStatus(repoUrl, commitSha, "failure", detailsUrl, "Zally found violations");
+                    githubClient.setCommitStatus(repoUrl, commitSha, status, detailsUrl,
+                            String.format("Zally found %d violations", violations.size()));
                 }
             } catch (RestClientException e) {
                 githubClient.setCommitStatus(repoUrl, commitSha, "error", "", "Error in Zally");
             }
-
         }
         return ResponseEntity.ok(response);
     }
