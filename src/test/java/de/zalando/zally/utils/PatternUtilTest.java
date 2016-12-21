@@ -2,7 +2,9 @@ package de.zalando.zally.utils;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static de.zalando.zally.utils.PatternUtil.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Unit tests for patterns utility
@@ -11,95 +13,113 @@ public class PatternUtilTest {
 
     @Test
     public void checkHasTrailingSlash() {
-        assertTrue(PatternUtil.hasTrailingSlash("blah/"));
-        assertFalse(PatternUtil.hasTrailingSlash("blah"));
+        assertTrue(hasTrailingSlash("blah/"));
+        assertFalse(hasTrailingSlash("blah"));
     }
 
     @Test
     public void checkIsLowerCaseAndHyphens() {
-        assertTrue(PatternUtil.isLowerCaseAndHyphens("a-b-c"));
-        assertTrue(PatternUtil.isLowerCaseAndHyphens("abc"));
-        assertFalse(PatternUtil.isLowerCaseAndHyphens("A-B-C"));
+        assertTrue(isLowerCaseAndHyphens("a-b-c"));
+        assertTrue(isLowerCaseAndHyphens("abc"));
+        assertFalse(isLowerCaseAndHyphens("A-B-C"));
     }
 
     @Test
     public void checkIsPathVariable() {
-        assertTrue(PatternUtil.isPathVariable("{test}"));
-        assertFalse(PatternUtil.isPathVariable("{}"));
-        assertFalse(PatternUtil.isPathVariable(" { } "));
-        assertFalse(PatternUtil.isPathVariable("abc"));
-        assertFalse(PatternUtil.isPathVariable("{test"));
-        assertFalse(PatternUtil.isPathVariable("test}"));
+        assertTrue(isPathVariable("{test}"));
+        assertFalse(isPathVariable("{}"));
+        assertFalse(isPathVariable(" { } "));
+        assertFalse(isPathVariable("abc"));
+        assertFalse(isPathVariable("{test"));
+        assertFalse(isPathVariable("test}"));
     }
 
     @Test
     public void checkIsCamelCase() {
-        assertTrue(PatternUtil.isCamelCase("testCase"));
-        assertFalse(PatternUtil.isCamelCase("TestCase"));
+        assertTrue(isCamelCase("testCase"));
+        assertFalse(isCamelCase("TestCase"));
     }
 
     @Test
     public void checkIsPascalCase() {
-        assertTrue(PatternUtil.isPascalCase("TestCase"));
-        assertFalse(PatternUtil.isPascalCase("testCase"));
+        assertTrue(isPascalCase("TestCase"));
+        assertFalse(isPascalCase("testCase"));
     }
 
     @Test
     public void checkIsHyphenatedCamelCase() {
-        assertTrue(PatternUtil.isHyphenatedCamelCase("test-Case"));
-        assertFalse(PatternUtil.isHyphenatedCamelCase("Test-Case"));
-        assertFalse(PatternUtil.isHyphenatedCamelCase("testCase"));
-        assertFalse(PatternUtil.isHyphenatedCamelCase("TestCase"));
+        assertTrue(isHyphenatedCamelCase("test-Case"));
+        assertFalse(isHyphenatedCamelCase("Test-Case"));
+        assertFalse(isHyphenatedCamelCase("testCase"));
+        assertFalse(isHyphenatedCamelCase("TestCase"));
     }
 
     @Test
     public void checkIsHyphenatedPascalCase() {
-        assertTrue(PatternUtil.isHyphenatedPascalCase("Test-Case"));
-        assertFalse(PatternUtil.isHyphenatedPascalCase("test-Case"));
-        assertFalse(PatternUtil.isHyphenatedPascalCase("TestCase"));
-        assertFalse(PatternUtil.isHyphenatedPascalCase("testCase"));
+        assertTrue(isHyphenatedPascalCase("Test-Case"));
+        assertFalse(isHyphenatedPascalCase("test-Case"));
+        assertFalse(isHyphenatedPascalCase("TestCase"));
+        assertFalse(isHyphenatedPascalCase("testCase"));
     }
 
     @Test
     public void checkIsSnakeCase() {
-        assertTrue(PatternUtil.isSnakeCase("test_case"));
-        assertTrue(PatternUtil.isSnakeCase("test"));
-        assertFalse(PatternUtil.isSnakeCase("TestCase"));
-        assertFalse(PatternUtil.isSnakeCase("Test_Case"));
-        assertFalse(PatternUtil.isSnakeCase(""));
-        assertFalse(PatternUtil.isSnakeCase("_"));
-        assertFalse(PatternUtil.isSnakeCase("customer-number"));
-        assertFalse(PatternUtil.isSnakeCase("_customer_number"));
-        assertFalse(PatternUtil.isSnakeCase("CUSTOMER_NUMBER"));
+        assertTrue(isSnakeCase("test_case"));
+        assertTrue(isSnakeCase("test"));
+        assertFalse(isSnakeCase("TestCase"));
+        assertFalse(isSnakeCase("Test_Case"));
+        assertFalse(isSnakeCase(""));
+        assertFalse(isSnakeCase("_"));
+        assertFalse(isSnakeCase("customer-number"));
+        assertFalse(isSnakeCase("_customer_number"));
+        assertFalse(isSnakeCase("CUSTOMER_NUMBER"));
     }
 
     @Test
     public void checkIsKebabCase() {
-        assertTrue(PatternUtil.isKebabCase("test-case"));
-        assertFalse(PatternUtil.isKebabCase("test-Case"));
-        assertFalse(PatternUtil.isKebabCase("testCase"));
+        assertTrue(isKebabCase("test-case"));
+        assertFalse(isKebabCase("test-Case"));
+        assertFalse(isKebabCase("testCase"));
     }
 
     @Test
     public void checkIsHyphenated() {
-        assertTrue(PatternUtil.isHyphenated("A"));
-        assertTrue(PatternUtil.isHyphenated("low"));
-        assertTrue(PatternUtil.isHyphenated("Aa"));
-        assertFalse(PatternUtil.isHyphenated("aA"));
-        assertFalse(PatternUtil.isHyphenated("AA"));
-        assertTrue(PatternUtil.isHyphenated("A-A"));
-        assertTrue(PatternUtil.isHyphenated("X-Auth-2.0"));
-        assertTrue(PatternUtil.isHyphenated("This-Is-Some-Hyphenated-String"));
-        assertTrue(PatternUtil.isHyphenated("this-is-other-hyphenated-string"));
-        assertFalse(PatternUtil.isHyphenated("Sorry no hyphens here"));
-        assertFalse(PatternUtil.isHyphenated("CamelCaseIsNotAcceptableAndShouldBeIllegal"));
-        assertFalse(PatternUtil.isHyphenated("a--a"));
+        assertTrue(isHyphenated("A"));
+        assertTrue(isHyphenated("low"));
+        assertTrue(isHyphenated("Aa"));
+        assertFalse(isHyphenated("aA"));
+        assertFalse(isHyphenated("AA"));
+        assertTrue(isHyphenated("A-A"));
+        assertTrue(isHyphenated("X-Auth-2.0"));
+        assertTrue(isHyphenated("This-Is-Some-Hyphenated-String"));
+        assertTrue(isHyphenated("this-is-other-hyphenated-string"));
+        assertFalse(isHyphenated("Sorry no hyphens here"));
+        assertFalse(isHyphenated("CamelCaseIsNotAcceptableAndShouldBeIllegal"));
+        assertFalse(isHyphenated("a--a"));
     }
 
     @Test
     public void checkHasVersionInUrl() {
-        assertTrue(PatternUtil.hasVersionInUrl("path/to/v1"));
-        assertTrue(PatternUtil.hasVersionInUrl("path/to/v1/"));
-        assertFalse(PatternUtil.hasVersionInUrl("path/to"));
+        assertTrue(hasVersionInUrl("path/to/v1"));
+        assertTrue(hasVersionInUrl("path/to/v1/"));
+        assertFalse(hasVersionInUrl("path/to"));
+    }
+
+    @Test
+    public void checkGenericIsVersion() {
+        assertFalse(isVersion("*"));
+        assertFalse(isVersion("1"));
+        assertFalse(isVersion("1.2"));
+        assertFalse(isVersion("12.3"));
+        assertTrue(isVersion("1.2.3"));
+        assertFalse(isVersion("1.23"));
+        assertTrue(isVersion("1.2.34"));
+        assertTrue(isVersion("123.456.789"));
+        assertFalse(isVersion("1.2.*"));
+        assertFalse(isVersion("1.*"));
+        assertFalse(isVersion("a"));
+        assertFalse(isVersion("1.a"));
+        assertFalse(isVersion("*.1"));
+        assertFalse(isVersion("1.*.2"));
     }
 }

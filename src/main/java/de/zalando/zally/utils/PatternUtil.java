@@ -16,12 +16,13 @@ public class PatternUtil {
     private static final String KEBAB_CASE_PATTERN = "^[a-z]+(?:-[a-z]+)*$";
     private static final String VERSION_IN_URL_PATTERN = "(.*)/v[0-9]+(.*)";
     private static final String PATH_VARIABLE_PATTERN = "\\{.+\\}$";
+    private static final String GENERIC_VERSION_PATTERN = "^\\d+\\.\\d+\\.\\d+$";
 
     public static boolean hasTrailingSlash(String input) {
         return input.trim().endsWith("/");
     }
 
-    public static boolean isLowerCaseAndHyphens(String input){
+    public static boolean isLowerCaseAndHyphens(String input) {
         return input.matches(LOWER_CASE_HYPHENS_PATTERN);
     }
 
@@ -59,5 +60,9 @@ public class PatternUtil {
 
     public static boolean hasVersionInUrl(String input) {
         return input.matches(VERSION_IN_URL_PATTERN);
+    }
+
+    public static boolean isVersion(String input) {
+        return input.matches(GENERIC_VERSION_PATTERN);
     }
 }
