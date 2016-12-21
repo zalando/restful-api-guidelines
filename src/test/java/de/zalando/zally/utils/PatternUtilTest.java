@@ -107,16 +107,16 @@ public class PatternUtilTest {
 
     @Test
     public void checkGenericIsVersion() {
-        assertTrue(isVersion("*"));
-        assertTrue(isVersion("1"));
-        assertTrue(isVersion("1.2"));
-        assertTrue(isVersion("12.3"));
+        assertFalse(isVersion("*"));
+        assertFalse(isVersion("1"));
+        assertFalse(isVersion("1.2"));
+        assertFalse(isVersion("12.3"));
         assertTrue(isVersion("1.2.3"));
-        assertTrue(isVersion("1.23"));
+        assertFalse(isVersion("1.23"));
         assertTrue(isVersion("1.2.34"));
         assertTrue(isVersion("123.456.789"));
-        assertTrue(isVersion("1.2.*"));
-        assertTrue(isVersion("1.*"));
+        assertFalse(isVersion("1.2.*"));
+        assertFalse(isVersion("1.*"));
         assertFalse(isVersion("a"));
         assertFalse(isVersion("1.a"));
         assertFalse(isVersion("*.1"));

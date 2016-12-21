@@ -16,7 +16,7 @@ public class PatternUtil {
     private static final String KEBAB_CASE_PATTERN = "^[a-z]+(?:-[a-z]+)*$";
     private static final String VERSION_IN_URL_PATTERN = "(.*)/v[0-9]+(.*)";
     private static final String PATH_VARIABLE_PATTERN = "\\{.+\\}$";
-    private static final String GENERIC_VERSION_PATTERN = "^(\\d+\\.)?(\\d+\\.)?(\\*|\\d+)$";
+    private static final String GENERIC_VERSION_PATTERN = "^\\d+\\.\\d+\\.\\d+$";
 
     public static boolean hasTrailingSlash(String input) {
         return input.trim().endsWith("/");

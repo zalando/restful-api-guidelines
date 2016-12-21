@@ -26,7 +26,7 @@ public class VersionInInfoSectionRuleTest {
     @Test
     public void forMissingVersionInInfoSection() {
         testSwagger.info(testInfo);
-        String expectedDescription =  "Only the documentation, not the API itself, needs version information. It should be in the format MAYOR.MINOR.DRAFT\nVersion is missing.";
+        String expectedDescription =  "Only the documentation, not the API itself, needs version information. It should be in the format MAJOR.MINOR.DRAFT\nVersion is missing.";
         assertThat(rule.validate(testSwagger).get(0).getDescription()).isEqualTo(expectedDescription);
     }
 
@@ -34,7 +34,7 @@ public class VersionInInfoSectionRuleTest {
     public void forWrongVersionInInfoSection() {
         testInfo.setVersion("1.2.3-a");
         testSwagger.info(testInfo);
-        String expectedDescription =  "Only the documentation, not the API itself, needs version information. It should be in the format MAYOR.MINOR.DRAFT\nVersion is not in the correct format.";
+        String expectedDescription =  "Only the documentation, not the API itself, needs version information. It should be in the format MAJOR.MINOR.DRAFT\nVersion is not in the correct format: 1.2.3-a";
         assertThat(rule.validate(testSwagger).get(0).getDescription()).isEqualTo(expectedDescription);
     }
 }

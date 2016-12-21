@@ -12,7 +12,7 @@ import static de.zalando.zally.utils.PatternUtil.isVersion;
 public class VersionInInfoSectionRule implements Rule {
 
     private static final String TITLE = "Provide version information";
-    private static final String DESCRIPTION = "Only the documentation, not the API itself, needs version information. It should be in the format MAYOR.MINOR.DRAFT";
+    private static final String DESCRIPTION = "Only the documentation, not the API itself, needs version information. It should be in the format MAJOR.MINOR.DRAFT";
     private static final String RULE_LINK = "http://zalando.github.io/restful-api-guidelines/compatibility/Compatibility.html" +
             "#should-provide-version-information-in-openapi-documentation";
 
@@ -26,13 +26,17 @@ public class VersionInInfoSectionRule implements Rule {
             if (version != null) {
                 if (!isVersion(version)) {
                     //not a valid version
-                    violations.add(new Violation(TITLE, DESCRIPTION + "\nVersion is not in the correct format.", ViolationType.SHOULD, RULE_LINK));
+                    violations.add(createViolation(DESCRIPTION + "\nVersion is not in the correct format: " + version));
                 }
             } else {
                 //no version at all
-                violations.add(new Violation(TITLE, DESCRIPTION + "\nVersion is missing.", ViolationType.SHOULD, RULE_LINK));
+                violations.add(createViolation(DESCRIPTION + "\nVersion is missing."));
             }
         }
         return violations;
+    }
+
+    private Violation createViolation(String description) {
+        return new Violation(TITLE, description, ViolationType.SHOULD, RULE_LINK);
     }
 }
