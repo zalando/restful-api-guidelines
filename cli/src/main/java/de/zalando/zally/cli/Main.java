@@ -1,9 +1,15 @@
 package de.zalando.zally.cli;
 
+import com.eclipsesource.json.Json;
+import com.eclipsesource.json.JsonValue;
 import com.github.ryenus.rop.OptionParser;
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.io.Reader;
 
 
@@ -15,27 +21,44 @@ public class Main {
     }
 
     void run(String[] args) {
+        int numberOfViolations = 0;
+
         try {
-            lint(args);
+            numberOfViolations = lint(args);
         } catch (RuntimeException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
+
+        if (numberOfViolations > 0) {
+            System.exit(1);
+        }
     }
 
-    private void lint(String[] args) throws RuntimeException {
+    private int lint(String[] args) throws RuntimeException {
         if (args.length < 1) {
             throw new RuntimeException("Please provide a swagger file");
         }
 
-        Reader fileReader = getReader(args[0]);
-        JsonReader jsonReader = new JsonReader(fileReader);
-        RequestDecorator decorator = new RequestDecorator(jsonReader);
+        final SpecsReader specsReader;
+        if (args[0].endsWith(".yaml") || args[0].endsWith(".yml")) {
+            specsReader = new YamlReader(getReader(args[0]));
+        } else {
+            specsReader = new JsonReader(getReader(args[0]));
+        }
 
-        String body = decorator.getRequestBody();
+        final RequestDecorator decorator = new RequestDecorator(specsReader);
+        final String body = decorator.getRequestBody();
 
-        // TODO: add API call
-        System.out.println(body);
+        JsonValue response = sendRequest(body);
+
+        ViolationFormatter violationFormatter = new ViolationFormatter(System.out);
+
+        try {
+            return violationFormatter.show(response.asObject());
+        } catch (IOException e) {
+            throw new RuntimeException(e.getMessage());
+        }
     }
 
     private Reader getReader(String location) throws RuntimeException {
@@ -47,10 +70,24 @@ public class Main {
         }
     }
 
-    /**
-     * Example for OAuth call to zally server:
-     HttpResponse<String> response = Unirest.post(System.getenv("ZALLY_URL" ... or default))
-         .header("Authorization", "Bearer " + System.getenv("TOKEN"))
-         .asString();
-     */
+    private JsonValue sendRequest(String body) throws RuntimeException {
+        HttpResponse<String> response;
+
+        // TODO: Override the URL from CLI args
+        String url= System.getenv("ZALLY_URL");
+        String token = System.getenv("TOKEN");
+
+        try {
+            response = Unirest
+                    .post(url)
+                    .header("Authorization", "Bearer " + token)
+                    .header("Content-Type", "application/json")
+                    .body(body)
+                    .asString();
+        } catch (UnirestException e) {
+            throw new RuntimeException("API Error: " + e.getMessage());
+        }
+
+        return Json.parse(response.getBody());
+    }
 }

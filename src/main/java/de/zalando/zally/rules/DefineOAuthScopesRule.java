@@ -62,7 +62,7 @@ public class DefineOAuthScopesRule implements Rule {
         }
         return operation.getSecurity()
                 .stream()
-                .flatMap(map -> map != null ? map.get(OAUTH2).stream() : Stream.empty())
+                .flatMap(map -> map != null && map.get(OAUTH2) != null ? map.get(OAUTH2).stream() : Stream.empty())
                 .filter(Objects::nonNull)
                 .collect(Collectors.toSet());
     }
