@@ -28,7 +28,7 @@ public class LimitNumberOfResourcesRule implements Rule {
 
     private Violation getViolation(int numberOfPaths) {
         return new Violation(
-                "Should: Limit number of Resources",
+                "Limit number of Resources",
                 String.format("Number of paths (%s) violates the limit of %s.", numberOfPaths, RESOURCE_LIMIT),
                 ViolationType.SHOULD,
                 "http://zalando.github.io/restful-api-guidelines/resources/Resources.html#should-limit-number-of-resources"

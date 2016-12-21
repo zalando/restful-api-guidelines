@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 import static de.zalando.zally.utils.WordUtil.isPlural;
 
 public class PluralizeResourceNamesRule implements Rule {
-    public static final String RULE_NAME = "Should: Pluralize Resource Names";
+    public static final String RULE_NAME = "Pluralize Resource Names";
     public static final String RULE_URL = "http://zalando.github.io/restful-api-guidelines/naming/Naming.html" +
             "#must-pluralize-resource-names";
     public static final String DESC_PATTERN = "Resource name '%s' is not pluralized (but we are not sure)";

@@ -10,7 +10,7 @@ import java.util.List;
 
 public class KebabCaseInPathSegmentsRule implements Rule {
 
-    String title = "lowercase words with hyphens";
+    String title = "Lowercase words with hyphens";
     String description = "Use lowercase separate words with hyphens for path segments";
     String ruleLink = "http://zalando.github.io/restful-api-guidelines/naming/Naming.html" +
             "#must-use-lowercase-separate-words-with-hyphens-for-path-segments";

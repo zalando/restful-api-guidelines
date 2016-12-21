@@ -14,7 +14,7 @@ import static de.zalando.zally.utils.WordUtil.isPlural;
 
 public class PluralizeNamesForArraysRule implements Rule {
 
-    public static final String TITLE = "Should: Array names should be pluralized";
+    public static final String TITLE = "Array names should be pluralized";
     public static final String DESC_PATTERN = "Array property name '%s' is not pluralized (but we are not sure)";
     public static final String RULE_URL = "http://zalando.github.io/restful-api-guidelines/json-guidelines/" +
             "JsonGuidelines.html#should-array-names-should-be-pluralized";

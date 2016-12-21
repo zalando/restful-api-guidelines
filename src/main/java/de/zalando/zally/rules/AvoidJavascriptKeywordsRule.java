@@ -9,7 +9,7 @@ import java.util.*;
 
 public class AvoidJavascriptKeywordsRule implements Rule {
 
-    public static final String TITLE = "Should: avoid reserved Javascript keywords";
+    public static final String TITLE = "Avoid reserved Javascript keywords";
     public static final String DESC_PATTERN = "Property name '%s' is reserved javascript keyword";
     public static final String RULE_URL = "http://zalando.github.io/restful-api-guidelines/naming/Naming.html" +
             "#should-reserved-javascript-keywords-should-be-avoided";

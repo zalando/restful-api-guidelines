@@ -36,7 +36,7 @@ class SnakeCaseForQueryParamsRule implements Rule {
 
     private Violation getViolation(Parameter parameter) {
         return new Violation(
-            "Must: Use snake_case (never camelCase) for Query Parameters",
+            "Use snake_case (never camelCase) for Query Parameters",
             String.format("Query parameter '%s' does not use snake_case.", parameter.getName()),
             ViolationType.MUST,
             "http://zalando.github.io/restful-api-guidelines/naming/Naming.html#must-use-snakecase-never-camelcase-for-query-parameters"

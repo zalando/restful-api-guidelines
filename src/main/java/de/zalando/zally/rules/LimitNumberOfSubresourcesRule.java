@@ -32,7 +32,7 @@ public class LimitNumberOfSubresourcesRule implements Rule {
 
     private Violation getViolation(long numberOfSubresources, String path) {
         return new Violation(
-                "Should: Limit number of Sub-resources level",
+                "Limit number of Sub-resources level",
                 String.format("Number of sub-resources (%s) violates the limit of %s.", numberOfSubresources, SUBRESOURCES_LIMIT),
                 ViolationType.SHOULD,
                 "http://zalando.github.io/restful-api-guidelines/resources/Resources.html#should-limit-number-of-subresource-levels",
