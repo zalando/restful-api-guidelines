@@ -24,7 +24,8 @@ public class RulesValidatorConfiguration {
                 new AvoidJavascriptKeywordsRule(),
                 new CommonFieldNamesRule(),
                 new DefineOAuthScopesRule(),
-                new HyphenateHttpHeadersRule()
+                new HyphenateHttpHeadersRule(),
+                new Use429ForRateLimitRule()
         ));
     }
 }

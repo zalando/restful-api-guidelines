@@ -95,7 +95,10 @@
             "description" : "Unknown"
           },
           "429" : {
-            "description" : "Too many requests - the caller has issued too many requests, and is being rate limited.\nPlease refer to https://pages.github.bus.zalan.do/FashionInsightsCentre/spp-documentation/spp-api/rate-limiting\n"
+            "description" : "Too many requests - the caller has issued too many requests, and is being rate limited.\nPlease refer to https://pages.github.bus.zalan.do/FashionInsightsCentre/spp-documentation/spp-api/rate-limiting\n",
+            "headers": {
+              "noDetailsInHeader": ""
+            }
           }
         },
         "security" : [ {
@@ -125,7 +128,10 @@
             "description" : "Client requested a product incorrectly thinking it was a coffee pot"
           },
           "429" : {
-            "description" : "Too many requests - the caller has issued too many requests, and is being rate limited.\nPlease refer to https://pages.github.bus.zalan.do/FashionInsightsCentre/spp-documentation/spp-api/rate-limiting\n"
+            "description" : "Too many requests - the caller has issued too many requests, and is being rate limited.\nPlease refer to https://pages.github.bus.zalan.do/FashionInsightsCentre/spp-documentation/spp-api/rate-limiting\n",
+            "headers": {
+              "X-RateLimit-Limit": 100
+            }
           }
         },
         "security" : [ {
