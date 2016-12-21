@@ -2,6 +2,8 @@ package de.zalando.zally.rules;
 
 import de.zalando.zally.Violation;
 import io.swagger.models.Swagger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -13,6 +15,8 @@ import java.util.stream.Collectors;
  * on set of rules. It will sort the output by path.
  */
 public class RulesValidator implements Rule {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(RulesValidator.class);
 
     private final List<Rule> rules;
 
@@ -27,6 +31,7 @@ public class RulesValidator implements Rule {
                     try {
                         return rule.validate(swagger).stream();
                     } catch (Exception e) {
+                        LOGGER.warn("Rule thrown an exception during validation", e);
                         return Collections.<Violation>emptyList().stream();
                     }
                 }))
