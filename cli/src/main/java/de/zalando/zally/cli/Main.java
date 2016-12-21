@@ -13,4 +13,11 @@ public class Main {
     void run(String[] args) {
         // TODO: Implement command
     }
+
+    /**
+     * Example for OAuth call to zally server:
+     HttpResponse<String> response = Unirest.post(System.getenv("ZALLY_URL" ... or default))
+         .header("Authorization", "Bearer " + System.getenv("TOKEN"))
+         .asString();
+     */
 }
