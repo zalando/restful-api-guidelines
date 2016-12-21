@@ -9,6 +9,7 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.io.Reader;
 
 
@@ -20,15 +21,21 @@ public class Main {
     }
 
     void run(String[] args) {
+        int numberOfViolations = 0;
+
         try {
-            lint(args);
+            numberOfViolations = lint(args);
         } catch (RuntimeException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
+
+        if (numberOfViolations > 0) {
+            System.exit(1);
+        }
     }
 
-    private void lint(String[] args) throws RuntimeException {
+    private int lint(String[] args) throws RuntimeException {
         if (args.length < 1) {
             throw new RuntimeException("Please provide a swagger file");
         }
@@ -45,7 +52,13 @@ public class Main {
 
         JsonValue response = sendRequest(body);
 
-        System.out.println(response.toString());
+        ShowViolations showViolations = new ShowViolations(System.out);
+
+        try {
+            return showViolations.show(response.asObject());
+        } catch (IOException e) {
+            throw new RuntimeException(e.getMessage());
+        }
     }
 
     private Reader getReader(String location) throws RuntimeException {
