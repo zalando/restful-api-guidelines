@@ -36,14 +36,14 @@ Minimalistic API linter of awesomeness, bringing order to a sea of APIs.
 ###Contributing
 We are happy to accept contributions. First, take a look at our [contributing guidelines](CONTRIBUTING.md).
 
-### How to test
+### How to test Zally API
 
 1. Generate OAuth2 token
 
 2. Wrap your Swagger file inside `api_definition` JSON object and save it as `test.json` file:
     ```json
     {
-        "api_definition": {
+      "api_definition": {
             "swagger": "2.0",
             "info": {
                 "version": "1.0.0",
@@ -51,10 +51,11 @@ We are happy to accept contributions. First, take a look at our [contributing gu
                 "description": "A sample API that uses a petstore as an example to demonstrate features in the swagger-2.0 specification",
                 "termsOfService": "http://swagger.io/terms/",
                 "contact": {
-                  "name": "Swagger API Team"
-            },
-            "license": {
-                "name": "MIT"
+                    "name": "Swagger API Team"
+                },
+                "license": {
+                    "name": "MIT"
+                }
             }
         }
     }
