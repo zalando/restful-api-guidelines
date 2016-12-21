@@ -26,22 +26,23 @@ public class HyphenateHttpHeadersRule implements Rule {
     public List<Violation> validate(Swagger swagger) {
         List<Violation> res = new ArrayList<>();
         if (swagger.getParameters() != null) {
-            res.addAll(validateParameters(swagger.getParameters().values()));
+            res.addAll(validateParameters(swagger.getParameters().values(), Optional.empty()));
         }
         if (swagger.getPaths() != null) {
-            for (Path path : swagger.getPaths().values()) {
-                res.addAll(validateParameters(path.getParameters()));
-                for (Operation operation : path.getOperations()) {
-                    res.addAll(validateParameters(operation.getParameters()));
-                    res.addAll(validateHeaders(getResponseHeaders(operation.getResponses())));
+            for (Map.Entry<String, Path> pathEntry: swagger.getPaths().entrySet()) {
+                Optional<String> pathName = Optional.of(pathEntry.getKey());
+                res.addAll(validateParameters(pathEntry.getValue().getParameters(), pathName));
+                for (Operation operation : pathEntry.getValue().getOperations()) {
+                    res.addAll(validateParameters(operation.getParameters(), pathName));
+                    res.addAll(validateHeaders(getResponseHeaders(operation.getResponses()), pathName));
                 }
             }
         }
-        res.addAll(validateHeaders(getResponseHeaders(swagger.getResponses())));
+        res.addAll(validateHeaders(getResponseHeaders(swagger.getResponses()), Optional.empty()));
         return res;
     }
 
-    private List<Violation> validateParameters(Collection<Parameter> parameters) {
+    private List<Violation> validateParameters(Collection<Parameter> parameters, Optional<String> path) {
         if (parameters == null) {
             return Collections.emptyList();
         }
@@ -49,31 +50,33 @@ public class HyphenateHttpHeadersRule implements Rule {
                 .stream()
                 .filter(p -> p.getIn().equals("header"))
                 .map(Parameter::getName)
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList()), path);
     }
 
-    private List<Violation> validateHeaders(Collection<String> headers) {
+    private List<Violation> validateHeaders(Collection<String> headers, Optional<String> path) {
         if (headers == null) {
             return Collections.emptyList();
         }
         return headers
                 .stream()
                 .filter(p -> !PARAMETER_NAMES_WHITELIST.contains(p) && !PatternUtil.isHyphenated(p))
-                .map(this::createViolation)
+                .map(p -> this.createViolation(p, path))
                 .collect(Collectors.toList());
     }
 
-    private Violation createViolation(String header) {
+    private Violation createViolation(String header, Optional<String> path) {
+        if (path.isPresent()) {
+            return new Violation(RULE_NAME, String.format(DESC_PATTERN, header), ViolationType.MUST, RULE_URL, path.get());
+        }
         return new Violation(RULE_NAME, String.format(DESC_PATTERN, header), ViolationType.MUST, RULE_URL);
     }
 
     private Set<String> getResponseHeaders(Map<String, Response> responses) {
-        if (responses == null || responses.values() == null) {
-            return Collections.emptySet();
-        }
-        for (Response response : responses.values()) {
-            if (response.getHeaders() != null) {
-                return response.getHeaders().keySet();
+        if (responses != null) {
+            for (Response response : responses.values()) {
+                if (response.getHeaders() != null) {
+                    return response.getHeaders().keySet();
+                }
             }
         }
         return Collections.emptySet();
