@@ -27,7 +27,9 @@ public class RulesValidatorConfiguration {
                 new HyphenateHttpHeadersRule(),
                 new MediaTypesRule(),
                 new LimitNumberOfSubresourcesRule(),
-                new VersionInInfoSectionRule()
+                new VersionInInfoSectionRule(),
+                new NestedPathsCouldBeRootPathsRule(),
+                new EverySecondPathLevelParameterRule()
         ));
     }
 }
