@@ -3,6 +3,7 @@ package de.zalando.zally.rules;
 import de.zalando.zally.Violation;
 import io.swagger.models.Swagger;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,7 +23,13 @@ public class RulesValidator implements Rule {
     @Override
     public List<Violation> validate(Swagger swagger) {
         return rules.stream()
-                .flatMap((rule -> rule.validate(swagger).stream()))
+                .flatMap((rule -> {
+                    try {
+                        return rule.validate(swagger).stream();
+                    } catch (Exception e) {
+                        return Collections.<Violation>emptyList().stream();
+                    }
+                }))
                 .sorted((one, other) -> one.getPath().orElse("").compareToIgnoreCase(other.getPath().orElse("")))
                 .collect(Collectors.toList());
     }
