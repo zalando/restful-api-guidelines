@@ -26,7 +26,8 @@ public class RulesValidatorConfiguration {
                 new DefineOAuthScopesRule(),
                 new HyphenateHttpHeadersRule(),
                 new MediaTypesRule(),
-                new LimitNumberOfSubresourcesRule()
+                new LimitNumberOfSubresourcesRule(),
+                new NestedPathsCouldBeRootPathsRule()
         ));
     }
 }
