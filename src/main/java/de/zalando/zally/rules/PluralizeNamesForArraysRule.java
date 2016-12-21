@@ -25,13 +25,16 @@ public class PluralizeNamesForArraysRule implements Rule {
         if (swagger.getDefinitions() != null) {
             for (Map.Entry<String, Model> entry : swagger.getDefinitions().entrySet()) {
                 String definition = entry.getKey();
-                for (Map.Entry<String, Property> e : entry.getValue().getProperties().entrySet()) {
-                    String name = e.getKey();
-                    if ("array".equals(e.getValue().getType()) && !isPlural(name)) {
-                        res.add(new Violation(
-                                TITLE,
-                                String.format(DESC_PATTERN, name),
-                                ViolationType.SHOULD, RULE_URL, definition + "." + name));
+                Model model = entry.getValue();
+                if (model != null && model.getProperties() != null) {
+                    for (Map.Entry<String, Property> e : model.getProperties().entrySet()) {
+                        String name = e.getKey();
+                        if ("array".equals(e.getValue().getType()) && !isPlural(name)) {
+                            res.add(new Violation(
+                                    TITLE,
+                                    String.format(DESC_PATTERN, name),
+                                    ViolationType.SHOULD, RULE_URL, definition + "." + name));
+                        }
                     }
                 }
             }

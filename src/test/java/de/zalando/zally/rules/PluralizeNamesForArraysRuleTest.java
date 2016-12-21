@@ -38,7 +38,7 @@ public class PluralizeNamesForArraysRuleTest {
 
     @Test
     public void positiveCaseTinbox() {
-        Swagger swagger = getFixture("api_tinbox.json");
+        Swagger swagger = getFixture("api_tinbox.yaml");
         assertThat(new PluralizeNamesForArraysRule().validate(swagger)).isEmpty();
     }
 
