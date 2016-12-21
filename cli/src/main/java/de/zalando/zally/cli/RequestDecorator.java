@@ -15,7 +15,7 @@ public class RequestDecorator {
         JsonObject wrapper = new JsonObject();
         JsonValue specification = reader.read();
 
-        wrapper.add("api_object", specification);
+        wrapper.add("api_definition", specification);
         return wrapper.toString();
     }
 }

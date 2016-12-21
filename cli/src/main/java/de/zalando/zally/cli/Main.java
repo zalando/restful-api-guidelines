@@ -2,6 +2,7 @@ package de.zalando.zally.cli;
 
 import com.github.ryenus.rop.OptionParser;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.Reader;
@@ -28,11 +29,15 @@ public class Main {
             throw new RuntimeException("Please provide a swagger file");
         }
 
-        Reader fileReader = getReader(args[0]);
-        JsonReader jsonReader = new JsonReader(fileReader);
-        RequestDecorator decorator = new RequestDecorator(jsonReader);
+        final SpecsReader specsReader;
+        if (args[0].endsWith(".yaml") || args[0].endsWith(".yml")) {
+            specsReader = new YamlReader(getReader(args[0]));
+        } else {
+            specsReader = new JsonReader(getReader(args[0]));
+        }
 
-        String body = decorator.getRequestBody();
+        final RequestDecorator decorator = new RequestDecorator(specsReader);
+        final String body = decorator.getRequestBody();
 
         // TODO: add API call
         System.out.println(body);
@@ -50,7 +55,7 @@ public class Main {
     /**
      * Example for OAuth call to zally server:
      HttpResponse<String> response = Unirest.post(System.getenv("ZALLY_URL" ... or default))
-         .header("Authorization", "Bearer " + System.getenv("TOKEN"))
-         .asString();
+     .header("Authorization", "Bearer " + System.getenv("TOKEN"))
+     .asString();
      */
 }
