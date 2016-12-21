@@ -15,11 +15,10 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.List;
 
-
 @OptionParser.Command(name = "zally", descriptions = "Lints the given swagger file using Zally service")
 public class Main {
-    // TODO: Override it once we will have a proper domain name
-    private final String DEFAULT_ZALLY_URL = "http://localhost:8080/";
+
+    private static final String DEFAULT_ZALLY_URL = "http://localhost:8080/api-violations";
 
     @Option(opt = {"-u", "--url"}, description = "ZALLY Service URL")
     private String url;
