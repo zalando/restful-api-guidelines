@@ -56,15 +56,17 @@ public class CommonFieldNamesRule implements Rule {
         for (Map.Entry<String, Model> definitionEntry : swagger.getDefinitions().entrySet()) {
             String definition = definitionEntry.getKey();
             Model model = definitionEntry.getValue();
-            for (Map.Entry<String, Property> propertyEntry : model.getProperties().entrySet()) {
-                String name = propertyEntry.getKey();
-                Property property = propertyEntry.getValue();
-                if (!matchesCommonFieldsType(name, property)) {
-                    String description = createDescription(definition, name, "type", property.getType(), commonFields.get(name).getType());
-                    violations.add(new Violation(title, description, violationType, link));
-                } else if (!matchesCommonFieldsFormat(name, property)) {
-                    String description = createDescription(definition, name, "format", property.getFormat(), commonFields.get(name).getFormat());
-                    violations.add(new Violation(title, description, violationType, link));
+            if(model.getProperties() != null) {
+                for (Map.Entry<String, Property> propertyEntry : model.getProperties().entrySet()) {
+                    String name = propertyEntry.getKey();
+                    Property property = propertyEntry.getValue();
+                    if (!matchesCommonFieldsType(name, property)) {
+                        String description = createDescription(definition, name, "type", property.getType(), commonFields.get(name).getType());
+                        violations.add(new Violation(title, description, violationType, link));
+                    } else if (!matchesCommonFieldsFormat(name, property)) {
+                        String description = createDescription(definition, name, "format", property.getFormat(), commonFields.get(name).getFormat());
+                        violations.add(new Violation(title, description, violationType, link));
+                    }
                 }
             }
         }

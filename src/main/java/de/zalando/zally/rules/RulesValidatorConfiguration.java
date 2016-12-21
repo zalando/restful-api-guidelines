@@ -25,7 +25,10 @@ public class RulesValidatorConfiguration {
                 new CommonFieldNamesRule(),
                 new DefineOAuthScopesRule(),
                 new HyphenateHttpHeadersRule(),
+                new MediaTypesRule(),
                 new LimitNumberOfSubresourcesRule(),
+                new NestedPathsCouldBeRootPathsRule(),
+                new EverySecondPathLevelParameterRule(),
                 new Use429ForRateLimitRule()
         ));
     }

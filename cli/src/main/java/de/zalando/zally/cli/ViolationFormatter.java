@@ -12,11 +12,11 @@ import java.io.Writer;
 /**
  * Display violations in a user friendly manner.
  */
-public class ShowViolations {
+public class ViolationFormatter {
     private static final String VIOLATIONS = "violations";
     private final Writer writer;
 
-    public ShowViolations(OutputStream outputStream) {
+    public ViolationFormatter(OutputStream outputStream) {
         writer = new OutputStreamWriter(outputStream);
     }
 
