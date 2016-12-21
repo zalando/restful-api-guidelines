@@ -1,8 +1,6 @@
 package de.zalando.zally.cli;
 
-import com.eclipsesource.json.JsonArray;
 import com.eclipsesource.json.JsonObject;
-import com.eclipsesource.json.WriterConfig;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -14,7 +12,9 @@ import java.util.List;
  * Display violations in a user friendly manner.
  */
 public class ViolationsPrinter {
+
     private static final String VIOLATIONS = "violations";
+
     private final Writer writer;
 
     public ViolationsPrinter(OutputStream outputStream) {
@@ -29,7 +29,7 @@ public class ViolationsPrinter {
             writer.write(header + "\n");
             writer.write(headerUnderline + "\n");
 
-            for (JsonObject violation: violations) {
+            for (JsonObject violation : violations) {
                 writer.write(formatViolation(violation) + "\n");
             }
             writer.flush();

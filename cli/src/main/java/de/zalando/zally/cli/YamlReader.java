@@ -18,7 +18,7 @@ public class YamlReader implements SpecsReader {
 
     @Override
     public JsonValue read() throws RuntimeException {
-        Map<String,Object> yaml = (Map<String,Object>) new Yaml().load(reader);
+        Map<String, Object> yaml = (Map<String, Object>) new Yaml().load(reader);
         return Json.parse(new JSONObject(yaml).toString());
     }
 }

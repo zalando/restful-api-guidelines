@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class ViolationsFilter {
+
     private final JsonObject violations;
     private static final String VIOLATIONS = "violations";
 
@@ -23,16 +24,18 @@ public class ViolationsFilter {
         return getViolationsByType("SHOULD");
     }
 
+    public List<JsonObject> getCouldViolations() {
+        return getViolationsByType("COULD");
+    }
+
     private List<JsonObject> getViolationsByType(String violationType) {
         return getViolationStream()
                 .map(v -> v.asObject())
-                .filter(v -> v.getString("violation_type", "").equals(violationType))
+                .filter(v -> v.getString("violation_type", "").equalsIgnoreCase(violationType))
                 .collect(Collectors.toList());
     }
 
     private Stream<JsonValue> getViolationStream() throws RuntimeException {
-
-
         if (violations == null || violations.get(VIOLATIONS) == null || !violations.get(VIOLATIONS).isArray()) {
             throw new RuntimeException("Response JSON is malformed:" + violations.asString());
         }
