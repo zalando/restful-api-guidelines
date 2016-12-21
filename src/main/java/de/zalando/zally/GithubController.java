@@ -2,6 +2,7 @@ package de.zalando.zally;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.zalando.zally.rules.RulesValidator;
 import io.swagger.models.Swagger;
@@ -10,10 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
@@ -25,6 +23,7 @@ import java.util.stream.Collectors;
 
 @RestController
 public class GithubController {
+    public static final String EXTERNAL_URL = System.getenv("external.url");
     public static final String TOKEN = System.getenv("github.token");
     private final RulesValidator rulesValidator;
     private final ObjectMapper mapper;
@@ -41,37 +40,43 @@ public class GithubController {
         if (payload.get("pull_request") == null) {
             return ResponseEntity.ok(response);
         }
-
         String repoUrl = payload.get("repository").get("url").asText();
         String commitSha = payload.get("pull_request").get("head").get("sha").asText();
-        String pathToFile = "swagger/swagger.yaml";
-        String swaggerUrl = String.format("%s/contents/%s?ref=%s", repoUrl, pathToFile, commitSha);
 
-        RestTemplate client = new RestTemplate();
-        setCommitStatus(client, repoUrl, commitSha, "pending", "", "Waiting for Zally approval");
-
+        setCommitStatus(repoUrl, commitSha, "pending", "", "Waiting for Zally approval");
         try {
-            JsonNode swaggerNode = client.getForEntity(swaggerUrl, JsonNode.class).getBody();
-            String swaggerBase64 = swaggerNode.get("content").asText();
-            String swaggerContent = Arrays.stream(swaggerBase64.split("\\n"))
-                    .map(this::decodeLine)
-                    .collect(Collectors.joining());
-            Swagger swagger = new SwaggerParser().parse(swaggerContent);
-            List<Violation> violations = rulesValidator.validate(swagger);
-            System.out.println("violations = " + violations);
+            List<Violation> violations = validateCommit(repoUrl, commitSha);
             if (violations.isEmpty()) {
-                setCommitStatus(client, repoUrl, commitSha, "success", "", "Zally check passed");
+                setCommitStatus(repoUrl, commitSha, "success", "", "Zally check passed");
             } else {
-                setCommitStatus(client, repoUrl, commitSha, "failure", "http://example.org", "Zally found violations");
+                String detailsUrl = EXTERNAL_URL + "/details/" + encode(repoUrl + " " + commitSha);
+                setCommitStatus(repoUrl, commitSha, "failure", detailsUrl, "Zally found violations");
             }
         } catch (RestClientException e) {
-            setCommitStatus(client, repoUrl, commitSha, "error", "", "Error in Zally");
+            setCommitStatus(repoUrl, commitSha, "error", "", "Error in Zally");
         }
 
         return ResponseEntity.ok(response);
     }
 
-    private void setCommitStatus(RestTemplate client, String repoUrl, String commitSha, String status, String detailsUrl, String desc) {
+    private List<Violation> validateCommit(String repoUrl, String commitSha) {
+        String pathToFile = "swagger/swagger.yaml"; //TODO MK: unhardcode
+        String swaggerUrl = String.format("%s/contents/%s?ref=%s", repoUrl, pathToFile, commitSha);
+
+        RestTemplate client = new RestTemplate();
+        JsonNode swaggerNode = client.getForEntity(swaggerUrl, JsonNode.class).getBody();
+        String swaggerBase64 = swaggerNode.get("content").asText();
+        String swaggerContent = Arrays.stream(swaggerBase64.split("\\n"))
+                .map(this::decode)
+                .collect(Collectors.joining());
+        Swagger swagger = new SwaggerParser().parse(swaggerContent);
+        List<Violation> violations = rulesValidator.validate(swagger);
+        System.out.println("violations = " + violations);
+        return violations;
+    }
+
+    private void setCommitStatus(String repoUrl, String commitSha, String status, String detailsUrl, String desc) {
+        RestTemplate client = new RestTemplate();
         String statusUrl = String.format("%s/statuses/%s", repoUrl, commitSha);
 
         ObjectNode statusPayload = mapper.createObjectNode()
@@ -87,7 +92,27 @@ public class GithubController {
         System.out.println("statusResponse = " + statusResponse);
     }
 
-    private String decodeLine(String encoded) {
+    @RequestMapping(value = "/details/{id}", method = RequestMethod.GET)
+    public ResponseEntity<JsonNode> details(@PathVariable String id) {
+        String[] data = decode(id).split(" ");
+        String repoUrl = data[0];
+        String commitSha = data[1];
+        List<Violation> violations = validateCommit(repoUrl, commitSha);
+        ObjectNode response = mapper.createObjectNode();
+        ArrayNode jsonViolations = response.putArray("violations");
+        violations.forEach(jsonViolations::addPOJO);
+        return ResponseEntity.ok(response);
+    }
+
+    private String encode(String data) {
+        try {
+            return Base64.getEncoder().encodeToString((data).getBytes("UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private String decode(String encoded) {
         try {
             return new String(Base64.getDecoder().decode(encoded), "UTF-8");
         } catch (UnsupportedEncodingException e) {
