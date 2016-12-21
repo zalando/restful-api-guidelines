@@ -26,7 +26,7 @@ public class ViolationsFilter {
     private List<JsonObject> getViolationsByType(String violationType) {
         return getViolationStream()
                 .map(v -> v.asObject())
-                .filter(v -> v.getString("violationType", "").equals(violationType))
+                .filter(v -> v.getString("violation_type", "").equals(violationType))
                 .collect(Collectors.toList());
     }
 
