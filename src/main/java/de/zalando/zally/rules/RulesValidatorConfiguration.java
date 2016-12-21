@@ -11,27 +11,29 @@ public class RulesValidatorConfiguration {
     @Bean
     public RulesValidator createRulesValidator() {
         return new RulesValidator(Arrays.asList(
-                new AvoidTrailingSlashesRule(),
-                new KebabCaseInPathSegmentsRule(),
-                new SecureWithOAuth2Rule(),
-                new SuccessResponseAsJsonObjectRule(),
-                new NoVersionInUriRule(),
-                new SnakeCaseForQueryParamsRule(),
-                new AvoidLinkHeadersRule(),
-                new SnakeCaseInPropNameRule(),
-                new LimitNumberOfResourcesRule(),
-                new UseProblemJsonRule(),
                 new AvoidJavascriptKeywordsRule(),
+                new AvoidLinkHeadersRule(),
+                new AvoidTrailingSlashesRule(),
                 new CommonFieldNamesRule(),
                 new DefineOAuthScopesRule(),
-                new HyphenateHttpHeadersRule(),
-                new MediaTypesRule(),
-                new LimitNumberOfSubresourcesRule(),
-                new PascalCaseHttpHeadersRule(),
-                new VersionInInfoSectionRule(),
-                new NestedPathsCouldBeRootPathsRule(),
                 new EverySecondPathLevelParameterRule(),
-                new Use429HeaderForRateLimitRule()
+                new HyphenateHttpHeadersRule(),
+                new KebabCaseInPathSegmentsRule(),
+                new LimitNumberOfResourcesRule(),
+                new LimitNumberOfSubresourcesRule(),
+                new MediaTypesRule(),
+                new NestedPathsCouldBeRootPathsRule(),
+                new NoVersionInUriRule(),
+                new PascalCaseHttpHeadersRule(),
+                new PluralizeNamesForArraysRule(),
+                new PluralizeResourceNamesRule(),
+                new SecureWithOAuth2Rule(),
+                new SnakeCaseForQueryParamsRule(),
+                new SnakeCaseInPropNameRule(),
+                new SuccessResponseAsJsonObjectRule(),
+                new Use429HeaderForRateLimitRule(),
+                new UseProblemJsonRule(),
+                new VersionInInfoSectionRule()
         ));
     }
 }

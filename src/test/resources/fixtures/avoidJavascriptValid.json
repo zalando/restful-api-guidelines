@@ -41,43 +41,43 @@
             }
           }
         }
-      }
-    },
-    "post": {
-      "description": "Creates a new pet in the store.  Duplicates are allowed",
-      "operationId": "addPet",
-      "produces": [
-        "application/json"
-      ],
-      "parameters": [
-        {
-          "name": "pet",
-          "in": "body",
-          "description": "Pet to add to the store",
-          "required": true,
-          "schema": {
-            "$ref": "#/definitions/NewPet"
+      },
+      "post": {
+        "description": "Creates a new pet in the store.  Duplicates are allowed",
+        "operationId": "addPet",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "pet",
+            "in": "body",
+            "description": "Pet to add to the store",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/NewPet"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "Header",
+            "type": "string",
+            "description": "Bearer authorization token",
+            "required": true
           }
-        },
-        {
-          "name": "Authorization",
-          "in": "Header",
-          "type" : "string",
-          "description" : "Bearer authorization token",
-          "required": true
-        }
-      ],
-      "responses": {
-        "200": {
-          "description": "pet response",
-          "schema": {
-            "$ref": "#/definitions/Pet"
-          }
-        },
-        "default": {
-          "description": "unexpected error",
-          "schema": {
-            "$ref": "#/definitions/ErrorModel"
+        ],
+        "responses": {
+          "200": {
+            "description": "pet response",
+            "schema": {
+              "$ref": "#/definitions/Pet"
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            }
           }
         }
       }

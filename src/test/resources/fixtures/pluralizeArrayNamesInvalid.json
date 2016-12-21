@@ -24,6 +24,44 @@
     "application/json"
   ],
   "paths": {
+    "/pets/cats": {
+      "get": {
+        "description": "Returns all cats",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of cats.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Pet"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pets/cats/{cat-id}/tails/{tail-id}/strands": {
+      "get": {
+        "description": "Returns all strands",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of cat's strands",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Pet"
+              }
+            }
+          }
+        }
+      }
+    },
     "/pets": {
       "get": {
         "description": "Returns all pets from the system that the user has access to",
@@ -95,11 +133,17 @@
           "type": "integer",
           "format": "int64"
         },
-        "return": {
-          "type": "string"
+        "name": {
+          "type": "array",
+          "items" : {
+            "type" : "string"
+          }
         },
-        "typeof": {
-          "type": "string"
+        "tag": {
+          "type": "array",
+          "items" : {
+            "type" : "string"
+          }
         }
       }
     }
