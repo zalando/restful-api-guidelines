@@ -66,7 +66,7 @@ public class Main {
         try {
             printer.print(mustViolations, "must");
             printer.print(shouldViolations, "should");
-            printer.print(shouldViolations, "could");
+            printer.print(couldViolations, "could");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
