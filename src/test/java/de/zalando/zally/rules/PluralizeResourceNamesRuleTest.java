@@ -8,10 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static de.zalando.zally.rules.PluralizeResourceNamesRule.isPlural;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 public class PluralizeResourceNamesRuleTest {
     private Swagger validSwagger = getFixture("fixtures/pluralizeResourcesValid.json");
@@ -49,41 +46,6 @@ public class PluralizeResourceNamesRuleTest {
                 .collect(Collectors.toList());
         assertThat(results).hasSameElementsAs(Arrays.asList("/queue/configs/{config-id}", "/queue/models",
                 "/queue/models/{model-id}", "/queue/summaries"));
-    }
-
-    @Test
-    public void checkIsPluralized() {
-        assertFalse(isPlural("cat"));
-        assertTrue(isPlural("dogs"));
-        assertFalse(isPlural("resource"));
-        assertTrue(isPlural("resources"));
-        assertFalse(isPlural("payment"));
-        assertTrue(isPlural("payments"));
-        assertFalse(isPlural("order"));
-        assertTrue(isPlural("orders"));
-        assertFalse(isPlural("parcel"));
-        assertTrue(isPlural("parcels"));
-        assertFalse(isPlural("item"));
-        assertFalse(isPlural("commission"));
-        assertTrue(isPlural("commissions"));
-        assertFalse(isPlural("commission_group"));
-        assertTrue(isPlural("commission_groups"));
-        assertFalse(isPlural("article"));
-        assertTrue(isPlural("articles"));
-        assertFalse(isPlural("merchant"));
-        assertTrue(isPlural("merchants"));
-        assertFalse(isPlural("warehouse-location"));
-        assertTrue(isPlural("warehouse-locations"));
-        assertFalse(isPlural("sales-channel"));
-        assertTrue(isPlural("sales-channels"));
-        assertFalse(isPlural("domain"));
-        assertTrue(isPlural("domains"));
-        assertFalse(isPlural("address"));
-        assertTrue(isPlural("addresses"));
-        assertFalse(isPlural("bank-account"));
-        assertTrue(isPlural("bank-accounts"));
-
-        assertTrue(isPlural("vat")); //whitelisted
     }
 
     private Swagger getFixture(String fixture) {
