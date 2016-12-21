@@ -23,14 +23,12 @@ public class PluralizeResourceNamesRule implements Rule {
         List<Violation> res = new ArrayList<>();
         if (swagger.getPaths() != null) {
             for (String path : swagger.getPaths().keySet()) {
-                List<Violation> violations = Arrays
+                res.addAll(Arrays
                         .stream(path.split("/"))
                         .filter(s -> !s.isEmpty() && !PatternUtil.isPathVariable(s))
                         .filter(s -> !isPlural(s))
                         .map(s -> createViolation(path, s))
-                        .collect(Collectors.toList());
-
-                res.addAll(violations);
+                        .collect(Collectors.toList()));
             }
         }
         return res;

@@ -47,8 +47,8 @@ public class PluralizeResourceNamesRuleTest {
                 .stream()
                 .map(v -> v.getPath().get())
                 .collect(Collectors.toList());
-        assertThat(results).hasSameElementsAs(Arrays.asList(
-                "/queue/configs/{config-id}", "/queue/models", "/queue/models/{model-id}", "/queue/summaries"));
+        assertThat(results).hasSameElementsAs(Arrays.asList("/queue/configs/{config-id}", "/queue/models",
+                "/queue/models/{model-id}", "/queue/summaries"));
     }
 
     @Test
