@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.UnsupportedEncodingException;
@@ -36,37 +37,54 @@ public class GithubController {
 
     @RequestMapping(value = "/github-hook", method = RequestMethod.POST)
     public ResponseEntity<JsonNode> githubHook(@RequestBody JsonNode payload) {
+        ObjectNode response = mapper.createObjectNode().put("status", "ok");
+        if (payload.get("pull_request") == null) {
+            return ResponseEntity.ok(response);
+        }
+
         String repoUrl = payload.get("repository").get("url").asText();
         String commitSha = payload.get("pull_request").get("head").get("sha").asText();
         String pathToFile = "swagger/swagger.yaml";
         String swaggerUrl = String.format("%s/contents/%s?ref=%s", repoUrl, pathToFile, commitSha);
 
         RestTemplate client = new RestTemplate();
-        JsonNode swaggerNode = client.getForEntity(swaggerUrl, JsonNode.class).getBody();
-        String swaggerBase64 = swaggerNode.get("content").asText();
+        setCommitStatus(client, repoUrl, commitSha, "pending", "", "Waiting for Zally approval");
 
-        String swaggerContent = Arrays.stream(swaggerBase64.split("\\n"))
-                .map(this::decodeLine)
-                .collect(Collectors.joining());
-        Swagger swagger = new SwaggerParser().parse(swaggerContent);
+        try {
+            JsonNode swaggerNode = client.getForEntity(swaggerUrl, JsonNode.class).getBody();
+            String swaggerBase64 = swaggerNode.get("content").asText();
+            String swaggerContent = Arrays.stream(swaggerBase64.split("\\n"))
+                    .map(this::decodeLine)
+                    .collect(Collectors.joining());
+            Swagger swagger = new SwaggerParser().parse(swaggerContent);
+            List<Violation> violations = rulesValidator.validate(swagger);
+            System.out.println("violations = " + violations);
+            if (violations.isEmpty()) {
+                setCommitStatus(client, repoUrl, commitSha, "success", "", "Zally check passed");
+            } else {
+                setCommitStatus(client, repoUrl, commitSha, "failure", "http://example.org", "Zally found violations");
+            }
+        } catch (RestClientException e) {
+            setCommitStatus(client, repoUrl, commitSha, "error", "", "Error in Zally");
+        }
 
-        List<Violation> violations = rulesValidator.validate(swagger);
+        return ResponseEntity.ok(response);
+    }
 
+    private void setCommitStatus(RestTemplate client, String repoUrl, String commitSha, String status, String detailsUrl, String desc) {
         String statusUrl = String.format("%s/statuses/%s", repoUrl, commitSha);
-        System.out.println("statusUrl = " + statusUrl);
-        ObjectNode status = mapper.createObjectNode()
-                .put("state", "pending")
-                .put("target_url", "http://example.org")
-                .put("description", "Pending!!!")
+
+        ObjectNode statusPayload = mapper.createObjectNode()
+                .put("state", status)
+                .put("target_url", detailsUrl)
+                .put("description", desc)
                 .put("context", "Swagger Linter");
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + TOKEN);
-        HttpEntity<JsonNode> entity = new HttpEntity<>(status, headers);
+        HttpEntity<JsonNode> entity = new HttpEntity<>(statusPayload, headers);
         ResponseEntity<JsonNode> statusResponse = client.postForEntity(statusUrl, entity, JsonNode.class);
         System.out.println("statusResponse = " + statusResponse);
-        ObjectNode response = mapper.createObjectNode().put("status", swaggerContent);
-        return ResponseEntity.ok(response);
     }
 
     private String decodeLine(String encoded) {
