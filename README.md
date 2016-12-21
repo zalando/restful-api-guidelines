@@ -24,37 +24,19 @@ Minimalistic API linter of awesomeness, bringing order to a sea of APIs.
 - Written in Java 8 with [Spring Boot](https://github.com/spring-projects/spring-boot)
 
 ###Dependencies
-Include any essential instructions for:
-- Getting it
-- Installing It
-- Configuring It
-- Running it
+- Java 8
+- TODO: confirm no other dependencies
 
-###More Specific Topics (+ sample sub-categories)
-- Versioning: Services, APIs, Systems
-- Common Error Messages/related details
-- Tests
-- Is it a Swift project? Please take a look at Mattt Thompson & Nate Cook's [Swift documentation](http://nshipster.com/swift-documentation/) guide
+###Using the CLI
+- TODO: add CLI usage instructions
+
+###Integrating Zally with Github
+- TODO: add github integration instructions
 
 ###Contributing
-- Contributor Guidelines
-- Code Style/Reqts
-- Format for commit messages
-- Thank you (name contributors)
+We are happy to accept contributions. First, take a look at our [contributing guidelines](CONTRIBUTING.md).
 
-### TODO
-- Next steps
-- Features planned
-- Known bugs (shortlist)
-
-### Contact
-- Email address
-- Google Group/mailing list (if applicable)
-- IRC or Slack (if applicable)
-
-###License
-
-## How to test
+### How to test
 
 1. Generate OAuth2 token
 
@@ -86,3 +68,14 @@ Include any essential instructions for:
         --data "@test.json" \
         localhost:8080/api_violations
     ```
+
+
+### TODO
+- Finish CLI
+- Finish github integration
+
+### Contact
+Feel free to contact one the [maintainers](MAINTAINERS)
+
+###License
+MIT
