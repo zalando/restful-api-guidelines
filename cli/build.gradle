@@ -7,6 +7,7 @@ repositories {
 
 dependencies {
     compile 'com.github.ryenus:rop:1.1.1'
+    compile 'com.mashape.unirest:unirest-java:1.4.9'
 
     testCompile 'junit:junit:4.12'
 }

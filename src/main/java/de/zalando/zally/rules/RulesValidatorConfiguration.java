@@ -19,7 +19,12 @@ public class RulesValidatorConfiguration {
                 new SnakeCaseForQueryParamsRule(),
                 new AvoidLinkHeadersRule(),
                 new SnakeCaseInPropNameRule(),
+                new LimitNumberOfResourcesRule(),
                 new UseProblemJsonRule(),
+                new AvoidJavascriptKeywordsRule(),
+                new CommonFieldNamesRule(),
+                new DefineOAuthScopesRule(),
+                new HyphenateHttpHeadersRule(),
                 new MediaTypesRule()
         ));
     }
