@@ -7,6 +7,8 @@ import de.zalando.zally.rules.RulesValidator;
 import io.swagger.models.Swagger;
 import io.swagger.parser.SwaggerParser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +24,7 @@ import java.util.stream.Collectors;
 
 @RestController
 public class GithubController {
-
+    public static final String TOKEN = System.getenv("github.token");
     private final RulesValidator rulesValidator;
     private final ObjectMapper mapper;
 
@@ -57,7 +59,11 @@ public class GithubController {
                 .put("target_url", "http://example.org")
                 .put("description", "Pending!!!")
                 .put("context", "Swagger Linter");
-        ResponseEntity<JsonNode> statusResponse = client.postForEntity(statusUrl, status, JsonNode.class);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", "Bearer " + TOKEN);
+        HttpEntity<JsonNode> entity = new HttpEntity<>(status, headers);
+        ResponseEntity<JsonNode> statusResponse = client.postForEntity(statusUrl, entity, JsonNode.class);
         System.out.println("statusResponse = " + statusResponse);
         ObjectNode response = mapper.createObjectNode().put("status", swaggerContent);
         return ResponseEntity.ok(response);
