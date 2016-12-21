@@ -1,8 +1,10 @@
 package de.zalando.zally.cli;
 
 import com.eclipsesource.json.Json;
+import com.eclipsesource.json.JsonObject;
 import com.eclipsesource.json.JsonValue;
 import com.github.ryenus.rop.OptionParser;
+import com.github.ryenus.rop.OptionParser.Option;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
@@ -11,26 +13,30 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.util.List;
 
 
 @OptionParser.Command(name = "zally", descriptions = "Lints the given swagger file using Zally service")
 public class Main {
+    // TODO: Override it once we will have a proper domain name
+    private final String DEFAULT_ZALLY_URL = "http://localhost:8080/";
+
+    @Option(opt = {"-u", "--url"}, description = "ZALLY Service URL")
+    private String url;
+
+    @Option(opt = {"-t", "--token"}, description = "OAuth2 Security Token")
+    private String token;
+
     public static void main(String[] args) {
         OptionParser parser = new OptionParser(Main.class);
         parser.parse(args);
     }
 
     void run(String[] args) {
-        int numberOfViolations = 0;
-
         try {
-            numberOfViolations = lint(args);
+            System.exit(lint(args));
         } catch (RuntimeException e) {
             System.err.println(e.getMessage());
-            System.exit(1);
-        }
-
-        if (numberOfViolations > 0) {
             System.exit(1);
         }
     }
@@ -52,13 +58,19 @@ public class Main {
 
         JsonValue response = sendRequest(body);
 
-        ViolationFormatter violationFormatter = new ViolationFormatter(System.out);
+        ViolationsFilter violationsFilter = new ViolationsFilter(response.asObject());
+        List<JsonObject> mustViolations = violationsFilter.getMustViolations();
+        List<JsonObject> shouldViolations = violationsFilter.getShouldViolations();
 
+        ViolationsPrinter printer = new ViolationsPrinter(System.out);
         try {
-            return violationFormatter.show(response.asObject());
+            printer.print(mustViolations, "must");
+            printer.print(shouldViolations, "should");
         } catch (IOException e) {
-            throw new RuntimeException(e.getMessage());
+            throw new RuntimeException(e);
         }
+
+        return mustViolations.isEmpty() ? 0 : 1;
     }
 
     private Reader getReader(String location) throws RuntimeException {
@@ -73,14 +85,10 @@ public class Main {
     private JsonValue sendRequest(String body) throws RuntimeException {
         HttpResponse<String> response;
 
-        // TODO: Override the URL from CLI args
-        String url= System.getenv("ZALLY_URL");
-        String token = System.getenv("TOKEN");
-
         try {
             response = Unirest
-                    .post(url)
-                    .header("Authorization", "Bearer " + token)
+                    .post(getZallyUrl())
+                    .header("Authorization", "Bearer " + getToken())
                     .header("Content-Type", "application/json")
                     .body(body)
                     .asString();
@@ -89,5 +97,25 @@ public class Main {
         }
 
         return Json.parse(response.getBody());
+    }
+
+    private String getToken() {
+        String token = System.getenv("TOKEN");
+        if (this.token != null) {
+            return this.token;
+        } else if (token != null) {
+            return token;
+        }
+        return "";
+    }
+
+    private String getZallyUrl() {
+        String url = System.getenv("ZALLY_URL");
+        if (this.url != null) {
+            return this.url;
+        } else if (url != null) {
+            return url;
+        }
+        return DEFAULT_ZALLY_URL;
     }
 }
