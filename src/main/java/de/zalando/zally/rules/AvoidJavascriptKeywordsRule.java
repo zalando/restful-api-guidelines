@@ -25,12 +25,14 @@ public class AvoidJavascriptKeywordsRule implements Rule {
         if (swagger.getDefinitions() != null) {
             for (Map.Entry<String, Model> entry : swagger.getDefinitions().entrySet()) {
                 String definition = entry.getKey();
-                for (String prop : entry.getValue().getProperties().keySet()) {
-                    if (RESERVED_KEYWORDS.contains(prop)) {
-                        res.add(new Violation(
-                                TITLE,
-                                String.format(DESC_PATTERN, prop),
-                                ViolationType.SHOULD, RULE_URL, definition + "." + prop));
+                if(entry.getValue().getProperties() != null) {
+                    for (String prop : entry.getValue().getProperties().keySet()) {
+                        if (RESERVED_KEYWORDS.contains(prop)) {
+                            res.add(new Violation(
+                                    TITLE,
+                                    String.format(DESC_PATTERN, prop),
+                                    ViolationType.SHOULD, RULE_URL, definition + "." + prop));
+                        }
                     }
                 }
             }
