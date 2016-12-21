@@ -18,25 +18,33 @@ Minimalistic API linter of awesomeness, bringing order to a sea of APIs.
 - Easy-to-use CLI allows you to check your API *right now*.
 - Github integration to automatically lint your API anytime it changes in a Pull Request.
 
+
 ###Core Technical Concepts
 
 - Parses swagger files using [swagger-parser](https://github.com/swagger-api/swagger-parser)
 - Written in Java 8 with [Spring Boot](https://github.com/spring-projects/spring-boot)
 
-###Dependencies
+
+### Dependencies
+
 - Java 8
 - TODO: confirm no other dependencies
+
 
 ### Command-line interface
 
 Check CLI tool documentation in [CLI Readme](cli/README.md)
 
 
-###Integrating Zally with Github
+### Integrating Zally with Github
+
 - TODO: add github integration instructions
 
-###Contributing
+
+### Contributing
+
 We are happy to accept contributions. First, take a look at our [contributing guidelines](CONTRIBUTING.md).
+
 
 ### How to test Zally API
 
@@ -74,11 +82,16 @@ We are happy to accept contributions. First, take a look at our [contributing gu
 
 
 ### TODO
+
 - Finish CLI
 - Finish github integration
 
+
 ### Contact
+
 Feel free to contact one the [maintainers](MAINTAINERS)
 
-###License
+
+### License
+
 MIT
