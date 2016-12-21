@@ -12,7 +12,7 @@ public class PatternUtil {
     private static final String PASCAL_CASE_PATTERN = "^[A-Z][a-z]+(?:[A-Z][a-z]+)*$";
     private static final String HYPHENATED_CAMEL_CASE_PATTERN = "^[a-z]+(?:-[A-Z][a-z]+)*$";
     private static final String HYPHENATED_PASCAL_CASE_PATTERN = "^[A-Z][a-z]+(?:-[A-Z][a-z]+)*$";
-    private static final String SNAKE_CASE_PATTERN = "^[a-z]+(?:_[a-z]+)*$";
+    private static final String SNAKE_CASE_PATTERN = "^[a-z]+(?:_[a-z0-9]+)*$";
     private static final String KEBAB_CASE_PATTERN = "^[a-z]+(?:-[a-z]+)*$";
     private static final String VERSION_IN_URL_PATTERN = "(.*)/v[0-9]+(.*)";
     private static final String PATH_VARIABLE_PATTERN = "\\{.+\\}$";
