@@ -29,7 +29,7 @@ public class RulesValidatorConfiguration {
                 new LimitNumberOfSubresourcesRule(),
                 new NestedPathsCouldBeRootPathsRule(),
                 new EverySecondPathLevelParameterRule(),
-                new Use429ForRateLimitRule()
+                new Use429HeaderForRateLimitRule()
         ));
     }
 }
