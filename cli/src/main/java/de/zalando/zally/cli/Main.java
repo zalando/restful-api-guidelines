@@ -12,6 +12,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.util.List;
 
 
 @OptionParser.Command(name = "zally", descriptions = "Lints the given swagger file using Zally service")
@@ -31,16 +32,10 @@ public class Main {
     }
 
     void run(String[] args) {
-        int numberOfViolations = 0;
-
         try {
-            numberOfViolations = lint(args);
+            System.exit(lint(args));
         } catch (RuntimeException e) {
             System.err.println(e.getMessage());
-            System.exit(1);
-        }
-
-        if (numberOfViolations > 0) {
             System.exit(1);
         }
     }
@@ -62,13 +57,27 @@ public class Main {
 
         JsonValue response = sendRequest(body);
 
-        ViolationFormatter violationFormatter = new ViolationFormatter(System.out);
+        ViolationsFilter violationsFilter = new ViolationsFilter(response.asObject());
+        List<String> mustViolations = violationsFilter.getMustViolations();
+        List<String> shouldViolations = violationsFilter.getShouldViolations();
 
-        try {
-            return violationFormatter.show(response.asObject());
-        } catch (IOException e) {
-            throw new RuntimeException(e.getMessage());
+        if (!mustViolations.isEmpty()) {
+            System.out.println("Found the following MUST Violations:\n");
+            System.out.println("------------------------------------\n");
+            for (String violation: mustViolations) {
+                System.out.println(violation);
+            }
         }
+
+        if (!shouldViolations.isEmpty()) {
+            System.out.println("Found the following SHOULD Violations:\n");
+            System.out.println("--------------------------------------\n");
+            for (String violation: shouldViolations) {
+                System.out.println(violation);
+            }
+        }
+
+        return mustViolations.isEmpty() ? 0 : 1;
     }
 
     private Reader getReader(String location) throws RuntimeException {
