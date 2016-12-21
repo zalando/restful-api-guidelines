@@ -24,6 +24,7 @@ public class RulesValidatorConfiguration {
                 new MediaTypesRule(),
                 new NestedPathsCouldBeRootPathsRule(),
                 new NoVersionInUriRule(),
+                new PascalCaseHttpHeadersRule(),
                 new PluralizeNamesForArraysRule(),
                 new PluralizeResourceNamesRule(),
                 new SecureWithOAuth2Rule(),
