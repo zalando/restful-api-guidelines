@@ -21,7 +21,7 @@ public class ViolationsPrinter {
         writer = new OutputStreamWriter(outputStream);
     }
 
-    public void print(List<String> violations, String violationType) throws IOException {
+    public void print(List<JsonObject> violations, String violationType) throws IOException {
         String header = String.format("Found the following %s violations", violationType.toUpperCase());
         String headerUnderline = new String(new char[header.length()]).replace("\0", "=");
 
@@ -29,10 +29,14 @@ public class ViolationsPrinter {
             writer.write(header + "\n");
             writer.write(headerUnderline + "\n");
 
-            for (String violation: violations) {
-                writer.write(violation + "\n");
+            for (JsonObject violation: violations) {
+                writer.write(formatViolation(violation) + "\n");
             }
             writer.flush();
         }
+    }
+
+    public static String formatViolation(JsonObject violation) {
+        return violation.get("title").asString() + ":\n\t" + violation.get("description").asString();
     }
 }

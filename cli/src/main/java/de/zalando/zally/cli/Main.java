@@ -1,6 +1,7 @@
 package de.zalando.zally.cli;
 
 import com.eclipsesource.json.Json;
+import com.eclipsesource.json.JsonObject;
 import com.eclipsesource.json.JsonValue;
 import com.github.ryenus.rop.OptionParser;
 import com.github.ryenus.rop.OptionParser.Option;
@@ -58,8 +59,8 @@ public class Main {
         JsonValue response = sendRequest(body);
 
         ViolationsFilter violationsFilter = new ViolationsFilter(response.asObject());
-        List<String> mustViolations = violationsFilter.getMustViolations();
-        List<String> shouldViolations = violationsFilter.getShouldViolations();
+        List<JsonObject> mustViolations = violationsFilter.getMustViolations();
+        List<JsonObject> shouldViolations = violationsFilter.getShouldViolations();
 
         ViolationsPrinter printer = new ViolationsPrinter(System.out);
         try {

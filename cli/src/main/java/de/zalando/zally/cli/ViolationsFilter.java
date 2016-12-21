@@ -15,23 +15,18 @@ public class ViolationsFilter {
         this.violations = violations;
     }
 
-    public List<String> getMustViolations() {
+    public List<JsonObject> getMustViolations() {
         return getViolationsByType("MUST");
     }
 
-    public List<String> getShouldViolations() {
+    public List<JsonObject> getShouldViolations() {
         return getViolationsByType("SHOULD");
     }
 
-    public static String formatViolation(JsonObject violation) {
-        return violation.get("title").asString() + ":\n\t" + violation.get("description").asString();
-    }
-
-    private List<String> getViolationsByType(String violationType) {
+    private List<JsonObject> getViolationsByType(String violationType) {
         return getViolationStream()
                 .map(v -> v.asObject())
                 .filter(v -> v.getString("violationType", "").equals(violationType))
-                .map(ViolationsFilter::formatViolation)
                 .collect(Collectors.toList());
     }
 

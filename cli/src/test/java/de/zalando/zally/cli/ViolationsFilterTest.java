@@ -10,26 +10,15 @@ import static org.junit.Assert.*;
 
 public class ViolationsFilterTest {
     @Test
-    public void formatReturnsProperlyFormattedString() {
-        JsonObject violation = new JsonObject();
-        violation.add("title", "Test title");
-        violation.add("description", "Test description");
-
-        String result = ViolationsFilter.formatViolation(violation);
-
-        assertEquals("Test title:\n\tTest description", result);
-    }
-
-    @Test
     public void getMustViolationsReturnsOnlyMust() {
         JsonObject fixtures = getFixtureViolations();
         JsonObject mustViolation = fixtures.get("violations").asArray().get(0).asObject();
 
         ViolationsFilter violationsFilter = new ViolationsFilter(fixtures);
 
-        List<String> result = violationsFilter.getMustViolations();
+        List<JsonObject> result = violationsFilter.getMustViolations();
         assertEquals(1, result.size());
-        assertEquals(violationsFilter.formatViolation(mustViolation), result.get(0));
+        assertEquals(mustViolation, result.get(0));
     }
 
     @Test
@@ -39,9 +28,9 @@ public class ViolationsFilterTest {
 
         ViolationsFilter violationsFilter = new ViolationsFilter(fixtures);
 
-        List<String> result = violationsFilter.getShouldViolations();
+        List<JsonObject> result = violationsFilter.getShouldViolations();
         assertEquals(1, result.size());
-        assertEquals(violationsFilter.formatViolation(shouldViolation), result.get(0));
+        assertEquals(shouldViolation, result.get(0));
     }
 
     private JsonObject getFixtureViolations() {
