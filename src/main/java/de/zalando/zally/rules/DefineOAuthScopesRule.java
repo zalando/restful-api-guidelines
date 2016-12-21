@@ -19,8 +19,6 @@ public class DefineOAuthScopesRule implements Rule {
     private static final String NOT_DEFINED_DESC = "No valid OAuth2 scope is defined for endpoint %s";
     private static final String INVALID_SCOPE_DESC = "Invalid OAuth2 scope %s for the endpoint %s";
     private static final String RULE_LINK = "http://zalando.github.io/restful-api-guidelines/security/Security.html";
-    static final String OAUTH2 = "oauth2";
-    static final String UID = "uid";
 
     @Override
     public List<Violation> validate(Swagger swagger) {
@@ -29,7 +27,6 @@ public class DefineOAuthScopesRule implements Rule {
             return violations;
         }
         Set<String> applicableScopes = new HashSet<>(getDefinedScopes(swagger));
-        applicableScopes.add(UID);
         swagger.getPaths().forEach((pathKey, path) -> {
             if (path != null) {
                 path.getOperations().forEach(operation -> {
@@ -60,11 +57,19 @@ public class DefineOAuthScopesRule implements Rule {
         if (operation.getSecurity() == null) {
             return Collections.emptySet();
         }
-        return operation.getSecurity()
-                .stream()
-                .flatMap(map -> map != null && map.get(OAUTH2) != null ? map.get(OAUTH2).stream() : Stream.empty())
-                .filter(Objects::nonNull)
-                .collect(Collectors.toSet());
+        Set<String> appliedScopes = new HashSet<>();
+        operation.getSecurity().forEach(securityGroupDefinition -> {
+            if (securityGroupDefinition != null) {
+                securityGroupDefinition.forEach((group, scopes) -> {
+                    if (group != null && scopes != null) {
+                        scopes.forEach(scope -> {
+                            appliedScopes.add(group + ":" + scope);
+                        });
+                    }
+                });
+            }
+        });
+        return appliedScopes;
     }
 
     // create a violation for an operation under a path
@@ -77,11 +82,14 @@ public class DefineOAuthScopesRule implements Rule {
         Set<String> result = new HashSet<>();
         if (swagger.getSecurityDefinitions() != null) {
             Map<String, SecuritySchemeDefinition> securityDefinitions = swagger.getSecurityDefinitions();
-            SecuritySchemeDefinition securitySchemeDefinition = securityDefinitions.get(OAUTH2);
-            if (securitySchemeDefinition != null && securitySchemeDefinition instanceof OAuth2Definition) {
-                OAuth2Definition oAuth2Definition = (OAuth2Definition) securitySchemeDefinition;
-                result = oAuth2Definition.getScopes().keySet();
-            }
+            securityDefinitions.forEach((group, securitySchemeDefinition) -> {
+                if (securitySchemeDefinition != null && securitySchemeDefinition instanceof OAuth2Definition) {
+                    OAuth2Definition oAuth2Definition = (OAuth2Definition) securitySchemeDefinition;
+                    oAuth2Definition.getScopes().keySet().forEach(scope -> {
+                        result.add(group + ":" + scope);
+                    });
+                }
+            });
         }
         return result;
     }

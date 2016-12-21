@@ -23,6 +23,12 @@ securityDefinitions:
     scopes:
       fulfillment-order.read: Access right needed to read from the fulfillment order service.
       fulfillment-order.write: Access right needed to write to the fulfillment order service.
+  custom-oauth2:
+    type: oauth2
+    flow: password
+    authorizationUrl: https://auth.zalando.com/oauth2/access_token?realm=services
+    scopes:
+      custom-order.read: Access right needed to read from the fulfillment order service.
 parameters:
   Authorization:
     name: Authorization
@@ -115,5 +121,5 @@ paths:
         404:
           description: Partner not found
       security:
-        - oauth2:
-          - fulfillment-order.read
+        - custom-oauth2:
+          - custom-order.read
