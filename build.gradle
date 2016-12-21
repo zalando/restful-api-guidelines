@@ -28,6 +28,7 @@ dependencies {
     compile("org.atteo:evo-inflector:1.2.1")
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-actuator")
+    compile("org.springframework.boot:spring-boot-starter-freemarker")
     compile('org.zalando.stups:stups-spring-oauth2-server:1.0.15')
     compile('org.zalando:twintip-spring-web:1.1.0')
     compile('com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.8.0')
