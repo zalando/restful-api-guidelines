@@ -401,7 +401,7 @@
   },
   "parameters" : {
     "FlowId" : {
-      "name" : "X-FLOW-Id",
+      "name" : "X-Flow-Id",
       "description" : "A custom header that will be passed onto any further requests and can be used for diagnosing.\n",
       "in" : "header",
       "type" : "string",
