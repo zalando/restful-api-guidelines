@@ -8,6 +8,7 @@ import io.swagger.models.parameters.Parameter;
 import io.swagger.parser.SwaggerParser;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +19,21 @@ import static de.zalando.zally.rules.PascalCaseHttpHeadersRule.DESCRIPTION;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class PascalCaseHttpHeadersRuleTest {
+
+    private final List<String> zalandoHeaders = Arrays.asList("X-Flow-ID", "X-UID", "X-Tenant-ID", "X-Sales-Channel",
+            "X-Frontend-Type", "X-Device-Type", "X-Device-OS", "X-App-Domain");
+
+    private Swagger getZalandoHeadersSwagger() {
+        Swagger swagger = new Swagger();
+        HashMap<String, Parameter> parameters = new HashMap<>();
+        zalandoHeaders.forEach((header) -> {
+                    HeaderParameter parameter = new HeaderParameter();
+                    parameter.setName(header);
+                    parameters.put(header,parameter);
+                });
+        swagger.setParameters(parameters);
+        return swagger;
+    }
 
     @Test
     public void simplePositiveCase() {
@@ -54,6 +70,11 @@ public class PascalCaseHttpHeadersRuleTest {
         parameters.put(parameter.getName(), parameter);
         swagger.setParameters(parameters);
         assertThat(new PascalCaseHttpHeadersRule().validate(swagger)).isEmpty();
+    }
+
+    @Test
+    public void mustAccepZalandoHeaders() {
+        assertThat(new PascalCaseHttpHeadersRule().validate(getZalandoHeadersSwagger())).isEmpty();
     }
 
     @Test

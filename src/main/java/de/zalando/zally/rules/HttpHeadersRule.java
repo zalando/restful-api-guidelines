@@ -14,7 +14,7 @@ public abstract class HttpHeadersRule implements Rule {
 
     public static final Set<String> PARAMETER_NAMES_WHITELIST = new HashSet<>(Arrays.asList("ETag", "TSV", "TE",
             "Content-MD5", "DNT", "X-ATT-DeviceId", "X-UIDH", "X-Request-ID", "X-Correlation-ID", "WWW-Authenticate",
-            "X-XSS-Protection"));
+            "X-XSS-Protection", "X-Flow-ID", "X-UID", "X-Tenant-ID", "X-Device-OS"));
 
     abstract Violation createViolation(String header, Optional<String> path);
 
