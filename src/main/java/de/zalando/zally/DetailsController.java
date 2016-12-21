@@ -3,8 +3,6 @@ package de.zalando.zally;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.zalando.zally.rules.RulesValidator;
-import io.swagger.models.Swagger;
-import io.swagger.parser.SwaggerParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,8 +34,7 @@ public class DetailsController {
             String commitSha = json.get("commit_sha").asText();
             String swaggerPath = json.get("swagger_path").asText();
             String swaggerContent = githubClient.getFileContent(repoUrl, commitSha, swaggerPath);
-            Swagger swagger = new SwaggerParser().parse(swaggerContent);
-            List<Violation> violations = rulesValidator.validate(swagger);
+            List<Violation> violations = rulesValidator.validate(swaggerContent);
 
             model.put("violations", violations);
             return "details";

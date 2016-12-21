@@ -4,8 +4,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.zalando.zally.rules.RulesValidator;
-import io.swagger.models.Swagger;
-import io.swagger.parser.SwaggerParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -42,8 +40,7 @@ public class GithubController {
             try {
                 String swaggerPath = "swagger/swagger.yaml"; //TODO MK: unhardcode it
                 String swaggerContent = githubClient.getFileContent(repoUrl, commitSha, swaggerPath);
-                Swagger swagger = new SwaggerParser().parse(swaggerContent);
-                List<Violation> violations = rulesValidator.validate(swagger);
+                List<Violation> violations = rulesValidator.validate(swaggerContent);
                 if (violations.isEmpty()) {
                     githubClient.setCommitStatus(repoUrl, commitSha, "success", "", "Zally check passed");
                 } else {
