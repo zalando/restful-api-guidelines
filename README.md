@@ -27,8 +27,10 @@ Minimalistic API linter of awesomeness, bringing order to a sea of APIs.
 - Java 8
 - TODO: confirm no other dependencies
 
-###Using the CLI
-- TODO: add CLI usage instructions
+### Command-line interface
+
+Check CLI tool documentation in [CLI Readme](cli/README.md)
+
 
 ###Integrating Zally with Github
 - TODO: add github integration instructions
