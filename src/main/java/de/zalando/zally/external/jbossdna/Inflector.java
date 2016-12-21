@@ -1,4 +1,4 @@
-package de.zalando.zally.utils;
+package de.zalando.zally.external.jbossdna;
 
 /*
  * JBoss DNA (http://www.jboss.org/dna)
