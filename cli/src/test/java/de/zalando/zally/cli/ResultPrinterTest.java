@@ -54,6 +54,30 @@ public class ResultPrinterTest {
     }
 
     @Test
+    public void printsProperSummary() throws IOException {
+        JsonObject violationOne = new JsonObject();
+        violationOne.add("title", "Violation 1");
+        violationOne.add("description", "Violation 1 Description");
+        violationOne.add("path", "Violation 1 Path");
+
+        List<JsonObject> violations = new ArrayList<>();
+        violations.add(violationOne);
+
+        ResultPrinter resultPrinter = new ResultPrinter(outStream);
+        resultPrinter.printViolations(violations, "must");
+        resultPrinter.printViolations(violations, "should");
+
+        outContent.reset();
+
+        resultPrinter.printSummary();
+        String expectedResult = "\nSummary:\n" +
+                "=======\n" +
+                "SHOULD violations: 1\n" +
+                "MUST violations: 1\n";
+        assertEquals(expectedResult, outContent.toString());
+    }
+
+    @Test
     public void formatReturnsProperlyFormattedString() {
         JsonObject violation = new JsonObject();
         violation.add("title", "Test title");
