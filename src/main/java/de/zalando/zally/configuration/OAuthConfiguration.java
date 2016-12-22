@@ -37,7 +37,8 @@ class OAuthConfiguration extends ResourceServerConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/health").permitAll()
-                .antMatchers("/**").access("#oauth2.hasScope('uid')");
+                .antMatchers("/api-violations").access("#oauth2.hasScope('uid')")
+                .antMatchers("**").permitAll();
     }
 
     @Bean

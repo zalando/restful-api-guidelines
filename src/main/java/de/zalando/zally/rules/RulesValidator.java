@@ -1,7 +1,9 @@
 package de.zalando.zally.rules;
 
 import de.zalando.zally.Violation;
+import de.zalando.zally.ViolationType;
 import io.swagger.models.Swagger;
+import io.swagger.parser.SwaggerParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,7 +26,18 @@ public class RulesValidator implements Rule {
         this.rules = new LinkedList<>(rules);
     }
 
-    @Override
+    public List<Violation> validate(String swaggerContent) {
+        Swagger swagger = null;
+        String parseErrorDesc = "";
+        try {
+            swagger = new SwaggerParser().parse(swaggerContent);
+        } catch (Exception e) {
+            parseErrorDesc = e.toString();
+        }
+        return swagger != null ? validate(swagger) : Collections.singletonList(
+                new Violation("Can't parse swagger file", parseErrorDesc, ViolationType.MUST, ""));
+    }
+
     public List<Violation> validate(Swagger swagger) {
         return rules.stream()
                 .flatMap((rule -> {
