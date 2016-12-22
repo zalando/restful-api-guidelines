@@ -43,4 +43,9 @@ public class DetailsController {
             throw new RuntimeException(e);
         }
     }
+
+    @RequestMapping(value = "/form", method = RequestMethod.GET)
+    public String submit(Map<String, Object> model) {
+        return "try";
+    }
 }
