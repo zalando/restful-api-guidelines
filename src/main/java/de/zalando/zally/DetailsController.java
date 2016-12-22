@@ -5,11 +5,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.zalando.zally.rules.RulesValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.List;
 import java.util.Map;
 
@@ -26,9 +29,10 @@ public class DetailsController {
         this.rulesValidator = rulesValidator;
     }
 
-    @RequestMapping(value = "/details/{id}", method = RequestMethod.GET)
-    public String details(@PathVariable String id, Map<String, Object> model) {
+    @RequestMapping(value = "/details", method = RequestMethod.GET)
+    public String details(@RequestParam(value = "id") String id, Map<String, Object> model) {
         try {
+            System.out.println("GithubClient.decode(id) = " + GithubClient.decode(id));
             JsonNode json = mapper.readTree(GithubClient.decode(id));
             String repoUrl = json.get("repo_url").asText();
             String commitSha = json.get("commit_sha").asText();
@@ -41,5 +45,23 @@ public class DetailsController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @RequestMapping(value = "/try", method = RequestMethod.GET)
+    public String submit(Map<String, Object> model) {
+        return "try";
+    }
+
+    @RequestMapping(value = "/try_back", method = RequestMethod.GET)
+    public String submit(@RequestParam String path, Map<String, Object> model) throws UnsupportedEncodingException {
+        RestTemplate client = new RestTemplate();
+        int indexOfToken = path.indexOf("?token=");
+        String url = path.substring(0, indexOfToken);
+        String token = path.substring(indexOfToken + "?token=".length());
+        String tokenValue = URLDecoder.decode(token, "UTF-8");
+        String swaggerContent = client.getForEntity(url + "?token=" + tokenValue, String.class).getBody();
+        List<Violation> violations = rulesValidator.validate(swaggerContent);
+        model.put("violations", violations);
+        return "details";
     }
 }
