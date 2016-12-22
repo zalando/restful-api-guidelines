@@ -21,7 +21,7 @@ public class ResultPrinter {
         writer = new OutputStreamWriter(outputStream);
     }
 
-    public void print(List<JsonObject> violations, String violationType) throws IOException {
+    public void printViolations(List<JsonObject> violations, String violationType) throws IOException {
         String header = String.format("Found the following %s violations", violationType.toUpperCase());
         String headerUnderline = new String(new char[header.length()]).replace("\0", "=");
 

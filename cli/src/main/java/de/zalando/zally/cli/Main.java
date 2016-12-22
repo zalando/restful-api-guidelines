@@ -64,9 +64,9 @@ public class Main {
 
         ResultPrinter printer = new ResultPrinter(System.out);
         try {
-            printer.print(mustViolations, "must");
-            printer.print(shouldViolations, "should");
-            printer.print(couldViolations, "could");
+            printer.printViolations(mustViolations, "must");
+            printer.printViolations(shouldViolations, "should");
+            printer.printViolations(couldViolations, "could");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

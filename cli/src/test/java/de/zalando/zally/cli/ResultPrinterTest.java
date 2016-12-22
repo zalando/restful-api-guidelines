@@ -21,7 +21,7 @@ public class ResultPrinterTest {
     public void testNoViolationsCase() throws IOException {
         ResultPrinter violationPrinter = new ResultPrinter(outStream);
         List<JsonObject> violations = new ArrayList<>();
-        violationPrinter.print(violations, "must");
+        violationPrinter.printViolations(violations, "must");
 
         assertEquals("", outContent.toString());
     }
@@ -43,7 +43,7 @@ public class ResultPrinterTest {
 
         violations.add(violationOne);
         violations.add(violationTwo);
-        violationPrinter.print(violations, "must");
+        violationPrinter.printViolations(violations, "must");
 
         String expectedResult = "Found the following MUST violations\n" +
                 "===================================\n" +
