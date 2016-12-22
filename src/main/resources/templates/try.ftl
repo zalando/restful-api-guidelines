@@ -15,14 +15,6 @@
     <style media="screen" type="text/css">
         <#include "style.css">
     </style>
-    <script type="text/javascript">
-        function submit() {
-//            https://raw.github.bus.zalan.do/ArtMC/partner-service-adapter/master/src/main/resources/api-swagger.yaml?token=AAAG7MtF1YkfDq3iLNLtMKBlZWyEba98ks5YZOkZwA%3D%3D
-            var fullPath = $('#pathInput').text()
-            window.location = '/details?id=' + atob(JSON.stringify({repo_url: }))
-        }
-
-    </script>
 </head>
 
 <body>

@@ -5,11 +5,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.zalando.zally.rules.RulesValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
 
-import javax.websocket.server.PathParam;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.List;
 import java.util.Map;
 
@@ -44,8 +47,21 @@ public class DetailsController {
         }
     }
 
-    @RequestMapping(value = "/form", method = RequestMethod.GET)
+    @RequestMapping(value = "/try", method = RequestMethod.GET)
     public String submit(Map<String, Object> model) {
         return "try";
+    }
+
+    @RequestMapping(value = "/try_back", method = RequestMethod.GET)
+    public String submit(@RequestParam String path, Map<String, Object> model) throws UnsupportedEncodingException {
+        RestTemplate client = new RestTemplate();
+        int indexOfToken = path.indexOf("?token=");
+        String url = path.substring(0, indexOfToken);
+        String token = path.substring(indexOfToken + "?token=".length());
+        String tokenValue = URLDecoder.decode(token, "UTF-8");
+        String swaggerContent = client.getForEntity(url + "?token=" + tokenValue, String.class).getBody();
+        List<Violation> violations = rulesValidator.validate(swaggerContent);
+        model.put("violations", violations);
+        return "details";
     }
 }
