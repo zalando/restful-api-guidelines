@@ -1,9 +1,7 @@
 package de.zalando.zally.cli;
 
 import com.eclipsesource.json.Json;
-import com.eclipsesource.json.JsonArray;
 import com.eclipsesource.json.JsonObject;
-import com.eclipsesource.json.JsonValue;
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
@@ -15,13 +13,13 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 
-public class ViolationsPrinterTest {
+public class ResultPrinterTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream outStream = new PrintStream(outContent);
 
     @Test
     public void testNoViolationsCase() throws IOException {
-        ViolationsPrinter violationPrinter = new ViolationsPrinter(outStream);
+        ResultPrinter violationPrinter = new ResultPrinter(outStream);
         List<JsonObject> violations = new ArrayList<>();
         violationPrinter.print(violations, "must");
 
@@ -30,7 +28,7 @@ public class ViolationsPrinterTest {
 
     @Test
     public void testWithViolationsCase() throws IOException {
-        ViolationsPrinter violationPrinter = new ViolationsPrinter(outStream);
+        ResultPrinter violationPrinter = new ResultPrinter(outStream);
         List<JsonObject> violations = new ArrayList<>();
 
         JsonObject violationOne = new JsonObject();
@@ -62,7 +60,7 @@ public class ViolationsPrinterTest {
         violation.add("description", "Test description");
         violation.add("path", Json.NULL);
 
-        String result = ViolationsPrinter.formatViolation(violation);
+        String result = ResultPrinter.formatViolation(violation);
 
         assertEquals("Test title:\n\tTest description", result);
     }

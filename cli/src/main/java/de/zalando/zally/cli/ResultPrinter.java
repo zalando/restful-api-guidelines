@@ -11,13 +11,13 @@ import java.util.List;
 /**
  * Display violations in a user friendly manner.
  */
-public class ViolationsPrinter {
+public class ResultPrinter {
 
     private static final String VIOLATIONS = "violations";
 
     private final Writer writer;
 
-    public ViolationsPrinter(OutputStream outputStream) {
+    public ResultPrinter(OutputStream outputStream) {
         writer = new OutputStreamWriter(outputStream);
     }
 

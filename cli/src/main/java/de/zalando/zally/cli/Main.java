@@ -62,7 +62,7 @@ public class Main {
         List<JsonObject> shouldViolations = violationsFilter.getShouldViolations();
         List<JsonObject> couldViolations = violationsFilter.getCouldViolations();
 
-        ViolationsPrinter printer = new ViolationsPrinter(System.out);
+        ResultPrinter printer = new ResultPrinter(System.out);
         try {
             printer.print(mustViolations, "must");
             printer.print(shouldViolations, "should");
