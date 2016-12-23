@@ -9,3 +9,7 @@ endpoints:
 security:
   basic:
     enabled: false
+
+twintip:
+  mapping: /api
+  yaml: "classpath:/api/zally-api.yaml"
