@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
  title: Zally
- description: Zally - Zalandos API linter service
+ description: Zalando's API Linter
  version: "0.0.1"
  contact:
    name: Felix Mueller
