@@ -1,5 +1,8 @@
 # Zally Command Line Interface
 
+This is Zally's cli tool: it reads a swagger file locally and lints it by
+requesting violations check at a given Zally server.
+
 ## Installation
 
 1. Clone Zally repository
@@ -9,14 +12,12 @@
 	cd cli
 	```
 
-3. Make sure that Gradle is installed
-
-4. Build `zally.jar` package:
+3. Build `zally.jar` package:
 	```bash
-	gradle bin
+	./gradlew bin
 	```
 
-5. Run it using
+4. Run it using
 	```bash
 	./bin/zally
 	```
@@ -25,13 +26,13 @@
 
 ### Basic example
 
-To launch `zally`, run the following command:
+To launch `zally-cli`, run the following command:
 
 ```bash
 ./bin/zally swagger_definition.yml
 ```
 
-By default `zally` uses API located at http://localhost:8080/ and no security
+By default `zally-cli` uses API located at http://localhost:8080/ and no security
 token. You can provide alternative settings using either environment variables
 `ZALLY_URL` and `TOKEN`:
 

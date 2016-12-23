@@ -7,12 +7,12 @@
     /_______ (____  /____/____/ ____|
             \/    \/          \/
 
-### Zally
+### Zally - Zalando's API Linter loves you
 
 Minimalistic API linter of awesomeness, bringing order to a sea of APIs.
 
 - Ensures API definitions conform to
-[our standard REST guidelines](http://zalando.github.io/restful-api-guidelines/) without needing manual reviews.
+[our standard REST guidelines](http://zalando.github.io/restful-api-guidelines/).
 - Does not require a deployed service, only an API definition.
 - Accepts [swagger](swagger.io) yaml and json formats.
 - Easy-to-use CLI allows you to check your API *right now*.
@@ -23,23 +23,23 @@ Minimalistic API linter of awesomeness, bringing order to a sea of APIs.
 
 - Parses swagger files using [swagger-parser](https://github.com/swagger-api/swagger-parser)
 - Written in Java 8 with [Spring Boot](https://github.com/spring-projects/spring-boot)
+- Zally comes with a server which lints your swagger files
+- Zally CLI is handy command-line tool, it uses the server in the background
+- Rule changes only have to be applied in the server component
 
 
 ### Dependencies
 
 - Java 8
-- TODO: confirm no other dependencies
 
 
 ### Installation
 
 1. Clone this repository locally
 
-2. Install (Gradle)[https://docs.gradle.org/current/userguide/installation.html]
-
-3. Download dependencies and build `Zally`:
+2. Download dependencies and build `Zally`:
     ```bash
-    gradle build
+    ./gradlew build
     ```
 
 ### Running Zally locally
@@ -51,7 +51,7 @@ Minimalistic API linter of awesomeness, bringing order to a sea of APIs.
 
 2. Run Zally server using:
     ```bash
-    gradle bootRun
+    ./gradlew bootRun
     ```
 
 ### Checking Zally API
@@ -96,7 +96,6 @@ Check CLI tool documentation in [CLI Readme](cli/README.md)
 ### Integrating Zally with Github
 
 - TODO: add github integration instructions
-
 
 
 ### Contributing
