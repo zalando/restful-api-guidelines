@@ -25,6 +25,10 @@ buildscript {
     }
 }
 
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.14.1'
+}
+
 task zallyJar(type: OneJar) {
     dependsOn build
     mainClass = 'de.zalando.zally.cli.Main'

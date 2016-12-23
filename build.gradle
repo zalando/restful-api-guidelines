@@ -10,6 +10,10 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'org.springframework.boot'
 
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.14.1'
+}
+
 jar {
     baseName = 'zally'
     version =  '0.0.1'
