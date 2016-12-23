@@ -6,4 +6,8 @@ jdk:
   - oraclejdk8
 
 install: true
-script: gradle test --info
+script:
+  - cd cli/
+  - gradle test --info
+  - cd ../server/
+  - gradle test --info
