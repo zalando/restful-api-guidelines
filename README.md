@@ -39,18 +39,20 @@ Minimalistic API linter of awesomeness, bringing order to a sea of APIs.
 
 2. Download dependencies and build `Zally`:
     ```bash
+    cd server
     ./gradlew build
     ```
 
 ### Running Zally locally
 
-1. [Optional] Disable OAuth2 authentication for testing purposes:
+1. [Optional] Disable OAuth2 authentication for testing purposes (go to server subfolder, first):
     ```bash
     echo "spring.profiles.active=dev" > application.properties
     ```
 
 2. Run Zally server using:
     ```bash
+    cd server
     ./gradlew bootRun
     ```
 
