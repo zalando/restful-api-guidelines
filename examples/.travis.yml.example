@@ -10,12 +10,13 @@ install:
   - git clone https://github.com/zalando-incubator/zally.git
 
   # Build a local Zally server
-  - cd zally
+  - cd zally/server
   - gradle build
 
   # Launch local zally server
   - echo "spring.profiles.active=dev" > application.properties
   - gradle bootRun > /dev/null &
+  - cd ..
 
   # Wait until Spring Boot will start
   - sleep 10
