@@ -1,9 +1,7 @@
 package de.zalando.zally.cli;
 
 import com.eclipsesource.json.Json;
-import com.eclipsesource.json.JsonArray;
 import com.eclipsesource.json.JsonObject;
-import com.eclipsesource.json.JsonValue;
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
@@ -15,22 +13,22 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 
-public class ViolationsPrinterTest {
+public class ResultPrinterTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream outStream = new PrintStream(outContent);
 
     @Test
     public void testNoViolationsCase() throws IOException {
-        ViolationsPrinter violationPrinter = new ViolationsPrinter(outStream);
+        ResultPrinter violationPrinter = new ResultPrinter(outStream);
         List<JsonObject> violations = new ArrayList<>();
-        violationPrinter.print(violations, "must");
+        violationPrinter.printViolations(violations, "must");
 
         assertEquals("", outContent.toString());
     }
 
     @Test
     public void testWithViolationsCase() throws IOException {
-        ViolationsPrinter violationPrinter = new ViolationsPrinter(outStream);
+        ResultPrinter violationPrinter = new ResultPrinter(outStream);
         List<JsonObject> violations = new ArrayList<>();
 
         JsonObject violationOne = new JsonObject();
@@ -45,7 +43,7 @@ public class ViolationsPrinterTest {
 
         violations.add(violationOne);
         violations.add(violationTwo);
-        violationPrinter.print(violations, "must");
+        violationPrinter.printViolations(violations, "must");
 
         String expectedResult = "Found the following MUST violations\n" +
                 "===================================\n" +
@@ -56,13 +54,37 @@ public class ViolationsPrinterTest {
     }
 
     @Test
+    public void printsProperSummary() throws IOException {
+        JsonObject violationOne = new JsonObject();
+        violationOne.add("title", "Violation 1");
+        violationOne.add("description", "Violation 1 Description");
+        violationOne.add("path", "Violation 1 Path");
+
+        List<JsonObject> violations = new ArrayList<>();
+        violations.add(violationOne);
+
+        ResultPrinter resultPrinter = new ResultPrinter(outStream);
+        resultPrinter.printViolations(violations, "must");
+        resultPrinter.printViolations(violations, "should");
+
+        outContent.reset();
+
+        resultPrinter.printSummary();
+        String expectedResult = "\nSummary:\n" +
+                "=======\n" +
+                "SHOULD violations: 1\n" +
+                "MUST violations: 1\n";
+        assertEquals(expectedResult, outContent.toString());
+    }
+
+    @Test
     public void formatReturnsProperlyFormattedString() {
         JsonObject violation = new JsonObject();
         violation.add("title", "Test title");
         violation.add("description", "Test description");
         violation.add("path", Json.NULL);
 
-        String result = ViolationsPrinter.formatViolation(violation);
+        String result = ResultPrinter.formatViolation(violation);
 
         assertEquals("Test title:\n\tTest description", result);
     }

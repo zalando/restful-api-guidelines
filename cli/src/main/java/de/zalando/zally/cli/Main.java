@@ -62,11 +62,12 @@ public class Main {
         List<JsonObject> shouldViolations = violationsFilter.getShouldViolations();
         List<JsonObject> couldViolations = violationsFilter.getCouldViolations();
 
-        ViolationsPrinter printer = new ViolationsPrinter(System.out);
+        ResultPrinter printer = new ResultPrinter(System.out);
         try {
-            printer.print(mustViolations, "must");
-            printer.print(shouldViolations, "should");
-            printer.print(couldViolations, "could");
+            printer.printViolations(mustViolations, "must");
+            printer.printViolations(shouldViolations, "should");
+            printer.printViolations(couldViolations, "could");
+            printer.printSummary();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
