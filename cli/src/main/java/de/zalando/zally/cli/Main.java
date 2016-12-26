@@ -45,12 +45,7 @@ public class Main {
             throw new RuntimeException("Please provide a swagger file");
         }
 
-        final SpecsReader specsReader;
-        if (args[0].endsWith(".yaml") || args[0].endsWith(".yml")) {
-            specsReader = new YamlReader(getReader(args[0]));
-        } else {
-            specsReader = new JsonReader(getReader(args[0]));
-        }
+        final SpecsReader specsReader = new SpecsReaderFactory().create(args[0]);
 
         final RequestDecorator decorator = new RequestDecorator(specsReader);
         final String body = decorator.getRequestBody();
@@ -73,15 +68,6 @@ public class Main {
         }
 
         return mustViolations.isEmpty() ? 0 : 1;
-    }
-
-    private Reader getReader(String location) throws RuntimeException {
-        try {
-            return new FileReader(location);
-        } catch (FileNotFoundException e) {
-            String message = "File " + location + " is not found";
-            throw new RuntimeException(message);
-        }
     }
 
     private JsonValue sendRequest(String body) throws RuntimeException {
