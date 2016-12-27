@@ -33,7 +33,6 @@ public class DetailsController {
     @RequestMapping(value = "/details/{id}", method = RequestMethod.GET)
     public String details(@PathVariable String id, Map<String, Object> model) {
         try {
-            System.out.println("GithubClient.decode(id) = " + GithubClient.decode(id));
             JsonNode json = mapper.readTree(GithubClient.decode(id));
             String repoUrl = json.get("repo_url").asText();
             String commitSha = json.get("commit_sha").asText();

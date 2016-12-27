@@ -16,8 +16,6 @@ public class WordUtil {
         }
         String singular = INFLECTOR.singularize(word);
         String plural = INFLECTOR.pluralize(word);
-        if (singular == null) System.out.println("singular null for " + word);
-        if (plural == null) System.out.println("plural null for " + word);
         return plural.equals(word) && !singular.equals(word);
     }
 }
