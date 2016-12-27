@@ -1,18 +1,11 @@
 package de.zalando.zally.cli;
 
-import com.eclipsesource.json.Json;
 import com.eclipsesource.json.JsonObject;
 import com.eclipsesource.json.JsonValue;
 import com.github.ryenus.rop.OptionParser;
 import com.github.ryenus.rop.OptionParser.Option;
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.Unirest;
-import com.mashape.unirest.http.exceptions.UnirestException;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.Reader;
 import java.util.List;
 
 @OptionParser.Command(name = "zally", descriptions = "Lints the given swagger file using Zally service")
@@ -48,9 +41,9 @@ public class Main {
         final SpecsReader specsReader = new SpecsReaderFactory().create(args[0]);
 
         final RequestDecorator decorator = new RequestDecorator(specsReader);
-        final String body = decorator.getRequestBody();
+        final ZallyApiClient client = new ZallyApiClient(getZallyUrl(), getToken());
 
-        JsonValue response = sendRequest(body);
+        JsonValue response = client.validate(decorator.getRequestBody());
 
         ViolationsFilter violationsFilter = new ViolationsFilter(response.asObject());
         List<JsonObject> mustViolations = violationsFilter.getMustViolations();
@@ -68,23 +61,6 @@ public class Main {
         }
 
         return mustViolations.isEmpty() ? 0 : 1;
-    }
-
-    private JsonValue sendRequest(String body) throws RuntimeException {
-        HttpResponse<String> response;
-
-        try {
-            response = Unirest
-                    .post(getZallyUrl())
-                    .header("Authorization", "Bearer " + getToken())
-                    .header("Content-Type", "application/json")
-                    .body(body)
-                    .asString();
-        } catch (UnirestException e) {
-            throw new RuntimeException("API Error: " + e.getMessage());
-        }
-
-        return Json.parse(response.getBody());
     }
 
     private String getToken() {
