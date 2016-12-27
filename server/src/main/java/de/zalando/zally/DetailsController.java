@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.zalando.zally.rules.RulesValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,8 +30,8 @@ public class DetailsController {
         this.rulesValidator = rulesValidator;
     }
 
-    @RequestMapping(value = "/details", method = RequestMethod.GET)
-    public String details(@RequestParam(value = "id") String id, Map<String, Object> model) {
+    @RequestMapping(value = "/details/{id}", method = RequestMethod.GET)
+    public String details(@PathVariable String id, Map<String, Object> model) {
         try {
             System.out.println("GithubClient.decode(id) = " + GithubClient.decode(id));
             JsonNode json = mapper.readTree(GithubClient.decode(id));
