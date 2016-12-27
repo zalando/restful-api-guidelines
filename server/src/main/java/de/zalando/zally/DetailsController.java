@@ -52,14 +52,11 @@ public class DetailsController {
         return "try";
     }
 
-    @RequestMapping(value = "/try_back", method = RequestMethod.GET)
+    @RequestMapping(value = "/results", method = RequestMethod.GET)
     public String submit(@RequestParam String path, Map<String, Object> model) throws UnsupportedEncodingException {
         RestTemplate client = new RestTemplate();
-        int indexOfToken = path.indexOf("?token=");
-        String url = path.substring(0, indexOfToken);
-        String token = path.substring(indexOfToken + "?token=".length());
-        String tokenValue = URLDecoder.decode(token, "UTF-8");
-        String swaggerContent = client.getForEntity(url + "?token=" + tokenValue, String.class).getBody();
+        String url = URLDecoder.decode(path, "UTF-8");
+        String swaggerContent = client.getForEntity(url, String.class).getBody();
         List<Violation> violations = rulesValidator.validate(swaggerContent);
         model.put("violations", violations);
         return "details";
