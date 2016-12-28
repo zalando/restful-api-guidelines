@@ -50,7 +50,7 @@ public class GithubController {
                             .put("swagger_path", swaggerPath)
                             .put("repo_url", repoUrl)
                             .put("commit_sha", commitSha).toString();
-                    String detailsUrl = EXTERNAL_URL + "/details?id=" + GithubClient.encode(id);
+                    String detailsUrl = EXTERNAL_URL + "/details/" + GithubClient.encode(id);
                     githubClient.setCommitStatus(repoUrl, commitSha, status, detailsUrl,
                             String.format("Zally found %d violations", violations.size()));
                 }
