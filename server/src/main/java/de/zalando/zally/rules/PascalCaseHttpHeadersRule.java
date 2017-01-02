@@ -4,7 +4,7 @@ import de.zalando.zally.Violation;
 import de.zalando.zally.ViolationType;
 import de.zalando.zally.utils.PatternUtil;
 
-import java.util.*;
+import java.util.Optional;
 
 public class PascalCaseHttpHeadersRule extends HttpHeadersRule {
     static final String RULE_NAME = "Prefer Hyphenated-Pascal-Case for HTTP header fields";
@@ -13,7 +13,7 @@ public class PascalCaseHttpHeadersRule extends HttpHeadersRule {
     static final String DESCRIPTION = "Header name '%s' is not Hyphenated-Pascal-Case";
 
     @Override
-    Violation createViolation(String header, Optional<String> path) {
+    public Violation createViolation(String header, Optional<String> path) {
         if (path.isPresent()) {
             return new Violation(RULE_NAME, String.format(DESCRIPTION, header), ViolationType.SHOULD, RULE_URL, path.get());
         }
@@ -21,7 +21,7 @@ public class PascalCaseHttpHeadersRule extends HttpHeadersRule {
     }
 
     @Override
-    boolean isViolation(String header) {
+    public boolean isViolation(String header) {
         return !PatternUtil.isHyphenatedPascalCase(header);
     }
 }
