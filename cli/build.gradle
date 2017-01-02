@@ -41,8 +41,7 @@ task zallyJar(type: OneJar) {
 task bin {
     dependsOn zallyJar
     copy {
-        from 'build/libs'
-        into 'bin'
-        include '**/zally.jar'
+        from 'build/libs/zally.jar'
+        into 'bin/'
     }
 }
