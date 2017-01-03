@@ -4,11 +4,13 @@ import de.zalando.zally.Violation;
 import de.zalando.zally.ViolationType;
 import de.zalando.zally.utils.PatternUtil;
 import io.swagger.models.Swagger;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.ArrayList;
 
 
+@Component
 public class NoVersionInUriRule implements Rule {
 
     public final String LINK =

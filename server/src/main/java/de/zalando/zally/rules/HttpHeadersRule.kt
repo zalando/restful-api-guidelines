@@ -4,6 +4,7 @@ import de.zalando.zally.Violation
 import io.swagger.models.Response
 import io.swagger.models.Swagger
 import io.swagger.models.parameters.Parameter
+import org.springframework.stereotype.Component
 import java.util.*
 
 abstract class HttpHeadersRule : Rule {

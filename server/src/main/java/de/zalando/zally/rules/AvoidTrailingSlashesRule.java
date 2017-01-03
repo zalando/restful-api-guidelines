@@ -3,12 +3,14 @@ package de.zalando.zally.rules;
 import de.zalando.zally.Violation;
 import de.zalando.zally.utils.PatternUtil;
 import io.swagger.models.Swagger;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static de.zalando.zally.ViolationType.MUST;
 
+@Component
 public class AvoidTrailingSlashesRule implements Rule {
     private static final String TITLE = "Avoid Trailing Slashes";
     private static final String DESCRIPTION = "Rule avoid trailing slashes is not followed";

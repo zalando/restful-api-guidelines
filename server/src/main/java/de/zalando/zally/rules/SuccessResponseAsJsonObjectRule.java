@@ -7,12 +7,14 @@ import io.swagger.models.Operation;
 import io.swagger.models.Path;
 import io.swagger.models.Response;
 import io.swagger.models.Swagger;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 
+@Component
 public class SuccessResponseAsJsonObjectRule implements Rule {
     private static final String TITLE = "Response As JSON Object";
     private static final String DESCRIPTION = "Always Return JSON Objects As Top-Level Data Structures To Support Extensibility";

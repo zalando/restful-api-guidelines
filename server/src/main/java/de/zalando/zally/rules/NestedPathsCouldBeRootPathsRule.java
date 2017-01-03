@@ -3,12 +3,14 @@ package de.zalando.zally.rules;
 import de.zalando.zally.Violation;
 import de.zalando.zally.ViolationType;
 import io.swagger.models.Swagger;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static de.zalando.zally.utils.PatternUtil.isPathVariable;
 
+@Component
 public class NestedPathsCouldBeRootPathsRule implements Rule {
     private static final String TITLE = "Consider Using (Non-) Nested URLs";
     private static final String DESCRIPTION = "Nested paths / URLs could be top-level resource";

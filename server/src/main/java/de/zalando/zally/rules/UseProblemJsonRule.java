@@ -7,12 +7,14 @@ import io.swagger.models.Operation;
 import io.swagger.models.Path;
 import io.swagger.models.Response;
 import io.swagger.models.Swagger;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 
+@Component
 public class UseProblemJsonRule implements Rule {
     private static final String TITLE = "Use Problem JSON";
     private static final String DESCRIPTION = "Operations Should Return Problem JSON When Any Problem Occurs During Processing Whether Caused by Client Or Server";

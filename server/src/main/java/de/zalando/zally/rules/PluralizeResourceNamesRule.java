@@ -4,6 +4,7 @@ import de.zalando.zally.Violation;
 import de.zalando.zally.ViolationType;
 import de.zalando.zally.utils.PatternUtil;
 import io.swagger.models.Swagger;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,6 +13,7 @@ import java.util.stream.Collectors;
 
 import static de.zalando.zally.utils.WordUtil.isPlural;
 
+@Component
 public class PluralizeResourceNamesRule implements Rule {
     public static final String RULE_NAME = "Pluralize Resource Names";
     public static final String RULE_URL = "http://zalando.github.io/restful-api-guidelines/naming/Naming.html" +

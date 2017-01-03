@@ -8,6 +8,7 @@ import io.swagger.models.Path;
 import io.swagger.models.Swagger;
 import io.swagger.models.Response;
 import io.swagger.models.properties.Property;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 
+@Component
 public class Use429HeaderForRateLimitRule implements Rule {
     private static final String TITLE = "Use 429 With Header For Rate Limits";
     private static final String DESCRIPTION = "If Client Exceed Request Rate, Response Code Must Contain Header Information Providing Further Details to Client";

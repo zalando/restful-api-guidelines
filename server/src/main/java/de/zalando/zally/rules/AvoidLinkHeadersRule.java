@@ -4,11 +4,13 @@ import de.zalando.zally.Violation;
 import de.zalando.zally.ViolationType;
 import io.swagger.models.*;
 import io.swagger.models.parameters.Parameter;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@Component
 public class AvoidLinkHeadersRule implements Rule {
     private static final String LINK = "Link";
     private static final String TITLE = "Avoid Link in Header Rule";

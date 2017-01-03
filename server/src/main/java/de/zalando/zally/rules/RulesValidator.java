@@ -6,6 +6,8 @@ import io.swagger.models.Swagger;
 import io.swagger.parser.SwaggerParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -16,12 +18,14 @@ import java.util.stream.Collectors;
  * This validator validates a given Swagger definition based
  * on set of rules. It will sort the output by path.
  */
-public class RulesValidator implements Rule {
+@Component
+public class RulesValidator {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RulesValidator.class);
 
     private final List<Rule> rules;
 
+    @Autowired
     public RulesValidator(List<Rule> rules) {
         this.rules = new LinkedList<>(rules);
     }

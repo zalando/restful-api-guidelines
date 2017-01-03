@@ -2,18 +2,19 @@ package de.zalando.zally.rules;
 
 import de.zalando.zally.Violation;
 import de.zalando.zally.ViolationType;
-import io.swagger.annotations.SecurityDefinition;
 import io.swagger.models.Swagger;
 import io.swagger.models.auth.SecuritySchemeDefinition;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@Component
 public class SecureWithOAuth2Rule implements Rule {
     public final String LINK =
             "https://zalando.github.io/restful-api-guidelines/security/Security.html" +
-            "#must-secure-endpoints-with-oauth-20";
+                    "#must-secure-endpoints-with-oauth-20";
     public final String TITLE = "Secure Endpoints with OAuth 2.0";
 
     @Override

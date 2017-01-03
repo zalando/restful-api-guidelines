@@ -4,9 +4,11 @@ import de.zalando.zally.Violation
 import de.zalando.zally.ViolationType
 import io.swagger.models.Model
 import io.swagger.models.Swagger
+import org.springframework.stereotype.Component
 
 import java.util.*
 
+@Component
 class AvoidJavascriptKeywordsRule : Rule {
     val TITLE = "Avoid reserved Javascript keywords"
     val DESC_PATTERN = "Property name '%s' is reserved javascript keyword"

@@ -4,7 +4,9 @@ import de.zalando.zally.Violation
 import de.zalando.zally.ViolationType
 import de.zalando.zally.utils.WordUtil.isPlural
 import io.swagger.models.Swagger
+import org.springframework.stereotype.Component
 
+@Component
 class PluralizeNamesForArraysRule : Rule {
     val TITLE = "Array names should be pluralized"
     val DESC_PATTERN = "Array property name '%s' is not pluralized (but we are not sure)"

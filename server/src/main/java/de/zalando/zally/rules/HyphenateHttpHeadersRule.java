@@ -3,9 +3,11 @@ package de.zalando.zally.rules;
 import de.zalando.zally.Violation;
 import de.zalando.zally.ViolationType;
 import de.zalando.zally.utils.PatternUtil;
+import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
+@Component
 public class HyphenateHttpHeadersRule extends HttpHeadersRule {
 
     static final String RULE_NAME = "Use Hyphenated HTTP Headers";

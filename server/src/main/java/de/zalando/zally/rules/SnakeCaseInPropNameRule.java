@@ -5,11 +5,13 @@ import de.zalando.zally.ViolationType;
 import de.zalando.zally.utils.PatternUtil;
 import io.swagger.models.Model;
 import io.swagger.models.Swagger;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@Component
 public class SnakeCaseInPropNameRule implements Rule {
 
     String title = "snake_case property names";

@@ -4,10 +4,12 @@ import de.zalando.zally.Violation;
 import de.zalando.zally.ViolationType;
 import de.zalando.zally.utils.PatternUtil;
 import io.swagger.models.Swagger;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class KebabCaseInPathSegmentsRule implements Rule {
 
     String title = "Lowercase words with hyphens";

@@ -3,14 +3,13 @@ package de.zalando.zally.rules;
 import de.zalando.zally.Violation;
 import de.zalando.zally.ViolationType;
 import de.zalando.zally.utils.PatternUtil;
-import io.swagger.models.*;
-import io.swagger.models.parameters.Parameter;
+import io.swagger.models.Swagger;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
+@Component
 public class EverySecondPathLevelParameterRule implements Rule {
     private static final String TITLE = "Every Second Path Level To Be Parameter";
     private static final String DESCRIPTION = "Every second path level must be a path parameter";

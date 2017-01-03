@@ -3,6 +3,7 @@ package de.zalando.zally.rules;
 import de.zalando.zally.Violation;
 import de.zalando.zally.ViolationType;
 import io.swagger.models.Swagger;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
 /**
  * Rule for limiting number of resources
  */
+@Component
 public class LimitNumberOfResourcesRule implements Rule {
 
     private static final int RESOURCE_LIMIT = 8;

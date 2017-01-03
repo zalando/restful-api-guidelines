@@ -6,6 +6,7 @@ import de.zalando.zally.utils.PatternUtil;
 import io.swagger.models.Swagger;
 import io.swagger.models.parameters.Parameter;
 import io.swagger.models.parameters.QueryParameter;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
 /**
  * Lint for snake case for query params
  */
+@Component
 class SnakeCaseForQueryParamsRule implements Rule {
 
     @Override

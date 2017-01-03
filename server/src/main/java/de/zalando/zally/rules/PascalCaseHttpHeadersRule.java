@@ -3,9 +3,11 @@ package de.zalando.zally.rules;
 import de.zalando.zally.Violation;
 import de.zalando.zally.ViolationType;
 import de.zalando.zally.utils.PatternUtil;
+import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
+@Component
 public class PascalCaseHttpHeadersRule extends HttpHeadersRule {
     static final String RULE_NAME = "Prefer Hyphenated-Pascal-Case for HTTP header fields";
     static final String RULE_URL = "http://zalando.github.io/restful-api-guidelines/naming/Naming.html" +

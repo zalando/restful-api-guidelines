@@ -7,6 +7,7 @@ import io.swagger.models.SecurityRequirement;
 import io.swagger.models.Swagger;
 import io.swagger.models.auth.OAuth2Definition;
 import io.swagger.models.auth.SecuritySchemeDefinition;
+import org.springframework.stereotype.Component;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -14,6 +15,7 @@ import java.util.stream.Collectors;
 import static de.zalando.zally.ViolationType.MUST;
 import static java.lang.String.format;
 
+@Component
 public class DefineOAuthScopesRule implements Rule {
     private static final String TITLE = "Define and Assign Access Rights (Scopes)";
     private static final String NOT_DEFINED_DESC = "No valid OAuth2 scope is defined for endpoint %s";

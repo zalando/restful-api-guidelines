@@ -3,11 +3,13 @@ package de.zalando.zally.rules;
 import de.zalando.zally.Violation;
 import de.zalando.zally.ViolationType;
 import io.swagger.models.Swagger;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+@Component
 public class LimitNumberOfSubresourcesRule implements Rule {
 
     private final long SUBRESOURCES_LIMIT = 3;
