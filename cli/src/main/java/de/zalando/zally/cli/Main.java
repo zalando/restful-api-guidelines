@@ -1,12 +1,9 @@
 package de.zalando.zally.cli;
 
-import com.eclipsesource.json.JsonObject;
-import com.eclipsesource.json.JsonValue;
 import com.github.ryenus.rop.OptionParser;
 import com.github.ryenus.rop.OptionParser.Option;
 
 import java.io.IOException;
-import java.util.List;
 
 @OptionParser.Command(name = "zally", descriptions = "Lints the given swagger file using Zally service")
 public class Main {
@@ -26,41 +23,29 @@ public class Main {
 
     void run(String[] args) {
         try {
-            System.exit(lint(args));
+            int exitCode = lint(args) ? 0 : 1;
+            System.exit(exitCode);
         } catch (RuntimeException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
     }
 
-    private int lint(String[] args) throws RuntimeException {
+    private boolean lint(String[] args) throws RuntimeException {
         if (args.length < 1) {
             throw new RuntimeException("Please provide a swagger file");
         }
 
+        final ZallyApiClient client = new ZallyApiClient(getZallyUrl(), getToken());
+        final ResultPrinter printer = new ResultPrinter(System.out);
         final SpecsReader specsReader = new SpecsReaderFactory().create(args[0]);
 
-        final RequestDecorator decorator = new RequestDecorator(specsReader);
-        final ZallyApiClient client = new ZallyApiClient(getZallyUrl(), getToken());
-
-        JsonValue response = client.validate(decorator.getRequestBody());
-
-        ViolationsFilter violationsFilter = new ViolationsFilter(response.asObject());
-        List<JsonObject> mustViolations = violationsFilter.getMustViolations();
-        List<JsonObject> shouldViolations = violationsFilter.getShouldViolations();
-        List<JsonObject> couldViolations = violationsFilter.getCouldViolations();
-
-        ResultPrinter printer = new ResultPrinter(System.out);
+        Linter linter = new Linter(client, printer);
         try {
-            printer.printViolations(mustViolations, "must");
-            printer.printViolations(shouldViolations, "should");
-            printer.printViolations(couldViolations, "could");
-            printer.printSummary();
+            return linter.lint(specsReader);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-        return mustViolations.isEmpty() ? 0 : 1;
     }
 
     private String getToken() {
