@@ -15,7 +15,7 @@ Minimalistic API linter of awesomeness, bringing order to a sea of APIs.
 [our standard REST guidelines](http://zalando.github.io/restful-api-guidelines/).
 - Does not require a deployed service, only an API definition.
 - Accepts [swagger](swagger.io) yaml and json formats.
-- Easy-to-use CLI allows you to check your API *right now*.
+- Easy-to-use [CLI](cli/README.md) allows you to check your API *right now*.
 - Github integration to automatically lint your API anytime it changes in a Pull Request.
 
 
@@ -118,4 +118,4 @@ Feel free to contact one the [maintainers](MAINTAINERS)
 
 ### License
 
-MIT
+MIT license with an exception. See [license file](LICENSE).
