@@ -87,7 +87,7 @@ Minimalistic API linter of awesomeness, bringing order to a sea of APIs.
         -H "Authorization: Bearer OAUTH2_TOKEN" \
         -H "Content-Type: application/json" \
         --data "@test.json" \
-        localhost:8080/api_violations
+        localhost:8080/api-violations
     ```
 
 ### Command-line interface
