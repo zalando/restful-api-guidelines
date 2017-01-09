@@ -33,16 +33,9 @@ task wrapper(type: Wrapper) {
     gradleVersion = '2.14.1'
 }
 
-task zallyJar(type: OneJar) {
+task bin(type: OneJar) {
     dependsOn build
     mainClass = 'de.zalando.zally.cli.Main'
     archiveName = 'zally.jar'
-}
-
-task bin {
-    dependsOn zallyJar
-    copy {
-        from 'build/libs/zally.jar'
-        into 'bin/'
-    }
+    destinationDir = file('bin/')
 }
