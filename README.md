@@ -104,6 +104,8 @@ Check CLI tool documentation in [CLI Readme](cli/README.md)
 
 We are happy to accept contributions. First, take a look at our [contributing guidelines](CONTRIBUTING.md).
 
+You can see our current status in [this task board](https://github.com/zalando-incubator/zally/projects/1).
+
 
 ### TODO
 
