@@ -8,6 +8,7 @@ To see a list of all changes, please have a look at the [commit list in Github](
 
 ## Rule Changes
 
+* `2017-01-09:` Discouraged use of [Content-Location](../headers/CommonHeaders.md#must-use-contentlocation-header-correctly) header by requiring to use [Location header](../headers/CommonHeaders.md#must-use-location-header).
 * `2016-12-07:` Introduced "API as a Product" principle
 * `2016-12-06:` New guideline: "Should Only Use UUIDs If Necessary"
 * `2016-12-04:` Changed OAuth flow example from implicit to password in [Security section](../security/Security.md).
