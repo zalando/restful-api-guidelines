@@ -1,5 +1,5 @@
 apply plugin: 'java'
-apply plugin: 'gradle-one-jar'
+apply plugin: 'com.github.johnrengelman.shadow'
 
 repositories {
     mavenCentral()
@@ -22,20 +22,26 @@ dependencies {
 buildscript {
     repositories {
         mavenCentral()
+        jcenter()
     }
 
     dependencies {
-        classpath 'com.github.rholder:gradle-one-jar:1.0.4'
+        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.3'
     }
+}
+
+jar {
+   manifest {
+       attributes 'Main-Class': 'de.zalando.zally.cli.Main'
+   }
+}
+
+shadowJar {
+   destinationDir = file('bin')
+   baseName = 'zally'
+   classifier = null
 }
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.14.1'
-}
-
-task bin(type: OneJar) {
-    dependsOn build
-    mainClass = 'de.zalando.zally.cli.Main'
-    archiveName = 'zally.jar'
-    destinationDir = file('bin/')
 }
