@@ -39,7 +39,7 @@ Content-Location: /products/123/images?format=raw
 
 ## {{ book.must }} Use Location Header instead of Content-Location Header
 
-As the correct usage of Content-Location with respect to semantics and caching is difficult, we strongly *discourage* the use of Content-Location. In most cases it is sufficient to direct the clients to the resource location by using the Location header instead.
+As the correct usage of Content-Location with respect to semantics and caching is difficult, we strongly *discourage* the use of Content-Location. In most cases it is sufficient to direct clients to the resource location by using the Location header instead without hitting the Content-Location specific ambiguities and complexities.
 
 More details in RFC 7231 [7.1.2 Location](https://tools.ietf.org/html/rfc7231#section-7.1.2), [3.1.4.2 Content-Location](https://tools.ietf.org/html/rfc7231#section-3.1.4.2)
 
