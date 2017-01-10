@@ -1,7 +1,7 @@
 # Summary
 
 * [Table of Contents](TOC.md)
-* [Design Principles](design-principles/DesignPrinciples.md)
+* [Principles](design-principles/DesignPrinciples.md)
 * [General Guidelines](general-guidelines/GeneralGuidelines.md)
 * [Security](security/Security.md)
 * [Compatibility](compatibility/Compatibility.md)

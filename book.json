@@ -2,9 +2,6 @@
   "structure": {
     "readme": "Introduction.md"
   },
-  "pdf": {
-    "fontSize": 12
-  },
   "variables": {
     "should": "<span style=\"color:darkgoldenrod;font-weight:bold\">Should:</span>",
     "could": "<span style=\"color:green;font-weight:bold\">Could:</span>",
@@ -14,7 +11,8 @@
     "structured-toc",
     "restructure-navigation",
     "anchors",
-    "edit-link"
+    "edit-link",
+    "-sharing"
   ],
   "pluginsConfig": {
     "structured-toc": {},
