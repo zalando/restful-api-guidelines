@@ -5,12 +5,19 @@ import com.github.ryenus.rop.OptionParser.Option;
 
 import java.io.IOException;
 
-@OptionParser.Command(name = "zally", descriptions = "Lints the given swagger file using Zally service")
+
+@OptionParser.Command(name = "zally", descriptions = {
+        "Validates the given swagger specification using Zally service",
+        "\nUsage examples:",
+        "\tzally /path/to/swagger.yml",
+        "\tzally https://example.com/swagger.yml",
+        "\tzally /path/to/swagger.yml -t abcd-ef12-3456-7890 -l http://zally.example.com/",
+})
 public class Main {
 
     private static final String DEFAULT_ZALLY_URL = "http://localhost:8080/api-violations";
 
-    @Option(opt = {"-u", "--url"}, description = "ZALLY Service URL")
+    @Option(opt = {"-l", "--linter-service"}, description = "ZALLY Service URL")
     private String url;
 
     @Option(opt = {"-t", "--token"}, description = "OAuth2 Security Token")
@@ -18,7 +25,12 @@ public class Main {
 
     public static void main(String[] args) {
         OptionParser parser = new OptionParser(Main.class);
-        parser.parse(args);
+        try {
+            parser.parse(args);
+        } catch (IllegalArgumentException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
     }
 
     void run(String[] args) {
@@ -33,7 +45,7 @@ public class Main {
 
     private boolean lint(String[] args) throws RuntimeException {
         if (args.length < 1) {
-            throw new RuntimeException("Please provide a swagger file");
+            throw new RuntimeException("Please provide a swagger file path or URL");
         }
 
         final ZallyApiClient client = new ZallyApiClient(getZallyUrl(), getToken());

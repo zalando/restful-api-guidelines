@@ -17,9 +17,14 @@ import static org.mockito.ArgumentMatchers.eq;
 
 public class LinterTest {
 
-    private ArgumentCaptor<List<JsonObject>> mustListCaptor = ArgumentCaptor.forClass(List.class);
-    private ArgumentCaptor<List<JsonObject>> shouldListCaptor = ArgumentCaptor.forClass(List.class);
-    private ArgumentCaptor<List<JsonObject>> couldListCaptor = ArgumentCaptor.forClass(List.class);
+    @Captor
+    private ArgumentCaptor<List<JsonObject>> mustListCaptor;
+
+    @Captor
+    private ArgumentCaptor<List<JsonObject>> shouldListCaptor;
+
+    @Captor
+    private ArgumentCaptor<List<JsonObject>> couldListCaptor;
 
     @Mock
     private ZallyApiClient client;
