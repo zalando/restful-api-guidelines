@@ -14,7 +14,7 @@ requesting violations check at a given Zally server.
 
 3. Build `zally.jar` package:
 	```bash
-	./gradlew shadowJar
+	./gradlew build
 	```
 
 4. Run it using

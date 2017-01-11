@@ -15,8 +15,7 @@ install: true
 script:
   # Unit-test and build CLI tool
   - cd cli/
-  - ./gradlew test --info
-  - ./gradlew shadowJar
+  - ./gradlew build --info
   - cd ..
 
   # Unit-test server
