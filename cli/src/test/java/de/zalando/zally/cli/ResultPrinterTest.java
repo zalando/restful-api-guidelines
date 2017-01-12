@@ -45,8 +45,8 @@ public class ResultPrinterTest {
         violations.add(violationTwo);
         violationPrinter.printViolations(violations, "must");
 
-        String expectedResult = "Found the following MUST violations\n" +
-                "===================================\n" +
+        String expectedResult =  violationPrinter.ANSI_YELLOW + "\nFound the following MUST violations\n" +
+                "===================================\n" + violationPrinter.ANSI_RESET +
                 "Violation 1:\n\tViolation 1 Description\n\tViolation 1 Path\n" +
                 "Violation 2:\n\tViolation 2 Description\n";
 
@@ -70,8 +70,8 @@ public class ResultPrinterTest {
         outContent.reset();
 
         resultPrinter.printSummary();
-        String expectedResult = "\nSummary:\n" +
-                "=======\n" +
+        String expectedResult = resultPrinter.ANSI_GREEN + "\nSummary:\n" +
+                "========\n" + resultPrinter.ANSI_RESET +
                 "SHOULD violations: 1\n" +
                 "MUST violations: 1\n";
         assertEquals(expectedResult, outContent.toString());

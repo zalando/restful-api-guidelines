@@ -15,6 +15,16 @@ import java.util.Map;
  */
 public class ResultPrinter {
 
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_BLACK = "\u001B[30m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_BLUE = "\u001B[34m";
+    public static final String ANSI_PURPLE = "\u001B[35m";
+    public static final String ANSI_CYAN = "\u001B[36m";
+    public static final String ANSI_WHITE = "\u001B[37m";
+
     private static final String VIOLATIONS = "violations";
 
     private final Writer writer;
@@ -26,11 +36,9 @@ public class ResultPrinter {
 
     public void printViolations(List<JsonObject> violations, String violationType) throws IOException {
         String header = String.format("Found the following %s violations", violationType.toUpperCase());
-        String headerUnderline = new String(new char[header.length()]).replace("\0", "=");
 
         if (!violations.isEmpty()) {
-            writer.write(header + "\n");
-            writer.write(headerUnderline + "\n");
+            printHeader(ANSI_YELLOW, header);
 
             for (JsonObject violation : violations) {
                 writer.write(formatViolation(violation) + "\n");
@@ -42,10 +50,16 @@ public class ResultPrinter {
     }
 
     public void printSummary() throws IOException {
-        writer.write("\nSummary:\n=======\n");
+        printHeader(ANSI_GREEN, "Summary:");
         for (Map.Entry<String, Integer> entry : counters.entrySet()) {
             writer.write(entry.getKey().toUpperCase() + " violations: " + entry.getValue().toString() + "\n");
         }
+        writer.flush();
+    }
+
+    public void printHeader(String ansiColor, String header) throws IOException {
+        String headerUnderline = new String(new char[header.length()]).replace("\0", "=");
+        writer.write(ansiColor + "\n" + header + "\n" + headerUnderline + "\n" + ANSI_RESET);
         writer.flush();
     }
 
