@@ -132,6 +132,6 @@ There are some data fields that come up again and again in API data. We describe
 
 - `modified`: when the object was updated. If used this must be a date-time construct.
 
-- `type`: the kind of thing this object is. If used this should be a string. Types allow runtime information on the entity provided that otherwise requires examining the Open API file. 
+- `type`: the kind of thing this object is. If used the type of this field should be a string. Types allow runtime information on the entity provided that otherwise requires examining the Open API file. 
 
 These properties are not always strictly neccessary, but making them idiomatic allows API client developers to build up a common understanding of Zalando's resources. There is very little utility for API consumers in having different names or value types for these fields across APIs. 
