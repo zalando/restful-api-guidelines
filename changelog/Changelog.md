@@ -8,6 +8,7 @@ To see a list of all changes, please have a look at the [commit list in Github](
 
 ## Rule Changes
 
+* `2017-01-05:` Clarification on the usage of the term "REST/RESTful"
 * `2016-12-07:` Introduced "API as a Product" principle
 * `2016-12-06:` New guideline: "Should Only Use UUIDs If Necessary"
 * `2016-12-04:` Changed OAuth flow example from implicit to password in [Security section](../security/Security.md).
