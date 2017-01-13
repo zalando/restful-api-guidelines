@@ -117,8 +117,8 @@ public class RestApiTest {
         ResponseEntity<JsonNode> responseEntity = restTemplate.exchange(requestEntity, JsonNode.class);
 
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
-        assertThat(responseEntity.getBody().get("title").asText()).isEqualTo(MissingApiDefinitionException.TITLE);
-        assertThat(responseEntity.getBody().get("detail").asText()).isEqualTo(MissingApiDefinitionException.DETAIL);
+        assertThat(responseEntity.getBody().get("title").asText()).isEqualTo("Bad Request");
+        assertThat(responseEntity.getBody().get("detail").asText()).isEqualTo(MissingApiDefinitionException.MESSAGE);
     }
 
     @Test
