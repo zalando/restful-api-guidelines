@@ -32,14 +32,16 @@ public class RulesValidator {
 
     public List<Violation> validate(String swaggerContent) {
         Swagger swagger = null;
-        String parseErrorDesc = "";
+        String parseErrorDescription = "";
         try {
             swagger = new SwaggerParser().parse(swaggerContent);
         } catch (Exception e) {
-            parseErrorDesc = e.toString();
+            parseErrorDescription = e.toString();
         }
-        return swagger != null ? validate(swagger) : Collections.singletonList(
-                new Violation("Can't parse swagger file", parseErrorDesc, ViolationType.MUST, ""));
+
+        return swagger != null
+                ? validate(swagger)
+                : Collections.singletonList(new Violation("Can't parse swagger file", parseErrorDescription, ViolationType.MUST, ""));
     }
 
     public List<Violation> validate(Swagger swagger) {

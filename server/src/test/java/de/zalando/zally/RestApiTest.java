@@ -3,6 +3,7 @@ package de.zalando.zally;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import de.zalando.zally.exception.MissingApiDefinitionException;
 import de.zalando.zally.rules.Rule;
 import de.zalando.zally.rules.RulesValidator;
 import io.swagger.models.Swagger;
@@ -92,23 +93,51 @@ public class RestApiTest {
     }
 
     @Test
+    public void shouldRespondWithProblemJsonOnMalformedJson() throws IOException {
+        RequestEntity requestEntity = RequestEntity
+                .post(URI.create(getUrl()))
+                .contentType(MediaType.APPLICATION_JSON)
+                .body("{\"malformed\": \"dummy\"");
+
+        ResponseEntity<JsonNode> responseEntity = restTemplate.exchange(requestEntity, JsonNode.class);
+
+        assertThat(responseEntity.getHeaders().getContentType().toString()).isEqualTo("application/problem+json");
+        assertThat(responseEntity.getBody().has("title")).isTrue();
+        assertThat(responseEntity.getBody().has("status")).isTrue();
+        assertThat(responseEntity.getBody().has("detail")).isTrue();
+    }
+
+    @Test
     public void shouldRespondWithBadRequestWhenApiDefinitionFieldIsMissing() throws IOException {
         RequestEntity requestEntity = RequestEntity
                 .post(URI.create(getUrl()))
                 .contentType(MediaType.APPLICATION_JSON)
                 .body("{\"my_api\": \"dummy\"}");
+
         ResponseEntity<JsonNode> responseEntity = restTemplate.exchange(requestEntity, JsonNode.class);
+
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+        assertThat(responseEntity.getBody().get("title").asText()).isEqualTo(MissingApiDefinitionException.TITLE);
+        assertThat(responseEntity.getBody().get("detail").asText()).isEqualTo(MissingApiDefinitionException.DETAIL);
     }
 
     @Test
-    public void shouldRespondWithBadRequestWhenApiDefinitionFieldIsNotValidSwaggerDefinition() throws IOException {
+    public void shouldRespondWithViolationWhenApiDefinitionFieldIsNotValidSwaggerDefinition() throws IOException {
         RequestEntity requestEntity = RequestEntity
                 .post(URI.create(getUrl()))
                 .contentType(MediaType.APPLICATION_JSON)
                 .body("{\"api_definition\": \"no swagger definition\"}");
+
         ResponseEntity<JsonNode> responseEntity = restTemplate.exchange(requestEntity, JsonNode.class);
-        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+
+        JsonNode rootObject = responseEntity.getBody();
+        assertThat(rootObject.has("violations")).isTrue();
+
+        JsonNode violations = rootObject.get("violations");
+        assertThat(violations).hasSize(1);
+        assertThat(violations.get(0).get("title").asText()).isEqualTo("Can't parse swagger file");
     }
 
     private ResponseEntity<JsonNode> sendRequest(JsonNode body) {
