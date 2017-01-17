@@ -144,9 +144,11 @@ The `eid` property is part of the standard metadata for an event and gives the e
 
 Note that uniqueness checking of the `eid` is not enforced by Nakadi at the event type or global levels and it is the responsibility of the producer to ensure event identifiers do in fact distinctly identify events. A straightforward way to create a unique identifier for an event is to generate a UUID value.
 
-## {{ book.should }} Design your set of events to be commutative
+## {{ book.should }} Design for commutativity
 
-Events are commutative, if the can be received in an arbitrary order without changing the processing result. Together with the [idempotency requirement](#must-use-unique-event-identifiers), commutativity allows you to build very resilient systems. If your consumer fails to process a received event, it can continue with the rest of the events and reprocess the failed event later. The same holds true for the producer: If the producer fails to send an event, it can reschedule it for later out-of-order delivery without breaking the API contract.
+Event consumption is commutative, if events can be received in an arbitrary order without changing the processing result. Together with the [idempotency requirement](#must-use-unique-event-identifiers), commutativity allows you to build very resilient systems. If your consumer fails to process a received event, it can continue with the subsequent events and retry the failed event later. The same holds true for the producer: If the producer fails to send an event, it can reschedule it for later out-of-order delivery without corrupting the processing result.
+
+To enable commutative event consumption, the events sent by the producer must be able to be consumed out of order. They must either contain enough information to reorder them if needed during consumption, or your domain must be designed in a way that order becomes irrelevant.
 
 For data change events, this can be achieved by sending
 - the entity Id
