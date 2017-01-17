@@ -35,20 +35,25 @@ public class ResultPrinterTest {
         violationOne.add("title", "Violation 1");
         violationOne.add("description", "Violation 1 Description");
         violationOne.add("path", "Violation 1 Path");
+        violationOne.add("rule_link", Json.NULL);
 
         JsonObject violationTwo = new JsonObject();
         violationTwo.add("title", "Violation 2");
         violationTwo.add("description", "Violation 2 Description");
         violationTwo.add("path", Json.NULL);
+        violationTwo.add("rule_link", Json.NULL);
 
         violations.add(violationOne);
         violations.add(violationTwo);
         violationPrinter.printViolations(violations, "must");
 
-        String expectedResult = "Found the following MUST violations\n" +
-                "===================================\n" +
-                "Violation 1:\n\tViolation 1 Description\n\tViolation 1 Path\n" +
-                "Violation 2:\n\tViolation 2 Description\n";
+        String expectedResult =  violationPrinter.ANSI_RED + "\nFound the following MUST violations\n" +
+                "===================================\n\n" + violationPrinter.ANSI_RESET +
+                violationPrinter.ANSI_RED + "Violation 1\n" + violationPrinter.ANSI_RESET +
+                "\t(path: Violation 1 Path)\n" +
+                "\tViolation 1 Description\n\n" +
+                violationPrinter.ANSI_RED + "Violation 2\n" + violationPrinter.ANSI_RESET +
+                "\tViolation 2 Description\n\n";
 
         assertEquals(expectedResult, outContent.toString());
     }
@@ -59,6 +64,7 @@ public class ResultPrinterTest {
         violationOne.add("title", "Violation 1");
         violationOne.add("description", "Violation 1 Description");
         violationOne.add("path", "Violation 1 Path");
+        violationOne.add("rule_link", Json.NULL);
 
         List<JsonObject> violations = new ArrayList<>();
         violations.add(violationOne);
@@ -70,22 +76,53 @@ public class ResultPrinterTest {
         outContent.reset();
 
         resultPrinter.printSummary();
-        String expectedResult = "\nSummary:\n" +
-                "=======\n" +
-                "SHOULD violations: 1\n" +
-                "MUST violations: 1\n";
+        String expectedResult = resultPrinter.ANSI_WHITE + "\nSummary:\n" +
+                "========\n\n" + resultPrinter.ANSI_RESET +
+                "MUST violations: 1\n" +
+                "SHOULD violations: 1\n";
         assertEquals(expectedResult, outContent.toString());
     }
 
     @Test
-    public void formatReturnsProperlyFormattedString() {
+    public void formatReturnsProperlyColoredString() {
         JsonObject violation = new JsonObject();
         violation.add("title", "Test title");
         violation.add("description", "Test description");
+        violation.add("rule_link", Json.NULL);
         violation.add("path", Json.NULL);
 
-        String result = ResultPrinter.formatViolation(violation);
+        String[] testColors = new String[] {
+                ResultPrinter.ANSI_RED,
+                ResultPrinter.ANSI_YELLOW,
+                ResultPrinter.ANSI_GREEN
+        };
 
-        assertEquals("Test title:\n\tTest description", result);
+        for (String testColor : testColors) {
+            String result = ResultPrinter.formatViolation(testColor, violation);
+            assertEquals(testColor + "Test title\n" + ResultPrinter.ANSI_RESET + "\tTest description\n", result);
+        }
+
+    }
+
+    @Test
+    public void formatReturnsFullViolation() {
+        JsonObject violation = new JsonObject();
+        violation.add("title", "Test title");
+        violation.add("description", "Test description");
+        violation.add(
+                "rule_link",
+                "https://zalando.github.io/restful-api-guidelines/security/Security.html#must-secure-endpoints-with-oauth-20");
+        violation.add("path", "/products/{product_id}/");
+
+        String testColor = ResultPrinter.ANSI_RED;
+        String expectedResult = testColor + "Test title\n" + ResultPrinter.ANSI_RESET +
+                "\t(path: /products/{product_id}/)\n" +
+                "\tTest description\n" +
+                "\t" + ResultPrinter.ANSI_CYAN +
+                "https://zalando.github.io/restful-api-guidelines/security/Security.html#must-secure-endpoints-with-oauth-20" +
+                "\n" + ResultPrinter.ANSI_RESET;
+
+        String result = ResultPrinter.formatViolation(testColor, violation);
+        assertEquals(expectedResult, result);
     }
 }
