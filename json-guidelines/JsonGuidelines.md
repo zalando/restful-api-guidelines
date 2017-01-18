@@ -1,20 +1,16 @@
 # JSON Guidelines
 
-These guidelines provides recommendations for defining JSON data at Zalando. JSON here refers to [RFC 7159](http://www.rfc-editor.org/rfc/rfc7159.txt) (which updates [RFC 4627](https://www.ietf.org/rfc/rfc4627.txt)), the “application/json” media type and custom JSON media types defined for APIs. The guidelines clarifies some specific cases to allow Zalando JSON data to have an idiomatic form across teams and services. 
+These guidelines provides recommendations for defining JSON data at Zalando. JSON here refers to [RFC 7159](http://www.rfc-editor.org/rfc/rfc7159.txt) (which updates [RFC 4627](https://www.ietf.org/rfc/rfc4627.txt)), the “application/json” media type and custom JSON media types defined for APIs. The guidelines clarifies some specific cases to allow Zalando JSON data to have an idiomatic form across teams and services.
 
 ## {{ book.must }} Use Consistent Property Names
 
 ### {{ book.must }} Property names must be snake_case (and never camelCase).
 
-No established industry standard exists, but many popular Internet companies prefer snake_case: e.g. GitHub, Stack Exchange, Twitter. Others, like Google and Amazon, use both - but not only camelCase. It’s essential to establish a consistent look and feel such that JSON looks as if it came from the same hand. 
+No established industry standard exists, but many popular Internet companies prefer snake_case: e.g. GitHub, Stack Exchange, Twitter. Others, like Google and Amazon, use both - but not only camelCase. It’s essential to establish a consistent look and feel such that JSON looks as if it came from the same hand.
 
 ### {{ book.must }} Property names must be an ASCII subset
 
 Property names are restricted to ASCII encoded strings. The first character must be a letter, an underscore  or a dollar sign, and subsequent characters can be a letter, an underscore, a dollar sign, or a number.
-
-### {{ book.should }} Reserved JavaScript keywords should be avoided
-
-Most API content is consumed by non-JavaScript clients today, but for security and sanity reasons, JavaScript (strictly, ECMAScript) keywords are worth avoiding. A list of keywords can be found in the [ECMAScript Language Specification](http://www.ecma-international.org/ecma-262/6.0/#sec-reserved-words).
 
 ### {{ book.should }} Array names should be pluralized
 
@@ -36,13 +32,13 @@ Empty array values can unambiguously be represented as the the empty list, `[]`.
 
 ### {{ book.should }} Enumerations should be represented as Strings
 
-Strings are a reasonable target for values that are by design enumerations. 
+Strings are a reasonable target for values that are by design enumerations.
 
 ### {{ book.should }} Date property values should conform to RFC 3399
 
 Use the date and time formats defined by [RFC 3339](http://tools.ietf.org/html/rfc3339#section-5.6):
 
-* for "date" use strings matching `date-fullyear "-" date-month "-" date-mday`, for example: `2015-05-28` 
+* for "date" use strings matching `date-fullyear "-" date-month "-" date-mday`, for example: `2015-05-28`
 
 * for "date-time" use strings matching `full-date "T" full-time`, for example `2015-05-28T14:07:17Z`
 
@@ -56,14 +52,13 @@ Sometimes it can seem data is naturally represented using numerical timestamps, 
 
 ### {{ book.could }} Time durations and intervals could conform to ISO 8601
 
-Schema based JSON properties that are by design durations and intervals could be strings formatted as recommended by ISO 8601 ([Appendix A of RFC 3399 contains a grammar](https://tools.ietf.org/html/rfc3339#appendix-A) for durations). 
+Schema based JSON properties that are by design durations and intervals could be strings formatted as recommended by ISO 8601 ([Appendix A of RFC 3399 contains a grammar](https://tools.ietf.org/html/rfc3339#appendix-A) for durations).
 
-### {{ book.could }} Standards could be used for Language, Country and Currency 
+### {{ book.could }} Standards could be used for Language, Country and Currency
 
-- [ISO 3166-1-alpha2 country 
+- [ISO 3166-1-alpha2 country
 ](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
  - (It's "GB", not "UK", even though "UK" has seen some use at Zalando)
 - [ISO 639-1 language code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes)
  - [BCP-47](https://tools.ietf.org/html/bcp47) (based on ISO 639-1) for language variants
 - [ISO 4217 currency codes](http://en.wikipedia.org/wiki/ISO_4217)
-
