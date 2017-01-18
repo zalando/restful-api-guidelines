@@ -54,7 +54,7 @@ Nakadi defines an event for signalling data changes, called a [DataChangeEvent](
 
 - Change events must identify the changed entity to allow aggregation of all related events for the entity.
 
-- Change events should contain a means of ordering events for a given entity. This can - among others - be a strictly monotonically increasing entity version or a message counter. Timestamps are not a good choice, since your system clock may jump and exact synchronization of clocks in distributed systems is hard (or even impossible). Note that basing events on data structures that can be converged upon (such as [CRDTs](https://en.wikipedia.org/wiki/Conflict-free_replicated_data_type) or [logical clocks](https://en.wikipedia.org/wiki/Logical_clock)) in a distributed setting are outside the scope of this guidance.
+- Change events should contain a means of ordering events for a given entity. This can - among others - be a strictly monotonically increasing entity version or a message counter. Timestamps are not necessarily a good choice, since your system clock may jump backwards, two events may occur in the same microsecond and exact synchronization of clocks in distributed systems is difficult. If you use timestamps to indicate event ordering, you must carefully ensure they move forward for each event. Note that basing events on data structures that can be converged upon (such as [CRDTs](https://en.wikipedia.org/wiki/Conflict-free_replicated_data_type) or [logical clocks](https://en.wikipedia.org/wiki/Logical_clock)) in a distributed setting are outside the scope of this guidance.
 
 - Change events must be published reliably by the service.
 
