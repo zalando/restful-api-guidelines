@@ -11,6 +11,25 @@ Usage
 -----
 Feel free to use these guidelines as a guidance for your own development. Note that we encourage our own teams to use them in order to challenge their APIs. As such, you should consider this to be a living, evolving document. We will revise and update based on our learnings and experiences.
 
+E-Book Support
+-----
+
+You can easily generate PDF, ePub, Mobi files out of our guidelines. Please refer to this [explanation](https://toolchain.gitbook.com/ebook.html) - you have to install Callibre.
+CAUTION: you need to add version 2.6.7 identifier to every build command:
+
+  ```bash
+  $ npm install
+
+  # Generate a PDF file
+  $ ./node_modules/.bin/gitbook -v 2.6.7 pdf ./ ./api-guidelines.pdf
+
+  # Generate an ePub file
+  $ ./node_modules/.bin/gitbook -v 2.6.7 epub ./ ./api-guidelines.epub
+
+  # Generate a Mobi file
+  $ ./node_modules/.bin/gitbook -v 2.6.7 mobi ./ ./api-guidelines.mobi
+  ```
+
 Table of Contents
 -------
 After a short Introduction, these guidelines include chapters on the following topics:
