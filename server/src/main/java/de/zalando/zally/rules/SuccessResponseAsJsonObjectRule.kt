@@ -2,6 +2,7 @@ package de.zalando.zally.rules
 
 import de.zalando.zally.Violation
 import de.zalando.zally.ViolationType
+import io.swagger.models.ComposedModel
 import io.swagger.models.ModelImpl
 import io.swagger.models.Swagger
 import io.swagger.models.properties.Property
@@ -27,7 +28,7 @@ open class SuccessResponseAsJsonObjectRule : Rule {
                     val httpCodeInt = code.toIntOrZero()
                     if (httpCodeInt in 200..299) {
                         val schema = response.schema
-                        if ("object" != schema?.type && !schema.isRefToObject(swagger)) {
+                        if (schema != null && "object" != schema.type && !schema.isRefToObject(swagger)) {
                             violations.add(Violation(TITLE, DESCRIPTION, VIOLATION_TYPE, RULE_LINK, "$key/$method/$code"))
                         }
                     }
@@ -41,7 +42,7 @@ open class SuccessResponseAsJsonObjectRule : Rule {
     private fun Property?.isRefToObject(swagger: Swagger) =
         if (this is RefProperty) {
             val model = swagger.definitions[simpleRef]
-            model is ModelImpl && model.type == "object"
+            (model is ModelImpl && model.type == "object") || model is ComposedModel
         } else false
 
     private fun String.toIntOrZero() =
