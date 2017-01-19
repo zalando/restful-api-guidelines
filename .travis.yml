@@ -5,9 +5,36 @@ language: java
 jdk:
   - oraclejdk8
 
+before_install:
+  - sudo add-apt-repository ppa:duggan/bats --yes
+  - sudo apt-get update -qq
+  - sudo apt-get install -qq bats
+
 install: true
+
 script:
+  # Unit-test and build CLI tool
   - cd cli/
-  - gradle test --info
-  - cd ../server/
-  - gradle test --info
+  - ./gradlew build --info
+  - cd ..
+
+  # Unit-test server
+  - cd server/
+  - ./gradlew test --info
+  - cd ..
+
+  # Launch local zally server
+  - cd server/
+  - echo "spring.profiles.active=dev" > application.properties
+  - ./gradlew bootRun > /dev/null &
+  - echo $! > /tmp/zally_server.pid
+  - cd ..
+
+  # Wait until Spring Boot will start
+  - sleep 15
+
+  # Run CLI integration test
+  - ./cli/integration_tests/tests.bats
+
+  # Kill Zally server instace
+  - kill -9 `cat /tmp/zally_server.pid`

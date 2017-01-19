@@ -1,17 +1,25 @@
 buildscript {
-    ext.kotlin_version = '1.0.5'
+
+    ext.kotlin_version = '1.0.6'
+
     repositories {
         mavenCentral()
+        jcenter()
+        maven { url "https://repo.spring.io/libs-release" }
+        maven { url "https://plugins.gradle.org/m2/" }
     }
+
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.2.RELEASE")
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.3.RELEASE")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
+        classpath('com.github.ben-manes:gradle-versions-plugin:0.13.0')
     }
 }
 
 apply plugin: 'java'
 apply plugin: 'kotlin'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'com.github.ben-manes.versions'
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.14.1'
@@ -31,14 +39,15 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
-    compile("io.swagger:swagger-parser:1.0.23")
+    compile("io.swagger:swagger-parser:1.0.24")
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-actuator")
     compile("org.springframework.boot:spring-boot-starter-freemarker")
-    compile('org.zalando.stups:stups-spring-oauth2-server:1.0.15')
-    compile('org.zalando:twintip-spring-web:1.1.0')
-    compile('com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.8.0')
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile("org.zalando.stups:stups-spring-oauth2-server:1.0.16")
+    compile("org.zalando:problem-spring-web:0.16.0")
+    compile("org.zalando:twintip-spring-web:1.1.0")
+    compile("com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.8.5")
+    compile("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
     testCompile("org.springframework.boot:spring-boot-starter-test")
-    testCompile('org.assertj:assertj-core:3.5.2')
+    testCompile("org.assertj:assertj-core:3.6.1")
 }

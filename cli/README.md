@@ -14,7 +14,7 @@ requesting violations check at a given Zally server.
 
 3. Build `zally.jar` package:
 	```bash
-	./gradlew bin
+	./gradlew build
 	```
 
 4. Run it using
@@ -42,10 +42,10 @@ export TOKEN="f123-4567-890a-bcde"
 ./bin/zally swagger_definition.yml
 ```
 
-or `--url` and `--token` command-line arguments:
+or `--linter-service` and `--token` command-line arguments:
 
 ```bash
-./bin/zally swagger_definition.yml --url "http://zally.example.com/" --token "f123-4567-890a-bcde"
+./bin/zally swagger_definition.yml --linter-service "http://zally.example.com/" --token "f123-4567-890a-bcde"
 ```
 
 ### Getting help message
