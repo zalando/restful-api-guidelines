@@ -57,4 +57,11 @@ public class RulesValidator {
                 .sorted((one, other) -> one.getPath().orElse("").compareToIgnoreCase(other.getPath().orElse("")))
                 .collect(Collectors.toList());
     }
+
+    /**
+     * For testing purpose
+     */
+    protected List<Rule> getRules() {
+        return new LinkedList<>(rules);
+    }
 }
