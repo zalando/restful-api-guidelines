@@ -3,7 +3,8 @@
 @test "CLI requires filename or URL to be specified" {
 	run cli/bin/zally
 	[ "$status" -eq 1 ]
-	[ "$output" = "Please provide a swagger file path or URL" ]
+	[ "${lines[0]}" = "Please provide a swagger file path or URL" ]
+	[ "${lines[1]}" = "Validates the given swagger specification using Zally service" ]
 }
 
 @test "CLI works with local .yaml file" {

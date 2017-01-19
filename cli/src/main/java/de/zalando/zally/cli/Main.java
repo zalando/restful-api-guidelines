@@ -23,8 +23,10 @@ public class Main {
     @Option(opt = {"-t", "--token"}, description = "OAuth2 Security Token")
     private String token;
 
+    private static OptionParser parser;
+
     public static void main(String[] args) {
-        OptionParser parser = new OptionParser(Main.class);
+        parser = new OptionParser(Main.class);
         try {
             parser.parse(args);
         } catch (IllegalArgumentException e) {
@@ -45,7 +47,9 @@ public class Main {
 
     private boolean lint(String[] args) throws RuntimeException {
         if (args.length < 1) {
-            throw new RuntimeException("Please provide a swagger file path or URL");
+            System.err.println("Please provide a swagger file path or URL\n");
+            parser.showHelp();
+            throw new RuntimeException("");
         }
 
         final ZallyApiClient client = new ZallyApiClient(getZallyUrl(), getToken());
