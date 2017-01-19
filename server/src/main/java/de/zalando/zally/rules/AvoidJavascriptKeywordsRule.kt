@@ -2,18 +2,20 @@ package de.zalando.zally.rules
 
 import de.zalando.zally.Violation
 import de.zalando.zally.ViolationType
-import io.swagger.models.Model
 import io.swagger.models.Swagger
-import org.springframework.stereotype.Component
 
-import java.util.*
-
-@Component
+/**
+ * TODO:
+ *      - this rule is currently disabled because Zalando's API guidelines changed
+ *      - will be re-enabled if we can configure ruleset
+ */
 class AvoidJavascriptKeywordsRule : Rule {
+
     val TITLE = "Avoid reserved Javascript keywords"
     val DESC_PATTERN = "Property name '%s' is reserved javascript keyword"
     val RULE_URL = "http://zalando.github.io/restful-api-guidelines/naming/Naming.html" +
             "#should-reserved-javascript-keywords-should-be-avoided"
+
     private val RESERVED_KEYWORDS = setOf(
             "break", "do", "in", "typeof", "case", "else", "instanceof", "var", "catch", "export", "new", "void",
             "class", "extends", "return", "while", "const", "finally", "super", "with", "continue", "for", "switch",
