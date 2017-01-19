@@ -27,6 +27,10 @@ Minimalistic API linter of awesomeness, bringing order to a sea of APIs.
 - Zally CLI is handy command-line tool, it uses the server in the background
 - Rule changes only have to be applied in the server component
 
+**Tech Stack:** Zally server is written in Java 8 with Spring Boot. We made rule implementation
+optional possible in Kotlin. API-specific code remains in Java 8 due to better integration with
+Spring Boot. Further details can be found [here](https://github.com/zalando-incubator/zally/pull/65#issuecomment-269474831).
+
 
 ### Dependencies
 
