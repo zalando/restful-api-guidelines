@@ -63,4 +63,10 @@ public class ZallyApiClientTest {
         ZallyApiClient client = new ZallyApiClient("http://localhost:" + port() + "/", token);
         client.validate(requestBody).asObject();
     }
+
+    @Test(expected = CliException.class)
+    public void validateRaisesCliExceptionWhenServerUnaccessible() throws Exception {
+        ZallyApiClient client = new ZallyApiClient("http://localhost:65534/", token);
+        client.validate(requestBody);
+    }
 }
