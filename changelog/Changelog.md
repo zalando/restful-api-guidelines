@@ -8,7 +8,8 @@ To see a list of all changes, please have a look at the [commit list in Github](
 
 ## Rule Changes
 
-* `2017-01-09:` Discouraged use of [Content-Location](../headers/CommonHeaders.md#must-use-contentlocation-header-correctly) header by requiring to use [Location header](../headers/CommonHeaders.md#must-use-location-header).
+* `2017-01-20:` Discouraged use of [Content-Location](../headers/CommonHeaders.md#must-use-contentlocation-header-correctly) header by requiring to use [Location header](../headers/CommonHeaders.md#must-use-location-header).
+* `2017-01-18:` Removed "Avoid Javascript Keywords" rule
 * `2017-01-05:` Clarification on the usage of the term "REST/RESTful"
 * `2016-12-07:` Introduced "API as a Product" principle
 * `2016-12-06:` New guideline: "Should Only Use UUIDs If Necessary"
