@@ -63,3 +63,5 @@ task ktlint(type: JavaExec) {
     classpath = configurations.ktlint
     args "src/**/*.kt"
 }
+
+check.dependsOn ktlint
