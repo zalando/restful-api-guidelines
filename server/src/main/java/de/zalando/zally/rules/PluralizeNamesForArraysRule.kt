@@ -17,7 +17,7 @@ class PluralizeNamesForArraysRule : Rule {
         val definitions = swagger.definitions ?: emptyMap()
         return definitions.flatMap { entry ->
             val props = entry.value?.properties ?: emptyMap()
-            props.filter {"array" == it.value.type && !isPlural(it.key)}.map { createViolation(entry.key, it.key) }
+            props.filter { "array" == it.value.type && !isPlural(it.key) }.map { createViolation(entry.key, it.key) }
         }
     }
 
