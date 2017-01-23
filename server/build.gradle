@@ -1,3 +1,7 @@
+configurations {
+    ktlint
+}
+
 buildscript {
 
     ext.kotlin_version = '1.0.6'
@@ -50,4 +54,14 @@ dependencies {
     compile("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
     testCompile("org.springframework.boot:spring-boot-starter-test")
     testCompile("org.assertj:assertj-core:3.6.1")
+
+    ktlint("com.github.shyiko:ktlint:0.3.0")
 }
+
+task ktlint(type: JavaExec) {
+    main = "com.github.shyiko.ktlint.Main"
+    classpath = configurations.ktlint
+    args "src/**/*.kt"
+}
+
+check.dependsOn ktlint

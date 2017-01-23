@@ -8,7 +8,6 @@ class SuccessResponseAsJsonObjectRuleTest {
     private val validSwagger = getFixture("fixtures/successResponseAsJsonObjectValid.json")
     private val invalidSwagger = getFixture("fixtures/successResponseAsJsonObjectInvalid.json")
 
-
     @Test
     fun positiveCase() {
         assertThat(SuccessResponseAsJsonObjectRule().validate(validSwagger)).isEmpty()

@@ -4,8 +4,7 @@ import de.zalando.zally.Violation
 import io.swagger.models.Response
 import io.swagger.models.Swagger
 import io.swagger.models.parameters.Parameter
-import org.springframework.stereotype.Component
-import java.util.*
+import java.util.Optional
 
 abstract class HttpHeadersRule : Rule {
     val PARAMETER_NAMES_WHITELIST = setOf("ETag", "TSV", "TE", "Content-MD5", "DNT", "X-ATT-DeviceId", "X-UIDH",

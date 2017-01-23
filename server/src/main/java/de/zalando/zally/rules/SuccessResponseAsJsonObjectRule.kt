@@ -8,8 +8,7 @@ import io.swagger.models.Swagger
 import io.swagger.models.properties.Property
 import io.swagger.models.properties.RefProperty
 import org.springframework.stereotype.Component
-import java.util.*
-
+import java.util.ArrayList
 
 @Component
 open class SuccessResponseAsJsonObjectRule : Rule {
@@ -48,7 +47,7 @@ open class SuccessResponseAsJsonObjectRule : Rule {
     private fun String.toIntOrZero() =
         try {
             this.toInt()
-        } catch(e: NumberFormatException) {
+        } catch (e: NumberFormatException) {
             0
         }
 }
