@@ -2,11 +2,11 @@ package de.zalando.zally.cli;
 
 import com.eclipsesource.json.Json;
 import com.eclipsesource.json.JsonValue;
+import java.io.Reader;
+import java.util.Map;
 import org.json.JSONObject;
 import org.yaml.snakeyaml.Yaml;
 
-import java.io.Reader;
-import java.util.Map;
 
 public class YamlReader implements SpecsReader {
 

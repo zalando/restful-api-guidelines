@@ -67,7 +67,6 @@ public class ResultPrinter {
     public static String formatViolation(String headerColor, JsonObject violation) {
         String title = violation.get("title").asString();
         String description = violation.get("description").asString();
-        String ruleLink = !violation.get("rule_link").isNull() ? violation.get("rule_link").asString() : "";
         String path = !violation.get("path").isNull() ? violation.get("path").asString() : "";
 
         StringBuilder sb = new StringBuilder();
@@ -77,6 +76,7 @@ public class ResultPrinter {
         }
         sb.append("\t" + description + "\n");
 
+        String ruleLink = !violation.get("rule_link").isNull() ? violation.get("rule_link").asString() : "";
         if (!ruleLink.isEmpty()) {
             sb.append("\t" + ANSI_CYAN + ruleLink + "\n" + ANSI_RESET);
         }
@@ -97,7 +97,8 @@ public class ResultPrinter {
                 return ANSI_YELLOW;
             case "COULD":
                 return ANSI_GREEN;
+            default:
+                return ANSI_WHITE;
         }
-        return ANSI_WHITE;
     }
 }

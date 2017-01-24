@@ -1,17 +1,20 @@
 package de.zalando.zally.cli;
 
-import com.eclipsesource.json.JsonObject;
+import static net.jadler.Jadler.closeJadler;
+import static net.jadler.Jadler.initJadler;
+import static net.jadler.Jadler.onRequest;
+import static net.jadler.Jadler.port;
+import static org.junit.Assert.assertTrue;
+
+import java.io.File;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.File;
 
-import static net.jadler.Jadler.*;
-import static org.junit.Assert.*;
 
 public class SpecsReaderFactoryTest {
-    private final String PREFIX = "specs_reader_factory_test";
+    private final String prefix = "specs_reader_factory_test";
     private final SpecsReaderFactory factory = new SpecsReaderFactory();
 
     @Before
@@ -51,7 +54,7 @@ public class SpecsReaderFactoryTest {
     }
 
     private void assertClassForGivenExtension(Class readerClass, String extension) throws Exception {
-        File tempFile = File.createTempFile(PREFIX, extension);
+        File tempFile = File.createTempFile(prefix, extension);
 
         SpecsReader reader = factory.create(tempFile.getAbsolutePath());
 

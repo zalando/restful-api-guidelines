@@ -1,12 +1,12 @@
 package de.zalando.zally.cli;
 
+import static org.junit.Assert.assertEquals;
+
 import com.eclipsesource.json.JsonArray;
 import com.eclipsesource.json.JsonObject;
+import java.util.List;
 import org.junit.Test;
 
-import java.util.List;
-
-import static org.junit.Assert.*;
 
 public class ViolationsFilterTest {
     @Test
@@ -34,9 +34,6 @@ public class ViolationsFilterTest {
     }
 
     private JsonObject getFixtureViolations() {
-        JsonObject result = new JsonObject();
-        JsonArray violations = new JsonArray();
-
         JsonObject mustViolation = new JsonObject();
         mustViolation.add("title", "Test must");
         mustViolation.add("description", "Test must");
@@ -47,9 +44,11 @@ public class ViolationsFilterTest {
         shouldViolation.add("description", "Test should");
         shouldViolation.add("violation_type", "SHOULD");
 
+        JsonArray violations = new JsonArray();
         violations.add(mustViolation);
         violations.add(shouldViolation);
 
+        JsonObject result = new JsonObject();
         result.add("violations", violations);
 
         return result;
