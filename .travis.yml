@@ -31,7 +31,7 @@ script:
   - cd ..
 
   # Wait until Spring Boot will start
-  - sleep 15
+  - while ! echo "GET / HTTP/1.0\n" | nc localhost 8080; do sleep 3; done
 
   # Run CLI integration test
   - ./cli/integration_tests/tests.bats
