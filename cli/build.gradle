@@ -36,6 +36,7 @@ dependencies {
 }
 
 checkstyle {
+  configFile = file("../config/checkstyle/checkstyle.xml")
   toolVersion = versions.checkstyle
 }
 
