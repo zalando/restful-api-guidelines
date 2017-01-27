@@ -17,8 +17,8 @@ public class JsonReader implements SpecsReader {
     public JsonValue read() throws RuntimeException {
         try {
             return Json.parse(reader);
-        } catch (IOException e) {
-            throw new RuntimeException(e.getMessage());
+        } catch (IOException exception) {
+            throw new RuntimeException(exception.getMessage());
         }
     }
 }

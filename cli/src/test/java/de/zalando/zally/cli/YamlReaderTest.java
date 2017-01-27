@@ -1,19 +1,19 @@
 package de.zalando.zally.cli;
 
-import com.eclipsesource.json.JsonValue;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
+import com.eclipsesource.json.JsonValue;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import org.junit.Test;
 
-import static org.junit.Assert.*;
 
 public class YamlReaderTest {
-    private final static String fixture = "swagger: \"2.0\"\ninfo:\n  title: Partner Service Adapter";
+    private static final String fixture = "swagger: \"2.0\"\ninfo:\n  title: Partner Service Adapter";
 
     @Test
-    public void returnJsonValueWhenEverythingIsOK() {
+    public void returnJsonValueWhenEverythingIsOk() {
         YamlReader reader = new YamlReader(getFixtureReader());
         JsonValue value = reader.read();
 

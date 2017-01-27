@@ -5,18 +5,18 @@ import com.eclipsesource.json.JsonValue;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
+import javax.net.ssl.SSLContext;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.ssl.SSLContextBuilder;
 
-import javax.net.ssl.SSLContext;
-import java.security.KeyManagementException;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.cert.CertificateException;
-import java.security.cert.X509Certificate;
 
 public class ZallyApiClient {
 
@@ -32,7 +32,7 @@ public class ZallyApiClient {
                     .setSSLHostnameVerifier(new NoopHostnameVerifier()).build();
 
             Unirest.setHttpClient(unsafeHttpClient);
-        } catch (NoSuchAlgorithmException | KeyManagementException | KeyStoreException e) {
+        } catch (NoSuchAlgorithmException | KeyManagementException | KeyStoreException exception) {
             System.out.println("Could not disable verification of ssl certificates. "
                     + "Support for linter services available through HTTPS can be limited.");
         }
@@ -56,8 +56,8 @@ public class ZallyApiClient {
                     .header("Content-Type", "application/json")
                     .body(body)
                     .asString();
-        } catch (UnirestException e) {
-            throw new RuntimeException("API Error: " + e.getMessage());
+        } catch (UnirestException exception) {
+            throw new RuntimeException("API Error: " + exception.getMessage());
         }
 
         return Json.parse(response.getBody());
