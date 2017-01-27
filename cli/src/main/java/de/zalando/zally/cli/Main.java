@@ -12,7 +12,8 @@ import java.io.IOException;
         "\tzally /path/to/swagger.yml",
         "\tzally https://example.com/swagger.yml",
         "\tzally /path/to/swagger.yml -t abcd-ef12-3456-7890 -l http://zally.example.com/",
-})
+        }
+)
 public class Main {
 
     private static final String DEFAULT_ZALLY_URL = "http://localhost:8080/api-violations";
@@ -29,8 +30,8 @@ public class Main {
         parser = new OptionParser(Main.class);
         try {
             parser.parse(args);
-        } catch (IllegalArgumentException e) {
-            System.err.println(e.getMessage());
+        } catch (IllegalArgumentException exception) {
+            System.err.println(exception.getMessage());
             System.exit(1);
         }
     }
@@ -39,8 +40,8 @@ public class Main {
         try {
             int exitCode = lint(args) ? 0 : 1;
             System.exit(exitCode);
-        } catch (RuntimeException e) {
-            System.err.println(e.getMessage());
+        } catch (RuntimeException exception) {
+            System.err.println(exception.getMessage());
             System.exit(1);
         }
     }
@@ -59,8 +60,8 @@ public class Main {
         Linter linter = new Linter(client, printer);
         try {
             return linter.lint(specsReader);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
         }
     }
 

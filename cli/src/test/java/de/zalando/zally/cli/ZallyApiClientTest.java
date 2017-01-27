@@ -1,18 +1,22 @@
 package de.zalando.zally.cli;
 
+import static net.jadler.Jadler.closeJadler;
+import static net.jadler.Jadler.initJadler;
+import static net.jadler.Jadler.onRequest;
+import static net.jadler.Jadler.port;
+import static org.junit.Assert.assertEquals;
+
 import com.eclipsesource.json.JsonObject;
 import com.eclipsesource.json.ParseException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static net.jadler.Jadler.*;
-import static org.junit.Assert.*;
 
 
 public class ZallyApiClientTest {
-    final String TOKEN = "1956eeee-ffff-eeee-ffff-abcdeff767325";
-    final String REQUEST_BODY = "{\"hello\":\"world\"}";
+    final String token = "1956eeee-ffff-eeee-ffff-abcdeff767325";
+    final String requestBody = "{\"hello\":\"world\"}";
 
     @Before
     public void setUp() {
@@ -31,15 +35,15 @@ public class ZallyApiClientTest {
         onRequest()
                 .havingMethodEqualTo("POST")
                 .havingPathEqualTo("/")
-                .havingHeaderEqualTo("Authorization", "Bearer " + TOKEN)
+                .havingHeaderEqualTo("Authorization", "Bearer " + token)
                 .havingHeaderEqualTo("Content-Type", "application/json")
-                .havingBodyEqualTo(REQUEST_BODY)
+                .havingBodyEqualTo(requestBody)
         .respond()
                 .withStatus(200)
                 .withBody(responseBody);
 
-        ZallyApiClient client = new ZallyApiClient("http://localhost:" + port() + "/", TOKEN);
-        JsonObject result = client.validate(REQUEST_BODY).asObject();
+        ZallyApiClient client = new ZallyApiClient("http://localhost:" + port() + "/", token);
+        JsonObject result = client.validate(requestBody).asObject();
 
         assertEquals("ok", result.get("response").asString());
     }
@@ -49,14 +53,14 @@ public class ZallyApiClientTest {
         onRequest()
                 .havingMethodEqualTo("POST")
                 .havingPathEqualTo("/")
-                .havingHeaderEqualTo("Authorization", "Bearer " + TOKEN)
+                .havingHeaderEqualTo("Authorization", "Bearer " + token)
                 .havingHeaderEqualTo("Content-Type", "application/json")
-                .havingBodyEqualTo(REQUEST_BODY)
+                .havingBodyEqualTo(requestBody)
         .respond()
                 .withStatus(200)
                 .withBody("");
 
-        ZallyApiClient client = new ZallyApiClient("http://localhost:" + port() + "/", TOKEN);
-        client.validate(REQUEST_BODY).asObject();
+        ZallyApiClient client = new ZallyApiClient("http://localhost:" + port() + "/", token);
+        client.validate(requestBody).asObject();
     }
 }

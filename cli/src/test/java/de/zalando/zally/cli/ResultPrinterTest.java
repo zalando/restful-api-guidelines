@@ -1,16 +1,15 @@
 package de.zalando.zally.cli;
 
+import static org.junit.Assert.assertEquals;
+
 import com.eclipsesource.json.Json;
 import com.eclipsesource.json.JsonObject;
-import org.junit.Test;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.Assert.*;
+import org.junit.Test;
 
 
 public class ResultPrinterTest {
@@ -28,9 +27,6 @@ public class ResultPrinterTest {
 
     @Test
     public void testWithViolationsCase() throws IOException {
-        ResultPrinter violationPrinter = new ResultPrinter(outStream);
-        List<JsonObject> violations = new ArrayList<>();
-
         JsonObject violationOne = new JsonObject();
         violationOne.add("title", "Violation 1");
         violationOne.add("description", "Violation 1 Description");
@@ -43,17 +39,20 @@ public class ResultPrinterTest {
         violationTwo.add("path", Json.NULL);
         violationTwo.add("rule_link", Json.NULL);
 
+        List<JsonObject> violations = new ArrayList<>();
         violations.add(violationOne);
         violations.add(violationTwo);
+
+        ResultPrinter violationPrinter = new ResultPrinter(outStream);
         violationPrinter.printViolations(violations, "must");
 
-        String expectedResult =  violationPrinter.ANSI_RED + "\nFound the following MUST violations\n" +
-                "===================================\n\n" + violationPrinter.ANSI_RESET +
-                violationPrinter.ANSI_RED + "Violation 1\n" + violationPrinter.ANSI_RESET +
-                "\t(path: Violation 1 Path)\n" +
-                "\tViolation 1 Description\n\n" +
-                violationPrinter.ANSI_RED + "Violation 2\n" + violationPrinter.ANSI_RESET +
-                "\tViolation 2 Description\n\n";
+        String expectedResult =  violationPrinter.ANSI_RED + "\nFound the following MUST violations\n"
+                + "===================================\n\n" + violationPrinter.ANSI_RESET
+                + violationPrinter.ANSI_RED + "Violation 1\n" + violationPrinter.ANSI_RESET
+                + "\t(path: Violation 1 Path)\n"
+                + "\tViolation 1 Description\n\n"
+                + violationPrinter.ANSI_RED + "Violation 2\n" + violationPrinter.ANSI_RESET
+                + "\tViolation 2 Description\n\n";
 
         assertEquals(expectedResult, outContent.toString());
     }
@@ -76,10 +75,10 @@ public class ResultPrinterTest {
         outContent.reset();
 
         resultPrinter.printSummary();
-        String expectedResult = resultPrinter.ANSI_WHITE + "\nSummary:\n" +
-                "========\n\n" + resultPrinter.ANSI_RESET +
-                "MUST violations: 1\n" +
-                "SHOULD violations: 1\n";
+        String expectedResult = resultPrinter.ANSI_WHITE + "\nSummary:\n"
+                + "========\n\n" + resultPrinter.ANSI_RESET
+                + "MUST violations: 1\n"
+                + "SHOULD violations: 1\n";
         assertEquals(expectedResult, outContent.toString());
     }
 
@@ -115,12 +114,12 @@ public class ResultPrinterTest {
         violation.add("path", "/products/{product_id}/");
 
         String testColor = ResultPrinter.ANSI_RED;
-        String expectedResult = testColor + "Test title\n" + ResultPrinter.ANSI_RESET +
-                "\t(path: /products/{product_id}/)\n" +
-                "\tTest description\n" +
-                "\t" + ResultPrinter.ANSI_CYAN +
-                "https://zalando.github.io/restful-api-guidelines/security/Security.html#must-secure-endpoints-with-oauth-20" +
-                "\n" + ResultPrinter.ANSI_RESET;
+        String expectedResult = testColor + "Test title\n" + ResultPrinter.ANSI_RESET
+                + "\t(path: /products/{product_id}/)\n"
+                + "\tTest description\n"
+                + "\t" + ResultPrinter.ANSI_CYAN
+                + "https://zalando.github.io/restful-api-guidelines/security/Security.html#must-secure-endpoints-with-oauth-20"
+                + "\n" + ResultPrinter.ANSI_RESET;
 
         String result = ResultPrinter.formatViolation(testColor, violation);
         assertEquals(expectedResult, result);

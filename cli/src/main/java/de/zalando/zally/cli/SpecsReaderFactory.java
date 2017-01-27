@@ -2,8 +2,13 @@ package de.zalando.zally.cli;
 
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 
-import java.io.*;
 
 public class SpecsReaderFactory {
     public SpecsReader create(String path) throws RuntimeException {
@@ -30,8 +35,8 @@ public class SpecsReaderFactory {
     private Reader getFileReader(String path) throws RuntimeException {
         try {
             return new FileReader(path);
-        } catch (FileNotFoundException e) {
-            String message = "File " + path+ " is not found";
+        } catch (FileNotFoundException exception) {
+            String message = "File " + path + " is not found";
             throw new RuntimeException(message);
         }
     }
@@ -40,7 +45,7 @@ public class SpecsReaderFactory {
         InputStream body;
         try {
             body = Unirest.get(url).asBinary().getBody();
-        } catch (UnirestException e) {
+        } catch (UnirestException exception) {
             String message = "URL " + url + " cannot be fetched";
             throw new RuntimeException(message);
         }
