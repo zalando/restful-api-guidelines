@@ -50,7 +50,7 @@ public class Main {
         if (args.length < 1) {
             System.err.println("Please provide a swagger file path or URL\n");
             parser.showHelp();
-            throw new RuntimeException("");
+            throw new CliException(CliExceptionType.CLI, null, null);
         }
 
         final ZallyApiClient client = new ZallyApiClient(getZallyUrl(), getToken());
@@ -61,7 +61,7 @@ public class Main {
         try {
             return linter.lint(specsReader);
         } catch (IOException exception) {
-            throw new RuntimeException(exception);
+            throw new CliException(CliExceptionType.CLI, "Linter error:", exception.getMessage());
         }
     }
 

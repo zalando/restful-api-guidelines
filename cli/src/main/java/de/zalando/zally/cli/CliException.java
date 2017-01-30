@@ -32,7 +32,7 @@ public class CliException extends RuntimeException {
         switch (type) {
             case API:
                 return "API: ";
-            case PARAMETERS:
+            case CLI:
                 return "Command-line Parameters: ";
             default:
                 return "";

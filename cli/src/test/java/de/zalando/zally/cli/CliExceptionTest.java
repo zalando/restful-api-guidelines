@@ -10,7 +10,7 @@ public class CliExceptionTest {
         CliException exception = new CliException(CliExceptionType.API, "Test title", "Test message");
         assertEquals(exception.getMessage(), "API: Test title\n\nTest message");
 
-        exception = new CliException(CliExceptionType.PARAMETERS, "Test title", "Test message");
+        exception = new CliException(CliExceptionType.CLI, "Test title", "Test message");
         assertEquals(exception.getMessage(), "Command-line Parameters: Test title\n\nTest message");
     }
 
