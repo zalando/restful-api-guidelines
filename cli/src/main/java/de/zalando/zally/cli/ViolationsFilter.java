@@ -16,28 +16,29 @@ public class ViolationsFilter {
         this.violations = violations;
     }
 
-    public List<JsonObject> getMustViolations() {
+    public List<JsonObject> getMustViolations() throws CliException {
         return getViolationsByType("MUST");
     }
 
-    public List<JsonObject> getShouldViolations() {
+    public List<JsonObject> getShouldViolations() throws CliException {
         return getViolationsByType("SHOULD");
     }
 
-    public List<JsonObject> getCouldViolations() {
+    public List<JsonObject> getCouldViolations() throws CliException {
         return getViolationsByType("COULD");
     }
 
-    private List<JsonObject> getViolationsByType(String violationType) {
+    private List<JsonObject> getViolationsByType(String violationType) throws CliException {
         return getViolationStream()
                 .map(v -> v.asObject())
                 .filter(v -> v.getString("violation_type", "").equalsIgnoreCase(violationType))
                 .collect(Collectors.toList());
     }
 
-    private Stream<JsonValue> getViolationStream() throws RuntimeException {
+    private Stream<JsonValue> getViolationStream() throws CliException {
         if (violations == null || violations.get(VIOLATIONS) == null || !violations.get(VIOLATIONS).isArray()) {
-            throw new RuntimeException("Response JSON is malformed:" + violations.asString());
+            String violationsString = violations == null ? null : violations.toString();
+            throw new CliException(CliExceptionType.CLI, "Response JSON is malformed", violationsString);
         }
         return violations.get("violations").asArray().values().stream();
     }
