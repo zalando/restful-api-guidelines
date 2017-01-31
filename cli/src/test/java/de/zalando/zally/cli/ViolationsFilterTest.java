@@ -53,28 +53,28 @@ public class ViolationsFilterTest {
 
     @Test
     public void getMustViolationRaisesCliExceptionWhenViolationsAreNull() {
-        assertRaisesCliException("Command-line Parameters: Response JSON is malformed");
+        assertRaisesCliException("API: Response JSON is malformed");
         ViolationsFilter violationsFilter = new ViolationsFilter(null);
         violationsFilter.getMustViolations();
     }
 
     @Test
     public void getShouldViolationRaisesCliExceptionWhenViolationsAreNull() {
-        assertRaisesCliException("Command-line Parameters: Response JSON is malformed");
+        assertRaisesCliException("API: Response JSON is malformed");
         ViolationsFilter violationsFilter = new ViolationsFilter(null);
         violationsFilter.getShouldViolations();
     }
 
     @Test
     public void getCouldViolationRaisesCliExceptionWhenViolationsAreNull() {
-        assertRaisesCliException("Command-line Parameters: Response JSON is malformed");
+        assertRaisesCliException("API: Response JSON is malformed");
         ViolationsFilter violationsFilter = new ViolationsFilter(null);
         violationsFilter.getCouldViolations();
     }
 
     @Test
     public void getMustViolationRaisesCliExceptionWhenViolationsAreMalformed() {
-        assertRaisesCliException("Command-line Parameters: Response JSON is malformed\n\n{\"hello\":\"world\"}");
+        assertRaisesCliException("API: Response JSON is malformed\n\n{\"hello\":\"world\"}");
         JsonObject malformedObject = new JsonObject().add("hello", "world");
         ViolationsFilter violationsFilter = new ViolationsFilter(malformedObject);
         violationsFilter.getMustViolations();
@@ -82,7 +82,7 @@ public class ViolationsFilterTest {
 
     @Test
     public void getShouldViolationRaisesCliExceptionWhenViolationsAreMalformed() {
-        assertRaisesCliException("Command-line Parameters: Response JSON is malformed\n\n{\"hello\":\"world\"}");
+        assertRaisesCliException("API: Response JSON is malformed\n\n{\"hello\":\"world\"}");
         JsonObject malformedObject = new JsonObject().add("hello", "world");
         ViolationsFilter violationsFilter = new ViolationsFilter(malformedObject);
         violationsFilter.getShouldViolations();
@@ -90,7 +90,7 @@ public class ViolationsFilterTest {
 
     @Test
     public void getCouldViolationRaisesCliExceptionWhenViolationsAreMalformed() {
-        assertRaisesCliException("Command-line Parameters: Response JSON is malformed\n\n{\"hello\":\"world\"}");
+        assertRaisesCliException("API: Response JSON is malformed\n\n{\"hello\":\"world\"}");
         JsonObject malformedObject = new JsonObject().add("hello", "world");
         ViolationsFilter violationsFilter = new ViolationsFilter(malformedObject);
         violationsFilter.getCouldViolations();

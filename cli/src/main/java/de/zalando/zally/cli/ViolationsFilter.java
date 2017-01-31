@@ -38,7 +38,7 @@ public class ViolationsFilter {
     private Stream<JsonValue> getViolationStream() throws CliException {
         if (violations == null || violations.get(VIOLATIONS) == null || !violations.get(VIOLATIONS).isArray()) {
             String violationsString = violations == null ? null : violations.toString();
-            throw new CliException(CliExceptionType.CLI, "Response JSON is malformed", violationsString);
+            throw new CliException(CliExceptionType.API, "Response JSON is malformed", violationsString);
         }
         return violations.get("violations").asArray().values().stream();
     }
