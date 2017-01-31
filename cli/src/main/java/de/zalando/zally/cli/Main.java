@@ -50,7 +50,7 @@ public class Main {
         if (args.length < 1) {
             System.err.println("Please provide a swagger file path or URL\n");
             parser.showHelp();
-            throw new CliException(CliExceptionType.CLI, null, null);
+            throw new CliException();
         }
 
         final ZallyApiClient client = new ZallyApiClient(getZallyUrl(), getToken());
