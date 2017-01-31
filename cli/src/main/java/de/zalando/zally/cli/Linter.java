@@ -16,7 +16,7 @@ public class Linter {
         this.printer = printer;
     }
 
-    public boolean lint(SpecsReader reader) throws IOException {
+    public boolean lint(SpecsReader reader) throws IOException, CliException {
         final RequestDecorator decorator = new RequestDecorator(reader);
         final JsonValue response = client.validate(decorator.getRequestBody());
         final ViolationsFilter violationsFilter = new ViolationsFilter(response.asObject());
