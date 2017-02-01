@@ -11,11 +11,11 @@ they can be used in both, HTTP requests and responses. Commonly used content hea
  - [`Content-Encoding`](https://tools.ietf.org/html/rfc7231#section-3.1.2.2) indicates compression or encryption algorithms applied to the content.
  - [`Content-Length`](https://tools.ietf.org/html/rfc7230#section-3.3.2) indicates the length of the content (in bytes).
  - [`Content-Language`](https://tools.ietf.org/html/rfc7231#section-3.1.3.2) indicates that the body is meant for people literate in some human language(s).
- - [`Content-Location`](https://tools.ietf.org/html/rfc7231#section-3.1.4.2) indicates where the body can be found otherwise ([see below for more details](#must-use-contentlocation-header-correctly)).
+ - [`Content-Location`](https://tools.ietf.org/html/rfc7231#section-3.1.4.2) indicates where the body can be found otherwise ([see below for more details](#could-use-contentlocation-header)).
  - [`Content-Range`](https://tools.ietf.org/html/rfc7233#section-4.2) is used in responses to range requests to indicate which part of the requested resource representation is delivered with the body.
  - [`Content-Type`](https://tools.ietf.org/html/rfc7231#section-3.1.1.5) indicates the media type of the body content.
 
-## {{ book.must }} Use Content-Location Header Correctly
+## {{ book.could }} Use Content-Location Header
 
 The Content-Location header is *optional* and can be used in successful write operations (PUT, POST or PATCH) or read operations (GET, HEAD) to guide caching and signal a receiver the actual location of the resource transmitted in the response body. This allows clients to identify the resource and to update their local copy when receiving a response with this header.
 
@@ -24,8 +24,6 @@ The Content-Location header can be used to support the following use cases:
 - For reading operations GET and HEAD, a different location than the requested URI can be used to indicate that the returned resource is subject to content negotiations, and that the value provides a more specific identifier of the resource.
 - For writing operations PUT and PATCH, an identical location to the requested URI, can be used to explicitly indicate that the returned resource is the current representation of the newly created or updated resource.
 - For writing operations POST and DELETE, a content location can be used to indicate that the body contains a status report resource in response to the requested action, which is available at provided location.
-
-The standard application of the last use case is the creation of resource via POST, where the Content-Location is used to provide the location and identity of the created resource.
 
 **Note**: When using the Content-Location header, the Content-Type header has to be set as well. For example:
 
@@ -37,9 +35,9 @@ Content-Type: image/png
 Content-Location: /products/123/images?format=raw
 ```
 
-## {{ book.must }} Use Location Header instead of Content-Location Header
+## {{ book.should }} Use Location Header instead of Content-Location Header
 
-As the correct usage of Content-Location with respect to semantics and caching is difficult, we strongly *discourage* the use of Content-Location. In most cases it is sufficient to direct clients to the resource location by using the Location header instead without hitting the Content-Location specific ambiguities and complexities.
+As the correct usage of Content-Location with respect to semantics and caching is difficult, we *discourage* the use of Content-Location. In most cases it is sufficient to direct clients to the resource location by using the Location header instead without hitting the Content-Location specific ambiguities and complexities.
 
 More details in RFC 7231 [7.1.2 Location](https://tools.ietf.org/html/rfc7231#section-7.1.2), [3.1.4.2 Content-Location](https://tools.ietf.org/html/rfc7231#section-3.1.4.2)
 
