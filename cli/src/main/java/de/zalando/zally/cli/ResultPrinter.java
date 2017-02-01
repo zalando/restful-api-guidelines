@@ -35,9 +35,9 @@ public class ResultPrinter {
     public void printViolations(List<JsonObject> violations, String violationType) throws IOException {
         if (!violations.isEmpty()) {
 
-            violationType = violationType.toUpperCase();
-            String header = String.format("Found the following %s violations", violationType);
-            String headerColor = getHeaderColor(violationType);
+            String normalizedViolationType = violationType.toUpperCase();
+            String header = String.format("Found the following %s violations", normalizedViolationType);
+            String headerColor = getHeaderColor(normalizedViolationType);
 
             printHeader(headerColor, header);
 

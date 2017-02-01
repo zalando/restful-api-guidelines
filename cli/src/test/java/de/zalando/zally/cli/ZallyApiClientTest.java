@@ -15,8 +15,8 @@ import org.junit.Test;
 
 
 public class ZallyApiClientTest {
-    final String token = "1956eeee-ffff-eeee-ffff-abcdeff767325";
-    final String requestBody = "{\"hello\":\"world\"}";
+    private final String token = "1956eeee-ffff-eeee-ffff-abcdeff767325";
+    private final String requestBody = "{\"hello\":\"world\"}";
 
     @Before
     public void setUp() {

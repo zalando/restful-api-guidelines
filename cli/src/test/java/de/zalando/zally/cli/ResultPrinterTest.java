@@ -77,8 +77,8 @@ public class ResultPrinterTest {
         resultPrinter.printSummary();
         String expectedResult = resultPrinter.ANSI_WHITE + "\nSummary:\n"
                 + "========\n\n" + resultPrinter.ANSI_RESET
-                + "MUST violations: 1\n"
-                + "SHOULD violations: 1\n";
+                + "SHOULD violations: 1\n"
+                + "MUST violations: 1\n";
         assertEquals(expectedResult, outContent.toString());
     }
 

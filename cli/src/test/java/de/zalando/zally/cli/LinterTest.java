@@ -7,9 +7,11 @@ import static org.mockito.ArgumentMatchers.eq;
 import com.eclipsesource.json.JsonArray;
 import com.eclipsesource.json.JsonObject;
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -51,17 +53,8 @@ public class LinterTest {
         JsonArray violations = new JsonArray();
         testResult.add("violations", violations);
 
-        Mockito.when(client.validate(anyString())).thenReturn(testResult);
-
-        linter = new Linter(client, resultPrinter);
-        Boolean result = linter.lint(getJsonReader());
-
+        Boolean result = makeLinterCall(testResult);
         assertEquals(true, result);
-
-        Mockito.verify(resultPrinter).printSummary();
-        Mockito.verify(resultPrinter, Mockito.times(1)).printViolations(mustListCaptor.capture(), eq("must"));
-        Mockito.verify(resultPrinter, Mockito.times(1)).printViolations(shouldListCaptor.capture(), eq("should"));
-        Mockito.verify(resultPrinter, Mockito.times(1)).printViolations(couldListCaptor.capture(), eq("could"));
 
         assertEquals(0, mustListCaptor.getAllValues().get(0).size());
         assertEquals(0, shouldListCaptor.getAllValues().get(0).size());
@@ -76,17 +69,9 @@ public class LinterTest {
         violations.add(getViolation("could", "could"));
         testResult.add("violations", violations);
 
-        Mockito.when(client.validate(anyString())).thenReturn(testResult);
 
-        linter = new Linter(client, resultPrinter);
-        Boolean result = linter.lint(getJsonReader());
-
+        Boolean result = makeLinterCall(testResult);
         assertEquals(true, result);
-
-        Mockito.verify(resultPrinter).printSummary();
-        Mockito.verify(resultPrinter, Mockito.times(1)).printViolations(mustListCaptor.capture(), eq("must"));
-        Mockito.verify(resultPrinter, Mockito.times(1)).printViolations(shouldListCaptor.capture(), eq("should"));
-        Mockito.verify(resultPrinter, Mockito.times(1)).printViolations(couldListCaptor.capture(), eq("could"));
 
         List<JsonObject> shouldList = shouldListCaptor.getAllValues().get(0);
         List<JsonObject> couldList = couldListCaptor.getAllValues().get(0);
@@ -105,17 +90,8 @@ public class LinterTest {
         violations.add(getViolation("must", "must"));
         testResult.add("violations", violations);
 
-        Mockito.when(client.validate(anyString())).thenReturn(testResult);
-
-        linter = new Linter(client, resultPrinter);
-        Boolean result = linter.lint(getJsonReader());
-
+        Boolean result = makeLinterCall(testResult);
         assertEquals(false, result);
-
-        Mockito.verify(resultPrinter).printSummary();
-        Mockito.verify(resultPrinter, Mockito.times(1)).printViolations(mustListCaptor.capture(), eq("must"));
-        Mockito.verify(resultPrinter, Mockito.times(1)).printViolations(shouldListCaptor.capture(), eq("should"));
-        Mockito.verify(resultPrinter, Mockito.times(1)).printViolations(couldListCaptor.capture(), eq("could"));
 
         List<JsonObject> mustList = mustListCaptor.getAllValues().get(0);
 
@@ -137,5 +113,19 @@ public class LinterTest {
         violation.add("description", "Test Description: " + title);
         violation.add("violation_type", type);
         return violation;
+    }
+
+    private Boolean makeLinterCall(JsonObject testResult) throws IOException {
+        Mockito.when(client.validate(anyString())).thenReturn(testResult);
+
+        linter = new Linter(client, resultPrinter);
+        final Boolean result = linter.lint(getJsonReader());
+
+        Mockito.verify(resultPrinter).printSummary();
+        Mockito.verify(resultPrinter, Mockito.times(1)).printViolations(mustListCaptor.capture(), eq("must"));
+        Mockito.verify(resultPrinter, Mockito.times(1)).printViolations(shouldListCaptor.capture(), eq("should"));
+        Mockito.verify(resultPrinter, Mockito.times(1)).printViolations(couldListCaptor.capture(), eq("could"));
+
+        return result;
     }
 }

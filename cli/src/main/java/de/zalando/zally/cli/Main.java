@@ -36,7 +36,7 @@ public class Main {
         }
     }
 
-    void run(String[] args) {
+    private void run(String[] args) {
         try {
             int exitCode = lint(args) ? 0 : 1;
             System.exit(exitCode);
