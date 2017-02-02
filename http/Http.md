@@ -160,6 +160,7 @@ different HTTP methods on resources.
 | 201  | Created - Returned on successful entity creation. You are free to return either an empty response or the created resource in conjunction with the Content-Location header. (More details found in the [Common Headers section](../headers/CommonHeaders.md).) *Always* set the Location header. | POST, PUT |
 | 202  | Accepted - The request was successful and will be processed asynchronously. | POST, PUT, DELETE, PATCH |
 | 204  | No content - There is no response body | PUT, DELETE |
+| 207  | Multi-Status - The response body contains multiple status informations for different parts of a batch/bulk request. See ["Use 207 for Batch or Bulk Requests"](#use-207-for-batch-or-bulk-requests). | POST |
 
 ### Redirection Codes
 
@@ -222,6 +223,18 @@ Service providers should differentiate between technical and functional errors. 
 Even though they might not be documented - they may very much occur in production, so clients should be prepared for unexpected response codes, and in case of doubt handle them like they would handle the corresponding x00 code. Adding new response codes (specially error responses) should be considered a compatible API evolution.
 
 Functional errors on the other hand, that convey domain-specific semantics, must be documented and are strongly encouraged to be expressed with [*Problem types*](../common-data-objects/CommonDataObjects.md#must-use-common-error-return-objects).
+
+## {{ book.must }} Use 207 for Batch or Bulk Requests
+
+Some APIs are required to provide either *batch* or *bulk* requests using POST for performance reasons, i.e. for communication and processing efficiency. In this case services may be in need to signal multiple response codes for each part of an batch or bulk request. As HTTP does not provides proper guidance for handling batch an bulk requests and responses, we herewith define the following approach:
+
+- A batch or bulk request **always** has to respond with HTTP status code **207**, unless it encounters a generic or unexpected failure before looking at individual parts.
+- A batch or bulk response with status code 207 **always** returns a multi-status object containing sufficient status and/or monitoring information for each part of the batch or bulk request.
+- A batch or bulk request may result in a status code 400/500, only iff the service encounters a failure before looking at individual parts or iff an unanticipated failure occurs.
+
+The before rules apply *even in the case* that processing of all individual part *fail* or each part is executed *asynchronously*! They are intended to allow clients to act on batch and bulk responses by inspecting the individual results in a consistent way.
+
+**Note**: while a *batch* defines a collection of requests triggering independent processes, a *bulk* defines a collection of independent resources created or updated together in one request. With respect to response processing this distinction normally does not matter.
 
 ## {{ book.must }} Use 429 with Headers for Rate Limits
 
