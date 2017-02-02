@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +28,7 @@ public class ResultPrinter {
 
     private final Writer writer;
     private final Map<String, Integer> counters = new HashMap<>();
+    private final List<String> counterNames = Arrays.asList("must", "should", "could");
 
     public ResultPrinter(OutputStream outputStream) {
         writer = new OutputStreamWriter(outputStream);
@@ -52,8 +54,8 @@ public class ResultPrinter {
 
     public void printSummary() throws IOException {
         printHeader(ANSI_WHITE, "Summary:");
-        for (Map.Entry<String, Integer> entry : counters.entrySet()) {
-            writer.write(entry.getKey().toUpperCase() + " violations: " + entry.getValue().toString() + "\n");
+        for (String name : counterNames) {
+            writer.write(name.toUpperCase() + " violations: " + counters.getOrDefault(name, 0).toString() + "\n");
         }
         writer.flush();
     }
