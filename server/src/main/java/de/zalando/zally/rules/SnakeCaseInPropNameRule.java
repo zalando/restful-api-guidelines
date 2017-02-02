@@ -14,9 +14,9 @@ import java.util.Map;
 @Component
 public class SnakeCaseInPropNameRule implements Rule {
 
-    String title = "snake_case property names";
-    String description = "Property names must be snake_case (and never camelCase)";
-    String ruleLink = "http://zalando.github.io/restful-api-guidelines/json-guidelines/JsonGuidelines.html" +
+    private final String title = "snake_case property names";
+    private final String description = "Property names must be snake_case (and never camelCase)";
+    private final String ruleLink = "http://zalando.github.io/restful-api-guidelines/json-guidelines/JsonGuidelines.html" +
             "#must-property-names-must-be-snakecase-and-never-camelcase";
 
     public List<Violation> validate(Swagger swagger) {

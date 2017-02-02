@@ -12,13 +12,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class SnakeCaseInPropNameRuleTest {
 
-    SnakeCaseInPropNameRule rule = new SnakeCaseInPropNameRule();
+    private final SnakeCaseInPropNameRule rule = new SnakeCaseInPropNameRule();
 
-    private Swagger testSwagger = new Swagger();
-    private ModelImpl testDefinition1 = new ModelImpl();
-    private ModelImpl testDefinition2 = new ModelImpl();
-    private StringProperty testPorperty1 = new StringProperty();
-    private StringProperty testPorperty2 = new StringProperty();
+    private final Swagger testSwagger = new Swagger();
+    private final ModelImpl testDefinition1 = new ModelImpl();
+    private final ModelImpl testDefinition2 = new ModelImpl();
+    private final StringProperty testPorperty1 = new StringProperty();
+    private final StringProperty testPorperty2 = new StringProperty();
 
     @Test
     public void validateEmptyPath() {
