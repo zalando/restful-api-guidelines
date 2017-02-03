@@ -43,11 +43,13 @@ public class MediaTypesRule implements Rule{
                        mediaTypes.addAll(operation.getConsumes());
                     }
                     for(String mediaType : mediaTypes){
-                        if(!isApplicationJsonOrProblemJson(mediaType)){
-                            if(!isCustomMediaTypeWithVersioning(mediaType)){
-                                violations.add(new Violation(TITLE, DESCRIPTION, ViolationType.SHOULD, RULE_LINK, verb.name() + " " + pathName));
-                            }
-
+                        if (!isApplicationJsonOrProblemJson(mediaType) && !isCustomMediaTypeWithVersioning(mediaType)) {
+                            violations.add(new Violation(
+                                    TITLE,
+                                    DESCRIPTION,
+                                    ViolationType.SHOULD,
+                                    RULE_LINK,
+                                    verb.name() + " " + pathName));
                         }
                     }
                 }
@@ -57,11 +59,11 @@ public class MediaTypesRule implements Rule{
         return violations;
     }
 
-    static boolean isApplicationJsonOrProblemJson(String mediaType) {
+    public static boolean isApplicationJsonOrProblemJson(String mediaType) {
         return mediaType.matches(PATTERN_APPLICATION_PROBLEM_JSON);
     }
 
-    static boolean isCustomMediaTypeWithVersioning(String mediaType) {
+    public static boolean isCustomMediaTypeWithVersioning(String mediaType) {
         return mediaType.matches(PATTERN_CUSTOM_WITH_VERSIONING);
     }
 }

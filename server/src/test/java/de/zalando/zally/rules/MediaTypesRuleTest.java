@@ -18,11 +18,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class MediaTypesRuleTest {
 
-    MediaTypesRule rule = new MediaTypesRule();
-    Swagger testSwagger = new Swagger();
-    Path testPath = new Path();
-    Operation testOperation = new Operation();
-    String testPathName = "/shipment-order/{shipment_order_id}";
+    private final MediaTypesRule rule = new MediaTypesRule();
+    private final Swagger testSwagger = new Swagger();
+    private final Path testPath = new Path();
+    private final Operation testOperation = new Operation();
+    private final String testPathName = "/shipment-order/{shipment_order_id}";
 
 
     @Test
