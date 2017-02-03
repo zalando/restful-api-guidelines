@@ -40,13 +40,13 @@ public class Main {
         try {
             int exitCode = lint(args) ? 0 : 1;
             System.exit(exitCode);
-        } catch (RuntimeException exception) {
+        } catch (CliException exception) {
             System.err.println(exception.getMessage());
             System.exit(1);
         }
     }
 
-    private boolean lint(String[] args) throws RuntimeException {
+    private boolean lint(String[] args) throws CliException {
         if (args.length < 1) {
             System.err.println("Please provide a swagger file path or URL\n");
             parser.showHelp();
