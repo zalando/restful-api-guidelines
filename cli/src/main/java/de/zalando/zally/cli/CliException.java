@@ -8,6 +8,11 @@ public class CliException extends RuntimeException {
     public CliException() {
     }
 
+    public CliException(CliExceptionType type, String title) {
+        this.type = type;
+        this.title = title;
+    }
+
     public CliException(CliExceptionType type, String title, String details) {
         this.type = type;
         this.title = title;

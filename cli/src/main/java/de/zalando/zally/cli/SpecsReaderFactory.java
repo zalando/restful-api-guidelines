@@ -11,7 +11,7 @@ import java.io.Reader;
 
 
 public class SpecsReaderFactory {
-    public SpecsReader create(String path) throws RuntimeException {
+    public SpecsReader create(String path) throws CliException {
         SpecsReader specsReader;
         Reader reader;
 
@@ -32,22 +32,22 @@ public class SpecsReaderFactory {
         return specsReader;
     }
 
-    private Reader getFileReader(String path) throws RuntimeException {
+    private Reader getFileReader(String path) throws CliException {
         try {
             return new FileReader(path);
         } catch (FileNotFoundException exception) {
             String message = "File " + path + " is not found";
-            throw new RuntimeException(message);
+            throw new CliException(CliExceptionType.CLI, message);
         }
     }
 
-    private Reader getHttpReader(String url) throws RuntimeException {
+    private Reader getHttpReader(String url) throws CliException {
         InputStream body;
         try {
             body = Unirest.get(url).asBinary().getBody();
         } catch (UnirestException exception) {
             String message = "URL " + url + " cannot be fetched";
-            throw new RuntimeException(message);
+            throw new CliException(CliExceptionType.CLI, message);
         }
 
         return new BufferedReader(new InputStreamReader(body));
