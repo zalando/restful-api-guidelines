@@ -2,7 +2,6 @@ package de.zalando.zally.rules;
 
 import de.zalando.zally.Violation;
 import de.zalando.zally.ViolationType;
-import de.zalando.zally.utils.PatternUtil;
 import io.swagger.models.Swagger;
 import io.swagger.models.parameters.HeaderParameter;
 import io.swagger.models.parameters.Parameter;
@@ -13,10 +12,10 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import static de.zalando.zally.rules.HyphenateHttpHeadersRule.*;
-import static junit.framework.TestCase.assertFalse;
+import static de.zalando.zally.rules.HyphenateHttpHeadersRule.RULE_NAME;
+import static de.zalando.zally.rules.HyphenateHttpHeadersRule.RULE_URL;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertTrue;
+
 
 public class HyphenateHttpHeadersRuleTest {
     @Test
