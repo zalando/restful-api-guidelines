@@ -5,6 +5,7 @@ import static net.jadler.Jadler.initJadler;
 import static net.jadler.Jadler.onRequest;
 import static net.jadler.Jadler.port;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import com.eclipsesource.json.JsonObject;
 import com.eclipsesource.json.ParseException;
@@ -20,6 +21,9 @@ public class ZallyApiClientTest {
     private final String token = "1956eeee-ffff-eeee-ffff-abcdeff767325";
     private final String requestBody = "{\"hello\":\"world\"}";
 
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
+
     @Before
     public void setUp() {
         initJadler();
@@ -29,9 +33,6 @@ public class ZallyApiClientTest {
     public void tearDown() {
         closeJadler();
     }
-
-    @Rule
-    public ExpectedException expectedException = ExpectedException.none();
 
     @Test
     public void validateReturnsOutputFromZallyServer() throws Exception {
@@ -53,6 +54,7 @@ public class ZallyApiClientTest {
         mockServer(200, "");
 
         ZallyApiClient client = new ZallyApiClient("http://localhost:" + port() + "/", token);
+        assertNotNull(client);
         client.validate(requestBody).asObject();
     }
 
@@ -65,6 +67,7 @@ public class ZallyApiClientTest {
         mockServer(400, "");
 
         ZallyApiClient client = new ZallyApiClient("http://localhost:" + port() + "/", token);
+        assertNotNull(client);
         client.validate(requestBody).asObject();
     }
 
@@ -79,6 +82,7 @@ public class ZallyApiClientTest {
         mockServer(400, "{\"detail\":\"Could not read document: Unexpected end-of-input\"}");
 
         ZallyApiClient client = new ZallyApiClient("http://localhost:" + port() + "/", token);
+        assertNotNull(client);
         client.validate(requestBody).asObject();
     }
 
@@ -88,6 +92,7 @@ public class ZallyApiClientTest {
         expectedException.expectMessage("API: An error occurred while querying Zally server");
 
         ZallyApiClient client = new ZallyApiClient("http://localhost:65534/", token);
+        assertNotNull(client);
         client.validate(requestBody);
     }
 
