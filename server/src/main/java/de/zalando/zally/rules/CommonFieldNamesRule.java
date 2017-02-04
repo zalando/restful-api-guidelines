@@ -21,7 +21,7 @@ public class CommonFieldNamesRule implements Rule {
             "#must-use-common-field-names";
     private final ViolationType violationType = ViolationType.MUST;
 
-    static final Map<String, Property> commonFields = new HashMap<>();
+    public static final Map<String, Property> commonFields = new HashMap<>();
 
     static {
 
@@ -31,7 +31,7 @@ public class CommonFieldNamesRule implements Rule {
         commonFields.put("type", new StringProperty());
     }
 
-    static boolean matchesCommonFieldsType(String propName, Property property) {
+    public static boolean matchesCommonFieldsType(String propName, Property property) {
         if (!commonFields.containsKey(propName)) {
             return true;
         }
@@ -39,7 +39,7 @@ public class CommonFieldNamesRule implements Rule {
         return expectedType == null || expectedType.equals(property.getType());
     }
 
-    static boolean matchesCommonFieldsFormat(String propName, Property property) {
+    public static boolean matchesCommonFieldsFormat(String propName, Property property) {
         if (!commonFields.containsKey(propName)) {
             return true;
         }

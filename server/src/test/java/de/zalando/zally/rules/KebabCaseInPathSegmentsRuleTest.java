@@ -14,13 +14,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class KebabCaseInPathSegmentsRuleTest {
 
-    KebabCaseInPathSegmentsRule RULE = new KebabCaseInPathSegmentsRule();
-    Swagger testSwagger = new Swagger();
-    String testPath1 = "/shipment-order/{shipment_order_id}";
-    String testPath2 = "/partner-order/{partner_order_id}";
-    String testPath3 = "/partner-order/{partner_order_id}/partner-order/{partner_order_id}";
-    String wrongTestPath1 = "/shipment_order/{shipment_order_id}";
-    String wrongTestPath2 = "/partner-order/{partner_order_id}/partner-order1/{partner_order_id}";
+    private final KebabCaseInPathSegmentsRule RULE = new KebabCaseInPathSegmentsRule();
+    private final Swagger testSwagger = new Swagger();
+    private final String testPath1 = "/shipment-order/{shipment_order_id}";
+    private final String testPath2 = "/partner-order/{partner_order_id}";
+    private final String testPath3 = "/partner-order/{partner_order_id}/partner-order/{partner_order_id}";
+    private final String wrongTestPath1 = "/shipment_order/{shipment_order_id}";
+    private final String wrongTestPath2 = "/partner-order/{partner_order_id}/partner-order1/{partner_order_id}";
 
     @Test
     public void validateEmptyPath(){
