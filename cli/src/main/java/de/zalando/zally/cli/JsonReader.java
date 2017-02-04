@@ -14,11 +14,11 @@ public class JsonReader implements SpecsReader {
     }
 
     @Override
-    public JsonValue read() throws RuntimeException {
+    public JsonValue read() throws CliException {
         try {
             return Json.parse(reader);
         } catch (IOException exception) {
-            throw new RuntimeException(exception.getMessage());
+            throw new CliException(CliExceptionType.CLI, "Cannot read JSON file", exception.getMessage());
         }
     }
 }

@@ -46,7 +46,7 @@ public class ZallyApiClient {
         this.token = token;
     }
 
-    public JsonValue validate(String body) throws RuntimeException {
+    public JsonValue validate(String body) throws CliException {
         HttpResponse<String> response;
 
         try {
@@ -57,9 +57,40 @@ public class ZallyApiClient {
                     .body(body)
                     .asString();
         } catch (UnirestException exception) {
-            throw new RuntimeException("API Error: " + exception.getMessage());
+            String details = exception.getCause() == null ? exception.getMessage() : exception.getCause().getMessage();
+            throw new CliException(
+                    CliExceptionType.API,
+                    "An error occurred while querying Zally server",
+                    details
+            );
         }
 
-        return Json.parse(response.getBody());
+        final int responseStatus = response.getStatus();
+        final String responseBody = response.getBody();
+
+        if (responseStatus >= 400 && responseStatus <= 599) {
+            throw new CliException(
+                    CliExceptionType.API,
+                    "An error occurred while querying Zally server",
+                    getErrorReason(responseBody)
+            );
+        }
+
+        return Json.parse(responseBody);
+    }
+
+    public String getErrorReason(String body) {
+        JsonValue errorJson;
+        try {
+            errorJson = Json.parse(body);
+        } catch (Exception exception) {
+            return null;
+        }
+
+        if (!errorJson.asObject().isEmpty()) {
+            return errorJson.asObject().getString("detail", null);
+        }
+
+        return null;
     }
 }
