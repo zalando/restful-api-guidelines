@@ -1,15 +1,10 @@
 package de.zalando.zally.rules;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import io.swagger.models.Swagger;
 import io.swagger.parser.SwaggerParser;
-import org.apache.commons.io.IOUtils;
-import org.junit.*;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URI;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.Test;
 
 /**
  * Unit test for snake case for query params
