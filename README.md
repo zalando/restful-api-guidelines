@@ -38,71 +38,22 @@ Spring Boot. Further details can be found [here](https://github.com/zalando-incu
 - Java 8
 
 
-### Installation
+### Installation and Usage
 
-1. Clone this repository locally
+You can find installation steps in the [Server Readme](server/README.md) and [CLI Readme](cli/README.md).
 
-2. Download dependencies and build `Zally`:
-    ```bash
-    cd server
-    ./gradlew build
-    ```
-
-### Running Zally locally
-
-1. [Optional] Disable OAuth2 authentication for testing purposes (go to server subfolder, first):
-    ```bash
-    echo "spring.profiles.active=dev" > application.properties
-    ```
-
-2. Run Zally server using:
-    ```bash
-    cd server
-    ./gradlew bootRun
-    ```
-
-### Checking Zally API
-
-1. Generate OAuth2 token if needed
-
-2. Wrap your Swagger file inside `api_definition` JSON object and save it as `test.json` file:
-    ```json
-    {
-      "api_definition": {
-            "swagger": "2.0",
-            "info": {
-                "version": "1.0.0",
-                "title": "Swagger Petstore",
-                "description": "A sample API that uses a petstore as an example to demonstrate features in the swagger-2.0 specification",
-                "termsOfService": "http://swagger.io/terms/",
-                "contact": {
-                    "name": "Swagger API Team"
-                },
-                "license": {
-                    "name": "MIT"
-                }
-            }
-        }
-    }
-    ```
-
-3. Run `curl` agains the API:
-    ```bash
-    curl -X POST \
-        -H "Authorization: Bearer OAUTH2_TOKEN" \
-        -H "Content-Type: application/json" \
-        --data "@test.json" \
-        localhost:8080/api-violations
-    ```
-
-### Command-line interface
-
-Check CLI tool documentation in [CLI Readme](cli/README.md)
+If you just wanna try it our: first run the server locally, then just use the cli tool as it is provided.
 
 
-### Integrating Zally with Github
+### Roadmap
 
-- TODO: add github integration instructions
+For version 1.0 we focus on these three main areas:
+
+- improve rule implementations
+- improve CLI user experience
+- improve web UI
+
+Afterwards we focus on Github integration and more sophisticated features
 
 
 ### Contributing
