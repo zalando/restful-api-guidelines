@@ -230,7 +230,7 @@ Some APIs are required to provide either *batch* or *bulk* requests using POST f
 
 - A batch or bulk request **always** has to respond with HTTP status code **207**, unless it encounters a generic or unexpected failure before looking at individual parts.
 - A batch or bulk response with status code 207 **always** returns a multi-status object containing sufficient status and/or monitoring information for each part of the batch or bulk request.
-- A batch or bulk request may result in a status code 400/500, iff the service encounters a failure before looking at individual parts or iff an unanticipated failure occurs.
+- A batch or bulk request may result in a status code 400/500, only if the service encounters a failure before looking at individual parts or, if an unanticipated failure occurs.
 
 The before rules apply *even in the case* that processing of all individual part *fail* or each part is executed *asynchronously*! They are intended to allow clients to act on batch and bulk responses by inspecting the individual results in a consistent way.
 
