@@ -53,7 +53,7 @@ At the moment we cannot state whether it's best practice to publish all the even
 Nakadi defines an event for signalling data changes, called a [DataChangeEvent](https://github.com/zalando/nakadi/blob/nakadi-jvm/api/nakadi-event-bus-api.yaml#/definitions/DataChangeEvent). When publishing events that represents created, updated, or deleted data, change event types must be based on the DataChangeEvent category.
 
 - Change events must identify the changed entity to allow aggregation of all related events for the entity.
-- Change events should [contain a means of ordering](#provide-a-means-of-event-ordering) events for a given entity.
+- Change events should [contain a means of ordering](#should-provide-a-means-of-event-ordering) events for a given entity.
 - Change events must be published reliably by the service.
 
 ## {{ book.should }} Provide a means of event ordering
