@@ -7,7 +7,7 @@ import io.swagger.models.Swagger
 import org.springframework.stereotype.Component
 
 @Component
-class PluralizeNamesForArraysRule : Rule {
+open class PluralizeNamesForArraysRule : Rule {
     val TITLE = "Array names should be pluralized"
     val DESC_PATTERN = "Array property name '%s' is not pluralized (but we are not sure)"
     val RULE_URL = "http://zalando.github.io/restful-api-guidelines/json-guidelines/JsonGuidelines.html" +
