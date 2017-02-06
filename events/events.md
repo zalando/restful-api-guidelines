@@ -144,17 +144,19 @@ The `eid` property is part of the standard metadata for an event and gives the e
 
 Note that uniqueness checking of the `eid` is not enforced by Nakadi at the event type or global levels and it is the responsibility of the producer to ensure event identifiers do in fact distinctly identify events. A straightforward way to create a unique identifier for an event is to generate a UUID value.
 
-## {{ book.should }} Design for commutativity
+## {{ book.should }} Design for idempotent out-of-order processing
 
-Event consumption is commutative, if events can be received in an arbitrary order without changing the processing result. Together with the [idempotency requirement](#must-use-unique-event-identifiers), commutativity allows you to build very resilient systems. If your consumer fails to process a received event, it can continue with the subsequent events and retry the failed event later. The same holds true for the producer: If the producer fails to send an event, it can reschedule it for later out-of-order delivery without corrupting the processing result.
+Events that are designed for [idempotent](#must-use-unique-event-identifiers) out-of-order processing allow for extremely resilient systems: If processing an event fails, consumers and producers can skip/delay/retry it without stopping the world or corrupting the processing result. 
 
-To enable commutative event consumption, the events sent by the producer must be able to be consumed out of order. They must either contain enough information to reorder them if needed during consumption, or your domain must be designed in a way that order becomes irrelevant.
+To enable this freedom of processing, events must explicitly designed for idempotent out-of-order processing. They must either contain enough information to infer the order of them during consumption or your domain must be designed in a way that order becomes irrelevant. 
 
-For data change events, this can be achieved by sending
-- the entity Id
-- a [monotonically increasing ordering key](#must-use-data-change-events-to-signal-mutations) and
-- the state of the resource after the change.
-A receiver that is interested in the current state can then ignore events that are older than the last processed event of each resource. A receiver interested in the history of a resource can merge the late event at the right position of the sequence.
+As common example similar to data change events, idempotent out-of-order processing can be supported by sending the following information:
+
+- the process/resource/entity identifier,
+- a [monotonically increasing ordering key](#should-provide-a-means-of-event-ordering) and
+- the process/resource state after the change.
+
+A receiver that is interested in the current state can then ignore events that are older than the last processed event of each resource. A receiver interested in the history of a resource can merge all events of partially ordered sequence.
 
 ## {{ book.must }} Follow conventions for Event Type names
 
