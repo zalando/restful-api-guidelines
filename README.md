@@ -42,7 +42,7 @@ Spring Boot. Further details can be found [here](https://github.com/zalando-incu
 
 You can find installation steps in the [Server Readme](server/README.md) and [CLI Readme](cli/README.md).
 
-If you just wanna try it our: first run the server locally, then just use the cli tool as it is provided.
+If you just wanna try it out: first run the server locally, then just use the cli tool as it is provided.
 
 
 ### Roadmap
