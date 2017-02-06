@@ -57,7 +57,7 @@ Nakadi defines an event for signalling data changes, called a [DataChangeEvent](
 - Change events must be published reliably by the service.
 
 ## {{ book.should }} Provide a means of event ordering
-Events should contain a means of reordering events for a given entity. This can be done in many ways, two common ways are:
+Events should contain a way to restore the partial ordering of events. This can be done in many ways, two common ways are:
 
 - A strictly monotonically increasing entity version or a message counter.
 
