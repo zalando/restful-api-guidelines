@@ -148,7 +148,7 @@ Note that uniqueness checking of the `eid` is not enforced by Nakadi at the even
 
 Events that are designed for [idempotent](#must-use-unique-event-identifiers) out-of-order processing allow for extremely resilient systems: If processing an event fails, consumers and producers can skip/delay/retry it without stopping the world or corrupting the processing result. 
 
-To enable this freedom of processing, events must explicitly designed for idempotent out-of-order processing. They must either contain enough information to infer the order of them during consumption or your domain must be designed in a way that order becomes irrelevant. 
+To enable this freedom of processing, you must explicitly design for idempotent out-of-order processing: Either your events must contain enough information to infer their original order during consumption or your domain must be designed in a way that order becomes irrelevant.
 
 As common example similar to data change events, idempotent out-of-order processing can be supported by sending the following information:
 
@@ -156,7 +156,7 @@ As common example similar to data change events, idempotent out-of-order process
 - a [monotonically increasing ordering key](#should-provide-a-means-of-event-ordering) and
 - the process/resource state after the change.
 
-A receiver that is interested in the current state can then ignore events that are older than the last processed event of each resource. A receiver interested in the history of a resource can merge all events of partially ordered sequence.
+A receiver that is interested in the current state can then ignore events that are older than the last processed event of each resource. A receiver interested in the history of a resource can use the ordering key to recreate a (partially) ordered sequence of events.
 
 ## {{ book.must }} Follow conventions for Event Type names
 
