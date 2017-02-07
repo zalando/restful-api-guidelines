@@ -2,6 +2,10 @@ configurations {
     ktlint
 }
 
+def versions = [
+  jacoco: '0.7.8',
+]
+
 buildscript {
 
     ext.kotlin_version = '1.0.6'
@@ -22,6 +26,7 @@ buildscript {
 
 apply plugin: 'java'
 apply plugin: 'kotlin'
+apply plugin: 'jacoco'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'com.github.ben-manes.versions'
 
@@ -58,10 +63,21 @@ dependencies {
     ktlint("com.github.shyiko:ktlint:0.3.0")
 }
 
+jacoco {
+    toolVersion = versions.jacoco
+}
+
+jacocoTestReport {
+  reports {
+    xml.enabled true
+  }
+}
+
 task ktlint(type: JavaExec) {
     main = "com.github.shyiko.ktlint.Main"
     classpath = configurations.ktlint
     args "src/**/*.kt"
 }
 
+check.dependsOn jacocoTestReport
 check.dependsOn ktlint
