@@ -18,9 +18,9 @@ script:
   - ./gradlew build --info
   - cd ..
 
-  # Unit-test server
+  # Unit-test and build server
   - cd server/
-  - ./gradlew test --info
+  - ./gradlew build --info
   - cd ..
 
   # Launch local zally server
