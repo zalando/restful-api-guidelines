@@ -4,7 +4,7 @@ import de.zalando.zally.Violation
 import de.zalando.zally.ViolationType
 import de.zalando.zally.utils.PatternUtil
 import org.springframework.stereotype.Component
-import java.util.*
+import java.util.Optional
 
 @Component
 open class PascalCaseHttpHeadersRule : HttpHeadersRule() {

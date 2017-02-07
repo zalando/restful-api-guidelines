@@ -3,7 +3,7 @@ package de.zalando.zally.rules
 import de.zalando.zally.Violation
 import de.zalando.zally.ViolationType
 import org.springframework.stereotype.Component
-import java.util.*
+import java.util.Optional
 
 @Component
 open class AvoidLinkHeadersRule : HttpHeadersRule() {

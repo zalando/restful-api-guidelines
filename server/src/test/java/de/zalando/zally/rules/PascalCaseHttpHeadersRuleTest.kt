@@ -8,7 +8,7 @@ import io.swagger.models.parameters.Parameter
 import io.swagger.parser.SwaggerParser
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
-import java.util.*
+import java.util.HashMap
 
 class PascalCaseHttpHeadersRuleTest {
     private fun createSwaggerWithParams(vararg names: String) =
