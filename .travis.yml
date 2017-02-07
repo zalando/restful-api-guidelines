@@ -5,10 +5,6 @@ language: java
 jdk:
   - oraclejdk8
 
-env:
-  global:
-    - secure: "pQKxhst2J1Gj+IY93C4792Tzdiwf83AIoxq2ooz5z675Lp5R5p0/cwY3jwHWbRJSAizj4gv1OBohWNXMniQoW6KgUfWtuE/Gy0ubl0D/qbsGoKPPyKDrb7GFDMxn6ZjAPO0ayWpPFH5C5v8I1F2ORlX5PdAL0BGc41phkJnm+/DBwYeEdKH9uQJCgCdUWcrQVd27n9gq2/X9Jj1LGPeYvjCy8xqS+3gfE7XQpoQFza1+Lks+diW45gAQzPGR26j5Hs7mCfya90wxR/c1HA/RrrlV/BEkdAdjhGesFA6sO/yaPczcwdVa6L5tx4uBWTpytRIJNBqGmrQjz9gaCQTYRfGPN0zOSK6/agg6/lJaHbtDABNU39RsxGs83CQxHZYwj+yhZi0jYfMWVUM16Nk66t827AO969L5Xv0fDpDdz0D4cffJCM/syEkv4ICzQoIc2KiQ4Je/tT2/TDeFWuIYCkspHG4y5WzrX741yUDAkELk3WhdLEwYwdYClFz/v8EvAUqTQU2g1nCN4WqY6/gukuaeW+axw3wV0uTa1/BH72xpf60Xlz7132yS+9DJFqVC92zWBMnRYwmcdkz4c5XUWPNQxcV7i0YRF1d44Y8li7seJfg6oinGp0pP6NqB/2Jp1MhGT3Ghj+abvapMxN8B5VEeOklL30SNeGO19z5agcE="
-
 before_install:
   - sudo add-apt-repository ppa:duggan/bats --yes
   - sudo apt-get update -qq
@@ -48,7 +44,7 @@ script:
 
   # Kill Zally server instace
   - kill -9 `cat /tmp/zally_server.pid`
-  - echo $CODACY_PROJECT_TOKEN
 
 after_success:
-  - ~/jpm/bin/codacy-coverage-reporter -l Java -r build/reports/jacoco/test/jacocoTestReport.xml
+  - ~/jpm/bin/codacy-coverage-reporter --language Java --prefix cli/ --coverageReport cli/build/reports/jacoco/test/jacocoTestReport.xml -t $CODACY_PROJECT_TOKEN
+  - ~/jpm/bin/codacy-coverage-reporter --language Java --prefix server/ --coverageReport server/build/reports/jacoco/test/jacocoTestReport.xml -t $CODACY_PROJECT_TOKEN
