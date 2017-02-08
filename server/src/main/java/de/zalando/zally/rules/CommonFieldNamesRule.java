@@ -63,7 +63,7 @@ public class CommonFieldNamesRule implements Rule {
         return violations;
     }
 
-    static boolean matchesCommonFieldsType(String propName, Property property) {
+    protected static boolean matchesCommonFieldsType(String propName, Property property) {
         if (!commonFields.containsKey(propName.toLowerCase())) {
             return true;
         }
@@ -72,7 +72,7 @@ public class CommonFieldNamesRule implements Rule {
         return expectedType == null || expectedType.equals(property.getType());
     }
 
-    static boolean matchesCommonFieldsFormat(String propName, Property property) {
+    protected static boolean matchesCommonFieldsFormat(String propName, Property property) {
         if (!commonFields.containsKey(propName.toLowerCase())) {
             return true;
         }
