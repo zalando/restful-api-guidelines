@@ -46,5 +46,5 @@ script:
   - kill -9 `cat /tmp/zally_server.pid`
 
 after_success:
-  - ~/jpm/bin/codacy-coverage-reporter --language Java --prefix cli/ --coverageReport cli/build/reports/jacoco/test/jacocoTestReport.xml -t $CODACY_PROJECT_TOKEN
-  - ~/jpm/bin/codacy-coverage-reporter --language Java --prefix server/ --coverageReport server/build/reports/jacoco/test/jacocoTestReport.xml -t $CODACY_PROJECT_TOKEN
+  - ~/jpm/bin/codacy-coverage-reporter --language Java --coverageReport cli/build/reports/jacoco/test/jacocoTestReport.xml -t $CODACY_PROJECT_TOKEN
+  - ~/jpm/bin/codacy-coverage-reporter --language Java --coverageReport server/build/reports/jacoco/test/jacocoTestReport.xml -t $CODACY_PROJECT_TOKEN
