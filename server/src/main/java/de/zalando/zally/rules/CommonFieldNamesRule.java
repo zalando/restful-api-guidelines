@@ -67,6 +67,7 @@ public class CommonFieldNamesRule implements Rule {
         if (!commonFields.containsKey(propName.toLowerCase())) {
             return true;
         }
+
         String expectedType = commonFields.get(propName.toLowerCase()).getType();
         return expectedType == null || expectedType.equals(property.getType());
     }
@@ -75,9 +76,9 @@ public class CommonFieldNamesRule implements Rule {
         if (!commonFields.containsKey(propName.toLowerCase())) {
             return true;
         }
+
         String expectedFormat = commonFields.get(propName.toLowerCase()).getFormat();
-        return (property.getFormat() == null && expectedFormat == null)
-                || (property.getFormat() != null && property.getFormat().equals(expectedFormat));
+        return expectedFormat == null || expectedFormat.equals(property.getFormat());
     }
 
     private String createDescription(String definition, String propertyName, String problemField, String problemValue, String expectedValue) {

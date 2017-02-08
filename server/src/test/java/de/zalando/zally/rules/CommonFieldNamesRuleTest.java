@@ -44,7 +44,8 @@ public class CommonFieldNamesRuleTest {
         })).isFalse();
 
         assertThat(CommonFieldNamesRule.matchesCommonFieldsFormat("CREated", new StringProperty("time"))).isFalse();
-        assertThat(CommonFieldNamesRule.matchesCommonFieldsFormat("ID", new StringProperty("date-time"))).isFalse();
+        assertThat(CommonFieldNamesRule.matchesCommonFieldsFormat("ID", new StringProperty("uuid"))).isTrue();
+        assertThat(CommonFieldNamesRule.matchesCommonFieldsFormat("Id", new StringProperty())).isTrue();
     }
 
     @Test
