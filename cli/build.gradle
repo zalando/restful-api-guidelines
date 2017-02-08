@@ -1,4 +1,5 @@
 apply plugin: 'java'
+apply plugin: 'jacoco'
 apply plugin: 'checkstyle'
 apply plugin: 'pmd'
 apply plugin: 'com.github.johnrengelman.shadow'
@@ -24,6 +25,7 @@ dependencies {
 def versions = [
   checkstyle: '7.4',
   pmd: '5.5.2',
+  jacoco: '0.7.8',
 ]
 
 configurations {
@@ -41,6 +43,10 @@ checkstyle {
 
 pmd {
   toolVersion = versions.pmd
+}
+
+jacoco {
+    toolVersion = versions.jacoco
 }
 
 buildscript {
@@ -66,8 +72,15 @@ shadowJar {
    classifier = null
 }
 
+jacocoTestReport {
+  reports {
+    xml.enabled true
+  }
+}
+
 task wrapper(type: Wrapper) {
     gradleVersion = '2.14.1'
 }
 
 build.dependsOn shadowJar
+check.dependsOn jacocoTestReport
