@@ -6,9 +6,8 @@ import io.swagger.models.Swagger;
 import io.swagger.parser.SwaggerParser;
 import org.junit.Test;
 
-/**
- * Unit test for snake case for query params
- */
+import static org.assertj.core.api.Assertions.assertThat;
+
 public class SnakeCaseForQueryParamsRuleTest {
 
     private Swagger validSwagger = getFixture("fixtures/snakeCaseForQueryParamsValid.json");
@@ -22,17 +21,17 @@ public class SnakeCaseForQueryParamsRuleTest {
     }
 
     @Test
-    public void shouldFindViolationsInLocalRef () {
+    public void shouldFindViolationsInLocalRef() {
         assertThat(new SnakeCaseForQueryParamsRule().validate(invalidSwaggerWithLocalParam)).isNotEmpty();
     }
 
     @Test
-    public void shouldFindViolationsInInternalRef () {
+    public void shouldFindViolationsInInternalRef() {
         assertThat(new SnakeCaseForQueryParamsRule().validate(invalidSwaggerWIthInternalRef)).isNotEmpty();
     }
 
     @Test
-    public void shouldFindViolationsInExternalRef () {
+    public void shouldFindViolationsInExternalRef() {
         assertThat(new SnakeCaseForQueryParamsRule().validate(invalidSwaggerWithExternalRef)).isNotEmpty();
     }
 
