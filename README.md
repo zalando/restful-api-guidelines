@@ -13,7 +13,6 @@ Minimalistic API linter of awesomeness, bringing order to a sea of APIs.
 - Does not require a deployed service, only an API definition.
 - Accepts [swagger](swagger.io) yaml and json formats.
 - Easy-to-use [CLI](cli/README.md) allows you to check your API *right now*.
-- Github integration to automatically lint your API anytime it changes in a Pull Request.
 
 
 ###Core Technical Concepts
@@ -27,6 +26,7 @@ Minimalistic API linter of awesomeness, bringing order to a sea of APIs.
 **Tech Stack:** Zally server is written in Java 8 with Spring Boot. We made rule implementation
 optional possible in Kotlin. API-specific code remains in Java 8 due to better integration with
 Spring Boot. Further details can be found [here](https://github.com/zalando-incubator/zally/pull/65#issuecomment-269474831).
+With Spring 5 we consider using Kotlin also on API side directly. Stay tuned.
 
 
 ### Dependencies
@@ -43,13 +43,15 @@ If you just wanna try it out: first run the server locally, then just use the cl
 
 ### Roadmap
 
-For version 1.0 we focus on these three main areas:
+For [version 1.0](https://github.com/zalando-incubator/zally/milestone/1) we focus on these three main areas:
 
 - improve rule implementations
 - improve CLI user experience
 - improve web UI
 
-Afterwards we focus on Github integration and more sophisticated features
+Feel free to contribute on related issues for version 1.0.
+
+Afterwards we focus on Github integration and more sophisticated features.
 
 
 ### Contributing
