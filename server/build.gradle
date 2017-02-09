@@ -48,7 +48,7 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
-    compile("io.swagger:swagger-parser:1.0.24")
+    compile("io.swagger:swagger-parser:1.0.25")
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-actuator")
     compile("org.springframework.boot:spring-boot-starter-freemarker")
