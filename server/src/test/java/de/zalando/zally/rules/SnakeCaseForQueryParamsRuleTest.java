@@ -1,14 +1,13 @@
 package de.zalando.zally.rules;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import io.swagger.models.Swagger;
 import io.swagger.parser.SwaggerParser;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-/**
- * Unit test for snake case for query params
- */
 public class SnakeCaseForQueryParamsRuleTest {
 
     private Swagger validSwagger = getFixture("fixtures/snakeCaseForQueryParamsValid.json");
