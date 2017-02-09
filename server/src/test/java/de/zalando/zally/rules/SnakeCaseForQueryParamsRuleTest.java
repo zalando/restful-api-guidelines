@@ -2,12 +2,7 @@ package de.zalando.zally.rules;
 
 import io.swagger.models.Swagger;
 import io.swagger.parser.SwaggerParser;
-import org.apache.commons.io.IOUtils;
-import org.junit.*;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URI;
+import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -27,17 +22,17 @@ public class SnakeCaseForQueryParamsRuleTest {
     }
 
     @Test
-    public void shouldFindViolationsInLocalRef () {
+    public void shouldFindViolationsInLocalRef() {
         assertThat(new SnakeCaseForQueryParamsRule().validate(invalidSwaggerWithLocalParam)).isNotEmpty();
     }
 
     @Test
-    public void shouldFindViolationsInInternalRef () {
+    public void shouldFindViolationsInInternalRef() {
         assertThat(new SnakeCaseForQueryParamsRule().validate(invalidSwaggerWIthInternalRef)).isNotEmpty();
     }
 
     @Test
-    public void shouldFindViolationsInExternalRef () {
+    public void shouldFindViolationsInExternalRef() {
         assertThat(new SnakeCaseForQueryParamsRule().validate(invalidSwaggerWithExternalRef)).isNotEmpty();
     }
 
