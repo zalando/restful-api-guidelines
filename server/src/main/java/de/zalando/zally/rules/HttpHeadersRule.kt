@@ -18,19 +18,18 @@ abstract class HttpHeadersRule : Rule {
     override fun validate(swagger: Swagger): List<Violation> {
         fun <T> Collection<T>?.orEmpty() = this ?: emptyList()
 
-        fun <T> T?.toOption() = Optional.ofNullable<T>(this)
+        fun Collection<Parameter>?.extractHeaders(path: Optional<String>) =
+                this.orEmpty().filter { it.`in` == "header" }.map { Pair(it.getName(), path) }
 
-        fun Collection<Parameter>?.extractHeaders(path: String?) =
-                this.orEmpty().filter { it.`in` == "header" }.map { Pair(it.getName(), path.toOption()) }
+        fun Collection<Response>?.extractHeaders(path: Optional<String>) =
+                this.orEmpty().flatMap { it.headers?.keys.orEmpty() }.map { Pair(it, path) }
 
-        fun Collection<Response>?.extractHeaders(path: String?) =
-                this.orEmpty().flatMap { it.headers?.keys.orEmpty() }.map { Pair(it, path.toOption()) }
-
-        val fromParams = swagger.parameters.orEmpty().values.extractHeaders(null)
+        val fromParams = swagger.parameters.orEmpty().values.extractHeaders(Optional.empty())
         val fromPaths = swagger.paths.orEmpty().entries.flatMap { entry ->
             val (name, path) = entry
-            path.parameters.extractHeaders(name) + path.operations.flatMap { operation ->
-                operation.parameters.extractHeaders(name) + operation.responses.values.extractHeaders(name)
+            val nameOpt = Optional.of(name)
+            path.parameters.extractHeaders(nameOpt) + path.operations.flatMap { operation ->
+                operation.parameters.extractHeaders(nameOpt) + operation.responses.values.extractHeaders(nameOpt)
             }
         }
         val allHeaders = fromParams + fromPaths

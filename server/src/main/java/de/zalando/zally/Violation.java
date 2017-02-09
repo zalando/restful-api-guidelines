@@ -1,7 +1,8 @@
 package de.zalando.zally;
 
-import java.util.Optional;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.Optional;
 
 public class Violation {
 
@@ -15,50 +16,22 @@ public class Violation {
     private final Optional<Integer> lineNumber;
     private final Optional<Integer> columnNumber;
 
-    public Violation(String title, String description,
-                     ViolationType violationType, String ruleLink) {
+    public Violation(String title, String description, ViolationType violationType, String ruleLink) {
+        this(title, description, violationType, ruleLink, Optional.empty());
+    }
+
+    public Violation(String title, String description, ViolationType violationType, String ruleLink, String path) {
+        this(title, description, violationType, ruleLink, Optional.of(path));
+    }
+
+    public Violation(String title, String description, ViolationType violationType, String ruleLink, Optional<String> path) {
         this.title = title;
         this.description = description;
         this.violationType = violationType;
         this.ruleLink = ruleLink;
-        this.path = Optional.empty();
+        this.path = path;
         this.lineNumber = Optional.empty();
         this.columnNumber = Optional.empty();
-    }
-
-    public Violation(String title, String description,
-                     ViolationType violationType, String ruleLink, String path) {
-        this.title = title;
-        this.description = description;
-        this.violationType = violationType;
-        this.ruleLink = ruleLink;
-        this.path = Optional.of(path);
-        this.lineNumber = Optional.empty();
-        this.columnNumber = Optional.empty();
-    }
-
-    public Violation(String title, String description,
-                     ViolationType violationType, String ruleLink,
-                     int lineNumber, int columnNumber) {
-        this.title = title;
-        this.description = description;
-        this.violationType = violationType;
-        this.ruleLink = ruleLink;
-        this.path = Optional.empty();
-        this.lineNumber = Optional.of(lineNumber);
-        this.columnNumber = Optional.of(columnNumber);
-    }
-
-    public Violation(String title, String description,
-                     ViolationType violationType, String ruleLink,
-                     String path, int lineNumber, int columnNumber) {
-        this.title = title;
-        this.description = description;
-        this.violationType = violationType;
-        this.ruleLink = ruleLink;
-        this.path = Optional.of(path);
-        this.lineNumber = Optional.of(lineNumber);
-        this.columnNumber = Optional.of(columnNumber);
     }
 
     @JsonProperty("title")

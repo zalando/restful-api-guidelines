@@ -10,6 +10,12 @@ before_install:
   - sudo apt-get update -qq
   - sudo apt-get install -qq bats
 
+  # Codacy coverage
+  - curl -sL https://github.com/jpm4j/jpm4j.installers/raw/master/dist/biz.aQute.jpm.run.jar >jpm4j.jar
+  - java -jar jpm4j.jar -u init
+  - ~/jpm/bin/jpm install com.codacy:codacy-coverage-reporter:assembly
+  # / Codacy coverage
+
 install: true
 
 script:
@@ -18,9 +24,9 @@ script:
   - ./gradlew build --info
   - cd ..
 
-  # Unit-test server
+  # Unit-test and build server
   - cd server/
-  - ./gradlew test --info
+  - ./gradlew build --info
   - cd ..
 
   # Launch local zally server
@@ -38,3 +44,7 @@ script:
 
   # Kill Zally server instace
   - kill -9 `cat /tmp/zally_server.pid`
+
+after_success:
+  - ~/jpm/bin/codacy-coverage-reporter --language Java --coverageReport cli/build/reports/jacoco/test/jacocoTestReport.xml -t $CODACY_PROJECT_TOKEN
+  - ~/jpm/bin/codacy-coverage-reporter --language Java --coverageReport server/build/reports/jacoco/test/jacocoTestReport.xml -t $CODACY_PROJECT_TOKEN

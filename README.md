@@ -1,12 +1,8 @@
 [![Build Status](https://travis-ci.org/zalando-incubator/zally.svg?branch=master)](https://travis-ci.org/zalando-incubator/zally)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/05a7515011504c06b1cb35ede27ac7d4)](https://www.codacy.com/app/zally/zally?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=zalando-incubator/zally&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://api.codacy.com/project/badge/Coverage/05a7515011504c06b1cb35ede27ac7d4)](https://www.codacy.com/app/zally/zally?utm_source=github.com&utm_medium=referral&utm_content=zalando-incubator/zally&utm_campaign=Badge_Coverage)
 
-    __________      .__  .__
-    \____    /____  |  | |  | ___.__.
-      /     /\__  \ |  | |  |<   |  |
-     /     /_ / __ \|  |_|  |_\___  |
-    /_______ (____  /____/____/ ____|
-            \/    \/          \/
+<img src="logo.png" width="200" height="200" />
 
 ### Zally - Zalando's API Linter loves you
 
