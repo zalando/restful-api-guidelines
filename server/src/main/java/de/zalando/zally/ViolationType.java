@@ -4,5 +4,6 @@ public enum ViolationType {
 
     MUST,
     SHOULD,
-    COULD;
+    COULD,
+    HINT;
 }
