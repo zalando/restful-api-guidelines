@@ -121,7 +121,7 @@ public class LinterTest {
         linter = new Linter(client, resultPrinter);
         final Boolean result = linter.lint(getJsonReader());
 
-        Mockito.verify(resultPrinter).printSummary();
+        Mockito.verify(resultPrinter, Mockito.times(1)).printSummary(eq(linter.violationTypes));
         Mockito.verify(resultPrinter, Mockito.times(1)).printViolations(mustListCaptor.capture(), eq("must"));
         Mockito.verify(resultPrinter, Mockito.times(1)).printViolations(shouldListCaptor.capture(), eq("should"));
         Mockito.verify(resultPrinter, Mockito.times(1)).printViolations(couldListCaptor.capture(), eq("could"));

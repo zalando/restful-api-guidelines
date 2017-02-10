@@ -9,9 +9,10 @@ import java.util.List;
 
 
 public class Linter {
+    public static final List<String> violationTypes = Arrays.asList("must", "should", "could");
+
     private final ZallyApiClient client;
     private final ResultPrinter printer;
-    private final List<String> violationTypes = Arrays.asList("must", "should", "could");
     private final String mustViolationType = "must";
 
     public Linter(ZallyApiClient client, ResultPrinter printer) {
@@ -33,7 +34,7 @@ public class Linter {
             printer.printViolations(violations, violationType);
         }
 
-        printer.printSummary();
+        printer.printSummary(violationTypes);
 
         return hasMustViolations;
     }

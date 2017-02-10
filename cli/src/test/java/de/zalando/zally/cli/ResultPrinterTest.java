@@ -74,7 +74,7 @@ public class ResultPrinterTest {
 
         outContent.reset();
 
-        resultPrinter.printSummary();
+        resultPrinter.printSummary(Linter.violationTypes);
         String expectedResult = resultPrinter.ANSI_WHITE + "\nSummary:\n"
                 + "========\n\n" + resultPrinter.ANSI_RESET
                 + "MUST violations: 1\n"
