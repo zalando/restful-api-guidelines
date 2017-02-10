@@ -4,12 +4,15 @@ import com.eclipsesource.json.JsonObject;
 import com.eclipsesource.json.JsonValue;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 
 public class Linter {
     private final ZallyApiClient client;
     private final ResultPrinter printer;
+    private final List<String> violationTypes = Arrays.asList("must", "should", "could");
+    private final String mustViolationType = "must";
 
     public Linter(ZallyApiClient client, ResultPrinter printer) {
         this.client = client;
@@ -21,17 +24,18 @@ public class Linter {
         final JsonValue response = client.validate(decorator.getRequestBody());
         final ViolationsFilter violationsFilter = new ViolationsFilter(response.asObject());
 
-        List<JsonObject> mustViolations = violationsFilter.getViolations("MUST");
-        List<JsonObject> shouldViolations = violationsFilter.getViolations("SHOULD");
-        List<JsonObject> couldViolations = violationsFilter.getViolations("COULD");
-
-        printer.printViolations(mustViolations, "must");
-        printer.printViolations(shouldViolations, "should");
-        printer.printViolations(couldViolations, "could");
+        boolean hasMustViolations = false;
+        for (String violationType : violationTypes) {
+            List<JsonObject> violations = violationsFilter.getViolations(violationType);
+            if (mustViolationType.equals(violationType)) {
+                hasMustViolations = violations.isEmpty();
+            }
+            printer.printViolations(violations, violationType);
+        }
 
         printer.printSummary();
 
-        return mustViolations.isEmpty();
+        return hasMustViolations;
     }
 }
 
