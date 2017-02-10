@@ -21,9 +21,9 @@ public class Linter {
         final JsonValue response = client.validate(decorator.getRequestBody());
         final ViolationsFilter violationsFilter = new ViolationsFilter(response.asObject());
 
-        List<JsonObject> mustViolations = violationsFilter.getMustViolations();
-        List<JsonObject> shouldViolations = violationsFilter.getShouldViolations();
-        List<JsonObject> couldViolations = violationsFilter.getCouldViolations();
+        List<JsonObject> mustViolations = violationsFilter.getViolations("MUST");
+        List<JsonObject> shouldViolations = violationsFilter.getViolations("SHOULD");
+        List<JsonObject> couldViolations = violationsFilter.getViolations("COULD");
 
         printer.printViolations(mustViolations, "must");
         printer.printViolations(shouldViolations, "should");

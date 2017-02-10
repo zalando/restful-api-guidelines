@@ -22,7 +22,7 @@ public class ViolationsFilterTest {
 
         ViolationsFilter violationsFilter = new ViolationsFilter(fixtures);
 
-        List<JsonObject> result = violationsFilter.getMustViolations();
+        List<JsonObject> result = violationsFilter.getViolations("MUST");
         assertEquals(1, result.size());
         assertEquals(mustViolation, result.get(0));
     }
@@ -34,7 +34,7 @@ public class ViolationsFilterTest {
 
         ViolationsFilter violationsFilter = new ViolationsFilter(fixtures);
 
-        List<JsonObject> result = violationsFilter.getShouldViolations();
+        List<JsonObject> result = violationsFilter.getViolations("SHOULD");
         assertEquals(1, result.size());
         assertEquals(shouldViolation, result.get(0));
     }
@@ -46,7 +46,7 @@ public class ViolationsFilterTest {
 
         ViolationsFilter violationsFilter = new ViolationsFilter(fixtures);
 
-        List<JsonObject> result = violationsFilter.getCouldViolations();
+        List<JsonObject> result = violationsFilter.getViolations("COULD");
         assertEquals(1, result.size());
         assertEquals(couldViolations, result.get(0));
     }
@@ -55,21 +55,21 @@ public class ViolationsFilterTest {
     public void getMustViolationRaisesCliExceptionWhenViolationsAreNull() {
         assertRaisesCliException("API: Response JSON is malformed");
         ViolationsFilter violationsFilter = new ViolationsFilter(null);
-        violationsFilter.getMustViolations();
+        violationsFilter.getViolations("MUST");
     }
 
     @Test
     public void getShouldViolationRaisesCliExceptionWhenViolationsAreNull() {
         assertRaisesCliException("API: Response JSON is malformed");
         ViolationsFilter violationsFilter = new ViolationsFilter(null);
-        violationsFilter.getShouldViolations();
+        violationsFilter.getViolations("SHOULD");
     }
 
     @Test
     public void getCouldViolationRaisesCliExceptionWhenViolationsAreNull() {
         assertRaisesCliException("API: Response JSON is malformed");
         ViolationsFilter violationsFilter = new ViolationsFilter(null);
-        violationsFilter.getCouldViolations();
+        violationsFilter.getViolations("COULD");
     }
 
     @Test
@@ -77,7 +77,7 @@ public class ViolationsFilterTest {
         assertRaisesCliException("API: Response JSON is malformed\n\n{\"hello\":\"world\"}");
         JsonObject malformedObject = new JsonObject().add("hello", "world");
         ViolationsFilter violationsFilter = new ViolationsFilter(malformedObject);
-        violationsFilter.getMustViolations();
+        violationsFilter.getViolations("MUST");
     }
 
     @Test
@@ -85,7 +85,7 @@ public class ViolationsFilterTest {
         assertRaisesCliException("API: Response JSON is malformed\n\n{\"hello\":\"world\"}");
         JsonObject malformedObject = new JsonObject().add("hello", "world");
         ViolationsFilter violationsFilter = new ViolationsFilter(malformedObject);
-        violationsFilter.getShouldViolations();
+        violationsFilter.getViolations("SHOULD");
     }
 
     @Test
@@ -93,7 +93,7 @@ public class ViolationsFilterTest {
         assertRaisesCliException("API: Response JSON is malformed\n\n{\"hello\":\"world\"}");
         JsonObject malformedObject = new JsonObject().add("hello", "world");
         ViolationsFilter violationsFilter = new ViolationsFilter(malformedObject);
-        violationsFilter.getCouldViolations();
+        violationsFilter.getViolations("COULD");
     }
 
     private void assertRaisesCliException(String expectedError) {
