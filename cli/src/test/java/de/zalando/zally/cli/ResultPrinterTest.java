@@ -79,7 +79,8 @@ public class ResultPrinterTest {
                 + "========\n\n" + resultPrinter.ANSI_RESET
                 + "MUST violations: 1\n"
                 + "SHOULD violations: 1\n"
-                + "COULD violations: 0\n";
+                + "COULD violations: 0\n"
+                + "HINT violations: 0\n";
         assertEquals(expectedResult, outContent.toString());
     }
 

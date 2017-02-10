@@ -9,7 +9,7 @@ import java.util.List;
 
 
 public class Linter {
-    public static final List<String> violationTypes = Arrays.asList("must", "should", "could");
+    public static final List<String> violationTypes = Arrays.asList("must", "should", "could", "hint");
 
     private final ZallyApiClient client;
     private final ResultPrinter printer;

@@ -97,6 +97,8 @@ public class ResultPrinter {
                 return ANSI_YELLOW;
             case "COULD":
                 return ANSI_GREEN;
+            case "HINT":
+                return ANSI_CYAN;
             default:
                 return ANSI_WHITE;
         }
