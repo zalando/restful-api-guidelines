@@ -16,7 +16,8 @@
 	[ "${lines[121]}" = "[0mMUST violations: 24" ]
 	[ "${lines[122]}" = "SHOULD violations: 0" ]
 	[ "${lines[123]}" = "COULD violations: 0" ]
-	[ "${#lines[@]}" -eq 124 ]
+	[ "${lines[124]}" = "HINT violations: 0" ]
+	[ "${#lines[@]}" -eq 125 ]
 }
 
 @test "CLI works with local .json file" {
@@ -34,7 +35,8 @@
 	[ "${lines[107]}" = "[0mMUST violations: 11" ]
 	[ "${lines[108]}" = "SHOULD violations: 7" ]
 	[ "${lines[109]}" = "COULD violations: 1" ]
-	[ "${#lines[@]}" -eq 110 ]
+	[ "${lines[110]}" = "HINT violations: 0" ]
+	[ "${#lines[@]}" -eq 111 ]
 }
 
 @test "CLI works with remote .yaml file" {
@@ -46,7 +48,8 @@
 	[ "${lines[121]}" = "[0mMUST violations: 24" ]
 	[ "${lines[122]}" = "SHOULD violations: 0" ]
 	[ "${lines[123]}" = "COULD violations: 0" ]
-	[ "${#lines[@]}" -eq 124 ]
+	[ "${lines[124]}" = "HINT violations: 0" ]
+	[ "${#lines[@]}" -eq 125 ]
 }
 
 @test "CLI works with remote .json file" {
@@ -64,5 +67,6 @@
 	[ "${lines[107]}" = "[0mMUST violations: 11" ]
 	[ "${lines[108]}" = "SHOULD violations: 7" ]
 	[ "${lines[109]}" = "COULD violations: 1" ]
-	[ "${#lines[@]}" -eq 110 ]
+	[ "${lines[110]}" = "HINT violations: 0" ]
+	[ "${#lines[@]}" -eq 111 ]
 }

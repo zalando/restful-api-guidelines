@@ -74,12 +74,13 @@ public class ResultPrinterTest {
 
         outContent.reset();
 
-        resultPrinter.printSummary();
+        resultPrinter.printSummary(Linter.violationTypes);
         String expectedResult = resultPrinter.ANSI_WHITE + "\nSummary:\n"
                 + "========\n\n" + resultPrinter.ANSI_RESET
                 + "MUST violations: 1\n"
                 + "SHOULD violations: 1\n"
-                + "COULD violations: 0\n";
+                + "COULD violations: 0\n"
+                + "HINT violations: 0\n";
         assertEquals(expectedResult, outContent.toString());
     }
 

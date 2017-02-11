@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +27,6 @@ public class ResultPrinter {
 
     private final Writer writer;
     private final Map<String, Integer> counters = new HashMap<>();
-    private final List<String> counterNames = Arrays.asList("must", "should", "could");
 
     public ResultPrinter(OutputStream outputStream) {
         writer = new OutputStreamWriter(outputStream);
@@ -52,9 +50,9 @@ public class ResultPrinter {
         this.updateCounter(violationType, violations.size());
     }
 
-    public void printSummary() throws IOException {
+    public void printSummary(List<String> violationTypeNames) throws IOException {
         printHeader(ANSI_WHITE, "Summary:");
-        for (String name : counterNames) {
+        for (String name : violationTypeNames) {
             writer.write(name.toUpperCase() + " violations: " + counters.getOrDefault(name, 0).toString() + "\n");
         }
         writer.flush();
@@ -99,6 +97,8 @@ public class ResultPrinter {
                 return ANSI_YELLOW;
             case "COULD":
                 return ANSI_GREEN;
+            case "HINT":
+                return ANSI_CYAN;
             default:
                 return ANSI_WHITE;
         }
