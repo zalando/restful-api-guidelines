@@ -92,5 +92,7 @@ definitions:
         - COULD
       rule_link:
         type: string
-      path:
-        type: string
+      paths:
+        type: array
+        items:
+          type: string
