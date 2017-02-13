@@ -94,7 +94,3 @@ definitions:
         type: string
       path:
         type: string
-      line_number:
-        type: integer
-      column_number:
-        type: integer
