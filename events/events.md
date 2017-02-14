@@ -56,16 +56,19 @@ Nakadi defines an event for signalling data changes, called a [DataChangeEvent](
 - Change events should [contain a means of ordering](#should-provide-a-means-of-event-ordering) events for a given entity.
 - Change events must be published reliably by the service.
 
-## {{ book.should }} Provide a means of event ordering
-Events should contain a way to restore the partial ordering of events. This can be done in many ways, two common ways are:
+## {{ book.should }} Provide a means for explicit event ordering
 
-- A strictly monotonically increasing entity version or a message counter.
+While Nakadi guarantees ordering per partition, some common error cases may require your consumers to reconstruct message ordering and 
+their last read position within the ordered stream. Events *should* therefore contain a way to restore their partial order of occurence. 
 
-- Nakadi provides a concept (similar to vector clocks) for expressing this order by adding parent event identifiers to the event meta data. This allows clients to check whether they have processed all parent events before they continue with the current event.
+This can be done - among other ways -  by adding
+- a strictly monotonically increasing entity version (e.g. as created by a database) to allow for partial ordering of all events for an entity
+- a strictly monotonically increasing message counter
+- parent event identifiers (Nakadi meta data field ``parent_eid``) to allow for partial ordering of related events in a business flow.
 
-System timestamps are not necessarily a good choice, since your system clock may jump backwards, two events may occur in the same microsecond and exact synchronization of clocks in distributed systems is difficult. If you use timestamps to indicate event ordering, you must carefully ensure they move forward for each event. 
+System timestamps are not necessarily a good choice, since exact synchronization of clocks in distributed systems is difficult, two events may occur in the same microsecond and system clocks may jump backward or forward to compensate drifts or leap-seconds. If you use system timestamps to indicate event ordering, you must carefully ensure that your designated event order is not messed up by these effects. 
 
-Note that basing events on data structures that can be converged upon (such as [CRDTs](https://en.wikipedia.org/wiki/Conflict-free_replicated_data_type) or [logical clocks](https://en.wikipedia.org/wiki/Logical_clock)) in a distributed setting are outside the scope of this guidance.
+**Note** that basing events on data structures that can be converged upon in a distributed setting (such as [CRDTs](https://en.wikipedia.org/wiki/Conflict-free_replicated_data_type), [logical clocks](https://en.wikipedia.org/wiki/Logical_clock) and [vector clocks](https://en.wikipedia.org/wiki/Vector_clock)) is outside the scope of this guidance.
 
 ## {{ book.should }} Use the hash partition strategy for Data Change Events
 
