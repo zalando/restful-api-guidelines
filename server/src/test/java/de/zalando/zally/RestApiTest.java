@@ -80,6 +80,9 @@ public class RestApiTest {
         JsonNode violations = rootObject.get("violations");
         assertThat(violations).hasSize(1);
         assertThat(violations.get(0).get("title").asText()).isEqualTo("dummy1");
+
+        String message = rootObject.get("message").asText();
+        assertThat(message).isEqualTo("Test message");
     }
 
     @Test
