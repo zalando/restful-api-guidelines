@@ -24,16 +24,15 @@ public class ApiViolationsController {
     private final RulesValidator rulesValidator;
     private final ObjectMapper mapper;
     private final DropwizardMetricServices metricServices;
-
-    @Value("${zally.message}")
     private String message;
 
     @Autowired
     public ApiViolationsController(RulesValidator rulesValidator, ObjectMapper objectMapper,
-                                   DropwizardMetricServices metricServices) {
+                                   DropwizardMetricServices metricServices,  @Value("${zally.message:}") String message) {
         this.rulesValidator = rulesValidator;
         this.mapper = objectMapper;
         this.metricServices = metricServices;
+        this.message = message;
     }
 
     @RequestMapping(method = RequestMethod.POST)
