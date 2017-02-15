@@ -84,13 +84,15 @@ definitions:
         type: string
       description:
         type: string
-      line_number:
-        type: integer
-      column_number:
-        type: integer
       violation_type:
         type: string
         enum:
         - MUST
         - SHOULD
         - COULD
+      rule_link:
+        type: string
+      paths:
+        type: array
+        items:
+          type: string
