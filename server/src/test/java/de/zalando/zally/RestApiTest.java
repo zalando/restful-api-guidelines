@@ -32,7 +32,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(webEnvironment = RANDOM_PORT, classes = {Application.class, RestApiTest.TestConfiguration.class})
+@SpringBootTest(
+        webEnvironment = RANDOM_PORT,
+        classes = {Application.class, RestApiTest.TestConfiguration.class},
+        properties = {"zally.message=Test message"}
+)
 public class RestApiTest {
 
     @Configuration
