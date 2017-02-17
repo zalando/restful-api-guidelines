@@ -32,6 +32,14 @@ public class ResultPrinter {
         writer = new OutputStreamWriter(outputStream);
     }
 
+    public void printMessage(String message) throws IOException {
+        if (!message.isEmpty()) {
+            printHeader(ANSI_WHITE, "Server message");
+            writer.write(message);
+            writer.flush();
+        }
+    }
+
     public void printViolations(List<JsonObject> violations, String violationType) throws IOException {
         if (!violations.isEmpty()) {
 

@@ -126,4 +126,20 @@ public class ResultPrinterTest {
         String result = ResultPrinter.formatViolation(testColor, violation);
         assertEquals(expectedResult, result);
     }
+
+    @Test
+    public void printsProperMessage() throws Exception {
+        final String message = "Test message";
+        ResultPrinter resultPrinter = new ResultPrinter(outStream);
+        resultPrinter.printMessage(message);
+
+        final String expectedResult = resultPrinter.ANSI_WHITE
+                + "\nServer message"
+                + "\n==============\n\n"
+                + resultPrinter.ANSI_RESET
+                + message;
+
+        assertEquals(expectedResult, outContent.toString());
+
+    }
 }
