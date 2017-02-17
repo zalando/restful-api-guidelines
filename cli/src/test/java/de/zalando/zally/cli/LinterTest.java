@@ -110,6 +110,21 @@ public class LinterTest {
         assertEquals("must", mustList.get(0).get("title").asString());
     }
 
+    @Test
+    public void printsMessageWhenSpecified() throws Exception {
+        final JsonObject testResult = new JsonObject();
+        final String message = "Test message";
+        testResult.add("violations", new JsonArray());
+        testResult.add("message", message);
+
+        Mockito.when(client.validate(anyString())).thenReturn(testResult);
+        linter = new Linter(client, resultPrinter);
+        final boolean result = linter.lint(getJsonReader());
+        assertEquals(result, true);
+
+        Mockito.verify(resultPrinter, Mockito.times(1)).printMessage(eq(message));
+    }
+
     private SpecsReader getJsonReader() {
         String fixture = "{\"hello\":\"world\"}";
         InputStream inputStream = new ByteArrayInputStream(fixture.getBytes());
