@@ -9,10 +9,10 @@ import io.swagger.models.Swagger
  *      - this rule is currently disabled because Zalando's API guidelines changed
  *      - will be re-enabled if we can configure ruleset
  */
-class AvoidJavascriptKeywordsRule : Rule {
+open class AvoidJavascriptKeywordsRule : Rule {
 
     val TITLE = "Avoid reserved Javascript keywords"
-    val DESC_PATTERN = "Property name '%s' is reserved javascript keyword"
+    val DESC_PATTERN = "Property names should not coinside with reserved javascript keywords"
     val RULE_URL = "http://zalando.github.io/restful-api-guidelines/naming/Naming.html" +
             "#should-reserved-javascript-keywords-should-be-avoided"
 
@@ -22,15 +22,12 @@ class AvoidJavascriptKeywordsRule : Rule {
             "yield", "debugger", "function", "this", "default", "if", "throw", "delete", "import", "try"
     )
 
-    override fun validate(swagger: Swagger): List<Violation> {
+    override fun validate(swagger: Swagger): Violation? {
         val definitions = swagger.definitions ?: emptyMap()
-        val res = definitions.flatMap { entry ->
+        val paths = definitions.flatMap { entry ->
             val props = entry.value.properties ?: emptyMap()
-            props.keys.filter { RESERVED_KEYWORDS.contains(it) }.map { createViolation(entry.key, it) }
+            props.keys.filter { it in RESERVED_KEYWORDS }.map { entry.key + "." + it }
         }
-        return res
+        return if (paths.isNotEmpty()) Violation(TITLE, DESC_PATTERN, ViolationType.SHOULD, RULE_URL, paths) else null
     }
-
-    private fun createViolation(path: String, fieldName: String) =
-            Violation(TITLE, DESC_PATTERN.format(fieldName), ViolationType.SHOULD, RULE_URL, path + "." + fieldName)
 }

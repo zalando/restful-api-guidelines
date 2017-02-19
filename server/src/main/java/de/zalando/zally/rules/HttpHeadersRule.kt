@@ -4,36 +4,34 @@ import de.zalando.zally.Violation
 import io.swagger.models.Response
 import io.swagger.models.Swagger
 import io.swagger.models.parameters.Parameter
-import java.util.Optional
 
 abstract class HttpHeadersRule : Rule {
     val PARAMETER_NAMES_WHITELIST = setOf("ETag", "TSV", "TE", "Content-MD5", "DNT", "X-ATT-DeviceId", "X-UIDH",
             "X-Request-ID", "X-Correlation-ID", "WWW-Authenticate", "X-XSS-Protection", "X-Flow-ID", "X-UID",
             "X-Tenant-ID", "X-Device-OS")
 
-    abstract fun createViolation(header: String, path: Optional<String>): Violation
+    abstract fun createViolation(paths: List<String>): Violation
 
     abstract fun isViolation(header: String): Boolean
 
-    override fun validate(swagger: Swagger): List<Violation> {
-        fun <T> Collection<T>?.orEmpty() = this ?: emptyList()
+    override fun validate(swagger: Swagger): Violation? {
+        fun Collection<Parameter>?.extractHeaders(path: String) =
+                orEmpty().filter { it.`in` == "header" }.map { Pair(path, it.name) }
 
-        fun Collection<Parameter>?.extractHeaders(path: Optional<String>) =
-                this.orEmpty().filter { it.`in` == "header" }.map { Pair(it.getName(), path) }
+        fun Collection<Response>?.extractHeaders(path: String) =
+                orEmpty().flatMap { it.headers?.keys.orEmpty() }.map { Pair(path, it) }
 
-        fun Collection<Response>?.extractHeaders(path: Optional<String>) =
-                this.orEmpty().flatMap { it.headers?.keys.orEmpty() }.map { Pair(it, path) }
-
-        val fromParams = swagger.parameters.orEmpty().values.extractHeaders(Optional.empty())
+        val fromParams = swagger.parameters.orEmpty().values.extractHeaders("parameters")
         val fromPaths = swagger.paths.orEmpty().entries.flatMap { entry ->
             val (name, path) = entry
-            val nameOpt = Optional.of(name)
-            path.parameters.extractHeaders(nameOpt) + path.operations.flatMap { operation ->
-                operation.parameters.extractHeaders(nameOpt) + operation.responses.values.extractHeaders(nameOpt)
+            path.parameters.extractHeaders(name) + path.operations.flatMap { operation ->
+                operation.parameters.extractHeaders(name) + operation.responses.values.extractHeaders(name)
             }
         }
         val allHeaders = fromParams + fromPaths
-        return allHeaders
-                .filter { !PARAMETER_NAMES_WHITELIST.contains(it.first) && isViolation(it.first) }
-                .map { createViolation(it.first, it.second) } }
+        val paths = allHeaders
+                .filter { it.first !in PARAMETER_NAMES_WHITELIST && isViolation(it.first) }
+                .map { "${it.first} ${it.second}" }
+        return if (paths.isNotEmpty()) createViolation(paths) else null
+    }
 }
