@@ -15,8 +15,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(
         webEnvironment = RANDOM_PORT,
-        classes = {Application.class, RestApiTestConfiguration.class},
-        properties = {"zally.message=Test message"}
+        classes = {Application.class, RestApiTestConfiguration.class}
 )
 public abstract class RestApiBaseTest {
     @LocalServerPort

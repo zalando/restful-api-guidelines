@@ -46,7 +46,10 @@ public class ApiViolationsController {
         reportViolationMetrics(violations);
 
         ObjectNode response = mapper.createObjectNode();
-        response.put("message", message);
+        if (message != null && !message.isEmpty()) {
+            response.put("message", message);
+        }
+
         ArrayNode jsonViolations = response.putArray("violations");
         violations.forEach(jsonViolations::addPOJO);
 

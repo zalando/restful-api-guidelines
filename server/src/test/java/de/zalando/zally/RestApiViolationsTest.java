@@ -11,12 +11,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.util.ResourceUtils;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-public class RestApiTest extends RestApiBaseTest {
+@TestPropertySource(properties = "zally.message=Test message")
+public class RestApiViolationsTest extends RestApiBaseTest {
 
     @Test
     public void shouldValidateGivenApiDefinition() throws IOException {
