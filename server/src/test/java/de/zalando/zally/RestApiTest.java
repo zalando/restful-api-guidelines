@@ -5,34 +5,18 @@ import java.net.URI;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.zalando.zally.exception.MissingApiDefinitionException;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.context.embedded.LocalServerPort;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.ResourceUtils;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(
-        webEnvironment = RANDOM_PORT,
-        classes = {Application.class, RestApiTestConfiguration.class},
-        properties = {"zally.message=Test message"}
-)
-public class RestApiTest {
-    @LocalServerPort
-    private int port;
 
-    private final TestRestTemplate restTemplate = new TestRestTemplate();
+public class RestApiTest extends RestApiBaseTest {
 
     @Test
     public void shouldValidateGivenApiDefinition() throws IOException {
@@ -125,18 +109,5 @@ public class RestApiTest {
         JsonNode violations = rootObject.get("violations");
         assertThat(violations).hasSize(1);
         assertThat(violations.get(0).get("title").asText()).isEqualTo("Can't parse swagger file");
-    }
-
-    private ResponseEntity<JsonNode> sendRequest(JsonNode body) {
-        ObjectNode requestBody = new ObjectMapper().createObjectNode();
-        requestBody.set("api_definition", body);
-        return restTemplate.postForEntity(
-                getUrl(),
-                requestBody,
-                JsonNode.class);
-    }
-
-    private String getUrl() {
-        return "http://localhost:" + port + "/api-violations";
     }
 }
