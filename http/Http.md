@@ -160,7 +160,7 @@ different HTTP methods on resources.
 | 201  | Created - Returned on successful entity creation. You are free to return either an empty response or the created resource in conjunction with the Location header. (More details found in the [Common Headers section](../headers/CommonHeaders.md).) *Always* set the Location header. | POST, PUT |
 | 202  | Accepted - The request was successful and will be processed asynchronously. | POST, PUT, DELETE, PATCH |
 | 204  | No content - There is no response body | PUT, DELETE |
-| 207  | Multi-Status - The response body contains multiple status informations for different parts of a batch/bulk request. See ["Use 207 for Batch or Bulk Requests"](#use-207-for-batch-or-bulk-requests). | POST |
+| 207  | Multi-Status - The response body contains multiple status informations for different parts of a batch/bulk request. See ["Use 207 for Batch or Bulk Requests"](#must-use-207-for-batch-or-bulk-requests). | POST |
 
 ### Redirection Codes
 
