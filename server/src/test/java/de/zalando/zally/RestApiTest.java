@@ -2,25 +2,16 @@ package de.zalando.zally;
 
 import java.io.IOException;
 import java.net.URI;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.zalando.zally.exception.MissingApiDefinitionException;
-import de.zalando.zally.rules.Rule;
-import de.zalando.zally.rules.RulesValidator;
-import io.swagger.models.Swagger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
@@ -34,39 +25,10 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(
         webEnvironment = RANDOM_PORT,
-        classes = {Application.class, RestApiTest.TestConfiguration.class},
+        classes = {Application.class, RestApiTestConfiguration.class},
         properties = {"zally.message=Test message"}
 )
 public class RestApiTest {
-
-    @Configuration
-    static class TestConfiguration {
-
-        private static class CheckApiNameIsPresentRule implements Rule {
-
-            private final String apiName;
-
-            public CheckApiNameIsPresentRule(String apiName) {
-                this.apiName = apiName;
-            }
-
-            @Override
-            public List<Violation> validate(Swagger swagger) {
-                if (swagger != null && swagger.getInfo().getTitle().contains(apiName)) {
-                    return Arrays.asList(new Violation("dummy1", "dummy", ViolationType.MUST, "dummy"));
-                } else {
-                    return Collections.emptyList();
-                }
-            }
-        }
-
-        @Bean
-        @Primary
-        public RulesValidator validator() {
-            return new RulesValidator(Arrays.asList(new CheckApiNameIsPresentRule("Product Service")));
-        }
-    }
-
     @LocalServerPort
     private int port;
 
