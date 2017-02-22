@@ -34,7 +34,7 @@ public class ResultPrinter {
 
     public void printMessage(String message) throws IOException {
         if (!message.isEmpty()) {
-            printHeader(ANSI_WHITE, "Server message");
+            printHeader(ANSI_CYAN, "Server message");
             writer.write(message);
             writer.flush();
         }
@@ -59,7 +59,7 @@ public class ResultPrinter {
     }
 
     public void printSummary(List<String> violationTypeNames) throws IOException {
-        printHeader(ANSI_WHITE, "Summary:");
+        printHeader(ANSI_CYAN, "Summary:");
         for (String name : violationTypeNames) {
             writer.write(name.toUpperCase() + " violations: " + counters.getOrDefault(name, 0).toString() + "\n");
         }
@@ -108,7 +108,7 @@ public class ResultPrinter {
             case "HINT":
                 return ANSI_CYAN;
             default:
-                return ANSI_WHITE;
+                return ANSI_CYAN;
         }
     }
 }
