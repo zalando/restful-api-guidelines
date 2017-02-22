@@ -84,7 +84,9 @@ public class RestApiTest {
 
     @Test
     public void shouldReturnMetricsOfFoundViolations() throws IOException {
-        sendRequest(new ObjectMapper().readTree(ResourceUtils.getFile("src/test/resources/api_spp.json")));
+        ResponseEntity<JsonNode> responseEntity = sendRequest(
+                new ObjectMapper().readTree(ResourceUtils.getFile("src/test/resources/api_spp.json")));
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
 
         ResponseEntity<JsonNode> metricsResponse = restTemplate.getForEntity("http://localhost:" + port + "/metrics", JsonNode.class);
         JsonNode rootObject = metricsResponse.getBody();
