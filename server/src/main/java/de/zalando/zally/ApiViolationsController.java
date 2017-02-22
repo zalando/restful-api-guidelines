@@ -11,6 +11,7 @@ import de.zalando.zally.exception.MissingApiDefinitionException;
 import de.zalando.zally.rules.RulesValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.metrics.dropwizard.DropwizardMetricServices;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,13 +24,15 @@ public class ApiViolationsController {
     private final RulesValidator rulesValidator;
     private final ObjectMapper mapper;
     private final DropwizardMetricServices metricServices;
+    private String message;
 
     @Autowired
     public ApiViolationsController(RulesValidator rulesValidator, ObjectMapper objectMapper,
-                                   DropwizardMetricServices metricServices) {
+                                   DropwizardMetricServices metricServices,  @Value("${zally.message:}") String message) {
         this.rulesValidator = rulesValidator;
         this.mapper = objectMapper;
         this.metricServices = metricServices;
+        this.message = message;
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -43,6 +46,10 @@ public class ApiViolationsController {
         reportViolationMetrics(violations);
 
         ObjectNode response = mapper.createObjectNode();
+        if (message != null && !message.isEmpty()) {
+            response.put("message", message);
+        }
+
         ArrayNode jsonViolations = response.putArray("violations");
         violations.forEach(jsonViolations::addPOJO);
 

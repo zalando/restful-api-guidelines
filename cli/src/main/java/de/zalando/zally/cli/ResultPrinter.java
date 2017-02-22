@@ -32,6 +32,14 @@ public class ResultPrinter {
         writer = new OutputStreamWriter(outputStream);
     }
 
+    public void printMessage(String message) throws IOException {
+        if (!message.isEmpty()) {
+            printHeader(ANSI_CYAN, "Server message");
+            writer.write(message + "\n\n");
+            writer.flush();
+        }
+    }
+
     public void printViolations(List<JsonObject> violations, String violationType) throws IOException {
         if (!violations.isEmpty()) {
 
@@ -51,7 +59,7 @@ public class ResultPrinter {
     }
 
     public void printSummary(List<String> violationTypeNames) throws IOException {
-        printHeader(ANSI_WHITE, "Summary:");
+        printHeader(ANSI_CYAN, "Summary:");
         for (String name : violationTypeNames) {
             writer.write(name.toUpperCase() + " violations: " + counters.getOrDefault(name, 0).toString() + "\n");
         }
@@ -100,7 +108,7 @@ public class ResultPrinter {
             case "HINT":
                 return ANSI_CYAN;
             default:
-                return ANSI_WHITE;
+                return ANSI_CYAN;
         }
     }
 }

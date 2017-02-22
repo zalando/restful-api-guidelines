@@ -67,11 +67,15 @@ definitions:
   LintingResponse:
     type: object
     description:
+    required:
+      - violations
     properties:
       violations:
         type: array
         items:
           $ref: '#/definitions/Violation'
+      message:
+        type: string
 
   Violation:
     type: object

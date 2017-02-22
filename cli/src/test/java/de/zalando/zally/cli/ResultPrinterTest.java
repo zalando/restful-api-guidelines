@@ -75,7 +75,7 @@ public class ResultPrinterTest {
         outContent.reset();
 
         resultPrinter.printSummary(Linter.violationTypes);
-        String expectedResult = resultPrinter.ANSI_WHITE + "\nSummary:\n"
+        String expectedResult = resultPrinter.ANSI_CYAN + "\nSummary:\n"
                 + "========\n\n" + resultPrinter.ANSI_RESET
                 + "MUST violations: 1\n"
                 + "SHOULD violations: 1\n"
@@ -95,7 +95,8 @@ public class ResultPrinterTest {
         String[] testColors = new String[] {
                 ResultPrinter.ANSI_RED,
                 ResultPrinter.ANSI_YELLOW,
-                ResultPrinter.ANSI_GREEN
+                ResultPrinter.ANSI_GREEN,
+                ResultPrinter.ANSI_CYAN
         };
 
         for (String testColor : testColors) {
@@ -125,5 +126,22 @@ public class ResultPrinterTest {
 
         String result = ResultPrinter.formatViolation(testColor, violation);
         assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void printsProperMessage() throws Exception {
+        final String message = "Test message";
+        ResultPrinter resultPrinter = new ResultPrinter(outStream);
+        resultPrinter.printMessage(message);
+
+        final String expectedResult = resultPrinter.ANSI_CYAN
+                + "\nServer message"
+                + "\n==============\n\n"
+                + resultPrinter.ANSI_RESET
+                + message
+                + "\n\n";
+
+        assertEquals(expectedResult, outContent.toString());
+
     }
 }

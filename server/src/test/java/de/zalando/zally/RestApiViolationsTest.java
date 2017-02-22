@@ -2,71 +2,23 @@ package de.zalando.zally;
 
 import java.io.IOException;
 import java.net.URI;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.zalando.zally.exception.MissingApiDefinitionException;
-import de.zalando.zally.rules.Rule;
-import de.zalando.zally.rules.RulesValidator;
-import io.swagger.models.Swagger;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.context.embedded.LocalServerPort;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.util.ResourceUtils;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(webEnvironment = RANDOM_PORT, classes = {Application.class, RestApiTest.TestConfiguration.class})
-public class RestApiTest {
 
-    @Configuration
-    static class TestConfiguration {
-
-        private static class CheckApiNameIsPresentRule implements Rule {
-
-            private final String apiName;
-
-            public CheckApiNameIsPresentRule(String apiName) {
-                this.apiName = apiName;
-            }
-
-            @Override
-            public List<Violation> validate(Swagger swagger) {
-                if (swagger != null && swagger.getInfo().getTitle().contains(apiName)) {
-                    return Arrays.asList(new Violation("dummy1", "dummy", ViolationType.MUST, "dummy"));
-                } else {
-                    return Collections.emptyList();
-                }
-            }
-        }
-
-        @Bean
-        @Primary
-        public RulesValidator validator() {
-            return new RulesValidator(Arrays.asList(new CheckApiNameIsPresentRule("Product Service")));
-        }
-    }
-
-    @LocalServerPort
-    private int port;
-
-    private final TestRestTemplate restTemplate = new TestRestTemplate();
+@TestPropertySource(properties = "zally.message=Test message")
+public class RestApiViolationsTest extends RestApiBaseTest {
 
     @Test
     public void shouldValidateGivenApiDefinition() throws IOException {
@@ -80,6 +32,9 @@ public class RestApiTest {
         JsonNode violations = rootObject.get("violations");
         assertThat(violations).hasSize(1);
         assertThat(violations.get(0).get("title").asText()).isEqualTo("dummy1");
+
+        String message = rootObject.get("message").asText();
+        assertThat(message).isEqualTo("Test message");
     }
 
     @Test
@@ -156,18 +111,5 @@ public class RestApiTest {
         JsonNode violations = rootObject.get("violations");
         assertThat(violations).hasSize(1);
         assertThat(violations.get(0).get("title").asText()).isEqualTo("Can't parse swagger file");
-    }
-
-    private ResponseEntity<JsonNode> sendRequest(JsonNode body) {
-        ObjectNode requestBody = new ObjectMapper().createObjectNode();
-        requestBody.set("api_definition", body);
-        return restTemplate.postForEntity(
-                getUrl(),
-                requestBody,
-                JsonNode.class);
-    }
-
-    private String getUrl() {
-        return "http://localhost:" + port + "/api-violations";
     }
 }
