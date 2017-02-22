@@ -35,7 +35,7 @@ public class ResultPrinter {
     public void printMessage(String message) throws IOException {
         if (!message.isEmpty()) {
             printHeader(ANSI_CYAN, "Server message");
-            writer.write(message);
+            writer.write(message + "\n\n");
             writer.flush();
         }
     }

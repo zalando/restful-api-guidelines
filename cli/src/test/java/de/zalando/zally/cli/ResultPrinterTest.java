@@ -138,7 +138,8 @@ public class ResultPrinterTest {
                 + "\nServer message"
                 + "\n==============\n\n"
                 + resultPrinter.ANSI_RESET
-                + message;
+                + message
+                + "\n\n";
 
         assertEquals(expectedResult, outContent.toString());
 
