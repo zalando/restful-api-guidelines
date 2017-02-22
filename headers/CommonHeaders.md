@@ -11,7 +11,7 @@ they can be used in both, HTTP requests and responses. Commonly used content hea
  - [`Content-Encoding`](https://tools.ietf.org/html/rfc7231#section-3.1.2.2) indicates compression or encryption algorithms applied to the content.
  - [`Content-Length`](https://tools.ietf.org/html/rfc7230#section-3.3.2) indicates the length of the content (in bytes).
  - [`Content-Language`](https://tools.ietf.org/html/rfc7231#section-3.1.3.2) indicates that the body is meant for people literate in some human language(s).
- - [`Content-Location`](https://tools.ietf.org/html/rfc7231#section-3.1.4.2) indicates where the body can be found otherwise ([see below for more details](#could-use-contentlocation-header)).
+ - [`Content-Location`](https://tools.ietf.org/html/rfc7231#section-3.1.4.2) indicates where the body can be found otherwise ([see below for more details](../headers/CommonHeaders.md#could-use-contentlocation-header)).
  - [`Content-Range`](https://tools.ietf.org/html/rfc7233#section-4.2) is used in responses to range requests to indicate which part of the requested resource representation is delivered with the body.
  - [`Content-Type`](https://tools.ietf.org/html/rfc7231#section-3.1.1.5) indicates the media type of the body content.
 
@@ -78,9 +78,9 @@ header can be used to force the server to check whether the version of the updat
 requested `<entity-tag>`. If no matching entity is found, the operation is supposed a to respond with status
 code 412 - precondition failed.
 
-In the same way the `If-None-Match: *` header can be used to express, that a resource has not been created
-before. If a matching entity is found, the operation is supposed a to respond with status code 412 - precondition
-failed.
+Beside other use cases, the `If-None-Match:` header with parameter `*` can be used in a similar way to expose
+conflicts in resource creation. If any matching entity is found, the operation is supposed a to respond with
+status code 412 - precondition failed.
 
 The `ETag`, `If-Match`, and `If-None-Match` headers can be defined as follows in the API definition:
 
