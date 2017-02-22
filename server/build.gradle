@@ -55,6 +55,8 @@ dependencies {
     compile("org.zalando.stups:stups-spring-oauth2-server:1.0.16")
     compile("org.zalando:problem-spring-web:0.16.0")
     compile("org.zalando:twintip-spring-web:1.1.0")
+    compile("org.zalando.zmon:zmon-actuator:0.9.7")
+    compile("io.dropwizard.metrics:metrics-core:3.1.0")
     compile("com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.8.5")
     compile("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
     testCompile("org.springframework.boot:spring-boot-starter-test")

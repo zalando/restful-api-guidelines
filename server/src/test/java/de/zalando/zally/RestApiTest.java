@@ -1,5 +1,11 @@
 package de.zalando.zally;
 
+import java.io.IOException;
+import java.net.URI;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -21,12 +27,6 @@ import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.ResourceUtils;
-
-import java.io.IOException;
-import java.net.URI;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
@@ -80,6 +80,24 @@ public class RestApiTest {
         JsonNode violations = rootObject.get("violations");
         assertThat(violations).hasSize(1);
         assertThat(violations.get(0).get("title").asText()).isEqualTo("dummy1");
+    }
+
+    @Test
+    public void shouldReturnMetricsOfFoundViolations() throws IOException {
+        ResponseEntity<JsonNode> responseEntity = sendRequest(
+                new ObjectMapper().readTree(ResourceUtils.getFile("src/test/resources/api_spp.json")));
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+
+        ResponseEntity<JsonNode> metricsResponse = restTemplate.getForEntity("http://localhost:" + port + "/metrics", JsonNode.class);
+        assertThat(metricsResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
+        JsonNode rootObject = metricsResponse.getBody();
+        assertThat(rootObject.has("counter.api-reviews.requested")).isTrue();
+        assertThat(rootObject.has("counter.api-reviews.processed")).isTrue();
+        assertThat(rootObject.has("histogram.api-reviews.violations.count")).isTrue();
+        assertThat(rootObject.has("histogram.api-reviews.violations.must.count")).isTrue();
+        assertThat(rootObject.has("histogram.api-reviews.violations.should.count")).isTrue();
+        assertThat(rootObject.has("histogram.api-reviews.violations.could.count")).isTrue();
+        assertThat(rootObject.has("histogram.api-reviews.violations.hint.count")).isTrue();
     }
 
     @Test
