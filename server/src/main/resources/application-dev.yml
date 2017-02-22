@@ -13,6 +13,3 @@ security:
 twintip:
   mapping: /api
   yaml: "classpath:/api/zally-api.yaml"
-
-zally:
-  message: ""
