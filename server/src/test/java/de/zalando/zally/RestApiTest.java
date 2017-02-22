@@ -89,6 +89,7 @@ public class RestApiTest {
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
 
         ResponseEntity<JsonNode> metricsResponse = restTemplate.getForEntity("http://localhost:" + port + "/metrics", JsonNode.class);
+        assertThat(metricsResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
         JsonNode rootObject = metricsResponse.getBody();
         assertThat(rootObject.has("counter.api-reviews.requested")).isTrue();
         assertThat(rootObject.has("counter.api-reviews.processed")).isTrue();
