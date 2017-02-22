@@ -36,6 +36,11 @@ URL path segment. Putting the same resource twice is required to be idempotent a
 the same single resource instance. If PUT is applied for creating a resource, only URIs should be
 allowed as resource IDs. If URIs are not available POST should be preferred.
 
+To prevent unnoticed concurrent updates when using PUT, the combination of [`ETag` and
+`If-(None-)Match`](../headers/CommonHeaders.md#could-consider-using-etag-together-with-ifnonematch-header)
+headers should be considered to signal the server stricter demands to expose conflicts and prevent
+lost updates.
+
 ### POST
 
 POST requests are idiomatically used to create single resources on a collection resource endpoint,
@@ -97,6 +102,11 @@ limited, especially when trying to update single objects in large collections (a
 resource). In this cases [JSON Patch](http://tools.ietf.org/html/rfc6902) can shown its full power
 while still showing readable patch requests
 ([see also](http://erosb.github.io/post/json-patch-vs-merge-patch)).
+
+To prevent unnoticed concurrent updates when using PATCH, the combination of [`ETag` and
+`If-Match`](../headers/CommonHeaders.md#could-consider-using-etag-together-with-ifnonematch-header)
+headers should be considered to signal the server stricter demands to expose conflicts and prevent
+lost updates.
 
 ### DELETE
 
