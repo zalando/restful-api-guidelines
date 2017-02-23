@@ -8,6 +8,7 @@ To see a list of all changes, please have a look at the [commit list in Github](
 
 ## Rule Changes
 
+* `2017-02-23:` Added rule that permissions on resources in events must correspond to permissions on API resources
 * `2017-02-02:` Added guideline for batch and bulk request
 * `2017-02-01:` Discouraged use of [Content-Location](../headers/CommonHeaders.md#could-use-contentlocation-header) header by requiring to use [Location header](../headers/CommonHeaders.md#should-use-location-header-instead-of-contentlocation-header).
 * `2017-01-18:` Removed "Avoid Javascript Keywords" rule
