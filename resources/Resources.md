@@ -28,14 +28,25 @@ API resources represent elements of the application’s domain model. Using doma
 
 ## {{ book.must }} Identify resources and Sub-Resources via Path Segments
 
+Some API resources may contain or reference sub-resources. Embedded sub-resources, which are not top-level resources,
+are parts of a higher-level resource and cannot be used outside of its scope. Sub-resources should be referenced
+by their name and identifier in the path segments.
+
+Composite identifiers must not contain “/” as a separator. In order to improve the consumer experience, you should
+aim for intuitively understandable URLs, where each sub-path is a valid reference to a resource or a set of resources.
+For example, if “/customers/12ev123bv12v/addresses/DE\_100100101” is a valid path of your API, then
+“/customers/12ev123bv12v/addresses”, “/customers/12ev123bv12v” and “/customers” must be valid as well.
+
 Basic URL structure:
 
     /{resources}/[resource-id]/{sub-resources}/[sub-resource-id]
+    /{resources}/[partial-id-1][separator][partial-id-2]
 
 Examples:
 
     /carts/1681e6b88ec1/items
     /carts/1681e6b88ec1/items/1
+    /customers/12ev123bv12v/addresses/DE_100100101
 
 
 ## {{ book.should }} Only Use UUIDs If Necessary
