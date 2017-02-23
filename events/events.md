@@ -83,6 +83,9 @@ There are cases where it could make sense to define data change events that don'
  - Events that are the result of a computation, such as a matching algorithm, or the generation of enriched data, and which might not be stored as entity by the service. 
 
 
+## {{book.must}} Permissions on events should correspond to API permissions
+If a resource can be accessed synchronously via a REST API and asynchronously via an event, the same permission must apply to protect access to the resource.
+
 ## {{ book.must }} Indicate ownership of Event Types
 
 Event definitions must have clear ownership - this can be indicated via the `owning_application` field of the EventType. 
