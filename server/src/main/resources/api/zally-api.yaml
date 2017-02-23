@@ -6,7 +6,7 @@ info:
  contact:
    name: Felix Mueller
    email: felix.mueller2@zalando.de
-host: "localhost:8080"
+host: "zally.architecture.zalan.do"
 schemes:
   - https
 basePath: /
