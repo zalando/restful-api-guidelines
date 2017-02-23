@@ -94,6 +94,7 @@ definitions:
         - MUST
         - SHOULD
         - COULD
+        - HINT
       rule_link:
         type: string
       paths:
