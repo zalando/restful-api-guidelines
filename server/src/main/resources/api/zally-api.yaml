@@ -14,9 +14,9 @@ securityDefinitions:
   oauth2:
     type: oauth2
     authorizationUrl: https://auth.zalando.com/oauth2/authorize
-    flow: password
+    flow: implicit
     scopes:
-      uid: access for zalando empolyees with zign token
+      uid: submit API specification for validation
 parameters:
   Authorization:
     name: Authorization
@@ -66,7 +66,7 @@ definitions:
 
   LintingResponse:
     type: object
-    description:
+    description: Linting Response
     required:
       - violations
     properties:
@@ -79,7 +79,7 @@ definitions:
 
   Violation:
     type: object
-    description:
+    description: Violation Object
     required:
       - title
       - description
