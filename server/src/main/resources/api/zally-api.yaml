@@ -25,6 +25,13 @@ parameters:
     required: true
     type: string
     format: OAUTH2 (IAM)
+  LintingRequest:
+    name: Request
+    in: body
+    description: Linting Request
+    required: true
+    schema:
+      $ref: '#/definitions/LintingRequest'
 
 paths:
   '/api-violations':
@@ -35,6 +42,7 @@ paths:
         Retrieves list of API violations based on the uploaded swagger file
       parameters:
         - $ref: '#/parameters/Authorization'
+        - $ref: '#/parameters/LintingRequest'
       consumes:
         - application/json
       produces:
