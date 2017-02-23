@@ -35,7 +35,7 @@ by their name and identifier in the path segments.
 Composite identifiers must not contain “/” as a separator. In order to improve the consumer experience, you should
 aim for intuitively understandable URLs, where each sub-path is a valid reference to a resource or a set of resources.
 For example, if “/customers/12ev123bv12v/addresses/DE\_100100101” is a valid path of your API, then
-“/customers/12ev123bv12v/addresses”, “/customers/12ev123bv12v” and “/customers” must be valid as well.
+“/customers/12ev123bv12v/addresses”, “/customers/12ev123bv12v” and “/customers” must be valid as well in principle.
 
 Basic URL structure:
 
