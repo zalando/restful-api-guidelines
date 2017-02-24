@@ -14,7 +14,7 @@ securityDefinitions:
   oauth2:
     type: oauth2
     authorizationUrl: https://auth.zalando.com/oauth2/authorize
-    flow: implicit
+    flow: password
     scopes:
       uid: submit API specification for validation
 parameters:
