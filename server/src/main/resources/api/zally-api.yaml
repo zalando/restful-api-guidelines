@@ -37,9 +37,12 @@ paths:
   '/api-violations':
     post:
       summary:
-        Retrieves list of API violations based on the uploaded swagger file
-      description:
-        Retrieves list of API violations based on the uploaded swagger file
+        API Violations
+      description: |
+        The API Violations endpoint validates given Swagger Specification
+        against the rules defined in *Zalando* RESTful API Guidelines
+        (http://zalando.github.io/restful-api-guidelines/). The response
+        includes the list of violations grouped by the API Guidelines rules.
       parameters:
         - $ref: '#/parameters/Authorization'
         - $ref: '#/parameters/LintingRequest'
