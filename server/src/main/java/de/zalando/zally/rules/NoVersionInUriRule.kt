@@ -6,7 +6,6 @@ import de.zalando.zally.utils.PatternUtil
 import io.swagger.models.Swagger
 import org.springframework.stereotype.Component
 
-
 @Component
 open class NoVersionInUriRule : Rule {
     val TITLE = "Do Not Use URI Versioning"

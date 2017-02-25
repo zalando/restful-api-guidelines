@@ -4,7 +4,6 @@ import de.zalando.zally.getFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
-
 class SnakeCaseForQueryParamsRuleTest {
 
     private val validSwagger = getFixture("snakeCaseForQueryParamsValid.json")

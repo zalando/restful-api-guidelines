@@ -19,6 +19,6 @@ open class RulesValidator(@Autowired val rules: List<Rule>) {
         } catch (e: Exception) {
             return listOf(Violation("Can't parse swagger file", e.toString(), ViolationType.MUST, "", emptyList()))
         }
-        return rules.map { it.validate(swagger) }.filterNotNull()
+        return rules.map { it.validate(swagger) }.filterNotNull().sortedBy { it.violationType }
     }
 }

@@ -6,7 +6,7 @@ import io.swagger.models.Swagger
 import io.swagger.models.parameters.Parameter
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
-import java.util.*
+import java.util.HashMap
 
 class HyphenateHttpHeadersRuleTest {
 

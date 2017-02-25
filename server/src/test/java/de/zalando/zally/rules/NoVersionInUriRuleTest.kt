@@ -12,7 +12,7 @@ class NoVersionInUriRuleTest {
             "Do Not Use URI Versioning",
             "basePath attribute contains version number",
             ViolationType.MUST,
-            "https://zalando.github.io/restful-api-guidelines/compatibility/Compatibility.html#must-do-not-use-uri-versioning",
+            NoVersionInUriRule().LINK,
             emptyList())
 
     @Test

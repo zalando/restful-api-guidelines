@@ -5,7 +5,6 @@ import de.zalando.zally.ViolationType
 import io.swagger.models.Swagger
 import org.springframework.stereotype.Component
 
-
 @Component
 open class UseProblemJsonRule : Rule {
     val TITLE = "Use Problem JSON"

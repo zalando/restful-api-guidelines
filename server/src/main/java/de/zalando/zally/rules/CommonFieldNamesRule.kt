@@ -16,10 +16,11 @@ open class CommonFieldNamesRule : Rule {
     override fun validate(swagger: Swagger): Violation? {
         val definitions = swagger.definitions.orEmpty()
         val res = definitions.entries.map { def ->
-            val violations = def.value.properties.entries.map { checkField(it.key, it.value) }.filterNotNull()
-            if (violations.isNotEmpty())
-                Pair("Definition ${def.key}: " + violations.joinToString("\n"), "#/definitions/${def.key}")
-            else null
+            val badProps = def.value.properties.entries.map { checkField(it.key, it.value) }.filterNotNull()
+            if (badProps.isNotEmpty()) {
+                val propsDesc = badProps.joinToString("\n")
+                "Definition ${def.key}: $propsDesc" to "#/definitions/${def.key}"
+            } else null
         }.filterNotNull()
 
         return if (res.isNotEmpty()) {

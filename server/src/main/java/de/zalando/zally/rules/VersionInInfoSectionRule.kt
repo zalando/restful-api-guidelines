@@ -14,7 +14,6 @@ open class VersionInInfoSectionRule : Rule {
     val RULE_LINK = "http://zalando.github.io/restful-api-guidelines/compatibility/Compatibility.html" +
             "#should-provide-version-information-in-openapi-documentation"
 
-
     override fun validate(swagger: Swagger): Violation? {
         val version = swagger.info?.version
         val desc = when {

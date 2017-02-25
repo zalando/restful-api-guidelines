@@ -3,7 +3,6 @@ package de.zalando.zally.rules
 import de.zalando.zally.getFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
-import java.util.*
 
 class AvoidJavascriptKeywordsRuleTest {
 
@@ -15,6 +14,6 @@ class AvoidJavascriptKeywordsRuleTest {
     @Test
     fun negativeCase() {
         val results = AvoidJavascriptKeywordsRule().validate(getFixture("avoidJavascriptInvalid.json"))!!.paths
-        assertThat(results).hasSameElementsAs(Arrays.asList("Pet.return", "Pet.typeof"))
+        assertThat(results).hasSameElementsAs(listOf("Pet.return", "Pet.typeof"))
     }
 }

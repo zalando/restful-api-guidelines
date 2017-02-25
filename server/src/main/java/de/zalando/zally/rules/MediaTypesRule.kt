@@ -6,7 +6,7 @@ import de.zalando.zally.utils.PatternUtil.isApplicationJsonOrProblemJson
 import de.zalando.zally.utils.PatternUtil.isCustomMediaTypeWithVersioning
 import io.swagger.models.Swagger
 import org.springframework.stereotype.Component
-import java.util.*
+import java.util.ArrayList
 
 @Component
 open class MediaTypesRule : Rule {

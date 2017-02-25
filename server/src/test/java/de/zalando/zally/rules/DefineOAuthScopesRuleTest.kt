@@ -18,7 +18,6 @@ class DefineOAuthScopesRuleTest {
         assertThat(DefineOAuthScopesRule().validate(swagger)!!.paths).hasSize(4)
     }
 
-
     @Test
     fun apiWithDefinedScope() {
         val swagger = getFixture("api_with_defined_scope.yaml")

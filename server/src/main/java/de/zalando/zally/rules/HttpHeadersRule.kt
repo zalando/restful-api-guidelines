@@ -16,10 +16,10 @@ abstract class HttpHeadersRule : Rule {
 
     override fun validate(swagger: Swagger): Violation? {
         fun Collection<Parameter>?.extractHeaders(path: String) =
-                orEmpty().filter { it.`in` == "header" }.map { Pair(path, it.name) }
+                orEmpty().filter { it.`in` == "header" }.map { path to it.name }
 
         fun Collection<Response>?.extractHeaders(path: String) =
-                orEmpty().flatMap { it.headers?.keys.orEmpty() }.map { Pair(path, it) }
+                orEmpty().flatMap { it.headers?.keys.orEmpty() }.map { path to it }
 
         val fromParams = swagger.parameters.orEmpty().values.extractHeaders("parameters")
         val fromPaths = swagger.paths.orEmpty().entries.flatMap { entry ->

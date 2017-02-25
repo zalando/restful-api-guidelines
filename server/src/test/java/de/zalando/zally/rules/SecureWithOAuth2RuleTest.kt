@@ -9,7 +9,6 @@ import io.swagger.models.auth.OAuth2Definition
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
-
 class SecureWithOAuth2RuleTest {
     val expectedViolation = Violation(
             "Secure Endpoints with OAuth 2.0",

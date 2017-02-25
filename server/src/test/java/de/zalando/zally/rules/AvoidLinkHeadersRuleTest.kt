@@ -4,7 +4,6 @@ import de.zalando.zally.ViolationType
 import de.zalando.zally.getFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
-import java.util.*
 
 class AvoidLinkHeadersRuleTest {
 
@@ -26,7 +25,7 @@ class AvoidLinkHeadersRuleTest {
         val violation = AvoidLinkHeadersRule().validate(swagger)!!
         assertThat(violation.violationType).isEqualTo(ViolationType.MUST)
         assertThat(violation.paths).hasSameElementsAs(
-                Arrays.asList("/product-put-requests/{product_path} Link", "/products Link"))
+                listOf("/product-put-requests/{product_path} Link", "/products Link"))
 
     }
 }

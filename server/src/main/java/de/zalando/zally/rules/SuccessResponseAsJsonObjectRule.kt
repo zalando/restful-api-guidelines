@@ -8,7 +8,7 @@ import io.swagger.models.Swagger
 import io.swagger.models.properties.Property
 import io.swagger.models.properties.RefProperty
 import org.springframework.stereotype.Component
-import java.util.*
+import java.util.ArrayList
 
 @Component
 open class SuccessResponseAsJsonObjectRule : Rule {

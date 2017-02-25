@@ -17,7 +17,7 @@ open class PluralizeResourceNamesRule : Rule {
     override fun validate(swagger: Swagger): Violation? {
         val res = swagger.paths.keys.flatMap { path ->
             path.split("/".toRegex()).filter { s -> !s.isEmpty() && !PatternUtil.isPathVariable(s) && !isPlural(s) }
-                    .map { Pair(it, path) }
+                    .map { it to path }
         }
         return if (res.isNotEmpty()) {
             val desc = res.toSet().map { "'${it.first}'" }.joinToString(", ")
