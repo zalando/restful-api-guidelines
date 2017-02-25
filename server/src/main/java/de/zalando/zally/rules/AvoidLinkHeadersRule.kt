@@ -2,6 +2,7 @@ package de.zalando.zally.rules
 
 import de.zalando.zally.Violation
 import de.zalando.zally.ViolationType
+import de.zalando.zally.utils.pp
 import org.springframework.stereotype.Component
 
 @Component
@@ -11,7 +12,7 @@ open class AvoidLinkHeadersRule : HttpHeadersRule() {
     private val RULE_LINK = "http://zalando.github.io/restful-api-guidelines/hyper-media/Hypermedia.html" +
             "#must-do-not-use-link-headers-with-json-entities"
 
-    override fun isViolation(header: String) = header == "Link"
+    override fun isViolation(header: String) = header.pp == "Link"
 
     override fun createViolation(paths: List<String>): Violation {
         return Violation(TITLE, DESCRIPTION, ViolationType.MUST, RULE_LINK, paths)

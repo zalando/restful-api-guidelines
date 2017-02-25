@@ -10,7 +10,7 @@ class NestedPathsCouldBeRootPathsRuleTest {
     fun avoidLinkHeadersValidJson() {
         val swagger = getFixture("api_spp.json")
         val result = NestedPathsCouldBeRootPathsRule().validate(swagger)!!
-        assertThat(result.paths).hasSameElementsAs(listOf(""))
+        assertThat(result.paths).hasSameElementsAs(listOf("/products/{product_id}/updates/{update_id}"))
     }
 
     @Test

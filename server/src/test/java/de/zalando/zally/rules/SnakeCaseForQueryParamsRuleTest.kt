@@ -20,18 +20,18 @@ class SnakeCaseForQueryParamsRuleTest {
     @Test
     fun shouldFindViolationsInLocalRef() {
         val result = SnakeCaseForQueryParamsRule().validate(invalidSwaggerWithLocalParam)!!
-        assertThat(result.paths).hasSameElementsAs(listOf(""))
+        assertThat(result.paths).hasSameElementsAs(listOf("/items GET"))
     }
 
     @Test
     fun shouldFindViolationsInInternalRef() {
         val result = SnakeCaseForQueryParamsRule().validate(invalidSwaggerWIthInternalRef)!!
-        assertThat(result.paths).hasSameElementsAs(listOf(""))
+        assertThat(result.paths).hasSameElementsAs(listOf("/items GET"))
     }
 
     @Test
     fun shouldFindViolationsInExternalRef() {
         val result = SnakeCaseForQueryParamsRule().validate(invalidSwaggerWithExternalRef)!!
-        assertThat(result.paths).hasSameElementsAs(listOf(""))
+        assertThat(result.paths).hasSameElementsAs(listOf("/items GET"))
     }
 }

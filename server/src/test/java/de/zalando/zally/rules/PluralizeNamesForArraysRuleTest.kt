@@ -3,7 +3,6 @@ package de.zalando.zally.rules
 import de.zalando.zally.getFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
-import java.util.*
 
 class PluralizeNamesForArraysRuleTest {
 
@@ -17,7 +16,8 @@ class PluralizeNamesForArraysRuleTest {
     fun negativeCase() {
         val swagger = getFixture("pluralizeArrayNamesInvalid.json")
         val result = PluralizeNamesForArraysRule().validate(swagger)!!
-        assertThat(result.paths).hasSameElementsAs(Arrays.asList("Pet.tag", "Pet.name"))
+        assertThat(result.paths).hasSameElementsAs(listOf("#/definitions/Pet"))
+        assertThat(result.description).contains("name", "tag")
     }
 
     @Test

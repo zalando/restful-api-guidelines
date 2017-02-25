@@ -15,14 +15,9 @@ class VersionInInfoSectionRuleTest {
             }
 
     @Test
-    fun forEmptySwagger() {
-        assertThat(VersionInInfoSectionRule().validate(Swagger())).isNull()
-    }
-
-    @Test
-    fun correctVersion() {
-        val swagger = swaggerWithVersion("1.2.3")
-        assertThat(VersionInInfoSectionRule().validate(swagger)).isNull()
+    fun emptySwagger() {
+        val result = VersionInInfoSectionRule().validate(Swagger())!!
+        assertThat(result.description).contains("Version is missing")
     }
 
     @Test
@@ -33,9 +28,15 @@ class VersionInInfoSectionRuleTest {
     }
 
     @Test
-    fun wrongVersion() {
+    fun wrongVersionFormat() {
         val swagger = swaggerWithVersion("1.2.3-a")
         val result = VersionInInfoSectionRule().validate(swagger)!!
         assertThat(result.description).contains("Specified version has incorrect format")
+    }
+
+    @Test
+    fun correctVersion() {
+        val swagger = swaggerWithVersion("1.2.3")
+        assertThat(VersionInInfoSectionRule().validate(swagger)).isNull()
     }
 }

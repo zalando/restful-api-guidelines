@@ -23,7 +23,7 @@ public class RestApiViolationsTest extends RestApiBaseTest {
     @Test
     public void shouldValidateGivenApiDefinition() throws IOException {
         ResponseEntity<JsonNode> responseEntity = sendRequest(
-                new ObjectMapper().readTree(ResourceUtils.getFile("src/test/resources/api_spp.json")));
+                new ObjectMapper().readTree(ResourceUtils.getFile("src/test/resources/fixtures/api_spp.json")));
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
 
         JsonNode rootObject = responseEntity.getBody();

@@ -30,8 +30,10 @@ abstract class HttpHeadersRule : Rule {
         }
         val allHeaders = fromParams + fromPaths
         val paths = allHeaders
-                .filter { it.first !in PARAMETER_NAMES_WHITELIST && isViolation(it.first) }
+                .filter { it.second !in PARAMETER_NAMES_WHITELIST && isViolation(it.second) }
                 .map { "${it.first} ${it.second}" }
+                .toSet()
+                .toList()
         return if (paths.isNotEmpty()) createViolation(paths) else null
     }
 }

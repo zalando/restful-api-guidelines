@@ -15,7 +15,7 @@ class Use429HeaderForRateLimitRuleTest {
     fun negativeCase() {
         val swagger = getFixture("use429HeadersForRateLimitInvalidHeader.json")
         val result = Use429HeaderForRateLimitRule().validate(swagger)!!
-        assertThat(result.paths).hasSameElementsAs(listOf(""))
+        assertThat(result.paths).hasSameElementsAs(listOf("/pets GET 429", "/pets POST 429", "/pets PUT 429"))
     }
 
     @Test

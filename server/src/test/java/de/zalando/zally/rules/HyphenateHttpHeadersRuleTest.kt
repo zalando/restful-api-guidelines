@@ -1,7 +1,7 @@
 package de.zalando.zally.rules
 
 import de.zalando.zally.getFixture
-import de.zalando.zally.swaggerWithParams
+import de.zalando.zally.swaggerWithHeaderParams
 import io.swagger.models.Swagger
 import io.swagger.models.parameters.Parameter
 import org.assertj.core.api.Assertions.assertThat
@@ -12,20 +12,20 @@ class HyphenateHttpHeadersRuleTest {
 
     @Test
     fun simplePositiveCase() {
-        val swagger = swaggerWithParams("Right-Name")
+        val swagger = swaggerWithHeaderParams("Right-Name")
         assertThat(HyphenateHttpHeadersRule().validate(swagger)).isNull()
     }
 
     @Test
     fun simpleNegativeCase() {
-        val swagger = swaggerWithParams("CamelCaseName")
+        val swagger = swaggerWithHeaderParams("CamelCaseName")
         val result = HyphenateHttpHeadersRule().validate(swagger)!!
-        assertThat(result.paths).hasSameElementsAs(listOf("parameter CamelCaseName"))
+        assertThat(result.paths).hasSameElementsAs(listOf("parameters CamelCaseName"))
     }
 
     @Test
     fun mustAcceptETag() {
-        val swagger = swaggerWithParams("ETag")
+        val swagger = swaggerWithHeaderParams("ETag")
         assertThat(HyphenateHttpHeadersRule().validate(swagger)).isNull()
     }
 

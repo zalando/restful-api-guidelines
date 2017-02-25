@@ -13,12 +13,12 @@ open class PluralizeNamesForArraysRule : Rule {
             "#should-array-names-should-be-pluralized"
 
     override fun validate(swagger: Swagger): Violation? {
-        val definitions = swagger.definitions.orEmpty()
-        val res = definitions.entries.map { def ->
-            val badProps = def.value.properties.entries.filter { "array" == it.value.type && !isPlural(it.key) }
-            if (badProps.isNotEmpty())
-                Pair("Definition ${def.key}: " + badProps.joinToString("\n"), "#/definitions/${def.key}")
-            else null
+        val res = swagger.definitions.orEmpty().entries.map { def ->
+            val badProps = def.value?.properties?.entries?.filter { "array" == it.value?.type && !isPlural(it.key) }.orEmpty()
+            if (badProps.isNotEmpty()) {
+                val propsDesc = badProps.map { "'${it.key}'" }.joinToString(",")
+                "Definition ${def.key}: $propsDesc" to "#/definitions/${def.key}"
+            } else null
         }.filterNotNull()
 
         return if (res.isNotEmpty()) {

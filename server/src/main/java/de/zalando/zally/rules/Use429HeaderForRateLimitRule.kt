@@ -23,7 +23,7 @@ open class Use429HeaderForRateLimitRule : Rule {
                 val (verb, operation) = it
                 operation.responses.orEmpty().flatMap {
                     val (code, response) = it
-                    if (code == "429" && !containsRateLimitHeader(response.headers))
+                    if (code == "429" && !containsRateLimitHeader(response.headers.orEmpty()))
                         listOf("$path $verb $code")
                     else emptyList()
                 }

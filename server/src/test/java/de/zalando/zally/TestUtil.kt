@@ -11,7 +11,7 @@ fun swaggerWithPaths(vararg specificPaths: String): Swagger =
             paths = specificPaths.map { it to null }.toMap()
         }
 
-fun swaggerWithParams(vararg names: String) =
+fun swaggerWithHeaderParams(vararg names: String) =
         Swagger().apply {
             parameters = names.map { header ->
                 Pair(header, HeaderParameter().apply { name = header })
