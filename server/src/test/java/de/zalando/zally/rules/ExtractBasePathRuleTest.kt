@@ -2,9 +2,9 @@ package de.zalando.zally.rules
 
 import de.zalando.zally.Violation
 import de.zalando.zally.ViolationType
+import de.zalando.zally.getFixture
 import io.swagger.models.Path
 import io.swagger.models.Swagger
-import io.swagger.parser.SwaggerParser
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
@@ -16,13 +16,13 @@ class ExtractBasePathRuleTest {
 
     @Test
     fun validateEmptyPath() {
-        assertThat(ExtractBasePathRule().validate(Swagger())).isEmpty()
+        assertThat(ExtractBasePathRule().validate(Swagger())).isNull()
     }
 
     @Test
     fun simplePositiveCase() {
         val swagger = createSwaggerWithPaths("/orders/{order_id}", "/orders/{updates}", "/merchants")
-        assertThat(ExtractBasePathRule().validate(swagger)).isEmpty()
+        assertThat(ExtractBasePathRule().validate(swagger)).isNull()
     }
 
     @Test
@@ -33,8 +33,9 @@ class ExtractBasePathRuleTest {
                 "/shipment/{shipment_id}/details"
         )
         val rule = ExtractBasePathRule()
-        val expected = Violation(rule.TITLE, rule.DESC_PATTERN.format("/shipment"), ViolationType.HINT, rule.RULE_URL)
-        assertThat(rule.validate(swagger)).containsExactly(expected)
+        val expected = Violation(rule.TITLE, rule.DESC_PATTERN.format("/shipment"), ViolationType.HINT, rule.RULE_URL,
+                emptyList())
+        assertThat(rule.validate(swagger)).isEqualTo(expected)
     }
 
     @Test
@@ -46,21 +47,20 @@ class ExtractBasePathRuleTest {
                 "/queue/models/summaries"
         )
         val rule = ExtractBasePathRule()
-        val expected = Violation(rule.TITLE, rule.DESC_PATTERN.format("/queue/models"), ViolationType.HINT, rule.RULE_URL)
-        assertThat(rule.validate(swagger)).containsExactly(expected)
+        val expected = Violation(rule.TITLE, rule.DESC_PATTERN.format("/queue/models"), ViolationType.HINT,
+                rule.RULE_URL, emptyList())
+        assertThat(rule.validate(swagger)).isEqualTo(expected)
     }
 
     @Test
     fun positiveCaseSpp() {
         val swagger = getFixture("api_spp.json")
-        assertThat(ExtractBasePathRule().validate(swagger)).isEmpty()
+        assertThat(ExtractBasePathRule().validate(swagger)).isNull()
     }
 
     @Test
     fun positiveCaseTinbox() {
         val swagger = getFixture("api_tinbox.yaml")
-        assertThat(ExtractBasePathRule().validate(swagger)).isEmpty()
+        assertThat(ExtractBasePathRule().validate(swagger)).isNull()
     }
-
-    private fun getFixture(fixture: String) = SwaggerParser().read(fixture)
 }

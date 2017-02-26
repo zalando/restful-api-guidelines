@@ -7,9 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 
 @Configuration
 public class RestApiTestConfiguration {
@@ -22,11 +20,11 @@ public class RestApiTestConfiguration {
         }
 
         @Override
-        public List<Violation> validate(Swagger swagger) {
+        public Violation validate(Swagger swagger) {
             if (swagger != null && swagger.getInfo().getTitle().contains(apiName)) {
-                return Arrays.asList(new Violation("dummy1", "dummy", ViolationType.MUST, "dummy"));
+                return new Violation("dummy1", "dummy", ViolationType.MUST, "dummy", Collections.emptyList());
             } else {
-                return Collections.emptyList();
+                return null;
             }
         }
     }
@@ -34,6 +32,6 @@ public class RestApiTestConfiguration {
     @Bean
     @Primary
     public RulesValidator validator() {
-        return new RulesValidator(Arrays.asList(new CheckApiNameIsPresentRule("Product Service")));
+        return new RulesValidator(Collections.singletonList(new CheckApiNameIsPresentRule("Product Service")));
     }
 }
