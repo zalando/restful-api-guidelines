@@ -20,7 +20,7 @@ open class PluralizeResourceNamesRule : Rule {
                     .map { it to path }
         }
         return if (res.isNotEmpty()) {
-            val desc = res.toSet().map { "'${it.first}'" }.joinToString(", ")
+            val desc = res.map { "'${it.first}'" }.toSet().joinToString(", ")
             val paths = res.map { it.second }
             Violation(RULE_NAME, String.format(DESC_PATTERN, desc), ViolationType.SHOULD, RULE_URL, paths)
         } else null

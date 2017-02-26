@@ -27,7 +27,7 @@ open class SnakeCaseForQueryParamsRule : Rule {
         }
         return if (result.isNotEmpty()) {
             val (paths, params) = result.unzip()
-            val description = "Parameters that are not in snake_case: " + params.toSet().joinToString(",")
+            val description = "Parameters that are not in snake_case: " + params.flatten().map { it.name }.toSet().joinToString(",")
             Violation(TITLE, description, ViolationType.MUST, RULE_LINK, paths)
         } else null
     }
