@@ -16,7 +16,7 @@ open class CommonFieldNamesRule : Rule {
     override fun validate(swagger: Swagger): Violation? {
         val definitions = swagger.definitions.orEmpty()
         val res = definitions.entries.map { def ->
-            val badProps = def.value.properties.entries.map { checkField(it.key, it.value) }.filterNotNull()
+            val badProps = def.value.properties.orEmpty().entries.map { checkField(it.key, it.value) }.filterNotNull()
             if (badProps.isNotEmpty()) {
                 val propsDesc = badProps.joinToString("\n")
                 "Definition ${def.key}: $propsDesc" to "#/definitions/${def.key}"
