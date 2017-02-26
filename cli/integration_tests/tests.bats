@@ -13,11 +13,11 @@
 	[ "${lines[0]}" = "[31m" ]
 	[ "${lines[1]}" = "Found the following MUST violations" ]
 	[ "${lines[2]}" = "===================================" ]
-	[ "${lines[121]}" = "[0mMUST violations: 24" ]
-	[ "${lines[122]}" = "SHOULD violations: 0" ]
-	[ "${lines[123]}" = "COULD violations: 0" ]
-	[ "${lines[124]}" = "HINT violations: 0" ]
-	[ "${#lines[@]}" -eq 125 ]
+	[ "${lines[52]}" = "[0mMUST violations: 6" ]
+	[ "${lines[53]}" = "SHOULD violations: 0" ]
+	[ "${lines[54]}" = "COULD violations: 0" ]
+	[ "${lines[55]}" = "HINT violations: 0" ]
+	[ "${#lines[@]}" -eq 56 ]
 }
 
 @test "CLI works with local .json file" {
@@ -45,11 +45,11 @@
 	[ "${lines[0]}" = "[31m" ]
 	[ "${lines[1]}" = "Found the following MUST violations" ]
 	[ "${lines[2]}" = "===================================" ]
-	[ "${lines[121]}" = "[0mMUST violations: 24" ]
-	[ "${lines[122]}" = "SHOULD violations: 0" ]
-	[ "${lines[123]}" = "COULD violations: 0" ]
-	[ "${lines[124]}" = "HINT violations: 0" ]
-	[ "${#lines[@]}" -eq 125 ]
+	[ "${lines[52]}" = "[0mMUST violations: 6" ]
+	[ "${lines[53]}" = "SHOULD violations: 0" ]
+	[ "${lines[54]}" = "COULD violations: 0" ]
+	[ "${lines[55]}" = "HINT violations: 0" ]
+	[ "${#lines[@]}" -eq 56 ]
 }
 
 @test "CLI works with remote .json file" {
