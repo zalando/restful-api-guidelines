@@ -3,7 +3,6 @@ package de.zalando.zally.cli;
 import com.eclipsesource.json.JsonArray;
 import com.eclipsesource.json.JsonObject;
 import com.eclipsesource.json.JsonValue;
-import org.json.JSONArray;
 
 import java.io.IOException;
 import java.io.OutputStream;
