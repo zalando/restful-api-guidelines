@@ -8,7 +8,7 @@
 }
 
 @test "CLI works with local .yaml file" {
-	run cli/bin/zally server/src/test/resources/api_spa.yaml
+	run cli/bin/zally server/src/test/resources/fixtures/api_spa.yaml
 	[ "$status" -eq 1 ]
 	[ "${lines[0]}" = "[31m" ]
 	[ "${lines[1]}" = "Found the following MUST violations" ]
@@ -21,7 +21,7 @@
 }
 
 @test "CLI works with local .json file" {
-	run cli/bin/zally server/src/test/resources/api_spp.json
+	run cli/bin/zally server/src/test/resources/fixtures/api_spp.json
 	[ "$status" -eq 1 ]
 	[ "${lines[0]}" = "[31m" ]
 	[ "${lines[1]}" = "Found the following MUST violations" ]
