@@ -40,6 +40,6 @@ In case guidelines are changing, following rules apply:
 - clients of existing APIs have to cope with these APIs based on outdated rules
 - new APIs have to respect the current guidelines
 
-Furthermore you should keep in mind that once an API becomes public external
+Furthermore you should keep in mind that once an API becomes public externally
 available, it has to be re-reviewed and changed according to current
 guidelines - for sake of overall consistency.
