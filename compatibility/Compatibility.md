@@ -7,6 +7,10 @@ running. Consumers usually have independent release lifecycles, focus on
 stability, and avoid changes that do not provide additional value. APIs are
 service contracts that cannot be broken via unilateral decisions.
 
+An API contract consists of endpoints and allowed methods on these, payloads
+and also validation logic, e.g. changing validation logic would be a breaking
+API change.
+
 There are two techniques to change APIs without breaking them:
 
 - follow rules for compatible extensions
@@ -14,7 +18,7 @@ There are two techniques to change APIs without breaking them:
 
 We strongly encourage using compatible API extensions and discourage versioning.
 With Postel’s Law in mind, here are some rules for providers and consumers that
-allow us to make compatible changes without versioning:
+allow us to make compatible changes without versioning.
 
 ## {{ book.should }} Prefer Compatible Extensions
 
