@@ -6,7 +6,7 @@ info:
  contact:
    name: Felix Mueller
    email: felix.mueller2@zalando.de
-host: "localhost:8080"
+host: "zally.architecture.zalan.do"
 schemes:
   - https
 basePath: /
@@ -16,7 +16,7 @@ securityDefinitions:
     authorizationUrl: https://auth.zalando.com/oauth2/authorize
     flow: password
     scopes:
-      uid: access for zalando empolyees with zign token
+      uid: submit API specification for validation
 parameters:
   Authorization:
     name: Authorization
@@ -25,16 +25,27 @@ parameters:
     required: true
     type: string
     format: OAUTH2 (IAM)
+  LintingRequest:
+    name: Request
+    in: body
+    description: Linting Request
+    required: true
+    schema:
+      $ref: '#/definitions/LintingRequest'
 
 paths:
   '/api-violations':
     post:
       summary:
-        Retrieves list of API violations based on the uploaded swagger file
-      description:
-        Retrieves list of API violations based on the uploaded swagger file
+        API Violations
+      description: |
+        The API Violations endpoint validates given Swagger Specification
+        against the rules defined in *Zalando* RESTful API Guidelines
+        (http://zalando.github.io/restful-api-guidelines/). The response
+        includes the list of violations grouped by the API Guidelines rules.
       parameters:
         - $ref: '#/parameters/Authorization'
+        - $ref: '#/parameters/LintingRequest'
       consumes:
         - application/json
       produces:
@@ -66,7 +77,7 @@ definitions:
 
   LintingResponse:
     type: object
-    description:
+    description: Linting Response
     required:
       - violations
     properties:
@@ -79,7 +90,7 @@ definitions:
 
   Violation:
     type: object
-    description:
+    description: Violation Object
     required:
       - title
       - description
@@ -94,6 +105,7 @@ definitions:
         - MUST
         - SHOULD
         - COULD
+        - HINT
       rule_link:
         type: string
       paths:
