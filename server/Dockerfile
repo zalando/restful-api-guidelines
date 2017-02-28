@@ -1,9 +1,9 @@
 FROM registry.opensource.zalan.do/stups/openjdk:8-52
 
-MAINTAINER Zalando SE
+LABEL MAINTAINER "http://zalando.github.io/"
 
-ADD build/libs/zally-0.0.1.jar /
-ADD scm-source.json /scm-source.json
+COPY build/libs/zally-0.0.1.jar /
+COPY scm-source.json /scm-source.json
 
 EXPOSE 8080
 
