@@ -4,9 +4,9 @@ The titles are marked with the corresponding labels: {{ book.must }}, {{ book.sh
 
 ## {{ book.must }} Follow API First Principle
 
-As mentioned in the introduction, API First is one of our architecture principles, as per our Architecture Rules of Play. 
-In a nutshell API First has two aspects:
-
+As mentioned in the introduction, API First is one of our [engineering and architecture principles](https://github.com/zalando-incubator/zalando-tech-principles). 
+In a nutshell API First requires two aspects:
+ 
 - define APIs outside the code first using a standard specification language
 - get early review feedback from peers and client developers
 
@@ -29,15 +29,14 @@ and to supported development of client applications decoupled from service provi
 
 It is important to learn, that API First is **not in conflict with the agile development principles** that we love. 
 Service applications should evolve incrementally — and so its APIs. Of course, our API specification will 
-and should evolve iteratively in different cycles, each starting with draft status and early team 
-and peer review feedback. 
-
+and should evolve iteratively in different cycles; however, each starting with draft status and *early* team 
+and peer review feedback.
 API may change and profit from implementation concerns and automated testing feedback. 
 API evolution during development life cycle may include breaking changes for not yet productive features 
 and as long as we have aligned the changes with the clients. 
 Hence, API First does *not* mean that you must have 100% domain and requirement understanding and can never produce code 
 before you have defined the complete API and get it confirmed by peer review. On the other hand, API First obviously is 
-in conflict with the practice of publishing API definition and asking for peer review after the service integration 
+in conflict with the bad practice of publishing API definition and asking for peer review after the service integration 
 or even the service productive operation has started. 
 It is crucial to request and get early feedback — as early as possible, but not before the API changes are comprehensive 
 with focus to the next evolution step and have a certain quality (including API Guideline compliance), 
@@ -47,8 +46,7 @@ already confirmed via team internal reviews.
 ## {{ book.must }} Provide API Reference Definition using OpenAPI
 
 We use the [OpenAPI specification](http://swagger.io/specification/) (aka Swagger spec) as standard for our REST API definitions. 
-You may choose YAML or JSON as a format of your OpenAPI API definition file; 
-however, YAML is generally preferred due to its improved readability. 
+You should use YAML format (instead of JSON) for the OpenAPI API definition files due to its improved readability. 
 
 We also call the OpenAPI API definition the "API Reference definition" (or "API definition"); 
 it provides all information needed by an experienced API client developer to use this API.
