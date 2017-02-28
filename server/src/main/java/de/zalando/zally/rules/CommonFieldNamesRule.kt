@@ -18,14 +18,14 @@ open class CommonFieldNamesRule : Rule {
         val res = definitions.entries.map { def ->
             val badProps = def.value.properties.orEmpty().entries.map { checkField(it.key, it.value) }.filterNotNull()
             if (badProps.isNotEmpty()) {
-                val propsDesc = badProps.joinToString("\n")
+                val propsDesc = badProps.joinToString(", ")
                 "Definition ${def.key}: $propsDesc" to "#/definitions/${def.key}"
             } else null
         }.filterNotNull()
 
         return if (res.isNotEmpty()) {
             val (desc, paths) = res.unzip()
-            Violation(title, desc.joinToString("\n"), ViolationType.MUST, link, paths)
+            Violation(title, desc.joinToString(", "), ViolationType.MUST, link, paths)
         } else null
     }
 

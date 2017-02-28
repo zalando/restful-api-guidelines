@@ -81,22 +81,20 @@ public class ResultPrinter {
 
         StringBuilder sb = new StringBuilder();
         sb.append(headerColor + title + "\n" + ANSI_RESET);
+        sb.append("\t" + description + "\n");
+        JsonValue ruleLink = violation.get("rule_link");
+        if (!ruleLink.isNull()) {
+            sb.append("\t" + ANSI_CYAN + ruleLink.asString() + "\n" + ANSI_RESET);
+        }
         if (!paths.isEmpty()) {
-            sb.append("\t(paths:\n");
+            sb.append("\tViolated at:\n");
             for (JsonValue path : paths) {
                 sb.append("\t\t");
                 sb.append(path.asString());
                 sb.append("\n");
             }
-            sb.append("\t)\n");
+            sb.append("\n");
         }
-        sb.append("\t" + description + "\n");
-
-        String ruleLink = !violation.get("rule_link").isNull() ? violation.get("rule_link").asString() : "";
-        if (!ruleLink.isEmpty()) {
-            sb.append("\t" + ANSI_CYAN + ruleLink + "\n" + ANSI_RESET);
-        }
-
         return sb.toString();
     }
 

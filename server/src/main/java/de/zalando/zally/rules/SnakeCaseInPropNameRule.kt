@@ -21,7 +21,7 @@ open class SnakeCaseInPropNameRule : Rule {
         }
         return if (result.isNotEmpty()) {
             val (paths, props) = result.unzip()
-            val description = "Properties that are not in snake_case: " + props.toSet().joinToString(",")
+            val description = "Properties that are not in snake_case: " + props.flatten().toSet().joinToString(", ")
             Violation(title, description, ViolationType.MUST, ruleLink, paths)
         } else null
     }

@@ -49,8 +49,8 @@ public class ResultPrinterTest {
         String expectedResult =  violationPrinter.ANSI_RED + "\nFound the following MUST violations\n"
                 + "===================================\n\n" + violationPrinter.ANSI_RESET
                 + violationPrinter.ANSI_RED + "Violation 1\n" + violationPrinter.ANSI_RESET
-                + "\t(paths:\n\t\tViolation 1 Path\n\t)\n"
-                + "\tViolation 1 Description\n\n"
+                + "\tViolation 1 Description\n"
+                + "\tViolated at:\n\t\tViolation 1 Path\n\n\n"
                 + violationPrinter.ANSI_RED + "Violation 2\n" + violationPrinter.ANSI_RESET
                 + "\tViolation 2 Description\n\n";
 
@@ -118,11 +118,9 @@ public class ResultPrinterTest {
 
         String testColor = ResultPrinter.ANSI_RED;
         String expectedResult = testColor + "Test title\n" + ResultPrinter.ANSI_RESET
-                + "\t(paths:\n\t\t/products/{product_id}/\n\t)\n"
                 + "\tTest description\n"
-                + "\t" + ResultPrinter.ANSI_CYAN
-                + "https://zalando.github.io/restful-api-guidelines/security/Security.html#must-secure-endpoints-with-oauth-20"
-                + "\n" + ResultPrinter.ANSI_RESET;
+                + "\t" + ResultPrinter.ANSI_CYAN + "https://zalando.github.io/restful-api-guidelines/security/Security.html#must-secure-endpoints-with-oauth-20\n" + ResultPrinter.ANSI_RESET
+                + "\tViolated at:\n\t\t/products/{product_id}/\n\n";
 
         String result = ResultPrinter.formatViolation(testColor, violation);
         assertEquals(expectedResult, result);
