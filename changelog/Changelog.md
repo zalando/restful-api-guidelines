@@ -9,6 +9,7 @@ To see a list of all changes, please have a look at the [commit list in Github](
 ## Rule Changes
 
 * `2017-02-28:` Extended information about how to reference sub-resources and the usage of composite identifiers in the [Resources](../resources/Resources.md#-bookmust--identify-resources-and-sub-resources-via-path-segments) part.
+* `2017-02-22:` Added guidance for conditional requests with If-Match/If-None-Match
 * `2017-02-02:` Added guideline for batch and bulk request
 * `2017-02-01:` Discouraged use of [Content-Location](../headers/CommonHeaders.md#could-use-contentlocation-header) header by requiring to use [Location header](../headers/CommonHeaders.md#should-use-location-header-instead-of-contentlocation-header).
 * `2017-01-18:` Removed "Avoid Javascript Keywords" rule
