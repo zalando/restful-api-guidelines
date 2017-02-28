@@ -64,7 +64,6 @@ their last read position within the ordered stream. Events *should* therefore co
 This can be done - among other ways -  by adding
 - a strictly monotonically increasing entity version (e.g. as created by a database) to allow for partial ordering of all events for an entity
 - a strictly monotonically increasing message counter
-- parent event identifiers (Nakadi meta data field ``parent_eid``) to allow for partial ordering of related events in a business flow.
 
 System timestamps are not necessarily a good choice, since exact synchronization of clocks in distributed systems is difficult, two events may occur in the same microsecond and system clocks may jump backward or forward to compensate drifts or leap-seconds. If you use system timestamps to indicate event ordering, you must carefully ensure that your designated event order is not messed up by these effects. 
 
