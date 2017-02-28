@@ -64,7 +64,7 @@ are less experienced in using this API. A helpful API User Manual typically desc
 the following API aspects:
 
 - API’s scope, purpose and use cases
-- concrete usage examples of API usage
+- concrete examples of API usage
 - edge cases, error situation details and repair hints
 - architecture context and mayor dependencies - including figures and sequence flows
 
