@@ -49,7 +49,7 @@ We use the [OpenAPI specification](http://swagger.io/specification/) (aka Swagge
 You should use YAML format (instead of JSON) for the OpenAPI API definition files due to its improved readability. 
 
 We also call the OpenAPI API definition the "API Reference definition" (or "API definition"); 
-it provides all information needed by an experienced API client developer to use this API.
+as a reference manual it provides all information needed by an experienced API client developer to use this API.
 
 The OpenAPI API specification file should be subject of version control together with source code management. 
 Services also have to support an
@@ -58,18 +58,18 @@ Services also have to support an
 
 ## {{ book.should }} Provide User Manual Documentation
 
-In addition to defining the API as OpenAPI Reference Definition, it’s good practice to provide 
-further documentation to improve client developer experience, especially of engineers that 
-are novices in using this API. A helpful API User Manual documentation typically describes 
+In addition to the API as OpenAPI Reference Definition, it’s good practice to provide 
+an API User Manual documentation to improve client developer experience, especially of engineers that 
+are less experienced in using this API. A helpful API User Manual typically describes 
 the following API aspects:
 
 - API’s scope, purpose and use cases
-- concrete usage examples 
-- architecture context - including figures and sequence flows
-- edge cases and possible error situations
+- concrete usage examples of API usage
+- edge cases, error situation details and repair hints
+- architecture context and mayor dependencies - including figures and sequence flows
 
 The User Manual must be posted online, e.g. via GitHub Enterprise pages, on specific 
 team web servers, or as a Google doc. And don't forget to include a link to this 
-user manual documentation into your OpenAPI definition using the “externalDocs” property.
+user manual into your OpenAPI definition using the “externalDocs” property.
 
 ## {{ book.must }} Write APIs in U.S. English
