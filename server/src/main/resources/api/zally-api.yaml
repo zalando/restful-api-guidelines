@@ -87,6 +87,8 @@ definitions:
           $ref: '#/definitions/Violation'
       message:
         type: string
+      violations_count:
+        $ref: '#/definitions/ViolationsCount'
 
   Violation:
     type: object
@@ -112,3 +114,21 @@ definitions:
         type: array
         items:
           type: string
+
+  ViolationsCount:
+    type: object
+    description: Violation Count
+    required:
+      - must
+      - should
+      - could
+      - hint
+    properties:
+      must:
+        type: integer
+      should:
+        type: integer
+      could:
+        type: integer
+      hint:
+        type: integer
