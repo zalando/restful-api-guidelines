@@ -150,4 +150,12 @@ Event types can follow these naming conventions (each convention has its own sho
  
  - Event type names must be url-safe. This is because the event type names are used by Nakadi as part of the URL for the event type and its stream.
 
- - Event type names should be lowercase words and numbers, using hypens, underscores or periods as separators. 
+ - Event type names should be lowercase words and numbers, using hypens, underscores or periods as separators.
+
+## {{ book.must }} Prepare for duplicate Events
+
+Event consumers must be able to process duplicate events.
+
+Most of the message broker and event buses, like Nakadi, guarantee “at-least-once” delivery. That is, one particular event is delivered to the consumer(s) one or more times. Other circumstances can also cause duplicate events.
+
+For example, described situation occurs if the publisher sends an event and cannot receive the acknowledgment (e.g. due to a network issue). In this case, the publisher will try to send the same event again. This leads to two identical events in the event bus which have to be processed by the consumer(s). Similar conditions can appear on the consumer side: an event has been processed successfully, but the consumer fails to confirm the processing.
