@@ -136,6 +136,43 @@ These are considered backwards-incompatible changes, as seen by consumers  -
 - Adding a new optional field to redefine the meaning of an existing field (also known as a co-occurrence constraint).
 - Adding a value to an enumeration (note that [`x-extensible-enum`](../compatibility/Compatibility.md#should-used-openended-list-of-values-xextensibleenum-instead-of-enumerations) is not available in JSON Schema).
 
+## {{ book.should }} Avoid `additionalProperties` in event type definitions
+
+Event type schema should avoid using `additionalProperties` declarations, in 
+order to support schema evolution.
+
+Events are often intermediated by publish/subscribe systems and are 
+commonly captured in logs or long term storage to be read later. In 
+particular, the schemas used by publishers and consumers can  
+drift over time. As a result, compatibility and extensibility issues 
+that happen less frequently with client-server style APIs become important 
+and regular considerations for event design. The guidelines recommend the 
+following to enable event schema evolution:
+
+- Publishers who intend to provide compatibility and allow their schemas 
+  to evolve safely over time must define new optional fields 
+  (as additive changes) and update their schemas in advance of publishing 
+  those fields. In doing so, they **must not** declare an `additionalProperties` 
+  field as a wildcard extension point. 
+
+- Consumers must ignore fields they cannot process and not raise 
+  errors, just as they would as an API client. This can happen if they are 
+  processing events with an older copy of the event schema than the one
+  containing the new definitions specified by the publishers. 
+
+Requiring event publishers to define their fields ahead of publishing avoids 
+the problem of _field redefinition_. This is when a publisher defines a 
+field to be of a different type that was already being emitted, or, is 
+changing the type of an undefined field. Both of these are prevented by 
+not using `additionalProperties`. 
+
+Avoiding `additionalProperties` as described here also aligns with the approach
+ taken by the Nakadi API's ["compatible mode"](http://zalando.github.io/nakadi-manual/docs/using/event-types.html#compatible) for event type schema.
+
+See also "Treat Open API Definitions As Open For Extension By Default"  
+in the [Compatibility](../compatibility/Compatibility.md#must-treat-open-api-definitions-as-open-for-extension-by-default) 
+section for further guidelines on the use of `additionalProperties`. 
+
 ## {{ book.must }} Use unique Event identifiers
 
 The `eid` (event identifier) value of an event must be unique.
