@@ -3,7 +3,6 @@ package de.zalando.zally.rules
 import de.zalando.zally.Violation
 import de.zalando.zally.ViolationType
 import org.springframework.stereotype.Component
-import java.util.Optional
 
 @Component
 open class AvoidLinkHeadersRule : HttpHeadersRule() {
@@ -14,7 +13,7 @@ open class AvoidLinkHeadersRule : HttpHeadersRule() {
 
     override fun isViolation(header: String) = header == "Link"
 
-    override fun createViolation(header: String, path: Optional<String>): Violation {
-        return Violation(TITLE, DESCRIPTION, ViolationType.MUST, RULE_LINK, path)
+    override fun createViolation(paths: List<String>): Violation {
+        return Violation(TITLE, DESCRIPTION, ViolationType.MUST, RULE_LINK, paths)
     }
 }

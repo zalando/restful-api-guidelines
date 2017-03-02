@@ -17,6 +17,8 @@ public class PatternUtil {
     private static final String VERSION_IN_URL_PATTERN = "(.*)/v[0-9]+(.*)";
     private static final String PATH_VARIABLE_PATTERN = "\\{.+\\}$";
     private static final String GENERIC_VERSION_PATTERN = "^\\d+\\.\\d+\\.\\d+$";
+    private static final String PATTERN_APPLICATION_PROBLEM_JSON = "^application/(problem\\+)?json$";
+    private static final String PATTERN_CUSTOM_WITH_VERSIONING = "^\\w+/[-+.\\w]+;v(ersion)?=\\d+$";
 
     public static boolean hasTrailingSlash(String input) {
         return input.trim().endsWith("/");
@@ -65,4 +67,13 @@ public class PatternUtil {
     public static boolean isVersion(String input) {
         return input.matches(GENERIC_VERSION_PATTERN);
     }
+
+    public static boolean isApplicationJsonOrProblemJson(String mediaType) {
+        return mediaType.matches(PATTERN_APPLICATION_PROBLEM_JSON);
+    }
+
+    public static boolean isCustomMediaTypeWithVersioning(String mediaType) {
+        return mediaType.matches(PATTERN_CUSTOM_WITH_VERSIONING);
+    }
+
 }

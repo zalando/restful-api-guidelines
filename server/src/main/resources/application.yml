@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: production
+    active: dev
   oauth2:
     resource:
       tokenInfoUri: "https://info.services.auth.zalando.com/oauth2/tokeninfo"

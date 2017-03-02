@@ -1,8 +1,5 @@
 package de.zalando.zally;
 
-import java.io.IOException;
-import java.net.URI;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.zalando.zally.exception.MissingApiDefinitionException;
@@ -14,6 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.util.ResourceUtils;
 
+import java.io.IOException;
+import java.net.URI;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 
@@ -23,7 +23,7 @@ public class RestApiViolationsTest extends RestApiBaseTest {
     @Test
     public void shouldValidateGivenApiDefinition() throws IOException {
         ResponseEntity<JsonNode> responseEntity = sendRequest(
-                new ObjectMapper().readTree(ResourceUtils.getFile("src/test/resources/api_spp.json")));
+                new ObjectMapper().readTree(ResourceUtils.getFile("src/test/resources/fixtures/api_spp.json")));
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
 
         JsonNode rootObject = responseEntity.getBody();
@@ -40,7 +40,7 @@ public class RestApiViolationsTest extends RestApiBaseTest {
     @Test
     public void shouldReturnMetricsOfFoundViolations() throws IOException {
         ResponseEntity<JsonNode> responseEntity = sendRequest(
-                new ObjectMapper().readTree(ResourceUtils.getFile("src/test/resources/api_spp.json")));
+                new ObjectMapper().readTree(ResourceUtils.getFile("src/test/resources/fixtures/api_spp.json")));
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
 
         ResponseEntity<JsonNode> metricsResponse = restTemplate.getForEntity("http://localhost:" + port + "/metrics", JsonNode.class);

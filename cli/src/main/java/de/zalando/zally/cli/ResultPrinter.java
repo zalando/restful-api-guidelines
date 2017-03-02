@@ -1,6 +1,8 @@
 package de.zalando.zally.cli;
 
+import com.eclipsesource.json.JsonArray;
 import com.eclipsesource.json.JsonObject;
+import com.eclipsesource.json.JsonValue;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -75,20 +77,24 @@ public class ResultPrinter {
     public static String formatViolation(String headerColor, JsonObject violation) {
         String title = violation.get("title").asString();
         String description = violation.get("description").asString();
-        String path = !violation.get("path").isNull() ? violation.get("path").asString() : "";
+        JsonArray paths = violation.get("paths").asArray();
 
         StringBuilder sb = new StringBuilder();
         sb.append(headerColor + title + "\n" + ANSI_RESET);
-        if (!path.isEmpty()) {
-            sb.append("\t(path: " + path + ")\n");
-        }
         sb.append("\t" + description + "\n");
-
-        String ruleLink = !violation.get("rule_link").isNull() ? violation.get("rule_link").asString() : "";
-        if (!ruleLink.isEmpty()) {
-            sb.append("\t" + ANSI_CYAN + ruleLink + "\n" + ANSI_RESET);
+        JsonValue ruleLink = violation.get("rule_link");
+        if (!ruleLink.isNull()) {
+            sb.append("\t" + ANSI_CYAN + ruleLink.asString() + "\n" + ANSI_RESET);
         }
-
+        if (!paths.isEmpty()) {
+            sb.append("\tViolated at:\n");
+            for (JsonValue path : paths) {
+                sb.append("\t\t");
+                sb.append(path.asString());
+                sb.append("\n");
+            }
+            sb.append("\n");
+        }
         return sb.toString();
     }
 

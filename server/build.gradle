@@ -58,6 +58,7 @@ dependencies {
     compile("org.zalando.zmon:zmon-actuator:0.9.7")
     compile("io.dropwizard.metrics:metrics-core:3.1.0")
     compile("com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.8.5")
+    compile("com.fasterxml.jackson.module:jackson-module-kotlin:2.8.6")
     compile("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
     testCompile("org.springframework.boot:spring-boot-starter-test")
     testCompile("org.assertj:assertj-core:3.6.1")
