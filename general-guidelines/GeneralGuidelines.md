@@ -66,7 +66,7 @@ the following API aspects:
 - API’s scope, purpose and use cases
 - concrete examples of API usage
 - edge cases, error situation details and repair hints
-- architecture context and mayor dependencies - including figures and sequence flows
+- architecture context and major dependencies - including figures and sequence flows
 
 The User Manual must be posted online, e.g. via GitHub Enterprise pages, on specific 
 team web servers, or as a Google doc. And don't forget to include a link to this 
