@@ -7,7 +7,7 @@ import io.swagger.models.Swagger
 import org.springframework.stereotype.Component
 
 @Component
-open class PluralizeNamesForArraysRule : Rule {
+open class PluralizeNamesForArraysRule : AbstractRule() {
     val TITLE = "Array names should be pluralized"
     val RULE_URL = "http://zalando.github.io/restful-api-guidelines/json-guidelines/JsonGuidelines.html" +
             "#should-array-names-should-be-pluralized"
@@ -23,7 +23,7 @@ open class PluralizeNamesForArraysRule : Rule {
 
         return if (res.isNotEmpty()) {
             val (desc, paths) = res.unzip()
-            Violation(TITLE, desc.joinToString("\n"), ViolationType.SHOULD, RULE_URL, paths)
+            Violation(this, TITLE, desc.joinToString("\n"), ViolationType.SHOULD, RULE_URL, paths)
         } else null
     }
 }

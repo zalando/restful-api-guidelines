@@ -18,6 +18,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
         classes = {Application.class, RestApiTestConfiguration.class}
 )
 public abstract class RestApiBaseTest {
+
     @LocalServerPort
     protected int port;
 

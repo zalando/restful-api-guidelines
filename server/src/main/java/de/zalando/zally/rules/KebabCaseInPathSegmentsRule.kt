@@ -7,7 +7,7 @@ import io.swagger.models.Swagger
 import org.springframework.stereotype.Component
 
 @Component
-open class KebabCaseInPathSegmentsRule : Rule {
+open class KebabCaseInPathSegmentsRule : AbstractRule() {
 
     val title = "Lowercase words with hyphens"
     val description = "Use lowercase separate words with hyphens for path segments"
@@ -19,6 +19,6 @@ open class KebabCaseInPathSegmentsRule : Rule {
             val pathSegments = it.split("/").filter { it.isNotEmpty() }
             pathSegments.filter { !PatternUtil.isPathVariable(it) && !PatternUtil.isLowerCaseAndHyphens(it) }.isEmpty()
         }
-        return if (paths.isNotEmpty()) Violation(title, description, ViolationType.MUST, ruleLink, paths) else null
+        return if (paths.isNotEmpty()) Violation(this, title, description, ViolationType.MUST, ruleLink, paths) else null
     }
 }

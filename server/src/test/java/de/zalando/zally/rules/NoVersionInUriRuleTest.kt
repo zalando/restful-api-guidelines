@@ -9,6 +9,7 @@ import org.junit.Test
 class NoVersionInUriRuleTest {
 
     val expectedViolation = Violation(
+            NoVersionInUriRule(),
             "Do Not Use URI Versioning",
             "basePath attribute contains version number",
             ViolationType.MUST,

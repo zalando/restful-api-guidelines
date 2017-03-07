@@ -5,7 +5,7 @@ import io.swagger.models.Response
 import io.swagger.models.Swagger
 import io.swagger.models.parameters.Parameter
 
-abstract class HttpHeadersRule : Rule {
+abstract class HttpHeadersRule : AbstractRule() {
     val PARAMETER_NAMES_WHITELIST = setOf("ETag", "TSV", "TE", "Content-MD5", "DNT", "X-ATT-DeviceId", "X-UIDH",
             "X-Request-ID", "X-Correlation-ID", "WWW-Authenticate", "X-XSS-Protection", "X-Flow-ID", "X-UID",
             "X-Tenant-ID", "X-Device-OS")

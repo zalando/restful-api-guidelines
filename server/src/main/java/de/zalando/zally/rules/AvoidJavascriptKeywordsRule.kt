@@ -9,7 +9,7 @@ import io.swagger.models.Swagger
  *      - this rule is currently disabled because Zalando's API guidelines changed
  *      - will be re-enabled if we can configure ruleset
  */
-open class AvoidJavascriptKeywordsRule : Rule {
+open class AvoidJavascriptKeywordsRule : AbstractRule() {
 
     val TITLE = "Avoid reserved Javascript keywords"
     val DESC_PATTERN = "Property names should not coinside with reserved javascript keywords"
@@ -28,6 +28,6 @@ open class AvoidJavascriptKeywordsRule : Rule {
             val props = entry.value.properties ?: emptyMap()
             props.keys.filter { it in RESERVED_KEYWORDS }.map { entry.key + "." + it }
         }
-        return if (paths.isNotEmpty()) Violation(TITLE, DESC_PATTERN, ViolationType.SHOULD, RULE_URL, paths) else null
+        return if (paths.isNotEmpty()) Violation(this, TITLE, DESC_PATTERN, ViolationType.SHOULD, RULE_URL, paths) else null
     }
 }

@@ -14,6 +14,6 @@ open class PascalCaseHttpHeadersRule : HttpHeadersRule() {
     override fun isViolation(header: String) = !PatternUtil.isHyphenatedPascalCase(header)
 
     override fun createViolation(paths: List<String>): Violation {
-        return Violation(RULE_NAME, "Header is not Hyphenated-Pascal-Case", ViolationType.SHOULD, RULE_URL, paths)
+        return Violation(this, RULE_NAME, "Header is not Hyphenated-Pascal-Case", ViolationType.SHOULD, RULE_URL, paths)
     }
 }

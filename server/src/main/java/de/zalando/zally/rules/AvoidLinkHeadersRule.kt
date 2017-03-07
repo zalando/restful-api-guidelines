@@ -14,6 +14,6 @@ open class AvoidLinkHeadersRule : HttpHeadersRule() {
     override fun isViolation(header: String) = header == "Link"
 
     override fun createViolation(paths: List<String>): Violation {
-        return Violation(TITLE, DESCRIPTION, ViolationType.MUST, RULE_LINK, paths)
+        return Violation(this, TITLE, DESCRIPTION, ViolationType.MUST, RULE_LINK, paths)
     }
 }

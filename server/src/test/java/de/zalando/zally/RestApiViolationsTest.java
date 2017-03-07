@@ -1,5 +1,8 @@
 package de.zalando.zally;
 
+import java.io.IOException;
+import java.net.URI;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.zalando.zally.exception.MissingApiDefinitionException;
@@ -10,9 +13,6 @@ import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.util.ResourceUtils;
-
-import java.io.IOException;
-import java.net.URI;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -45,14 +45,13 @@ public class RestApiViolationsTest extends RestApiBaseTest {
 
         ResponseEntity<JsonNode> metricsResponse = restTemplate.getForEntity("http://localhost:" + port + "/metrics", JsonNode.class);
         assertThat(metricsResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
+        System.out.println("JSON: " + metricsResponse.getBody().toString());
         JsonNode rootObject = metricsResponse.getBody();
         assertThat(rootObject.has("counter.api-reviews.requested")).isTrue();
         assertThat(rootObject.has("counter.api-reviews.processed")).isTrue();
         assertThat(rootObject.has("histogram.api-reviews.violations.count")).isTrue();
-        assertThat(rootObject.has("histogram.api-reviews.violations.must.count")).isTrue();
-        assertThat(rootObject.has("histogram.api-reviews.violations.should.count")).isTrue();
-        assertThat(rootObject.has("histogram.api-reviews.violations.could.count")).isTrue();
-        assertThat(rootObject.has("histogram.api-reviews.violations.hint.count")).isTrue();
+        assertThat(rootObject.has("histogram.api-reviews.violations.type.must.count")).isTrue();
+        assertThat(rootObject.has("histogram.api-reviews.violations.rule.checkapinameispresentrule.count")).isTrue();
     }
 
     @Test

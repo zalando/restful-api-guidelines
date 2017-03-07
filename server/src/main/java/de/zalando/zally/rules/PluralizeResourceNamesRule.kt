@@ -8,7 +8,7 @@ import io.swagger.models.Swagger
 import org.springframework.stereotype.Component
 
 @Component
-open class PluralizeResourceNamesRule : Rule {
+open class PluralizeResourceNamesRule : AbstractRule() {
     val RULE_NAME = "Pluralize Resource Names"
     val DESC_PATTERN = "Resources %s are singular (but we are not sure)"
     val RULE_URL = "http://zalando.github.io/restful-api-guidelines/naming/Naming.html" +
@@ -22,7 +22,7 @@ open class PluralizeResourceNamesRule : Rule {
         return if (res.isNotEmpty()) {
             val desc = res.map { "'${it.first}'" }.toSet().joinToString(", ")
             val paths = res.map { it.second }
-            Violation(RULE_NAME, String.format(DESC_PATTERN, desc), ViolationType.SHOULD, RULE_URL, paths)
+            Violation(this, RULE_NAME, String.format(DESC_PATTERN, desc), ViolationType.SHOULD, RULE_URL, paths)
         } else null
     }
 }

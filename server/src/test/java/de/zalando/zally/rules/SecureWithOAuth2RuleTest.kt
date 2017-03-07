@@ -10,7 +10,9 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
 class SecureWithOAuth2RuleTest {
+
     val expectedViolation = Violation(
+            SecureWithOAuth2Rule(),
             "Secure Endpoints with OAuth 2.0",
             "No OAuth2 security definitions found",
             ViolationType.MUST,
