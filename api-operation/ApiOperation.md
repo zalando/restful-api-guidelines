@@ -9,7 +9,7 @@ is optional for internal APIs — via the following two API endpoints:
   `https://example.com/swagger.json` or `https://example.com/swagger.yaml`.
 * API Discovery endpoint `https://example.com/.well-known/schema-discovery` that delivers
   the OpenAPI definition endpoint(s) above (see the link below for a description of its format).
-* if these endpoints have to be secured by OAuth depends on context of your API and product management
+* weather these endpoints have to be secured by OAuth depends on context of your API and product management
 * if you secure these endpoint, only use `uid` scope
 
 Hint: Though discovery endpoints have to be supported, they should not be specified in the OpenAPI definition
