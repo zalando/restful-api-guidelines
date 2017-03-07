@@ -51,6 +51,9 @@ public class ApiViolationsController {
         ArrayNode jsonViolations = response.putArray("violations");
         violations.forEach(jsonViolations::addPOJO);
 
+        ObjectNode violationsCount = response.putObject("violations_count");
+        setCounters(violations, violationsCount);
+
         reportViolationMetrics(violations);
         metricServices.increment("counter.api-reviews.processed");
         return ResponseEntity.ok(response);
@@ -70,5 +73,12 @@ public class ApiViolationsController {
         metricServices.submit("histogram.api-reviews.violations", violations.size());
         violations.stream().collect(Collectors.groupingBy(Violation::getViolationType)).forEach((t, v) ->
                 metricServices.submit("histogram.api-reviews.violations.type." + t.getMetricIdentifier(), v.size()));
+    }
+
+    private void setCounters(List<Violation> violations, ObjectNode result) {
+        ViolationsCounter counter = new ViolationsCounter(violations);
+        for (ViolationType violationType : ViolationType.values()) {
+            result.put(violationType.toString().toLowerCase(), counter.getCounter(violationType));
+        }
     }
 }
