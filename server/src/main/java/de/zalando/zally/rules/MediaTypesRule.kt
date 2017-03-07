@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component
 import java.util.ArrayList
 
 @Component
-open class MediaTypesRule : Rule {
+open class MediaTypesRule : AbstractRule() {
     val TITLE = "Prefer standard media type names"
     val DESCRIPTION = "Custom media types should only be used for versioning"
     val RULE_LINK = "http://zalando.github.io/restful-api-guidelines/data-formats/DataFormats.html" +
@@ -25,7 +25,7 @@ open class MediaTypesRule : Rule {
                 if (violatingMediaTypes.isNotEmpty()) listOf("$pathName $verb") else emptyList()
             }
         }
-        return if (paths.isNotEmpty()) Violation(TITLE, DESCRIPTION, ViolationType.SHOULD, RULE_LINK, paths) else null
+        return if (paths.isNotEmpty()) Violation(this, TITLE, DESCRIPTION, ViolationType.SHOULD, RULE_LINK, paths) else null
     }
 
     private fun isViolatingMediaType(mediaType: String) =

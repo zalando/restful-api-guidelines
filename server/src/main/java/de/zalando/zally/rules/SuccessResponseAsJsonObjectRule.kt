@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component
 import java.util.ArrayList
 
 @Component
-open class SuccessResponseAsJsonObjectRule : Rule {
+open class SuccessResponseAsJsonObjectRule : AbstractRule() {
     private val TITLE = "Response As JSON Object"
     private val DESCRIPTION = "Always Return JSON Objects As Top-Level Data Structures To Support Extensibility"
     private val VIOLATION_TYPE = ViolationType.MUST
@@ -34,7 +34,7 @@ open class SuccessResponseAsJsonObjectRule : Rule {
             }
         }
 
-        return if (paths.isNotEmpty()) Violation(TITLE, DESCRIPTION, VIOLATION_TYPE, RULE_LINK, paths) else null
+        return if (paths.isNotEmpty()) Violation(this, TITLE, DESCRIPTION, VIOLATION_TYPE, RULE_LINK, paths) else null
     }
 
     private fun Property?.isRefToObject(swagger: Swagger) =

@@ -7,13 +7,14 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
 class RulesValidatorTest {
-    val DUMMY_VIOLATION_1 = Violation("dummy1", "dummy", ViolationType.SHOULD, "dummy", listOf("x", "y", "z"))
-    val DUMMY_VIOLATION_2 = Violation("dummy2", "dummy", ViolationType.COULD, "dummy", listOf())
-    val DUMMY_VIOLATION_3 = Violation("dummy3", "dummy", ViolationType.MUST, "dummy", listOf("a"))
+
+    val DUMMY_VIOLATION_1 = Violation(TestRule(null), "dummy1", "dummy", ViolationType.SHOULD, "dummy", listOf("x", "y", "z"))
+    val DUMMY_VIOLATION_2 = Violation(TestRule(null), "dummy2", "dummy", ViolationType.COULD, "dummy", listOf())
+    val DUMMY_VIOLATION_3 = Violation(TestRule(null), "dummy3", "dummy", ViolationType.MUST, "dummy", listOf("a"))
 
     val swaggerContent = javaClass.classLoader.getResource("fixtures/api_spp.json").readText(Charsets.UTF_8)
 
-    class TestRule(val result: Violation?) : Rule {
+    class TestRule(val result: Violation?) : AbstractRule() {
         override fun validate(swagger: Swagger): Violation? = result
     }
 

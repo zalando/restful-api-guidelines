@@ -9,7 +9,7 @@ import io.swagger.models.auth.OAuth2Definition
 import org.springframework.stereotype.Component
 
 @Component
-open class DefineOAuthScopesRule : Rule {
+open class DefineOAuthScopesRule : AbstractRule() {
     private val TITLE = "Define and Assign Access Rights (Scopes)"
     private val DESC = "Every endpoint must be secured by proper OAuth2 scope"
     private val RULE_LINK = "http://zalando.github.io/restful-api-guidelines/security/Security.html" +
@@ -36,7 +36,7 @@ open class DefineOAuthScopesRule : Rule {
             }.filterNotNull()
         }
         return if (!paths.isEmpty()) {
-            Violation(TITLE, DESC, MUST, RULE_LINK, paths)
+            Violation(this, TITLE, DESC, MUST, RULE_LINK, paths)
         } else null
     }
 

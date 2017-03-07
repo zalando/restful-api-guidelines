@@ -6,7 +6,7 @@ import io.swagger.models.Swagger
 import org.springframework.stereotype.Component
 
 @Component
-open class UseProblemJsonRule : Rule {
+open class UseProblemJsonRule : AbstractRule() {
     val TITLE = "Use Problem JSON"
     val DESCRIPTION = "Operations Should Return Problem JSON When Any Problem Occurs During Processing Whether Caused " +
             "by Client Or Server"
@@ -24,7 +24,7 @@ open class UseProblemJsonRule : Rule {
                 }
             }
         }
-        return if (paths.isNotEmpty()) Violation(TITLE, DESCRIPTION, ViolationType.MUST, RULE_LINK, paths) else null
+        return if (paths.isNotEmpty()) Violation(this, TITLE, DESCRIPTION, ViolationType.MUST, RULE_LINK, paths) else null
     }
 
     private fun String.parseInt(): Int? =

@@ -6,7 +6,7 @@ import io.swagger.models.Swagger
 import org.springframework.stereotype.Component
 
 @Component
-open class LimitNumberOfResourcesRule : Rule {
+open class LimitNumberOfResourcesRule : AbstractRule() {
     val TITLE = "Limit number of Resources"
     val RULE_LINK = "http://zalando.github.io/restful-api-guidelines/resources/Resources.html" +
             "#should-limit-number-of-resources"
@@ -16,8 +16,8 @@ open class LimitNumberOfResourcesRule : Rule {
         val paths = swagger.paths.orEmpty()
         val pathsCount = paths.size
         return if (pathsCount > PATHS_COUNT_LIMIT) {
-            Violation(TITLE, "Number of paths $pathsCount is greater than $PATHS_COUNT_LIMIT", ViolationType.SHOULD,
-                    RULE_LINK, paths.keys.toList())
+            Violation(this, TITLE, "Number of paths $pathsCount is greater than $PATHS_COUNT_LIMIT",
+                    ViolationType.SHOULD, RULE_LINK, paths.keys.toList())
         } else null
     }
 }

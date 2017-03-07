@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component
  * Lint for snake case for query params
  */
 @Component
-open class SnakeCaseForQueryParamsRule : Rule {
+open class SnakeCaseForQueryParamsRule : AbstractRule() {
     val TITLE = "Use snake_case (never camelCase) for Query Parameters"
     val RULE_LINK = "http://zalando.github.io/restful-api-guidelines/naming/Naming.html" +
             "#must-use-snakecase-never-camelcase-for-query-parameters"
@@ -28,7 +28,7 @@ open class SnakeCaseForQueryParamsRule : Rule {
         return if (result.isNotEmpty()) {
             val (paths, params) = result.unzip()
             val description = "Parameters that are not in snake_case: " + params.flatten().map { it.name }.toSet().joinToString(",")
-            Violation(TITLE, description, ViolationType.MUST, RULE_LINK, paths)
+            Violation(this, TITLE, description, ViolationType.MUST, RULE_LINK, paths)
         } else null
     }
 }

@@ -7,7 +7,7 @@ import io.swagger.models.Swagger
 import org.springframework.stereotype.Component
 
 @Component
-open class SnakeCaseInPropNameRule : Rule {
+open class SnakeCaseInPropNameRule : AbstractRule() {
     val title = "snake_case property names"
     val description = "Property names must be snake_case (and never camelCase)"
     val ruleLink = "http://zalando.github.io/restful-api-guidelines/json-guidelines/JsonGuidelines.html" +
@@ -22,7 +22,7 @@ open class SnakeCaseInPropNameRule : Rule {
         return if (result.isNotEmpty()) {
             val (paths, props) = result.unzip()
             val description = "Properties that are not in snake_case: " + props.flatten().toSet().joinToString(", ")
-            Violation(title, description, ViolationType.MUST, ruleLink, paths)
+            Violation(this, title, description, ViolationType.MUST, ruleLink, paths)
         } else null
     }
 }

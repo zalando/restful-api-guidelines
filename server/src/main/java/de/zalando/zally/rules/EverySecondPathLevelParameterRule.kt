@@ -7,7 +7,7 @@ import io.swagger.models.Swagger
 import org.springframework.stereotype.Component
 
 @Component
-open class EverySecondPathLevelParameterRule : Rule {
+open class EverySecondPathLevelParameterRule : AbstractRule() {
     val TITLE = "Every Second Path Level To Be Parameter"
     val DESCRIPTION = "Every second path level must be a path parameter"
 
@@ -16,6 +16,6 @@ open class EverySecondPathLevelParameterRule : Rule {
             val pathSegments = it.split("/").filter { it.isNotEmpty() }
             pathSegments.filterIndexed { i, segment -> isPathVariable(segment) == (i % 2 == 0) }.isEmpty()
         }
-        return if (paths.isNotEmpty()) Violation(TITLE, DESCRIPTION, ViolationType.MUST, "", paths) else null
+        return if (paths.isNotEmpty()) Violation(this, TITLE, DESCRIPTION, ViolationType.MUST, "", paths) else null
     }
 }

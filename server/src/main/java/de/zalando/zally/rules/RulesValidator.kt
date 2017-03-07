@@ -17,7 +17,8 @@ open class RulesValidator(@Autowired val rules: List<Rule>) {
         val swagger = try {
             SwaggerParser().parse(swaggerContent)!!
         } catch (e: Exception) {
-            return listOf(Violation("Can't parse swagger file", e.toString(), ViolationType.MUST, "", emptyList()))
+            return listOf(Violation(InvalidSwaggerFileDummyRule(), "Can't parse swagger file",
+                    e.toString(), ViolationType.MUST, "", emptyList()))
         }
         return rules.map { it.validate(swagger) }.filterNotNull().sortedBy { it.violationType }
     }

@@ -7,7 +7,7 @@ import io.swagger.models.properties.Property
 import org.springframework.stereotype.Component
 
 @Component
-open class Use429HeaderForRateLimitRule : Rule {
+open class Use429HeaderForRateLimitRule : AbstractRule() {
     private val TITLE = "Use 429 With Header For Rate Limits"
     private val DESCRIPTION = "If Client Exceed Request Rate, Response Code Must Contain Header Information Providing Further Details to Client"
     private val RULE_LINK = "http://zalando.github.io/restful-api-guidelines/http/Http.html" +
@@ -28,7 +28,7 @@ open class Use429HeaderForRateLimitRule : Rule {
             }
         }
         return if (paths.isNotEmpty())
-            Violation(TITLE, DESCRIPTION, ViolationType.MUST, RULE_LINK, paths)
+            Violation(this, TITLE, DESCRIPTION, ViolationType.MUST, RULE_LINK, paths)
         else null
     }
 
