@@ -3,7 +3,6 @@ package de.zalando.zally;
 import java.util.Collections;
 
 import de.zalando.zally.rules.AbstractRule;
-import de.zalando.zally.rules.InvalidSwaggerFileDummyRule;
 import de.zalando.zally.rules.RulesValidator;
 import io.swagger.models.Swagger;
 import org.springframework.context.annotation.Bean;
