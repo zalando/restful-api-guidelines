@@ -9,10 +9,6 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
 class ExtractBasePathRuleTest {
-    private fun createSwaggerWithPaths(vararg testPaths: String) =
-            Swagger().apply {
-                paths = testPaths.map { it to Path() }.toMap()
-            }
 
     @Test
     fun validateEmptyPath() {
@@ -53,6 +49,16 @@ class ExtractBasePathRuleTest {
     }
 
     @Test
+    fun negativeIfResourceLevelIsOnlyRootLevel() {
+        val swagger = createSwaggerWithPaths(
+                "/shipment/{shipment_id}",
+                "/shipment/{shipment_id}",
+                "/shipment/{shipment_id}"
+        )
+        assertThat(ExtractBasePathRule().validate(swagger)).isNull()
+    }
+
+    @Test
     fun positiveCaseSpp() {
         val swagger = getFixture("api_spp.json")
         assertThat(ExtractBasePathRule().validate(swagger)).isNull()
@@ -63,4 +69,9 @@ class ExtractBasePathRuleTest {
         val swagger = getFixture("api_tinbox.yaml")
         assertThat(ExtractBasePathRule().validate(swagger)).isNull()
     }
+
+    private fun createSwaggerWithPaths(vararg testPaths: String) =
+            Swagger().apply {
+                paths = testPaths.map { it to Path() }.toMap()
+            }
 }
