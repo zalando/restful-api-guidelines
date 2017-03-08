@@ -23,6 +23,7 @@ public class Linter {
         final RequestDecorator decorator = new RequestDecorator(reader);
         final JsonObject response = client.validate(decorator.getRequestBody()).asObject();
         final ViolationsFilter violationsFilter = new ViolationsFilter(response);
+        final JsonObject counters = response.get("violations_count").asObject();
 
         if (response.names().contains("message")) {
             printer.printMessage(response.get("message").asString());
@@ -37,7 +38,7 @@ public class Linter {
             printer.printViolations(violations, violationType);
         }
 
-        printer.printSummary(violationTypes);
+        printer.printSummary(violationTypes, counters);
 
         return hasMustViolations;
     }

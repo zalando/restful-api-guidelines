@@ -1,6 +1,7 @@
 package de.zalando.zally.cli;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 
@@ -52,9 +53,7 @@ public class LinterTest {
 
     @Test
     public void returnsTrueWhenNoViolationsAreReturned() throws Exception {
-        JsonObject testResult = new JsonObject();
-        JsonArray violations = new JsonArray();
-        testResult.add("violations", violations);
+        final JsonObject testResult = getTestResult(new JsonArray());
 
         Boolean result = makeLinterCall(testResult);
         assertEquals(true, result);
@@ -67,13 +66,11 @@ public class LinterTest {
 
     @Test
     public void returnsTrueWhenOnlyShouldAndCouldViolationFound() throws Exception {
-        final JsonObject testResult = new JsonObject();
         final JsonArray violations = new JsonArray();
         violations.add(getViolation("should", "should"));
         violations.add(getViolation("could", "could"));
         violations.add(getViolation("hint", "hint"));
-        testResult.add("violations", violations);
-
+        final JsonObject testResult = getTestResult(violations);
 
         Boolean result = makeLinterCall(testResult);
         assertEquals(true, result);
@@ -93,10 +90,9 @@ public class LinterTest {
 
     @Test
     public void returnsFalseWhenMustViolationsFound() throws Exception {
-        JsonObject testResult = new JsonObject();
-        JsonArray violations = new JsonArray();
+        final JsonArray violations = new JsonArray();
         violations.add(getViolation("must", "must"));
-        testResult.add("violations", violations);
+        final JsonObject testResult = getTestResult(violations);
 
         Boolean result = makeLinterCall(testResult);
         assertEquals(false, result);
@@ -112,9 +108,8 @@ public class LinterTest {
 
     @Test
     public void printsMessageWhenSpecified() throws Exception {
-        final JsonObject testResult = new JsonObject();
+        final JsonObject testResult = getTestResult(new JsonArray());
         final String message = "Test message";
-        testResult.add("violations", new JsonArray());
         testResult.add("message", message);
 
         Mockito.when(client.validate(anyString())).thenReturn(testResult);
@@ -145,12 +140,19 @@ public class LinterTest {
         linter = new Linter(client, resultPrinter);
         final Boolean result = linter.lint(getJsonReader());
 
-        Mockito.verify(resultPrinter, Mockito.times(1)).printSummary(eq(linter.violationTypes));
+        Mockito.verify(resultPrinter, Mockito.times(1)).printSummary(eq(linter.violationTypes), any());
         Mockito.verify(resultPrinter, Mockito.times(1)).printViolations(mustListCaptor.capture(), eq("must"));
         Mockito.verify(resultPrinter, Mockito.times(1)).printViolations(shouldListCaptor.capture(), eq("should"));
         Mockito.verify(resultPrinter, Mockito.times(1)).printViolations(couldListCaptor.capture(), eq("could"));
         Mockito.verify(resultPrinter, Mockito.times(1)).printViolations(hintListCaptor.capture(), eq("hint"));
 
         return result;
+    }
+
+    private JsonObject getTestResult(JsonArray violations) {
+        final JsonObject testResult = new JsonObject();
+        testResult.add("violations", violations);
+        testResult.add("violations_count", new JsonObject());
+        return testResult;
     }
 }
