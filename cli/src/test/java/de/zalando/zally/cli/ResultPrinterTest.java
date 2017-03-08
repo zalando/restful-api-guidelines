@@ -59,28 +59,21 @@ public class ResultPrinterTest {
 
     @Test
     public void printsProperSummary() throws IOException {
-        JsonObject violationOne = new JsonObject();
-        violationOne.add("title", "Violation 1");
-        violationOne.add("description", "Violation 1 Description");
-        violationOne.add("paths", Json.array("Violation 1 Path"));
-        violationOne.add("rule_link", Json.NULL);
+        final JsonObject counters = new JsonObject();
+        counters.add("must", 12);
+        counters.add("could", 13);
+        counters.add("should", 14);
+        counters.add("hint", 15);
 
-        List<JsonObject> violations = new ArrayList<>();
-        violations.add(violationOne);
+        final ResultPrinter resultPrinter = new ResultPrinter(outStream);
+        resultPrinter.printSummary(Linter.violationTypes, counters);
 
-        ResultPrinter resultPrinter = new ResultPrinter(outStream);
-        resultPrinter.printViolations(violations, "must");
-        resultPrinter.printViolations(violations, "should");
-
-        outContent.reset();
-
-        resultPrinter.printSummary(Linter.violationTypes);
         String expectedResult = resultPrinter.ANSI_CYAN + "\nSummary:\n"
                 + "========\n\n" + resultPrinter.ANSI_RESET
-                + "MUST violations: 1\n"
-                + "SHOULD violations: 1\n"
-                + "COULD violations: 0\n"
-                + "HINT violations: 0\n";
+                + "MUST violations: 12\n"
+                + "SHOULD violations: 14\n"
+                + "COULD violations: 13\n"
+                + "HINT violations: 15\n";
         assertEquals(expectedResult, outContent.toString());
     }
 

@@ -60,10 +60,10 @@ public class ResultPrinter {
         this.updateCounter(violationType, violations.size());
     }
 
-    public void printSummary(List<String> violationTypeNames) throws IOException {
+    public void printSummary(List<String> violationTypeNames, JsonObject counters) throws IOException {
         printHeader(ANSI_CYAN, "Summary:");
         for (String name : violationTypeNames) {
-            writer.write(name.toUpperCase() + " violations: " + counters.getOrDefault(name, 0).toString() + "\n");
+            writer.write(name.toUpperCase() + " violations: " + counters.getInt(name, 0) + "\n");
         }
         writer.flush();
     }
