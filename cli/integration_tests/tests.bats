@@ -50,9 +50,9 @@
 @test "Zally API Specification is valid" {
 	run cli/bin/zally server/src/main/resources/api/zally-api.yaml
 	[ "$status" -eq 0 ]
-	[ "${lines[10]}" = "[0mMUST violations: 0" ]
-	[ "${lines[11]}" = "SHOULD violations: 0" ]
-	[ "${lines[12]}" = "COULD violations: 0" ]
-	[ "${lines[13]}" = "HINT violations: 0" ]
-	[ "${#lines[@]}" -eq 14 ]
+	[ "${lines[3]}" = "[0mMUST violations: 0" ]
+	[ "${lines[4]}" = "SHOULD violations: 0" ]
+	[ "${lines[5]}" = "COULD violations: 0" ]
+	[ "${lines[6]}" = "HINT violations: 0" ]
+	[ "${#lines[@]}" -eq 7 ]
 }
