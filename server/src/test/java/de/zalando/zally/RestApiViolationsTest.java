@@ -38,6 +38,19 @@ public class RestApiViolationsTest extends RestApiBaseTest {
     }
 
     @Test
+    public void shouldReturnCounters() throws IOException {
+        ResponseEntity<JsonNode> responseEntity = sendRequest(
+                new ObjectMapper().readTree(ResourceUtils.getFile("src/test/resources/fixtures/api_spp.json")));
+        JsonNode rootObject = responseEntity.getBody();
+
+        JsonNode counters = rootObject.get("violations_count");
+        assertThat(counters.get("must").asInt()).isEqualTo(1);
+        assertThat(counters.get("should").asInt()).isEqualTo(0);
+        assertThat(counters.get("could").asInt()).isEqualTo(0);
+        assertThat(counters.get("hint").asInt()).isEqualTo(0);
+    }
+
+    @Test
     public void shouldReturnMetricsOfFoundViolations() throws IOException {
         ResponseEntity<JsonNode> responseEntity = sendRequest(
                 new ObjectMapper().readTree(ResourceUtils.getFile("src/test/resources/fixtures/api_spp.json")));
