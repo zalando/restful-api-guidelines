@@ -8,9 +8,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Display violations in a user friendly manner.
@@ -28,7 +26,6 @@ public class ResultPrinter {
     public static final String ANSI_WHITE = "\u001B[37m";
 
     private final Writer writer;
-    private final Map<String, Integer> counters = new HashMap<>();
 
     public ResultPrinter(OutputStream outputStream) {
         writer = new OutputStreamWriter(outputStream);
@@ -56,14 +53,12 @@ public class ResultPrinter {
             }
             writer.flush();
         }
-
-        this.updateCounter(violationType, violations.size());
     }
 
-    public void printSummary(List<String> violationTypeNames) throws IOException {
+    public void printSummary(List<String> violationTypeNames, JsonObject counters) throws IOException {
         printHeader(ANSI_CYAN, "Summary:");
         for (String name : violationTypeNames) {
-            writer.write(name.toUpperCase() + " violations: " + counters.getOrDefault(name, 0).toString() + "\n");
+            writer.write(name.toUpperCase() + " violations: " + counters.getInt(name, 0) + "\n");
         }
         writer.flush();
     }
@@ -96,11 +91,6 @@ public class ResultPrinter {
             sb.append("\n");
         }
         return sb.toString();
-    }
-
-    private void updateCounter(String violationType, int size) {
-        Integer count = counters.getOrDefault(violationType, 0) + size;
-        counters.put(violationType, count);
     }
 
     private String getHeaderColor(String violationType) {
