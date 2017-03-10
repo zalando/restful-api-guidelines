@@ -78,14 +78,17 @@ Content-Type: application/json
       "href": "http://catalog-service.zalando.net/products?offset=5&limit=5"
     }
   },
-  "total_count": 42,
-  "products": [
-    {"id": "7e4ab218-1772-11e6-892c-836df3feeaee"},
-    {"id": "9469725a-1772-11e6-83c2-ab22ac368913"},
-    {"id": "a3625d80-1772-11e6-9213-d3a20f9e6bf4"},
-    {"id": "a802f070-1772-11e6-a772-c3020d55eb5f"},
-    {"id": "adb407ac-1772-11e6-b255-078fb28ff55b"}
-  ]
+  "count": 5,
+  "total": 42,
+  "_embedded":{
+    "products": [
+      {"id": "7e4ab218-1772-11e6-892c-836df3feeaee"},
+      {"id": "9469725a-1772-11e6-83c2-ab22ac368913"},
+      {"id": "a3625d80-1772-11e6-9213-d3a20f9e6bf4"},
+      {"id": "a802f070-1772-11e6-a772-c3020d55eb5f"},
+      {"id": "adb407ac-1772-11e6-b255-078fb28ff55b"}
+    ]
+  }
 }
 ```
 
