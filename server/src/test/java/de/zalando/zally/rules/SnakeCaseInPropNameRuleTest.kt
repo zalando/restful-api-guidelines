@@ -1,5 +1,6 @@
 package de.zalando.zally.rules
 
+import de.zalando.zally.swaggerWithDefinitions
 import io.swagger.models.ModelImpl
 import io.swagger.models.Swagger
 import io.swagger.models.properties.StringProperty
@@ -12,15 +13,6 @@ class SnakeCaseInPropNameRuleTest {
     private val testDefinition2 = ModelImpl()
     private val testPorperty1 = StringProperty()
     private val testPorperty2 = StringProperty()
-
-    private fun swaggerWithDefinitions(vararg defs: Pair<String, List<String>>): Swagger =
-            Swagger().apply {
-                definitions = defs.map { def ->
-                    def.first to ModelImpl().apply {
-                        properties = def.second.map { prop -> prop to StringProperty() }.toMap()
-                    }
-                }.toMap()
-            }
 
     @Test
     fun emptySwagger() {
