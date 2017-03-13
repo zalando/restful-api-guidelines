@@ -25,8 +25,8 @@ public class Linter {
         final ZallyApiResponse response = new ZallyApiResponse(jsonResponse);
         final ViolationsFilter violationsFilter = new ViolationsFilter(response.getViolations());
 
-        if (jsonResponse.names().contains("message")) {
-            printer.printMessage(jsonResponse.get("message").asString());
+        if (response.getMessage() != null) {
+            printer.printMessage(response.getMessage());
         }
 
         boolean hasMustViolations = false;
