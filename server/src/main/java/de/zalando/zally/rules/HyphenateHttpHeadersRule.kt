@@ -6,7 +6,7 @@ import de.zalando.zally.utils.PatternUtil
 import org.springframework.stereotype.Component
 
 @Component
-open class HyphenateHttpHeadersRule : HttpHeadersRule() {
+class HyphenateHttpHeadersRule : HttpHeadersRule() {
     val RULE_NAME = "Use Hyphenated HTTP Headers"
     val RULE_URL = "http://zalando.github.io/restful-api-guidelines/naming/Naming.html" +
             "#must-use-hyphenated-http-headers"

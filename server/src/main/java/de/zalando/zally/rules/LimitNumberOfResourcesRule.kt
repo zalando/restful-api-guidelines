@@ -6,7 +6,7 @@ import io.swagger.models.Swagger
 import org.springframework.stereotype.Component
 
 @Component
-open class LimitNumberOfResourcesRule : AbstractRule() {
+class LimitNumberOfResourcesRule : AbstractRule() {
     val TITLE = "Limit number of Resources"
     val RULE_LINK = "http://zalando.github.io/restful-api-guidelines/resources/Resources.html" +
             "#should-limit-number-of-resources"

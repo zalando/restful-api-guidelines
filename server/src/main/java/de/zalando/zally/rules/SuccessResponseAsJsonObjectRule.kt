@@ -11,8 +11,7 @@ import org.springframework.stereotype.Component
 import java.util.ArrayList
 
 @Component
-open class SuccessResponseAsJsonObjectRule : AbstractRule() {
-
+class SuccessResponseAsJsonObjectRule : AbstractRule() {
     private val TITLE = "Response As JSON Object"
     private val DESCRIPTION = "Always Return JSON Objects As Top-Level Data Structures To Support Extensibility"
     private val VIOLATION_TYPE = ViolationType.MUST

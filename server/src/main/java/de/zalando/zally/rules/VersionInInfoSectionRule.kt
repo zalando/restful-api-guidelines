@@ -7,7 +7,7 @@ import io.swagger.models.Swagger
 import org.springframework.stereotype.Component
 
 @Component
-open class VersionInInfoSectionRule : AbstractRule() {
+class VersionInInfoSectionRule : AbstractRule() {
     val TITLE = "Provide version information"
     val DESCRIPTION = "Only the documentation, not the API itself, needs version information. It should be in the " +
             "format MAJOR.MINOR.DRAFT."

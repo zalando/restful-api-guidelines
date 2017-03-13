@@ -7,7 +7,7 @@ import io.swagger.models.Swagger
 import org.springframework.stereotype.Component
 
 @Component
-open class EverySecondPathLevelParameterRule : AbstractRule() {
+class EverySecondPathLevelParameterRule : AbstractRule() {
     val TITLE = "Every Second Path Level To Be Parameter"
     val DESCRIPTION = "Every second path level must be a path parameter"
 

@@ -8,7 +8,7 @@ import io.swagger.models.Swagger
 import org.springframework.stereotype.Component
 
 @Component
-open class PluralizeResourceNamesRule : AbstractRule() {
+class PluralizeResourceNamesRule : AbstractRule() {
     val RULE_NAME = "Pluralize Resource Names"
     val DESC_PATTERN = "Resources %s are singular (but we are not sure)"
     val RULE_URL = "http://zalando.github.io/restful-api-guidelines/naming/Naming.html" +

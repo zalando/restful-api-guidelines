@@ -7,7 +7,7 @@ import io.swagger.models.Swagger
 import org.springframework.stereotype.Component
 
 @Component
-open class NestedPathsCouldBeRootPathsRule : AbstractRule() {
+class NestedPathsCouldBeRootPathsRule : AbstractRule() {
     private val TITLE = "Consider Using (Non-) Nested URLs"
     private val DESCRIPTION = "Nested paths / URLs could be top-level resource"
     private val RULE_LINK = "http://zalando.github.io/restful-api-guidelines/resources/Resources.html" +

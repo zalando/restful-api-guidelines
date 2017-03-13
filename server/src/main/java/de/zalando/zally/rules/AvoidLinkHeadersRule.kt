@@ -5,7 +5,7 @@ import de.zalando.zally.ViolationType
 import org.springframework.stereotype.Component
 
 @Component
-open class AvoidLinkHeadersRule : HttpHeadersRule() {
+class AvoidLinkHeadersRule : HttpHeadersRule() {
     private val TITLE = "Avoid Link in Header Rule"
     private val DESCRIPTION = "Do Not Use Link Headers with JSON entities"
     private val RULE_LINK = "http://zalando.github.io/restful-api-guidelines/hyper-media/Hypermedia.html" +

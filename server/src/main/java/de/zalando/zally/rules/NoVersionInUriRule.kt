@@ -7,7 +7,7 @@ import io.swagger.models.Swagger
 import org.springframework.stereotype.Component
 
 @Component
-open class NoVersionInUriRule : AbstractRule() {
+class NoVersionInUriRule : AbstractRule() {
     val TITLE = "Do Not Use URI Versioning"
     val DESC = "basePath attribute contains version number"
     val LINK = "https://zalando.github.io/restful-api-guidelines/compatibility/Compatibility.html" +
