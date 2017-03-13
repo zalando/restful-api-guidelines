@@ -13,11 +13,9 @@
 
 <#macro page_head_assets>
   <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,500,300italic|Ubuntu+Mono" rel="stylesheet" type="text/css">
+  <link href="https://unpkg.com/dress-code@2.0.0/dist/css/dress-code.min.css" rel="stylesheet" type="text/css">
   <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
   <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-  <style media="screen" type="text/css">
-    <#include "style.css">
-  </style>
 </#macro>
 
 <#macro page_body></#macro>
