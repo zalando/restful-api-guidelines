@@ -41,6 +41,6 @@ public class ZallyApiResponse {
         if (response == null || response.get(VIOLATIONS_COUNT) == null || !response.get(VIOLATIONS_COUNT).isObject()) {
             throw new CliException(CliExceptionType.API, "Respones does not contain violation counters");
         }
-        return new ViolationsCount(response.asObject());
+        return new ViolationsCount(response.get(VIOLATIONS_COUNT).asObject());
     }
 }

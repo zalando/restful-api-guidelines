@@ -37,7 +37,19 @@ public class ViolationTest {
         assertEquals("Test Description", violation.getDescription());
         assertNull(violation.getRuleLink());
         assertNull(violation.getViolationType());
-        assertNull(violation.getPaths());
+        assertEquals(new ArrayList<>(), violation.getPaths());
+    }
+
+    @Test
+    public void createsViolationUsingAlternativeConstructor() throws Exception {
+        final Violation violation = new Violation("Test", "Test Description");
+
+        assertEquals("Test", violation.getTitle());
+        assertEquals("Test Description", violation.getDescription());
+        assertNull(violation.getRuleLink());
+        assertNull(violation.getViolationType());
+        assertEquals(new ArrayList<>(), violation.getPaths());
+
     }
 
     private JsonObject getViolationJson() {

@@ -3,6 +3,7 @@ package de.zalando.zally.cli;
 import com.eclipsesource.json.JsonArray;
 import com.eclipsesource.json.JsonObject;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -11,7 +12,12 @@ public class Violation {
     private String description;
     private String violationType;
     private String ruleLink;
-    private List<String> paths;
+    private List<String> paths = new ArrayList<>();
+
+    public Violation(final String title, final String description) {
+        this.title = title;
+        this.description = description;
+    }
 
     public Violation(JsonObject violationJson) {
         this.title = violationJson.get("title").asString();
@@ -49,5 +55,25 @@ public class Violation {
 
     public List<String> getPaths() {
         return paths;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setViolationType(String violationType) {
+        this.violationType = violationType;
+    }
+
+    public void setRuleLink(String ruleLink) {
+        this.ruleLink = ruleLink;
+    }
+
+    public void setPaths(List<String> paths) {
+        this.paths = paths;
     }
 }
