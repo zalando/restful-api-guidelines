@@ -1,9 +1,5 @@
 package de.zalando.zally.cli;
 
-import com.eclipsesource.json.JsonArray;
-import com.eclipsesource.json.JsonObject;
-import com.eclipsesource.json.JsonValue;
-
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -55,10 +51,10 @@ public class ResultPrinter {
         }
     }
 
-    public void printSummary(List<String> violationTypeNames, JsonObject counters) throws IOException {
+    public void printSummary(List<String> violationTypeNames, ViolationsCount counters) throws IOException {
         printHeader(ANSI_CYAN, "Summary:");
         for (String name : violationTypeNames) {
-            writer.write(name.toUpperCase() + " violations: " + counters.getInt(name, 0) + "\n");
+            writer.write(name.toUpperCase() + " violations: " + counters.get(name) + "\n");
         }
         writer.flush();
     }

@@ -68,7 +68,7 @@ public class ResultPrinterTest {
         counters.add("hint", 15);
 
         final ResultPrinter resultPrinter = new ResultPrinter(outStream);
-        resultPrinter.printSummary(Linter.violationTypes, counters);
+        resultPrinter.printSummary(Linter.violationTypes, new ViolationsCount(counters));
 
         String expectedResult = resultPrinter.ANSI_CYAN + "\nSummary:\n"
                 + "========\n\n" + resultPrinter.ANSI_RESET

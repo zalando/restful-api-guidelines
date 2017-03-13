@@ -24,7 +24,6 @@ public class Linter {
         final JsonObject jsonResponse = client.validate(decorator.getRequestBody()).asObject();
         final ZallyApiResponse response = new ZallyApiResponse(jsonResponse);
         final ViolationsFilter violationsFilter = new ViolationsFilter(response.getViolations());
-        final JsonObject counters = jsonResponse.get("violations_count").asObject();
 
         if (jsonResponse.names().contains("message")) {
             printer.printMessage(jsonResponse.get("message").asString());
@@ -39,7 +38,7 @@ public class Linter {
             printer.printViolations(violations, violationType);
         }
 
-        printer.printSummary(violationTypes, counters);
+        printer.printSummary(violationTypes, response.getCounters());
 
         return hasMustViolations;
     }
