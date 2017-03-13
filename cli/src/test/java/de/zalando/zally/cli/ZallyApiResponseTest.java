@@ -22,10 +22,7 @@ public class ZallyApiResponseTest {
 
         final JsonObject secondViolation = new JsonObject();
         secondViolation.add("title", "Test title");
-        secondViolation.add("violation_type", "MUST");
         secondViolation.add("description", "Test description");
-        secondViolation.add("rule_link", "http://example.com");
-        secondViolation.add("paths", Json.array());
 
         violations.add(firstViolation);
         violations.add(secondViolation);

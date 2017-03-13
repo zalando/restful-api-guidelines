@@ -2,9 +2,6 @@ package de.zalando.zally.cli;
 
 import static org.junit.Assert.assertEquals;
 
-import com.eclipsesource.json.JsonArray;
-import com.eclipsesource.json.JsonObject;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,14 +68,9 @@ public class ViolationsFilterTest {
         final List<Violation> result = new ArrayList<>();
 
         for (String violationType : violationTypes) {
-            JsonObject jsonViolation = new JsonObject();
-            jsonViolation.add("title", "Test must" + violationType);
-            jsonViolation.add("description", "Test " + violationType + " description");
-            jsonViolation.add("violation_type", violationType);
-            jsonViolation.add("paths", new JsonArray());
-            jsonViolation.add("rule_link", "http://example.com");
-
-            result.add(new Violation(jsonViolation));
+            Violation violation = new Violation("Test " + violationType, "Test " + violationType + " description");
+            violation.setViolationType(violationType);
+            result.add(violation);
         }
 
         return result;
