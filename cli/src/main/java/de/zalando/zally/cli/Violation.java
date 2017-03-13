@@ -7,20 +7,28 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Violation {
-    private final String title;
-    private final String description;
-    private final String violationType;
-    private final String ruleLink;
-    private final List<String> paths;
+    private String title;
+    private String description;
+    private String violationType;
+    private String ruleLink;
+    private List<String> paths;
 
     public Violation(JsonObject violationJson) {
-        JsonArray paths = violationJson.get("paths").asArray();
-
         this.title = violationJson.get("title").asString();
         this.description = violationJson.get("description").asString();
-        this.violationType = violationJson.get("violation_type").asString();
-        this.ruleLink = violationJson.get("rule_link").asString();
-        this.paths = paths.values().stream().map(x -> x.asString()).collect(Collectors.toList());
+
+        if (violationJson.get("violation_type") != null && violationJson.get("violation_type").isString()) {
+            this.violationType = violationJson.get("violation_type").asString();
+        }
+
+        if (violationJson.get("rule_link") != null && violationJson.get("rule_link").isString()) {
+            this.ruleLink = violationJson.get("rule_link").asString();
+        }
+
+        if (violationJson.get("paths") != null && violationJson.get("paths").isArray()) {
+            JsonArray paths = violationJson.get("paths").asArray();
+            this.paths = paths.values().stream().map(x -> x.asString()).collect(Collectors.toList());
+        }
     }
 
     public String getTitle() {

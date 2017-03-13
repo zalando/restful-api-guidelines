@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class ViolationTest {
     @Test
@@ -22,6 +23,21 @@ public class ViolationTest {
         assertEquals("MUST", violation.getViolationType());
         assertEquals("http://example.com", violation.getRuleLink());
         assertEquals(expectedRules, violation.getPaths());
+    }
+
+    @Test
+    public void createsViolationWithOnlyTitleAndDescriptionSpecified() throws Exception {
+        final JsonObject jsonViolation = new JsonObject();
+        jsonViolation.set("title", "Test");
+        jsonViolation.set("description", "Test Description");
+
+        final Violation violation = new Violation(jsonViolation);
+
+        assertEquals("Test", violation.getTitle());
+        assertEquals("Test Description", violation.getDescription());
+        assertNull(violation.getRuleLink());
+        assertNull(violation.getViolationType());
+        assertNull(violation.getPaths());
     }
 
     private JsonObject getViolationJson() {
