@@ -21,17 +21,18 @@ public class Linter {
 
     public boolean lint(SpecsReader reader) throws IOException, CliException {
         final RequestDecorator decorator = new RequestDecorator(reader);
-        final JsonObject response = client.validate(decorator.getRequestBody()).asObject();
-        final ViolationsFilter violationsFilter = new ViolationsFilter(response);
-        final JsonObject counters = response.get("violations_count").asObject();
+        final JsonObject jsonResponse = client.validate(decorator.getRequestBody()).asObject();
+        final ZallyApiResponse response = new ZallyApiResponse(jsonResponse);
+        final ViolationsFilter violationsFilter = new ViolationsFilter(response.getViolations());
+        final JsonObject counters = jsonResponse.get("violations_count").asObject();
 
-        if (response.names().contains("message")) {
-            printer.printMessage(response.get("message").asString());
+        if (jsonResponse.names().contains("message")) {
+            printer.printMessage(jsonResponse.get("message").asString());
         }
 
         boolean hasMustViolations = false;
         for (String violationType : violationTypes) {
-            List<JsonObject> violations = violationsFilter.getViolations(violationType);
+            List<Violation> violations = violationsFilter.getViolations(violationType);
             if (mustViolationType.equals(violationType)) {
                 hasMustViolations = violations.isEmpty();
             }

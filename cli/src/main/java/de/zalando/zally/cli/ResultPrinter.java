@@ -39,7 +39,7 @@ public class ResultPrinter {
         }
     }
 
-    public void printViolations(List<JsonObject> violations, String violationType) throws IOException {
+    public void printViolations(List<Violation> violations, String violationType) throws IOException {
         if (!violations.isEmpty()) {
 
             String normalizedViolationType = violationType.toUpperCase();
@@ -48,7 +48,7 @@ public class ResultPrinter {
 
             printHeader(headerColor, header);
 
-            for (JsonObject violation : violations) {
+            for (Violation violation : violations) {
                 writer.write(formatViolation(headerColor, violation) + "\n");
             }
             writer.flush();
@@ -69,23 +69,24 @@ public class ResultPrinter {
         writer.flush();
     }
 
-    public static String formatViolation(String headerColor, JsonObject violation) {
-        String title = violation.get("title").asString();
-        String description = violation.get("description").asString();
-        JsonArray paths = violation.get("paths").asArray();
+    public static String formatViolation(String headerColor, Violation violation) {
+        String title = violation.getTitle();
+        String description = violation.getDescription();
+        List<String> paths = violation.getPaths();
 
         StringBuilder sb = new StringBuilder();
         sb.append(headerColor + title + "\n" + ANSI_RESET);
         sb.append("\t" + description + "\n");
-        JsonValue ruleLink = violation.get("rule_link");
-        if (!ruleLink.isNull()) {
-            sb.append("\t" + ANSI_CYAN + ruleLink.asString() + "\n" + ANSI_RESET);
+
+        String ruleLink = violation.getRuleLink();
+        if (ruleLink != null) {
+            sb.append("\t" + ANSI_CYAN + ruleLink + "\n" + ANSI_RESET);
         }
         if (!paths.isEmpty()) {
             sb.append("\tViolated at:\n");
-            for (JsonValue path : paths) {
+            for (String path : paths) {
                 sb.append("\t\t");
-                sb.append(path.asString());
+                sb.append(path);
                 sb.append("\n");
             }
             sb.append("\n");

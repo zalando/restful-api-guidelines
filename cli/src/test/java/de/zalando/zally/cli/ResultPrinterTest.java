@@ -19,7 +19,7 @@ public class ResultPrinterTest {
     @Test
     public void testNoViolationsCase() throws IOException {
         ResultPrinter violationPrinter = new ResultPrinter(outStream);
-        List<JsonObject> violations = new ArrayList<>();
+        List<Violation> violations = new ArrayList<>();
         violationPrinter.printViolations(violations, "must");
 
         assertEquals("", outContent.toString());
@@ -32,16 +32,18 @@ public class ResultPrinterTest {
         violationOne.add("description", "Violation 1 Description");
         violationOne.add("paths", Json.array("Violation 1 Path"));
         violationOne.add("rule_link", Json.NULL);
+        violationOne.add("violaion_type", "MUST");
 
         JsonObject violationTwo = new JsonObject();
         violationTwo.add("title", "Violation 2");
         violationTwo.add("description", "Violation 2 Description");
         violationTwo.add("paths", Json.array());
         violationTwo.add("rule_link", Json.NULL);
+        violationTwo.add("violation_type", "MUST");
 
-        List<JsonObject> violations = new ArrayList<>();
-        violations.add(violationOne);
-        violations.add(violationTwo);
+        List<Violation> violations = new ArrayList<>();
+        violations.add(new Violation(violationOne));
+        violations.add(new Violation(violationTwo));
 
         ResultPrinter violationPrinter = new ResultPrinter(outStream);
         violationPrinter.printViolations(violations, "must");
@@ -79,11 +81,12 @@ public class ResultPrinterTest {
 
     @Test
     public void formatReturnsProperlyColoredString() {
-        JsonObject violation = new JsonObject();
-        violation.add("title", "Test title");
-        violation.add("description", "Test description");
-        violation.add("rule_link", Json.NULL);
-        violation.add("paths", Json.array());
+        JsonObject violationJson = new JsonObject();
+        violationJson.add("title", "Test title");
+        violationJson.add("description", "Test description");
+        violationJson.add("rule_link", Json.NULL);
+        violationJson.add("violation_type", "MUST");
+        violationJson.add("paths", Json.array());
 
         String[] testColors = new String[] {
                 ResultPrinter.ANSI_RED,
@@ -93,7 +96,7 @@ public class ResultPrinterTest {
         };
 
         for (String testColor : testColors) {
-            String result = ResultPrinter.formatViolation(testColor, violation);
+            String result = ResultPrinter.formatViolation(testColor, new Violation(violationJson));
             assertEquals(testColor + "Test title\n" + ResultPrinter.ANSI_RESET + "\tTest description\n", result);
         }
 
@@ -115,7 +118,7 @@ public class ResultPrinterTest {
                 + "\t" + ResultPrinter.ANSI_CYAN + "https://zalando.github.io/restful-api-guidelines/security/Security.html#must-secure-endpoints-with-oauth-20\n" + ResultPrinter.ANSI_RESET
                 + "\tViolated at:\n\t\t/products/{product_id}/\n\n";
 
-        String result = ResultPrinter.formatViolation(testColor, violation);
+        String result = ResultPrinter.formatViolation(testColor, new Violation(violation));
         assertEquals(expectedResult, result);
     }
 
