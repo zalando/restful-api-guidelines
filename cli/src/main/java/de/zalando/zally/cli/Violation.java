@@ -2,6 +2,8 @@ package de.zalando.zally.cli;
 
 import com.eclipsesource.json.JsonArray;
 import com.eclipsesource.json.JsonObject;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +36,24 @@ public class Violation {
         if (violationJson.get("paths") != null && violationJson.get("paths").isArray()) {
             JsonArray paths = violationJson.get("paths").asArray();
             this.paths = paths.values().stream().map(x -> x.asString()).collect(Collectors.toList());
+        }
+    }
+
+    public Violation(JSONObject violationJson) {
+        this.title = violationJson.getString("title");
+        this.description = violationJson.getString("description");
+
+        if (violationJson.has("violation_type")) {
+            this.violationType = violationJson.getString("violation_type");
+        }
+
+        if (violationJson.has("rule_link")) {
+            this.ruleLink = violationJson.getString("rule_link");
+        }
+
+        if (violationJson.has("paths") && violationJson.get("paths") instanceof JSONArray) {
+            JSONArray paths = violationJson.getJSONArray("paths");
+            this.paths = paths.toList().stream().map(x -> (String) x).collect(Collectors.toList());
         }
     }
 
