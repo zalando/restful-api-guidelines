@@ -7,8 +7,6 @@ import static net.jadler.Jadler.port;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import com.eclipsesource.json.JsonObject;
-import com.eclipsesource.json.ParseException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -36,26 +34,26 @@ public class ZallyApiClientTest {
 
     @Test
     public void validateReturnsOutputFromZallyServer() throws Exception {
-        final String responseBody = "{\"response\":\"ok\"}";
+        final String responseBody = "{\"violations\":[], \"violations_count\":{}}";
 
         mockServer(200, responseBody);
 
         ZallyApiClient client = new ZallyApiClient("http://localhost:" + port() + "/", token);
-        JsonObject result = client.validate(requestBody).asObject();
+        ZallyApiResponse response = client.validate(requestBody);
 
-        assertEquals("ok", result.get("response").asString());
+        assertEquals(0, response.getViolations().size());
     }
 
     @Test
-    public void validateRaisesParseException() throws Exception {
-        expectedException.expect(ParseException.class);
+    public void validateRaisesCliException() throws Exception {
+        expectedException.expect(CliException.class);
         expectedException.expectMessage("Unexpected end of input at 1:-1");
 
         mockServer(200, "");
 
         ZallyApiClient client = new ZallyApiClient("http://localhost:" + port() + "/", token);
         assertNotNull(client);
-        client.validate(requestBody).asObject();
+        client.validate(requestBody);
     }
 
     @Test
@@ -68,7 +66,7 @@ public class ZallyApiClientTest {
 
         ZallyApiClient client = new ZallyApiClient("http://localhost:" + port() + "/", token);
         assertNotNull(client);
-        client.validate(requestBody).asObject();
+        client.validate(requestBody);
     }
 
     @Test
@@ -83,7 +81,7 @@ public class ZallyApiClientTest {
 
         ZallyApiClient client = new ZallyApiClient("http://localhost:" + port() + "/", token);
         assertNotNull(client);
-        client.validate(requestBody).asObject();
+        client.validate(requestBody);
     }
 
     @Test

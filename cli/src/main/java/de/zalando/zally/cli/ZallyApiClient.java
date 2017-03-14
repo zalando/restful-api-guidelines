@@ -1,6 +1,7 @@
 package de.zalando.zally.cli;
 
 import com.eclipsesource.json.Json;
+import com.eclipsesource.json.JsonObject;
 import com.eclipsesource.json.JsonValue;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
@@ -46,25 +47,8 @@ public class ZallyApiClient {
         this.token = token;
     }
 
-    public JsonValue validate(String body) throws CliException {
-        HttpResponse<String> response;
-
-        try {
-            response = Unirest
-                    .post(url)
-                    .header("Authorization", "Bearer " + token)
-                    .header("Content-Type", "application/json")
-                    .body(body)
-                    .asString();
-        } catch (UnirestException exception) {
-            String details = exception.getCause() == null ? exception.getMessage() : exception.getCause().getMessage();
-            throw new CliException(
-                    CliExceptionType.API,
-                    "An error occurred while querying Zally server",
-                    details
-            );
-        }
-
+    public ZallyApiResponse validate(String requestBody) throws CliException {
+        final HttpResponse<String> response = doRequest(requestBody);
         final int responseStatus = response.getStatus();
         final String responseBody = response.getBody();
 
@@ -76,7 +60,7 @@ public class ZallyApiClient {
             );
         }
 
-        return Json.parse(responseBody);
+        return new ZallyApiResponse(getJsonObject(responseBody));
     }
 
     public String getErrorReason(String body) {
@@ -92,5 +76,35 @@ public class ZallyApiClient {
         }
 
         return null;
+    }
+
+    private HttpResponse<String> doRequest(final String requestBody) throws CliException {
+        try {
+            return Unirest
+                    .post(url)
+                    .header("Authorization", "Bearer " + token)
+                    .header("Content-Type", "application/json")
+                    .body(requestBody)
+                    .asString();
+        } catch (UnirestException exception) {
+            String details = exception.getCause() == null ? exception.getMessage() : exception.getCause().getMessage();
+            throw new CliException(
+                    CliExceptionType.API,
+                    "An error occurred while querying Zally server",
+                    details
+            );
+        }
+    }
+
+    private JsonObject getJsonObject(final String responseBody) throws CliException {
+        try {
+            return Json.parse(responseBody).asObject();
+        } catch (RuntimeException e) {
+            throw new CliException(
+                    CliExceptionType.API,
+                    "JSON cannot be parsed",
+                    e.getMessage()
+            );
+        }
     }
 }

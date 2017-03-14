@@ -1,7 +1,5 @@
 package de.zalando.zally.cli;
 
-import com.eclipsesource.json.JsonObject;
-
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -21,8 +19,7 @@ public class Linter {
 
     public boolean lint(SpecsReader reader) throws IOException, CliException {
         final RequestDecorator decorator = new RequestDecorator(reader);
-        final JsonObject jsonResponse = client.validate(decorator.getRequestBody()).asObject();
-        final ZallyApiResponse response = new ZallyApiResponse(jsonResponse);
+        final ZallyApiResponse response = client.validate(decorator.getRequestBody());
         final ViolationsFilter violationsFilter = new ViolationsFilter(response.getViolations());
 
         if (response.getMessage() != null) {

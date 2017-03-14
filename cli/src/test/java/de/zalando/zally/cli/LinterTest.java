@@ -112,7 +112,7 @@ public class LinterTest {
         final String message = "Test message";
         testResult.add("message", message);
 
-        Mockito.when(client.validate(anyString())).thenReturn(testResult);
+        Mockito.when(client.validate(anyString())).thenReturn(new ZallyApiResponse(testResult));
         linter = new Linter(client, resultPrinter);
         final boolean result = linter.lint(getJsonReader());
         assertEquals(result, true);
@@ -135,7 +135,7 @@ public class LinterTest {
     }
 
     private Boolean makeLinterCall(JsonObject testResult) throws IOException {
-        Mockito.when(client.validate(anyString())).thenReturn(testResult);
+        Mockito.when(client.validate(anyString())).thenReturn(new ZallyApiResponse(testResult));
 
         linter = new Linter(client, resultPrinter);
         final Boolean result = linter.lint(getJsonReader());
