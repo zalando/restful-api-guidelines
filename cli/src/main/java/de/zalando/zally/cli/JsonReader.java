@@ -1,9 +1,9 @@
 package de.zalando.zally.cli;
 
-import com.eclipsesource.json.Json;
-import com.eclipsesource.json.JsonValue;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONTokener;
 
-import java.io.IOException;
 import java.io.Reader;
 
 public class JsonReader implements SpecsReader {
@@ -14,10 +14,10 @@ public class JsonReader implements SpecsReader {
     }
 
     @Override
-    public JsonValue read() throws CliException {
+    public JSONObject read() throws CliException {
         try {
-            return Json.parse(reader);
-        } catch (IOException exception) {
+            return new JSONObject(new JSONTokener(reader));
+        } catch (JSONException exception) {
             throw new CliException(CliExceptionType.CLI, "Cannot read JSON file", exception.getMessage());
         }
     }

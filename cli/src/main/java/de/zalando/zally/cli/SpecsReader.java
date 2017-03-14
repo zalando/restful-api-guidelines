@@ -1,8 +1,8 @@
 package de.zalando.zally.cli;
 
-import com.eclipsesource.json.JsonValue;
+import org.json.JSONObject;
 
 
 public interface SpecsReader {
-    JsonValue read();
+    JSONObject read();
 }
