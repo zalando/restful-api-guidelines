@@ -5,8 +5,10 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
 class SuccessResponseAsJsonObjectRuleTest {
+
     private val validSwagger = getFixture("successResponseAsJsonObjectValid.json")
     private val invalidSwagger = getFixture("successResponseAsJsonObjectInvalid.json")
+    private val npeSwagger = getFixture("sample_swagger_api.yaml")
 
     @Test
     fun positiveCase() {
@@ -23,5 +25,10 @@ class SuccessResponseAsJsonObjectRuleTest {
     fun positiveCaseSpp() {
         val swagger = getFixture("api_spp.json")
         assertThat(SuccessResponseAsJsonObjectRule().validate(swagger)).isNull()
+    }
+
+    @Test
+    fun npeBug() {
+        assertThat(SuccessResponseAsJsonObjectRule().validate(npeSwagger)).isNotNull()
     }
 }
