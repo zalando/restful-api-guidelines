@@ -1,0 +1,75 @@
+swagger: "2.0"
+info:
+    title: TODO list service
+    version: "1.0.0"
+host: todo.zalan.do
+basePath: /
+schemes:
+    - https
+produces:
+    - applications/json
+consumes:
+    - applications/json
+securityDefinitions:
+    oauth2:
+        type: oauth2
+        flow: password
+        authorizationUrl: https://auth.zalando.com/oauth2/access_token?realm=services
+        scopes:
+            todo-list-service.read: Access right needed to read from the todo list service.
+            todo-list-service.write: Access right needed to write to the todo list service.
+parameters:
+    Authorization:
+        name: Authorization
+        in: header
+        required: true
+        type: string
+        format: JWT Tokens
+paths:
+    /todo-items:
+        get:
+            summary: get all items to do
+            responses: 
+                200:
+                    description: Success
+                    schema: 
+                        type: object
+                        $ref: "#/definitions/TodoItems"
+            security:
+                - oauth2:
+                    - todo-list-service.read
+        post:
+            summary: create a new todo
+            security:
+                - oauth2:
+                    - todo-list-service.write
+            responses: 
+                201:
+                    description: Success
+                    schema: 
+                        type: object
+                        $ref: "#/definitions/TodoItems"
+    /todo-items/{item-id}:
+        put:
+            summary: update a todo item
+            security:
+                - oauth2:
+                    - todo-list-service.write
+            responses: 
+                200:
+                    description: Success
+                    schema: 
+                        type: object
+                        $ref: "#/definitions/TodoItems"
+        delete:
+            summary: delete a todo item
+            security:
+                - oauth2:
+                    - todo-list-service.write
+            responses: 
+                200:
+                    description: Success
+                    schema: 
+                        type: object
+                        $ref: "#/definitions/TodoItems"
+

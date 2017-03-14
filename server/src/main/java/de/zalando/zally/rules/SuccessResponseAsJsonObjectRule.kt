@@ -12,6 +12,7 @@ import java.util.ArrayList
 
 @Component
 open class SuccessResponseAsJsonObjectRule : AbstractRule() {
+
     private val TITLE = "Response As JSON Object"
     private val DESCRIPTION = "Always Return JSON Objects As Top-Level Data Structures To Support Extensibility"
     private val VIOLATION_TYPE = ViolationType.MUST
@@ -38,7 +39,7 @@ open class SuccessResponseAsJsonObjectRule : AbstractRule() {
     }
 
     private fun Property?.isRefToObject(swagger: Swagger) =
-            if (this is RefProperty) {
+            if (this is RefProperty && swagger.definitions != null) {
                 val model = swagger.definitions[simpleRef]
                 (model is ModelImpl && model.type == "object") || model is ComposedModel
             } else false
