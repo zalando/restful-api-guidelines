@@ -53,10 +53,21 @@ At the moment we cannot state whether it's best practice to publish all the even
 Nakadi defines an event for signalling data changes, called a [DataChangeEvent](https://github.com/zalando/nakadi/blob/nakadi-jvm/api/nakadi-event-bus-api.yaml#/definitions/DataChangeEvent). When publishing events that represents created, updated, or deleted data, change event types must be based on the DataChangeEvent category.
 
 - Change events must identify the changed entity to allow aggregation of all related events for the entity.
-
-- Change events should contain a means of ordering events for a given entity (such as created or updated timestamps that are assured to move forwards with respect to the entity, or version identifiers provided by some databases). Note that basing events on data structures that can be converged upon (such as [CRDTs](https://en.wikipedia.org/wiki/Conflict-free_replicated_data_type) or [logical clocks](https://en.wikipedia.org/wiki/Logical_clock)) in a distributed setting are outside the scope of this guidance.
-
+- Change events should [contain a means of ordering](#should-provide-a-means-of-event-ordering) events for a given entity.
 - Change events must be published reliably by the service.
+
+## {{ book.should }} Provide a means for explicit event ordering
+
+While Nakadi guarantees ordering per partition, some common error cases may require your consumers to reconstruct message ordering and 
+their last read position within the ordered stream. Events *should* therefore contain a way to restore their partial order of occurence. 
+
+This can be done - among other ways -  by adding
+- a strictly monotonically increasing entity version (e.g. as created by a database) to allow for partial ordering of all events for an entity
+- a strictly monotonically increasing message counter
+
+System timestamps are not necessarily a good choice, since exact synchronization of clocks in distributed systems is difficult, two events may occur in the same microsecond and system clocks may jump backward or forward to compensate drifts or leap-seconds. If you use system timestamps to indicate event ordering, you must carefully ensure that your designated event order is not messed up by these effects. 
+
+**Note** that basing events on data structures that can be converged upon in a distributed setting (such as [CRDTs](https://en.wikipedia.org/wiki/Conflict-free_replicated_data_type), [logical clocks](https://en.wikipedia.org/wiki/Logical_clock) and [vector clocks](https://en.wikipedia.org/wiki/Vector_clock)) is outside the scope of this guidance.
 
 ## {{ book.should }} Use the hash partition strategy for Data Change Events
 
@@ -139,6 +150,43 @@ These are considered backwards-incompatible changes, as seen by consumers  -
 - Adding a new optional field to redefine the meaning of an existing field (also known as a co-occurrence constraint).
 - Adding a value to an enumeration (note that [`x-extensible-enum`](../compatibility/Compatibility.md#should-used-openended-list-of-values-xextensibleenum-instead-of-enumerations) is not available in JSON Schema).
 
+## {{ book.should }} Avoid `additionalProperties` in event type definitions
+
+Event type schema should avoid using `additionalProperties` declarations, in 
+order to support schema evolution.
+
+Events are often intermediated by publish/subscribe systems and are 
+commonly captured in logs or long term storage to be read later. In 
+particular, the schemas used by publishers and consumers can  
+drift over time. As a result, compatibility and extensibility issues 
+that happen less frequently with client-server style APIs become important 
+and regular considerations for event design. The guidelines recommend the 
+following to enable event schema evolution:
+
+- Publishers who intend to provide compatibility and allow their schemas 
+  to evolve safely over time must define new optional fields 
+  (as additive changes) and update their schemas in advance of publishing 
+  those fields. In doing so, they **must not** declare an `additionalProperties` 
+  field as a wildcard extension point. 
+
+- Consumers must ignore fields they cannot process and not raise 
+  errors, just as they would as an API client. This can happen if they are 
+  processing events with an older copy of the event schema than the one
+  containing the new definitions specified by the publishers. 
+
+Requiring event publishers to define their fields ahead of publishing avoids 
+the problem of _field redefinition_. This is when a publisher defines a 
+field to be of a different type that was already being emitted, or, is 
+changing the type of an undefined field. Both of these are prevented by 
+not using `additionalProperties`. 
+
+Avoiding `additionalProperties` as described here also aligns with the approach
+ taken by the Nakadi API's ["compatible mode"](http://zalando.github.io/nakadi-manual/docs/using/event-types.html#compatible) for event type schema.
+
+See also "Treat Open API Definitions As Open For Extension By Default"  
+in the [Compatibility](../compatibility/Compatibility.md#must-treat-open-api-definitions-as-open-for-extension-by-default) 
+section for further guidelines on the use of `additionalProperties`. 
+
 ## {{ book.must }} Use unique Event identifiers
 
 The `eid` (event identifier) value of an event must be unique.
@@ -147,10 +195,32 @@ The `eid` property is part of the standard metadata for an event and gives the e
 
 Note that uniqueness checking of the `eid` is not enforced by Nakadi at the event type or global levels and it is the responsibility of the producer to ensure event identifiers do in fact distinctly identify events. A straightforward way to create a unique identifier for an event is to generate a UUID value.
 
+## {{ book.should }} Design for idempotent out-of-order processing
+
+Events that are designed for [idempotent](#must-use-unique-event-identifiers) out-of-order processing allow for extremely resilient systems: If processing an event fails, consumers and producers can skip/delay/retry it without stopping the world or corrupting the processing result. 
+
+To enable this freedom of processing, you must explicitly design for idempotent out-of-order processing: Either your events must contain enough information to infer their original order during consumption or your domain must be designed in a way that order becomes irrelevant.
+
+As common example similar to data change events, idempotent out-of-order processing can be supported by sending the following information:
+
+- the process/resource/entity identifier,
+- a [monotonically increasing ordering key](#should-provide-a-means-of-event-ordering) and
+- the process/resource state after the change.
+
+A receiver that is interested in the current state can then ignore events that are older than the last processed event of each resource. A receiver interested in the history of a resource can use the ordering key to recreate a (partially) ordered sequence of events.
+
 ## {{ book.must }} Follow conventions for Event Type names
 
 Event types can follow these naming conventions (each convention has its own should, must or could conformance level) -
  
  - Event type names must be url-safe. This is because the event type names are used by Nakadi as part of the URL for the event type and its stream.
 
- - Event type names should be lowercase words and numbers, using hypens, underscores or periods as separators. 
+ - Event type names should be lowercase words and numbers, using hyphens, underscores or periods as separators.
+
+## {{ book.must }} Prepare for duplicate Events
+
+Event consumers must be able to process duplicate events.
+
+Most of message broker and event bus systems, like Nakadi, guarantee “at-least-once” delivery. That is, one particular event is delivered to the consumers one or more times. Other circumstances can also cause duplicate events.
+
+For example, these situations occur if the publisher sends an event and doesn't receive the acknowledgment (e.g. due to a network issue). In this case, the publisher will try to send the same event again. This leads to two identical events in the event bus which have to be processed by the consumers. Similar conditions can appear on consumer side: an event has been processed successfully, but the consumer fails to confirm the processing.

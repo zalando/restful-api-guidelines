@@ -31,5 +31,15 @@ The purpose of our “RESTful API guidelines” is to define standards to succes
 “consistent API look and feel” quality. The [API Guild \[internal link\]](https://techwiki.zalando.net/display/GUL/API+Guild) drafted and owns this document. Teams are responsible to fulfill these guidelines during API
 development and are encouraged to contribute to guideline evolution via pull requests.
 
-Note: These guidelines will, to some extent, remain work in progress as our work evolves, but
+These guidelines will, to some extent, remain work in progress as our work evolves, but
 teams can confidently follow and trust them.
+
+In case guidelines are changing, following rules apply:
+
+- existing APIs don't have to be changed, but we recommend it
+- clients of existing APIs have to cope with these APIs based on outdated rules
+- new APIs have to respect the current guidelines
+
+Furthermore you should keep in mind that once an API becomes public externally
+available, it has to be re-reviewed and changed according to current
+guidelines - for sake of overall consistency.

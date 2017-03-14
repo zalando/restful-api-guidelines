@@ -14,7 +14,7 @@ Common techniques include:
 * querying field filters to retrieve a subset of resource attributes (see [*Support Filtering of Resource Fields*](../performance/Performance.md#should-support-filtering-of-resource-fields)
 below)
 * paginate lists of data items (see [*Pagination*](../pagination/Pagination.md) below)
-* `ETag` (and If-[None-]Match) headers to avoid refetch of unchanged resources
+* `ETag` and `If-(None-)Match` headers to avoid re-fetching of unchanged resources (see [*Common Headers*](../headers/CommonHeaders.md#could-consider-using-etag-together-with-ifnonematch-header)
 * pagination for incremental access of larger (result) lists
 
 Each of these items is described in greater detail below.
@@ -85,21 +85,6 @@ can easily be introduced with a minimum of effort.
 Hint: OpenAPI doesn't allow you to formally specify whether depending on a given parameter will
 return different parts of the specified result schema. Explain this in English in the parameter
 description.
-
-## {{ book.could }} Support the ETag Header
-
-If a resource changes, the contents of the [`ETag`](https://en.wikipedia.org/wiki/HTTP_ETag) header
-must also change. Combined with the `If-Match` and `If-None-Match` headers, the `ETag` header allows
-caching of entities.
-
-Its possible contents:
-
-* the entity’s version number
-* hash of the response body
-* hash of the entity’s last modified field
-
-Also see [*Allow Embedding of Complex Sub-Resources*](../performance/Performance.md#should-allow-embedding-of-complex-subresources)
-below as contribution to performance optimization to avoid multiple requests for sub-resources.
 
 ## {{ book.should }} Allow Optional Embedding of Sub-Resources
 

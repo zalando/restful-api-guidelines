@@ -11,7 +11,7 @@ they can be used in both, HTTP requests and responses. Commonly used content hea
  - [`Content-Encoding`](https://tools.ietf.org/html/rfc7231#section-3.1.2.2) indicates compression or encryption algorithms applied to the content.
  - [`Content-Length`](https://tools.ietf.org/html/rfc7230#section-3.3.2) indicates the length of the content (in bytes).
  - [`Content-Language`](https://tools.ietf.org/html/rfc7231#section-3.1.3.2) indicates that the body is meant for people literate in some human language(s).
- - [`Content-Location`](https://tools.ietf.org/html/rfc7231#section-3.1.4.2) indicates where the body can be found otherwise ([see below for more details](#could-use-contentlocation-header)).
+ - [`Content-Location`](https://tools.ietf.org/html/rfc7231#section-3.1.4.2) indicates where the body can be found otherwise ([see below for more details](../headers/CommonHeaders.md#could-use-contentlocation-header)).
  - [`Content-Range`](https://tools.ietf.org/html/rfc7233#section-4.2) is used in responses to range requests to indicate which part of the requested resource representation is delivered with the body.
  - [`Content-Type`](https://tools.ietf.org/html/rfc7231#section-3.1.1.5) indicates the media type of the body content.
 
@@ -64,3 +64,64 @@ The `Prefer` header can defined like this in an API definition:
 
 Supporting APIs may return the `Preference-Applied` header also defined in [RFC7240](https://tools.ietf.org/html/rfc7240) to indicate whether the preference was applied.
 
+## {{ book.could }} Consider using ETag together with If-(None-)Match header
+
+When creating or updating resources it may be necessary to expose conflicts and to prevent the lost update
+problem. This can be best accomplished by using the [`ETag`](https://tools.ietf.org/html/rfc7232#section-2.3)
+header together with the [`If-Match`](https://tools.ietf.org/html/rfc7232#section-3.1) and 
+[`If-None-Match`](https://tools.ietf.org/html/rfc7232#section-3.2). The contents of an `ETag: <entity-tag>`
+header is either (a) a hash of the response body, (b) a hash of the last modified field of the entity, or
+(c) a version number or identifier of the entity version.
+
+To expose conflicts between concurrent update operations via PUT, POST, or PATCH, the `If-Match: <entity-tag>`
+header can be used to force the server to check whether the version of the updated entity is conforming to the
+requested `<entity-tag>`. If no matching entity is found, the operation is supposed a to respond with status
+code 412 - precondition failed.
+
+Beside other use cases, the `If-None-Match:` header with parameter `*` can be used in a similar way to expose
+conflicts in resource creation. If any matching entity is found, the operation is supposed a to respond with
+status code 412 - precondition failed.
+
+The `ETag`, `If-Match`, and `If-None-Match` headers can be defined as follows in the API definition:
+
+```yaml
+  Etag:
+    name: Etag
+    description: |
+      The RFC7232 ETag header field in a response provides the current entity-tag for the
+      selected resource. An entity-tag is an opaque identifier for different versions of
+      a resource over time, regardless whether multiple versions are valid at the same time.
+      An entity-tag consists of an opaque quoted string, possibly prefixed by a weakness
+      indicator.
+
+    in: header
+    type: string
+    required: false
+    example: W/"xy", "5", "7da7a728-f910-11e6-942a-68f728c1ba70"
+
+  IfMatch:
+    name: If-Match
+    description: |
+      The RFC7232 If-Match header field in a request requires the server to only operate
+      on the resource that matches at least one of the provided entity-tags. This allows
+      clients express a precondition that prevent the method from being applied, if there
+      have been any changes to the resource.
+
+    in: header
+    type: string
+    required: false
+    example:  "5", "7da7a728-f910-11e6-942a-68f728c1ba70"
+
+  IfNoneMatch:
+    name: If-None-Match
+    description: |
+      The RFC7232 If-None-Match header field in a request requires the server to only
+      operate on the resource if it does not match any of the provided entity-tags. If
+      the provided entity-tag is `*`, it is required that the resource does not exist
+      at all.
+
+    in: header
+    type: string
+    required: false
+    example: "7da7a728-f910-11e6-942a-68f728c1ba70", *
+```

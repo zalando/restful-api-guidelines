@@ -36,6 +36,11 @@ URL path segment. Putting the same resource twice is required to be idempotent a
 the same single resource instance. If PUT is applied for creating a resource, only URIs should be
 allowed as resource IDs. If URIs are not available POST should be preferred.
 
+To prevent unnoticed concurrent updates when using PUT, the combination of [`ETag` and
+`If-(None-)Match`](../headers/CommonHeaders.md#could-consider-using-etag-together-with-ifnonematch-header)
+headers should be considered to signal the server stricter demands to expose conflicts and prevent
+lost updates.
+
 ### POST
 
 POST requests are idiomatically used to create single resources on a collection resource endpoint,
@@ -97,6 +102,11 @@ limited, especially when trying to update single objects in large collections (a
 resource). In this cases [JSON Patch](http://tools.ietf.org/html/rfc6902) can shown its full power
 while still showing readable patch requests
 ([see also](http://erosb.github.io/post/json-patch-vs-merge-patch)).
+
+To prevent unnoticed concurrent updates when using PATCH, the combination of [`ETag` and
+`If-Match`](../headers/CommonHeaders.md#could-consider-using-etag-together-with-ifnonematch-header)
+headers should be considered to signal the server stricter demands to expose conflicts and prevent
+lost updates.
 
 ### DELETE
 
@@ -160,7 +170,7 @@ different HTTP methods on resources.
 | 201  | Created - Returned on successful entity creation. You are free to return either an empty response or the created resource in conjunction with the Location header. (More details found in the [Common Headers section](../headers/CommonHeaders.md).) *Always* set the Location header. | POST, PUT |
 | 202  | Accepted - The request was successful and will be processed asynchronously. | POST, PUT, DELETE, PATCH |
 | 204  | No content - There is no response body | PUT, DELETE |
-| 207  | Multi-Status - The response body contains multiple status informations for different parts of a batch/bulk request. See ["Use 207 for Batch or Bulk Requests"](#must-use-207-for-batch-or-bulk-requests). | POST |
+| 207  | Multi-Status - The response body contains multiple status informations for different parts of a batch/bulk request. See ["Use 207 for Batch or Bulk Requests"](../http/Http.md#must-use-207-for-batch-or-bulk-requests). | POST |
 
 ### Redirection Codes
 
@@ -187,7 +197,7 @@ different HTTP methods on resources.
 | 415 | Unsupported Media Type - e.g. clients sends request body without content type | PUT, DELETE, PATCH
 | 423 | Locked - Pessimistic locking, e.g. processing states | PUT, DELETE, PATCH |
 | 428 | Precondition Required - server requires the request to be conditional (e.g. to make sure that the “lost update problem” is avoided). | All |
-| 429 | Too many requests - the client does not consider rate limiting and sent too many requests. See ["Use 429 with Headers for Rate Limits"](#must-use-429-with-headers-for-rate-limits). | All |
+| 429 | Too many requests - the client does not consider rate limiting and sent too many requests. See ["Use 429 with Headers for Rate Limits"](../http/Http.md#must-use-429-with-headers-for-rate-limits). | All |
 
 ### Server Side Error Codes:
 
