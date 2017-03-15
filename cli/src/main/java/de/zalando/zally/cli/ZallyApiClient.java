@@ -1,7 +1,5 @@
 package de.zalando.zally.cli;
 
-import com.eclipsesource.json.Json;
-import com.eclipsesource.json.JsonValue;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
@@ -65,18 +63,14 @@ public class ZallyApiClient {
     }
 
     public String getErrorReason(String body) {
-        JsonValue errorJson;
+        JSONObject errorJson;
         try {
-            errorJson = Json.parse(body);
-        } catch (Exception exception) {
+            errorJson = new JSONObject(body);
+        } catch (JSONException exception) {
             return null;
         }
 
-        if (!errorJson.asObject().isEmpty()) {
-            return errorJson.asObject().getString("detail", null);
-        }
-
-        return null;
+        return errorJson.optString("detail", null);
     }
 
     private HttpResponse<String> doRequest(final String requestBody) throws CliException {
