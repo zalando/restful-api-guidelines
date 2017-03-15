@@ -52,6 +52,9 @@
       error: function() {
         console.error(arguments);
         //requestToken(state, OauthClient, OAuthProvider); // get new token if tokeninfo returns error
+      },
+      success: function () {
+        console.debug('user is logger in!', arguments);
       }
     });
   }
