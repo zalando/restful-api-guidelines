@@ -24,6 +24,8 @@
   },
   "homepage": "https://github.com/zalando-incubator/zally#readme",
   "dependencies": {
+    "dotenv": "^4.0.0",
+    "dotenv-parse-variables": "0.0.1",
     "express": "^4.15.2",
     "react": "^15.4.2",
     "react-dom": "^15.4.2"

@@ -1,8 +1,11 @@
+const env = require('./env');
 const express = require('express');
 const path = require('path');
 const app = express();
 
-
+/**
+ * Use webpack middleware just in development
+ */
 if(process.env.NODE_ENV === 'development') {
   const webpackDevMiddleware = require('webpack-dev-middleware');
   const webpack = require('webpack');
@@ -15,15 +18,35 @@ if(process.env.NODE_ENV === 'development') {
   }));
 }
 
-if(process.env.NODE_ENV !== 'development') {
-  app.use('/assets/', express.static(path.resolve(__dirname, '../client/public/assets')));
-}
+/**
+ * Serve static assets
+ */
+app.use('/assets/', express.static(path.resolve(__dirname, '../client/public/assets')));
 
+
+/**
+ * Main entry point
+ */
 app.get('/', function (req, res) {
   res.sendFile(path.resolve(__dirname, '../client/public/index.html'));
 });
 
-app.listen(3000, function () {
-  console.log('Listening on port 3000!');
+/**
+ * Serve /env.js
+ * Mimic process.env on the client side
+ */
+app.get('/env.js', (req, res)  => {
+  const js = `window.process = {}; window.process.env = ${JSON.stringify(env.public())}`;
+  res.setHeader('content-type', 'text/javascript');
+  res.write(js);
+  res.end();
+
+});
+
+/**
+ * Start listening for connections
+ */
+app.listen(env.PORT, function () {
+  console.log(`[server] listening on port ${env.PORT}`);
 });
 
