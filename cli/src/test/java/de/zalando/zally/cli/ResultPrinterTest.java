@@ -97,8 +97,8 @@ public class ResultPrinterTest {
 
     @Test
     public void formatReturnsFullViolation() {
-        final String ruleLink = "https://zalando.github.io/restful-api-guidelines/security/Security.html" +
-                "#must-secure-endpoints-with-oauth-20";
+        final String ruleLink = "https://zalando.github.io/restful-api-guidelines/security/Security.html"
+                + "#must-secure-endpoints-with-oauth-20";
 
         final List<String> paths = new ArrayList<>();
         paths.add("/path/one");

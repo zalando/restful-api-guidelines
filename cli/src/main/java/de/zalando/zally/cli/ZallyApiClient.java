@@ -1,7 +1,6 @@
 package de.zalando.zally.cli;
 
 import com.eclipsesource.json.Json;
-import com.eclipsesource.json.JsonObject;
 import com.eclipsesource.json.JsonValue;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
@@ -17,6 +16,8 @@ import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.ssl.SSLContextBuilder;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public class ZallyApiClient {
@@ -96,14 +97,14 @@ public class ZallyApiClient {
         }
     }
 
-    private JsonObject getJsonObject(final String responseBody) throws CliException {
+    private JSONObject getJsonObject(final String responseBody) throws CliException {
         try {
-            return Json.parse(responseBody).asObject();
-        } catch (RuntimeException e) {
+            return new JSONObject(responseBody);
+        } catch (JSONException exception) {
             throw new CliException(
                     CliExceptionType.API,
                     "JSON cannot be parsed",
-                    e.getMessage()
+                    exception.getMessage()
             );
         }
     }

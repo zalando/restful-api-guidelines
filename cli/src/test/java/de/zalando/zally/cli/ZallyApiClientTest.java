@@ -47,7 +47,7 @@ public class ZallyApiClientTest {
     @Test
     public void validateRaisesCliException() throws Exception {
         expectedException.expect(CliException.class);
-        expectedException.expectMessage("Unexpected end of input at 1:-1");
+        expectedException.expectMessage("A JSONObject text must begin with '{' at 1 [character 2 line 1]");
 
         mockServer(200, "");
 

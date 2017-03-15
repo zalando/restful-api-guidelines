@@ -5,14 +5,14 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 
-import com.eclipsesource.json.JsonArray;
-import com.eclipsesource.json.JsonObject;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -53,7 +53,7 @@ public class LinterTest {
 
     @Test
     public void returnsTrueWhenNoViolationsAreReturned() throws Exception {
-        final JsonObject testResult = getTestResult(new JsonArray());
+        final JSONObject testResult = getTestResult(new JSONArray());
 
         Boolean result = makeLinterCall(testResult);
         assertEquals(true, result);
@@ -66,11 +66,11 @@ public class LinterTest {
 
     @Test
     public void returnsTrueWhenOnlyShouldAndCouldViolationFound() throws Exception {
-        final JsonArray violations = new JsonArray();
-        violations.add(getViolation("should", "should"));
-        violations.add(getViolation("could", "could"));
-        violations.add(getViolation("hint", "hint"));
-        final JsonObject testResult = getTestResult(violations);
+        final JSONArray violations = new JSONArray();
+        violations.put(getViolation("should", "should"));
+        violations.put(getViolation("could", "could"));
+        violations.put(getViolation("hint", "hint"));
+        final JSONObject testResult = getTestResult(violations);
 
         Boolean result = makeLinterCall(testResult);
         assertEquals(true, result);
@@ -90,9 +90,9 @@ public class LinterTest {
 
     @Test
     public void returnsFalseWhenMustViolationsFound() throws Exception {
-        final JsonArray violations = new JsonArray();
-        violations.add(getViolation("must", "must"));
-        final JsonObject testResult = getTestResult(violations);
+        final JSONArray violations = new JSONArray();
+        violations.put(getViolation("must", "must"));
+        final JSONObject testResult = getTestResult(violations);
 
         Boolean result = makeLinterCall(testResult);
         assertEquals(false, result);
@@ -108,9 +108,9 @@ public class LinterTest {
 
     @Test
     public void printsMessageWhenSpecified() throws Exception {
-        final JsonObject testResult = getTestResult(new JsonArray());
+        final JSONObject testResult = getTestResult(new JSONArray());
         final String message = "Test message";
-        testResult.add("message", message);
+        testResult.put("message", message);
 
         Mockito.when(client.validate(anyString())).thenReturn(new ZallyApiResponse(testResult));
         linter = new Linter(client, resultPrinter);
@@ -126,15 +126,15 @@ public class LinterTest {
         return new JsonReader(new InputStreamReader(inputStream));
     }
 
-    private JsonObject getViolation(String title, String type) {
-        JsonObject violation = new JsonObject();
-        violation.add("title", title);
-        violation.add("description", "Test Description: " + title);
-        violation.add("violation_type", type);
+    private JSONObject getViolation(String title, String type) {
+        JSONObject violation = new JSONObject();
+        violation.put("title", title);
+        violation.put("description", "Test Description: " + title);
+        violation.put("violation_type", type);
         return violation;
     }
 
-    private Boolean makeLinterCall(JsonObject testResult) throws IOException {
+    private Boolean makeLinterCall(JSONObject testResult) throws IOException {
         Mockito.when(client.validate(anyString())).thenReturn(new ZallyApiResponse(testResult));
 
         linter = new Linter(client, resultPrinter);
@@ -149,10 +149,10 @@ public class LinterTest {
         return result;
     }
 
-    private JsonObject getTestResult(JsonArray violations) {
-        final JsonObject testResult = new JsonObject();
-        testResult.add("violations", violations);
-        testResult.add("violations_count", new JsonObject());
+    private JSONObject getTestResult(JSONArray violations) {
+        final JSONObject testResult = new JSONObject();
+        testResult.put("violations", violations);
+        testResult.put("violations_count", new JSONObject());
         return testResult;
     }
 }

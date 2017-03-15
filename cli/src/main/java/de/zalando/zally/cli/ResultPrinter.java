@@ -66,9 +66,9 @@ public class ResultPrinter {
     }
 
     public static String formatViolation(String headerColor, Violation violation) {
-        String title = violation.getTitle();
-        String description = violation.getDescription();
-        List<String> paths = violation.getPaths();
+        final String title = violation.getTitle();
+        final String description = violation.getDescription();
+        final List<String> paths = violation.getPaths();
 
         StringBuilder sb = new StringBuilder();
         sb.append(headerColor + title + "\n" + ANSI_RESET);

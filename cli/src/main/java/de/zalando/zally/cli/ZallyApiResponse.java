@@ -1,46 +1,57 @@
 package de.zalando.zally.cli;
 
-import com.eclipsesource.json.JsonObject;
-
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 
 public class ZallyApiResponse {
-    private final JsonObject response;
+    private final JSONObject response;
 
     private static final String VIOLATIONS = "violations";
     private static final String MESSAGE = "message";
     private static final String VIOLATIONS_COUNT = "violations_count";
 
-    public ZallyApiResponse(JsonObject response) {
+    public ZallyApiResponse(JSONObject response) {
         this.response = response;
     }
 
     public List<Violation> getViolations() throws CliException {
-        if (response == null || response.get(VIOLATIONS) == null || !response.get(VIOLATIONS).isArray()) {
+        if (!isResponseContainJsonArray(VIOLATIONS)) {
             String violationsString = response == null ? null : response.toString();
             throw new CliException(CliExceptionType.API, "Response JSON is malformed", violationsString);
         }
-        return response
-                .get(VIOLATIONS)
-                .asArray()
-                .values()
-                .stream()
-                .map(v -> new Violation(v.asObject()))
-                .collect(Collectors.toList());
+
+        final List<Violation> violations = new ArrayList<>();
+        final JSONArray jsonViolations = response.getJSONArray(VIOLATIONS);
+        for (int i = 0; i < jsonViolations.length(); i++) {
+            violations.add(new Violation((JSONObject) jsonViolations.get(i)));
+        }
+
+        return violations;
     }
 
     public String getMessage() {
-        if (response == null || !response.names().contains(MESSAGE)) {
+        if (response == null || !response.has(MESSAGE)) {
             return null;
         }
-        return response.get(MESSAGE).asString();
+        return response.getString(MESSAGE);
     }
 
     public ViolationsCount getCounters() {
-        if (response == null || response.get(VIOLATIONS_COUNT) == null || !response.get(VIOLATIONS_COUNT).isObject()) {
+        if (!isResponseContainJsonObject(VIOLATIONS_COUNT)) {
             throw new CliException(CliExceptionType.API, "Respones does not contain violation counters");
         }
-        return new ViolationsCount(response.get(VIOLATIONS_COUNT).asObject());
+        return new ViolationsCount((JSONObject) response.get(VIOLATIONS_COUNT));
+    }
+
+    private Boolean isResponseContainJsonArray(final String name) {
+        return response != null && response.get(name) != null && response.get(name) instanceof JSONArray;
+    }
+
+    private Boolean isResponseContainJsonObject(final String name) {
+        return response != null && response.get(name) != null && response.get(name) instanceof JSONObject;
     }
 }

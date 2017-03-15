@@ -1,34 +1,34 @@
 package de.zalando.zally.cli;
 
-import com.eclipsesource.json.Json;
-import com.eclipsesource.json.JsonArray;
-import com.eclipsesource.json.JsonObject;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.junit.Test;
+
 
 public class ZallyApiResponseTest {
     @Test
     public void returnsListOfViolations() {
-        final JsonArray violations = new JsonArray();
-        final JsonObject firstViolation = new JsonObject();
-        firstViolation.add("title", "Test title");
-        firstViolation.add("description", "Test description");
-        firstViolation.add("violation_type", "MUST");
-        firstViolation.add("rule_link", "http://example.com");
-        firstViolation.add("paths", Json.array());
+        final JSONObject firstViolation = new JSONObject();
+        firstViolation.put("title", "Test title");
+        firstViolation.put("description", "Test description");
+        firstViolation.put("violation_type", "MUST");
+        firstViolation.put("rule_link", "http://example.com");
+        firstViolation.put("paths", new JSONArray());
 
-        final JsonObject secondViolation = new JsonObject();
-        secondViolation.add("title", "Test title");
-        secondViolation.add("description", "Test description");
+        final JSONObject secondViolation = new JSONObject();
+        secondViolation.put("title", "Test title");
+        secondViolation.put("description", "Test description");
 
-        violations.add(firstViolation);
-        violations.add(secondViolation);
+        final JSONArray violations = new JSONArray();
+        violations.put(firstViolation);
+        violations.put(secondViolation);
 
-        final JsonObject jsonResponse = new JsonObject();
-        jsonResponse.add("violations", violations);
+        final JSONObject jsonResponse = new JSONObject();
+        jsonResponse.put("violations", violations);
 
         ZallyApiResponse apiResponse = new ZallyApiResponse(jsonResponse);
 

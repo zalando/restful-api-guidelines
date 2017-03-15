@@ -1,10 +1,11 @@
 package de.zalando.zally.cli;
 
+import java.io.Reader;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-import java.io.Reader;
 
 public class JsonReader implements SpecsReader {
     private final Reader reader;
