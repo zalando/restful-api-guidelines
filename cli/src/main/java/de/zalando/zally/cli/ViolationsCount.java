@@ -1,10 +1,9 @@
 package de.zalando.zally.cli;
 
-import com.eclipsesource.json.JsonObject;
-import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
+
+import org.json.JSONObject;
 
 
 public class ViolationsCount {
@@ -12,13 +11,6 @@ public class ViolationsCount {
 
     public ViolationsCount(Map<String, Integer> counters) {
         this.counters = counters;
-    }
-
-    public ViolationsCount(JsonObject response) {
-        counters = new HashMap<>();
-        for (String violationType: response.names()) {
-            counters.put(violationType, response.getInt(violationType, 0));
-        }
     }
 
     public ViolationsCount(JSONObject response) {

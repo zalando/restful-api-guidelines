@@ -1,14 +1,12 @@
 package de.zalando.zally.cli;
 
-import com.eclipsesource.json.JsonArray;
-import com.eclipsesource.json.JsonObject;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class Violation {
     private String title;
@@ -20,24 +18,6 @@ public class Violation {
     public Violation(final String title, final String description) {
         this.title = title;
         this.description = description;
-    }
-
-    public Violation(JsonObject violationJson) {
-        this.title = violationJson.get("title").asString();
-        this.description = violationJson.get("description").asString();
-
-        if (violationJson.get("violation_type") != null && violationJson.get("violation_type").isString()) {
-            this.violationType = violationJson.get("violation_type").asString();
-        }
-
-        if (violationJson.get("rule_link") != null && violationJson.get("rule_link").isString()) {
-            this.ruleLink = violationJson.get("rule_link").asString();
-        }
-
-        if (violationJson.get("paths") != null && violationJson.get("paths").isArray()) {
-            JsonArray paths = violationJson.get("paths").asArray();
-            this.paths = paths.values().stream().map(x -> x.asString()).collect(Collectors.toList());
-        }
     }
 
     public Violation(JSONObject violationJson) {

@@ -1,14 +1,15 @@
 package de.zalando.zally.cli;
 
-import com.eclipsesource.json.JsonArray;
-import com.eclipsesource.json.JsonObject;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.junit.Test;
+
 
 public class ViolationTest {
     @Test
@@ -27,9 +28,9 @@ public class ViolationTest {
 
     @Test
     public void createsViolationWithOnlyTitleAndDescriptionSpecified() throws Exception {
-        final JsonObject jsonViolation = new JsonObject();
-        jsonViolation.set("title", "Test");
-        jsonViolation.set("description", "Test Description");
+        final JSONObject jsonViolation = new JSONObject();
+        jsonViolation.put("title", "Test");
+        jsonViolation.put("description", "Test Description");
 
         final Violation violation = new Violation(jsonViolation);
 
@@ -52,17 +53,17 @@ public class ViolationTest {
 
     }
 
-    private JsonObject getViolationJson() {
-        final JsonArray paths = new JsonArray();
-        paths.add("path1");
-        paths.add("path2");
+    private JSONObject getViolationJson() {
+        final JSONArray paths = new JSONArray();
+        paths.put("path1");
+        paths.put("path2");
 
-        final JsonObject jsonViolation = new JsonObject();
-        jsonViolation.set("title", "Test");
-        jsonViolation.set("description", "Test Description");
-        jsonViolation.set("violation_type", "MUST");
-        jsonViolation.set("rule_link", "http://example.com");
-        jsonViolation.set("paths", paths);
+        final JSONObject jsonViolation = new JSONObject();
+        jsonViolation.put("title", "Test");
+        jsonViolation.put("description", "Test Description");
+        jsonViolation.put("violation_type", "MUST");
+        jsonViolation.put("rule_link", "http://example.com");
+        jsonViolation.put("paths", paths);
 
         return jsonViolation;
     }

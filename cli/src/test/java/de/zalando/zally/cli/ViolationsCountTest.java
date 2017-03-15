@@ -1,18 +1,19 @@
 package de.zalando.zally.cli;
 
-import com.eclipsesource.json.JsonObject;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
+import org.json.JSONObject;
+import org.junit.Test;
+
 
 public class ViolationsCountTest {
     @Test
     public void returnsViolationsByType() {
-        final JsonObject jsonCounters = new JsonObject();
-        jsonCounters.add("must", 1);
+        final JSONObject jsonCounters = new JSONObject();
+        jsonCounters.put("must", 1);
 
         final ViolationsCount violationsCount = new ViolationsCount(jsonCounters);
         assertEquals(1, violationsCount.get("must").intValue());
@@ -20,8 +21,8 @@ public class ViolationsCountTest {
 
     @Test
     public void returnsZeroWhenViolationTypeNotFound() {
-        final JsonObject jsonCounters = new JsonObject();
-        jsonCounters.add("must", 1);
+        final JSONObject jsonCounters = new JSONObject();
+        jsonCounters.put("must", 1);
 
         final ViolationsCount violationsCount = new ViolationsCount(jsonCounters);
         assertEquals(0, violationsCount.get("should").intValue());
