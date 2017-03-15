@@ -21,11 +21,11 @@ window.__INITIAL_STATE__ = {
 
 <#macro page_body>
 <div class="dc-card">
-    <h2 class="dc-h2">Zally report</h2>
-    <form>
+    <h2 class="dc-h2" style="margin-top: 15px">Zally report</h2>
+    <form id="api-violations-form" method="POST">
         <label for="url" class="dc-label">Enter full path to your swagger file from repo</label>
-        <input class="dc-input dc-input--block" id="url" type="text" name="path"
-               placeholder="e.g https://github.com/OAI/OpenAPI-Specification/blob/master/examples/v2.0/json/petstore.json">
+        <input class="dc-input dc-input--block" id="url" type="url" name="path"
+               placeholder="e.g https://github.com/OAI/OpenAPI-Specification/blob/master/examples/v2.0/json/petstore.json" required pattern="https?://.+" >
         <button type="submit" class="dc-btn dc-btn--primary">Submit</button>
     </form>
     <ul class="dc-list">
@@ -36,20 +36,20 @@ window.__INITIAL_STATE__ = {
    {{#each violations}}
         <li style="margin-bottom: 32px; padding-bottom: 32px; border-bottom: 1px solid #ccc;">
             <h4 class="dc-h4">
-              {{#ifEq "MUST" violationType}}
+              {{#ifEq "MUST" violation_type}}
                   <span class="dc-status dc-status--error"></span>
-              {{else ifEq "SHOULD" violationType}}
+              {{else ifEq "SHOULD" violation_type}}
                   <span class="dc-status dc-status--new"></span>
               {{else}}
                   <span class="dc-status dc-status--inactive"></span>
               {{/ifEq}}
-              {{violationType}} &dash; {{title}}
+              {{violation_type}} &dash; {{title}}
             </h4>
 
             <p>{{description}}</p>
 
-            {{#ifContent ruleLink}}
-              <p>Rule: <a href="{{ruleLink}}" class="dc-link">{{ruleLink}}</a></p>
+            {{#ifContent rule_link}}
+              <p>Rule: <a href="{{rule_link}}" class="dc-link">{{rule_link}}</a></p>
             {{/ifContent}}
 
             {{#ifLength paths}}
@@ -64,11 +64,7 @@ window.__INITIAL_STATE__ = {
    {{/each}}
 </script>
 <script type="text/javascript">
-    var dummyData = {violations:[{violationType: 'MUST', description: "Description", ruleLink: "rulelink-", paths: ["patha", "pathsb"]},{violationType: 'MUST', description: "Description", ruleLink: "rulelink-", paths: ["patha", "pathsb"]}]};
-    var template = $('#tmp-violations').html();
-    var templateScript = Handlebars.compile(template);
-    var htmlOutput = templateScript(dummyData);
-    $('.dc-list').html(htmlOutput);
+
 </script>
 
 </#macro>

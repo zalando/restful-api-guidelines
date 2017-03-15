@@ -61,4 +61,40 @@
   //
   oauthFirewall(INITIAL_STATE.oauth);
 
+  var violationsUrl = 'http://localhost:8080/api-violations';
+  $(document).on('submit', '#api-violations-form', function(event){
+    event.preventDefault();
+    $('.loader').show();
+    var path = $('#url').val();
+    var data = {
+        api_definition: path
+    };
+
+    $.ajax({
+        url: violationsUrl,
+        type: 'POST',
+        dataType: 'json',
+        contentType: 'application/json',
+        headers: {
+        },
+        data: JSON.stringify(data),
+        success: function(data){
+            var dummyData = {violations:[{violationType: 'MUST', description: "Description", ruleLink: "rulelink-", paths: ["patha", "pathsb"]},{violationType: 'MUST', description: "Description", ruleLink: "rulelink-", paths: ["patha", "pathsb"]}]};
+            var template = $('#tmp-violations').html();
+            var templateScript = Handlebars.compile(template);
+            var htmlOutput = templateScript(data);
+            $('.dc-list').html(htmlOutput);
+
+        },
+        error: function(error){
+            console.log(arguments);
+
+        },
+        complete: function(){
+            $('.loader').hide();
+        }
+    })
+
+  })
+
 })(window.__INITIAL_STATE__ || {});
