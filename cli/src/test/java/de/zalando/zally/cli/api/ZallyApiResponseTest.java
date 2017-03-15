@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import de.zalando.zally.cli.domain.Violation;
 import java.util.List;
+
+import de.zalando.zally.cli.domain.ViolationsCount;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Test;
@@ -36,4 +38,33 @@ public class ZallyApiResponseTest {
         assertEquals(2, result.size());
     }
 
+    @Test
+    public void returnsMessage() {
+        final JSONObject jsonObject = new JSONObject();
+        jsonObject.put("message", "Test message");
+
+        final ZallyApiResponse response = new ZallyApiResponse(jsonObject);
+
+        assertEquals("Test message", response.getMessage());
+    }
+
+    @Test
+    public void returnsViolationCounters() {
+        final JSONObject violationsCount = new JSONObject();
+        violationsCount.put("must", 11);
+        violationsCount.put("should", 13);
+        violationsCount.put("could", 15);
+        violationsCount.put("hint", 17);
+
+        final JSONObject jsonObject = new JSONObject();
+        jsonObject.put("violations_count", violationsCount);
+
+        final ZallyApiResponse response = new ZallyApiResponse(jsonObject);
+        final ViolationsCount counters = response.getCounters();
+
+        assertEquals(Integer.valueOf(11), counters.get("must"));
+        assertEquals(Integer.valueOf(13), counters.get("should"));
+        assertEquals(Integer.valueOf(15), counters.get("could"));
+        assertEquals(Integer.valueOf(17), counters.get("hint"));
+    }
 }
