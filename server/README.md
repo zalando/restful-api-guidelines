@@ -63,3 +63,23 @@ issue an HTTP request, see below for details.
         --data "@test.json" \
         localhost:8080/api-violations
     ```
+
+## Zally UI
+
+The zally Web UI it's served under the root path "/" of the running server.
+It's a simple javascript "one-page" application optionally protected with "Oauth2" implicit grant flow.
+
+### Configuration
+
+*application.properties*
+
+```
+ui.oauth.enabled: false
+ui.oauth.client-id: my-client-id
+ui.oauth.redirect-uri: http://zally.server.address.com/
+ui.oauth.authorization-url: https://oauth2-server.adress.com/authorize
+ui.oauth.tokeninfo-url:  https://oauth2-server.adress.com/tokeninfo
+ui.oauth.scopes: comma,seprated,list,of,scopes
+```
+
+> By default oauth **is not enabled**

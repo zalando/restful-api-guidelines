@@ -20,3 +20,12 @@ security:
 twintip:
   mapping: /api
   yaml: "classpath:/api/zally-api.yaml"
+
+ui:
+  oauth:
+    enabled: false
+    client-id: ""
+    redirect-uri: ""
+    authorization-url: ""
+    tokeninfo-url: ""
+    scopes: ""
