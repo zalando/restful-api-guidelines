@@ -1,4 +1,4 @@
-package de.zalando.zally.cli;
+package de.zalando.zally.cli.domain;
 
 import java.util.HashMap;
 import java.util.Map;

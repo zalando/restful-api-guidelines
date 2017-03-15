@@ -1,4 +1,4 @@
-package de.zalando.zally.cli;
+package de.zalando.zally.cli.exceptions;
 
 public class CliException extends RuntimeException {
     private String title;

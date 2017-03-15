@@ -1,8 +1,11 @@
-package de.zalando.zally.cli;
+package de.zalando.zally.cli.api;
 
+import de.zalando.zally.cli.domain.Violation;
+import de.zalando.zally.cli.domain.ViolationsCount;
+import de.zalando.zally.cli.exceptions.CliException;
+import de.zalando.zally.cli.exceptions.CliExceptionType;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 

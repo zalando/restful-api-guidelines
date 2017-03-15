@@ -1,8 +1,9 @@
-package de.zalando.zally.cli;
+package de.zalando.zally.cli.readers;
 
+import de.zalando.zally.cli.exceptions.CliException;
+import de.zalando.zally.cli.exceptions.CliExceptionType;
 import java.io.Reader;
 import java.util.Map;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.yaml.snakeyaml.Yaml;

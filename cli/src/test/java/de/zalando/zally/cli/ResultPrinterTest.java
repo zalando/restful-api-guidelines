@@ -2,6 +2,8 @@ package de.zalando.zally.cli;
 
 import static org.junit.Assert.assertEquals;
 
+import de.zalando.zally.cli.domain.Violation;
+import de.zalando.zally.cli.domain.ViolationsCount;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -9,7 +11,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.junit.Test;
 
 

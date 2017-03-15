@@ -1,8 +1,10 @@
-package de.zalando.zally.cli;
+package de.zalando.zally.cli.api;
 
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import de.zalando.zally.cli.exceptions.CliException;
+import de.zalando.zally.cli.exceptions.CliExceptionType;
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;

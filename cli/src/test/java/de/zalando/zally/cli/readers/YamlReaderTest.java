@@ -1,12 +1,12 @@
-package de.zalando.zally.cli;
+package de.zalando.zally.cli.readers;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import de.zalando.zally.cli.exceptions.CliException;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-
 import org.json.JSONObject;
 import org.junit.Rule;
 import org.junit.Test;

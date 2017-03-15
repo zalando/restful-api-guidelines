@@ -1,7 +1,10 @@
-package de.zalando.zally.cli;
+package de.zalando.zally.cli.readers;
 
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import de.zalando.zally.cli.exceptions.CliException;
+import de.zalando.zally.cli.exceptions.CliExceptionType;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;

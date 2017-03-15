@@ -5,12 +5,16 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 
+import de.zalando.zally.cli.api.ZallyApiClient;
+import de.zalando.zally.cli.api.ZallyApiResponse;
+import de.zalando.zally.cli.domain.Violation;
+import de.zalando.zally.cli.readers.JsonReader;
+import de.zalando.zally.cli.readers.SpecsReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Before;

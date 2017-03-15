@@ -1,4 +1,4 @@
-package de.zalando.zally.cli;
+package de.zalando.zally.cli.readers;
 
 import static net.jadler.Jadler.closeJadler;
 import static net.jadler.Jadler.initJadler;
@@ -10,7 +10,6 @@ import java.io.File;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
 
 
 public class SpecsReaderFactoryTest {

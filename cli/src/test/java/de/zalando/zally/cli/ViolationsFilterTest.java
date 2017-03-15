@@ -2,9 +2,9 @@ package de.zalando.zally.cli;
 
 import static org.junit.Assert.assertEquals;
 
+import de.zalando.zally.cli.domain.Violation;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;

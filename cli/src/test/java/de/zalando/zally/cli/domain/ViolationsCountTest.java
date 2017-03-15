@@ -1,10 +1,9 @@
-package de.zalando.zally.cli;
+package de.zalando.zally.cli.domain;
 
 import static org.junit.Assert.assertEquals;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import org.json.JSONObject;
 import org.junit.Test;
 

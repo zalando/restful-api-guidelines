@@ -1,4 +1,4 @@
-package de.zalando.zally.cli;
+package de.zalando.zally.cli.domain;
 
 import java.util.ArrayList;
 import java.util.List;

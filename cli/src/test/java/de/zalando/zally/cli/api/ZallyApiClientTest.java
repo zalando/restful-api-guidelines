@@ -1,4 +1,4 @@
-package de.zalando.zally.cli;
+package de.zalando.zally.cli.api;
 
 import static net.jadler.Jadler.closeJadler;
 import static net.jadler.Jadler.initJadler;
@@ -7,6 +7,7 @@ import static net.jadler.Jadler.port;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import de.zalando.zally.cli.exceptions.CliException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;

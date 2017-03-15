@@ -1,5 +1,7 @@
 package de.zalando.zally.cli;
 
+import de.zalando.zally.cli.domain.Violation;
+
 import java.util.List;
 import java.util.stream.Collectors;
 

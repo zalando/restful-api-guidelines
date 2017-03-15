@@ -1,5 +1,8 @@
 package de.zalando.zally.cli;
 
+import de.zalando.zally.cli.domain.Violation;
+import de.zalando.zally.cli.domain.ViolationsCount;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
