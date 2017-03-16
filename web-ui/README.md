@@ -36,6 +36,7 @@ OAUTH_REDIRECT_URI=""
 OAUTH_TOKENINFO_URL=""
 OAUTH_SCOPES=""
 ZALLY_API_URL=""
+LOG_LEVEL="debug"
 ``
 
 * **PORT**: HTTP(S) Server port
@@ -47,6 +48,7 @@ ZALLY_API_URL=""
 * **OAUTH_TOKENINFO_URL**: The url used to validate the access token and retrieve token informations
 * **OAUTH_SCOPES**: Comma separated list of scopes that the user should grant to your app
 * **ZALLY_API_URL**: The URL pointing to Zally Api Server
+* **LOG_LEVEL**: Logging level (error|warn|info|verbose|debug|silly)
 
 ## Development
 

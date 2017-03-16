@@ -2,6 +2,7 @@ const env = require('./env');
 const express = require('express');
 const path = require('path');
 const app = express();
+const logger = require('./logger');
 const createHttpServer = require('./create-http-server');
 const ASSETS_DIR = path.resolve(__dirname, '../client/public/assets');
 
@@ -63,6 +64,6 @@ app.use('/zally-api', require('./zally-api-handler'));
  * Start listening for connections
  */
 createHttpServer(app).listen(env.PORT, () => {
-  console.log(`[server] listening on port ${env.PORT}, NODE_ENV=${env.NODE_ENV}`);
+  logger.info(`listening on port ${env.PORT}, NODE_ENV=${env.NODE_ENV}`);
 });
 

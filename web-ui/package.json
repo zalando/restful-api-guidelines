@@ -31,7 +31,8 @@
     "oauth2-client-js": "0.0.15",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
-    "request": "^2.81.0"
+    "request": "^2.81.0",
+    "winston": "^2.3.1"
   },
   "devDependencies": {
     "babel-core": "^6.24.0",

@@ -11,7 +11,8 @@ const defaults = {
   OAUTH_TOKENINFO_URL:'',
   OAUTH_CLIENT_ID:'',
   OAUTH_SCOPES:'',
-  ZALLY_API_URL: 'https://zally.overarching.zalan.do'
+  LOG_LEVEL: 'debug',
+  ZALLY_API_URL: ''
 };
 
 
