@@ -13,7 +13,7 @@ class App extends React.Component {
       <div className="dc-page">
         <div className="dc-container">
           <div className="dc-card">
-            <h2 className="dc-h2">Zally Report</h2>
+            <h2 className="dc-h2" style={{marginTop: '15px'}}>Zally Report</h2>
             <Form OAuthProvider={this.props.OAuthProvider}/>
           </div>
         </div>
@@ -21,6 +21,7 @@ class App extends React.Component {
     );
   }
 }
+
 
 firewall({
   enabled: window.process.env.OAUTH_ENABLED,

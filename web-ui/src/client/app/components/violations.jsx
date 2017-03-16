@@ -21,7 +21,7 @@ export default class Violations extends React.Component {
       <div>
         <ul>{
           this.props.violations.map((violation, index) => {
-            return (<li key={ index }>
+            return (<li key={ index } style={{marginBottom: '32px', paddingBottom: '32px', borderBottom: '1px solid #ccc'}}>
               <h4 className="dc-h4">
                 {this.renderViolationType(violation.violation_type)}
                 {violation.violation_type} {'\u2013'} {violation.title}
@@ -34,15 +34,15 @@ export default class Violations extends React.Component {
 
               {violation.paths.length &&
               <span>
-                                  <p>Paths:</p>
-                                  <ul>
-                                    {
-                                      violation.paths.map(function(path, i){
-                                        return <li key={i}>{path}</li>
-                                      })
-                                    }
-                                  </ul>
-                                </span>
+                <p>Paths:</p>
+                <ul>
+                  {
+                    violation.paths.map(function(path, i){
+                      return <li key={i}>{path}</li>
+                    })
+                  }
+                </ul>
+              </span>
               }
             </li>);
           })
