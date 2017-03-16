@@ -1,5 +1,6 @@
 import React from 'react';
 import {render} from 'react-dom';
+import {firewall} from './oauth';
 
 class App extends React.Component {
   render () {
@@ -88,4 +89,16 @@ class Violations extends React.Component {
   }
 }
 
-render(<App/>, document.getElementById('app'));
+firewall({
+  enabled: window.process.env.OAUTH_ENABLED,
+  client_id: window.process.env.OAUTH_CLIENT_ID,
+  authorization_url: window.process.env.OAUTH_AUTHORIZATION_URL,
+  redirect_uri:  window.process.env.OAUTH_REDIRECT_URI,
+  scopes: window.process.env.OAUTH_SCOPES
+})
+.then((/*{OauthProvider, response}*/) => {
+  // clean the hash
+  window.location.hash = '';
+  render(<App/>, document.getElementById('app'));
+});
+

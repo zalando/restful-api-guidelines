@@ -27,8 +27,11 @@
     "dotenv": "^4.0.0",
     "dotenv-parse-variables": "0.0.1",
     "express": "^4.15.2",
+    "jquery": "^3.1.1",
+    "oauth2-client-js": "0.0.15",
     "react": "^15.4.2",
-    "react-dom": "^15.4.2"
+    "react-dom": "^15.4.2",
+    "request": "^2.81.0"
   },
   "devDependencies": {
     "babel-core": "^6.24.0",

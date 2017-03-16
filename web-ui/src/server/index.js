@@ -41,9 +41,18 @@ app.get('/', (req, res) => {
 app.get('/env.js', envHandler);
 
 
+/**
+ * Serve favicon.ico
+ */
 app.get('/favicon.ico',(req, res) => {
   res.sendFile(path.join(ASSETS_DIR, 'favicon.ico'));
 });
+
+
+/**
+ * Proxy tokeninfo to avoid CORS restriction
+ */
+app.use('/tokeninfo', require('./tokeninfo-handler'));
 
 
 /**
