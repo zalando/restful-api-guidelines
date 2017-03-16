@@ -16,10 +16,10 @@ export default class Violations extends React.Component {
   }
 
   render () {
-    //const data = [{violation_type: 'MUST', description: "Description", rule_link: "rulelink-", title: 'its a title', paths: ["patha", "pathsb"]},{violation_type: 'SHOULD', description: "Description 2", rule_link: "rulelink-2", title: 'its a title', paths: ["patha2", "pathsb2"]}];
     return (
       <div>
-        <ul>{
+        {this.props.violations.length ? <h3>Violations</h3> : ''}
+        <ul style={{padding: 0, listStyle: 'none'}}>{
           this.props.violations.map((violation, index) => {
             return (<li key={ index } style={{marginBottom: '32px', paddingBottom: '32px', borderBottom: '1px solid #ccc'}}>
               <h4 className="dc-h4">

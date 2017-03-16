@@ -35,6 +35,7 @@ OAUTH_AUTHORIZATION_URL=""
 OAUTH_REDIRECT_URI=""
 OAUTH_TOKENINFO_URL=""
 OAUTH_SCOPES=""
+ZALLY_API_URL=""
 ``
 
 * **PORT**: HTTP(S) Server port
@@ -45,6 +46,7 @@ OAUTH_SCOPES=""
 * **OAUTH_REDIRECT_URI**: The route that should handle the Oauth2 access token response
 * **OAUTH_TOKENINFO_URL**: The url used to validate the access token and retrieve token informations
 * **OAUTH_SCOPES**: Comma separated list of scopes that the user should grant to your app
+* **ZALLY_API_URL**: The URL pointing to Zally Api Server
 
 ## Development
 
