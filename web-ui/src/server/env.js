@@ -1,4 +1,5 @@
-const dotenvParseVariables = require('dotenv-parse-variables');
+const dotenv = require('dotenv').config()
+const dotenvParsedVariables = require('dotenv-parse-variables').default(dotenv.parsed || {});
 
 const defaults = {
   PORT: 8442,
@@ -11,6 +12,7 @@ const defaults = {
   OAUTH_CLIENT_ID:'',
   OAUTH_SCOPES:''
 };
+
 
 /**
  * Those keys will be exposed to the client
@@ -28,7 +30,8 @@ const publicEnvKeys = [
 
 const env = Object.assign(
   defaults,
-  dotenvParseVariables.default(require('dotenv').config().parsed)
+  process.env,
+  dotenvParsedVariables
 );
 
 const publicEnv = publicEnvKeys.reduce((acc, key) => {
