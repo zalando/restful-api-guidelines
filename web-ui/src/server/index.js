@@ -2,6 +2,8 @@ const env = require('./env');
 const express = require('express');
 const path = require('path');
 const app = express();
+const envHandler = require('./env-handler');
+const createHttpServer = require('./create-http-server');
 
 /**
  * Use webpack middleware just in development
@@ -35,18 +37,14 @@ app.get('/', function (req, res) {
  * Serve /env.js
  * Mimic process.env on the client side
  */
-app.get('/env.js', (req, res)  => {
-  const js = `window.process = {}; window.process.env = ${JSON.stringify(env.public())}`;
-  res.setHeader('content-type', 'text/javascript');
-  res.write(js);
-  res.end();
+app.get('/env.js', envHandler);
 
-});
+
 
 /**
  * Start listening for connections
  */
-app.listen(env.PORT, function () {
-  console.log(`[server] listening on port ${env.PORT}`);
+createHttpServer(app).listen(env.PORT, function () {
+  console.log(`[server] listening on port ${env.PORT}, NODE_ENV=${env.NODE_ENV}`);
 });
 

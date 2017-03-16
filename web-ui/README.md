@@ -27,13 +27,24 @@ Below the full reference of "available" environment variables and their default 
 
 ```
 PORT=8442
+SSL_ENABLED=false
+SSL_CERT_DIR="cert"
 OAUTH_ENABLED=false
+OAUTH_CLIENT_ID=""
 OAUTH_AUTHORIZATION_URL=""
 OAUTH_REDIRECT_URI=""
 OAUTH_TOKENINFO_URL=""
-OAUTH_CLIENT_ID=""
 OAUTH_SCOPES=""
 ``
+
+* **PORT**: HTTP(S) Server port
+* **SSL_ENABLED**: Start the server as HTTPS 
+* **SSL_CERT_DIR**: Directory where ```server.key``` and ```server.crt``` files are located
+* **OAUTH_ENABLED**: Enable client side Oauth2 implicit grant flow protection
+* **OAUTH_CLIENT_ID**: Oauth2 client id assigned to your app
+* **OAUTH_REDIRECT_URI**: The route that should handle the Oauth2 access token response
+* **OAUTH_TOKENINFO_URL**: The url used to validate the access token and retrieve token informations
+* **OAUTH_SCOPES**: Comma separated list of scopes that the user should grant to your app
 
 ## Development
 
