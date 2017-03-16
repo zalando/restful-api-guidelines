@@ -4,6 +4,7 @@ const path = require('path');
 const app = express();
 const envHandler = require('./env-handler');
 const createHttpServer = require('./create-http-server');
+const ASSETS_DIR = path.resolve(__dirname, '../client/public/assets');
 
 /**
  * Use webpack middleware just in development
@@ -23,13 +24,13 @@ if(process.env.NODE_ENV === 'development') {
 /**
  * Serve static assets
  */
-app.use('/assets/', express.static(path.resolve(__dirname, '../client/public/assets')));
+app.use('/assets/', express.static(ASSETS_DIR));
 
 
 /**
  * Main entry point
  */
-app.get('/', function (req, res) {
+app.get('/', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../client/public/index.html'));
 });
 
@@ -40,11 +41,15 @@ app.get('/', function (req, res) {
 app.get('/env.js', envHandler);
 
 
+app.get('/favicon.ico',(req, res) => {
+  res.sendFile(path.join(ASSETS_DIR, 'favicon.ico'));
+});
+
 
 /**
  * Start listening for connections
  */
-createHttpServer(app).listen(env.PORT, function () {
+createHttpServer(app).listen(env.PORT, () => {
   console.log(`[server] listening on port ${env.PORT}, NODE_ENV=${env.NODE_ENV}`);
 });
 
