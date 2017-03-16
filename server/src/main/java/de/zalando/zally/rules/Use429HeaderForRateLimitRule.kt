@@ -8,10 +8,11 @@ import org.springframework.stereotype.Component
 
 @Component
 class Use429HeaderForRateLimitRule : AbstractRule() {
-    private val TITLE = "Use 429 With Header For Rate Limits"
-    private val DESCRIPTION = "If Client Exceed Request Rate, Response Code Must Contain Header Information Providing Further Details to Client"
-    private val RULE_LINK = "http://zalando.github.io/restful-api-guidelines/http/Http.html" +
+    override val title = "Use 429 With Header For Rate Limits"
+    override val url = "http://zalando.github.io/restful-api-guidelines/http/Http.html" +
             "#must-use-429-with-headers-for-rate-limits"
+    override val violationType = ViolationType.MUST
+    private val DESCRIPTION = "If Client Exceed Request Rate, Response Code Must Contain Header Information Providing Further Details to Client"
     private val X_RATE_LIMIT_TRIO = listOf("X-RateLimit-Limit", "X-RateLimit-Remaining", "X-RateLimit-Reset")
 
     override fun validate(swagger: Swagger): Violation? {
@@ -25,7 +26,7 @@ class Use429HeaderForRateLimitRule : AbstractRule() {
             }
         }
         return if (paths.isNotEmpty())
-            Violation(this, TITLE, DESCRIPTION, ViolationType.MUST, RULE_LINK, paths)
+            Violation(this, title, DESCRIPTION, violationType, url, paths)
         else null
     }
 

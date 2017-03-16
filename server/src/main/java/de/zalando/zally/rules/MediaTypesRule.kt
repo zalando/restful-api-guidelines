@@ -10,10 +10,11 @@ import java.util.ArrayList
 
 @Component
 class MediaTypesRule : AbstractRule() {
-    val TITLE = "Prefer standard media type names"
-    val DESCRIPTION = "Custom media types should only be used for versioning"
-    val RULE_LINK = "http://zalando.github.io/restful-api-guidelines/data-formats/DataFormats.html" +
+    override val title = "Prefer standard media type names"
+    override val url = "http://zalando.github.io/restful-api-guidelines/data-formats/DataFormats.html" +
             "#should-prefer-standard-media-type-name-applicationjson"
+    override val violationType = ViolationType.SHOULD
+    private val DESCRIPTION = "Custom media types should only be used for versioning"
 
     override fun validate(swagger: Swagger): Violation? {
         val paths = swagger.paths.orEmpty().entries.flatMap { (pathName, path) ->
@@ -23,7 +24,7 @@ class MediaTypesRule : AbstractRule() {
                 if (violatingMediaTypes.isNotEmpty()) listOf("$pathName $verb") else emptyList()
             }
         }
-        return if (paths.isNotEmpty()) Violation(this, TITLE, DESCRIPTION, ViolationType.SHOULD, RULE_LINK, paths) else null
+        return if (paths.isNotEmpty()) Violation(this, title, DESCRIPTION, violationType, url, paths) else null
     }
 
     private fun isViolatingMediaType(mediaType: String) =

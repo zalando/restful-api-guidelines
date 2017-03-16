@@ -10,10 +10,11 @@ import org.springframework.stereotype.Component
 
 @Component
 class DefineOAuthScopesRule : AbstractRule() {
-    private val TITLE = "Define and Assign Access Rights (Scopes)"
-    private val DESC = "Every endpoint must be secured by proper OAuth2 scope"
-    private val RULE_LINK = "http://zalando.github.io/restful-api-guidelines/security/Security.html" +
+    override val title = "Define and Assign Access Rights (Scopes)"
+    override val url = "http://zalando.github.io/restful-api-guidelines/security/Security.html" +
             "#must-secure-endpoints-with-oauth-20"
+    override val violationType = MUST
+    private val DESC = "Every endpoint must be secured by proper OAuth2 scope"
 
     override fun validate(swagger: Swagger): Violation? {
         val definedScopes = getDefinedScopes(swagger)
@@ -34,7 +35,7 @@ class DefineOAuthScopesRule : AbstractRule() {
             }.filterNotNull()
         }
         return if (!paths.isEmpty()) {
-            Violation(this, TITLE, DESC, MUST, RULE_LINK, paths)
+            Violation(this, title, DESC, violationType, url, paths)
         } else null
     }
 
