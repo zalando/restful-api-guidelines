@@ -59,6 +59,14 @@ app.use('/tokeninfo', require('./tokeninfo-handler'));
  */
 app.use('/zally-api', require('./zally-api-handler'));
 
+/**
+ * Health check
+ */
+app.get('/health', (req, res) => {
+  res.json({
+    alive: true
+  })
+});
 
 /**
  * Start listening for connections
