@@ -6,7 +6,7 @@ import io.swagger.models.Swagger
 import org.springframework.stereotype.Component
 
 @Component
-open class ExtractBasePathRule : AbstractRule() {
+class ExtractBasePathRule : AbstractRule() {
 
     val TITLE = "Base path can be extracted"
     val DESC_PATTERN = "All paths start with prefix '%s'. This prefix could be part of base path."

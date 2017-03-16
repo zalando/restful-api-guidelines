@@ -11,16 +11,14 @@ import org.springframework.stereotype.Component
  * Lint for snake case for query params
  */
 @Component
-open class SnakeCaseForQueryParamsRule : AbstractRule() {
+class SnakeCaseForQueryParamsRule : AbstractRule() {
     val TITLE = "Use snake_case (never camelCase) for Query Parameters"
     val RULE_LINK = "http://zalando.github.io/restful-api-guidelines/naming/Naming.html" +
             "#must-use-snakecase-never-camelcase-for-query-parameters"
 
     override fun validate(swagger: Swagger): Violation? {
-        val result = swagger.paths.orEmpty().flatMap {
-            val (path, pathObject) = it
-            pathObject.operationMap.orEmpty().flatMap {
-                val (verb, operation) = it
+        val result = swagger.paths.orEmpty().flatMap { (path, pathObject) ->
+            pathObject.operationMap.orEmpty().flatMap { (verb, operation) ->
                 val badParams = operation.parameters.filter { it is QueryParameter && !PatternUtil.isSnakeCase(it.name) }
                 if (badParams.isNotEmpty()) listOf("$path $verb" to badParams) else emptyList()
             }

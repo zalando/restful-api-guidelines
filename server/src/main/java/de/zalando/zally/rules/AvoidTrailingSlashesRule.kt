@@ -7,7 +7,7 @@ import io.swagger.models.Swagger
 import org.springframework.stereotype.Component
 
 @Component
-open class AvoidTrailingSlashesRule : AbstractRule() {
+class AvoidTrailingSlashesRule : AbstractRule() {
     val TITLE = "Avoid Trailing Slashes"
     val DESCRIPTION = "Rule avoid trailing slashes is not followed"
     val RULE_LINK = "http://zalando.github.io/restful-api-guidelines/naming/Naming.html"

@@ -7,7 +7,7 @@ import io.swagger.models.Swagger
 import org.springframework.stereotype.Component
 
 @Component
-open class LimitNumberOfSubresourcesRule : AbstractRule() {
+class LimitNumberOfSubresourcesRule : AbstractRule() {
     val TITLE = "Limit number of Sub-resources level"
     val DESC = "Number of sub-resources should not exceed 3"
     val RULE_LINK = "http://zalando.github.io/restful-api-guidelines/resources/Resources.html" +

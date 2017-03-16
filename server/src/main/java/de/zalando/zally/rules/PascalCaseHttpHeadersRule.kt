@@ -6,7 +6,7 @@ import de.zalando.zally.utils.PatternUtil
 import org.springframework.stereotype.Component
 
 @Component
-open class PascalCaseHttpHeadersRule : HttpHeadersRule() {
+class PascalCaseHttpHeadersRule : HttpHeadersRule() {
     val RULE_NAME = "Prefer Hyphenated-Pascal-Case for HTTP header fields"
     val RULE_URL = "http://zalando.github.io/restful-api-guidelines/naming/Naming.html" +
             "#should-prefer-hyphenatedpascalcase-for-http-header-fields"

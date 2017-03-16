@@ -8,7 +8,7 @@ import io.swagger.models.properties.StringProperty
 import org.springframework.stereotype.Component
 
 @Component
-open class CommonFieldNamesRule : AbstractRule() {
+class CommonFieldNamesRule : AbstractRule() {
     private val title = "Use common field names"
     private val link = "http://zalando.github.io/restful-api-guidelines/common-data-objects/CommonDataObjects.html" +
             "#must-use-common-field-names"

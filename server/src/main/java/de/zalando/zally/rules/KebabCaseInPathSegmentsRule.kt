@@ -7,7 +7,7 @@ import io.swagger.models.Swagger
 import org.springframework.stereotype.Component
 
 @Component
-open class KebabCaseInPathSegmentsRule : AbstractRule() {
+class KebabCaseInPathSegmentsRule : AbstractRule() {
 
     val title = "Lowercase words with hyphens"
     val description = "Use lowercase separate words with hyphens for path segments"
