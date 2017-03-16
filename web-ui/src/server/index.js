@@ -2,7 +2,6 @@ const env = require('./env');
 const express = require('express');
 const path = require('path');
 const app = express();
-const envHandler = require('./env-handler');
 const createHttpServer = require('./create-http-server');
 const ASSETS_DIR = path.resolve(__dirname, '../client/public/assets');
 
@@ -38,7 +37,7 @@ app.get('/', (req, res) => {
  * Serve /env.js
  * Mimic process.env on the client side
  */
-app.get('/env.js', envHandler);
+app.get('/env.js', require('./env-handler'));
 
 
 /**
@@ -53,6 +52,11 @@ app.get('/favicon.ico',(req, res) => {
  * Proxy tokeninfo to avoid CORS restriction
  */
 app.use('/tokeninfo', require('./tokeninfo-handler'));
+
+/**
+ * Proxy zally api to avoid CORS restriction
+ */
+app.use('/zally-api', require('./zally-api-handler'));
 
 
 /**

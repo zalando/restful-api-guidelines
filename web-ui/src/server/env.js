@@ -1,4 +1,4 @@
-const dotenv = require('dotenv').config()
+const dotenv = require('dotenv').config();
 const dotenvParsedVariables = require('dotenv-parse-variables').default(dotenv.parsed || {});
 
 const defaults = {
@@ -10,7 +10,8 @@ const defaults = {
   OAUTH_REDIRECT_URI: '',
   OAUTH_TOKENINFO_URL:'',
   OAUTH_CLIENT_ID:'',
-  OAUTH_SCOPES:''
+  OAUTH_SCOPES:'',
+  ZALLY_API_URL: 'https://zally.overarching.zalan.do'
 };
 
 

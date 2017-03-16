@@ -2,6 +2,10 @@ import React from 'react';
 
 export default class Violations extends React.Component {
 
+  constructor(props) {
+    super(props);
+  }
+
   renderViolationType(type) {
     if("MUST" === type)
       return <span className="dc-status dc-status--error"></span>;
@@ -12,11 +16,11 @@ export default class Violations extends React.Component {
   }
 
   render () {
-    const data = [{violation_type: 'MUST', description: "Description", rule_link: "rulelink-", title: 'its a title', paths: ["patha", "pathsb"]},{violation_type: 'SHOULD', description: "Description 2", rule_link: "rulelink-2", title: 'its a title', paths: ["patha2", "pathsb2"]}];
+    //const data = [{violation_type: 'MUST', description: "Description", rule_link: "rulelink-", title: 'its a title', paths: ["patha", "pathsb"]},{violation_type: 'SHOULD', description: "Description 2", rule_link: "rulelink-2", title: 'its a title', paths: ["patha2", "pathsb2"]}];
     return (
       <div>
         <ul>{
-          data.map((violation, index) => {
+          this.props.violations.map((violation, index) => {
             return (<li key={ index }>
               <h4 className="dc-h4">
                 {this.renderViolationType(violation.violation_type)}
