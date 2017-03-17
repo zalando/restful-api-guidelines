@@ -1,6 +1,6 @@
 FROM registry.opensource.zalan.do/stups/node:7.7-cd45
 
-LABEL MAINTAINER "http://zalando.github.io/"
+MAINTAINER "ruben.barilani@zalando.de"
 
 RUN mkdir -p /opt/app
 WORKDIR /opt/app
