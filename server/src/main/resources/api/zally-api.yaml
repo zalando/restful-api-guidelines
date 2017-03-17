@@ -96,6 +96,7 @@ definitions:
     required:
       - title
       - description
+      - violation_type
     properties:
       title:
         type: string
