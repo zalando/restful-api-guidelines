@@ -49,7 +49,7 @@ public class ZallyApiClient {
     }
 
     public ZallyApiResponse validate(String requestBody) throws CliException {
-        final HttpResponse<String> response = doRequest(requestBody);
+        final HttpResponse<String> response = requestViolationsReport(requestBody);
         final int responseStatus = response.getStatus();
         final String responseBody = response.getBody();
 
@@ -75,7 +75,7 @@ public class ZallyApiClient {
         return errorJson.optString("detail", null);
     }
 
-    private HttpResponse<String> doRequest(final String requestBody) throws CliException {
+    private HttpResponse<String> requestViolationsReport(final String requestBody) throws CliException {
         try {
             return Unirest
                     .post(url)
