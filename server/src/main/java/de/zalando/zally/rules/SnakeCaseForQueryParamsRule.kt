@@ -12,9 +12,10 @@ import org.springframework.stereotype.Component
  */
 @Component
 class SnakeCaseForQueryParamsRule : AbstractRule() {
-    val TITLE = "Use snake_case (never camelCase) for Query Parameters"
-    val RULE_LINK = "http://zalando.github.io/restful-api-guidelines/naming/Naming.html" +
+    override val title = "Use snake_case (never camelCase) for Query Parameters"
+    override val url = "http://zalando.github.io/restful-api-guidelines/naming/Naming.html" +
             "#must-use-snakecase-never-camelcase-for-query-parameters"
+    override val violationType = ViolationType.MUST
 
     override fun validate(swagger: Swagger): Violation? {
         val result = swagger.paths.orEmpty().flatMap { (path, pathObject) ->
@@ -26,7 +27,7 @@ class SnakeCaseForQueryParamsRule : AbstractRule() {
         return if (result.isNotEmpty()) {
             val (paths, params) = result.unzip()
             val description = "Parameters that are not in snake_case: " + params.flatten().map { it.name }.toSet().joinToString(",")
-            Violation(this, TITLE, description, ViolationType.MUST, RULE_LINK, paths)
+            Violation(this, title, description, violationType, url, paths)
         } else null
     }
 }

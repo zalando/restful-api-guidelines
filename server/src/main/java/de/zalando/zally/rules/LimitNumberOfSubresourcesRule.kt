@@ -8,16 +8,17 @@ import org.springframework.stereotype.Component
 
 @Component
 class LimitNumberOfSubresourcesRule : AbstractRule() {
-    val TITLE = "Limit number of Sub-resources level"
-    val DESC = "Number of sub-resources should not exceed 3"
-    val RULE_LINK = "http://zalando.github.io/restful-api-guidelines/resources/Resources.html" +
+    override val title = "Limit number of Sub-resources level"
+    override val url = "http://zalando.github.io/restful-api-guidelines/resources/Resources.html" +
             "#should-limit-number-of-subresource-levels"
-    val SUBRESOURCES_LIMIT = 3
+    override val violationType = ViolationType.SHOULD
+    private val DESC = "Number of sub-resources should not exceed 3"
+    private val SUBRESOURCES_LIMIT = 3
 
     override fun validate(swagger: Swagger): Violation? {
         val paths = swagger.paths.orEmpty().keys.filter { path ->
             path.split("/").filter { it.isNotEmpty() && !PatternUtil.isPathVariable(it) }.size - 1 > SUBRESOURCES_LIMIT
         }
-        return if (paths.isNotEmpty()) Violation(this, TITLE, DESC, ViolationType.SHOULD, RULE_LINK, paths) else null
+        return if (paths.isNotEmpty()) Violation(this, title, DESC, violationType, url, paths) else null
     }
 }

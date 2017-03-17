@@ -15,6 +15,9 @@ class RulesValidatorTest {
     val swaggerContent = javaClass.classLoader.getResource("fixtures/api_spp.json").readText(Charsets.UTF_8)
 
     class TestRule(val result: Violation?) : AbstractRule() {
+        override val title = "Test Rule"
+        override val url = null
+        override val violationType = ViolationType.MUST
         override fun validate(swagger: Swagger): Violation? = result
     }
 
