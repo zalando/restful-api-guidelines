@@ -1,3 +1,5 @@
+'use strict';
+
 const fetch = require('node-fetch');
 
 function handleResponse(response) {

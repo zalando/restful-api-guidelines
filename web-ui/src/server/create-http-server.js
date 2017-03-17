@@ -1,3 +1,5 @@
+'use strict';
+
 const env = require('./env');
 const fs = require('fs');
 const http = require('http');
@@ -11,13 +13,13 @@ function createHttpsServer(app) {
 }
 
 
-function createHttpServer(app) {
+function createHttpServer (app) {
   return http.createServer(app);
 }
 
 
 module.exports = function (app) {
-  if(env.SSL_ENABLED) { return createHttpsServer(app) }
+  if (env.SSL_ENABLED) { return createHttpsServer(app); }
 
   return createHttpServer(app);
 };

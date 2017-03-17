@@ -1,3 +1,5 @@
+'use strict';
+
 const env = require('./env');
 const logger = require('./logger');
 const fetch = require('./fetch');
@@ -7,7 +9,9 @@ function parseSchema(text) {
   try {
     // try json first
     return JSON.parse(text);
-  } catch(err) {}
+  } catch(err) {
+    logger.error(err);
+  }
 
   return yaml.safeLoad(text);
 }

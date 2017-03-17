@@ -1,3 +1,5 @@
+'use strict';
+
 const fs = require('fs');
 const env = require('./env');
 const logger = require('./logger');
@@ -7,7 +9,7 @@ const path = require('path');
  * @param {Object} publicEnv - an object representing the environment variables available for the client
  * @return {String}
  */
-function buildJS(publicEnv) {
+function buildJS (publicEnv) {
   return `window.env = ${JSON.stringify(publicEnv)}`;
 }
 
@@ -15,7 +17,7 @@ function buildJS(publicEnv) {
  * @param res - http server response
  * @param {String} content
  */
-function sendResponse(res, content) {
+function sendResponse (res, content) {
   res.setHeader('content-type', 'text/javascript');
   res.write(content);
   res.end();
@@ -28,7 +30,7 @@ function sendResponse(res, content) {
  * @param req
  * @param res
  */
-function zalandoEnvHandler(req, res) {
+function zalandoEnvHandler (req, res) {
 
   const publicEnv = env.public();
   const clientJSONPath = path.join(env.CREDENTIALS_DIR, 'client.json');
@@ -38,7 +40,7 @@ function zalandoEnvHandler(req, res) {
   fs
     .readFile(clientJSONPath, (err, data) => {
 
-      if(err) {
+      if (err) {
         logger.error('Cannot read client.json!');
         logger.error(err);
         sendResponse(res, buildJS(publicEnv));
@@ -48,8 +50,8 @@ function zalandoEnvHandler(req, res) {
       try {
         const credentials = JSON.parse(data);
         publicEnv.OAUTH_CLIENT_ID = credentials.client_id;
-      }catch(error) {
-        logger.error('Cannot parse client.json')
+      } catch (error) {
+        logger.error('Cannot parse client.json');
       }
 
       sendResponse(res, buildJS(publicEnv));
@@ -60,10 +62,10 @@ function zalandoEnvHandler(req, res) {
  * @param req
  * @param res
  */
-function envHandler(req, res) {
+function envHandler (req, res) {
   const publicEnv = env.public();
 
-  if(env.ZALANDO_OAUTH && env.CREDENTIALS_DIR) {
+  if (env.ZALANDO_OAUTH && env.CREDENTIALS_DIR) {
     zalandoEnvHandler(req, res);
     return;
   }
