@@ -2,7 +2,7 @@
   "name": "zally-web-ui",
   "version": "0.1.0",
   "description": "Zally API Linter Web UI",
-  "main": "server.js",
+  "main": "src/server/index.js",
   "scripts": {
     "start": "NODE_ENV=production node src/server/index.js",
     "dev": "NODE_ENV=development nodemon src/server/index.js",
