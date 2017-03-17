@@ -1,6 +1,8 @@
 *node_modules
-*.env
+*.env*
 *.log
+
+src/client/public/assets/bundle.*
 cert
 credentials
 scm-source.json

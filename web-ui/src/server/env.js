@@ -5,16 +5,19 @@ const dotenvParsedVariables = require('dotenv-parse-variables').default(dotenv.p
 
 const defaults = {
   PORT: 8442,
+  LOG_LEVEL: 'debug',
   SSL_ENABLED: false,
-  SSL_CERT: 'cert',
+  SSL_CERT: '',
+  SSL_KEY: '',
+  ZALLY_API_URL: '',
   OAUTH_ENABLED: false,
   OAUTH_AUTHORIZATION_URL: '',
   OAUTH_REDIRECT_URI: '',
   OAUTH_TOKENINFO_URL:'',
   OAUTH_CLIENT_ID:'',
   OAUTH_SCOPES:'',
-  LOG_LEVEL: 'debug',
-  ZALLY_API_URL: ''
+  DEV_PORT: 8441,
+  DEV_SSL_ENABLED: false
 };
 
 
