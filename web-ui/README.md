@@ -29,7 +29,8 @@ Below the full reference of "available" environment variables and their default 
 PORT=8442
 LOG_LEVEL="debug"
 SSL_ENABLED=false
-SSL_CERT_DIR="cert"
+SSL_KEY=""
+SSL_CERT=""
 OAUTH_ENABLED=false
 OAUTH_CLIENT_ID=""
 OAUTH_AUTHORIZATION_URL=""
@@ -42,7 +43,8 @@ ZALLY_API_URL=""
 * **PORT**: HTTP(S) Server port
 * **LOG_LEVEL**: Logging level (error|warn|info|verbose|debug|silly)
 * **SSL_ENABLED**: Start the server with HTTPS 
-* **SSL_CERT_DIR**: Directory where ```server.key``` and ```server.crt``` files are located
+* **SSL_KEY**: Fs path to SSL key file 
+* **SSL_CERT**: Fs path to SSL cert file 
 * **OAUTH_ENABLED**: Enable client side OAuth2 implicit grant flow protection
 * **OAUTH_CLIENT_ID**: OAuth2 client id assigned to your app
 * **OAUTH_REDIRECT_URI**: The route that should handle the OAuth2 access token response
