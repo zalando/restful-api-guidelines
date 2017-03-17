@@ -7,7 +7,7 @@ import static net.jadler.Jadler.port;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import de.zalando.zally.cli.exceptions.CliException;
+import de.zalando.zally.cli.exception.CliException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;

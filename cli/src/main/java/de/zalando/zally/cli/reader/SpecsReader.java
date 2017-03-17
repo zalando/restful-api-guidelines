@@ -1,4 +1,4 @@
-package de.zalando.zally.cli.readers;
+package de.zalando.zally.cli.reader;
 
 import org.json.JSONObject;
 

@@ -2,8 +2,8 @@ package de.zalando.zally.cli.api;
 
 import static org.junit.Assert.assertEquals;
 
-import de.zalando.zally.cli.readers.JsonReader;
-import de.zalando.zally.cli.readers.SpecsReader;
+import de.zalando.zally.cli.reader.JsonReader;
+import de.zalando.zally.cli.reader.SpecsReader;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;

@@ -1,9 +1,7 @@
-package de.zalando.zally.cli.exceptions;
+package de.zalando.zally.cli.exception;
 
 import static org.junit.Assert.assertEquals;
 
-import de.zalando.zally.cli.exceptions.CliException;
-import de.zalando.zally.cli.exceptions.CliExceptionType;
 import org.junit.Test;
 
 public class CliExceptionTest {

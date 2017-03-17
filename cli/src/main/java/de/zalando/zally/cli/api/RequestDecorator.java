@@ -1,6 +1,6 @@
 package de.zalando.zally.cli.api;
 
-import de.zalando.zally.cli.readers.SpecsReader;
+import de.zalando.zally.cli.reader.SpecsReader;
 import org.json.JSONObject;
 
 

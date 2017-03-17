@@ -1,9 +1,9 @@
-package de.zalando.zally.cli.readers;
+package de.zalando.zally.cli.reader;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import de.zalando.zally.cli.exceptions.CliException;
+import de.zalando.zally.cli.exception.CliException;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;

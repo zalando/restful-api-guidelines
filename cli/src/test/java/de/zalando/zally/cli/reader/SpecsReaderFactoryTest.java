@@ -1,4 +1,4 @@
-package de.zalando.zally.cli.readers;
+package de.zalando.zally.cli.reader;
 
 import static net.jadler.Jadler.closeJadler;
 import static net.jadler.Jadler.initJadler;

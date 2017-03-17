@@ -4,8 +4,8 @@ import de.zalando.zally.cli.api.RequestDecorator;
 import de.zalando.zally.cli.api.ZallyApiClient;
 import de.zalando.zally.cli.api.ZallyApiResponse;
 import de.zalando.zally.cli.domain.Violation;
-import de.zalando.zally.cli.exceptions.CliException;
-import de.zalando.zally.cli.readers.SpecsReader;
+import de.zalando.zally.cli.exception.CliException;
+import de.zalando.zally.cli.reader.SpecsReader;
 
 import java.io.IOException;
 import java.util.Arrays;
