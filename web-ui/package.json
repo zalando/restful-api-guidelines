@@ -1,5 +1,5 @@
 {
-  "name": "web-ui",
+  "name": "zally-web-ui",
   "version": "0.1.0",
   "description": "Zally API Linter Web UI",
   "main": "server.js",

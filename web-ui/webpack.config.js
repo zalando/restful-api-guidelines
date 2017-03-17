@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
+const pkg = require('./package.json');
 
 const BUILD_DIR = path.resolve(__dirname, 'src/client/public/assets');
 const APP_DIR = path.resolve(__dirname, 'src/client/app');
@@ -18,7 +19,14 @@ var config = {
         loader : 'babel-loader'
       }
     ]
-  }
+  },
+  plugins: [
+    new webpack.BannerPlugin(`
+@name ${pkg.name}
+@version ${pkg.version}
+@license ${pkg.license}
+    `)
+  ]
 };
 
 module.exports = config;
