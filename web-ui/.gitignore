@@ -2,4 +2,5 @@
 *.env
 *.log
 cert
+credentials
 scm-source.json

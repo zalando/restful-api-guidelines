@@ -4,7 +4,7 @@ import Violations from './violations.jsx'
 import {Msg} from './dress-code.jsx';
 
 const css = `
-    .violations-spinner-container {
+    .violations-container__spinner {
         text-align:center;
     }
 `;
@@ -24,7 +24,6 @@ export default class Form extends React.Component {
         should: 0
       }
     };
-    this.OAuthProvider = this.props.OAuthProvider;
   }
 
   clearError() {
@@ -37,7 +36,7 @@ export default class Form extends React.Component {
     this.setState({ error: null, loading: true });
 
     RestService
-      .getApiViolations(this.state.inputValue, this.OAuthProvider.getAccessToken())
+      .getApiViolations(this.state.inputValue)
       .then((response) => {
         this.setState({
           loading: false,
@@ -81,7 +80,7 @@ export default class Form extends React.Component {
 
         { this.state.error ? <Msg type="error" title="ERROR" text={this.state.error} onCloseButtonClick={this.clearError.bind(this)} /> : "" }
 
-        { this.state.loading ? <div className="violations-spinner-container"><div className="dc-spinner dc-spinner--small"></div></div>
+        { this.state.loading ? <div className="violations-container__spinner"><div className="dc-spinner dc-spinner--small"></div></div>
           : <Violations violations={this.state.violations} violationsCount={this.state.violationsCount}/> }
 
       </div>

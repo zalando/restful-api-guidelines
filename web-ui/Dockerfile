@@ -14,6 +14,5 @@ RUN npm install -q --production
 # Expose default port
 EXPOSE 8442
 
-
 ENTRYPOINT ["npm"]
 CMD ["start"]

@@ -1,8 +1,8 @@
 import $ from 'jquery';
-
+import {OAuthProvider} from './oauth';
 
 export default {
-  getApiViolations(apiDefinition, accessToken) {
+  getApiViolations(apiDefinition) {
     const options = {
       url: '/zally-api/api-violations',
       type: 'POST',
@@ -14,8 +14,8 @@ export default {
       })
     };
 
-    if(accessToken) {
-      options.headers = { Authorization: `Bearer ${accessToken}`}
+    if(OAuthProvider.getAccessToken()) {
+      options.headers = { Authorization: `Bearer ${OAuthProvider.getAccessToken()}`}
     }
 
     return $.ajax(options);
