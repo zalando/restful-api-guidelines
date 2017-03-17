@@ -1,22 +1,23 @@
 package de.zalando.zally.rules
 
+import com.typesafe.config.Config
 import de.zalando.zally.Violation
 import de.zalando.zally.ViolationType
 import io.swagger.models.Swagger
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.stereotype.Component
 
-class AvoidSynonymsRule : AbstractRule() {
+@Component
+class AvoidSynonymsRule(@Autowired rulesConfig: Config) : AbstractRule() {
 
     val TITLE = "Use common property names"
     val DESC_PATTERN = "Property names should utilize common dictionary"
     val RULE_URL = ""
 
-    private val COMMON_DICTIONARY = listOf(
-            "customer_id" to listOf("customerid", "c_id", "cid", "custid", "cust_id"),
-            "order_id" to listOf("orderid", "o_id", "ord_id"),
-            "payment_id" to listOf("paymentid", "p_id"),
-            "parcel_id" to listOf("parcelid"),
-            "article_id" to listOf("articleid", "a_id", "art_id")
-    )
+    @Suppress("UNCHECKED_CAST")
+    private val COMMON_DICTIONARY = rulesConfig.getConfig(javaClass.simpleName + ".dictionary")
+            .entrySet()
+            .map { (key, config) -> key to config.unwrapped() as List<String> }
 
     override fun validate(swagger: Swagger): Violation? {
         val dict = COMMON_DICTIONARY.flatMap { (right, wrongList) -> wrongList.map { it to right } }.toMap()
