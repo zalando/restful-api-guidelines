@@ -40,10 +40,6 @@ function firewall() {
 
   if(!window.env.OAUTH_ENABLED) { return Promise.resolve(); }
 
-  if(OAuthProvider.hasAccessToken()) {
-    return checkTokenIsValid();
-  }
-
   // do we have a response from auth server?
   // check if we can parse the url fragment
   if (window.location.hash.length && window.location.hash.startsWith('#access_token')) {
