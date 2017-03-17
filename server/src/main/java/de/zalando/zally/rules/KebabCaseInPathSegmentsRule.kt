@@ -7,18 +7,19 @@ import io.swagger.models.Swagger
 import org.springframework.stereotype.Component
 
 @Component
-open class KebabCaseInPathSegmentsRule : AbstractRule() {
+class KebabCaseInPathSegmentsRule : AbstractRule() {
 
-    val title = "Lowercase words with hyphens"
-    val description = "Use lowercase separate words with hyphens for path segments"
-    val ruleLink = "http://zalando.github.io/restful-api-guidelines/naming/Naming.html" +
+    override val title = "Lowercase words with hyphens"
+    override val url = "http://zalando.github.io/restful-api-guidelines/naming/Naming.html" +
             "#must-use-lowercase-separate-words-with-hyphens-for-path-segments"
+    override val violationType = ViolationType.MUST
+    private val description = "Use lowercase separate words with hyphens for path segments"
 
     override fun validate(swagger: Swagger): Violation? {
         val paths = swagger.paths.orEmpty().keys.filterNot {
             val pathSegments = it.split("/").filter { it.isNotEmpty() }
             pathSegments.filter { !PatternUtil.isPathVariable(it) && !PatternUtil.isLowerCaseAndHyphens(it) }.isEmpty()
         }
-        return if (paths.isNotEmpty()) Violation(this, title, description, ViolationType.MUST, ruleLink, paths) else null
+        return if (paths.isNotEmpty()) Violation(this, title, description, violationType, url, paths) else null
     }
 }

@@ -7,20 +7,18 @@ import io.swagger.models.properties.Property
 import org.springframework.stereotype.Component
 
 @Component
-open class Use429HeaderForRateLimitRule : AbstractRule() {
-    private val TITLE = "Use 429 With Header For Rate Limits"
-    private val DESCRIPTION = "If Client Exceed Request Rate, Response Code Must Contain Header Information Providing Further Details to Client"
-    private val RULE_LINK = "http://zalando.github.io/restful-api-guidelines/http/Http.html" +
+class Use429HeaderForRateLimitRule : AbstractRule() {
+    override val title = "Use 429 With Header For Rate Limits"
+    override val url = "http://zalando.github.io/restful-api-guidelines/http/Http.html" +
             "#must-use-429-with-headers-for-rate-limits"
+    override val violationType = ViolationType.MUST
+    private val DESCRIPTION = "If Client Exceed Request Rate, Response Code Must Contain Header Information Providing Further Details to Client"
     private val X_RATE_LIMIT_TRIO = listOf("X-RateLimit-Limit", "X-RateLimit-Remaining", "X-RateLimit-Reset")
 
     override fun validate(swagger: Swagger): Violation? {
-        val paths = swagger.paths.orEmpty().flatMap {
-            val (path, pathObj) = it
-            pathObj.operationMap.orEmpty().entries.flatMap {
-                val (verb, operation) = it
-                operation.responses.orEmpty().flatMap {
-                    val (code, response) = it
+        val paths = swagger.paths.orEmpty().flatMap { (path, pathObj) ->
+            pathObj.operationMap.orEmpty().entries.flatMap { (verb, operation) ->
+                operation.responses.orEmpty().flatMap { (code, response) ->
                     if (code == "429" && !containsRateLimitHeader(response.headers.orEmpty()))
                         listOf("$path $verb $code")
                     else emptyList()
@@ -28,7 +26,7 @@ open class Use429HeaderForRateLimitRule : AbstractRule() {
             }
         }
         return if (paths.isNotEmpty())
-            Violation(this, TITLE, DESCRIPTION, ViolationType.MUST, RULE_LINK, paths)
+            Violation(this, title, DESCRIPTION, violationType, url, paths)
         else null
     }
 

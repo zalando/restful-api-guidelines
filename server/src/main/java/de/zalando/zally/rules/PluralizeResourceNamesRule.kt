@@ -8,11 +8,12 @@ import io.swagger.models.Swagger
 import org.springframework.stereotype.Component
 
 @Component
-open class PluralizeResourceNamesRule : AbstractRule() {
-    val RULE_NAME = "Pluralize Resource Names"
-    val DESC_PATTERN = "Resources %s are singular (but we are not sure)"
-    val RULE_URL = "http://zalando.github.io/restful-api-guidelines/naming/Naming.html" +
+class PluralizeResourceNamesRule : AbstractRule() {
+    override val title = "Pluralize Resource Names"
+    override val url = "http://zalando.github.io/restful-api-guidelines/naming/Naming.html" +
             "#must-pluralize-resource-names"
+    override val violationType = ViolationType.SHOULD
+    val DESC_PATTERN = "Resources %s are singular (but we are not sure)"
 
     override fun validate(swagger: Swagger): Violation? {
         val res = swagger.paths.keys.flatMap { path ->
@@ -22,7 +23,7 @@ open class PluralizeResourceNamesRule : AbstractRule() {
         return if (res.isNotEmpty()) {
             val desc = res.map { "'${it.first}'" }.toSet().joinToString(", ")
             val paths = res.map { it.second }
-            Violation(this, RULE_NAME, String.format(DESC_PATTERN, desc), ViolationType.SHOULD, RULE_URL, paths)
+            Violation(this, title, String.format(DESC_PATTERN, desc), violationType, url, paths)
         } else null
     }
 }

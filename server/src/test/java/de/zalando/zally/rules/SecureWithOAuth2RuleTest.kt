@@ -16,7 +16,7 @@ class SecureWithOAuth2RuleTest {
             "Secure Endpoints with OAuth 2.0",
             "No OAuth2 security definitions found",
             ViolationType.MUST,
-            SecureWithOAuth2Rule().LINK,
+            SecureWithOAuth2Rule().url,
             emptyList())
 
     @Test

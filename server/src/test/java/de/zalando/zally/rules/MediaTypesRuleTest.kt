@@ -14,10 +14,9 @@ class MediaTypesRuleTest {
 
     fun swaggerWithMediaTypes(vararg pathToMedia: Pair<String, List<String>>): Swagger =
             Swagger().apply {
-                paths = pathToMedia.map {
-                    val (path, types) = it
+                paths = pathToMedia.map { (path, types) ->
                     path to Path().apply {
-                        set("get", Operation().apply { produces = types })
+                        this["get"] = Operation().apply { produces = types }
                     }
                 }.toMap()
             }

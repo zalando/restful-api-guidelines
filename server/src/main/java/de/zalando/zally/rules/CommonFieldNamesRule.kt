@@ -8,10 +8,11 @@ import io.swagger.models.properties.StringProperty
 import org.springframework.stereotype.Component
 
 @Component
-open class CommonFieldNamesRule : AbstractRule() {
-    private val title = "Use common field names"
-    private val link = "http://zalando.github.io/restful-api-guidelines/common-data-objects/CommonDataObjects.html" +
+class CommonFieldNamesRule : AbstractRule() {
+    override val title = "Use common field names"
+    override val url = "http://zalando.github.io/restful-api-guidelines/common-data-objects/CommonDataObjects.html" +
             "#must-use-common-field-names"
+    override val violationType = ViolationType.MUST
 
     override fun validate(swagger: Swagger): Violation? {
         val definitions = swagger.definitions.orEmpty()
@@ -25,7 +26,7 @@ open class CommonFieldNamesRule : AbstractRule() {
 
         return if (res.isNotEmpty()) {
             val (desc, paths) = res.unzip()
-            Violation(this, title, desc.joinToString(", "), ViolationType.MUST, link, paths)
+            Violation(this, title, desc.joinToString(", "), violationType, url, paths)
         } else null
     }
 

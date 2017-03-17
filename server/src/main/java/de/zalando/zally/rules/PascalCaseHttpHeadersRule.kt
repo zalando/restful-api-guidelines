@@ -6,14 +6,15 @@ import de.zalando.zally.utils.PatternUtil
 import org.springframework.stereotype.Component
 
 @Component
-open class PascalCaseHttpHeadersRule : HttpHeadersRule() {
-    val RULE_NAME = "Prefer Hyphenated-Pascal-Case for HTTP header fields"
-    val RULE_URL = "http://zalando.github.io/restful-api-guidelines/naming/Naming.html" +
+class PascalCaseHttpHeadersRule : HttpHeadersRule() {
+    override val title = "Prefer Hyphenated-Pascal-Case for HTTP header fields"
+    override val url = "http://zalando.github.io/restful-api-guidelines/naming/Naming.html" +
             "#should-prefer-hyphenatedpascalcase-for-http-header-fields"
+    override val violationType = ViolationType.SHOULD
 
     override fun isViolation(header: String) = !PatternUtil.isHyphenatedPascalCase(header)
 
     override fun createViolation(paths: List<String>): Violation {
-        return Violation(this, RULE_NAME, "Header is not Hyphenated-Pascal-Case", ViolationType.SHOULD, RULE_URL, paths)
+        return Violation(this, title, "Header is not Hyphenated-Pascal-Case", violationType, url, paths)
     }
 }

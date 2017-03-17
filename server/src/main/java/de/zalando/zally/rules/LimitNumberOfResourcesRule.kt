@@ -6,18 +6,19 @@ import io.swagger.models.Swagger
 import org.springframework.stereotype.Component
 
 @Component
-open class LimitNumberOfResourcesRule : AbstractRule() {
-    val TITLE = "Limit number of Resources"
-    val RULE_LINK = "http://zalando.github.io/restful-api-guidelines/resources/Resources.html" +
+class LimitNumberOfResourcesRule : AbstractRule() {
+    override val title = "Limit number of Resources"
+    override val url = "http://zalando.github.io/restful-api-guidelines/resources/Resources.html" +
             "#should-limit-number-of-resources"
-    val PATHS_COUNT_LIMIT = 8
+    override val violationType = ViolationType.SHOULD
+    private val PATHS_COUNT_LIMIT = 8
 
     override fun validate(swagger: Swagger): Violation? {
         val paths = swagger.paths.orEmpty()
         val pathsCount = paths.size
         return if (pathsCount > PATHS_COUNT_LIMIT) {
-            Violation(this, TITLE, "Number of paths $pathsCount is greater than $PATHS_COUNT_LIMIT",
-                    ViolationType.SHOULD, RULE_LINK, paths.keys.toList())
+            Violation(this, title, "Number of paths $pathsCount is greater than $PATHS_COUNT_LIMIT",
+                    violationType, url, paths.keys.toList())
         } else null
     }
 }

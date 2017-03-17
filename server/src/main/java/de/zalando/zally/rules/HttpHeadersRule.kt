@@ -22,8 +22,7 @@ abstract class HttpHeadersRule : AbstractRule() {
                 orEmpty().flatMap { it.headers?.keys.orEmpty() }.map { path to it }
 
         val fromParams = swagger.parameters.orEmpty().values.extractHeaders("parameters")
-        val fromPaths = swagger.paths.orEmpty().entries.flatMap { entry ->
-            val (name, path) = entry
+        val fromPaths = swagger.paths.orEmpty().entries.flatMap { (name, path) ->
             path.parameters.extractHeaders(name) + path.operations.flatMap { operation ->
                 operation.parameters.extractHeaders(name) + operation.responses.values.extractHeaders(name)
             }
