@@ -23,10 +23,7 @@ public class Violation {
     public Violation(JSONObject violationJson) {
         this.title = violationJson.getString("title");
         this.description = violationJson.getString("description");
-
-        if (violationJson.has("violation_type")) {
-            this.violationType = violationJson.getString("violation_type");
-        }
+        this.violationType = violationJson.getString("violation_type");
 
         if (violationJson.has("rule_link")) {
             this.ruleLink = violationJson.getString("rule_link");

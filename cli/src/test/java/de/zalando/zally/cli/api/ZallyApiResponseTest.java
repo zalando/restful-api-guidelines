@@ -24,6 +24,7 @@ public class ZallyApiResponseTest {
         final JSONObject secondViolation = new JSONObject();
         secondViolation.put("title", "Test title");
         secondViolation.put("description", "Test description");
+        secondViolation.put("violation_type", "MUST");
 
         final JSONArray violations = new JSONArray();
         violations.put(firstViolation);

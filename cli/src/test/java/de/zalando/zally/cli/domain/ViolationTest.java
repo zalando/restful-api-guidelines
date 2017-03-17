@@ -30,13 +30,14 @@ public class ViolationTest {
         final JSONObject jsonViolation = new JSONObject();
         jsonViolation.put("title", "Test");
         jsonViolation.put("description", "Test Description");
+        jsonViolation.put("violation_type", "MUST");
 
         final Violation violation = new Violation(jsonViolation);
 
         assertEquals("Test", violation.getTitle());
         assertEquals("Test Description", violation.getDescription());
+        assertEquals("MUST", violation.getViolationType());
         assertNull(violation.getRuleLink());
-        assertNull(violation.getViolationType());
         assertEquals(new ArrayList<>(), violation.getPaths());
     }
 
