@@ -1,4 +1,4 @@
-FROM registry.opensource.zalan.do/stups/node:latest
+FROM registry.opensource.zalan.do/stups/node:7.7-cd45
 
 LABEL MAINTAINER "http://zalando.github.io/"
 
@@ -8,10 +8,11 @@ WORKDIR /opt/app
 # Copy Sources
 COPY ./package.json ./package.json
 COPY ./src ./src
-COPY ./scm-source.json ./scm-source.json
 
 # Install dependencies
 RUN npm install -q --production
+
+COPY ./scm-source.json ./scm-source.json
 
 # Expose default port
 EXPOSE 8442

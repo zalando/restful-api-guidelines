@@ -1,8 +1,8 @@
 Zally WEB-UI
 ============
 
-Zally Web-UI project provide a web user interface to lint your api specs.
-Proudly build with NodeJS and React.
+Zally Web-UI project provides a web user interface to lint your api specs.
+Proudly built with NodeJS and React.
 
 ## Requirements
 
@@ -19,7 +19,7 @@ npm start
 
 ## Configuration
 
-The web-ui rely on [dotenv](https://github.com/motdotla/dotenv) NodeJS module to handle configuration.
+The web-ui relies on [dotenv](https://github.com/motdotla/dotenv) NodeJS module to handle configuration.
 Following the [The Twelve-Factor App](https://12factor.net/config) methodology.
 Customization can be done by setting environment variables and/or by providing a `.env` file in the web-ui root directory.<br>
 
@@ -68,7 +68,7 @@ npm install
 npm run dev
 ```
 
-> This task start the server in development mode with **nodemon** and **webpack-dev-server-middleware** watching for changes.
+> This task starts the server in development mode with **nodemon** and **webpack-dev-server-middleware** watching for changes.
 
 
 ### Build optimized client javascript bundle
