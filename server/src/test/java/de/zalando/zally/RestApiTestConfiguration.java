@@ -28,6 +28,21 @@ public class RestApiTestConfiguration {
                 return null;
             }
         }
+
+        @Override
+        public String getUrl() {
+            return null;
+        }
+
+        @Override
+        public ViolationType getViolationType() {
+            return ViolationType.MUST;
+        }
+
+        @Override
+        public String getTitle() {
+            return "Test Rule";
+        }
     }
 
     @Bean

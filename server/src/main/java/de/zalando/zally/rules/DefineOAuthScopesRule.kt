@@ -9,19 +9,18 @@ import io.swagger.models.auth.OAuth2Definition
 import org.springframework.stereotype.Component
 
 @Component
-open class DefineOAuthScopesRule : AbstractRule() {
-    private val TITLE = "Define and Assign Access Rights (Scopes)"
-    private val DESC = "Every endpoint must be secured by proper OAuth2 scope"
-    private val RULE_LINK = "http://zalando.github.io/restful-api-guidelines/security/Security.html" +
+class DefineOAuthScopesRule : AbstractRule() {
+    override val title = "Define and Assign Access Rights (Scopes)"
+    override val url = "http://zalando.github.io/restful-api-guidelines/security/Security.html" +
             "#must-secure-endpoints-with-oauth-20"
+    override val violationType = MUST
+    private val DESC = "Every endpoint must be secured by proper OAuth2 scope"
 
     override fun validate(swagger: Swagger): Violation? {
         val definedScopes = getDefinedScopes(swagger)
         val hasTopLevelScope = hasTopLevelScope(swagger, definedScopes)
-        val paths = swagger.paths.orEmpty().entries.flatMap {
-            val (pathKey, path) = it
-            path.operationMap.orEmpty().entries.map {
-                val (method, operation) = it
+        val paths = swagger.paths.orEmpty().entries.flatMap { (pathKey, path) ->
+            path.operationMap.orEmpty().entries.map { (method, operation) ->
                 val actualScopes = extractAppliedScopes(operation)
                 val undefinedScopes = Sets.difference(actualScopes, definedScopes)
                 val unsecured = undefinedScopes.size == actualScopes.size && !hasTopLevelScope
@@ -36,30 +35,27 @@ open class DefineOAuthScopesRule : AbstractRule() {
             }.filterNotNull()
         }
         return if (!paths.isEmpty()) {
-            Violation(this, TITLE, DESC, MUST, RULE_LINK, paths)
+            Violation(this, title, DESC, violationType, url, paths)
         } else null
     }
 
     // get the scopes from security definition
     private fun getDefinedScopes(swagger: Swagger): Set<Pair<String, String>> =
-            swagger.securityDefinitions.orEmpty().entries.flatMap {
-                val (group, def) = it
-                (def as? OAuth2Definition)?.scopes?.keys?.map { scope -> group to scope }.orEmpty()
+            swagger.securityDefinitions.orEmpty().entries.flatMap { (group, def) ->
+                (def as? OAuth2Definition)?.scopes.orEmpty().keys.map { scope -> group to scope }
             }.toSet()
 
     // Extract all oauth2 scopes applied to the given operation into a simple list
     private fun extractAppliedScopes(operation: Operation): Set<Pair<String, String>> =
             operation.security?.flatMap { groupDefinition ->
-                groupDefinition.entries.flatMap {
-                    val (group, scopes) = it
+                groupDefinition.entries.flatMap { (group, scopes) ->
                     scopes.map { group to it }
                 }
             }.orEmpty().toSet()
 
     private fun hasTopLevelScope(swagger: Swagger, definedScopes: Set<Pair<String, String>>): Boolean =
             swagger.security?.any { securityRequirement ->
-                securityRequirement.requirements.entries.any {
-                    val (group, scopes) = it
+                securityRequirement.requirements.entries.any { (group, scopes) ->
                     scopes.any { scope -> (group to scope) in definedScopes }
                 }
             } ?: false

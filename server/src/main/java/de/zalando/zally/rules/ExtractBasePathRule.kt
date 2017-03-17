@@ -6,11 +6,12 @@ import io.swagger.models.Swagger
 import org.springframework.stereotype.Component
 
 @Component
-open class ExtractBasePathRule : AbstractRule() {
+class ExtractBasePathRule : AbstractRule() {
 
-    val TITLE = "Base path can be extracted"
+    override val title = "Base path can be extracted"
+    override val url = "http://zalando.github.io/restful-api-guidelines/naming/Naming.html"
+    override val violationType = ViolationType.HINT
     val DESC_PATTERN = "All paths start with prefix '%s'. This prefix could be part of base path."
-    val RULE_URL = "http://zalando.github.io/restful-api-guidelines/naming/Naming.html"
 
     override fun validate(swagger: Swagger): Violation? {
         val paths = swagger.paths.orEmpty().keys
@@ -19,7 +20,7 @@ open class ExtractBasePathRule : AbstractRule() {
         }
         val commonPrefix = paths.reduce { s1, s2 -> findCommonPrefix(s1, s2) }.dropTrailingSlash()
         return if (commonPrefix.isNotEmpty() && hasSubResources(swagger, commonPrefix))
-            Violation(this, TITLE, DESC_PATTERN.format(commonPrefix), ViolationType.HINT, RULE_URL, emptyList())
+            Violation(this, title, DESC_PATTERN.format(commonPrefix), violationType, url, emptyList())
         else null
     }
 

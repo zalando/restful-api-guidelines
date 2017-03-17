@@ -7,14 +7,15 @@ import io.swagger.models.Swagger
 import org.springframework.stereotype.Component
 
 @Component
-open class NoVersionInUriRule : AbstractRule() {
-    val TITLE = "Do Not Use URI Versioning"
-    val DESC = "basePath attribute contains version number"
-    val LINK = "https://zalando.github.io/restful-api-guidelines/compatibility/Compatibility.html" +
+class NoVersionInUriRule : AbstractRule() {
+    override val title = "Do Not Use URI Versioning"
+    override val url = "https://zalando.github.io/restful-api-guidelines/compatibility/Compatibility.html" +
             "#must-do-not-use-uri-versioning"
+    override val violationType = ViolationType.MUST
+    private val description = "basePath attribute contains version number"
 
     override fun validate(swagger: Swagger): Violation? {
         val hasVersion = swagger.basePath != null && PatternUtil.hasVersionInUrl(swagger.basePath)
-        return if (hasVersion) Violation(this, TITLE, DESC, ViolationType.MUST, LINK, emptyList()) else null
+        return if (hasVersion) Violation(this, title, description, violationType, url, emptyList()) else null
     }
 }

@@ -9,12 +9,13 @@ import io.swagger.models.Swagger
  *      - this rule is currently disabled because Zalando's API guidelines changed
  *      - will be re-enabled if we can configure ruleset
  */
-open class AvoidJavascriptKeywordsRule : AbstractRule() {
+class AvoidJavascriptKeywordsRule : AbstractRule() {
 
-    val TITLE = "Avoid reserved Javascript keywords"
-    val DESC_PATTERN = "Property names should not coinside with reserved javascript keywords"
-    val RULE_URL = "http://zalando.github.io/restful-api-guidelines/naming/Naming.html" +
+    override val title = "Avoid reserved Javascript keywords"
+    override val url = "http://zalando.github.io/restful-api-guidelines/naming/Naming.html" +
             "#should-reserved-javascript-keywords-should-be-avoided"
+    override val violationType = ViolationType.SHOULD
+    private val DESC_PATTERN = "Property names should not coinside with reserved javascript keywords"
 
     private val RESERVED_KEYWORDS = setOf(
             "break", "do", "in", "typeof", "case", "else", "instanceof", "var", "catch", "export", "new", "void",
@@ -28,6 +29,6 @@ open class AvoidJavascriptKeywordsRule : AbstractRule() {
             val props = entry.value.properties ?: emptyMap()
             props.keys.filter { it in RESERVED_KEYWORDS }.map { entry.key + "." + it }
         }
-        return if (paths.isNotEmpty()) Violation(this, TITLE, DESC_PATTERN, ViolationType.SHOULD, RULE_URL, paths) else null
+        return if (paths.isNotEmpty()) Violation(this, title, DESC_PATTERN, violationType, url, paths) else null
     }
 }
