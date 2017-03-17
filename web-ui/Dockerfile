@@ -1,5 +1,7 @@
 FROM registry.opensource.zalan.do/stups/node:latest
 
+LABEL MAINTAINER "http://zalando.github.io/"
+
 RUN mkdir -p /opt/app
 WORKDIR /opt/app
 
