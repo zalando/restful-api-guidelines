@@ -3,6 +3,7 @@ package de.zalando.zally.rules
 import de.zalando.zally.Violation
 import de.zalando.zally.ViolationType
 import io.swagger.models.ArrayModel
+import io.swagger.models.ComposedModel
 import io.swagger.models.Model
 import io.swagger.models.ModelImpl
 import io.swagger.models.RefModel
@@ -11,6 +12,7 @@ import io.swagger.models.Swagger
 import io.swagger.models.parameters.BodyParameter
 import io.swagger.models.parameters.Parameter
 import io.swagger.models.properties.ArrayProperty
+import io.swagger.models.properties.MapProperty
 import io.swagger.models.properties.ObjectProperty
 import io.swagger.models.properties.Property
 import io.swagger.models.properties.RefProperty
@@ -55,18 +57,26 @@ class NoUnusedDefinitionsRule : AbstractRule() {
     fun findAllRefs(response: Response): List<String> =
             if (response.schema != null) findAllRefs(response.schema) else emptyList()
 
-    fun findAllRefs(model: Model): List<String> =
+    fun findAllRefs(model: Model?): List<String> =
             when (model) {
                 is RefModel -> listOf(model.simpleRef)
                 is ArrayModel -> findAllRefs(model.items)
-                is ModelImpl -> model.properties.orEmpty().values.flatMap(this::findAllRefs)
+                is ModelImpl ->
+                    model.properties.orEmpty().values.flatMap(this::findAllRefs) +
+                            findAllRefs(model.additionalProperties)
+                is ComposedModel ->
+                    model.allOf.orEmpty().flatMap(this::findAllRefs) +
+                            model.interfaces.orEmpty().flatMap(this::findAllRefs) +
+                            findAllRefs(model.parent) +
+                            findAllRefs(model.child)
                 else -> emptyList()
             }
 
-    fun findAllRefs(prop: Property): List<String> =
+    fun findAllRefs(prop: Property?): List<String> =
             when (prop) {
                 is RefProperty -> listOf(prop.simpleRef)
                 is ArrayProperty -> findAllRefs(prop.items)
+                is MapProperty -> findAllRefs(prop.additionalProperties)
                 is ObjectProperty -> prop.properties.orEmpty().values.flatMap(this::findAllRefs)
                 else -> emptyList()
             }
