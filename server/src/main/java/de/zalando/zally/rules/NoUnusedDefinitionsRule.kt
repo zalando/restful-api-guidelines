@@ -81,5 +81,3 @@ class NoUnusedDefinitionsRule : AbstractRule() {
                 else -> emptyList()
             }
 }
-
-

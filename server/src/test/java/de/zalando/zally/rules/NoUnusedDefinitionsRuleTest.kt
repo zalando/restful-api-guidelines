@@ -6,7 +6,6 @@ import org.assertj.core.api.Assertions
 import org.junit.Test
 
 class NoUnusedDefinitionsRuleTest {
-    
     @Test
     fun positiveCase() {
         Assertions.assertThat(NoUnusedDefinitionsRule().validate(getFixture("unusedDefinitionsValid.json"))).isNull()
