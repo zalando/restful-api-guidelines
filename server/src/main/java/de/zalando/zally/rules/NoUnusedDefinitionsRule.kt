@@ -51,11 +51,11 @@ class NoUnusedDefinitionsRule : AbstractRule() {
         } else null
     }
 
-    fun findAllRefs(param: Parameter): List<String> =
+    fun findAllRefs(param: Parameter?): List<String> =
             if (param is BodyParameter) findAllRefs(param.schema) else emptyList()
 
-    fun findAllRefs(response: Response): List<String> =
-            if (response.schema != null) findAllRefs(response.schema) else emptyList()
+    fun findAllRefs(response: Response?): List<String> =
+            if (response?.schema != null) findAllRefs(response.schema) else emptyList()
 
     fun findAllRefs(model: Model?): List<String> =
             when (model) {
