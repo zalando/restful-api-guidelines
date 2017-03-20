@@ -9,7 +9,7 @@ import org.junit.Test
 class NoProtocolInHostRuleTest {
 
     val expectedViolation = NoProtocolInHostRule().let {
-        Violation(it, it.title, it.desc, it.violationType, it.url, emptyList())
+        Violation(it, it.title, "", it.violationType, it.url, emptyList())
     }
 
     @Test
@@ -27,13 +27,15 @@ class NoProtocolInHostRuleTest {
     @Test
     fun negativeCaseHttp() {
         val swagger = Swagger().apply { host = "http://google.com" }
-        assertThat(NoProtocolInHostRule().validate(swagger)).isEqualTo(expectedViolation)
+        val res = NoProtocolInHostRule().validate(swagger)
+        assertThat(res?.copy(description = "")).isEqualTo(expectedViolation)
     }
 
     @Test
     fun negativeCaseHttps() {
         val swagger = Swagger().apply { host = "https://google.com" }
-        assertThat(NoProtocolInHostRule().validate(swagger)).isEqualTo(expectedViolation)
+        val res = NoProtocolInHostRule().validate(swagger)
+        assertThat(res?.copy(description = "")).isEqualTo(expectedViolation)
     }
 
     @Test
