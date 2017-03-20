@@ -2,6 +2,11 @@ package de.zalando.zally.cli;
 
 import com.github.ryenus.rop.OptionParser;
 import com.github.ryenus.rop.OptionParser.Option;
+import de.zalando.zally.cli.api.ZallyApiClient;
+import de.zalando.zally.cli.exception.CliException;
+import de.zalando.zally.cli.exception.CliExceptionType;
+import de.zalando.zally.cli.reader.SpecsReader;
+import de.zalando.zally.cli.reader.SpecsReaderFactory;
 
 import java.io.IOException;
 

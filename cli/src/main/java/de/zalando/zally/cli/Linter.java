@@ -1,6 +1,11 @@
 package de.zalando.zally.cli;
 
-import com.eclipsesource.json.JsonObject;
+import de.zalando.zally.cli.api.RequestDecorator;
+import de.zalando.zally.cli.api.ZallyApiClient;
+import de.zalando.zally.cli.api.ZallyApiResponse;
+import de.zalando.zally.cli.domain.Violation;
+import de.zalando.zally.cli.exception.CliException;
+import de.zalando.zally.cli.reader.SpecsReader;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -21,24 +26,23 @@ public class Linter {
 
     public boolean lint(SpecsReader reader) throws IOException, CliException {
         final RequestDecorator decorator = new RequestDecorator(reader);
-        final JsonObject response = client.validate(decorator.getRequestBody()).asObject();
-        final ViolationsFilter violationsFilter = new ViolationsFilter(response);
-        final JsonObject counters = response.get("violations_count").asObject();
+        final ZallyApiResponse response = client.validate(decorator.getRequestBody());
+        final ViolationsFilter violationsFilter = new ViolationsFilter(response.getViolations());
 
-        if (response.names().contains("message")) {
-            printer.printMessage(response.get("message").asString());
+        if (response.getMessage() != null) {
+            printer.printMessage(response.getMessage());
         }
 
         boolean hasMustViolations = false;
         for (String violationType : violationTypes) {
-            List<JsonObject> violations = violationsFilter.getViolations(violationType);
+            List<Violation> violations = violationsFilter.getViolations(violationType);
             if (mustViolationType.equals(violationType)) {
                 hasMustViolations = violations.isEmpty();
             }
             printer.printViolations(violations, violationType);
         }
 
-        printer.printSummary(violationTypes, counters);
+        printer.printSummary(violationTypes, response.getCounters());
 
         return hasMustViolations;
     }

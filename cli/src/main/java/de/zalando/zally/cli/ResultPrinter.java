@@ -1,8 +1,7 @@
 package de.zalando.zally.cli;
 
-import com.eclipsesource.json.JsonArray;
-import com.eclipsesource.json.JsonObject;
-import com.eclipsesource.json.JsonValue;
+import de.zalando.zally.cli.domain.Violation;
+import de.zalando.zally.cli.domain.ViolationsCount;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -39,7 +38,7 @@ public class ResultPrinter {
         }
     }
 
-    public void printViolations(List<JsonObject> violations, String violationType) throws IOException {
+    public void printViolations(List<Violation> violations, String violationType) throws IOException {
         if (!violations.isEmpty()) {
 
             String normalizedViolationType = violationType.toUpperCase();
@@ -48,17 +47,17 @@ public class ResultPrinter {
 
             printHeader(headerColor, header);
 
-            for (JsonObject violation : violations) {
+            for (Violation violation : violations) {
                 writer.write(formatViolation(headerColor, violation) + "\n");
             }
             writer.flush();
         }
     }
 
-    public void printSummary(List<String> violationTypeNames, JsonObject counters) throws IOException {
+    public void printSummary(List<String> violationTypeNames, ViolationsCount counters) throws IOException {
         printHeader(ANSI_CYAN, "Summary:");
         for (String name : violationTypeNames) {
-            writer.write(name.toUpperCase() + " violations: " + counters.getInt(name, 0) + "\n");
+            writer.write(name.toUpperCase() + " violations: " + counters.get(name) + "\n");
         }
         writer.flush();
     }
@@ -69,23 +68,24 @@ public class ResultPrinter {
         writer.flush();
     }
 
-    public static String formatViolation(String headerColor, JsonObject violation) {
-        String title = violation.get("title").asString();
-        String description = violation.get("description").asString();
-        JsonArray paths = violation.get("paths").asArray();
+    public static String formatViolation(String headerColor, Violation violation) {
+        final String title = violation.getTitle();
+        final String description = violation.getDescription();
+        final List<String> paths = violation.getPaths();
 
         StringBuilder sb = new StringBuilder();
         sb.append(headerColor + title + "\n" + ANSI_RESET);
         sb.append("\t" + description + "\n");
-        JsonValue ruleLink = violation.get("rule_link");
-        if (!ruleLink.isNull()) {
-            sb.append("\t" + ANSI_CYAN + ruleLink.asString() + "\n" + ANSI_RESET);
+
+        String ruleLink = violation.getRuleLink();
+        if (ruleLink != null) {
+            sb.append("\t" + ANSI_CYAN + ruleLink + "\n" + ANSI_RESET);
         }
         if (!paths.isEmpty()) {
             sb.append("\tViolated at:\n");
-            for (JsonValue path : paths) {
+            for (String path : paths) {
                 sb.append("\t\t");
-                sb.append(path.asString());
+                sb.append(path);
                 sb.append("\n");
             }
             sb.append("\n");

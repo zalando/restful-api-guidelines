@@ -1,4 +1,4 @@
-package de.zalando.zally.cli;
+package de.zalando.zally.cli.exception;
 
 import static org.junit.Assert.assertEquals;
 
