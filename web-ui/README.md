@@ -6,7 +6,7 @@ Proudly built with NodeJS and React.
 
 ## Requirements
 
-* NodeJS >= 6.0.0
+* NodeJS >= 7.6
 
 
 ## Install and Run

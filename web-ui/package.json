@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "description": "Zally API Linter Web UI",
   "main": "src/server/index.js",
+  "engines": {
+    "node": ">=7.6"
+  },
   "scripts": {
     "start": "NODE_ENV=production node src/server/index.js",
     "dev": "NODE_ENV=development nodemon src/server/index.js",
@@ -25,10 +28,13 @@
   },
   "homepage": "https://github.com/zalando-incubator/zally#readme",
   "dependencies": {
+    "body-parser": "1.17.1",
     "dotenv": "4.0.0",
     "dotenv-parse-variables": "0.0.1",
     "express": "4.15.2",
     "jquery": "3.1.1",
+    "js-yaml": "3.8.2",
+    "node-fetch": "1.6.3",
     "oauth2-client-js": "0.0.15",
     "react": "15.4.2",
     "react-dom": "15.4.2",
