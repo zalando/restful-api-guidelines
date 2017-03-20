@@ -1,10 +1,12 @@
 const env = require('./env');
 const express = require('express');
+const bodyParser = require('body-parser');
 const path = require('path');
 const app = express();
 const logger = require('./logger');
 const createHttpServer = require('./create-http-server');
 const ASSETS_DIR = path.resolve(__dirname, '../client/public/assets');
+
 
 /**
  * Use webpack middleware just in development
@@ -57,7 +59,7 @@ app.use('/tokeninfo', require('./tokeninfo-handler'));
 /**
  * Proxy zally api to avoid CORS restriction
  */
-app.use('/zally-api', require('./zally-api-handler'));
+app.use('/zally-api', bodyParser.json(),  require('./zally-api-handler'));
 
 /**
  * Health check
