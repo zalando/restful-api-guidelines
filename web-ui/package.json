@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "description": "Zally API Linter Web UI",
   "main": "src/server/index.js",
+  "engines": {
+    "node": ">=7.6"
+  },
   "scripts": {
     "start": "NODE_ENV=production node src/server/index.js",
     "dev": "NODE_ENV=development nodemon src/server/index.js",

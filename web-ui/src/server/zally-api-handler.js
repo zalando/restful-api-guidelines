@@ -3,57 +3,66 @@ const logger = require('./logger');
 const fetch = require('./fetch');
 const yaml = require('js-yaml');
 
-const parseSchema = (text) => {
+function parseSchema(text) {
   try {
     // try json first
     return JSON.parse(text);
   } catch(err) {}
 
   return yaml.safeLoad(text);
-};
+}
 
-module.exports = function (req, res) {
+module.exports = async function (req, res) {
+  // remove the prefix found in the incoming req.url and concatenate
+  // the remaining path to ZALLY_API_URL
+  //
+  // ex.
+  // ZALLY_API_URL=https://api.zally.com
+  // req.url=/zally-api/api-violations?some-filter=true
+  //
+  // url -> https://api.zally.com/api-violations?some-filter=true
+  //
   const url = env.ZALLY_API_URL + req.url.replace('/zally-api', '');
+
   const apiDefinitionURL = req.body.api_definition;
 
-  logger.debug(`Fetch swagger schema: ${apiDefinitionURL}`);
+  try {
 
-  fetch(apiDefinitionURL)
-    .then((response) => {
-      return response.text();
-    })
-    .then((text) => {
-      logger.debug(`Parse schema: ${apiDefinitionURL}`);
-      return parseSchema(text);
-    })
-    .then((schema) => {
-      logger.debug(`Proxying request to: ${url}`);
-      return fetch(url, {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'Authorization': req.headers.Authorization
-        },
-        body: JSON.stringify({ api_definition: schema })
-      })
-    })
-    .then((response) => {
-      return response.json();
-    })
-    .then((json) => {
-      res.json(json);
-    })
-    .catch((error) => {
-      const status = error.response ? error.response.status : 400;
-      res.status(status);
+    logger.debug(`Fetch swagger schema: ${apiDefinitionURL}`);
+    const fetchSchemaResponse = await fetch(apiDefinitionURL);
+    const schemaAsText = await fetchSchemaResponse.text();
 
-      // use https://zalando.github.io/problem/schema.yaml#/Problem'
-      res.json({
-        type: 'about:blank',
-        title: error.message,
-        detail: error.message,
-        status
-      });
+    logger.debug(`Parse schema: ${apiDefinitionURL}`);
+    const schema = parseSchema(schemaAsText);
+
+    const violationsResponse = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': req.headers.authorization
+      },
+      body: JSON.stringify({ api_definition: schema })
     });
+
+    const violations = await violationsResponse.json();
+
+    res.json(violations);
+
+  } catch(error) {
+
+    logger.error(error);
+
+    const status = error.status ? error.status : 400;
+
+    res.status(status);
+
+    // use https://zalando.github.io/problem/schema.yaml#/Problem'
+    res.json({
+      type: 'about:blank',
+      title: error.message,
+      detail: error.message,
+      status
+    });
+  }
 };

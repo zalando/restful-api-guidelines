@@ -1,13 +1,13 @@
 const fetch = require('node-fetch');
 
 function handleResponse(response) {
-  if (response.status >= 200 && response.status < 300) {
-    return Promise.resolve(response)
-  } else {
+  if(response.status >= 400) {
     var error = new Error(response.statusText || response.status);
-    error.response = response;
+    error.status = response.status || 500;
     return Promise.reject(error);
   }
+
+  return Promise.resolve(response);
 }
 
 module.exports = function () {
