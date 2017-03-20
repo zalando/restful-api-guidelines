@@ -10,12 +10,12 @@ class NoProtocolInHostRule : AbstractRule() {
     override val title = "Host should not contain protocol"
     override val url = ""
     override val violationType = ViolationType.MUST
-    val desc = "Information about protocol should be placed in schema"
+    val desc = "Information about protocol should be placed in schema. Current host value '%s' violates this rule"
 
     override fun validate(swagger: Swagger): Violation? {
         val host = swagger.host.orEmpty()
-        return if (host.startsWith("http://") || host.startsWith("https://")) {
-            Violation(this, title, desc, violationType, url, emptyList())
-        } else null
+        return if ("://" in host)
+            Violation(this, title, desc.format(host), violationType, url, emptyList())
+        else null
     }
 }
