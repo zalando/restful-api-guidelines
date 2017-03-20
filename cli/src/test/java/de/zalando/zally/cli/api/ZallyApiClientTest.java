@@ -4,6 +4,8 @@ import static net.jadler.Jadler.closeJadler;
 import static net.jadler.Jadler.initJadler;
 import static net.jadler.Jadler.onRequest;
 import static net.jadler.Jadler.port;
+import static net.jadler.Jadler.verifyThatRequest;
+import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -34,15 +36,27 @@ public class ZallyApiClientTest {
     }
 
     @Test
-    public void validateReturnsOutputFromZallyServer() throws Exception {
-        final String responseBody = "{\"violations\":[], \"violations_count\":{}}";
-
-        mockServer(200, responseBody);
-
-        ZallyApiClient client = new ZallyApiClient("http://localhost:" + port() + "/", token);
-        ZallyApiResponse response = client.validate(requestBody);
+    public void validateReturnsOutputFromZallyServerWhenTokenIsPassed() throws Exception {
+        final ZallyApiResponse response = makeSuccessfulRequest(token);
 
         assertEquals(0, response.getViolations().size());
+        verifyThatRequest().havingHeaderEqualTo("Authorization", "Bearer " + token).receivedOnce();
+    }
+
+    @Test
+    public void validateReturnsOutputFromZallyServerWhenTokenIsNull() throws Exception {
+        final ZallyApiResponse response = makeSuccessfulRequest(null);
+
+        assertEquals(0, response.getViolations().size());
+        verifyThatRequest().havingHeader("Authorization", nullValue());
+    }
+
+    @Test
+    public void validateReturnsOutputFromZallyServerWhenTokenIsEmpty() throws Exception {
+        final ZallyApiResponse response = makeSuccessfulRequest("");
+
+        assertEquals(0, response.getViolations().size());
+        verifyThatRequest().havingHeader("Authorization", nullValue());
     }
 
     @Test
@@ -95,11 +109,21 @@ public class ZallyApiClientTest {
         client.validate(requestBody);
     }
 
+    private ZallyApiResponse makeSuccessfulRequest(String token) {
+        final String responseBody = "{\"violations\":[], \"violations_count\":{}}";
+
+        mockServer(200, responseBody);
+
+        ZallyApiClient client = new ZallyApiClient("http://localhost:" + port() + "/", token);
+        ZallyApiResponse response = client.validate(requestBody);
+
+        return response;
+    }
+
     private void mockServer(int status, String body) {
         onRequest()
                 .havingMethodEqualTo("POST")
                 .havingPathEqualTo("/")
-                .havingHeaderEqualTo("Authorization", "Bearer " + token)
                 .havingHeaderEqualTo("Content-Type", "application/json")
                 .havingBodyEqualTo(requestBody)
                 .respond()
