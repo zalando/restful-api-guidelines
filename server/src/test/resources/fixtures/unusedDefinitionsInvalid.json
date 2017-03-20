@@ -1,0 +1,150 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Swagger Petstore",
+    "description": "A sample API that uses a petstore as an example to demonstrate features in the swagger-2.0 specification",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "name": "Swagger API Team"
+    },
+    "license": {
+      "name": "MIT"
+    }
+  },
+  "host": "petstore.swagger.io",
+  "basePath": "/api",
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/pets": {
+      "get": {
+        "description": "Returns all pets from the system that the user has access to",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/TenantId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of pets.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Pet"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "Creates a new pet in the store.  Duplicates are allowed",
+        "operationId": "addPet",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "pet",
+            "in": "body",
+            "description": "Pet to add to the store",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Pet"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "pet response",
+            "schema": {
+              "$ref": "#/definitions/Pet"
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            }
+          }
+        }
+      }
+    }
+  },
+  "parameters": {
+    "FlowId": {
+      "name": "X-Flow-Id",
+      "description": "A custom header that will be passed onto any further requests and can be used for diagnosing.\n",
+      "in": "header",
+      "type": "string",
+      "required": false
+    },
+    "TenantId": {
+      "name": "X-Tenant-Id",
+      "description": "A custom header for the identification of the tenant.\nThe value of this header must be a correct/valid `business-partner-id` (as per the\n[Business Partner Service](https://techwiki.zalando.net/pages/viewpage.action?spaceKey=TH&title=Business+Partner+Service))\nFor more information on how this is used, please refer to https://pages.github.bus.zalan.do/FashionInsightsCentre/spp-documentation/spp-design/spp-data-management-apis/#ownership\n",
+      "in": "header",
+      "type": "string",
+      "format": "uuid",
+      "required": true
+    }
+  },
+  "definitions": {
+    "Pet": {
+      "type": "object",
+      "required": [
+        "id",
+        "name"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "tag": {
+          "type": "string"
+        }
+      }
+    },
+    "PetName": {
+      "type": "object",
+      "required": [
+        "first_name"
+      ],
+      "properties": {
+        "first_name": {
+          "type": "string"
+        },
+        "last_name": {
+          "type": "string"
+        }
+      }
+    },
+    "ErrorModel": {
+      "type": "object",
+      "required": [
+        "error_code"
+      ],
+      "properties": {
+        "error_code": {
+          "type": "integer"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
