@@ -1,0 +1,48 @@
+{
+  "name": "zally-web-ui",
+  "version": "0.1.0",
+  "description": "Zally API Linter Web UI",
+  "main": "src/server/index.js",
+  "scripts": {
+    "start": "NODE_ENV=production node src/server/index.js",
+    "dev": "NODE_ENV=development nodemon src/server/index.js",
+    "build": "webpack -p",
+    "docker:build": "scm-source > scm-source.json && docker build -t pierone.stups.zalan.do/architecture/zally-web-ui:${npm_package_version}-$(date +%s) ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zalando-incubator/zally.git"
+  },
+  "keywords": [
+    "API",
+    "Linter",
+    "Zally"
+  ],
+  "private": true,
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zalando-incubator/zally/issues"
+  },
+  "homepage": "https://github.com/zalando-incubator/zally#readme",
+  "dependencies": {
+    "dotenv": "4.0.0",
+    "dotenv-parse-variables": "0.0.1",
+    "express": "4.15.2",
+    "jquery": "3.1.1",
+    "oauth2-client-js": "0.0.15",
+    "react": "15.4.2",
+    "react-dom": "15.4.2",
+    "request": "2.81.0",
+    "winston": "2.3.1"
+  },
+  "devDependencies": {
+    "babel-core": "6.24.0",
+    "babel-loader": "6.4.0",
+    "babel-preset-es2015": "6.24.0",
+    "babel-preset-react": "6.23.0",
+    "node-scm-source": "0.2.0",
+    "nodemon": "1.11.0",
+    "webpack": "2.2.1",
+    "webpack-dev-server": "2.4.2"
+  }
+}
