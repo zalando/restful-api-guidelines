@@ -15,7 +15,7 @@ Minimalistic API linter of awesomeness, bringing order to a sea of APIs.
 - Easy-to-use [CLI](cli/README.md) allows you to check your API *right now*.
 
 
-###Core Technical Concepts
+### Core Technical Concepts
 
 - Parses swagger files using [swagger-parser](https://github.com/swagger-api/swagger-parser)
 - Written in Java 8 with [Spring Boot](https://github.com/spring-projects/spring-boot)
