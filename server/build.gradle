@@ -3,12 +3,13 @@ configurations {
 }
 
 def versions = [
-  jacoco: '0.7.8',
+        jacoco : '0.7.8',
+        jackson: '2.8.7',
 ]
 
 buildscript {
 
-    ext.kotlin_version = '1.1.0'
+    ext.kotlin_version = '1.1.1'
 
     repositories {
         mavenCentral()
@@ -38,7 +39,7 @@ task wrapper(type: Wrapper) {
 
 jar {
     baseName = 'zally'
-    version =  '0.0.1'
+    version = '0.0.1'
 }
 
 repositories {
@@ -58,8 +59,11 @@ dependencies {
     compile("org.zalando:twintip-spring-web:1.1.0")
     compile("org.zalando.zmon:zmon-actuator:0.9.7")
     compile("io.dropwizard.metrics:metrics-core:3.1.0")
-    compile("com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.8.5")
-    compile("com.fasterxml.jackson.module:jackson-module-kotlin:2.8.6")
+    compile("com.fasterxml.jackson.datatype:jackson-datatype-jdk8:${versions.jackson}")
+    compile("com.fasterxml.jackson.module:jackson-module-kotlin:${versions.jackson}") {
+        exclude group: "org.jetbrains.kotlin", module: "kotlin-reflect"
+    }
+    compile("org.jetbrains.kotlin:kotlin-reflect:$kotlin_version")
     compile("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
     testCompile("org.springframework.boot:spring-boot-starter-test")
     testCompile("org.assertj:assertj-core:3.6.1")
@@ -72,9 +76,9 @@ jacoco {
 }
 
 jacocoTestReport {
-  reports {
-    xml.enabled true
-  }
+    reports {
+        xml.enabled true
+    }
 }
 
 task ktlint(type: JavaExec) {
