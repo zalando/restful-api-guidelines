@@ -1,4 +1,5 @@
 import React from 'react';
+import {If} from './util.jsx';
 
 function Violations(props) {
   return (
@@ -23,9 +24,13 @@ function Violation(props) {
 
       <p>{props.violation.description}</p>
 
-      { props.violation.rule_link && <ViolationRuleLink ruleLink={props.violation.rule_link} /> }
+      <If test={() => !!props.violation.rule_link }>
+        <ViolationRuleLink ruleLink={props.violation.rule_link} />
+      </If>
 
-      { props.violation.paths.length && <ViolationPaths paths={props.violation.paths} /> }
+      <If test={() => !!props.violation.paths.length }>
+        <ViolationPaths paths={props.violation.paths} />
+      </If>
     </li>
   )
 }
