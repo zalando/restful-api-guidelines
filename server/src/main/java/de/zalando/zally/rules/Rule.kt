@@ -9,6 +9,7 @@ interface Rule {
     val title: String
     val violationType: ViolationType
     val url: String?
+    val code: String
 
     fun getName(): String
 

@@ -11,6 +11,7 @@ class SecureWithOAuth2Rule : AbstractRule() {
     override val url = "https://zalando.github.io/restful-api-guidelines/security/Security.html" +
             "#must-secure-endpoints-with-oauth-20"
     override val violationType = ViolationType.MUST
+    override val code = "M010"
 
     override fun validate(swagger: Swagger): Violation? {
         val hasOAuth = swagger.securityDefinitions.orEmpty().values.any { it.type?.toLowerCase() == "oauth2" }

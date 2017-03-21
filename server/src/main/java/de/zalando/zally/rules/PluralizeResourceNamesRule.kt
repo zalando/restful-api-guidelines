@@ -13,6 +13,7 @@ class PluralizeResourceNamesRule : AbstractRule() {
     override val url = "http://zalando.github.io/restful-api-guidelines/naming/Naming.html" +
             "#must-pluralize-resource-names"
     override val violationType = ViolationType.SHOULD
+    override val code = "S008"
     val DESC_PATTERN = "Resources %s are singular (but we are not sure)"
 
     override fun validate(swagger: Swagger): Violation? {

@@ -12,6 +12,7 @@ class NestedPathsCouldBeRootPathsRule : AbstractRule() {
     override val url = "http://zalando.github.io/restful-api-guidelines/resources/Resources.html" +
             "#could-consider-using-non-nested-urls"
     override val violationType = ViolationType.COULD
+    override val code = "C001"
     private val DESCRIPTION = "Nested paths / URLs could be top-level resource"
 
     override fun validate(swagger: Swagger): Violation? {

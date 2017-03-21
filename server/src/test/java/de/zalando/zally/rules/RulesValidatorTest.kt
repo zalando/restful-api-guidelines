@@ -18,6 +18,7 @@ class RulesValidatorTest {
         override val title = "Test Rule"
         override val url = null
         override val violationType = ViolationType.MUST
+        override val code = "M999"
         override fun validate(swagger: Swagger): Violation? = result
     }
 

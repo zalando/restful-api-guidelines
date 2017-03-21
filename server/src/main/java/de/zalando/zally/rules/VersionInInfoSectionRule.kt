@@ -12,6 +12,7 @@ class VersionInInfoSectionRule : AbstractRule() {
     override val url = "http://zalando.github.io/restful-api-guidelines/compatibility/Compatibility.html" +
             "#should-provide-version-information-in-openapi-documentation"
     override val violationType = ViolationType.SHOULD
+    override val code = "S009"
     private val DESCRIPTION = "Only the documentation, not the API itself, needs version information. It should be in the " +
             "format MAJOR.MINOR.DRAFT."
 

@@ -12,6 +12,7 @@ class SnakeCaseInPropNameRule : AbstractRule() {
     override val url = "http://zalando.github.io/restful-api-guidelines/json-guidelines/JsonGuidelines.html" +
             "#must-property-names-must-be-snakecase-and-never-camelcase"
     override val violationType = ViolationType.MUST
+    override val code = "M012"
     val description = "Property names must be snake_case (and never camelCase)"
 
     override fun validate(swagger: Swagger): Violation? {

@@ -12,6 +12,7 @@ class PluralizeNamesForArraysRule : AbstractRule() {
     override val url = "http://zalando.github.io/restful-api-guidelines/json-guidelines/JsonGuidelines.html" +
             "#should-array-names-should-be-pluralized"
     override val violationType = ViolationType.SHOULD
+    override val code = "S007"
 
     override fun validate(swagger: Swagger): Violation? {
         val res = swagger.definitions.orEmpty().entries.map { def ->

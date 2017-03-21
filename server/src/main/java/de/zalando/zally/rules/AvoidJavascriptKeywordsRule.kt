@@ -15,6 +15,7 @@ class AvoidJavascriptKeywordsRule : AbstractRule() {
     override val url = "http://zalando.github.io/restful-api-guidelines/naming/Naming.html" +
             "#should-reserved-javascript-keywords-should-be-avoided"
     override val violationType = ViolationType.SHOULD
+    override val code = "S001"
     private val DESC_PATTERN = "Property names should not coinside with reserved javascript keywords"
 
     private val RESERVED_KEYWORDS = setOf(

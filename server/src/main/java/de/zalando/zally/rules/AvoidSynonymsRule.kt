@@ -13,6 +13,7 @@ class AvoidSynonymsRule(@Autowired rulesConfig: Config) : AbstractRule() {
     override val title = "Use common property names"
     override val url = ""
     override val violationType = ViolationType.SHOULD
+    override val code = "S010"
 
     val descPattern = "Property names should utilize common dictionary"
 

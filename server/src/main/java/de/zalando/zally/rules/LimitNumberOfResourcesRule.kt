@@ -11,6 +11,7 @@ class LimitNumberOfResourcesRule : AbstractRule() {
     override val url = "http://zalando.github.io/restful-api-guidelines/resources/Resources.html" +
             "#should-limit-number-of-resources"
     override val violationType = ViolationType.SHOULD
+    override val code = "S002"
     private val PATHS_COUNT_LIMIT = 8
 
     override fun validate(swagger: Swagger): Violation? {

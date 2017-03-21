@@ -43,6 +43,9 @@ public class RestApiTestConfiguration {
         public String getTitle() {
             return "Test Rule";
         }
+
+        @Override
+        public String getCode() { return "M999"; }
     }
 
     @Bean

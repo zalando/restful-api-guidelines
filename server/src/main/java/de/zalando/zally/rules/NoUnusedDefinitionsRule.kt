@@ -23,6 +23,7 @@ class NoUnusedDefinitionsRule : AbstractRule() {
     override val title = "Do not leave unused definitions"
     override val violationType = ViolationType.SHOULD
     override val url = ""
+    override val code = "S005"
 
     override fun validate(swagger: Swagger): Violation? {
         val paramsInPaths = swagger.paths.orEmpty().values.flatMap { path ->

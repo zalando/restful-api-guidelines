@@ -11,6 +11,7 @@ class PascalCaseHttpHeadersRule : HttpHeadersRule() {
     override val url = "http://zalando.github.io/restful-api-guidelines/naming/Naming.html" +
             "#should-prefer-hyphenatedpascalcase-for-http-header-fields"
     override val violationType = ViolationType.SHOULD
+    override val code = "S006"
 
     override fun isViolation(header: String) = !PatternUtil.isHyphenatedPascalCase(header)
 
