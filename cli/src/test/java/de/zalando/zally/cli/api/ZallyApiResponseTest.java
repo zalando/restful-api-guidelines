@@ -3,9 +3,8 @@ package de.zalando.zally.cli.api;
 import static org.junit.Assert.assertEquals;
 
 import de.zalando.zally.cli.domain.Violation;
-import java.util.List;
-
 import de.zalando.zally.cli.domain.ViolationsCount;
+import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Test;

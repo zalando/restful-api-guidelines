@@ -3,6 +3,7 @@ package de.zalando.zally.cli.api;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import com.mashape.unirest.request.HttpRequestWithBody;
 import de.zalando.zally.cli.exception.CliException;
 import de.zalando.zally.cli.exception.CliExceptionType;
 import java.security.KeyManagementException;
@@ -77,12 +78,15 @@ public class ZallyApiClient {
 
     private HttpResponse<String> requestViolationsReport(final String requestBody) throws CliException {
         try {
-            return Unirest
+            HttpRequestWithBody request = Unirest
                     .post(url)
-                    .header("Authorization", "Bearer " + token)
-                    .header("Content-Type", "application/json")
-                    .body(requestBody)
-                    .asString();
+                    .header("Content-Type", "application/json");
+
+            if (token != null && !token.isEmpty()) {
+                request = request.header("Authorization", "Bearer " + token);
+            }
+
+            return request.body(requestBody).asString();
         } catch (UnirestException exception) {
             String details = exception.getCause() == null ? exception.getMessage() : exception.getCause().getMessage();
             throw new CliException(
