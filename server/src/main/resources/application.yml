@@ -20,3 +20,5 @@ security:
 twintip:
   mapping: /api
   yaml: "classpath:/api/zally-api.yaml"
+
+rules-config-path: "rules-config.conf"

@@ -7,7 +7,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
 class AvoidSynonymsRuleTest {
-    val ruleConfig = ConfigFactory.load("rules-config.conf")
+    val ruleConfig = ConfigFactory.load("rules-config-test.conf")
 
     @Test
     fun positiveCase() {
