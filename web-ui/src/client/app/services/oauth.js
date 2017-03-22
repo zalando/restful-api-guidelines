@@ -29,7 +29,7 @@ function checkTokenIsValid() {
     return response.json();
   })
   .catch((error) => {
-    console.error(error);
+    console.error(error); // eslint-disable-line no-console
     requestToken();
     return Promise.reject(error);
   });

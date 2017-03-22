@@ -9,6 +9,7 @@ before_install:
   - sudo add-apt-repository ppa:duggan/bats --yes
   - sudo apt-get update -qq
   - sudo apt-get install -qq bats
+  - nvm install 7.7 # web-ui
 
   # Codacy coverage
   - curl -sL https://github.com/jpm4j/jpm4j.installers/raw/master/dist/biz.aQute.jpm.run.jar >jpm4j.jar
@@ -44,6 +45,14 @@ script:
 
   # Kill Zally server instace
   - kill -9 `cat /tmp/zally_server.pid`
+
+  # web-ui
+  - nvm use 7.7
+  - node --version
+  - npm --version
+  - cd web-ui/
+  - npm install -q
+  - npm test
 
 after_success:
   - ~/jpm/bin/codacy-coverage-reporter --language Java --coverageReport cli/build/reports/jacoco/test/jacocoTestReport.xml -t $CODACY_PROJECT_TOKEN
