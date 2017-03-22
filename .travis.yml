@@ -9,6 +9,7 @@ before_install:
   - sudo add-apt-repository ppa:duggan/bats --yes
   - sudo apt-get update -qq
   - sudo apt-get install -qq bats
+  - nvm install 7.7 # web-ui
 
   # Codacy coverage
   - curl -sL https://github.com/jpm4j/jpm4j.installers/raw/master/dist/biz.aQute.jpm.run.jar >jpm4j.jar
@@ -27,6 +28,16 @@ script:
   # Unit-test and build server
   - cd server/
   - ./gradlew build --info
+  - cd ..
+
+  # web-ui
+  - nvm use 7.7
+  - node --version
+  - npm --version
+  - cd web-ui/
+  - npm install -q
+  - npm test
+  - npm run build
   - cd ..
 
   # Launch local zally server
