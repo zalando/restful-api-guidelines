@@ -30,6 +30,16 @@ script:
   - ./gradlew build --info
   - cd ..
 
+  # web-ui
+  - nvm use 7.7
+  - node --version
+  - npm --version
+  - cd web-ui/
+  - npm install -q
+  - npm test
+  - npm run build
+  - cd ..
+
   # Launch local zally server
   - cd server/
   - echo "spring.profiles.active=dev" > application.properties
@@ -45,14 +55,6 @@ script:
 
   # Kill Zally server instace
   - kill -9 `cat /tmp/zally_server.pid`
-
-  # web-ui
-  - nvm use 7.7
-  - node --version
-  - npm --version
-  - cd web-ui/
-  - npm install -q
-  - npm test
 
 after_success:
   - ~/jpm/bin/codacy-coverage-reporter --language Java --coverageReport cli/build/reports/jacoco/test/jacocoTestReport.xml -t $CODACY_PROJECT_TOKEN
