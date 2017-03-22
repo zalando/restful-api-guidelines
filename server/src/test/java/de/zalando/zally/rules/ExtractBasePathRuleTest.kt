@@ -3,7 +3,7 @@ package de.zalando.zally.rules
 import de.zalando.zally.Violation
 import de.zalando.zally.ViolationType
 import de.zalando.zally.getFixture
-import io.swagger.models.Path
+import de.zalando.zally.swaggerWithPaths
 import io.swagger.models.Swagger
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
@@ -17,13 +17,13 @@ class ExtractBasePathRuleTest {
 
     @Test
     fun simplePositiveCase() {
-        val swagger = createSwaggerWithPaths("/orders/{order_id}", "/orders/{updates}", "/merchants")
+        val swagger = swaggerWithPaths("/orders/{order_id}", "/orders/{updates}", "/merchants")
         assertThat(ExtractBasePathRule().validate(swagger)).isNull()
     }
 
     @Test
     fun simpleNegativeCase() {
-        val swagger = createSwaggerWithPaths(
+        val swagger = swaggerWithPaths(
                 "/shipment/{shipment_id}",
                 "/shipment/{shipment_id}/status",
                 "/shipment/{shipment_id}/details"
@@ -36,7 +36,7 @@ class ExtractBasePathRuleTest {
 
     @Test
     fun multipleResourceNegativeCase() {
-        val swagger = createSwaggerWithPaths(
+        val swagger = swaggerWithPaths(
                 "/queue/models/configs/{config-id}",
                 "/queue/models/",
                 "/queue/models/{model-id}",
@@ -50,7 +50,7 @@ class ExtractBasePathRuleTest {
 
     @Test
     fun negativeIfResourceLevelIsOnlyRootLevel() {
-        val swagger = createSwaggerWithPaths(
+        val swagger = swaggerWithPaths(
                 "/shipment/{shipment_id}",
                 "/shipment/{shipment_id}",
                 "/shipment/{shipment_id}"
@@ -69,9 +69,4 @@ class ExtractBasePathRuleTest {
         val swagger = getFixture("api_tinbox.yaml")
         assertThat(ExtractBasePathRule().validate(swagger)).isNull()
     }
-
-    private fun createSwaggerWithPaths(vararg testPaths: String) =
-            Swagger().apply {
-                paths = testPaths.map { it to Path() }.toMap()
-            }
 }
