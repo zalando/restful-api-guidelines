@@ -1,6 +1,5 @@
 import React from 'react';
-import RestService from '../rest';
-import Violations from './violations.jsx'
+import {Violations} from './violations.jsx'
 import {Msg} from './dress-code.jsx';
 
 const css = `
@@ -35,7 +34,7 @@ export default class Form extends React.Component {
 
     this.setState({ error: null, loading: true });
 
-    RestService
+    this.props.RestService
       .getApiViolations(this.state.inputValue)
       .then((response) => {
         this.setState({
