@@ -1,3 +1,5 @@
+'use strict';
+
 const webpack = require('webpack');
 const path = require('path');
 const pkg = require('./package.json');
@@ -5,7 +7,7 @@ const pkg = require('./package.json');
 const BUILD_DIR = path.resolve(__dirname, 'src/client/public/assets');
 const APP_DIR = path.resolve(__dirname, 'src/client/app');
 
-var config = {
+const config = {
   entry: APP_DIR + '/index.jsx',
   output: {
     path: BUILD_DIR,

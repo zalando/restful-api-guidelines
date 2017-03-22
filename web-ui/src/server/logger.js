@@ -1,3 +1,5 @@
+'use strict';
+
 const env = require('./env');
 const winston = require('winston');
 
