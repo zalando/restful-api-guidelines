@@ -7,22 +7,16 @@ const path = require('path');
 const app = express();
 const logger = require('./logger');
 const createHttpServer = require('./create-http-server');
+const webpackDevServerProxy = require('./webpack-dev-server-proxy');
 const ASSETS_DIR = path.resolve(__dirname, '../client/public/assets');
 
 
 /**
- * Use webpack middleware just in development
+ * Proxy to webpack-dev-server for development
  */
-if (process.env.NODE_ENV === 'development') {
-  const webpackDevMiddleware = require('webpack-dev-middleware');
-  const webpack = require('webpack');
-  const webpackConfig = require('../../webpack.config');
-  const compiler = webpack(webpackConfig);
-
-  app.use(webpackDevMiddleware(compiler, {
-    publicPath: '/assets/',
-    stats: { colors: true }
-  }));
+if(env.NODE_ENV === 'development') {
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+  webpackDevServerProxy(app, require('../../webpack.config'));
 }
 
 /**
@@ -76,6 +70,6 @@ app.get('/health', (req, res) => {
  * Start listening for connections
  */
 createHttpServer(app).listen(env.PORT, () => {
-  logger.info(`listening on port ${env.PORT}, NODE_ENV=${env.NODE_ENV}`);
+  logger.info(`application server running at ${env.SSL_ENABLED ? 'https': 'http'}://localhost:${env.PORT}, NODE_ENV=${env.NODE_ENV}`);
 });
 

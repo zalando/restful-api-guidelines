@@ -1,5 +1,6 @@
 'use strict';
 
+const env = require('./src/server/env');
 const webpack = require('webpack');
 const path = require('path');
 const pkg = require('./package.json');
@@ -28,7 +29,13 @@ const config = {
 @version ${pkg.version}
 @license ${pkg.license}
     `)
-  ]
+  ],
+  devtool: 'source-map',
+  devServer: {
+    https: env.DEV_SSL_ENABLED,
+    port: env.DEV_PORT,
+    publicPath: '/assets/'
+  }
 };
 
 module.exports = config;
