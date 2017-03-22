@@ -30,8 +30,9 @@ public class RestApiViolationsTest extends RestApiBaseTest {
         assertThat(rootObject.has("violations")).isTrue();
 
         JsonNode violations = rootObject.get("violations");
-        assertThat(violations).hasSize(1);
+        assertThat(violations).hasSize(2);
         assertThat(violations.get(0).get("title").asText()).isEqualTo("dummy1");
+        assertThat(violations.get(1).get("title").asText()).isEqualTo("dummy2");
 
         String message = rootObject.get("message").asText();
         assertThat(message).isEqualTo("Test message");
@@ -47,7 +48,7 @@ public class RestApiViolationsTest extends RestApiBaseTest {
         assertThat(counters.get("must").asInt()).isEqualTo(1);
         assertThat(counters.get("should").asInt()).isEqualTo(0);
         assertThat(counters.get("could").asInt()).isEqualTo(0);
-        assertThat(counters.get("hint").asInt()).isEqualTo(0);
+        assertThat(counters.get("hint").asInt()).isEqualTo(1);
     }
 
     @Test

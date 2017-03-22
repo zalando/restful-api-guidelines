@@ -1,16 +1,24 @@
 package de.zalando.zally;
 
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 import de.zalando.zally.rules.AbstractRule;
+import de.zalando.zally.rules.Rule;
+import de.zalando.zally.rules.RulesPolicy;
 import de.zalando.zally.rules.RulesValidator;
 import io.swagger.models.Swagger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
 @Configuration
 public class RestApiTestConfiguration {
+
+    @Autowired
+    private RulesPolicy rulesPolicy;
 
     private static class CheckApiNameIsPresentRule extends AbstractRule {
 
@@ -48,9 +56,40 @@ public class RestApiTestConfiguration {
         public String getCode() { return "M999"; }
     }
 
+    private static class AlwaysGiveAHintRule extends AbstractRule {
+        @Override
+        public Violation validate(Swagger swagger) {
+            return new Violation(
+                    new AlwaysGiveAHintRule(),
+                    "dummy2", "dummy", ViolationType.HINT, "dummy", Collections.emptyList());
+        }
+
+        @Override
+        public String getUrl() {
+            return null;
+        }
+
+        @Override
+        public ViolationType getViolationType() {
+            return ViolationType.MUST;
+        }
+
+        @Override
+        public String getTitle() {
+            return "Test Hint Rule";
+        }
+
+        @Override
+        public String getCode() { return "H999"; }
+    }
+
     @Bean
     @Primary
     public RulesValidator validator() {
-        return new RulesValidator(Collections.singletonList(new CheckApiNameIsPresentRule("Product Service")));
+        final List<Rule> rules = Arrays.asList(
+                new CheckApiNameIsPresentRule("Product Service"),
+                new AlwaysGiveAHintRule()
+        );
+        return new RulesValidator(rules, rulesPolicy);
     }
 }
