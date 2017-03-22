@@ -10,7 +10,7 @@
     "start": "NODE_ENV=production node src/server/index.js",
     "dev": "webpack-dev-server & NODE_ENV=development nodemon src/server/index.js",
     "build": "webpack -p",
-    "docker:build": "scm-source > scm-source.json && docker build -t pierone.stups.zalan.do/architecture/zally-web-ui:${npm_package_version}-$(date +%s) .",
+    "docker:build": "npm run build && scm-source > scm-source.json && docker build -t pierone.stups.zalan.do/architecture/zally-web-ui:${npm_package_version}-$(date +%s) .",
     "lint": "eslint src",
     "test": "npm run lint",
     "lint:checkstyle-report": "npm run lint -- -f checkstyle --output-file target/checkstyle.xml"
