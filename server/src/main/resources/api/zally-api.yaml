@@ -72,7 +72,7 @@ definitions:
     type: object
     description: Request containing a swagger definition file
     properties:
-      api_defintion:
+      api_definition:
         type: object
 
   LintingResponse:
