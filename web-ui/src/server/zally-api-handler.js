@@ -10,10 +10,8 @@ function parseSchema(text) {
     // try json first
     return JSON.parse(text);
   } catch(err) {
-    logger.error(err);
+    return yaml.safeLoad(text);
   }
-
-  return yaml.safeLoad(text);
 }
 
 module.exports = async function (req, res) {
