@@ -1,3 +1,5 @@
+[![dependencies Status](https://david-dm.org/zalando-incubator/zally/status.svg?path=web-ui)](https://david-dm.org/zalando-incubator/zally?path=web-ui)
+
 Zally WEB-UI
 ============
 
@@ -83,3 +85,7 @@ npm run build
 npm run docker:build
 ```
 
+## Contributing
+People interested contributing to the web-ui project can open issues and related pull requests. 
+
+Before opening PRs, be sure the test are running by executing `npm test`.

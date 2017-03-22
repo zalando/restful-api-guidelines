@@ -1,10 +1,12 @@
+'use strict';
+
 const dotenv = require('dotenv').config();
 const dotenvParsedVariables = require('dotenv-parse-variables').default(dotenv.parsed || {});
 
 const defaults = {
   PORT: 8442,
   SSL_ENABLED: false,
-  SSL_CERT: "cert",
+  SSL_CERT: 'cert',
   OAUTH_ENABLED: false,
   OAUTH_AUTHORIZATION_URL: '',
   OAUTH_REDIRECT_URI: '',
@@ -41,6 +43,6 @@ const publicEnv = publicEnvKeys.reduce((acc, key) => {
   return acc;
 }, {});
 
-env.public = () => { return publicEnv };
+env.public = () => { return publicEnv; };
 
 module.exports = env;

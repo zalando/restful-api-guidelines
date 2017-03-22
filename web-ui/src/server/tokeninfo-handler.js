@@ -1,9 +1,11 @@
+'use strict';
+
 const env = require('./env');
 const request = require('request');
 const logger = require('./logger');
 
 module.exports = function (req, res) {
-  var url = env.OAUTH_TOKENINFO_URL;
+  const url = env.OAUTH_TOKENINFO_URL;
   logger.debug(`Proxying request to: ${url}`);
   req.pipe(request(url)).pipe(res);
 };
