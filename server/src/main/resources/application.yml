@@ -22,3 +22,7 @@ twintip:
   yaml: "classpath:/api/zally-api.yaml"
 
 rules-config-path: "rules-config.conf"
+
+# TODO: S001 is disabled because Zalando's API guidelines changed. Enable it once the rule get fixed
+zally:
+  ignoreRules: S001
