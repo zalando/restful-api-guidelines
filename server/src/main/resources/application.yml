@@ -23,6 +23,6 @@ twintip:
 
 rules-config-path: "rules-config.conf"
 
-# TODO: S001 is disabled because Zalando's API guidelines changed. Enable it once the rule get fixed
+# TODO: S001 is disabled because Zalando's API guidelines changed.
 zally:
   ignoreRules: S001
