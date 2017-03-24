@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component
  * on set of rules. It will sort the output by path.
  */
 @Component
-class RulesValidator(@Autowired val rules: List<Rule>) {
+class RulesValidator(@Autowired val rules: List<Rule>, @Autowired val rulesPolicy: RulesPolicy) {
 
     fun validate(swaggerContent: String): List<Violation> {
         val swagger = try {
@@ -20,6 +20,10 @@ class RulesValidator(@Autowired val rules: List<Rule>) {
             return listOf(Violation(InvalidSwaggerFileDummyRule(), "Can't parse swagger file",
                     e.toString(), ViolationType.MUST, "", emptyList()))
         }
-        return rules.map { it.validate(swagger) }.filterNotNull().sortedBy { it.violationType }
+        return rules
+                .filter { rule -> rulesPolicy.accepts(rule) }
+                .map { it.validate(swagger) }
+                .filterNotNull()
+                .sortedBy { it.violationType }
     }
 }

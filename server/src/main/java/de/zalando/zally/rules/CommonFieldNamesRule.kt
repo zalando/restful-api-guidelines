@@ -13,6 +13,7 @@ class CommonFieldNamesRule : AbstractRule() {
     override val url = "http://zalando.github.io/restful-api-guidelines/common-data-objects/CommonDataObjects.html" +
             "#must-use-common-field-names"
     override val violationType = ViolationType.MUST
+    override val code = "M003"
 
     override fun validate(swagger: Swagger): Violation? {
         val definitions = swagger.definitions.orEmpty()

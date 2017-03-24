@@ -12,6 +12,7 @@ class LimitNumberOfSubresourcesRule : AbstractRule() {
     override val url = "http://zalando.github.io/restful-api-guidelines/resources/Resources.html" +
             "#should-limit-number-of-subresource-levels"
     override val violationType = ViolationType.SHOULD
+    override val code = "S003"
     private val DESC = "Number of sub-resources should not exceed 3"
     private val SUBRESOURCES_LIMIT = 3
 

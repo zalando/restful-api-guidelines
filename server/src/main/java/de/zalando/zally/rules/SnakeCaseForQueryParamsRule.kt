@@ -16,6 +16,7 @@ class SnakeCaseForQueryParamsRule : AbstractRule() {
     override val url = "http://zalando.github.io/restful-api-guidelines/naming/Naming.html" +
             "#must-use-snakecase-never-camelcase-for-query-parameters"
     override val violationType = ViolationType.MUST
+    override val code = "M011"
 
     override fun validate(swagger: Swagger): Violation? {
         val result = swagger.paths.orEmpty().flatMap { (path, pathObject) ->

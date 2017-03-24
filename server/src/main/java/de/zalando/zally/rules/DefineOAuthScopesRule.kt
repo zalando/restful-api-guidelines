@@ -14,6 +14,7 @@ class DefineOAuthScopesRule : AbstractRule() {
     override val url = "http://zalando.github.io/restful-api-guidelines/security/Security.html" +
             "#must-secure-endpoints-with-oauth-20"
     override val violationType = MUST
+    override val code = "M004"
     private val DESC = "Every endpoint must be secured by proper OAuth2 scope"
 
     override fun validate(swagger: Swagger): Violation? {

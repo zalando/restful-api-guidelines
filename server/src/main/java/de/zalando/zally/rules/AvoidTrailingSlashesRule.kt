@@ -11,6 +11,7 @@ class AvoidTrailingSlashesRule : AbstractRule() {
     override val title = "Avoid Trailing Slashes"
     override val url = "http://zalando.github.io/restful-api-guidelines/naming/Naming.html"
     override val violationType = ViolationType.MUST
+    override val code = "M002"
     private val DESCRIPTION = "Rule avoid trailing slashes is not followed"
 
     override fun validate(swagger: Swagger): Violation? {

@@ -13,6 +13,7 @@ class KebabCaseInPathSegmentsRule : AbstractRule() {
     override val url = "http://zalando.github.io/restful-api-guidelines/naming/Naming.html" +
             "#must-use-lowercase-separate-words-with-hyphens-for-path-segments"
     override val violationType = ViolationType.MUST
+    override val code = "M007"
     private val description = "Use lowercase separate words with hyphens for path segments"
 
     override fun validate(swagger: Swagger): Violation? {
