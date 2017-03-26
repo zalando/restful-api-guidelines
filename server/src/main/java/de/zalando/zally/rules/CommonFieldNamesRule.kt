@@ -2,6 +2,7 @@ package de.zalando.zally.rules
 
 import de.zalando.zally.Violation
 import de.zalando.zally.ViolationType
+import de.zalando.zally.utils.getAllDefinitions
 import io.swagger.models.Swagger
 import io.swagger.models.properties.Property
 import io.swagger.models.properties.StringProperty
@@ -16,13 +17,11 @@ class CommonFieldNamesRule : AbstractRule() {
     override val code = "M003"
 
     override fun validate(swagger: Swagger): Violation? {
-        val definitions = swagger.definitions.orEmpty()
-        val res = definitions.entries.map { def ->
-            val badProps = def.value.properties.orEmpty().entries.map { checkField(it.key, it.value) }.filterNotNull()
-            if (badProps.isNotEmpty()) {
-                val propsDesc = badProps.joinToString(", ")
-                "Definition ${def.key}: $propsDesc" to "#/definitions/${def.key}"
-            } else null
+        val res = swagger.getAllDefinitions().map { (def, path) ->
+            val badProps = def.properties.orEmpty().entries.map { checkField(it.key, it.value) }.filterNotNull()
+            if (badProps.isNotEmpty())
+                (path + ": " + badProps.joinToString(", ")) to path
+            else null
         }.filterNotNull()
 
         return if (res.isNotEmpty()) {

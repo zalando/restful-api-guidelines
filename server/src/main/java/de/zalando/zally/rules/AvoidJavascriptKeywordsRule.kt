@@ -2,6 +2,7 @@ package de.zalando.zally.rules
 
 import de.zalando.zally.Violation
 import de.zalando.zally.ViolationType
+import de.zalando.zally.utils.getAllDefinitions
 import io.swagger.models.Swagger
 import org.springframework.stereotype.Component
 
@@ -13,7 +14,7 @@ class AvoidJavascriptKeywordsRule : AbstractRule() {
             "#should-reserved-javascript-keywords-should-be-avoided"
     override val violationType = ViolationType.SHOULD
     override val code = "S001"
-    private val DESC_PATTERN = "Property names should not coinside with reserved javascript keywords"
+    private val DESC_PATTERN = "Property names should not coincide with reserved javascript keywords"
 
     private val RESERVED_KEYWORDS = setOf(
             "break", "do", "in", "typeof", "case", "else", "instanceof", "var", "catch", "export", "new", "void",
@@ -22,11 +23,13 @@ class AvoidJavascriptKeywordsRule : AbstractRule() {
     )
 
     override fun validate(swagger: Swagger): Violation? {
-        val definitions = swagger.definitions ?: emptyMap()
-        val paths = definitions.flatMap { entry ->
-            val props = entry.value.properties ?: emptyMap()
-            props.keys.filter { it in RESERVED_KEYWORDS }.map { entry.key + "." + it }
+        val result = swagger.getAllDefinitions().flatMap { (def, path) ->
+            val badProps = def.properties.orEmpty().keys.filter { it in RESERVED_KEYWORDS }
+            if (badProps.isNotEmpty()) listOf(path + ": " + badProps.joinToString(", ") to path) else emptyList()
         }
-        return if (paths.isNotEmpty()) Violation(this, title, DESC_PATTERN, violationType, url, paths) else null
+        return if (result.isNotEmpty()) {
+            val (props, paths) = result.unzip()
+            Violation(this, title, DESC_PATTERN + "\n" + props.joinToString("\n"), violationType, url, paths)
+        } else null
     }
 }
