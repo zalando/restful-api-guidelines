@@ -47,7 +47,14 @@ export default class Form extends React.Component {
         console.error(error);
         this.setState({
           loading: false,
-          error: 'Ooops something went wrong!'
+          error: 'Ooops something went wrong!',
+          violations: [],
+          violationsCount: {
+            could: 0,
+            hint: 0,
+            must: 0,
+            should: 0
+          }
         })
       })
   }
