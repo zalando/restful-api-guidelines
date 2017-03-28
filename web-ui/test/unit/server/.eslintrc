@@ -1,0 +1,12 @@
+plugins:
+  - jest
+
+env:
+  jest: true
+  node: true
+
+rules:
+  # Jest
+  jest/no-disabled-tests: 1
+  jest/no-focused-tests: 1
+  jest/no-identical-title: 2
