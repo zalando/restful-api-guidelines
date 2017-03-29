@@ -2,7 +2,7 @@ package de.zalando.zally.rules
 
 import de.zalando.zally.Violation
 import de.zalando.zally.ViolationType
-import de.zalando.zally.utils.getAllDefinitions
+import de.zalando.zally.utils.getAllJsonObjects
 import io.swagger.models.Swagger
 import io.swagger.models.properties.Property
 import io.swagger.models.properties.StringProperty
@@ -17,8 +17,8 @@ class CommonFieldNamesRule : AbstractRule() {
     override val code = "M003"
 
     override fun validate(swagger: Swagger): Violation? {
-        val res = swagger.getAllDefinitions().map { (def, path) ->
-            val badProps = def.properties.orEmpty().entries.map { checkField(it.key, it.value) }.filterNotNull()
+        val res = swagger.getAllJsonObjects().map { (def, path) ->
+            val badProps = def.entries.map { checkField(it.key, it.value) }.filterNotNull()
             if (badProps.isNotEmpty())
                 (path + ": " + badProps.joinToString(", ")) to path
             else null

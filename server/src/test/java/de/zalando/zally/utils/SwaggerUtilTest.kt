@@ -9,21 +9,21 @@ class SwaggerUtilTest {
     @Test
     fun `empty swagger has no definitions`() {
         val swagger = Swagger()
-        assertThat(swagger.getAllDefinitions()).isEmpty()
+        assertThat(swagger.getAllJsonObjects()).isEmpty()
     }
 
     @Test
     fun `should find all definitions`() {
         val swagger = getFixture("all_definitions.yaml")
-        assertThat(swagger.getAllDefinitions().map { it.second }).containsExactly(
+        assertThat(swagger.getAllJsonObjects().map { it.second }).hasSameElementsAs(listOf(
                 "/pets GET 404 items",
-                "/pets POST name",
+                "/pets/{petId} GET 200",
+                "/pets/{petId} GET 200 size",
                 "/pets/{petId} GET 200 owners items",
                 "/pets/{petId} GET no_limit",
                 "/pets/{petId} GET no_limit limit_desc",
                 "#/definitions/Pet",
-                "#/definitions/Pets",
-                "#/definitions/Names",
+                "#/definitions/Names items",
                 "#/definitions/Nickname",
                 "#/definitions/PetName",
                 "#/definitions/Importance",
@@ -31,6 +31,6 @@ class SwaggerUtilTest {
                 "#/definitions/PetName last_name",
                 "#/definitions/PetName middle_name items",
                 "#/definitions/Error"
-        )
+        ))
     }
 }

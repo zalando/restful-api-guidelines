@@ -3,7 +3,7 @@ package de.zalando.zally.rules
 import de.zalando.zally.Violation
 import de.zalando.zally.ViolationType
 import de.zalando.zally.utils.PatternUtil
-import de.zalando.zally.utils.getAllDefinitions
+import de.zalando.zally.utils.getAllJsonObjects
 import io.swagger.models.Swagger
 import org.springframework.stereotype.Component
 
@@ -17,8 +17,8 @@ class SnakeCaseInPropNameRule : AbstractRule() {
     val description = "Property names must be snake_case (and never camelCase)"
 
     override fun validate(swagger: Swagger): Violation? {
-        val result = swagger.getAllDefinitions().flatMap { (def, path) ->
-            val badProps = def.properties.orEmpty().keys.filterNot(PatternUtil::isSnakeCase)
+        val result = swagger.getAllJsonObjects().flatMap { (def, path) ->
+            val badProps = def.keys.filterNot(PatternUtil::isSnakeCase)
             if (badProps.isNotEmpty()) listOf(badProps to path) else emptyList()
         }
         return if (result.isNotEmpty()) {

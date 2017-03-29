@@ -3,7 +3,7 @@ package de.zalando.zally.rules
 import com.typesafe.config.Config
 import de.zalando.zally.Violation
 import de.zalando.zally.ViolationType
-import de.zalando.zally.utils.getAllDefinitions
+import de.zalando.zally.utils.getAllJsonObjects
 import io.swagger.models.Swagger
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
@@ -24,8 +24,8 @@ class AvoidSynonymsRule(@Autowired rulesConfig: Config) : AbstractRule() {
 
     override fun validate(swagger: Swagger): Violation? {
         val reversedDictionary = commonDictionary.flatMap { (canonical, synonyms) -> synonyms.map { it to canonical } }.toMap()
-        val result = swagger.getAllDefinitions().flatMap { (def, path) ->
-            def.properties.orEmpty().keys.filter { it in reversedDictionary }.map { it to path }
+        val result = swagger.getAllJsonObjects().flatMap { (def, path) ->
+            def.keys.filter { it in reversedDictionary }.map { it to path }
         }
         return if (result.isNotEmpty()) {
             val (names, paths) = result.unzip()

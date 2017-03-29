@@ -2,7 +2,7 @@ package de.zalando.zally.rules
 
 import de.zalando.zally.Violation
 import de.zalando.zally.ViolationType
-import de.zalando.zally.utils.getAllDefinitions
+import de.zalando.zally.utils.getAllJsonObjects
 import io.swagger.models.Swagger
 import org.springframework.stereotype.Component
 
@@ -23,8 +23,8 @@ class AvoidJavascriptKeywordsRule : AbstractRule() {
     )
 
     override fun validate(swagger: Swagger): Violation? {
-        val result = swagger.getAllDefinitions().flatMap { (def, path) ->
-            val badProps = def.properties.orEmpty().keys.filter { it in RESERVED_KEYWORDS }
+        val result = swagger.getAllJsonObjects().flatMap { (def, path) ->
+            val badProps = def.keys.filter { it in RESERVED_KEYWORDS }
             if (badProps.isNotEmpty()) listOf(path + ": " + badProps.joinToString(", ") to path) else emptyList()
         }
         return if (result.isNotEmpty()) {
