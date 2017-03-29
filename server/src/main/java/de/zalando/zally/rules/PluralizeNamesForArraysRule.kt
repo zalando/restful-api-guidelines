@@ -16,7 +16,7 @@ class PluralizeNamesForArraysRule : AbstractRule() {
     override val code = "S007"
 
     override fun validate(swagger: Swagger): Violation? {
-        val res = swagger.getAllJsonObjects().orEmpty().map { (def, path) ->
+        val res = swagger.getAllJsonObjects().map { (def, path) ->
             val badProps = def.entries.filter { "array" == it.value.type && !isPlural(it.key) }
             if (badProps.isNotEmpty()) {
                 val propsDesc = badProps.map { "'${it.key}'" }.joinToString(",")

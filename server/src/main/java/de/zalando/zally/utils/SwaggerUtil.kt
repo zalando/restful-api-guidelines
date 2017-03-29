@@ -36,14 +36,13 @@ fun Swagger.getAllJsonObjects(): List<ObjectDefinition> {
     return (fromPaths + fromDefinitions).toSet().toList()
 }
 
-private fun Swagger.findJsonObjects(obj: Map<String, Property>?, path: String, visitedPaths: MutableSet<String>): List<ObjectDefinition> {
-    return if (path !in visitedPaths) {
+private fun Swagger.findJsonObjects(obj: Map<String, Property>?, path: String, visitedPaths: MutableSet<String>): List<ObjectDefinition> =
+    if (path !in visitedPaths) {
         visitedPaths += path
         listOf(ObjectDefinition(obj.orEmpty(), path)) + obj.orEmpty().flatMap { (name, property) ->
             findJsonObjects(property, "$path $name", visitedPaths)
         }
     } else emptyList()
-}
 
 private fun Swagger.findJsonObjects(property: Property?, path: String, visitedPaths: MutableSet<String>): List<ObjectDefinition> =
         when (property) {
