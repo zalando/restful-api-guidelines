@@ -48,7 +48,7 @@ function ViolationType(props) {
 function ViolationRuleLink(props) {
   return (
     <p>
-      Rule: <a href="{props.ruleLink}" className="dc-link">{props.ruleLink}</a>
+      Rule: <a href={props.ruleLink} className="dc-link">{props.ruleLink}</a>
     </p>
   )
 }
