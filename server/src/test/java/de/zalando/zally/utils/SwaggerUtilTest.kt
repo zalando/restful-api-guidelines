@@ -15,7 +15,7 @@ class SwaggerUtilTest {
     @Test
     fun `should find all definitions`() {
         val swagger = getFixture("all_definitions.yaml")
-        assertThat(swagger.getAllJsonObjects().map { it.second }).hasSameElementsAs(listOf(
+        assertThat(swagger.getAllJsonObjects().map { it.path }).hasSameElementsAs(listOf(
                 "/pets GET 404 items",
                 "/pets/{petId} GET 200",
                 "/pets/{petId} GET 200 size",
@@ -32,5 +32,17 @@ class SwaggerUtilTest {
                 "#/definitions/PetName middle_name items",
                 "#/definitions/Error"
         ))
+    }
+
+    @Test
+    fun `should be able to handle spp api`() {
+        val swagger = getFixture("api_spp.json")
+        assertThat(swagger.getAllJsonObjects()).isNotEmpty
+    }
+
+    @Test
+    fun `should be able to handle tinbox api`() {
+        val swagger = getFixture("api_tinbox.yaml")
+        assertThat(swagger.getAllJsonObjects()).isNotEmpty
     }
 }
