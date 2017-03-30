@@ -66,6 +66,10 @@ dependencies {
     compile("org.jetbrains.kotlin:kotlin-reflect:$kotlin_version")
     compile("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
     compile("com.typesafe:config:1.2.1")
+
+    testCompile("net.jadler:jadler-core:1.3.0")
+    testCompile("net.jadler:jadler-jdk:1.3.0")
+    testCompile("net.jadler:jadler-junit:1.3.0")
     testCompile("org.springframework.boot:spring-boot-starter-test")
     testCompile("org.assertj:assertj-core:3.6.1")
 
