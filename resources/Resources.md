@@ -10,10 +10,10 @@ Request:
 
 The added benefit is that you already have a service for browsing and filtering article locks.
 
-## {{book.should}} Model compleate business processe
-Resources should be designed to represent business processes to prevent thin wrappers around databases that normally tend to shift business logic from service to clients.
+## {{book.should}} Model complete business processe
+An API should contain the complete business processes containing all resources representing the process. This enables clients to understand the business process, foster a consistent design of the business process, allow for synergies from description and implementation perspective, and eliminates implicit invisible dependencies between APIs.
 
-An API should contain the complete business processes with respect to its representing resources, to enable clients to understand the business process, to foster a consistent design of the business process, to allow for synergies from description and implementation perspective, and to prevent implicit invisible dependencies between APIs.
+In addition, it prevents services from being designed as thin wrappers around databases, which normally tends to shift business logic to the clients.
 
 ## {{ book.should }} Define *useful* resources
 
@@ -25,7 +25,7 @@ clients to specify their needs for more/less information by supporting filtering
 ## {{ book.must }} Keep URLs Verb-Free
 
 The API describes resources, so the only place where actions should appear is in the HTTP methods.
-In URLs, use only nouns. Instead of thinking of actions (verbs), it often helps to think about putting a message in a letter box: E.g. indead of having the verb *cancel* in the url, think of sending a message to cancel an order to the *cancallations* letter box on the server side.
+In URLs, use only nouns. Instead of thinking of actions (verbs), it's often helpful to think about putting a message in a letter box: E.g. indead of having the verb *cancel* in the url, think of sending a message to cancel an order to the *cancallations* letter box on the server side.
 
 ## {{ book.must }} Use Domain-Specific Resource Names
 
@@ -105,7 +105,7 @@ However, if the resource can be accessed directly via its unique id, then the AP
 
 To keep maintenance and service evolution manageable, we should follow "functional segmentation" and "separation of concern" design principles and do not mix different business functionalities in same API definition. In this sense the number of resources exposed via API should be limited - our experience is that a typical range of resources for a well-designed API is between 4 and 8. There may be exceptions with more complex business domains that require more resources, but you should first check if you can split them into separate subdomains with distinct APIs.
 
-Nevertheless one API should hold all necessary resources to model compleate business processes helping clients to understand these flows.
+Nevertheless one API should hold all necessary resources to model complete business processes helping clients to understand these flows.
 
 ## {{ book.should }} Limit number of Sub-Resource Levels
 
