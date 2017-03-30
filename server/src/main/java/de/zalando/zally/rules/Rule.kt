@@ -10,8 +10,7 @@ interface Rule {
     val violationType: ViolationType
     val url: String?
     val code: String
-
-    fun getName(): String
+    val name: String
 
     fun validate(swagger: Swagger): Violation?
 }

@@ -2,20 +2,18 @@ package de.zalando.zally.rules
 
 abstract class AbstractRule() : Rule {
 
-    override fun getName(): String {
-        return javaClass.simpleName.toLowerCase()
-    }
+    override val name: String = javaClass.simpleName
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is AbstractRule) return false
 
-        if (getName() != other.getName()) return false
+        if (name != other.name) return false
 
         return true
     }
 
-    override fun hashCode(): Int {
-        return getName().hashCode()
-    }
+    override fun hashCode(): Int = name.hashCode()
+
+    override fun toString(): String = "$code-$name"
 }
