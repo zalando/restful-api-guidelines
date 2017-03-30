@@ -95,7 +95,8 @@ There are cases where it could make sense to define data change events that don'
 
 
 ## {{book.must}} Permissions on events must correspond to API permissions
-If a resource can be accessed synchronously via a REST API and asynchronously via an event, the same permission must apply to protect access to the resource.
+If a resource can be read synchronously via a REST API and read asynchronously via an event, the same read-permission must apply: We want to protect access to data, not the way data is accessed.
+
 
 ## {{ book.must }} Indicate ownership of Event Types
 
