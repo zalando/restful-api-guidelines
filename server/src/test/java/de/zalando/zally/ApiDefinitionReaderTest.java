@@ -41,23 +41,29 @@ public class ApiDefinitionReaderTest {
     }
 
     @Test
-    public void shouldReadSwaggerDefinitionFromUrl() {
-        final String remotePath = "/test.json";
-        final String url = "http://localhost:" + port() + remotePath;
-        final String responseBody = "{\"swagger\":\"2.0\"}";
-
-        onRequest()
-                .havingMethodEqualTo("GET")
-                .havingPathEqualTo(remotePath)
-                .respond()
-                .withStatus(200)
-                .withHeader("Content-Type", "application/json")
-                .withBody(responseBody);
+    public void shouldReadJsonSwaggerDefinitionFromUrl() {
+        final String fileName = "test.json";
+        final String content = "{\"swagger\":\"2.0\"}";
+        final String contentType = "application/json";
+        final String url = startServer(fileName, content, contentType);
 
         final ApiDefinitionReader reader = new ApiDefinitionReader(getJsonNodeWithApiDefinitionUrl(url));
         final String result = reader.read();
 
-        assertEquals(responseBody, result);
+        assertEquals(content, result);
+    }
+
+    @Test
+    public void shouldReadYamlSwaggerDefinitionFromUrl() {
+        final String fileName = "test.yaml";
+        final String content = "swagger: \"2.0\"";
+        final String contentType = "application/x-yaml";
+        final String url = startServer(fileName, content, contentType);
+
+        final ApiDefinitionReader reader = new ApiDefinitionReader(getJsonNodeWithApiDefinitionUrl(url));
+        final String result = reader.read();
+
+        assertEquals(content, result);
     }
 
     private JsonNode getJsonNodeWithoutApiDefinition() {
@@ -80,5 +86,20 @@ public class ApiDefinitionReaderTest {
         final ObjectNode node = mapper.createObjectNode();
         node.put("api_definition_url", url);
         return node;
+    }
+
+    private String startServer(final String fileName, final String content, final String contentType) {
+        final String remotePath = "/" + fileName;
+        final String url = "http://localhost:" + port() + remotePath;
+
+        onRequest()
+                .havingMethodEqualTo("GET")
+                .havingPathEqualTo(remotePath)
+                .respond()
+                .withStatus(200)
+                .withHeader("Content-Type", contentType)
+                .withBody(content);
+
+        return url;
     }
 }

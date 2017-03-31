@@ -23,9 +23,8 @@ public class ApiDefinitionReader {
     }
 
     protected String readFromUrl(String url) {
-        // TODO: Add support for yaml files
         final RestTemplate client = new RestTemplate();
-        final ResponseEntity<JsonNode> response = client.getForEntity(url, JsonNode.class);
-        return response.getBody().toString();
+        final ResponseEntity<String> response = client.getForEntity(url, String.class);
+        return response.getBody();
     }
 }
