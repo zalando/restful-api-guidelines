@@ -16,7 +16,7 @@ class ExtractBasePathRule : AbstractRule() {
 
     override fun validate(swagger: Swagger): Violation? {
         val paths = swagger.paths.orEmpty().keys
-        if (paths.isEmpty()) {
+        if (paths.size < 2) {
             return null
         }
         val commonPrefix = paths.reduce { s1, s2 -> findCommonPrefix(s1, s2) }

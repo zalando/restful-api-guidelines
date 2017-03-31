@@ -22,6 +22,12 @@ class ExtractBasePathRuleTest {
     }
 
     @Test
+    fun singlePathShouldPass() {
+        val swagger = swaggerWithPaths("/orders/{order_id}")
+        assertThat(ExtractBasePathRule().validate(swagger)).isNull()
+    }
+
+    @Test
     fun simpleNegativeCase() {
         val swagger = swaggerWithPaths(
                 "/shipment/{shipment_id}",
