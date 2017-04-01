@@ -12,9 +12,7 @@ before_install:
   - nvm install 7.7 # web-ui
 
   # Codacy coverage
-  - curl -sL https://github.com/jpm4j/jpm4j.installers/raw/master/dist/biz.aQute.jpm.run.jar >jpm4j.jar
-  - java -jar jpm4j.jar -u init
-  - ~/jpm/bin/jpm install com.codacy:codacy-coverage-reporter:assembly
+  - curl -sL http://repo1.maven.org/maven2/com/codacy/codacy-coverage-reporter/1.0.13/codacy-coverage-reporter-1.0.13-assembly.jar > ~/codacy-coverage-reporter.jar
   # / Codacy coverage
 
 install: true
@@ -57,5 +55,5 @@ script:
   - kill -9 `cat /tmp/zally_server.pid`
 
 after_success:
-  - ~/jpm/bin/codacy-coverage-reporter --language Java --coverageReport cli/build/reports/jacoco/test/jacocoTestReport.xml -t $CODACY_PROJECT_TOKEN
-  - ~/jpm/bin/codacy-coverage-reporter --language Java --coverageReport server/build/reports/jacoco/test/jacocoTestReport.xml -t $CODACY_PROJECT_TOKEN
+  - java -cp ~/codacy-coverage-reporter.jar com.codacy.CodacyCoverageReporter --language Java --coverageReport cli/build/reports/jacoco/test/jacocoTestReport.xml -t $CODACY_PROJECT_TOKEN
+  - java -cp ~/codacy-coverage-reporter.jar com.codacy.CodacyCoverageReporter --language Java --coverageReport server/build/reports/jacoco/test/jacocoTestReport.xml -t $CODACY_PROJECT_TOKEN
