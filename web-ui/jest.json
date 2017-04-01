@@ -1,0 +1,11 @@
+{
+  "testEnvironment": "node",
+  "collectCoverageFrom" : ["src/server/*.js", "src/client/app/**/*.{js,jsx}"],
+  "coverageDirectory": "target/unit/coverage",
+  "coverageReporters": [
+    "json",
+    "lcov",
+    "html",
+    "text"
+    ]
+}
