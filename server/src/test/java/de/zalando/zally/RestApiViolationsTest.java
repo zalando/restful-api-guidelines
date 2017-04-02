@@ -1,8 +1,5 @@
 package de.zalando.zally;
 
-import java.io.IOException;
-import java.net.URI;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.zalando.zally.exception.MissingApiDefinitionException;
@@ -13,6 +10,9 @@ import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.util.ResourceUtils;
+
+import java.io.IOException;
+import java.net.URI;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -123,6 +123,6 @@ public class RestApiViolationsTest extends RestApiBaseTest {
 
         JsonNode violations = rootObject.get("violations");
         assertThat(violations).hasSize(1);
-        assertThat(violations.get(0).get("title").asText()).isEqualTo("Can't parse swagger file");
+        assertThat(violations.get(0).get("title").asText()).isEqualTo("Given file is not OpenAPI 2.0 compliant");
     }
 }
