@@ -1,14 +1,15 @@
 package de.zalando.zally.rules
 
+import com.typesafe.config.Config
 import de.zalando.zally.Violation
 import io.swagger.models.Response
 import io.swagger.models.Swagger
 import io.swagger.models.parameters.Parameter
 
-abstract class HttpHeadersRule : AbstractRule() {
-    val PARAMETER_NAMES_WHITELIST = setOf("ETag", "TSV", "TE", "Content-MD5", "DNT", "X-ATT-DeviceId", "X-UIDH",
-            "X-Request-ID", "X-Correlation-ID", "WWW-Authenticate", "X-XSS-Protection", "X-Flow-ID", "X-UID",
-            "X-Tenant-ID", "X-Device-OS")
+abstract class HttpHeadersRule(rulesConfig: Config) : AbstractRule() {
+
+    @Suppress("UNCHECKED_CAST")
+    private val headersWhitelist = rulesConfig.getStringList(HttpHeadersRule::class.simpleName + ".whitelist").toSet()
 
     abstract fun createViolation(paths: List<String>): Violation
 
@@ -29,7 +30,7 @@ abstract class HttpHeadersRule : AbstractRule() {
         }
         val allHeaders = fromParams + fromPaths
         val paths = allHeaders
-                .filter { it.second !in PARAMETER_NAMES_WHITELIST && isViolation(it.second) }
+                .filter { it.second !in headersWhitelist && isViolation(it.second) }
                 .map { "${it.first} ${it.second}" }
                 .toSet()
                 .toList()

@@ -1,6 +1,6 @@
 package de.zalando.zally;
 
-import de.zalando.zally.rules.AvoidLinkHeadersRule;
+import de.zalando.zally.rules.AvoidTrailingSlashesRule;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -95,7 +95,7 @@ public class ViolationsCounterTest {
 
     private Violation generateViolation(ViolationType violationType) {
         return new Violation(
-                new AvoidLinkHeadersRule(),
+                new AvoidTrailingSlashesRule(),
                 "Test Name",
                 "Test Description",
                 violationType,

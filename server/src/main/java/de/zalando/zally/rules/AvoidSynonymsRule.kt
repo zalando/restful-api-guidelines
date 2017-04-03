@@ -19,7 +19,7 @@ class AvoidSynonymsRule(@Autowired rulesConfig: Config) : AbstractRule() {
     val descPattern = "Property names should utilize common dictionary"
 
     @Suppress("UNCHECKED_CAST")
-    private val commonDictionary = rulesConfig.getConfig(javaClass.simpleName + ".dictionary").entrySet()
+    private val commonDictionary = rulesConfig.getConfig("$name.dictionary").entrySet()
             .map { (key, config) -> key to config.unwrapped() as List<String> }
 
     override fun validate(swagger: Swagger): Violation? {
