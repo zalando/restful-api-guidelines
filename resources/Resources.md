@@ -25,7 +25,7 @@ clients to specify their needs for more/less information by supporting filtering
 ## {{ book.must }} Keep URLs Verb-Free
 
 The API describes resources, so the only place where actions should appear is in the HTTP methods.
-In URLs, use only nouns. Instead of thinking of actions (verbs), it's often helpful to think about putting a message in a letter box: e.g., indead of having the verb *cancel* in the url, think of sending a message to cancel an order to the *cancellations* letter box on the server side.
+In URLs, use only nouns. Instead of thinking of actions (verbs), it's often helpful to think about putting a message in a letter box: e.g., instead of having the verb *cancel* in the url, think of sending a message to cancel an order to the *cancellations* letter box on the server side.
 
 ## {{ book.must }} Use Domain-Specific Resource Names
 
