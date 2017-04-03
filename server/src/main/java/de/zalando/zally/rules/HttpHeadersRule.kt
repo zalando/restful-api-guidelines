@@ -8,7 +8,6 @@ import io.swagger.models.parameters.Parameter
 
 abstract class HttpHeadersRule(rulesConfig: Config) : AbstractRule() {
 
-    @Suppress("UNCHECKED_CAST")
     private val headersWhitelist = rulesConfig.getStringList(HttpHeadersRule::class.simpleName + ".whitelist").toSet()
 
     abstract fun createViolation(paths: List<String>): Violation
