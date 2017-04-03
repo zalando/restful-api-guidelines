@@ -1,12 +1,14 @@
+'use strict';
+
 const mockSuccessResponse = {
   'status': 200,
   'statusText': 'Success'
-  };
+};
 
 const mockErrorResponse = {
   'status': 500,
   'statusText': 'Error'
-  };
+};
 
 jest.mock('node-fetch', () => jest.fn(() => {})
   .mockImplementationOnce(() => Promise.resolve(mockSuccessResponse))
@@ -14,7 +16,7 @@ jest.mock('node-fetch', () => jest.fn(() => {})
 );
 
 describe('server.fetch', () => {
-  const fetch = require('../../../src/server/fetch');
+  const fetch = require('../fetch');
   let fetchPromise;
 
   test('it should export a function', () => {

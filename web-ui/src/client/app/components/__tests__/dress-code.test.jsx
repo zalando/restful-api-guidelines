@@ -1,6 +1,6 @@
 import React from 'react';
 import {shallow} from 'enzyme';
-import {Msg} from '../../../../../src/client/app/components/dress-code.jsx';
+import {Msg} from '../dress-code.jsx';
 
 describe('Msg component', () => {
 

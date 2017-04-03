@@ -2,7 +2,7 @@ import fetch from './fetch';
 import {OAuthProvider} from './oauth';
 
 export default {
-  getApiViolations(apiDefinition) {
+  getApiViolations (apiDefinition) {
     const options = {
       method: 'POST',
       headers: {
@@ -14,7 +14,7 @@ export default {
       })
     };
 
-    if(OAuthProvider.hasAccessToken()) {
+    if (OAuthProvider.hasAccessToken()) {
       options.headers.Authorization = `Bearer ${OAuthProvider.getAccessToken()}`;
     }
 
@@ -23,5 +23,5 @@ export default {
         return response.json();
       });
   }
-}
+};
 
