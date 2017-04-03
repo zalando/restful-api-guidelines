@@ -10,7 +10,7 @@ Request:
 
 The added benefit is that you already have a service for browsing and filtering article locks.
 
-## {{book.should}} Model complete business processe
+## {{book.should}} Model comple	te business processe
 An API should contain the complete business processes containing all resources representing the process. This enables clients to understand the business process, foster a consistent design of the business process, allow for synergies from description and implementation perspective, and eliminates implicit invisible dependencies between APIs.
 
 In addition, it prevents services from being designed as thin wrappers around databases, which normally tends to shift business logic to the clients.
@@ -25,7 +25,7 @@ clients to specify their needs for more/less information by supporting filtering
 ## {{ book.must }} Keep URLs Verb-Free
 
 The API describes resources, so the only place where actions should appear is in the HTTP methods.
-In URLs, use only nouns. Instead of thinking of actions (verbs), it's often helpful to think about putting a message in a letter box: E.g. indead of having the verb *cancel* in the url, think of sending a message to cancel an order to the *cancallations* letter box on the server side.
+In URLs, use only nouns. Instead of thinking of actions (verbs), it's often helpful to think about putting a message in a letter box: e.g., indead of having the verb *cancel* in the url, think of sending a message to cancel an order to the *cancellations* letter box on the server side.
 
 ## {{ book.must }} Use Domain-Specific Resource Names
 
