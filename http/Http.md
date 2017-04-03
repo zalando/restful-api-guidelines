@@ -18,16 +18,16 @@ as [pagination](../pagination/Pagination.md).
 
 ### PUT
 
-PUT requests are used to create or update single resources or an entire collection resources. The
-semantic is best described as »*please put the enclosed representation at the resource mentioned by
-the URL*«.
+PUT requests are used to create or update **entire** resources - single or collection resources. The
+semantic is best described as »*please put the enclosed representation **in place of** the resource
+mentioned by the URL*«.
 
 - PUT requests are usually applied to single resources, and not to collection resources, as this
   would imply replacing the entire collection
 - PUT requests are usually robust against non-existence of resources by implicitly creating before
   updating
-- on successful PUT requests, the server will replace the entire resource addressed by the URL with
-  the representation passed in the payload
+- on successful PUT requests, the server will **replace the entire resource** addressed by the URL
+  with the representation passed in the payload (subsequent reads will deliver the same payload)
 - successful PUT requests will usually generate 200 or 204 (if the resource was updated - with or
   without actual content returned), and 201 (if the resource was created)
 
@@ -161,6 +161,8 @@ Please see also [Best Practices \[internal link\]](https://goo.gl/vhwh8a) for fu
 different HTTP methods on resources.
 
 ## {{ book.must }} Use Meaningful HTTP Status Codes
+
+APIs must define meaningful HTTP status codes for responses compliant to the semantic defined in the subsequent definitions. The selected response status code should match the results semantic to the designers best knowledge. Anyhow, APIs should not be creative and invent new status codes or change the semantic of existing, but stick to the list provided. Any deviation from this list of below status codes or their semantic must be well explained in the API definition. Each API end-point has to provide at least on success code. Clients should be prepared to handle any of the below status codes accordingly.
 
 ### Success Codes
 
