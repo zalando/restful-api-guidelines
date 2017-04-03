@@ -8,6 +8,7 @@ To see a list of all changes, please have a look at the [commit list in Github](
 
 ## Rule Changes
 
+* `2017-03-30:` Added rule that APIs should be modelled around business processes
 * `2017-02-28:` Extended information about how to reference sub-resources and the usage of composite identifiers in the [Resources](../resources/Resources.md#-bookmust--identify-resources-and-sub-resources-via-path-segments) part.
 * `2017-02-22:` Added guidance for conditional requests with If-Match/If-None-Match
 * `2017-02-02:` Added guideline for batch and bulk request
