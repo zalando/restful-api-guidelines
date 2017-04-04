@@ -1,11 +1,5 @@
 package de.zalando.zally;
 
-import static net.jadler.Jadler.closeJadler;
-import static net.jadler.Jadler.initJadlerUsing;
-import static net.jadler.Jadler.onRequest;
-import static net.jadler.Jadler.port;
-import static org.assertj.core.api.Assertions.assertThat;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.zalando.zally.exception.MissingApiDefinitionException;
@@ -27,6 +21,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.util.ResourceUtils;
 
+import static net.jadler.Jadler.closeJadler;
+import static net.jadler.Jadler.initJadlerUsing;
+import static net.jadler.Jadler.onRequest;
+import static net.jadler.Jadler.port;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @TestPropertySource(properties = "zally.message=Test message")
 public class RestApiViolationsTest extends RestApiBaseTest {
@@ -143,7 +142,7 @@ public class RestApiViolationsTest extends RestApiBaseTest {
 
         JsonNode violations = rootObject.get("violations");
         assertThat(violations).hasSize(1);
-        assertThat(violations.get(0).get("title").asText()).isEqualTo("Can't parse swagger file");
+        assertThat(violations.get(0).get("title").asText()).isEqualTo("Given file is not OpenAPI 2.0 compliant");
     }
 
     @Test
