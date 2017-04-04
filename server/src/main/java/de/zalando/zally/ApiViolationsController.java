@@ -1,8 +1,5 @@
 package de.zalando.zally;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -17,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @CrossOrigin
 @RestController(value = "/api-violations")
@@ -65,7 +65,7 @@ public class ApiViolationsController {
 
     private void reportViolationHistograms(List<Violation> violations) {
         violations.stream().collect(Collectors.groupingBy(Violation::getRule)).forEach((r, v) ->
-                metricServices.submit("histogram.api-reviews.violations.rule." + r.getName(), v.size()));
+                metricServices.submit("histogram.api-reviews.violations.rule." + r.getName().toLowerCase(), v.size()));
     }
 
     private void reportAggregatedHistograms(List<Violation> violations) {
