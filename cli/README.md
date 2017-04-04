@@ -55,3 +55,28 @@ To get commands help message, simply type:
 ```bash
 ./bin/zally --help
 ```
+
+### Building release
+
+To build a release:
+
+1. Make sure that the current state of the Git repository is clean:
+    
+    ```bash
+    git stash -a
+    ```
+
+2. Create a release:
+
+    ```bash
+    ./gradlew clean build -Pversion=1.0
+    ```
+
+3. Unstash the changes:
+
+    ```bash
+    git stash pop
+    ```
+
+4. You can find the release JAR file in `releases` folder.
+
