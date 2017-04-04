@@ -14,10 +14,12 @@ const defaults = {
   OAUTH_AUTHORIZATION_URL: '',
   OAUTH_REDIRECT_URI: '',
   OAUTH_TOKENINFO_URL:'',
+  OAUTH_REFRESH_TOKEN_URL: '',
   OAUTH_CLIENT_ID:'',
   OAUTH_SCOPES:'',
   DEV_PORT: 8441,
-  DEV_SSL_ENABLED: false
+  DEV_SSL_ENABLED: false,
+  DEBUG: false
 };
 
 
@@ -31,8 +33,8 @@ const publicEnvKeys = [
   'OAUTH_AUTHORIZATION_URL',
   'OAUTH_REDIRECT_URI',
   'OAUTH_TOKENINFO_URL',
-  'OAUTH_CLIENT_ID',
-  'OAUTH_SCOPES'
+  'OAUTH_SCOPES',
+  'DEBUG'
 ];
 
 const env = Object.assign(

@@ -32,6 +32,7 @@
   },
   "homepage": "https://github.com/zalando-incubator/zally#readme",
   "dependencies": {
+    "aurelia-fetch-client": "1.1.2",
     "body-parser": "1.17.1",
     "dotenv": "4.0.0",
     "dotenv-parse-variables": "0.0.1",
@@ -39,6 +40,7 @@
     "js-yaml": "3.8.2",
     "node-fetch": "1.6.3",
     "oauth2-client-js": "0.0.15",
+    "query-string": "4.3.2",
     "react": "15.4.2",
     "react-dom": "15.4.2",
     "request": "2.81.0",

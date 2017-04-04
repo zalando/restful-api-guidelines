@@ -43,10 +43,13 @@ OAUTH_CLIENT_ID=""
 OAUTH_AUTHORIZATION_URL=""
 OAUTH_REDIRECT_URI=""
 OAUTH_TOKENINFO_URL=""
+OAUTH_REFRESH_TOKEN_URL=""
 OAUTH_SCOPES=""
 
 DEV_PORT=8441
 DEV_SSL_ENABLED=false
+
+DEBUG=false
 ```
 
 * **PORT**: HTTP(S) Server port
@@ -62,10 +65,13 @@ DEV_SSL_ENABLED=false
 * **OAUTH_CLIENT_ID**: OAuth2 client id assigned to your app
 * **OAUTH_REDIRECT_URI**: The route that should handle the OAuth2 access token response
 * **OAUTH_TOKENINFO_URL**: The url used to validate the access token and retrieve token information
+* **OAUTH_REFRESH_TOKEN_URL**: The url used to refresh the access token
 * **OAUTH_SCOPES**: Comma separated list of scopes that the user should grant to the app
 
 * **DEV_PORT**: HTTP(S) server port for the dev server (webpack-dev-server)
 * **DEV_SSL_ENABLED**: start dev server with https
+
+* **DEBUG**: debug flag (eg. on the client side log debug messages to console)
 
 ## Development
 
