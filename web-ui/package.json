@@ -52,6 +52,7 @@
     "babel-loader": "6.4.0",
     "babel-preset-es2015": "6.24.0",
     "babel-preset-react": "6.23.0",
+    "codecov": "2.1.0",
     "enzyme": "2.8.0",
     "eslint": "3.18.0",
     "eslint-plugin-jest": "19.0.1",
