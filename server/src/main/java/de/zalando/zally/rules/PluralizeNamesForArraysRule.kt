@@ -3,6 +3,7 @@ package de.zalando.zally.rules
 import de.zalando.zally.Violation
 import de.zalando.zally.ViolationType
 import de.zalando.zally.utils.WordUtil.isPlural
+import de.zalando.zally.utils.getAllJsonObjects
 import io.swagger.models.Swagger
 import org.springframework.stereotype.Component
 
@@ -15,11 +16,11 @@ class PluralizeNamesForArraysRule : AbstractRule() {
     override val code = "S007"
 
     override fun validate(swagger: Swagger): Violation? {
-        val res = swagger.definitions.orEmpty().entries.map { def ->
-            val badProps = def.value?.properties.orEmpty().entries.filter { "array" == it.value?.type && !isPlural(it.key) }
+        val res = swagger.getAllJsonObjects().map { (def, path) ->
+            val badProps = def.entries.filter { "array" == it.value.type && !isPlural(it.key) }
             if (badProps.isNotEmpty()) {
                 val propsDesc = badProps.map { "'${it.key}'" }.joinToString(",")
-                "Definition ${def.key}: $propsDesc" to "#/definitions/${def.key}"
+                "$path: $propsDesc" to path
             } else null
         }.filterNotNull()
 
