@@ -22,6 +22,12 @@ class ExtractBasePathRuleTest {
     }
 
     @Test
+    fun singlePathShouldPass() {
+        val swagger = swaggerWithPaths("/orders/{order_id}")
+        assertThat(ExtractBasePathRule().validate(swagger)).isNull()
+    }
+
+    @Test
     fun simpleNegativeCase() {
         val swagger = swaggerWithPaths(
                 "/shipment/{shipment_id}",
@@ -49,11 +55,12 @@ class ExtractBasePathRuleTest {
     }
 
     @Test
-    fun negativeIfResourceLevelIsOnlyRootLevel() {
+    fun shouldMatchWholeSubresource() {
         val swagger = swaggerWithPaths(
-                "/shipment/{shipment_id}",
-                "/shipment/{shipment_id}",
-                "/shipment/{shipment_id}"
+                "/api/{api_id}/deployments",
+                "/api/{api_id}/",
+                "/applications/{app_id}",
+                "/applications/"
         )
         assertThat(ExtractBasePathRule().validate(swagger)).isNull()
     }

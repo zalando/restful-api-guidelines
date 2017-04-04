@@ -13,7 +13,8 @@ class AvoidJavascriptKeywordsRuleTest {
 
     @Test
     fun negativeCase() {
-        val results = AvoidJavascriptKeywordsRule().validate(getFixture("avoidJavascriptInvalid.json"))!!.paths
-        assertThat(results).hasSameElementsAs(listOf("Pet.return", "Pet.typeof"))
+        val result = AvoidJavascriptKeywordsRule().validate(getFixture("avoidJavascriptInvalid.json"))!!
+        assertThat(result.paths).hasSameElementsAs(listOf("#/definitions/Pet"))
+        assertThat(result.description).contains("return", "typeof")
     }
 }

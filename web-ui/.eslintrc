@@ -1,6 +1,9 @@
 extends: eslint:recommended
+plugins:
+  - jest
 env:
   es6: true
+  jest: true
 rules:
   indent:
   - error
@@ -33,3 +36,8 @@ rules:
   no-unsafe-negation: 2
   prefer-const: 2
   no-var: 2
+
+  # Jest
+  jest/no-disabled-tests: 1
+  jest/no-focused-tests: 1
+  jest/no-identical-title: 2

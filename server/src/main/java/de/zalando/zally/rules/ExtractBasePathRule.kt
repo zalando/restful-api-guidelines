@@ -16,26 +16,19 @@ class ExtractBasePathRule : AbstractRule() {
 
     override fun validate(swagger: Swagger): Violation? {
         val paths = swagger.paths.orEmpty().keys
-        if (paths.isEmpty()) {
+        if (paths.size < 2) {
             return null
         }
-        val commonPrefix = paths.reduce { s1, s2 -> findCommonPrefix(s1, s2) }.dropTrailingSlash()
-        return if (commonPrefix.isNotEmpty() && hasSubResources(swagger, commonPrefix))
+        val commonPrefix = paths.reduce { s1, s2 -> findCommonPrefix(s1, s2) }
+        return if (commonPrefix.isNotEmpty())
             Violation(this, title, DESC_PATTERN.format(commonPrefix), violationType, url, emptyList())
         else null
     }
 
-    private fun hasSubResources(swagger: Swagger, commonPrefix: String): Boolean {
-        return swagger.paths.filterKeys {
-            it.startsWith(commonPrefix) && it.indexOf("/", commonPrefix.length + 1) != -1
-        }.isNotEmpty()
-    }
-
-    private fun String.dropTrailingSlash() = if (last() == '/') dropLast(1) else this
-
     private fun findCommonPrefix(s1: String, s2: String): String {
-        val endIndex = Math.min(s1.length, s2.length) - 1
-        val prefixLength = (0..endIndex).takeWhile { i -> s1[i] == s2[i] && s1[i] != '{' }.last()
-        return s1.take(prefixLength + 1)
+        val parts1 = s1.split("/")
+        val parts2 = s2.split("/")
+        val (commonParts, _) = parts1.zip(parts2).takeWhile { (t1, t2) -> !t1.startsWith('{') && t1 == t2 }.unzip()
+        return commonParts.joinToString("/")
     }
 }

@@ -4,12 +4,13 @@ export class Msg extends React.Component {
   constructor(props) { super(props) }
 
   render() {
+    const type = this.props.type || 'info';
     return (
-      <div className={"dc-msg dc-msg--" + this.props.type }>
+      <div className={"dc-msg dc-msg--" + type }>
         <div className="dc-msg__inner">
 
           <div className="dc-msg__icon-frame">
-            <i className={"dc-icon dc-msg__icon dc-icon--" + this.props.type}></i>
+            <i className={"dc-icon dc-msg__icon dc-icon--" + type}></i>
           </div>
 
           <div className="dc-msg__bd">

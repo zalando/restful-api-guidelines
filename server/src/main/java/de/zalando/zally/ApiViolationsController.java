@@ -1,13 +1,9 @@
 package de.zalando.zally;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import de.zalando.zally.exception.MissingApiDefinitionException;
 import de.zalando.zally.rules.RulesValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @CrossOrigin
 @RestController(value = "/api-violations")
@@ -40,11 +39,9 @@ public class ApiViolationsController {
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<JsonNode> validate(@RequestBody JsonNode request) {
         metricServices.increment("counter.api-reviews.requested");
-        if (!request.has("api_definition")) {
-            throw new MissingApiDefinitionException();
-        }
 
-        final List<Violation> violations = rulesValidator.validate(request.get("api_definition").toString());
+        final ApiDefinitionReader apiDefinitionReader = new ApiDefinitionReader(request);
+        final List<Violation> violations = rulesValidator.validate(apiDefinitionReader.read());
         ObjectNode response = mapper.createObjectNode();
         if (message != null && !message.isEmpty()) {
             response.put("message", message);
@@ -68,7 +65,7 @@ public class ApiViolationsController {
 
     private void reportViolationHistograms(List<Violation> violations) {
         violations.stream().collect(Collectors.groupingBy(Violation::getRule)).forEach((r, v) ->
-                metricServices.submit("histogram.api-reviews.violations.rule." + r.getName(), v.size()));
+                metricServices.submit("histogram.api-reviews.violations.rule." + r.getName().toLowerCase(), v.size()));
     }
 
     private void reportAggregatedHistograms(List<Violation> violations) {

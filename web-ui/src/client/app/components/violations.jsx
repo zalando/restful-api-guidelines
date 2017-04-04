@@ -1,5 +1,6 @@
 import React from 'react';
 import {If} from './util.jsx';
+import {Msg} from './dress-code.jsx';
 
 function Violations(props) {
   return (
@@ -62,4 +63,32 @@ function ViolationPaths(props) {
   )
 }
 
-export {Violations, Violation, ViolationPaths, ViolationRuleLink, ViolationType}
+function ViolationsResult(props){
+  return (
+    <div className="violations-result">
+      <If test={() => props.pending}>
+        <div className="violations-result__spinner"><div className="dc-spinner dc-spinner--small"></div></div>
+      </If>
+      <If test={() => !props.pending && props.complete && !props.errorMsgText && props.violations.length == 0}>
+        <Msg type="success" title={props.successMsgTitle} text={props.successMsgText} closeButton={false}  />
+      </If>
+      <If test={() => !props.pending && props.complete && props.errorMsgText}>
+        <Msg type="error" title="ERROR" text={props.errorMsgText} closeButton={false} />
+      </If>
+      <If test={() => !props.pending && props.complete && props.violations.length}>
+        <Violations violations={props.violations} violationsCount={props.violationsCount}/>
+      </If>
+    </div>
+  )
+}
+
+ViolationsResult.propTypes = {
+  pending: React.PropTypes.bool,
+  complete: React.PropTypes.bool,
+  errorMsgText: React.PropTypes.string,
+  successMsgTitle:  React.PropTypes.string.isRequired,
+  successMsgText:  React.PropTypes.string.isRequired,
+  violations: React.PropTypes.array
+};
+
+export {Violations, Violation, ViolationPaths, ViolationRuleLink, ViolationType, ViolationsResult}

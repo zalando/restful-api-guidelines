@@ -1,11 +1,18 @@
 package de.zalando.zally;
 
-import java.io.IOException;
-import java.net.URI;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.zalando.zally.exception.MissingApiDefinitionException;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.net.URI;
+import java.nio.file.Paths;
+import java.util.stream.Collectors;
+import net.jadler.stubbing.server.jdk.JdkStubHttpServer;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -14,11 +21,23 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.util.ResourceUtils;
 
+import static net.jadler.Jadler.closeJadler;
+import static net.jadler.Jadler.initJadlerUsing;
+import static net.jadler.Jadler.onRequest;
+import static net.jadler.Jadler.port;
 import static org.assertj.core.api.Assertions.assertThat;
-
 
 @TestPropertySource(properties = "zally.message=Test message")
 public class RestApiViolationsTest extends RestApiBaseTest {
+    @Before
+    public void setUp() {
+        initJadlerUsing(new JdkStubHttpServer());
+    }
+
+    @After
+    public void tearDown() {
+        closeJadler();
+    }
 
     @Test
     public void shouldValidateGivenApiDefinition() throws IOException {
@@ -123,6 +142,65 @@ public class RestApiViolationsTest extends RestApiBaseTest {
 
         JsonNode violations = rootObject.get("violations");
         assertThat(violations).hasSize(1);
-        assertThat(violations.get(0).get("title").asText()).isEqualTo("Can't parse swagger file");
+        assertThat(violations.get(0).get("title").asText()).isEqualTo("Given file is not OpenAPI 2.0 compliant");
     }
+
+    @Test
+    public void shouldReadJsonSpecificationFromUrl() throws Exception {
+        final String definitionUrl = getLocalUrl(
+                "src/test/resources/fixtures/api_spp.json", MediaType.APPLICATION_JSON.toString());
+
+        final RequestEntity requestEntity = RequestEntity
+                .post(URI.create(getUrl()))
+                .contentType(MediaType.APPLICATION_JSON)
+                .body("{\"api_definition_url\": \"" + definitionUrl + "\"}");
+        final ResponseEntity<JsonNode> responseEntity = restTemplate.exchange(requestEntity, JsonNode.class);
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+
+        final JsonNode rootObject = responseEntity.getBody();
+        final JsonNode violations = rootObject.get("violations");
+        assertThat(violations).hasSize(2);
+        assertThat(violations.get(0).get("title").asText()).isEqualTo("dummy1");
+        assertThat(violations.get(1).get("title").asText()).isEqualTo("dummy2");
+    }
+
+    @Test
+    public void shouldReadYamlSpecificationFromUrl() throws Exception {
+        final String definitionUrl = getLocalUrl(
+                "src/test/resources/fixtures/api_spa.yaml", MediaType.APPLICATION_JSON.toString());
+
+        final RequestEntity requestEntity = RequestEntity
+                .post(URI.create(getUrl()))
+                .contentType(MediaType.APPLICATION_JSON)
+                .body("{\"api_definition_url\": \"" + definitionUrl + "\"}");
+        final ResponseEntity<JsonNode> responseEntity = restTemplate.exchange(requestEntity, JsonNode.class);
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+
+        final JsonNode rootObject = responseEntity.getBody();
+
+        final JsonNode violations = rootObject.get("violations");
+        assertThat(violations).hasSize(1);
+        assertThat(violations.get(0 ).get("title").asText()).isEqualTo("dummy2");
+    }
+
+    private String getLocalUrl(final String resourceFilePath, final String contentType) throws Exception {
+        final File file = ResourceUtils.getFile(resourceFilePath);
+        final BufferedReader reader = new BufferedReader(new FileReader(file));
+        final String content = reader.lines().collect(Collectors.joining("\n"));
+
+        final String fileName = Paths.get(resourceFilePath).getFileName().toString();
+        final String remotePath = "/" + fileName;
+        final String url = "http://localhost:" + port() + remotePath;
+
+        onRequest()
+                .havingMethodEqualTo("GET")
+                .havingPathEqualTo(remotePath)
+                .respond()
+                .withStatus(200)
+                .withHeader("Content-Type", contentType)
+                .withBody(content);
+
+        return url;
+    }
+
 }
