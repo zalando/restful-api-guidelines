@@ -5,11 +5,11 @@ const logger = require('./logger');
 const fetch = require('./fetch');
 const yaml = require('js-yaml');
 
-function parseSchema(text) {
+function parseSchema (text) {
   try {
     // try json first
     return JSON.parse(text);
-  } catch(err) {
+  } catch (err) {
     return yaml.safeLoad(text);
   }
 }
@@ -51,7 +51,7 @@ module.exports = async function (req, res) {
 
     res.json(violations);
 
-  } catch(error) {
+  } catch (error) {
 
     logger.error(error);
 

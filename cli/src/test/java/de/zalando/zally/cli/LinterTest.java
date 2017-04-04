@@ -5,15 +5,12 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 
+import de.zalando.zally.cli.api.RequestWrapperStrategy;
+import de.zalando.zally.cli.api.UrlWrapperStrategy;
 import de.zalando.zally.cli.api.ZallyApiClient;
 import de.zalando.zally.cli.api.ZallyApiResponse;
 import de.zalando.zally.cli.domain.Violation;
-import de.zalando.zally.cli.reader.JsonReader;
-import de.zalando.zally.cli.reader.SpecsReader;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -118,16 +115,15 @@ public class LinterTest {
 
         Mockito.when(client.validate(anyString())).thenReturn(new ZallyApiResponse(testResult));
         linter = new Linter(client, resultPrinter);
-        final boolean result = linter.lint(getJsonReader());
+        final boolean result = linter.lint(getUrlWrapperStrategy());
         assertEquals(result, true);
 
         Mockito.verify(resultPrinter, Mockito.times(1)).printMessage(eq(message));
     }
 
-    private SpecsReader getJsonReader() {
-        String fixture = "{\"hello\":\"world\"}";
-        InputStream inputStream = new ByteArrayInputStream(fixture.getBytes());
-        return new JsonReader(new InputStreamReader(inputStream));
+    private RequestWrapperStrategy getUrlWrapperStrategy() {
+        final String url = "https://example.com/test.yaml";
+        return new UrlWrapperStrategy(url);
     }
 
     private JSONObject getViolation(String title, String type) {
@@ -142,7 +138,7 @@ public class LinterTest {
         Mockito.when(client.validate(anyString())).thenReturn(new ZallyApiResponse(testResult));
 
         linter = new Linter(client, resultPrinter);
-        final Boolean result = linter.lint(getJsonReader());
+        final Boolean result = linter.lint(getUrlWrapperStrategy());
 
         Mockito.verify(resultPrinter, Mockito.times(1)).printSummary(eq(linter.violationTypes), any());
         Mockito.verify(resultPrinter, Mockito.times(1)).printViolations(mustListCaptor.capture(), eq("must"));

@@ -6,8 +6,8 @@ const OAuthProvider = new Provider({
   authorization_url: window.env.OAUTH_AUTHORIZATION_URL
 });
 
-function requestToken() {
-  var request = new Request({
+function requestToken () {
+  const request = new Request({
     client_id: window.env.OAUTH_CLIENT_ID,
     redirect_uri:  window.env.OAUTH_REDIRECT_URI,
     scopes:  window.env.OAUTH_SCOPES
@@ -16,7 +16,7 @@ function requestToken() {
   window.location.href = OAuthProvider.requestToken(request);
 }
 
-function checkTokenIsValid() {
+function checkTokenIsValid () {
   return fetch('/tokeninfo', {
     method: 'POST',
     headers: {
@@ -40,9 +40,9 @@ function checkTokenIsValid() {
  *
  * @return {Promise}
  */
-function firewall() {
+function firewall () {
 
-  if(!window.env.OAUTH_ENABLED) { return Promise.resolve(); }
+  if (!window.env.OAUTH_ENABLED) { return Promise.resolve(); }
 
   // do we have a response from auth server?
   // check if we can parse the url fragment
@@ -51,7 +51,7 @@ function firewall() {
     try {
       response = OAuthProvider.parse(window.location.hash);
       window.location.href = window.location.href.substr(0, window.location.href.indexOf('#'));
-    } catch(err) {
+    } catch (err) {
       if (response instanceof Error) {
         return Promise.reject(response);
       }
@@ -68,4 +68,4 @@ function firewall() {
   return checkTokenIsValid();
 }
 
-export {firewall, OAuthProvider}
+export {firewall, OAuthProvider};

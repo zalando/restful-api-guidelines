@@ -1,11 +1,11 @@
+'use strict';
 
 describe('server.zally-api-handler', () => {
-  let zallyApiHandler;
   const mockDebug = jest.fn();
   const mockError = jest.fn();
   const apiDefinitionURL = 'https://example.com/api-definition';
   const req = {
-    url: "/zally-api/path-to-api",
+    url: '/zally-api/path-to-api',
     body: {
       api_definition: apiDefinitionURL
     },
@@ -20,25 +20,25 @@ describe('server.zally-api-handler', () => {
   };
   const mockFetch = jest.fn()
     .mockImplementationOnce(() => {
-      throw { message: 'Test Exception', status: 500}
+      throw { message: 'Test Exception', status: 500};
     })
     .mockImplementation(() => ({
       text: () => '{"foo": "bar"}',
-      json: () => ({ "baz": "qux"})
+      json: () => ({ 'baz': 'qux'})
     }));
 
-  jest.mock('../../../src/server/env', () => ({
-    "ZALLY_API_URL": "https://example.com"
+  jest.mock('../env', () => ({
+    'ZALLY_API_URL': 'https://example.com'
   }));
 
-  jest.mock("../../../src/server/logger", () => ({
-    "error": mockError,
-    "debug": mockDebug
+  jest.mock('../logger', () => ({
+    'error': mockError,
+    'debug': mockDebug
   }));
 
-  jest.mock("../../../src/server/fetch", () => mockFetch);
+  jest.mock('../fetch', () => mockFetch);
 
-  zallyApiHandler = require('../../../src/server/zally-api-handler');
+  const zallyApiHandler = require('../zally-api-handler');
 
   test('should export a function', () => {
     expect(zallyApiHandler).toBeInstanceOf(Function);
@@ -55,7 +55,7 @@ describe('server.zally-api-handler', () => {
 
     test('should respond with the status of error and error message', () => {
       expect(mockJson).toHaveBeenCalledWith({ type: 'about:blank', title: 'Test Exception', detail: 'Test Exception', status: 500 });
-    })
+    });
   });
 
   describe('when invoking the function', () => {
@@ -76,8 +76,8 @@ describe('server.zally-api-handler', () => {
     });
 
     test('should respond with violations as json', () => {
-      expect(mockJson).toHaveBeenCalledWith({"baz": "qux"});
-    })
+      expect(mockJson).toHaveBeenCalledWith({'baz': 'qux'});
+    });
   });
 
 });

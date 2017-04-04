@@ -5,7 +5,7 @@ const fs = require('fs');
 const http = require('http');
 const https = require('https');
 
-function createHttpsServer(app) {
+function createHttpsServer (app) {
   const key  = fs.readFileSync(`${env.SSL_KEY}`, 'utf8');
   const cert = fs.readFileSync(`${env.SSL_CERT}`, 'utf8');
 

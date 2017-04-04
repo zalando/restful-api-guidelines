@@ -1,5 +1,7 @@
+'use strict';
+
 describe('server.logger', () => {
-  const logger = require('../../../src/server/logger');
+  const logger = require('../logger');
 
   test('should export a logger', () => {
     expect(logger).toBeDefined();
