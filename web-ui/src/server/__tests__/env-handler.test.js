@@ -1,3 +1,5 @@
+'use strict';
+
 describe('server.env-handler', () => {
   let envHandler;
   const mockWrite = jest.fn();
@@ -19,19 +21,19 @@ describe('server.env-handler', () => {
   const mockError = jest.fn();
 
   jest.mock('fs', () => ({
-      readFile: mockReadFile
+    readFile: mockReadFile
   }));
 
   jest.mock('path', () => ({
-      join: mockJoin
+    join: mockJoin
   }));
 
-  jest.mock('../../../src/server/logger', () => ({
-      debug: mockDebug,
-      error: mockError
+  jest.mock('../logger', () => ({
+    debug: mockDebug,
+    error: mockError
   }));
 
-  envHandler = require('../../../src/server/env-handler');
+  envHandler = require('../env-handler');
 
   test('should export a function', () => {
     expect(envHandler).toBeInstanceOf(Function);
@@ -40,13 +42,13 @@ describe('server.env-handler', () => {
   describe('when invoking the function without ZALANDO_OAUTH && CREDENTIALS_DIR', () => {
     beforeEach(() => {
       jest.resetModules();
-      jest.mock('../../../src/server/env', () => ({
-          public: () => {
-            return {"foo" : "bar"}
-          }
+      jest.mock('../env', () => ({
+        public: () => {
+          return {'foo' : 'bar'};
+        }
       }));
 
-      envHandler = require('../../../src/server/env-handler');
+      envHandler = require('../env-handler');
       envHandler(req, res);
     });
 
@@ -59,15 +61,15 @@ describe('server.env-handler', () => {
   describe('when invoking the function with ZALANDO_OAUTH && CREDENTIALS_DIR and cannot read clientJSON', () => {
     beforeEach(() => {
       jest.resetModules();
-      jest.mock('../../../src/server/env', () => ({
-          public: () => {
-            return {"foo" : "bar"}
-          },
-          "ZALANDO_OAUTH": "zalandoOauth",
-          "CREDENTIALS_DIR": "credentialsDir"
+      jest.mock('../env', () => ({
+        public: () => {
+          return {'foo' : 'bar'};
+        },
+        'ZALANDO_OAUTH': 'zalandoOauth',
+        'CREDENTIALS_DIR': 'credentialsDir'
       }));
 
-      envHandler = require('../../../src/server/env-handler');
+      envHandler = require('../env-handler');
       envHandler(req, res);
     });
 
@@ -95,15 +97,15 @@ describe('server.env-handler', () => {
   describe('when invoking the function with ZALANDO_OAUTH && CREDENTIALS_DIR and cannot parse clientJson file data', () => {
     beforeEach(() => {
       jest.resetModules();
-      jest.mock('../../../src/server/env', () => ({
-          public: () => {
-            return {"foo" : "bar"}
-          },
-          "ZALANDO_OAUTH": "zalandoOauth",
-          "CREDENTIALS_DIR": "credentialsDir"
+      jest.mock('../env', () => ({
+        public: () => {
+          return {'foo' : 'bar'};
+        },
+        'ZALANDO_OAUTH': 'zalandoOauth',
+        'CREDENTIALS_DIR': 'credentialsDir'
       }));
 
-      envHandler = require('../../../src/server/env-handler');
+      envHandler = require('../env-handler');
       envHandler(req, res);
     });
 
@@ -132,15 +134,15 @@ describe('server.env-handler', () => {
   describe('when invoking the function with ZALANDO_OAUTH && CREDENTIALS_DIR and can successfully read clientJson file', () => {
     beforeEach(() => {
       jest.resetModules();
-      jest.mock('../../../src/server/env', () => ({
-          public: () => {
-            return {"foo" : "bar"}
-          },
-          "ZALANDO_OAUTH": "zalandoOauth",
-          "CREDENTIALS_DIR": "credentialsDir"
+      jest.mock('../env', () => ({
+        public: () => {
+          return {'foo' : 'bar'};
+        },
+        'ZALANDO_OAUTH': 'zalandoOauth',
+        'CREDENTIALS_DIR': 'credentialsDir'
       }));
 
-      envHandler = require('../../../src/server/env-handler');
+      envHandler = require('../env-handler');
       envHandler(req, res);
     });
 

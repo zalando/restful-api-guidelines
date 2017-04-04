@@ -14,7 +14,7 @@ const ASSETS_DIR = path.resolve(__dirname, '../client/public/assets');
 /**
  * Proxy to webpack-dev-server for development
  */
-if(env.NODE_ENV === 'development') {
+if (env.NODE_ENV === 'development') {
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
   webpackDevServerProxy(app, require('../../webpack.config'));
 }
@@ -70,6 +70,6 @@ app.get('/health', (req, res) => {
  * Start listening for connections
  */
 createHttpServer(app).listen(env.PORT, () => {
-  logger.info(`application server running at ${env.SSL_ENABLED ? 'https': 'http'}://localhost:${env.PORT}, NODE_ENV=${env.NODE_ENV}`);
+  logger.info(`application server running at ${env.SSL_ENABLED ? 'https' : 'http'}://localhost:${env.PORT}, NODE_ENV=${env.NODE_ENV}`);
 });
 
