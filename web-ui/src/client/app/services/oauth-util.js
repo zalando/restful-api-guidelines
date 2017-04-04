@@ -1,7 +1,7 @@
 import {Request} from 'oauth2-client-js';
 import querystring from 'query-string';
 import OAuthProvider from './oauth-provider.js';
-import client from './http-client.js';
+import {client} from './http-client.js';
 import fetch from './fetch.js';
 import {debug} from './debug.js';
 

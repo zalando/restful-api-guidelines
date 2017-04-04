@@ -20,5 +20,4 @@ client.configure(config => {
     .withInterceptor(OAuthInterceptor);
 });
 
-
-export default client;
+export {client, retryCloneInterceptor};
