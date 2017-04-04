@@ -1,4 +1,4 @@
-[![dependencies Status](https://david-dm.org/zalando-incubator/zally/status.svg?path=web-ui)](https://david-dm.org/zalando-incubator/zally?path=web-ui)
+[![dependencies Status](https://david-dm.org/zalando-incubator/zally/status.svg?path=web-ui)](https://david-dm.org/zalando-incubator/zally?path=web-ui) [![codecov](https://codecov.io/gh/zalando-incubator/zally/branch/master/graph/badge.svg)](https://codecov.io/gh/zalando-incubator/zally)
 
 Zally WEB-UI
 ============
