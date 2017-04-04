@@ -12,9 +12,9 @@
     "build": "webpack -p",
     "docker:build": "npm run build && scm-source > scm-source.json && docker build -t pierone.stups.zalan.do/architecture/zally-web-ui:${npm_package_version}-$(date +%s) .",
     "lint": "eslint src",
-    "lint:checkstyle-report": "npm run lint -- -f checkstyle --output-file target/checkstyle.xml",
-    "jest:server": "NODE_ENV=test jest --coverage --config ./jest.json",
-    "test": "npm run lint && npm run jest:server"
+    "lint:report": "npm run lint -- -f checkstyle --output-file target/checkstyle.xml",
+    "test:unit": "NODE_ENV=test jest --coverage --config ./jest.json",
+    "test": "npm run lint:report && npm run test:unit"
   },
   "repository": {
     "type": "git",
@@ -52,6 +52,7 @@
     "babel-preset-react": "6.23.0",
     "enzyme": "2.8.0",
     "eslint": "3.18.0",
+    "eslint-plugin-jest": "19.0.1",
     "jest": "19.0.2",
     "node-scm-source": "0.2.0",
     "nodemon": "1.11.0",

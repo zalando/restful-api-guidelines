@@ -1,11 +1,10 @@
 package de.zalando.zally.cli;
 
-import de.zalando.zally.cli.api.RequestDecorator;
+import de.zalando.zally.cli.api.RequestWrapperStrategy;
 import de.zalando.zally.cli.api.ZallyApiClient;
 import de.zalando.zally.cli.api.ZallyApiResponse;
 import de.zalando.zally.cli.domain.Violation;
 import de.zalando.zally.cli.exception.CliException;
-import de.zalando.zally.cli.reader.SpecsReader;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -24,9 +23,8 @@ public class Linter {
         this.printer = printer;
     }
 
-    public boolean lint(SpecsReader reader) throws IOException, CliException {
-        final RequestDecorator decorator = new RequestDecorator(reader);
-        final ZallyApiResponse response = client.validate(decorator.getRequestBody());
+    public boolean lint(RequestWrapperStrategy requestWrapper) throws IOException, CliException {
+        final ZallyApiResponse response = client.validate(requestWrapper.wrap());
         final ViolationsFilter violationsFilter = new ViolationsFilter(response.getViolations());
 
         if (response.getMessage() != null) {

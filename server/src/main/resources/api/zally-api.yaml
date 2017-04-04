@@ -74,6 +74,8 @@ definitions:
     properties:
       api_definition:
         type: object
+      api_definition_url:
+        type: string
 
   LintingResponse:
     type: object

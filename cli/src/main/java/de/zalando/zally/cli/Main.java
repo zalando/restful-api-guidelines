@@ -2,12 +2,11 @@ package de.zalando.zally.cli;
 
 import com.github.ryenus.rop.OptionParser;
 import com.github.ryenus.rop.OptionParser.Option;
+import de.zalando.zally.cli.api.RequestWrapperFactory;
+import de.zalando.zally.cli.api.RequestWrapperStrategy;
 import de.zalando.zally.cli.api.ZallyApiClient;
 import de.zalando.zally.cli.exception.CliException;
 import de.zalando.zally.cli.exception.CliExceptionType;
-import de.zalando.zally.cli.reader.SpecsReader;
-import de.zalando.zally.cli.reader.SpecsReaderFactory;
-
 import java.io.IOException;
 
 
@@ -60,11 +59,11 @@ public class Main {
 
         final ZallyApiClient client = new ZallyApiClient(getZallyUrl(), getToken());
         final ResultPrinter printer = new ResultPrinter(System.out);
-        final SpecsReader specsReader = new SpecsReaderFactory().create(args[0]);
+        final Linter linter = new Linter(client, printer);
+        final RequestWrapperStrategy requestWrapper = new RequestWrapperFactory().create(args[0]);
 
-        Linter linter = new Linter(client, printer);
         try {
-            return linter.lint(specsReader);
+            return linter.lint(requestWrapper);
         } catch (IOException exception) {
             throw new CliException(CliExceptionType.CLI, "Linter error:", exception.getMessage());
         }

@@ -1,5 +1,7 @@
+'use strict';
+
 describe('server.env', () => {
-  const env = require('../../../src/server/env');
+  const env = require('../env');
 
   test('should be defined', () => {
     expect(env).toBeDefined();

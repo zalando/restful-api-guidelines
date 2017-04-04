@@ -1,26 +1,26 @@
+'use strict';
+
 describe('server.create-http-server', () => {
-  let CreateHttpServer, server;
   const mockCreateHttpServer = jest.fn();
   const mockCreateHttpsServer = jest.fn();
   const mockReadFileSync = jest.fn();
 
   jest.mock('http', () => ({
-          createServer: mockCreateHttpServer
-      }));
+    createServer: mockCreateHttpServer
+  }));
   jest.mock('https', () => ({
-          createServer: mockCreateHttpsServer
-      }));
+    createServer: mockCreateHttpsServer
+  }));
   jest.mock('fs', () => ({
-          readFileSync: mockReadFileSync
-      }));
+    readFileSync: mockReadFileSync
+  }));
 
   describe('when env.SSL_ENABLED is not defined', () => {
     beforeEach(() => {
-      jest.mock('../../../src/server/env', () => ({
+      jest.mock('../env', () => ({
       }));
 
-      CreateHttpServer = require('../../../src/server/create-http-server');
-      server = new CreateHttpServer();
+      require('../create-http-server')();
     });
 
     test('should create a http server', () => {
@@ -31,12 +31,11 @@ describe('server.create-http-server', () => {
   describe('when env.SSL_ENABLED is false', () => {
     beforeEach(() => {
       jest.resetModules();
-      jest.mock('../../../src/server/env', () => ({
-          'SSL_ENABLED': false
+      jest.mock('../env', () => ({
+        'SSL_ENABLED': false
       }));
 
-      CreateHttpServer = require('../../../src/server/create-http-server');
-      server = new CreateHttpServer();
+      require('../create-http-server')();
     });
 
     test('should create a http server', () => {
@@ -47,12 +46,11 @@ describe('server.create-http-server', () => {
   describe('when env.SSL_ENABLED is true', () => {
     beforeEach(() => {
       jest.resetModules();
-      jest.mock('../../../src/server/env', () => ({
-          'SSL_ENABLED': true
+      jest.mock('../env', () => ({
+        'SSL_ENABLED': true
       }));
 
-      CreateHttpServer = require('../../../src/server/create-http-server');
-      server = new CreateHttpServer();
+      require('../create-http-server')();
     });
 
     test('should read key and crt files', () => {
