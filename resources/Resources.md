@@ -10,7 +10,7 @@ Request:
 
 The added benefit is that you already have a service for browsing and filtering article locks.
 
-## {{book.should}} Model comple	te business processe
+## {{book.should}} Model complete business processes
 An API should contain the complete business processes containing all resources representing the process. This enables clients to understand the business process, foster a consistent design of the business process, allow for synergies from description and implementation perspective, and eliminates implicit invisible dependencies between APIs.
 
 In addition, it prevents services from being designed as thin wrappers around databases, which normally tends to shift business logic to the clients.
