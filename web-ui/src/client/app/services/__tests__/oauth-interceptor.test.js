@@ -108,7 +108,7 @@ describe('OAuthInterceptor', () => {
       delete OAuthProviderMock._refreshToken;
     });
 
-    test('if success retry failed requests', (done) => {
+    test('if success, retry failed requests', (done) => {
 
       mockRefreshToken.mockReturnValueOnce(Promise.resolve());
       mockFetch.mockReturnValueOnce(Promise.resolve());
@@ -122,7 +122,7 @@ describe('OAuthInterceptor', () => {
         });
     });
 
-    test('if fails reject failed requests and request a new token with implicit flow', (done) => {
+    test('if fails, reject failed requests and request a new token with implicit flow', (done) => {
       mockRefreshToken.mockReturnValueOnce(Promise.reject('test refresh token fails'));
 
       OAuthInterceptor
