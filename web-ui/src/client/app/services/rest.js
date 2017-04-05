@@ -1,5 +1,4 @@
-import fetch from './fetch';
-import {OAuthProvider} from './oauth';
+import {client} from './http-client.js';
 
 export default {
   getApiViolations (apiDefinition) {
@@ -13,12 +12,8 @@ export default {
         api_definition: apiDefinition
       })
     };
-
-    if (OAuthProvider.hasAccessToken()) {
-      options.headers.Authorization = `Bearer ${OAuthProvider.getAccessToken()}`;
-    }
-
-    return fetch('/zally-api/api-violations', options)
+    return client
+      .fetch('/zally-api/api-violations', options)
       .then((response) => {
         return response.json();
       });

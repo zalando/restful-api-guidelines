@@ -52,6 +52,13 @@ app.get('/favicon.ico',(req, res) => {
  */
 app.use('/tokeninfo', require('./tokeninfo-handler'));
 
+
+/**
+ * Proxy refresh-token to avoid CORS restriction and do some magic
+ */
+app.post('/refresh-token', bodyParser.json(), require('./refresh-token-handler'));
+
+
 /**
  * Proxy zally api to avoid CORS restriction
  */
