@@ -27,9 +27,9 @@ to check the following two options:
    query parameters, respecting the usual size limits of clients, gateways, and servers, this should
    be the first choice. The request information can either be provided distributed to multiple query
    parameters or a single structured URL encoded string.
-2. POST with body content: when a GET with URL encoded query parameters ins impossible, a POST
-   with body content must be used. In this case the endpoint must be documented with  the hint
-   `GET with body` to transport the GET semantic of this call.
+2. POST with body content: when a GET with URL encoded query parameters is not possible, a POST with
+   body content must be used. In this case the endpoint must be documented with  the hint `GET with
+   body` to transport the GET semantic of this call.
 
 **Note:** It is no option to encode the lengthy request information in header parameters. From the
 conceptual point of view, the main meaning of an operation should always be expressed with the
