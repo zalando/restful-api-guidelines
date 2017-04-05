@@ -9,3 +9,6 @@ flags:
   webui:
     paths:
       - web-ui/
+
+# disable PR comments
+comment: false
