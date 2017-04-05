@@ -13,12 +13,13 @@ module.exports = function (req, res) {
   // append query parameters
   url += (url.indexOf('?') === -1 ? '?' : '&') + querystring.stringify(req.query);
 
-  fetch(url, { method: 'POST' })
+  return fetch(url, { method: 'POST' })
   .then((response) => {
     return response.json();
   })
   .then((token) => {
     res.json(token);
+    return token;
   })
   .catch((error) => {
     logger.warn('refresh token error', error);
@@ -27,5 +28,6 @@ module.exports = function (req, res) {
       title: error.message,
       detail: 'Refresh token request failed'
     });
+    return Promise.reject(error);
   });
 };
