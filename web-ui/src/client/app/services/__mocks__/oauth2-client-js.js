@@ -1,5 +1,5 @@
 export class Provider {
-  constructor(options) {
+  constructor (options) {
     this.options = options;
   }
 }

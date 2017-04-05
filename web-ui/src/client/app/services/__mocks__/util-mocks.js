@@ -20,7 +20,7 @@ export class HeadersMock {
     return typeof this._headers[key] !== 'undefined';
   }
 
-  clone() {
+  clone () {
     const clone = new HeadersMock();
     Object.keys(this._headers, (key) => {
       clone.append(key, this._headers[key]);
@@ -34,7 +34,7 @@ export class RequestMock {
     this.headers = new HeadersMock();
   }
 
-  clone() {
+  clone () {
     const clone = new RequestMock();
     clone.headers = this.headers.clone();
     return clone;

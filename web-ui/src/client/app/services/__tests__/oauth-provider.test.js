@@ -1,18 +1,16 @@
-
+/* global global */
 
 describe('OAuthProvider', () => {
   let OAuthProvider;
   beforeEach(() => {
     jest.resetModules();
     jest.mock('oauth2-client-js');
-    /* eslint-disable no-undef */
+
     global.window = {
       env: {
         OAUTH_AUTHORIZATION_URL: 'https://foo.com/authorize'
       }
     };
-    /* eslint-enable no-undef */
-
     OAuthProvider = require('../oauth-provider').default;
   });
 

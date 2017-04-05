@@ -1,3 +1,5 @@
+/* global global */
+
 const {RequestMock} = require('../__mocks__/util-mocks');
 
 const createAuthorizedRequest = () => {
@@ -17,11 +19,9 @@ describe('OAuthInterceptor', () => {
   beforeEach(() => {
     jest.resetModules();
 
-    /* eslint-disable no-undef */
     global.window = {
       env: {}
     };
-    /* eslint-enable no-undef */
 
     mockRefreshToken = jest.fn();
     mockRequestToken = jest.fn();
@@ -37,7 +37,7 @@ describe('OAuthInterceptor', () => {
   });
 
   afterEach(() => {
-    delete global.window; // eslint-disable-line no-undef
+    delete global.window;
   });
 
   describe('request interceptor', () => {

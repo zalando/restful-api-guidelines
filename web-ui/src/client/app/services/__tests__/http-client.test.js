@@ -4,14 +4,14 @@ describe('http-client', () => {
   beforeEach(() => {
     jest.resetModules();
     jest.mock('aurelia-fetch-client');
-    jest.mock('../oauth-interceptor', () => ({}))
+    jest.mock('../oauth-interceptor', () => ({}));
   });
 
   describe('retryCloneInterceptor', () => {
     let retryCloneInterceptor;
 
     beforeEach(() => {
-       retryCloneInterceptor = require('../http-client').retryCloneInterceptor;
+      retryCloneInterceptor = require('../http-client').retryCloneInterceptor;
     });
 
     test('add a cloned instance to the request', () => {

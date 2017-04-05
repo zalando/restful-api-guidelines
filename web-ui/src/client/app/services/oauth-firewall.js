@@ -17,13 +17,21 @@ export default function firewall () {
     let response;
     try {
       response = OAuthProvider.parse(window.location.hash);
-      window.location.href = window.location.href.substr(0, window.location.href.indexOf('#'));
-    } catch (err) {
+
+      // OAuthError just reject
       if (response instanceof Error) {
         return Promise.reject(response);
       }
+
+      window.location.href = window.location.href.substr(0, window.location.href.indexOf('#'));
+
+      return Promise.resolve(response);
+
+    } catch (err) {
+
       requestToken();
       return Promise.reject(err);
+
     }
   }
 

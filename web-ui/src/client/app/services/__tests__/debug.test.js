@@ -1,3 +1,5 @@
+/* global global */
+/* eslint-disable no-console */
 const {debug} = require('../debug');
 
 describe('debug', () => {
