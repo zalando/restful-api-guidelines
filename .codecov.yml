@@ -1,0 +1,11 @@
+coverage:
+  status:
+    project:
+      default: off
+      webui:
+        flags: webui
+flags:
+  # filter the folder(s) you wish to measure by that flag
+  webui:
+    paths:
+      - web-ui/
