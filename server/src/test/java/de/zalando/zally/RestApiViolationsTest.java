@@ -76,7 +76,7 @@ public class RestApiViolationsTest extends RestApiBaseTest {
                 new ObjectMapper().readTree(ResourceUtils.getFile("src/test/resources/fixtures/api_spp.json")));
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
 
-        ResponseEntity<JsonNode> metricsResponse = restTemplate.getForEntity("http://localhost:" + port + "/metrics", JsonNode.class);
+        ResponseEntity<JsonNode> metricsResponse = restTemplate.getForEntity("http://localhost:" + managementPort + "/metrics", JsonNode.class);
         assertThat(metricsResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
         System.out.println("JSON: " + metricsResponse.getBody().toString());
         JsonNode rootObject = metricsResponse.getBody();
