@@ -19,6 +19,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
         webEnvironment = RANDOM_PORT,
         classes = {Application.class, RestApiTestConfiguration.class}
 )
+@ActiveProfiles("test")
 public abstract class RestApiBaseTest {
 
     @LocalServerPort
