@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: dev
+    active: production
   oauth2:
     resource:
       tokenInfoUri: "https://info.services.auth.zalando.com/oauth2/tokeninfo"
@@ -23,6 +23,6 @@ twintip:
 
 rules-config-path: "rules-config.conf"
 
-# TODO: S001 is disabled because Zalando's API guidelines changed.
+# FYI: S001 is disabled because Zalando's API guidelines changed.
 zally:
   ignoreRules: S001
