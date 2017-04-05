@@ -31,11 +31,11 @@ to check the following two options:
    body content must be used. In this case the endpoint must be documented with  the hint `GET with
    body` to transport the GET semantic of this call.
 
-**Note:** It is no option to encode the lengthy request information in header parameters. From the
-conceptual point of view, the main meaning of an operation should always be expressed with the
-resource name and its query parameters, i.e. what goes into the URL. Request headers are reserved
-for related context information. In addition, size limits on query parameters and headers are not
-reliable and depend more on clients, gateways, server, actual settings, thus switching to headers
+**Note:** It is no option to encode the lengthy structured request information in header parameters.
+From a conceptual point of view, the semantic of an operation should always be expressed by resource
+name and query parameters, i.e. what goes into the URL. Request headers are reserved for general
+context information, e.g. FlowIDs. In addition, size limits on query parameters and headers are not
+reliable and depend on clients, gateways, server, and actual settings. Thus, switching to headers
 does not solve the original problem.
 
 ### PUT
