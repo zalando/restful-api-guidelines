@@ -62,7 +62,7 @@ app.post('/refresh-token', bodyParser.json(), require('./refresh-token-handler')
 /**
  * Proxy zally api to avoid CORS restriction
  */
-app.use('/zally-api', bodyParser.json(),  require('./zally-api-handler'));
+app.use('/zally-api',  require('./zally-api-handler'));
 
 /**
  * Health check

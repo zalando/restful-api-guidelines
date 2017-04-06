@@ -2,41 +2,22 @@
 
 describe('server.zally-api-handler', () => {
   const mockDebug = jest.fn();
-  const mockError = jest.fn();
-  const apiDefinitionURL = 'https://example.com/api-definition';
+  const mockPipe = jest.fn(() => req);
+  const mockRequest = jest.fn();
+  const res = {};
   const req = {
+    pipe: mockPipe,
     url: '/zally-api/path-to-api',
-    body: {
-      api_definition: apiDefinitionURL
-    },
-    headers: {
-      authorization: ''
-    }
   };
-  const mockJson = jest.fn();
-  const res = {
-    json: mockJson,
-    status: () => {}
-  };
-  const mockFetch = jest.fn()
-    .mockImplementationOnce(() => {
-      throw { message: 'Test Exception', status: 500};
-    })
-    .mockImplementation(() => ({
-      text: () => '{"foo": "bar"}',
-      json: () => ({ 'baz': 'qux'})
-    }));
-
   jest.mock('../env', () => ({
     'ZALLY_API_URL': 'https://example.com'
   }));
 
   jest.mock('../logger', () => ({
-    'error': mockError,
-    'debug': mockDebug
+    debug: mockDebug
   }));
 
-  jest.mock('../fetch', () => mockFetch);
+  jest.mock('request', () => mockRequest);
 
   const zallyApiHandler = require('../zally-api-handler');
 
@@ -44,41 +25,23 @@ describe('server.zally-api-handler', () => {
     expect(zallyApiHandler).toBeInstanceOf(Function);
   });
 
-  describe('when invoking the function and encountering an error', () => {
-    beforeAll(() => {
-      return zallyApiHandler(req, res);
-    });
-
-    test('should log the error', () => {
-      expect(mockError).toHaveBeenCalledWith({message: 'Test Exception', status: 500});
-    });
-
-    test('should respond with the status of error and error message', () => {
-      expect(mockJson).toHaveBeenCalledWith({ type: 'about:blank', title: 'Test Exception', detail: 'Test Exception', status: 500 });
-    });
-  });
-
   describe('when invoking the function', () => {
     beforeAll(() => {
-      mockFetch.mockClear();
-      mockDebug.mockClear();
-      mockJson.mockClear();
-
       return zallyApiHandler(req, res);
     });
-
-    test('should fetch apiDefintest', () => {
-      expect(mockFetch.mock.calls[0][0]).toBe(`${apiDefinitionURL}`);
+    test('should log the debug message', () => {
+      expect(mockDebug).toHaveBeenCalledWith('Proxying request to: https://example.com/path-to-api');
     });
 
-    test('should fetch violations', () => {
-      expect(mockFetch.mock.calls[1][0]).toBe('https://example.com/path-to-api');
+    test('should modified url from  env.ZALLY_API_URL', () => {
+      expect(mockRequest).toHaveBeenCalledWith('https://example.com/path-to-api');
     });
 
-    test('should respond with violations as json', () => {
-      expect(mockJson).toHaveBeenCalledWith({'baz': 'qux'});
+    test('should proxy the request', () => {
+      expect(mockPipe.mock.calls.length).toBe(2);
     });
   });
+
 
 });
 
