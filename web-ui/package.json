@@ -14,7 +14,8 @@
     "lint": "eslint src",
     "lint:report": "npm run lint -- -f checkstyle --output-file target/checkstyle.xml",
     "test:unit": "NODE_ENV=test jest --coverage --config ./jest.json",
-    "test": "npm run lint:report && npm run test:unit"
+    "test": "npm run lint:report && npm run test:unit",
+    "codecov": "codecov -F webui -f target/coverage/lcov.info"
   },
   "repository": {
     "type": "git",
