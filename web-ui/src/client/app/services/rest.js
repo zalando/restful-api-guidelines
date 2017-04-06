@@ -1,7 +1,7 @@
 import {client} from './http-client.js';
 
 export default {
-  getApiViolations (apiDefinition) {
+  getApiViolations (apiDefinitionUrl) {
     const options = {
       method: 'POST',
       headers: {
@@ -9,7 +9,7 @@ export default {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        api_definition: apiDefinition
+        api_definition_url: apiDefinitionUrl
       })
     };
     return client
