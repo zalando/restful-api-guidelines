@@ -1,0 +1,62 @@
+swagger: '2.0'
+info:
+  title: Test Problem JSON
+  description: Problem JSON test
+  version: "1.0.0"
+host: problemjson.example.com
+
+produces:
+  - application/json
+paths:
+  /products:
+    get:
+      summary: Product Types
+      description: |
+        The Products endpoint returns information about the products
+        offered at a given location. The response includes the display name
+        and other details about each product, and lists the products in the
+        proper display order.
+      parameters:
+        - name: latitude
+          in: query
+          description: Latitude component of location.
+          required: true
+          type: number
+          format: double
+        - name: longitude
+          in: query
+          description: Longitude component of location.
+          required: true
+          type: number
+          format: double
+      tags:
+        - Products
+      responses:
+        200:
+          description: An array of products
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Product'
+        400:
+          description: Service Unavailable
+          schema:
+            $ref: 'https://zalando.github.io/problem/schema.yaml#/Problem'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: 'https://zalando.github.io/problem/schema.yaml#/Problem'
+
+definitions:
+  Product:
+    type: object
+    properties:
+      product_id:
+        type: string
+        description: Unique identifier representing a specific product
+      description:
+        type: string
+        description: Description of product.
+      display_name:
+        type: string
+        description: Display name of product.
