@@ -19,8 +19,8 @@ as [pagination](../pagination/Pagination.md).
 ### PUT
 
 PUT requests are used to create or update **entire** resources - single or collection resources. The
-semantic is best described as »*please put the enclosed representation **in place of** the resource
-mentioned by the URL*«.
+semantic is best described as »*please put the enclosed representation at the resource mentioned by
+the URL replacing any existing resource.*«.
 
 - PUT requests are usually applied to single resources, and not to collection resources, as this
   would imply replacing the entire collection
