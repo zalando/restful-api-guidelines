@@ -20,8 +20,8 @@ as [pagination](../pagination/Pagination.md).
 
 APIs sometimes face the problem, that they have to provide extensive structured request information
 with GET, that may even conflicts with the size limits of clients, load-balancers, and servers. As
-we require APIs to be standard conform (body in GET must be ignored on server side), developers have
-to check the following two options:
+we require APIs to be standard conform (body in GET must be ignored on server side), API designers
+have to check the following two options:
 
 1. GET with URL encoded query parameters: when it is possible to encode the request information in
    query parameters, respecting the usual size limits of clients, gateways, and servers, this should
