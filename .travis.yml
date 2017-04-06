@@ -36,7 +36,7 @@ script:
   - npm install -q
   - npm test
   - npm run build
-  - ./node_modules/.bin/codecov
+  - ./node_modules/.bin/codecov -F webui
   - cd ..
 
   # Launch local zally server
