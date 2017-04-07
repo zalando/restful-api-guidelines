@@ -16,6 +16,28 @@ GET requests are used to read a single resource or query set of resources.
 **Note:** GET requests on collection resources should provide a sufficient filter mechanism as well
 as [pagination](../pagination/Pagination.md).
 
+### GET with Body
+
+APIs sometimes face the problem, that they have to provide extensive structured request information
+with GET, that may even conflicts with the size limits of clients, load-balancers, and servers. As
+we require APIs to be standard conform (body in GET must be ignored on server side), API designers
+have to check the following two options:
+
+1. GET with URL encoded query parameters: when it is possible to encode the request information in
+   query parameters, respecting the usual size limits of clients, gateways, and servers, this should
+   be the first choice. The request information can either be provided distributed to multiple query
+   parameters or a single structured URL encoded string.
+2. POST with body content: when a GET with URL encoded query parameters is not possible, a POST with
+   body content must be used. In this case the endpoint must be documented with  the hint `GET with
+   body` to transport the GET semantic of this call.
+
+**Note:** It is no option to encode the lengthy structured request information in header parameters.
+From a conceptual point of view, the semantic of an operation should always be expressed by resource
+name and query parameters, i.e. what goes into the URL. Request headers are reserved for general
+context information, e.g. FlowIDs. In addition, size limits on query parameters and headers are not
+reliable and depend on clients, gateways, server, and actual settings. Thus, switching to headers
+does not solve the original problem.
+
 ### PUT
 
 PUT requests are used to create or update single resources or an entire collection resources. The
