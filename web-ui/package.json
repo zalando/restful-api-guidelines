@@ -62,7 +62,6 @@
     "nodemon": "1.11.0",
     "react-addons-test-utils": "15.4.2",
     "supertest": "3.0.0",
-    "supertest-as-promised": "4.0.2",
     "webpack": "2.2.1",
     "webpack-dev-server": "2.4.2"
   }

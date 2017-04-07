@@ -1,4 +1,6 @@
-const request = require('supertest-as-promised');
+'use strict';
+
+const request = require('supertest');
 const app = require('../app');
 
 describe('server.app', () => {

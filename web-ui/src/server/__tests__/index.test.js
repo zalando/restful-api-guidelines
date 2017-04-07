@@ -1,3 +1,7 @@
+'use strict';
+
+/* global jasmine */
+
 describe('server.index', () => {
   let mockCreateHttpServer, mockListen, mockLoggerInfo;
   beforeEach(() => {
