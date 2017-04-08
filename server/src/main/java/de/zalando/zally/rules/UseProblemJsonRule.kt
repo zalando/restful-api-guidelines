@@ -2,7 +2,9 @@ package de.zalando.zally.rules
 
 import de.zalando.zally.Violation
 import de.zalando.zally.ViolationType
+import io.swagger.models.ComposedModel
 import io.swagger.models.Model
+import io.swagger.models.RefModel
 import io.swagger.models.Response
 import io.swagger.models.Swagger
 import io.swagger.models.properties.RefProperty
@@ -15,42 +17,42 @@ class UseProblemJsonRule : AbstractRule() {
             "#must-use-problem-json"
     override val violationType = ViolationType.MUST
     override val code = "M015"
-    private val DESCRIPTION = "Operations Should Return Problem JSON When Any Problem Occurs During Processing Whether Caused " +
+    private val description = "Operations Should Return Problem JSON When Any Problem Occurs During Processing Whether Caused " +
             "by Client Or Server"
+    private val requiredFields = setOf("type", "title", "status", "detail", "instance")
 
     override fun validate(swagger: Swagger): Violation? {
-        val isProblemDefined = isProblemDefinitionCorrect(swagger.definitions.get("Problem"))
         val paths = swagger.paths.orEmpty().flatMap { pathEntry ->
             pathEntry.value.operationMap.orEmpty().flatMap { opEntry ->
                 opEntry.value.responses.orEmpty().flatMap { responseEntry ->
-                    val httpCode = responseEntry.key.parseInt()
-                    if (httpCode in 400..599 && (!isProperRef(responseEntry.value) || !isProblemDefined)) {
+                    val httpCode = responseEntry.key.toIntOrNull()
+                    if (httpCode in 400..599 && (!isProperRef(swagger, responseEntry.value))) {
                         listOf("${pathEntry.key} ${opEntry.key} ${responseEntry.key}")
                     } else emptyList()
                 }
             }
         }
 
-        return if (paths.isNotEmpty()) Violation(this, title, DESCRIPTION, violationType, url, paths) else null
+        return if (paths.isNotEmpty()) Violation(this, title, description, violationType, url, paths) else null
     }
 
-    private fun String.parseInt(): Int? =
-            try {
-                toInt()
-            } catch (nfe: NumberFormatException) {
-                null
-            }
-
-    private fun isProperRef(response: Response) : Boolean {
+    private fun isProperRef(swagger: Swagger, response: Response) : Boolean {
         return if (response.schema?.type == "ref") {
             val schema : RefProperty = response.schema as RefProperty
-            (schema.`$ref` == "#/definitions/Problem")
+            isProblemDefinitionCorrect(swagger, swagger.definitions[schema.simpleRef])
         } else {
             false
         }
     }
 
-    private fun isProblemDefinitionCorrect(definition: Model?) : Boolean {
-        return (definition?.properties?.keys == setOf("type", "title", "status", "detail", "instance"))
+    private fun isProblemDefinitionCorrect(swagger: Swagger, definition: Model?) =
+            getProperties(swagger, definition).containsAll(requiredFields)
+
+    private fun getProperties(swagger: Swagger, definition: Model?) : Set<String> {
+        return when (definition) {
+            is ComposedModel -> definition.allOf.orEmpty().flatMap { getProperties(swagger, it) }.toSet()
+            is RefModel -> getProperties(swagger, swagger.definitions[definition.simpleRef])
+            else -> definition?.properties?.keys.orEmpty()
+        }
     }
 }
