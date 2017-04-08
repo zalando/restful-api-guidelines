@@ -7,6 +7,7 @@ import io.swagger.models.Model
 import io.swagger.models.RefModel
 import io.swagger.models.Response
 import io.swagger.models.Swagger
+import io.swagger.models.properties.ObjectProperty
 import io.swagger.models.properties.RefProperty
 import org.springframework.stereotype.Component
 
@@ -17,8 +18,8 @@ class UseProblemJsonRule : AbstractRule() {
             "#must-use-problem-json"
     override val violationType = ViolationType.MUST
     override val code = "M015"
-    private val description = "Operations Should Return Problem JSON When Any Problem Occurs During Processing Whether Caused " +
-            "by Client Or Server"
+    private val description = "Operations Should Return Problem JSON When Any Problem Occurs During Processing " +
+            "Whether Caused by Client Or Server"
     private val requiredFields = setOf("type", "title", "status", "detail", "instance")
 
     override fun validate(swagger: Swagger): Violation? {
@@ -26,7 +27,7 @@ class UseProblemJsonRule : AbstractRule() {
             pathEntry.value.operationMap.orEmpty().flatMap { opEntry ->
                 opEntry.value.responses.orEmpty().flatMap { responseEntry ->
                     val httpCode = responseEntry.key.toIntOrNull()
-                    if (httpCode in 400..599 && (!isProperRef(swagger, responseEntry.value))) {
+                    if (httpCode in 400..599 && (!isProblemJson(swagger, responseEntry.value))) {
                         listOf("${pathEntry.key} ${opEntry.key} ${responseEntry.key}")
                     } else emptyList()
                 }
@@ -36,17 +37,15 @@ class UseProblemJsonRule : AbstractRule() {
         return if (paths.isNotEmpty()) Violation(this, title, description, violationType, url, paths) else null
     }
 
-    private fun isProperRef(swagger: Swagger, response: Response) : Boolean {
-        return if (response.schema?.type == "ref") {
-            val schema : RefProperty = response.schema as RefProperty
-            isProblemDefinitionCorrect(swagger, swagger.definitions[schema.simpleRef])
-        } else {
-            false
+    private fun isProblemJson(swagger: Swagger, response: Response) : Boolean {
+        val schema = response.schema
+        val properties = when (schema) {
+            is RefProperty -> getProperties(swagger, swagger.definitions[(response.schema as RefProperty).simpleRef])
+            is ObjectProperty -> schema.properties?.keys.orEmpty()
+            else -> emptySet<String>()
         }
+        return properties.containsAll(requiredFields)
     }
-
-    private fun isProblemDefinitionCorrect(swagger: Swagger, definition: Model?) =
-            getProperties(swagger, definition).containsAll(requiredFields)
 
     private fun getProperties(swagger: Swagger, definition: Model?) : Set<String> {
         return when (definition) {
