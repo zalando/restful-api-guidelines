@@ -1,33 +1,29 @@
 'use strict';
 
-const request = require('request');
-const path = require('path');
-const logger = require('./logger');
+const webpackDevServerProxyHandler = require('./webpack-dev-server-proxy-handler');
+
+/**
+ * @param app - express app
+ * @param webpackConfig - webpack configuration object
+ */
+function webpackDevServerProxy (app, webpackConfig = { devServer: {} }) {
+
+  const {devServer} = webpackConfig;
+  const {protocol, host, port, publicPath} = Object.assign({}, webpackDevServerProxy.DEFAULTS, devServer, {
+    protocol: devServer.https ? 'https' : 'http'
+  });
+
+  app.use(publicPath, webpackDevServerProxyHandler({
+    publicPath, protocol, host, port
+  }));
+}
 
 // webpack-dev-server defaults
-const defaults = {
+webpackDevServerProxy.DEFAULTS = {
   protocol: 'http',
   host: 'localhost',
   port: 8080,
   publicPath: '/'
 };
 
-/**
- * @param app - express app
- * @param webpackConfig - webpack configuration object
- */
-module.exports = function (app, webpackConfig = {}) {
-
-  const {devServer} = webpackConfig;
-  const {protocol, host, port, publicPath} = Object.assign({}, defaults, devServer, {
-    protocol: devServer.https ? 'https' : 'http'
-  });
-
-  app.use(publicPath, (req, res) => {
-    const segment = path.join(publicPath, req.url);
-    const url = `${protocol}://${host}:${port}${segment}`;
-    logger.debug(`Proxying request to webpack dev server: ${url}`);
-    req.pipe(request(url)).pipe(res);
-  });
-};
-
+module.exports = webpackDevServerProxy;
