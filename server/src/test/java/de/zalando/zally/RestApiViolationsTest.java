@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.net.URI;
 import java.nio.file.Paths;
 import java.util.stream.Collectors;
+
+import de.zalando.zally.rules.InvalidApiSchemaRule;
 import net.jadler.stubbing.server.jdk.JdkStubHttpServer;
 import org.junit.After;
 import org.junit.Before;
@@ -142,7 +144,7 @@ public class RestApiViolationsTest extends RestApiBaseTest {
 
         JsonNode violations = rootObject.get("violations");
         assertThat(violations).hasSize(1);
-        assertThat(violations.get(0).get("title").asText()).isEqualTo("Given file is not OpenAPI 2.0 compliant");
+        assertThat(violations.get(0).get("title").asText()).isEqualTo(new InvalidApiSchemaRule().getTitle());
     }
 
     @Test
