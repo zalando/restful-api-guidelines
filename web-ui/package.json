@@ -13,8 +13,8 @@
     "docker:build": "npm run build && scm-source > scm-source.json && docker build -t pierone.stups.zalan.do/architecture/zally-web-ui:${npm_package_version}-$(date +%s) .",
     "lint": "eslint src",
     "lint:report": "npm run lint -- -f checkstyle --output-file target/checkstyle.xml",
-    "test:unit": "NODE_ENV=test jest --coverage --config ./jest.json",
-    "test": "npm run lint:report && npm run test:unit",
+    "jest": "NODE_ENV=test jest --coverage --config ./jest.json",
+    "test": "npm run lint:report && npm run jest",
     "codecov": "codecov -F webui -f target/coverage/lcov.info"
   },
   "repository": {
@@ -61,6 +61,7 @@
     "node-scm-source": "0.2.0",
     "nodemon": "1.11.0",
     "react-addons-test-utils": "15.4.2",
+    "supertest": "3.0.0",
     "webpack": "2.2.1",
     "webpack-dev-server": "2.4.2"
   }
