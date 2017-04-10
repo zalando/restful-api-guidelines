@@ -25,10 +25,6 @@ export default class Form extends React.Component {
     };
   }
 
-  clearError() {
-    this.setState({ error: null, ajaxComplete: false });
-  }
-
   handleFormSubmit(event) {
     event.preventDefault();
 
