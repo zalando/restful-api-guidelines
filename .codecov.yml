@@ -11,4 +11,4 @@ flags:
       - web-ui/
 
 # disable PR comments
-comment: false
+comment: off
