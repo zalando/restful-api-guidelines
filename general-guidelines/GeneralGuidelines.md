@@ -46,7 +46,7 @@ already confirmed via team internal reviews.
 ## {{ book.must }} Provide API Reference Definition using OpenAPI
 
 We use the [OpenAPI specification](http://swagger.io/specification/) (aka Swagger spec) as standard for our REST API definitions.
-You **have to use YAML format** (instead of JSON) for the OpenAPI API definition files due to its improved readability.
+You **have to provide the API definition in YAML format** (instead of JSON) for the OpenAPI API definition files due to its improved readability.
 
 Please stick to version 2.0 of the specification for now, until we succeed to update all our tooling to support the upcoming version 3.0.
 
