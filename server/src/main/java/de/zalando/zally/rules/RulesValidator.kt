@@ -1,7 +1,6 @@
 package de.zalando.zally.rules
 
 import de.zalando.zally.Violation
-import de.zalando.zally.ViolationType
 import io.swagger.parser.SwaggerParser
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
@@ -17,8 +16,7 @@ class RulesValidator(@Autowired val rules: List<Rule>, @Autowired val rulesPolic
         val swagger = try {
             SwaggerParser().parse(swaggerContent)!!
         } catch (e: Exception) {
-            return listOf(Violation(InvalidSwaggerFileDummyRule(), "Given file is not OpenAPI 2.0 compliant",
-                    e.toString(), ViolationType.MUST, "", emptyList()))
+            return listOf(InvalidApiSchemaRule().validate())
         }
         return rules
                 .filter { rule -> rulesPolicy.accepts(rule) }
