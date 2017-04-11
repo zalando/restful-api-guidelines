@@ -7,13 +7,14 @@ describe('run', () => {
 
   jest.mock('../services/oauth-provider.js', () => ({}));
   jest.mock('../services/oauth-firewall.js', () => mockFirewall);
+  jest.mock('../containers/editor.jsx', () => ({Editor: () => {}}));
   jest.mock('react-dom', () => ({
     render: mockRender
   }));
 
   global.document = {
      getElementById: mockGetElementById
-  }
+  };
 
   const {run} = require('../run');
 

@@ -50,6 +50,7 @@ describe('oauth-firewall', () => {
     global.window.env.OAUTH_ENABLED = true;
     global.window.location.hash = '#access_token=foo';
     global.window.location.href = 'https://www.google.com#access_token=foo';
+    global.window.location.origin = 'https://www.google.com';
     OAuthProviderMock._response = parseResponse;
 
     firewall()

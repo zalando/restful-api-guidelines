@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {If} from './util.jsx';
 import {Msg} from './dress-code.jsx';
 
-function Violations(props) {
+export function Violations(props) {
   return (
     <div>
-      {props.violations.length ? <h3>Violations</h3> : ''}
+      {props.violations.length ? <h3>VIOLATIONS</h3> : ''}
       <ul style={{padding: 0, listStyle: 'none'}}>{
         props.violations.map((violation, index) => {
           return (<Violation key={index} violation={violation} />)
@@ -15,7 +15,7 @@ function Violations(props) {
   )
 }
 
-function Violation(props) {
+export function Violation(props) {
   return (
     <li style={{marginBottom: '32px', paddingBottom: '32px', borderBottom: '1px solid #ccc'}}>
       <h4 className="dc-h4">
@@ -36,7 +36,7 @@ function Violation(props) {
   )
 }
 
-function ViolationType(props) {
+export function ViolationType(props) {
   if("MUST" === props.type)
     return <span className="dc-status dc-status--error"></span>;
   else if("SHOULD" === props.type)
@@ -46,15 +46,15 @@ function ViolationType(props) {
 }
 
 
-function ViolationRuleLink(props) {
+export function ViolationRuleLink(props) {
   return (
     <p>
-      Rule: <a href={props.ruleLink} className="dc-link">{props.ruleLink}</a>
+      Rule: <a href={props.ruleLink} className="dc-link" target="_blank">{props.ruleLink}</a>
     </p>
   )
 }
 
-function ViolationPaths(props) {
+export function ViolationPaths(props) {
   return (
     <span>
       <p>Paths:</p>
@@ -63,7 +63,7 @@ function ViolationPaths(props) {
   )
 }
 
-function ViolationsResult(props){
+export function ViolationsResult(props){
   return (
     <div className="violations-result">
       <If test={() => props.pending} dataTestId="if-loading">
@@ -90,5 +90,3 @@ ViolationsResult.propTypes = {
   successMsgText:  React.PropTypes.string.isRequired,
   violations: React.PropTypes.array
 };
-
-export {Violations, Violation, ViolationPaths, ViolationRuleLink, ViolationType, ViolationsResult}

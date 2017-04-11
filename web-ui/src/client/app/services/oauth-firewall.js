@@ -23,7 +23,7 @@ export default function firewall () {
         return Promise.reject(response);
       }
 
-      window.location.href = window.location.href.substr(0, window.location.href.indexOf('#'));
+      window.location.href = window.location.origin;
 
       return Promise.resolve(response);
 

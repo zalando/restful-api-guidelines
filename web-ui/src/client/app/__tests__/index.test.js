@@ -1,5 +1,6 @@
 const mockRun = jest.fn();
 jest.mock('../run', () => ({ run:  mockRun}));
+jest.mock('../index.css', () => ({ run:  mockRun}));
 require('../index');
 
 describe('index', () => {

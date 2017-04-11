@@ -1,0 +1,45 @@
+body {
+  background: #fff;
+}
+
+.dc-page {
+  padding: 1.2rem 2.4rem;
+}
+
+.child-routes-container {
+  background: #f5f5f5;
+  padding: 1.8rem 1.2rem;
+}
+
+.navigation__link {
+  font-weight:bold;
+  display: inline-block;
+  padding: 1.2rem;
+}
+
+.navigation__link--active {
+  background: #f5f5f5;
+}
+
+.editor-input-form__label {
+  display: inline-block;
+  line-height: 4rem;
+  margin-right: 0.4rem
+}
+
+.editor {
+  border: 1px solid #dadada;
+  margin-bottom: 1.2rem;
+}
+
+.editor__ace-editor {
+  background: #f7f6f6;
+}
+
+.editor-input-form__bottom-button {
+  text-align: right;
+}
+
+.violations-result__spinner {
+  text-align:center;
+}

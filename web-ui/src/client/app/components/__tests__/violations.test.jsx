@@ -9,8 +9,8 @@ describe('ViolationType component', () => {
       const status = component.find('.dc-status--error');
 
       expect(status.length).toEqual(1);
-    })
-  })
+    });
+  });
 
   describe('when violationType is SHOULD', () => {
     test('should return dc-status--new', () => {
@@ -18,8 +18,8 @@ describe('ViolationType component', () => {
       const status = component.find('.dc-status--new');
 
       expect(status.length).toEqual(1);
-    })
-  })
+    });
+  });
 
   describe('when violationType niether MUST nor SHOULD', () => {
     test('should return dc-status--inactive', () => {
@@ -27,8 +27,8 @@ describe('ViolationType component', () => {
       const status = component.find('.dc-status--inactive');
 
       expect(status.length).toEqual(1);
-    })
-  })
+    });
+  });
 });
 
 describe('ViolationRuleLink component', () => {
@@ -38,7 +38,7 @@ describe('ViolationRuleLink component', () => {
 
     expect(link.length).toEqual(1);
     expect(link.text()).toEqual('foo');
-  })
+  });
 });
 
 describe('ViolationPaths component', () => {
@@ -48,7 +48,7 @@ describe('ViolationPaths component', () => {
     const li = component.find('li');
 
     expect(li.length).toEqual(2);
-  })
+  });
 });
 
 describe('Violations component', () => {
@@ -58,7 +58,7 @@ describe('Violations component', () => {
     const violation = component.find('Violation');
 
     expect(violation.length).toEqual(2);
-  })
+  });
 });
 
 
@@ -177,5 +177,5 @@ describe('ViolationsResult component', () => {
       expect(Violations.prop('violations')).toEqual(violations);
       expect(Violations.prop('violationsCount')).toEqual(2);
     });
-  })
+  });
 });
