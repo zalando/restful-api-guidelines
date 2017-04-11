@@ -25,11 +25,11 @@ function Violation(props) {
 
       <p>{props.violation.description}</p>
 
-      <If test={() => !!props.violation.rule_link }>
+      <If test={() => !!props.violation.rule_link } dataTestId="if-violation-rule-link" >
         <ViolationRuleLink ruleLink={props.violation.rule_link} />
       </If>
 
-      <If test={() => !!props.violation.paths.length }>
+      <If test={() => !!props.violation.paths.length } dataTestId="if-violation-paths">
         <ViolationPaths paths={props.violation.paths} />
       </If>
     </li>
@@ -66,16 +66,16 @@ function ViolationPaths(props) {
 function ViolationsResult(props){
   return (
     <div className="violations-result">
-      <If test={() => props.pending}>
+      <If test={() => props.pending} dataTestId="if-loading">
         <div className="violations-result__spinner"><div className="dc-spinner dc-spinner--small"></div></div>
       </If>
-      <If test={() => !props.pending && props.complete && !props.errorMsgText && props.violations.length == 0}>
+      <If test={() => !props.pending && props.complete && !props.errorMsgText && props.violations.length == 0} dataTestId="if-success">
         <Msg type="success" title={props.successMsgTitle} text={props.successMsgText} closeButton={false}  />
       </If>
-      <If test={() => !props.pending && props.complete && props.errorMsgText}>
+      <If test={() => !props.pending && props.complete && props.errorMsgText} dataTestId="if-error">
         <Msg type="error" title="ERROR" text={props.errorMsgText} closeButton={false} />
       </If>
-      <If test={() => !props.pending && props.complete && props.violations.length}>
+      <If test={() => !props.pending && props.complete && props.violations.length} dataTestId="if-violations">
         <Violations violations={props.violations} violationsCount={props.violationsCount}/>
       </If>
     </div>
