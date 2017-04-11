@@ -1,11 +1,13 @@
 package de.zalando.zally.rules
 
+import com.typesafe.config.Config
 import de.zalando.zally.Violation
 import de.zalando.zally.ViolationType
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
 @Component
-class AvoidLinkHeadersRule : HttpHeadersRule() {
+class AvoidLinkHeadersRule(@Autowired rulesConfig: Config) : HttpHeadersRule(rulesConfig) {
     override val title = "Avoid Link in Header Rule"
     override val violationType = ViolationType.MUST
     override val url = "http://zalando.github.io/restful-api-guidelines/hyper-media/Hypermedia.html" +

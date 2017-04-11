@@ -1,23 +1,23 @@
 package de.zalando.zally.rules
 
 import de.zalando.zally.getFixture
+import de.zalando.zally.testConfig
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
-/**
- * Unit test for limiting number of resources rule.
- */
 class LimitNumberOfResourcesRuleTest {
+
     @Test
     fun positiveCase() {
         val swagger = getFixture("limitNumberOfResourcesValid.json")
-        assertThat(LimitNumberOfResourcesRule().validate(swagger)).isNull()
+        assertThat(LimitNumberOfResourcesRule(testConfig).validate(swagger)).isNull()
     }
 
     @Test
     fun negativeCase() {
         val swagger = getFixture("limitNumberOfResourcesInvalid.json")
-        assertThat(LimitNumberOfResourcesRule().validate(swagger)!!.paths).hasSameElementsAs(listOf(
+        val result = LimitNumberOfResourcesRule(testConfig).validate(swagger)!!
+        assertThat(result.paths).hasSameElementsAs(listOf(
                 "/items",
                 "/items/{item_id}",
                 "/items10",

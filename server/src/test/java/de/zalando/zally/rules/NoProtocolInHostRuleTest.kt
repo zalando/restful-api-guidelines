@@ -41,12 +41,12 @@ class NoProtocolInHostRuleTest {
     @Test
     fun positiveCaseSpp() {
         val swagger = getFixture("api_spp.json")
-        assertThat(AvoidLinkHeadersRule().validate(swagger)).isNull()
+        assertThat(NoProtocolInHostRule().validate(swagger)).isNull()
     }
 
     @Test
     fun positiveCaseSpa() {
         val swagger = getFixture("api_spa.yaml")
-        assertThat(AvoidLinkHeadersRule().validate(swagger)).isNull()
+        assertThat(NoProtocolInHostRule().validate(swagger)).isNull()
     }
 }

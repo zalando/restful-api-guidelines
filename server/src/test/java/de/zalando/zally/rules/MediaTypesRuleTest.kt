@@ -88,14 +88,22 @@ class MediaTypesRuleTest {
     }
 
     @Test
-    fun positiveCaseSpp() {
+    fun negativeCaseSpp() {
         val swagger = getFixture("api_spp.json")
-        assertThat(AvoidLinkHeadersRule().validate(swagger)).isNull()
+        val result = rule.validate(swagger)!!
+        assertThat(result.paths).hasSameElementsAs(listOf(
+                "/products GET",
+                "/products/{product_id} GET",
+                "/products/{product_id} PATCH",
+                "/products/{product_id}/children GET",
+                "/products/{product_id}/updates/{update_id} GET",
+                "/product-put-requests/{product_path} POST",
+                "/request-groups/{request_group_id}/updates GET"))
     }
 
     @Test
     fun positiveCaseSpa() {
         val swagger = getFixture("api_spa.yaml")
-        assertThat(AvoidLinkHeadersRule().validate(swagger)).isNull()
+        assertThat(rule.validate(swagger)).isNull()
     }
 }
