@@ -1,12 +1,12 @@
 package de.zalando.zally.rules
 
-import com.typesafe.config.ConfigFactory
 import de.zalando.zally.getFixture
+import de.zalando.zally.testConfig
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
 class LimitNumberOfSubresourcesRuleTest {
-    val ruleConfig = ConfigFactory.load("rules-config-test.conf")
+    val ruleConfig = testConfig
 
     @Test
     fun positiveCase() {

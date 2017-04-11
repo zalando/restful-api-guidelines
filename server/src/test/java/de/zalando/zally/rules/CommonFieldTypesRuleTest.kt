@@ -1,7 +1,7 @@
 package de.zalando.zally.rules
 
-import com.typesafe.config.ConfigFactory
 import de.zalando.zally.getFixture
+import de.zalando.zally.testConfig
 import io.swagger.models.Swagger
 import io.swagger.models.properties.AbstractProperty
 import io.swagger.models.properties.IntegerProperty
@@ -10,8 +10,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
 class CommonFieldTypesRuleTest {
-    val ruleConfig = ConfigFactory.load("rules-config-test.conf")
-    private val rule = CommonFieldTypesRule(ruleConfig)
+    private val rule = CommonFieldTypesRule(testConfig)
 
     object PropertyWithNullType : AbstractProperty() {
         override fun getType(): String? {

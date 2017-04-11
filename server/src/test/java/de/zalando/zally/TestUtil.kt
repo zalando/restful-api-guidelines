@@ -1,11 +1,17 @@
 package de.zalando.zally
 
+import com.typesafe.config.Config
+import com.typesafe.config.ConfigFactory
 import io.swagger.models.ModelImpl
 import io.swagger.models.Path
 import io.swagger.models.Swagger
 import io.swagger.models.parameters.HeaderParameter
 import io.swagger.models.properties.StringProperty
 import io.swagger.parser.SwaggerParser
+
+val testConfig: Config by lazy {
+    ConfigFactory.load("rules-config-test.conf")
+}
 
 fun getFixture(fileName: String): Swagger = SwaggerParser().read("fixtures/$fileName")
 
