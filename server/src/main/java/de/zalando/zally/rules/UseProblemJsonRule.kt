@@ -20,7 +20,7 @@ class UseProblemJsonRule : AbstractRule() {
     override val code = "M015"
     private val description = "Operations Should Return Problem JSON When Any Problem Occurs During Processing " +
             "Whether Caused by Client Or Server"
-    private val requiredFields = setOf("type", "title", "status", "detail", "instance")
+    private val requiredFields = setOf("title", "status")
 
     override fun validate(swagger: Swagger): Violation? {
         val paths = swagger.paths.orEmpty().flatMap { pathEntry ->
