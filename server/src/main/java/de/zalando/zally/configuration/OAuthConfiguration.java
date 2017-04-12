@@ -43,8 +43,8 @@ class OAuthConfiguration extends ResourceServerConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.NEVER)
                 .and()
                 .authorizeRequests()
-                .antMatchers("**/health").permitAll()
-                .antMatchers("**/metrics").access("#oauth2.hasScope('uid')")
+                .antMatchers("/health").permitAll()
+                .antMatchers("/metrics").access("#oauth2.hasScope('uid')")
                 .antMatchers("/api-violations").access("#oauth2.hasScope('uid')")
                 .antMatchers("**").denyAll();
 

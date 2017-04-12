@@ -6,9 +6,6 @@ endpoints:
     enabled: true
     sensitive: false
 
-management:
-  port: 7979
-
 security:
   basic:
     enabled: false
