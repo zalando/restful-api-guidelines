@@ -1,4 +1,4 @@
-const PREFIX = 'zally_';
+export const PREFIX = 'zally_';
 
 export function createKey (key) {
   return `${PREFIX}${key}`;
