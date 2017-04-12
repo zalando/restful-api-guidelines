@@ -13,7 +13,7 @@ describe('run', () => {
 
   global.document = {
      getElementById: mockGetElementById
-  }
+  };
 
   const {run} = require('../run');
 

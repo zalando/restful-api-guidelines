@@ -5,9 +5,9 @@ import RestService from './services/rest.js'
 import App from './components/app.jsx';
 
 export function run () {
-	return firewall().then(() => {
+	return firewall().then((response) => {
 	  return render(
-	    <App RestService={RestService} />,
+	    <App RestService={RestService} firewallResponse={response} />,
 	    document.getElementById('app')
 	  );
 	});

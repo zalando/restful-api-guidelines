@@ -4,6 +4,7 @@ import OAuthProvider from './oauth-provider.js';
 import {client} from './http-client.js';
 import fetch from './fetch.js';
 import {debug} from './debug.js';
+import get from 'lodash/get';
 
 
 export function requestToken () {
@@ -60,4 +61,14 @@ export function checkTokenIsValid () {
     requestToken();
     return Promise.reject(error);
   });
+}
+
+export function getUserName (oauthResponse){
+  const usernamePath = window.env.OAUTH_USERNAME_PROPERTY;
+  return get(oauthResponse, usernamePath, 'anonymous' );
+}
+
+export function logout (){
+  OAuthProvider.deleteTokens();
+  window.location.reload();
 }
