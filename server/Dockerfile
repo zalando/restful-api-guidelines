@@ -6,6 +6,5 @@ COPY build/libs/zally-1.0.0.jar /
 COPY scm-source.json /scm-source.json
 
 EXPOSE 8080
-EXPOSE 7979
 
 CMD java -Xmx512m $(appdynamics-agent) -jar /zally-1.0.0.jar
