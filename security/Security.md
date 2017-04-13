@@ -42,6 +42,8 @@ resource ::= [a-z][a-z0-9-]* ; free identifier - resource name
 access-type ::= read || write ; might be extended in future
 ```
 
+The functional-domain and functional-component must be equal to the domain and component of the API hostname this permissions are protecting.
+
 APIs should stick to standard permissions by default -- for the majority of use cases, restricting access to specific APIs (with read vs. write differentiation) is sufficient for controlling access for client types like merchant or retailer business partners, customers or operational staff. We want to avoid too many, fine grained scopes increasing governance complexity without real value add. In some situations, where the API serves different types of resources for different owners, resource specific scopes may make sense.
 
 Some examples for standard and resource-specific permissions:
