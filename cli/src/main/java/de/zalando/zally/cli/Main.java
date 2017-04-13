@@ -20,7 +20,7 @@ import java.io.IOException;
 )
 public class Main {
 
-    private static final String DEFAULT_ZALLY_URL = "http://localhost:8080/api-violations";
+    private static final String DEFAULT_ZALLY_URL = "http://localhost:8080/";
 
     @Option(opt = {"-l", "--linter-service"}, description = "ZALLY Service URL")
     private String url;

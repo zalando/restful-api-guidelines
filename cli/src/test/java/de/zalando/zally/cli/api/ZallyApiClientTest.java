@@ -123,7 +123,7 @@ public class ZallyApiClientTest {
     private void mockServer(int status, String body) {
         onRequest()
                 .havingMethodEqualTo("POST")
-                .havingPathEqualTo("/")
+                .havingPathEqualTo("/api-violations")
                 .havingHeaderEqualTo("Content-Type", "application/json")
                 .havingBodyEqualTo(requestBody)
                 .respond()

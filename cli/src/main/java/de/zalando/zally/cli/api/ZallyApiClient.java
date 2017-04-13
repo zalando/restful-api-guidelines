@@ -43,9 +43,10 @@ public class ZallyApiClient {
 
     private final String url;
     private final String token;
+    private static final String PATH = "/api-violations";
 
-    public ZallyApiClient(String url, String token) {
-        this.url = url;
+    public ZallyApiClient(String baseUrl, String token) {
+        this.url = getUrl(baseUrl);
         this.token = token;
     }
 
@@ -107,5 +108,10 @@ public class ZallyApiClient {
                     exception.getMessage()
             );
         }
+    }
+
+    private String getUrl(String baseUrl) {
+        String url = baseUrl;
+        return url.replaceAll("/$", "") + PATH;
     }
 }
