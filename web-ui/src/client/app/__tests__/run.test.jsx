@@ -5,9 +5,9 @@ describe('run', () => {
 
   mockFirewall.mockReturnValueOnce(Promise.resolve());
 
-  jest.mock('../services/oauth-provider.js', () => ({}));
+  jest.mock('../services/rest.js', () => ({}));
   jest.mock('../services/oauth-firewall.js', () => mockFirewall);
-  jest.mock('../containers/editor.jsx', () => ({Editor: () => {}}));
+  jest.mock('../containers/root.jsx', () => ({Root: () => {}}));
   jest.mock('react-dom', () => ({
     render: mockRender
   }));
