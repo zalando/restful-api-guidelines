@@ -1,7 +1,7 @@
 function handleResponse (response) {
   if (response.status >= 400) {
     const error = new Error(response.statusText || response.status);
-    error.status = response.status || 500;
+    error.status = response.status;
     return Promise.reject(error);
   }
 

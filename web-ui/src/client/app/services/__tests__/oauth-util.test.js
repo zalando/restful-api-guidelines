@@ -1,12 +1,14 @@
 /* global global, window, jasmine */
 
 import {Request} from 'oauth2-client-js';
-import {requestToken, refreshToken} from '../oauth-util.js';
+import {requestToken, refreshToken, checkTokenIsValid} from '../oauth-util.js';
 import OAuthProvider from '../oauth-provider.js';
 import fetch from '../fetch.js';
+import {client} from '../http-client.js';
 
 jest.mock('../oauth-provider');
 jest.mock('../fetch');
+jest.mock('../http-client');
 
 describe('requestToken', () => {
   beforeEach(() => {
@@ -76,6 +78,38 @@ describe('refreshToken', () => {
         expect(e).toEqual(error);
         done();
       } catch (e) {
+        done.fail(e);
+      }
+    });
+  });
+});
+
+describe('checkTokenIsValid', () => {
+
+  afterEach(() => {
+    client.fetch.mockReset();
+  });
+
+  test('resolve with response body if token is valid', () => {
+    const mockTokeninfoBody = {};
+    client.fetch.mockReturnValueOnce(Promise.resolve({
+      json: () => mockTokeninfoBody
+    }));
+    checkTokenIsValid().then((body) => {
+      expect(body).toBeDefined();
+      expect(body).toBe(mockTokeninfoBody);
+    });
+  });
+
+  test('reject with an error if token is not valid', () => {
+    const mockError = new Error('test checkTokenIsValid fails');
+    client.fetch.mockReturnValueOnce(Promise.reject(mockError));
+    checkTokenIsValid().catch((error) => {
+      try {
+        expect(error).toBeDefined();
+        expect(error).toBe(mockError);
+        done();
+      }catch(e) {
         done.fail(e);
       }
     });

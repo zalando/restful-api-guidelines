@@ -40,5 +40,8 @@ export default function firewall () {
     return Promise.reject();
   }
 
-  return checkTokenIsValid();
+  return checkTokenIsValid().catch((error) => {
+    requestToken();
+    return Promise.reject(error);
+  });
 }

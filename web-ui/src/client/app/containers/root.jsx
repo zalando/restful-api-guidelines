@@ -12,13 +12,13 @@ export function Root(props) {
         component={URL}
         getApiViolations={props.RestService.getApiViolationsByURL.bind(props.RestService)}
         Storage={props.Storage}
-        />
+      />
       <Route
         path="/editor"
         component={Editor}
         getApiViolations={props.RestService.getApiViolationsBySchema.bind(props.RestService)}
         Storage={props.Storage}
-        />
+      />
     </Route>
   </Router>)
 }

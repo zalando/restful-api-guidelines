@@ -57,7 +57,6 @@ export function checkTokenIsValid () {
   })
   .catch((error) => {
     console.error(error); // eslint-disable-line no-console
-    requestToken();
     return Promise.reject(error);
   });
 }
