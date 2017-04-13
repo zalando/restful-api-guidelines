@@ -1,3 +1,5 @@
+/* global global */
+
 import fetch from '../fetch.js';
 
 describe('fetch', () => {
@@ -41,7 +43,7 @@ describe('fetch', () => {
         expect(error.message).toBe(response.statusText);
         expect(error.status).toBe(response.status);
         done();
-      }catch(e) {
+      } catch (e) {
         done.fail(e);
       }
     });
@@ -60,7 +62,7 @@ describe('fetch', () => {
         expect(error.message).toBe('401');
         expect(error.status).toBe(response.status);
         done();
-      }catch(e) {
+      } catch (e) {
         done.fail(e);
       }
     });

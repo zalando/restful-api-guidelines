@@ -61,7 +61,6 @@ describe('oauth-firewall', () => {
       });
   });
 
-
   test('parse implicit grant flow response and request token if something went wrong', (done) => {
     global.window.env.OAUTH_ENABLED = true;
     global.window.location.hash = '#access_token=foo';
@@ -106,6 +105,26 @@ describe('oauth-firewall', () => {
         expect(mockRequestToken).not.toHaveBeenCalled();
         expect(response).toEqual('valid');
         done();
+      });
+  });
+
+  test('check token is valid if OAuthProvider has an access token and if not valid request a token', (done) => {
+    const error = new Error();
+    mockCheckTokenIsValid.mockReturnValueOnce(Promise.reject(error));
+    global.window.env.OAUTH_ENABLED = true;
+    OAuthProviderMock._accessToken = 'foo';
+
+    firewall()
+      .catch((response) => {
+        try {
+          expect(response).toEqual(error);
+          expect(mockCheckTokenIsValid).toHaveBeenCalled();
+          expect(mockRequestToken).toHaveBeenCalled();
+
+          done();
+        } catch (e) {
+          done.fail(e);
+        }
       });
   });
 

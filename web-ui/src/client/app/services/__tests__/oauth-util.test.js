@@ -101,7 +101,7 @@ describe('checkTokenIsValid', () => {
     });
   });
 
-  test('reject with an error if token is not valid', () => {
+  test('reject with an error if token is not valid', (done) => {
     const mockError = new Error('test checkTokenIsValid fails');
     client.fetch.mockReturnValueOnce(Promise.reject(mockError));
     checkTokenIsValid().catch((error) => {
@@ -109,7 +109,7 @@ describe('checkTokenIsValid', () => {
         expect(error).toBeDefined();
         expect(error).toBe(mockError);
         done();
-      }catch(e) {
+      } catch (e) {
         done.fail(e);
       }
     });
