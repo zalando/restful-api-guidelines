@@ -1,37 +1,33 @@
 import OAuthProvider from './oauth-provider.js';
 import {requestToken, checkTokenIsValid} from './oauth-util.js';
 
+export default firewall;
+
 /**
  * Authenticate user with Oauth2 Implicit Grant Flow
  * The Access Token and Refresh Token are saved in the local storage
  *
  * @return {Promise}
  */
-export default function firewall () {
+function firewall () {
 
   if (!window.env.OAUTH_ENABLED) { return Promise.resolve(); }
 
-  // do we have a response from auth server?
-  // check if we can parse the url fragment
-  if (window.location.hash.length && window.location.hash.startsWith('#access_token')) {
+  if (firewall.hasAuthResponse()) {
+
     let response;
     try {
       response = OAuthProvider.parse(window.location.hash);
-
       // OAuthError just reject
       if (response instanceof Error) {
         return Promise.reject(response);
       }
-
-      window.location.href = window.location.origin;
-
       return Promise.resolve(response);
 
     } catch (err) {
 
       requestToken();
       return Promise.reject(err);
-
     }
   }
 
@@ -45,3 +41,8 @@ export default function firewall () {
     return Promise.reject(error);
   });
 }
+
+firewall.hasAuthResponse = () => {
+  // check if we can parse the url fragment
+ return window.location.hash.length && window.location.hash.startsWith('#access_token')
+};

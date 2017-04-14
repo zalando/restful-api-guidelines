@@ -45,36 +45,36 @@ describe('oauth-firewall', () => {
       });
   });
 
-  test('parse implicit grant flow response and "redirect" the user', (done) => {
+  test('parse implicit grant flow response and resolve', () => {
     const parseResponse = {};
     global.window.env.OAUTH_ENABLED = true;
     global.window.location.hash = '#access_token=foo';
     global.window.location.href = 'https://www.google.com#access_token=foo';
-    global.window.location.origin = 'https://www.google.com';
     OAuthProviderMock._response = parseResponse;
 
-    firewall()
+    return firewall()
       .then((response) => {
-        expect(global.window.location.href).toEqual('https://www.google.com');
         expect(parseResponse).toEqual(response);
-        done();
       });
   });
 
   test('parse implicit grant flow response and request token if something went wrong', (done) => {
     global.window.env.OAUTH_ENABLED = true;
     global.window.location.hash = '#access_token=foo';
-    global.window.location.href = 'https://www.google.com#access_token=foo';
     const parseError = new Error();
     OAuthProviderMock.parse = () => {
       throw parseError;
     };
-
     firewall()
       .catch((error) => {
-        expect(mockRequestToken).toHaveBeenCalled();
-        expect(parseError).toEqual(error);
-        done();
+        try {
+          expect(mockRequestToken).toHaveBeenCalled();
+          expect(error).toEqual(parseError);
+          done();
+        }catch(e) {
+          done.fail(e);
+        }
+
       });
   });
 

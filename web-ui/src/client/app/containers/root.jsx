@@ -1,11 +1,11 @@
 import React from 'react';
-import { Router, Route, hashHistory } from 'react-router';
+import { Router, Route, browserHistory } from 'react-router';
 import {App} from './app.jsx';
 import {URL} from './url.jsx';
 import {Editor} from './editor.jsx';
 
 export function Root(props) {
-  return (<Router history={hashHistory}>
+  return (<Router history={browserHistory}>
     <Route component={App}>
       <Route
         path="/"

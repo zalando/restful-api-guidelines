@@ -7,7 +7,14 @@ import {Root} from './containers/root.jsx';
 
 export function run () {
 	return firewall().then(() => {
-	  return render(<Root
+
+    // clean the hash if contains the access token
+    // e.g. http://myapp.com/#access_token=xxx
+    if(firewall.hasAuthResponse()) {
+      window.location.hash = '';
+    }
+
+    return render(<Root
       RestService={RestService}
       Storage={Storage}
     />
