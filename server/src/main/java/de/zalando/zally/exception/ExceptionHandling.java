@@ -9,6 +9,7 @@ import org.zalando.problem.Problem;
 import org.zalando.problem.spring.web.advice.ProblemHandling;
 import org.zalando.problem.spring.web.advice.SpringAdviceTrait;
 
+
 @ControllerAdvice
 public class ExceptionHandling implements ProblemHandling, SpringAdviceTrait {
 
@@ -16,5 +17,11 @@ public class ExceptionHandling implements ProblemHandling, SpringAdviceTrait {
     public ResponseEntity<Problem> handleMissingApiDefinitionException(MissingApiDefinitionException exception,
                                                                        NativeWebRequest request) {
         return create(HttpStatus.BAD_REQUEST, exception, request);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<Problem> handleUnaccessibleResourceUrlException(
+            UnaccessibleResourceUrlException exception, NativeWebRequest request) {
+        return create(exception.getHttpStatus(), exception, request);
     }
 }

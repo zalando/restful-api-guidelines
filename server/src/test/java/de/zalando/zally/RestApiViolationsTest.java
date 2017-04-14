@@ -185,6 +185,35 @@ public class RestApiViolationsTest extends RestApiBaseTest {
         assertThat(violations.get(0 ).get("title").asText()).isEqualTo("dummy2");
     }
 
+    @Test
+    public void shouldReturn404WhenHostNotRecognised() throws Exception {
+        final RequestEntity requestEntity = RequestEntity
+                .post(URI.create(getUrl()))
+                .contentType(MediaType.APPLICATION_JSON)
+                .body("{\"api_definition_url\": \"http://bad.example.localhost/test.yaml\"}");
+
+        final ResponseEntity<JsonNode> responseEntity = restTemplate.exchange(requestEntity, JsonNode.class);
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+
+        final JsonNode rootObject = responseEntity.getBody();
+        assertThat(rootObject.get("detail").asText()).isEqualTo("Unknown host: bad.example.localhost");
+    }
+
+    @Test
+    public void shouldReturn404WhenNotFound() throws Exception {
+        final String definitionUrl = simulateNotFound();
+        final RequestEntity requestEntity = RequestEntity
+                .post(URI.create(getUrl()))
+                .contentType(MediaType.APPLICATION_JSON)
+                .body("{\"api_definition_url\": \"" + definitionUrl + "\"}");
+
+        final ResponseEntity<JsonNode> responseEntity = restTemplate.exchange(requestEntity, JsonNode.class);
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+
+        final JsonNode rootObject = responseEntity.getBody();
+        assertThat(rootObject.get("detail").asText()).isEqualTo("404 Not Found");
+    }
+
     private String getLocalUrl(final String resourceFilePath, final String contentType) throws Exception {
         final File file = ResourceUtils.getFile(resourceFilePath);
         final BufferedReader reader = new BufferedReader(new FileReader(file));
@@ -205,4 +234,18 @@ public class RestApiViolationsTest extends RestApiBaseTest {
         return url;
     }
 
+    private String simulateNotFound() throws Exception {
+        final String remotePath = "/abcde.yaml";
+        final String url = "http://localhost:" + port() + remotePath;
+
+        onRequest()
+                .havingMethodEqualTo("GET")
+                .havingPathEqualTo(remotePath)
+                .respond()
+                .withStatus(404)
+                .withHeader("Content-Type", "text/plain")
+                .withBody("NotFound");
+
+        return url;
+    }
 }

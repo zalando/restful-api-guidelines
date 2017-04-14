@@ -22,7 +22,7 @@ function firewall () {
       if (response instanceof Error) {
         return Promise.reject(response);
       }
-      return Promise.resolve(response);
+      return checkTokenIsValid();
 
     } catch (err) {
 

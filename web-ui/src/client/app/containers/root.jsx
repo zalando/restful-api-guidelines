@@ -6,7 +6,11 @@ import {Editor} from './editor.jsx';
 
 export function Root(props) {
   return (<Router history={browserHistory}>
-    <Route component={App}>
+    <Route
+      component={App}
+      logout={props.logout}
+      showUser={window.env.OAUTH_ENABLED === true}
+      user={props.user}>
       <Route
         path="/"
         component={URL}

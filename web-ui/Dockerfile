@@ -12,7 +12,7 @@ RUN npm install -q --production
 # copy source
 COPY ./src ./src
 
-COPY ./scm-source.json ./scm-source.json
+COPY ./scm-source.json /scm-source.json
 
 # Expose default port
 EXPOSE 8442

@@ -47,14 +47,17 @@ describe('oauth-firewall', () => {
 
   test('parse implicit grant flow response and resolve', () => {
     const parseResponse = {};
+    const tokenInfoResponse = {};
     global.window.env.OAUTH_ENABLED = true;
     global.window.location.hash = '#access_token=foo';
     global.window.location.href = 'https://www.google.com#access_token=foo';
     OAuthProviderMock._response = parseResponse;
+    mockCheckTokenIsValid.mockReturnValueOnce(Promise.resolve(tokenInfoResponse));
 
     return firewall()
       .then((response) => {
-        expect(parseResponse).toEqual(response);
+        expect(mockCheckTokenIsValid).toHaveBeenCalled();
+        expect(response).toEqual(tokenInfoResponse);
       });
   });
 

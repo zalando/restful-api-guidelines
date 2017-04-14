@@ -24,7 +24,7 @@ export class Editor extends Violations {
   render() {
     return (
       <div className="dc-row">
-        <div className="dc-column dc-column--small-12 dc-column--large-6">
+        <div className="dc-column dc-column--small-12 dc-column--large-7">
           <div className="dc-column__contents">
             <EditorInputForm
               editorValue={this.state.editorValue}
@@ -33,7 +33,7 @@ export class Editor extends Violations {
               pending={this.state.pending} />
           </div>
         </div>
-        <div className="dc-column dc-column--small-12 dc-column--large-6">
+        <div className="dc-column dc-column--small-12 dc-column--large-5">
           <div className="dc-column__contents">
             <ViolationsResult
               pending={this.state.pending}
