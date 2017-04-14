@@ -4,7 +4,7 @@ import {App} from './app.jsx';
 import {URL} from './url.jsx';
 import {Editor} from './editor.jsx';
 
-export function Root(props) {
+export function Root (props) {
   return (<Router history={browserHistory}>
     <Route
       component={App}
@@ -24,5 +24,5 @@ export function Root(props) {
         Storage={props.Storage}
       />
     </Route>
-  </Router>)
+  </Router>);
 }

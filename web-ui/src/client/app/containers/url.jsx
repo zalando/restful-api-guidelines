@@ -5,17 +5,17 @@ import {URLInputForm} from '../components/url.jsx';
 
 
 export class URL extends Violations {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state.inputValue = this.Storage.getItem('url-value') || '';
   }
 
-  handleOnInputValueChange(event) {
+  handleOnInputValueChange (event) {
     this.Storage.setItem('url-value', event.target.value);
     super.handleOnInputValueChange(event);
   }
 
-  render() {
+  render () {
     return (<div>
       <URLInputForm
         inputValue={this.state.inputValue}
@@ -30,7 +30,7 @@ export class URL extends Violations {
         violations={this.state.violations}
         successMsgTitle={this.state.successMsgTitle}
         successMsgText={this.state.successMsgText} />
-    </div>)
+    </div>);
   }
 }
 

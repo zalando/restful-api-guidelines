@@ -12,7 +12,7 @@ describe('Violations container component', () => {
     event = {
       preventDefault: jest.fn(),
       target: {}
-    }
+    };
   });
 
   describe('when call handleOnInputValueChange', () => {
@@ -23,7 +23,7 @@ describe('Violations container component', () => {
     });
   });
 
-  describe('when call handleFormSubmit', ()=>{
+  describe('when call handleFormSubmit', () => {
     test('should handle success', () => {
       const violations = [{}];
       const violationsCount = 1;
@@ -47,7 +47,7 @@ describe('Violations container component', () => {
         try {
           expect(getApiViolations.mock.calls[0][0]).toBe('URL_WITH_AN_ERROR');
           done();
-        }catch(e) {
+        } catch (e) {
           done.fail(e);
         }
       });

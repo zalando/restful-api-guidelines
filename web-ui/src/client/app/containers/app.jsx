@@ -3,7 +3,7 @@ import {Link} from 'react-router';
 import {If} from '../components/util.jsx';
 import UserInfo from '../components/user-info.jsx';
 
-export function App(props) {
+export function App (props) {
   const user = props.route.user;
   const showUser = props.route.showUser;
   const logout = props.route.logout;
@@ -30,11 +30,11 @@ export function App(props) {
           <Link to="/editor" className="dc-link tab-navigation__link" activeClassName="tab-navigation__link--active">EDITOR</Link>
         </div>
         <div className="tab-contents">
-          {/*Mount child routes*/}
+          {/* Mount child routes*/}
           {props.children}
         </div>
 
       </div>
     </div>
-  </div>)
+  </div>);
 }

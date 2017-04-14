@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {ViolationsResult} from './violations.jsx';
 
 export class Violations extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
 
     this.Storage = this.props.route.Storage;
@@ -26,7 +26,7 @@ export class Violations extends Component {
     };
   }
 
-  handleFormSubmit(event) {
+  handleFormSubmit (event) {
     event.preventDefault();
 
     this.setState({ error: null, pending: true, ajaxComplete: false });
@@ -38,10 +38,10 @@ export class Violations extends Component {
           ajaxComplete: true,
           violations: response.violations,
           violationsCount: response.violations_count
-        })
+        });
       })
       .catch((error) => {
-        console.error(error);
+        console.error(error); // eslint-disable-line no-console
         this.setState({
           pending: false,
           ajaxComplete: true,
@@ -58,11 +58,11 @@ export class Violations extends Component {
       });
   }
 
-  handleOnInputValueChange(event) {
+  handleOnInputValueChange (event) {
     this.setState({inputValue: event.target.value});
   }
 
-  render() {
+  render () {
     return (<ViolationsResult
       pending={this.state.pending}
       complete={this.state.ajaxComplete}
@@ -70,6 +70,6 @@ export class Violations extends Component {
       violations={this.state.violations}
       successMsgTitle={this.state.successMsgTitle}
       successMsgText={this.state.successMsgText} />
-    )
+    );
   }
 }

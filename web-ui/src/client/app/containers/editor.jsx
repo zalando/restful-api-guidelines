@@ -6,13 +6,13 @@ import {EditorInputForm} from '../components/editor.jsx';
 
 export class Editor extends Violations {
 
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state.editorValue = this.Storage.getItem('editor-value') || '';
     this.state.inputValue = yaml.load(this.state.editorValue);
   }
 
-  handleOnInputValueChange(value) {
+  handleOnInputValueChange (value) {
     this.Storage.setItem('editor-value', value);
 
     this.setState({
@@ -21,7 +21,7 @@ export class Editor extends Violations {
     });
   }
 
-  render() {
+  render () {
     return (
       <div className="dc-row">
         <div className="dc-column dc-column--small-12 dc-column--large-7">
@@ -45,6 +45,6 @@ export class Editor extends Violations {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }

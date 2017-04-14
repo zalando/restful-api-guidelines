@@ -1,21 +1,21 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {If} from './util.jsx';
 import {Msg} from './dress-code.jsx';
 
-export function Violations(props) {
+export function Violations (props) {
   return (
     <div>
       {props.violations.length ? <h3>VIOLATIONS</h3> : ''}
       <ul style={{padding: 0, listStyle: 'none'}}>{
         props.violations.map((violation, index) => {
-          return (<Violation key={index} violation={violation} />)
+          return (<Violation key={index} violation={violation} />);
         })
       }</ul>
     </div>
-  )
+  );
 }
 
-export function Violation(props) {
+export function Violation (props) {
   return (
     <li style={{marginBottom: '32px', paddingBottom: '32px', borderBottom: '1px solid #ccc'}}>
       <h4 className="dc-h4">
@@ -33,43 +33,43 @@ export function Violation(props) {
         <ViolationPaths paths={props.violation.paths} />
       </If>
     </li>
-  )
+  );
 }
 
-export function ViolationType(props) {
-  if("MUST" === props.type)
+export function ViolationType (props) {
+  if ('MUST' === props.type)
     return <span className="dc-status dc-status--error"></span>;
-  else if("SHOULD" === props.type)
+  else if ('SHOULD' === props.type)
     return <span className="dc-status dc-status--new"></span>;
   else
     return <span className="dc-status dc-status--inactive"></span>;
 }
 
 
-export function ViolationRuleLink(props) {
+export function ViolationRuleLink (props) {
   return (
     <p>
       Rule: <a href={props.ruleLink} className="dc-link" target="_blank">{props.ruleLink}</a>
     </p>
-  )
+  );
 }
 
-export function ViolationPaths(props) {
+export function ViolationPaths (props) {
   return (
     <span>
       <p>Paths:</p>
-      <ul>{ props.paths.map((path, i) => { return <li key={i}>{path}</li> }) }</ul>
+      <ul>{ props.paths.map((path, i) => { return <li key={i}>{path}</li>; }) }</ul>
     </span>
-  )
+  );
 }
 
-export function ViolationsResult(props){
+export function ViolationsResult (props){
   return (
     <div className="violations-result">
       <If test={() => props.pending} dataTestId="if-loading">
         <div className="violations-result__spinner"><div className="dc-spinner dc-spinner--small"></div></div>
       </If>
-      <If test={() => !props.pending && props.complete && !props.errorMsgText && props.violations.length == 0} dataTestId="if-success">
+      <If test={() => !props.pending && props.complete && !props.errorMsgText && props.violations.length === 0} dataTestId="if-success">
         <Msg type="success" title={props.successMsgTitle} text={props.successMsgText} closeButton={false}  />
       </If>
       <If test={() => !props.pending && props.complete && props.errorMsgText} dataTestId="if-error">
@@ -79,7 +79,7 @@ export function ViolationsResult(props){
         <Violations violations={props.violations} violationsCount={props.violationsCount}/>
       </If>
     </div>
-  )
+  );
 }
 
 ViolationsResult.propTypes = {

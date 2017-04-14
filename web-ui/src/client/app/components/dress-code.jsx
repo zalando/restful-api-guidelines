@@ -1,16 +1,16 @@
 import React from 'react';
 
 export class Msg extends React.Component {
-  constructor(props) { super(props) }
+  constructor (props) { super(props); }
 
-  render() {
+  render () {
     const type = this.props.type || 'info';
     return (
-      <div className={"dc-msg dc-msg--" + type }>
+      <div className={'dc-msg dc-msg--' + type }>
         <div className="dc-msg__inner">
 
           <div className="dc-msg__icon-frame">
-            <i className={"dc-icon dc-msg__icon dc-icon--" + type}></i>
+            <i className={'dc-icon dc-msg__icon dc-icon--' + type}></i>
           </div>
 
           <div className="dc-msg__bd">
@@ -22,9 +22,9 @@ export class Msg extends React.Component {
           { this.props.closeButton !== false ?
             <div className="dc-msg__close" onClick={this.props.onCloseButtonClick} >
               <i className="dc-icon dc-icon--close dc-msg__close__icon"></i>
-            </div> : ""}
+            </div> : ''}
         </div>
       </div>
-    )
+    );
   }
 }

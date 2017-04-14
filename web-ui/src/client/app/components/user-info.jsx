@@ -1,14 +1,13 @@
 import React from 'react';
 
-export default function UserInfo(props){
-    const onClickLogout = (event) => {
-      console.log(props);
-      event.preventDefault();
-      if(typeof props.onLogout === 'function') {
-        props.onLogout();
-      }
-    };
-    return (
+export default function UserInfo (props){
+  const onClickLogout = (event) => {
+    event.preventDefault();
+    if (typeof props.onLogout === 'function') {
+      props.onLogout();
+    }
+  };
+  return (
       <div className="user-info">
         <div className="dc-row">
           <div className="dc-column--shrink">
@@ -20,5 +19,5 @@ export default function UserInfo(props){
           </div>
         </div>
       </div>
-    )
+  );
 }

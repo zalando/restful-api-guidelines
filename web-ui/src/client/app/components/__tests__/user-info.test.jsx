@@ -21,7 +21,7 @@ describe('UserInfo component', () => {
 
   describe('when clicking on logout link', () => {
     test('should handle the action', () => {
-      logoutLink.simulate('click', {preventDefault() {}});
+      logoutLink.simulate('click', {preventDefault () {}});
       expect(handleLogout).toHaveBeenCalled();
     });
   });

@@ -1,5 +1,5 @@
 import React from 'react';
-import brace from 'brace';
+import 'brace';
 import AceEditor from 'react-ace';
 
 import 'brace/mode/yaml';
@@ -13,7 +13,7 @@ export function EditorInputForm (props) {
     <button
       type="submit"
       disabled={props.pending}
-      className={"dc-btn dc-btn--primary editor-input-form__button" + (props.pending ? "dc-btn--disabled" : "")}>
+      className={'dc-btn dc-btn--primary editor-input-form__button' + (props.pending ? 'dc-btn--disabled' : '')}>
       VALIDATE
     </button>
     <Editor
@@ -23,15 +23,15 @@ export function EditorInputForm (props) {
       <button
         type="submit"
         disabled={props.pending}
-        className={"dc-btn dc-btn--primary editor-input-form__button" + (props.pending ? "dc-btn--disabled" : "")}>
+        className={'dc-btn dc-btn--primary editor-input-form__button' + (props.pending ? 'dc-btn--disabled' : '')}>
         VALIDATE
       </button>
     </div>
-  </form>)
+  </form>);
 }
 
 
-export function Editor(props) {
+export function Editor (props) {
   return (
     <div className="editor">
       <AceEditor
@@ -40,9 +40,9 @@ export function Editor(props) {
         theme="github"
         width="100%"
         value={props.value}
-        onChange={props.onChange || function() {}}
+        onChange={props.onChange || function () {}}
         editorProps={{$blockScrolling: true}}
       />
     </div>
-   )
+  );
 }

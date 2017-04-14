@@ -7,9 +7,7 @@ import {RestService} from './services/rest.js';
 import {Root} from './containers/root.jsx';
 
 export function run () {
-	return firewall().then((response) => {
-
-    console.log('firewall response', response);
+  return firewall().then((response) => {
 
     const user = createUser(response);
 

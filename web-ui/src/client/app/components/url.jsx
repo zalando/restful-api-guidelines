@@ -1,7 +1,4 @@
 import React from 'react';
-import {ViolationsResult, AbstractViolationsContainer} from './violations.jsx';
-import RestService from '../services/rest.js';
-import {storage} from '../services/storage.js';
 
 export function URLInputForm (props) {
   return (<form onSubmit={props.onSubmit} className="url-input-form">
@@ -16,10 +13,10 @@ export function URLInputForm (props) {
     <button
       type="submit"
       disabled={props.pending}
-      className={"dc-btn dc-btn--primary  " + (props.pending ? "dc-btn--disabled" : "")}>
+      className={'dc-btn dc-btn--primary  ' + (props.pending ? 'dc-btn--disabled' : '')}>
       VALIDATE
     </button>
-  </form>)
+  </form>);
 }
 
 

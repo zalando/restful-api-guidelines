@@ -1,3 +1,5 @@
+/* global global */
+
 describe('run', () => {
   const mockRender = jest.fn();
   const mockFirewall = jest.fn();
@@ -18,7 +20,7 @@ describe('run', () => {
   }));
 
   global.document = {
-     getElementById: mockGetElementById
+    getElementById: mockGetElementById
   };
 
   const {run} = require('../run');
