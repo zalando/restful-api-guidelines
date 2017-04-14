@@ -44,5 +44,5 @@ function firewall () {
 
 firewall.hasAuthResponse = () => {
   // check if we can parse the url fragment
- return window.location.hash.length && window.location.hash.startsWith('#access_token')
+  return window.location.hash.length && window.location.hash.startsWith('#access_token');
 };

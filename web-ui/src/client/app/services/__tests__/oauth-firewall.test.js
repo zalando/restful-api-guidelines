@@ -71,7 +71,7 @@ describe('oauth-firewall', () => {
           expect(mockRequestToken).toHaveBeenCalled();
           expect(error).toEqual(parseError);
           done();
-        }catch(e) {
+        } catch (e) {
           done.fail(e);
         }
 

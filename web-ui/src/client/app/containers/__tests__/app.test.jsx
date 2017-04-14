@@ -14,7 +14,7 @@ describe('App component', () => {
     const title = component.find('.dc-h1');
 
     expect(page.length).toEqual(1);
-    expect(title.text()).toEqual('Zally API Linter');
+    expect(title.length).toEqual(1);
   });
 
 });

@@ -6,7 +6,8 @@ export function App(props) {
     <div className="dc-page">
       <div className="dc-container">
         <div>
-          <h1 className="dc-h1">Zally API Linter</h1>
+          <img className="logo" src="/assets/logo.png" />
+          <h1 className="dc-h1">ZALLY API Linter</h1>
           <h3 className="dc-h2">
             Check if your&nbsp;
             <a href="http://swagger.io/specification/" target="_blank" className="dc-link">SWAGGER Schema</a> conforms to&nbsp;

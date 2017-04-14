@@ -11,6 +11,13 @@ body {
   padding: 1.8rem 1.2rem;
 }
 
+.logo {
+  display: inline-block;
+  float: left;
+  width: 55px;
+  margin-right: 8px;
+}
+
 .navigation__link {
   font-weight:bold;
   display: inline-block;
