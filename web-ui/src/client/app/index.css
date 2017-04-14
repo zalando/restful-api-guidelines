@@ -1,5 +1,21 @@
 body {
+  min-height: 100%;
   background: #fff;
+}
+
+#app {
+  min-height: 100%;
+  position: relative;
+  padding-bottom: 4rem;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  font-style: italic;
+  width: 100%;
+  padding: 1.2rem;
 }
 
 /**

@@ -33,8 +33,10 @@ export function App (props) {
           {/* Mount child routes*/}
           {props.children}
         </div>
-
       </div>
     </div>
+    <footer>
+      <a href="https://github.com/zalando-incubator/zally" target="_blank">Github</a> | Copyright ZALANDO SE 2016
+    </footer>
   </div>);
 }
