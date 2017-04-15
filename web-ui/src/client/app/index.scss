@@ -1,6 +1,8 @@
+@import '../../../node_modules/dress-code/dist/sass/dress-code';
+
 body {
   min-height: 100%;
-  background: #fff;
+  background: $dc-white;
 }
 
 #app {
@@ -12,10 +14,11 @@ body {
 footer {
   position: absolute;
   bottom: 0;
-  text-align: center;
-  font-style: italic;
   width: 100%;
   padding: 1.2rem;
+  font-size: 1.2rem;
+  text-align: center;
+
 }
 
 /**
@@ -26,13 +29,14 @@ footer {
   z-index: 1000;
   width: 100%;
   padding: 0.8rem 2rem;
-  border-bottom: 1px solid #ddd;
-  background: #f5f5f5;
+  border-bottom: 1px solid $dc-gray60;
+  background: $dc-gray80;
+  box-shadow: 1px 0 4px rgba(0,0,0, 0.2);
 }
 
 .main-navigation-bar__title {
   font-size: 16px; /* font-size: 16px */
-  font-weight: bold;
+  font-weight: 500;
   margin-bottom: 0;
 }
 .main-navigation-bar__logo {
@@ -42,6 +46,15 @@ footer {
   margin-right: 8px;
 }
 
+.main-navigation-bar__link {
+  cursor: pointer;
+  color: $dc-gray10;
+  text-decoration: none;
+  &:hover, &:visited, &:active {
+    color: $dc-gray10;
+    text-decoration: none;
+  }
+}
 
 /*
  * userinfo
@@ -84,11 +97,11 @@ footer {
 }
 
 .tab-navigation__link--active {
-  background: #f5f5f5;
+  background: $dc-gray80;
 }
 
 .tab-contents {
-  background: #f5f5f5;
+  background: $dc-gray80;
   padding: 1.8rem 1.2rem;
 }
 

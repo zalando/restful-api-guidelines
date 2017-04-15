@@ -10,8 +10,12 @@ export function App (props) {
   return (
   <div>
     <div className="main-navigation-bar">
-      <img className="main-navigation-bar__logo" src="/assets/logo.png" />
-      <h1 className="dc-h1 main-navigation-bar__title">Zally API Linter</h1>
+      <h1 className="dc-h1 main-navigation-bar__title">
+        <Link to="/" className="main-navigation-bar__link">
+          <img className="main-navigation-bar__logo" src="/assets/logo.png" />
+          Zally API Linter
+        </Link>
+      </h1>
       <If test={() => showUser === true}>
         <UserInfo username={user.username} onLogout={logout}/>
       </If>
@@ -36,7 +40,7 @@ export function App (props) {
       </div>
     </div>
     <footer>
-      <a href="https://github.com/zalando-incubator/zally" target="_blank">Github</a> | Copyright ZALANDO SE 2016
+      <a className="dc-link" href="https://github.com/zalando-incubator/zally" target="_blank">Github Project</a> - Copyright ZALANDO SE 2016
     </footer>
   </div>);
 }
