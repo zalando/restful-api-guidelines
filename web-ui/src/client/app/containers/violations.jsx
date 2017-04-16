@@ -1,5 +1,27 @@
 import React, {Component} from 'react';
-import {ViolationsResult} from './violations.jsx';
+import {Link} from 'react-router';
+import {ViolationsResult} from '../components/violations.jsx';
+
+
+export function ViolationsTab (props) {
+
+  return (<div className="dc-container">
+    <h4 className="dc-h4">
+      Check if your&nbsp;
+      <a href="http://swagger.io/specification/" target="_blank" className="dc-link">SWAGGER Schema</a> conforms to&nbsp;
+      <a href="http://zalando.github.io/restful-api-guidelines/" target="_balnk" className="dc-link">Zalando's REST API Guidelines</a>
+    </h4>
+
+    <div className="tab-navigation">
+      <Link to="/" className="dc-link tab-navigation__link" activeClassName="tab-navigation__link--active">BY URL</Link>
+      <Link to="/editor" className="dc-link tab-navigation__link" activeClassName="tab-navigation__link--active">EDITOR</Link>
+    </div>
+    <div className="tab-contents">
+      {/* Mount child routes*/}
+      {props.children}
+    </div>
+  </div>);
+}
 
 export class Violations extends Component {
   constructor (props) {

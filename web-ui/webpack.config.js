@@ -23,6 +23,7 @@ const config = {
       },
       {
         test: /\.scss$/,
+        include : APP_DIR,
         use: [ 'style-loader', 'css-loader', 'sass-loader' ]
       }
     ]

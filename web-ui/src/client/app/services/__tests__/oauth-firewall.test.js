@@ -1,14 +1,12 @@
 /* global global */
 
 describe('oauth-firewall', () => {
-  let mockRequestToken, OAuthProviderMock, mockCheckTokenIsValid, firewall;
+  let OAuthProviderMock, mockCheckTokenIsValid, firewall;
   beforeEach(() => {
     jest.resetModules();
-    mockRequestToken = jest.fn();
     mockCheckTokenIsValid = jest.fn();
     jest.mock('../oauth-provider');
     jest.mock('../oauth-util', () => ({
-      requestToken: mockRequestToken,
       checkTokenIsValid: mockCheckTokenIsValid
     }));
     global.window = {
@@ -30,17 +28,15 @@ describe('oauth-firewall', () => {
     firewall()
       .then(() => {
         expect(mockCheckTokenIsValid).not.toHaveBeenCalled();
-        expect(mockRequestToken).not.toHaveBeenCalled();
         done();
       });
   });
 
-  test('return a rejected promise and request a token if OAuthProvider doesn\'t have an access token', (done) => {
+  test('return a rejected promise if OAuthProvider doesn\'t have an access token', (done) => {
     global.window.env.OAUTH_ENABLED = true;
 
     firewall()
       .catch(() => {
-        expect(mockRequestToken).toHaveBeenCalled();
         done();
       });
   });
@@ -61,7 +57,7 @@ describe('oauth-firewall', () => {
       });
   });
 
-  test('parse implicit grant flow response and request token if something went wrong', (done) => {
+  test('parse implicit grant flow response and reject if something went wrong', (done) => {
     global.window.env.OAUTH_ENABLED = true;
     global.window.location.hash = '#access_token=foo';
     const parseError = new Error();
@@ -71,7 +67,6 @@ describe('oauth-firewall', () => {
     firewall()
       .catch((error) => {
         try {
-          expect(mockRequestToken).toHaveBeenCalled();
           expect(error).toEqual(parseError);
           done();
         } catch (e) {
@@ -92,7 +87,6 @@ describe('oauth-firewall', () => {
       .catch((error) => {
         expect(global.window.location.href).toEqual('https://www.google.com#access_token=foo');
         expect(error).toEqual(parseResponse);
-        expect(mockRequestToken).not.toHaveBeenCalled();
         done();
       });
   });
@@ -105,13 +99,12 @@ describe('oauth-firewall', () => {
     firewall()
       .then((response) => {
         expect(mockCheckTokenIsValid).toHaveBeenCalled();
-        expect(mockRequestToken).not.toHaveBeenCalled();
         expect(response).toEqual('valid');
         done();
       });
   });
 
-  test('check token is valid if OAuthProvider has an access token and if not valid request a token', (done) => {
+  test('if OAuthProvider check token is valid and reject if not valid', (done) => {
     const error = new Error();
     mockCheckTokenIsValid.mockReturnValueOnce(Promise.reject(error));
     global.window.env.OAUTH_ENABLED = true;
@@ -122,8 +115,6 @@ describe('oauth-firewall', () => {
         try {
           expect(response).toEqual(error);
           expect(mockCheckTokenIsValid).toHaveBeenCalled();
-          expect(mockRequestToken).toHaveBeenCalled();
-
           done();
         } catch (e) {
           done.fail(e);

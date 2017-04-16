@@ -7,6 +7,7 @@ export default {
   getRefreshToken () { return this._refreshToken; },
   setRefreshToken (refreshToken) { this._refreshToken = refreshToken; },
   hasRefreshToken () { return !!this._refreshToken; },
+  deleteTokens () { delete this._accessToken; delete this._refreshToken;},
   parse () { return this._response; },
   remember: jest.fn(),
   requestToken: jest.fn()

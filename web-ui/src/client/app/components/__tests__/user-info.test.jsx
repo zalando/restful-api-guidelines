@@ -8,7 +8,7 @@ describe('UserInfo component', () => {
 
   beforeEach(() => {
     handleLogout = jest.fn();
-    component = shallow(<UserInfo username={username} onLogout={handleLogout}/>);
+    component = shallow(<UserInfo username={username} authenticated={true} onLogout={handleLogout}/>);
     userElem = component.find('.user-info__icon');
     logoutLink = component.find('.user-info__logout');
   });

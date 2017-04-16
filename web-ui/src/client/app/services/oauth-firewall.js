@@ -1,5 +1,5 @@
 import OAuthProvider from './oauth-provider.js';
-import {requestToken, checkTokenIsValid} from './oauth-util.js';
+import {checkTokenIsValid} from './oauth-util.js';
 
 export default firewall;
 
@@ -25,21 +25,15 @@ function firewall () {
       return checkTokenIsValid();
 
     } catch (err) {
-
-      requestToken();
       return Promise.reject(err);
     }
   }
 
   if (!OAuthProvider.hasAccessToken()) {
-    requestToken();
-    return Promise.reject();
+    return Promise.reject(new Error('no access token'));
   }
 
-  return checkTokenIsValid().catch((error) => {
-    requestToken();
-    return Promise.reject(error);
-  });
+  return checkTokenIsValid();
 }
 
 firewall.hasAuthResponse = () => {

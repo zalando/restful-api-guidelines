@@ -69,14 +69,14 @@ footer {
   font-size: 2rem;
   height: 5.5rem;
   line-height: 4rem;
+  span{
+    font-size: 1.4rem;
+    padding-left: 0.7rem;
+    line-height: normal;
+    font-style: normal;
+  }
 }
-.user-info__icon span{
-  font-size: 1.4rem;
-  padding-left: 0.7rem;
-  line-height: normal;
-  font-style: normal;
-}
-.user-info__logout{
+.user-info__logout, .user-info__login{
   line-height: 5rem;
 }
 

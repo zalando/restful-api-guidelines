@@ -90,3 +90,5 @@ ViolationsResult.propTypes = {
   successMsgText:  React.PropTypes.string.isRequired,
   violations: React.PropTypes.array
 };
+
+
