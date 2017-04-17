@@ -4,18 +4,36 @@ import {App} from '../app.jsx';
 
 describe('App component', () => {
 
-  test('should render the app', () => {
+  test('should show UserInfo child component', () => {
     const route = {
       user: {},
-      logout: jest.fn()
+      showUserInfo: true
     };
     const component = shallow(<App route={route}/>);
-    const page = component.find('.dc-page');
-    const title = component.find('.dc-h1');
     const userInfo = component.find('UserInfo');
-
-    expect(page.length).toEqual(1);
     expect(userInfo.length).toEqual(1);
-    expect(title.length).toEqual(1);
+  });
+
+  test('should hide UserInfo child component', () => {
+    const route = {
+      user: {},
+      showUserInfo: false
+    };
+    const component = shallow(<App route={route}/>);
+    const userInfo = component.find('UserInfo');
+    expect(userInfo.length).toEqual(0);
+  });
+
+  test('should render children', () => {
+    const route = {
+      user: {}
+    };
+    const component = shallow(
+      <App route={route}>
+        <div id="children">children</div>
+      </App>
+    );
+    const children = component.find('#children');
+    expect(children.length).toEqual(1);
   });
 });

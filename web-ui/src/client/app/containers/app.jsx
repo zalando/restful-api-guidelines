@@ -1,13 +1,9 @@
 import React from 'react';
 import {Link} from 'react-router';
-import {If} from '../components/util.jsx';
 import UserInfo from '../components/user-info.jsx';
-
-
 
 export function App (props) {
   const {user, showUserInfo, logout, login} = props.route;
-
   return (
   <div>
     <div className="main-navigation-bar">
@@ -17,13 +13,13 @@ export function App (props) {
           Zally API Linter
         </Link>
       </h1>
-      <If test={() => showUserInfo === true}>
+      { showUserInfo ?
         <UserInfo username={user.username}
           authenticated={user.authenticated}
           onLogin={login}
           onLogout={logout}
         />
-      </If>
+      : null }
     </div>
 
     <div className="dc-page page-container">
