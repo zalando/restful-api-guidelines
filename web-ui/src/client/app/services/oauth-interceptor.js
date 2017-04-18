@@ -11,7 +11,7 @@ const state = {
 
 const OAuthInterceptor = {
   request (request) {
-    if (OAuthProvider.hasAccessToken()) {
+    if (window.env.OAUTH_ENABLED && OAuthProvider.hasAccessToken()) {
       request.headers.append('Authorization', `Bearer ${OAuthProvider.getAccessToken()}`);
     }
     return request;
@@ -41,11 +41,9 @@ const OAuthInterceptor = {
       .catch((error) => {
         console.error(error); // eslint-disable-line no-console
         state.refreshingToken = false;
-
-        // `rejectUnauthorizedRequests()` statement (in theory) is redundant because `requestToken`
-        // will redirect to authorize endpoint, but who knows, something can always go wrong.
-        rejectUnauthorizedRequests();
+        OAuthProvider.deleteTokens();
         requestToken();
+        rejectUnauthorizedRequests();
       });
 
     return deferred;

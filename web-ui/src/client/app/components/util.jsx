@@ -1,3 +1,3 @@
-export function If(props) {
-  return (props.test() ? props.children : null)
+export function If (props) {
+  return (props.test() ? props.children : null);
 }

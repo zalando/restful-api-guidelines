@@ -6,11 +6,21 @@ const logger = require('./logger');
 
 
 module.exports = function ({publicPath, protocol, host, port}) {
-  return function (req, res) {
+  return function (req, res, next) {
     const segment = path.join(publicPath, req.url);
     const url = `${protocol}://${host}:${port}${segment}`;
-    logger.debug(`Proxying request to webpack dev server: ${url}`);
-    req.pipe(request(url)).pipe(res);
+    const proxyReq = request(url);
+    logger.debug(`proxying request to webpack dev server: ${url}`);
+
+    proxyReq.on('response', (response) => {
+      if (response.statusCode >= 400) {
+        logger.debug(`webpack dev server could not handle ${url}, call "next" middleware`);
+        next();
+        return;
+      }
+
+      proxyReq.pipe(res);
+    });
   };
 };
 

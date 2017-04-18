@@ -9,8 +9,8 @@ describe('ViolationType component', () => {
       const status = component.find('.dc-status--error');
 
       expect(status.length).toEqual(1);
-    })
-  })
+    });
+  });
 
   describe('when violationType is SHOULD', () => {
     test('should return dc-status--new', () => {
@@ -18,8 +18,8 @@ describe('ViolationType component', () => {
       const status = component.find('.dc-status--new');
 
       expect(status.length).toEqual(1);
-    })
-  })
+    });
+  });
 
   describe('when violationType niether MUST nor SHOULD', () => {
     test('should return dc-status--inactive', () => {
@@ -27,18 +27,18 @@ describe('ViolationType component', () => {
       const status = component.find('.dc-status--inactive');
 
       expect(status.length).toEqual(1);
-    })
-  })
+    });
+  });
 });
 
 describe('ViolationRuleLink component', () => {
   test('should return a rule link', () => {
-    const component = shallow(<ViolationRuleLink ruleLink='foo'/>)
+    const component = shallow(<ViolationRuleLink ruleLink='foo'/>);
     const link = component.find('a');
 
     expect(link.length).toEqual(1);
     expect(link.text()).toEqual('foo');
-  })
+  });
 });
 
 describe('ViolationPaths component', () => {
@@ -48,7 +48,7 @@ describe('ViolationPaths component', () => {
     const li = component.find('li');
 
     expect(li.length).toEqual(2);
-  })
+  });
 });
 
 describe('Violations component', () => {
@@ -58,41 +58,41 @@ describe('Violations component', () => {
     const violation = component.find('Violation');
 
     expect(violation.length).toEqual(2);
-  })
+  });
 });
 
 
 describe('Violation component', () => {
   test('should render a violation', () => {
     const violation = {
-        "rule": {
-          "name":"NoUnusedDefinitionsRule",
-          "title":"Do not leave unused definitions",
-          "violationType":"SHOULD",
-          "url":"",
-          "code":"S005"
-        },
-        "title":"Do not leave unused definitions",
-        "description":"Found 1 unused definitions",
-        "violation_type":"SHOULD",
-        "rule_link":"link",
-        "paths":["#/definitions/Pet"]
-      };
+      'rule': {
+        'name':'NoUnusedDefinitionsRule',
+        'title':'Do not leave unused definitions',
+        'violationType':'SHOULD',
+        'url':'',
+        'code':'S005'
+      },
+      'title':'Do not leave unused definitions',
+      'description':'Found 1 unused definitions',
+      'violation_type':'SHOULD',
+      'rule_link':'link',
+      'paths':['#/definitions/Pet']
+    };
 
-   const component = shallow(<Violation violation={violation} />);
-   const IfViolationRuleLinkSelector = 'If[dataTestId="if-violation-rule-link"]';
-   const IfViolationRuleLink = component.find(IfViolationRuleLinkSelector);
-   const ViolationRuleLink = IfViolationRuleLink.dive().find('ViolationRuleLink')
-   const IfViolationPathsSelector = 'If[dataTestId="if-violation-paths"]';
-   const IfViolationPaths = component.find(IfViolationPathsSelector);
-   const ViolationPaths = IfViolationPaths.dive().find('ViolationPaths');
+    const component = shallow(<Violation violation={violation} />);
+    const IfViolationRuleLinkSelector = 'If[dataTestId="if-violation-rule-link"]';
+    const IfViolationRuleLink = component.find(IfViolationRuleLinkSelector);
+    const ViolationRuleLink = IfViolationRuleLink.dive().find('ViolationRuleLink');
+    const IfViolationPathsSelector = 'If[dataTestId="if-violation-paths"]';
+    const IfViolationPaths = component.find(IfViolationPathsSelector);
+    const ViolationPaths = IfViolationPaths.dive().find('ViolationPaths');
 
-   expect(component.find('p').text()).toEqual('Found 1 unused definitions');
-   expect(component.find('ViolationType').length).toEqual(1);
-   expect(ViolationRuleLink.length).toEqual(1);
-   expect(ViolationRuleLink.prop('ruleLink')).toEqual('link');
-   expect(ViolationPaths.length).toEqual(1);
-   expect(ViolationPaths.prop('paths')).toEqual(violation.paths);
+    expect(component.find('p').text()).toEqual('Found 1 unused definitions');
+    expect(component.find('ViolationType').length).toEqual(1);
+    expect(ViolationRuleLink.length).toEqual(1);
+    expect(ViolationRuleLink.prop('ruleLink')).toEqual('link');
+    expect(ViolationPaths.length).toEqual(1);
+    expect(ViolationPaths.prop('paths')).toEqual(violation.paths);
   });
 });
 
@@ -177,5 +177,5 @@ describe('ViolationsResult component', () => {
       expect(Violations.prop('violations')).toEqual(violations);
       expect(Violations.prop('violationsCount')).toEqual(2);
     });
-  })
+  });
 });

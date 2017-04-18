@@ -46,6 +46,7 @@ OAUTH_REDIRECT_URI=""
 OAUTH_TOKENINFO_URL=""
 OAUTH_REFRESH_TOKEN_URL=""
 OAUTH_SCOPES=""
+OAUTH_USERNAME_PROPERTY="cn"
 
 DEV_PORT=8441
 DEV_SSL_ENABLED=false
@@ -68,6 +69,7 @@ DEBUG=false
 * **OAUTH_TOKENINFO_URL**: The url used to validate the access token and retrieve token information
 * **OAUTH_REFRESH_TOKEN_URL**: The url used to refresh the access token
 * **OAUTH_SCOPES**: Comma separated list of scopes that the user should grant to the app
+* **OAUTH_USERNAME_PROPERTY**: Property that can be found in the /tokeninfo response representing the username of the connected user (eg. uid or user.uid if nested)
 
 * **DEV_PORT**: HTTP(S) server port for the dev server (webpack-dev-server)
 * **DEV_SSL_ENABLED**: start dev server with https
