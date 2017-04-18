@@ -8,7 +8,7 @@ export function URLInputForm (props) {
            onChange={props.onInputValueChange}
            type="url"
            name="path"
-           placeholder="e.g https://github.com/OAI/OpenAPI-Specification/blob/master/examples/v2.0/json/petstore.json"
+           placeholder="e.g https://raw.githubusercontent.com/OAI/OpenAPI-Specification/master/examples/v2.0/json/petstore.json"
            required pattern="https?://.+" />
     <button
       type="submit"
