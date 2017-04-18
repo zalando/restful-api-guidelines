@@ -1,7 +1,9 @@
 'use strict';
 
+const {stringToBool} = require('./util');
+const dotenvParseVariables = require('dotenv-parse-variables').default;
 const dotenv = require('dotenv').config();
-const dotenvParsedVariables = require('dotenv-parse-variables').default(dotenv.parsed || {});
+const dotenvParsedVariables = dotenvParseVariables(dotenv.parsed || {});
 
 const defaults = {
   PORT: 8442,
@@ -39,11 +41,11 @@ const publicEnvKeys = [
   'DEBUG'
 ];
 
-const env = Object.assign(
+const env = stringToBool(Object.assign(
   defaults,
   process.env,
   dotenvParsedVariables
-);
+));
 
 const publicEnv = publicEnvKeys.reduce((acc, key) => {
   acc[key] = env[key];
