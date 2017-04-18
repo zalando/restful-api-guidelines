@@ -87,7 +87,7 @@ zally --help
 2. Create a release:
 
     ```bash
-    ./gradlew clean build -Pversion=1.0
+    ./gradlew clean build -Pversion=1.0.0
     ```
 
 3. Unstash the changes:
