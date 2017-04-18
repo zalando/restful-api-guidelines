@@ -36,13 +36,19 @@ parameters:
     name: type
     in: query
     description: Rules Type
-    required: true
+    required: false
     type: string
     x-extensible-enum:
       - MUST
       - SHOULD
       - COULD
       - HINT
+  IsActive:
+    name: is_active
+    in: query
+    description: Is Rule Active
+    required: false
+    type: boolean
 
 paths:
   '/api-violations':
@@ -87,6 +93,7 @@ paths:
       parameters:
         - $ref: '#/parameters/Authorization'
         - $ref: '#/parameters/RulesType'
+        - $ref: '#/parameters/IsActive'
       consumes:
         - application/json
       produces:
