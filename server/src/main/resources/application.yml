@@ -25,4 +25,4 @@ rules-config-path: "rules-config.conf"
 
 # FYI: S001 is disabled because Zalando's API guidelines changed.
 zally:
-  ignoreRules: S001
+  ignoreRules: S001,S010
