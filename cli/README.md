@@ -37,7 +37,7 @@ requesting violations check at a given Zally server.
     ```bash
     #!/usr/bin/env bash
     function zally {
-        java -Done-jar.silent=true -jar /PATH/TO/zally-1.0.jar "$@"
+        java -Done-jar.silent=true -jar /PATH/TO/zally-1.0.0.jar "$@"
     }
     zally $@
     ```
@@ -87,7 +87,7 @@ zally --help
 2. Create a release:
 
     ```bash
-    ./gradlew clean build -Pversion=1.0
+    ./gradlew clean build -Pversion=1.0.0
     ```
 
 3. Unstash the changes:
