@@ -2,7 +2,7 @@
 
 ## {{book.must}} Hostnames must match Zalando naming schema
 
-All Zalando APIs must run under subdomains beneath api.zalando.com and must match the following naming schema:
+All Zalando APIs must run under subdomains beneath zalandoapis.com and must match the following naming schema:
 
 ```
 api-hostname ::= [<functional-component>].<functional-domain>.zalandoapis.com
