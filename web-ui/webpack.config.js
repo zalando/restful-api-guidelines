@@ -20,6 +20,11 @@ const config = {
         test : /\.jsx?/,
         include : APP_DIR,
         loader : 'babel-loader'
+      },
+      {
+        test: /\.scss$/,
+        include : APP_DIR,
+        use: [ 'style-loader', 'css-loader', 'sass-loader' ]
       }
     ]
   },

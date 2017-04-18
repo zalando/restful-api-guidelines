@@ -22,14 +22,6 @@ if (env.NODE_ENV === 'development' || env.NODE_ENV === 'test') {
  */
 app.use('/assets/', express.static(ASSETS_DIR));
 
-
-/**
- * Main entry point
- */
-app.get('/', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../client/public/index.html'));
-});
-
 /**
  * Serve /env.js
  * Mimic process.env on the client side
@@ -69,6 +61,13 @@ app.get('/health', (req, res) => {
   res.json({
     alive: true
   });
+});
+
+/**
+ * Main entry point to SPA
+ */
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../client/public/index.html'));
 });
 
 module.exports = app;

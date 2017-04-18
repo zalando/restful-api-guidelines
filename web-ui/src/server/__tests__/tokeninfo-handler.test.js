@@ -29,7 +29,7 @@ describe('server.tokeninfo-handler', () => {
 
   describe('when invoking the function', () => {
     test('should log the debug message', () => {
-      expect(mockDebug).toHaveBeenCalledWith('Proxying request to: https://example.com');
+      expect(mockDebug).toHaveBeenCalled();
     });
 
     test('should read the URL from env.OAUTH_TOKENINFO_URL', () => {

@@ -21,14 +21,35 @@ describe('server.webpack-dev-server-proxy-handler', () => {
     expect(typeof webpackDevServerProxyHandler).toEqual('function');
   });
 
-  test('pipe the request to the the expected url', () => {
-    const req = {
-      pipe: jest.fn(),
-      url: '/bundle.js'
+  test('pipe the response to the the expected url', () => {
+    const req = { url: '/bundle.js' };
+    const res = {};
+    const mockRequestResponse = {
+      on: jest.fn().mockImplementationOnce((event, cb) => {
+        cb({statusCode: 200});
+      }),
+      pipe: jest.fn()
     };
-    req.pipe.mockReturnValueOnce(req);
+    mockRequest.mockReturnValueOnce(mockRequestResponse);
 
-    webpackDevServerProxyHandler(req);
+    webpackDevServerProxyHandler(req, res);
     expect(mockRequest).toHaveBeenCalledWith('http://localhost:8000/assets/bundle.js');
+    expect(mockRequestResponse.pipe).toHaveBeenCalledWith(res);
+  });
+
+  test('call the next middleware if proxy response error', () => {
+    const req = { url: '/bundle.js' };
+    const res = {};
+    const mockNext = jest.fn();
+    const mockRequestResponse = {
+      on: jest.fn().mockImplementationOnce((event, cb) => {
+        cb({statusCode: 400});
+      })
+    };
+    mockRequest.mockReturnValueOnce(mockRequestResponse);
+
+    webpackDevServerProxyHandler(req, res, mockNext);
+    expect(mockRequest).toHaveBeenCalledWith('http://localhost:8000/assets/bundle.js');
+    expect(mockNext).toHaveBeenCalled();
   });
 });

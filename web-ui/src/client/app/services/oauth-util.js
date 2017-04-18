@@ -4,7 +4,7 @@ import OAuthProvider from './oauth-provider.js';
 import {client} from './http-client.js';
 import fetch from './fetch.js';
 import {debug} from './debug.js';
-
+import get from 'lodash/get';
 
 export function requestToken () {
   const request = new Request({
@@ -57,7 +57,40 @@ export function checkTokenIsValid () {
   })
   .catch((error) => {
     console.error(error); // eslint-disable-line no-console
-    requestToken();
     return Promise.reject(error);
   });
+}
+
+export function getUsername (tokenInfoBody){
+  const usernamePath = window.env.OAUTH_USERNAME_PROPERTY;
+  return get(tokenInfoBody, usernamePath, 'anonymous');
+}
+
+export function createUser (tokenInfoBody) {
+  return {
+    username: getUsername(tokenInfoBody)
+  };
+}
+
+export function logout (){
+  OAuthProvider.deleteTokens();
+  window.location.reload();
+}
+
+export function login () {
+  requestToken();
+}
+
+/**
+ * Return a function meant to be used with the ```onEnter``` react router hook.
+ * If auth is enabled and the user is not authenticated the function will "redirect" to login.
+ *
+ * @param {Object} props
+ * @param {Object} props.user - a user
+ * @param {string} props.loginLocation - login page location (eg. '/login')
+ * @return {Function}
+ */
+export function onEnterRequireLogin (props) {
+  return window.env.OAUTH_ENABLED
+  && !props.user.authenticated ? (o, replace) => replace(props.loginLocation) : () => {};
 }

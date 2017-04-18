@@ -20,7 +20,8 @@ describe('OAuthInterceptor', () => {
     jest.resetModules();
 
     global.window = {
-      env: {}
+      env: {
+      }
     };
 
     mockRefreshToken = jest.fn();
@@ -42,12 +43,14 @@ describe('OAuthInterceptor', () => {
 
   describe('request interceptor', () => {
     test('should add the expected authorization header if OAuthProvider has an access token', () => {
+      global.window.env.OAUTH_ENABLED = true;
       OAuthProviderMock._accessToken = 'foo';
       const request = OAuthInterceptor.request(new RequestMock());
       expect(request.headers.get('Authorization')).toEqual('Bearer foo');
     });
 
     test('shouldn\'t add the Authorization header if OAuthProvider has not an access token', () => {
+      global.window.env.OAUTH_ENABLED = true;
       OAuthProviderMock._accessToken = undefined;
       const request = OAuthInterceptor.request(new RequestMock());
       expect(request.headers.get('Authorization')).toBeUndefined();

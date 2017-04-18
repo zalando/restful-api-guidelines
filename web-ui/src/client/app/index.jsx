@@ -1,6 +1,6 @@
 import 'whatwg-fetch'; // fetch polyfill
-import React from 'react';
+
+import './index.scss';
 import {run} from './run.jsx';
 
 run();
-
