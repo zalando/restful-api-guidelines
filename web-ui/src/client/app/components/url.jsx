@@ -1,6 +1,8 @@
 import React from 'react';
 
 export function URLInputForm (props) {
+  const validateButtonIsDisabled = props.pending || !props.inputValue.trim();
+
   return (<form onSubmit={props.onSubmit} className="url-input-form">
     <label className="dc-label">Enter full path to your swagger file</label>
     <input className="dc-input dc-input--block"
@@ -13,7 +15,7 @@ export function URLInputForm (props) {
     <button
       type="submit"
       disabled={props.pending}
-      className={'dc-btn dc-btn--primary  ' + (props.pending ? 'dc-btn--disabled' : '')}>
+      className={'dc-btn dc-btn--primary  ' + (validateButtonIsDisabled ? 'dc-btn--disabled' : '')}>
       VALIDATE
     </button>
   </form>);
