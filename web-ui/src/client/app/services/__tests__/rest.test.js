@@ -24,6 +24,25 @@ describe('RestService', () => {
     });
   });
 
+  test('getApiViolations call api-violations api and reject with error json body', (done) => {
+    const mockError = { detail: 'some error' };
+    const errorResponse = {
+      json:() => (Promise.resolve(mockError))
+    };
+    client.fetch.mockReturnValueOnce(Promise.reject(errorResponse));
+
+    return RestService.getApiViolations({
+      foo: 'bar'
+    }).catch((error) => {
+      try {
+        expect(error.detail).toBe(mockError.detail);
+        done();
+      } catch (e) {
+        done.fail(e);
+      }
+    });
+  });
+
   test('getApiViolationsByURL send expected body', () => {
     const mockViolations = [];
     const violationsResponse = {
