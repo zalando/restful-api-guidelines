@@ -24,6 +24,7 @@ export function ViolationsTab (props) {
 }
 
 export class Violations extends Component {
+
   constructor (props) {
     super(props);
 
@@ -63,11 +64,13 @@ export class Violations extends Component {
         });
       })
       .catch((error) => {
+
         console.error(error); // eslint-disable-line no-console
+
         this.setState({
           pending: false,
           ajaxComplete: true,
-          error: 'Ooops something went wrong!',
+          error: error.detail || Violations.DEFAULT_ERROR_MESSAGE,
           violations: [],
           violationsCount: {
             could: 0,
@@ -95,3 +98,5 @@ export class Violations extends Component {
     );
   }
 }
+
+Violations.DEFAULT_ERROR_MESSAGE = 'Ooops something went wrong!';
