@@ -2,6 +2,7 @@ package de.zalando.zally;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.zalando.zally.rules.Rule;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,11 @@ public class SupportedRulesController {
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<JsonNode> listSupportedRules() {
         final ObjectNode response = objectMapper.createObjectNode();
+        final ArrayNode rulesNode = response.putArray("rules");
+        for (Rule rule : rules) {
+            rulesNode.add(objectMapper.valueToTree(rule));
+        }
+
         return ResponseEntity.ok(response);
     }
 }
