@@ -65,7 +65,7 @@
     "eslint-plugin-react": "6.10.3",
     "jest": "19.0.2",
     "node-sass": "4.5.2",
-    "node-scm-source": "0.2.0",
+    "@zalando/node-scm-source": "0.2.2",
     "nodemon": "1.11.0",
     "react-addons-test-utils": "15.4.2",
     "sass-loader": "6.0.3",
