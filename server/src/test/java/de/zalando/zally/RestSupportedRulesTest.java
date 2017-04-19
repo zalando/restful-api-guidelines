@@ -6,6 +6,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import de.zalando.zally.rules.Rule;
+import java.util.Arrays;
 import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,6 +17,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 
@@ -25,6 +27,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
         classes = {Application.class, RestApiTestConfiguration.class}
 )
 @ActiveProfiles("test")
+@TestPropertySource(properties = "zally.ignoreRules=M001,S001,C001")
 public class RestSupportedRulesTest {
     @LocalServerPort
     protected int port;
@@ -32,11 +35,13 @@ public class RestSupportedRulesTest {
     @Autowired
     private List<Rule> implementedRules;
 
+    private final List<String> ignoredRules = Arrays.asList("M001", "S001", "C001");
+
     protected final TestRestTemplate restTemplate = new TestRestTemplate();
 
     @Test
     public void shouldReturnListOfRules() throws Exception {
-        ResponseEntity<JsonNode> responseEntity = sendRequest();
+        final ResponseEntity<JsonNode> responseEntity = sendRequest();
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
 
         final JsonNode result = responseEntity.getBody();
@@ -44,6 +49,16 @@ public class RestSupportedRulesTest {
 
         final ArrayNode rules = (ArrayNode) result.get("rules");
         assertThat(rules.size()).isEqualTo(implementedRules.size());
+    }
+
+    @Test
+    public void shouldMarkRulesAsInactive() throws Exception {
+        final ResponseEntity<JsonNode> responseEntity = sendRequest();
+        final JsonNode result = responseEntity.getBody();
+
+        for (JsonNode rule : result.get("rules")) {
+            assertThat(rule.get("is_active").asBoolean()).isEqualTo(!ignoredRules.contains(rule.get("code").asText()));
+        }
     }
 
 
