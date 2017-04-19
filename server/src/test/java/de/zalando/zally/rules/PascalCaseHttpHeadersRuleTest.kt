@@ -36,6 +36,12 @@ class PascalCaseHttpHeadersRuleTest {
     }
 
     @Test
+    fun mustAcceptDigits() {
+        val swagger = swaggerWithHeaderParams("X-P1n-Id")
+        assertThat(PascalCaseHttpHeadersRule(testConfig).validate(swagger)).isNull()
+    }
+
+    @Test
     fun emptySwaggerShouldPass() {
         assertThat(PascalCaseHttpHeadersRule(testConfig).validate(Swagger())).isNull()
     }
