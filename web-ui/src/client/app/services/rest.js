@@ -14,6 +14,11 @@ export const RestService = {
       .fetch('/zally-api/api-violations', options)
       .then((response) => {
         return response.json();
+      })
+      .catch((response) => {
+        return response.json().then((body) => {
+          return Promise.reject(body);
+        });
       });
   },
   getApiViolationsByURL (apiDefinitionURL) {
