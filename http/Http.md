@@ -162,8 +162,6 @@ different HTTP methods on resources.
 
 ## {{ book.must }} Use Meaningful HTTP Status Codes
 
-APIs must define meaningful HTTP status codes for responses compliant to the semantic defined in the subsequent definitions. The selected response status code should match the results semantic to the designers best knowledge. Anyhow, APIs should not be creative and invent new status codes or change the semantic of existing, but stick to the list provided. Any deviation from this list of below status codes or their semantic must be well explained in the API definition. Each API end-point has to provide at least on success code. Clients should be prepared to handle any of the below status codes accordingly.
-
 ### Success Codes
 
 | Code | Meaning | Methods |
