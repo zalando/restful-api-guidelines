@@ -9,11 +9,6 @@ import org.junit.Test
 
 class SnakeCaseInPropNameRuleTest {
 
-    private val testDefinition1 = ModelImpl()
-    private val testDefinition2 = ModelImpl()
-    private val testPorperty1 = StringProperty()
-    private val testPorperty2 = StringProperty()
-
     @Test
     fun emptySwagger() {
         assertThat(SnakeCaseInPropNameRule().validate(Swagger())).isNull()
@@ -60,5 +55,11 @@ class SnakeCaseInPropNameRuleTest {
                 "#/definitions/ExampleDefinition",
                 "#/definitions/ExampleDefinitionTwo")
         )
+    }
+
+    @Test
+    fun notFireOnWhitelistedProperty() {
+        val swagger = swaggerWithDefinitions("ExampleDefinition" to listOf("_links"))
+        assertThat(SnakeCaseInPropNameRule().validate(swagger)).isNull()
     }
 }

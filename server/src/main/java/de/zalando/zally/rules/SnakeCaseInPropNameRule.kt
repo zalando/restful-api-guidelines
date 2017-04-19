@@ -16,9 +16,11 @@ class SnakeCaseInPropNameRule : AbstractRule() {
     override val code = "M012"
     val description = "Property names must be snake_case (and never camelCase)"
 
+    private val whitelist = setOf("_links")
+
     override fun validate(swagger: Swagger): Violation? {
         val result = swagger.getAllJsonObjects().flatMap { (def, path) ->
-            val badProps = def.keys.filterNot(PatternUtil::isSnakeCase)
+            val badProps = def.keys.filterNot { d -> PatternUtil.isSnakeCase(d) || whitelist.contains(d) }
             if (badProps.isNotEmpty()) listOf(badProps to path) else emptyList()
         }
         return if (result.isNotEmpty()) {
