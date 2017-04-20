@@ -7,4 +7,4 @@ COPY scm-source.json /scm-source.json
 
 EXPOSE 8080
 
-CMD java -Xmx512m $(appdynamics-agent) -jar /zally-1.0.0.jar
+CMD java $(java-dynamic-memory-opts) $(appdynamics-agent) -jar /zally-1.0.0.jar
