@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController(value = "/supported_rules")
 public class SupportedRulesController {
@@ -35,23 +36,33 @@ public class SupportedRulesController {
 
         final ObjectNode response = objectMapper.createObjectNode();
         final ArrayNode rulesNode = response.putArray("rules");
-        for (Rule rule : rules) {
-            Boolean isActive = rulesPolicy.accepts(rule);
-            String ruleType = rule.getViolationType().toString().toUpperCase();
+        final String normalizedTypeFilter = (typeFilter == null) ? null : typeFilter.toUpperCase();
+        final List<JsonNode> filteredRules = rules
+                .stream()
+                .filter(r -> filterByIsActive(r, isActiveFilter))
+                .filter(r -> filterByType(r, normalizedTypeFilter))
+                .map(r -> this.transformRuleToObjectNode(r))
+                .collect(Collectors.toList());
 
-            if (isActiveFilter != null && isActive != isActiveFilter) {
-                continue;
-            }
-
-            if (typeFilter != null && !ruleType.equals(typeFilter.toUpperCase())) {
-                continue;
-            }
-
-            ObjectNode ruleJson = objectMapper.valueToTree(rule);
-            ruleJson.put("is_active", isActive);
-            rulesNode.add(ruleJson);
-        }
+        rulesNode.addAll(filteredRules);
 
         return ResponseEntity.ok(response);
+    }
+
+    private Boolean filterByIsActive(final Rule rule, final Boolean isActiveFilter) {
+        final Boolean isActive = rulesPolicy.accepts(rule);
+        return (isActiveFilter != null && !isActive.equals(isActiveFilter)) ? false : true;
+    }
+
+    private Boolean filterByType(final Rule rule, final String typeFilter) {
+        final String ruleType = rule.getViolationType().toString().toUpperCase();
+        return (typeFilter != null && !ruleType.equals(typeFilter)) ? false : true;
+    }
+
+    private ObjectNode transformRuleToObjectNode(final Rule rule) {
+        final Boolean isActive = rulesPolicy.accepts(rule);
+        final ObjectNode ruleJson = objectMapper.valueToTree(rule);
+        ruleJson.put("is_active", isActive);
+        return ruleJson;
     }
 }
