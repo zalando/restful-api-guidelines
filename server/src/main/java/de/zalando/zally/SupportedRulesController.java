@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -28,12 +29,26 @@ public class SupportedRulesController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<JsonNode> listSupportedRules() {
+    public ResponseEntity<JsonNode> listSupportedRules(
+            @RequestParam(value = "type", required = false) String typeFilter,
+            @RequestParam(value = "is_active", required = false) Boolean isActiveFilter) {
+
         final ObjectNode response = objectMapper.createObjectNode();
         final ArrayNode rulesNode = response.putArray("rules");
         for (Rule rule : rules) {
+            Boolean isActive = rulesPolicy.accepts(rule);
+            String ruleType = rule.getViolationType().toString().toUpperCase();
+
+            if (isActiveFilter != null && isActive != isActiveFilter) {
+                continue;
+            }
+
+            if (typeFilter != null && !ruleType.equals(typeFilter.toUpperCase())) {
+                continue;
+            }
+
             ObjectNode ruleJson = objectMapper.valueToTree(rule);
-            ruleJson.put("is_active", rulesPolicy.accepts(rule));
+            ruleJson.put("is_active", isActive);
             rulesNode.add(ruleJson);
         }
 
