@@ -217,8 +217,6 @@ definitions:
       url:
         type: string
         example: 'https://zalando.github.io/restful-api-guidelines/compatibility/Compatibility.html#must-do-not-use-uri-versioning'
-      description:
-        type: string
       is_active:
         type: boolean
         example: true
