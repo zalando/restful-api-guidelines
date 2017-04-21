@@ -16,15 +16,17 @@ export function ValidateButton (props) {
 }
 
 export function EditorInputForm (props) {
+  const validateButtonIsDisabled = props.pending || props.editorError || !props.editorValue.trim();
+
   return (<form onSubmit={props.onSubmit} className="editor-input-form">
     <label className="dc-label editor-input-form__label">Paste in a Swagger schema and click</label>
-    <ValidateButton disabled={props.pending || props.editorError} />
+    <ValidateButton disabled={validateButtonIsDisabled} />
     <Editor
       annotations={props.editorAnnotations}
       onChange={props.onInputValueChange}
       value={props.editorValue} />
     <div className="editor-input-form__bottom-button">
-      <ValidateButton disabled={props.pending || props.editorError} />
+      <ValidateButton disabled={validateButtonIsDisabled} />
     </div>
   </form>);
 }
@@ -39,6 +41,7 @@ export function Editor (props) {
         theme="github"
         width="100%"
         annotations={props.annotations}
+        showPrintMargin={false}
         value={props.value}
         onChange={props.onChange || function () {}}
         editorProps={{$blockScrolling: true}}
