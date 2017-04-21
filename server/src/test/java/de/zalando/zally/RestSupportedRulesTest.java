@@ -71,6 +71,14 @@ public class RestSupportedRulesTest {
     }
 
     @Test
+    public void shouldReturn400WhenTypeNotFound() throws Exception {
+        final String url = getUrl() + "?type=" + "SOLUTION";
+        final ResponseEntity<JsonNode> responseEntity = sendRequest(url);
+
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+
+    @Test
     public void shouldFilterByActiveRules() throws Exception {
         final String url = getUrl() + "?is_active=true";
         final ArrayNode rules = getRulesFromUrl(url);

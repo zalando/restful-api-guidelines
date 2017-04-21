@@ -8,6 +8,8 @@ import de.zalando.zally.rules.Rule;
 import de.zalando.zally.rules.RulesPolicy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,18 +31,22 @@ public class SupportedRulesController {
         this.rulesPolicy = rulesPolicy;
     }
 
+    @InitBinder
+    public void initBinder(final WebDataBinder binder) {
+        binder.registerCustomEditor(ViolationType.class, new ViolationTypeBinder());
+    }
+
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<JsonNode> listSupportedRules(
-            @RequestParam(value = "type", required = false) String typeFilter,
+            @RequestParam(value = "type", required = false) ViolationType typeFilter,
             @RequestParam(value = "is_active", required = false) Boolean isActiveFilter) {
 
         final ObjectNode response = objectMapper.createObjectNode();
         final ArrayNode rulesNode = response.putArray("rules");
-        final String normalizedTypeFilter = (typeFilter == null) ? null : typeFilter.toUpperCase();
         final List<JsonNode> filteredRules = rules
                 .stream()
                 .filter(r -> filterByIsActive(r, isActiveFilter))
-                .filter(r -> filterByType(r, normalizedTypeFilter))
+                .filter(r -> filterByType(r, typeFilter))
                 .map(r -> this.transformRuleToObjectNode(r))
                 .collect(Collectors.toList());
 
@@ -54,9 +60,8 @@ public class SupportedRulesController {
         return (isActiveFilter != null && !isActive.equals(isActiveFilter)) ? false : true;
     }
 
-    private Boolean filterByType(final Rule rule, final String typeFilter) {
-        final String ruleType = rule.getViolationType().toString().toUpperCase();
-        return (typeFilter != null && !ruleType.equals(typeFilter)) ? false : true;
+    private Boolean filterByType(final Rule rule, final ViolationType typeFilter) {
+        return (typeFilter != null && !rule.getViolationType().equals(typeFilter)) ? false : true;
     }
 
     private ObjectNode transformRuleToObjectNode(final Rule rule) {
