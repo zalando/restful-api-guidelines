@@ -225,3 +225,19 @@ Event consumers must be able to process duplicate events.
 Most of message broker and event bus systems, like Nakadi, guarantee “at-least-once” delivery. That is, one particular event is delivered to the consumers one or more times. Other circumstances can also cause duplicate events.
 
 For example, these situations occur if the publisher sends an event and doesn't receive the acknowledgment (e.g. due to a network issue). In this case, the publisher will try to send the same event again. This leads to two identical events in the event bus which have to be processed by the consumers. Similar conditions can appear on consumer side: an event has been processed successfully, but the consumer fails to confirm the processing.
+
+## {{ book.must }} Event names must match Zalando naming schema
+
+All event names must match the following naming schema:
+
+```
+event-name ::= <functional-domain>.[<functional-component>].<event>
+
+functional-domain ::= [a-z][a-z0-9-]* ; name managed by central architecture team, defined together with you
+
+functional-component ::= [a-z][a-z0-9-]* ; name managed by central architecture team, defined together with you
+
+event ::= [a-z][a-z0-9-]* ; free identifer (functional name)
+```
+
+The functional-domain and functional-component parts must correspond to the names of the system sending the event.
