@@ -1,125 +1,69 @@
 /* global global */
 
 describe('oauth-firewall', () => {
-  let OAuthProviderMock, mockCheckTokenIsValid, firewall;
+  let mockMe, mockCreateAnonymousUser, firewall;
+
   beforeEach(() => {
     jest.resetModules();
-    mockCheckTokenIsValid = jest.fn();
-    jest.mock('../oauth-provider');
-    jest.mock('../oauth-util', () => ({
-      checkTokenIsValid: mockCheckTokenIsValid
-    }));
     global.window = {
-      env: {},
-      location: {
-        hash: ''
-      }
+      env: {}
     };
+    mockMe = jest.fn();
+    mockCreateAnonymousUser = jest.fn();
+
+    mockCreateAnonymousUser.mockReturnValue({
+      username: 'anonymous'
+    });
+
+    jest.mock('../oauth-util', () => ({
+      me: mockMe,
+      createAnonymousUser: mockCreateAnonymousUser
+    }));
     firewall = require('../oauth-firewall').default;
-    OAuthProviderMock = require('../oauth-provider').default;
   });
 
   afterEach(() => {
     delete global.window;
   });
 
-  test('return immediately with a resolved promise if oauth is disabled', (done) => {
+  test('resolve immediately with a resolved promise if oauth is disabled', () => {
     global.window.env.OAUTH_ENABLED = false;
-    firewall()
-      .then(() => {
-        expect(mockCheckTokenIsValid).not.toHaveBeenCalled();
-        done();
+    return firewall()
+      .then(({user}) => {
+        expect(mockMe).not.toHaveBeenCalled();
+        expect(mockCreateAnonymousUser).toHaveBeenCalled();
+        expect(user).toBeDefined();
       });
   });
 
-  test('return a rejected promise if OAuthProvider doesn\'t have an access token', (done) => {
+  test('resolve with error and anonymous user if "me" rejects', () => {
     global.window.env.OAUTH_ENABLED = true;
+    const mockError = new Error('test "me" reject');
 
-    firewall()
-      .catch(() => {
-        done();
-      });
-  });
-
-  test('parse implicit grant flow response and resolve', () => {
-    const parseResponse = {};
-    const tokenInfoResponse = {};
-    global.window.env.OAUTH_ENABLED = true;
-    global.window.location.hash = '#access_token=foo';
-    global.window.location.href = 'https://www.google.com#access_token=foo';
-    OAuthProviderMock._response = parseResponse;
-    mockCheckTokenIsValid.mockReturnValueOnce(Promise.resolve(tokenInfoResponse));
+    mockMe.mockReturnValueOnce(Promise.reject(mockError));
 
     return firewall()
-      .then((response) => {
-        expect(mockCheckTokenIsValid).toHaveBeenCalled();
-        expect(response).toEqual(tokenInfoResponse);
+      .then(({user, error}) => {
+        expect(mockMe).toHaveBeenCalled();
+        expect(mockCreateAnonymousUser).toHaveBeenCalled();
+        expect(user).toBeDefined();
+        expect(error).toEqual(mockError);
       });
   });
 
-  test('parse implicit grant flow response and reject if something went wrong', (done) => {
+  test('resolve with authenticated user', () => {
     global.window.env.OAUTH_ENABLED = true;
-    global.window.location.hash = '#access_token=foo';
-    const parseError = new Error();
-    OAuthProviderMock.parse = () => {
-      throw parseError;
+    const mockMeResponseBody = {
+      username: 'foo',
+      authenticated: true
     };
-    firewall()
-      .catch((error) => {
-        try {
-          expect(error).toEqual(parseError);
-          done();
-        } catch (e) {
-          done.fail(e);
-        }
 
+    mockMe.mockReturnValueOnce(Promise.resolve(mockMeResponseBody));
+
+    return firewall()
+      .then(({user}) => {
+        expect(mockMe).toHaveBeenCalled();
+        expect(user).toEqual(mockMeResponseBody);
       });
   });
-
-  test('parse implicit grant flow response and reject if response it\'s an error', (done) => {
-    const parseResponse = new Error('OAuthError');
-    global.window.env.OAUTH_ENABLED = true;
-    global.window.location.hash = '#access_token=foo';
-    global.window.location.href = 'https://www.google.com#access_token=foo';
-    OAuthProviderMock._response = parseResponse;
-
-    firewall()
-      .catch((error) => {
-        expect(global.window.location.href).toEqual('https://www.google.com#access_token=foo');
-        expect(error).toEqual(parseResponse);
-        done();
-      });
-  });
-
-  test('check token is valid if OAuthProvider has an access token', (done) => {
-    mockCheckTokenIsValid.mockReturnValueOnce(Promise.resolve('valid'));
-    global.window.env.OAUTH_ENABLED = true;
-    OAuthProviderMock._accessToken = 'foo';
-
-    firewall()
-      .then((response) => {
-        expect(mockCheckTokenIsValid).toHaveBeenCalled();
-        expect(response).toEqual('valid');
-        done();
-      });
-  });
-
-  test('if OAuthProvider check token is valid and reject if not valid', (done) => {
-    const error = new Error();
-    mockCheckTokenIsValid.mockReturnValueOnce(Promise.reject(error));
-    global.window.env.OAUTH_ENABLED = true;
-    OAuthProviderMock._accessToken = 'foo';
-
-    firewall()
-      .catch((response) => {
-        try {
-          expect(response).toEqual(error);
-          expect(mockCheckTokenIsValid).toHaveBeenCalled();
-          done();
-        } catch (e) {
-          done.fail(e);
-        }
-      });
-  });
-
 });

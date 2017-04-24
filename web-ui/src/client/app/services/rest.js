@@ -11,7 +11,7 @@ export const RestService = {
       body: JSON.stringify(body)
     };
     return client
-      .fetch('/zally-api/api-violations', options)
+      .fetch(`${window.env.ZALLY_API_URL}/api-violations`, options)
       .then((response) => {
         return response.json();
       })
@@ -42,7 +42,7 @@ export const RestService = {
         'Content-Type': 'application/json'
       }
     };
-    const url = '/zally-api/supported-rules' + this.objectToParams(params);
+    const url = `${window.env.ZALLY_API_URL}/supported-rules` + this.objectToParams(params);
     return client
       .fetch(url, options)
       .then((response) => {

@@ -1,14 +1,35 @@
 'use strict';
 
-const env = require('./env');
-const logger = require('./logger');
-const createHttpServer = require('./create-http-server');
-const app = require('./app');
 
-/**
- * Start listening for connections
- */
-createHttpServer(app).listen(env.PORT, () => {
-  logger.info(`application server running at ${env.SSL_ENABLED ? 'https' : 'http'}://localhost:${env.PORT}, NODE_ENV=${env.NODE_ENV}`);
-});
+const express = require('express');
+const _ = require('lodash');
+const path = require('path');
+const ASSETS_DIR = path.resolve(__dirname, '../client/public/assets');
 
+const DEFAULT_OPTIONS = {
+  windowEnv: {
+    OAUTH_ENABLED: false,
+    DEBUG: true,
+    ZALLY_API_URL: 'http://localhost:8080'
+  },
+  handlers: {
+    assets: () => express.static(ASSETS_DIR),
+    windowEnv: require('./window-env-handler'),
+    spa: () => {
+      return (req, res) => {
+        res.sendFile(path.resolve(__dirname, '../client/public/index.html'));
+      };
+    }
+  }
+};
+
+module.exports = (options = {}) => {
+  const app = express();
+  const _options = _.merge({}, DEFAULT_OPTIONS, options);
+
+  app.use('/assets/', _options.handlers.assets(_options));
+  app.get('/env.js', _options.handlers.windowEnv(_options));
+  app.get('*', _options.handlers.spa(_options));
+
+  return app;
+};

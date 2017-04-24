@@ -3,9 +3,7 @@
 const {RequestMock} = require('../__mocks__/util-mocks');
 
 const createAuthorizedRequest = () => {
-  const request = new RequestMock();
-  request.headers.append('Authorization', 'Bearer foo');
-  return request;
+  return new RequestMock();
 };
 
 const createUnauthorizedResponse = () => {
@@ -14,26 +12,22 @@ const createUnauthorizedResponse = () => {
 
 describe('OAuthInterceptor', () => {
 
-  let OAuthInterceptor, OAuthProviderMock, mockRefreshToken, mockRequestToken, mockFetch;
+  let OAuthInterceptor, mockRefreshToken, mockLogin, mockFetch;
 
   beforeEach(() => {
     jest.resetModules();
 
     global.window = {
-      env: {
-      }
+      env: {}
     };
 
     mockRefreshToken = jest.fn();
-    mockRequestToken = jest.fn();
+    mockLogin = jest.fn();
     mockFetch = jest.fn();
 
-    jest.mock('../oauth-provider');
-    jest.mock('../oauth-util', () => ({ refreshToken: mockRefreshToken, requestToken: mockRequestToken }));
+    jest.mock('../oauth-util', () => ({ refreshToken: mockRefreshToken, login: mockLogin }));
     jest.mock('../fetch', () => (mockFetch));
 
-
-    OAuthProviderMock = require('../oauth-provider').default;
     OAuthInterceptor = require('../oauth-interceptor').default;
   });
 
@@ -41,26 +35,14 @@ describe('OAuthInterceptor', () => {
     delete global.window;
   });
 
-  describe('request interceptor', () => {
-    test('should add the expected authorization header if OAuthProvider has an access token', () => {
-      global.window.env.OAUTH_ENABLED = true;
-      OAuthProviderMock._accessToken = 'foo';
-      const request = OAuthInterceptor.request(new RequestMock());
-      expect(request.headers.get('Authorization')).toEqual('Bearer foo');
-    });
-
-    test('shouldn\'t add the Authorization header if OAuthProvider has not an access token', () => {
-      global.window.env.OAUTH_ENABLED = true;
-      OAuthProviderMock._accessToken = undefined;
-      const request = OAuthInterceptor.request(new RequestMock());
-      expect(request.headers.get('Authorization')).toBeUndefined();
-    });
-  });
 
   describe('responseError interceptor skip', () => {
-    test('if request doesn\'t contain Authorization header', (done) => {
-      const response = {};
-      const request = new RequestMock();
+
+    test('if OAuth is disabled', (done) => {
+      window.env.OAUTH_ENABLED = false;
+      const request = createAuthorizedRequest();
+      const response = createUnauthorizedResponse();
+
       OAuthInterceptor
         .responseError(response, request)
         .catch((e) => {
@@ -84,71 +66,57 @@ describe('OAuthInterceptor', () => {
         });
     });
 
-    test('if OAuthProvider doesn\'t have a refresh token', (done) => {
-      const request = createAuthorizedRequest();
-      const response = createUnauthorizedResponse();
 
-      OAuthInterceptor
-        .responseError(response, request)
-        .catch((e) => {
-          expect(e).toEqual(response);
-          expect(mockRefreshToken).not.toHaveBeenCalled();
-          done();
-        });
-    });
   });
 
   describe('responseError interceptor try to refresh the token', () => {
     let response, request;
 
     beforeEach(() => {
+      window.env.OAUTH_ENABLED = true;
       request = createAuthorizedRequest();
       response = createUnauthorizedResponse();
-      OAuthProviderMock._refreshToken = 'bar';
     });
 
-    afterEach(() => {
-      delete OAuthProviderMock._refreshToken;
-    });
-
-    test('if success, retry failed requests', (done) => {
+    test('if success, retry failed requests', () => {
 
       mockRefreshToken.mockReturnValueOnce(Promise.resolve());
       mockFetch.mockReturnValueOnce(Promise.resolve());
 
-      OAuthInterceptor
+      return OAuthInterceptor
         .responseError(response, request)
         .then(() => {
           expect(mockRefreshToken).toHaveBeenCalled();
           expect(mockFetch).toHaveBeenCalled();
-          done();
         });
     });
 
-    test('if fails, reject failed requests and request a new token with implicit flow', (done) => {
+    test('if fails, reject failed requests and login', (done) => {
       mockRefreshToken.mockReturnValueOnce(Promise.reject('test refresh token fails'));
 
       OAuthInterceptor
         .responseError(response, request)
+        .then(() => {
+          done(new Error('it should reject'));
+        })
         .catch(() => {
           expect(mockRefreshToken).toHaveBeenCalled();
           expect(mockFetch).not.toHaveBeenCalled();
-          expect(mockRequestToken).toHaveBeenCalled();
+          expect(mockLogin).toHaveBeenCalled();
           done();
         });
     });
 
-    test('should skip refresh token operation if already in progress', (done) => {
+    test('should skip refresh token operation if already in progress', () => {
       mockRefreshToken.mockReturnValueOnce(Promise.resolve());
       mockFetch.mockReturnValue(Promise.resolve());
 
       OAuthInterceptor.responseError(response, request);
-      OAuthInterceptor
+      return OAuthInterceptor
         .responseError(response, request)
         .then(() => {
           expect(mockRefreshToken.mock.calls.length).toEqual(1);
           expect(mockFetch.mock.calls.length).toEqual(2);
-          done();
         });
     });
   });

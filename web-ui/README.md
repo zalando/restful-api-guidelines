@@ -11,90 +11,76 @@ Proudly built with NodeJS and React.
 
 * NodeJS >= 7.6
 
-
-## Install, build and run
+## Install
 
 ```bash
-cd web-ui
-npm install
-npm run build
-npm start
+npm install zally-web-ui --save
 ```
 
-## Configuration
+## Usage
 
-The web-ui relies on [dotenv](https://github.com/motdotla/dotenv) NodeJS module to handle configuration.
-Following the [The Twelve-Factor App](https://12factor.net/config) methodology.
-Customization can be done by setting environment variables and/or by providing a `.env` file in the web-ui root directory.<br>
+### Basic
 
-Below the full reference of "available" environment variables and their default values.
+```js
+const app = require('zally-web-ui')();
 
-```
-PORT=8442
-LOG_LEVEL="debug"
-
-SSL_ENABLED=false
-SSL_KEY=""
-SSL_CERT=""
-
-ZALLY_API_URL=""
-
-OAUTH_ENABLED=false
-OAUTH_CLIENT_ID=""
-OAUTH_AUTHORIZATION_URL=""
-OAUTH_REDIRECT_URI=""
-OAUTH_TOKENINFO_URL=""
-OAUTH_REFRESH_TOKEN_URL=""
-OAUTH_SCOPES=""
-OAUTH_USERNAME_PROPERTY="cn"
-
-DEV_PORT=8441
-DEV_SSL_ENABLED=false
-
-DEBUG=false
+app.listen(3000, () => {
+  console.log('zally-web-ui running at http://localhost:3000');
+});
 ```
 
-* **PORT**: HTTP(S) Server port
-* **LOG_LEVEL**: Logging level (error|warn|info|verbose|debug|silly)
+### Mount to an existing application
 
-* **SSL_ENABLED**: Start the server with HTTPS 
-* **SSL_KEY**: Fs path to SSL key file 
-* **SSL_CERT**: Fs path to SSL cert file 
+```js
+const app = require('express')()
+const zally = require('zally-web-ui')(/*options*/);
 
-* **ZALLY_API_URL**: The URL pointing to Zally Api Server
+app.use(zally);
+app.listen(3000, () => {
+  console.log('server running at http://localhost:3000');
+});
+```
 
-* **OAUTH_ENABLED**: Enable client side OAuth2 implicit grant flow protection
-* **OAUTH_CLIENT_ID**: OAuth2 client id assigned to your app
-* **OAUTH_REDIRECT_URI**: The route that should handle the OAuth2 access token response
-* **OAUTH_TOKENINFO_URL**: The url used to validate the access token and retrieve token information
-* **OAUTH_REFRESH_TOKEN_URL**: The url used to refresh the access token
-* **OAUTH_SCOPES**: Comma separated list of scopes that the user should grant to the app
-* **OAUTH_USERNAME_PROPERTY**: Property that can be found in the /tokeninfo response representing the username of the connected user (eg. uid or user.uid if nested)
+## Configuration options
 
-* **DEV_PORT**: HTTP(S) server port for the dev server (webpack-dev-server)
-* **DEV_SSL_ENABLED**: start dev server with https
+When instantiating the app you can pass an `options` object to customize the behavior. 
 
-* **DEBUG**: debug flag (eg. on the client side log debug messages to console)
+```js
+const options = { /* ..my options.. */}
+const zally = require('zally-web-ui')(options);
+```
+
+### Options
+
+* **windowEnv**: the windowEnv `object` contains all the values exposed to the client on `window.env` 
+* **windowEnv.OAUTH_ENABLED** (default: `false`): Enabled OAuth or just Auth support on the client side (an http call will be fired on `/me` endpoint to get the current logged in user, if any)  
+* **windowEnv.ZALLY_API_URL** (default: `http://localhost:8080`): URL pointing to Zally REST API
+* **windowEnv.DEBUG** (default: `true`): logs debugging message on the client side
+
+* **handlers**: the handlers `object` contains all route handlers used by zally-web-ui
+* **handlers.assets**: handler that serve static assets
+* **handlers.windowEnv**: handler that serve `/env.js` javascript file used to expose `windowEnv` values to the client on `window.env`
+* **handlers.spa**: handler that serve `index.html` (single page application entrypoint) on the wild card `*` to allow HTML5 History API working as expected
 
 ## Development
 
-### Install, build and run
+### Install, build and run in development mode
 
 ```
 cd web-ui
 npm install
-npm run build
-npm start
-```
-
-### Run in development mode
-
-```
 npm run dev
 ```
 
-> This task starts the application server in development mode with **nodemon** and **webpack-dev-server** watching for changes.<br>
+> The `npm run dev` task starts the application server in development mode with **nodemon** and **webpack-dev-server** watching for changes.<br>
   The application server acts as a proxy to webpack-dev-server as the target.
+
+### Run in production mode
+
+```
+npm run build
+npm start
+```
 
 ### Build optimized client javascript bundle
 
@@ -102,12 +88,6 @@ Build webpack bundle minified and source-map file(s).
 
 ```
 npm run build
-```
-
-### Build docker image
-
-```
-npm run docker:build
 ```
 
 ## Contributing

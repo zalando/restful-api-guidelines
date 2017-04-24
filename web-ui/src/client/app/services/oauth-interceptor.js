@@ -1,6 +1,5 @@
-import OAuthProvider from './oauth-provider.js';
 import fetch from './fetch';
-import {requestToken, refreshToken} from './oauth-util.js';
+import {login, refreshToken} from './oauth-util.js';
 import {debug} from './debug.js';
 
 // OAuthInterceptor state
@@ -10,12 +9,6 @@ const state = {
 };
 
 const OAuthInterceptor = {
-  request (request) {
-    if (window.env.OAUTH_ENABLED && OAuthProvider.hasAccessToken()) {
-      request.headers.append('Authorization', `Bearer ${OAuthProvider.getAccessToken()}`);
-    }
-    return request;
-  },
   responseError (response, request) {
 
     if (!shouldHandleResponseError(response, request)) {
@@ -41,8 +34,7 @@ const OAuthInterceptor = {
       .catch((error) => {
         console.error(error); // eslint-disable-line no-console
         state.refreshingToken = false;
-        OAuthProvider.deleteTokens();
-        requestToken();
+        login();
         rejectUnauthorizedRequests();
       });
 
@@ -50,11 +42,9 @@ const OAuthInterceptor = {
   }
 };
 
-function shouldHandleResponseError (response, request) {
-  return request.headers.has('Authorization')
-   && response.status === 401 && OAuthProvider.hasRefreshToken();
+function shouldHandleResponseError (response) {
+  return window.env.OAUTH_ENABLED && response.status === 401;
 }
-
 
 function createDeferredPromise () {
   let resolve, reject;
@@ -65,14 +55,18 @@ function createDeferredPromise () {
   return {deferred, resolve, reject};
 }
 
+function rejectUnauthorizedRequests () {
+  state.unauthorizedRequests.map(({response, reject}) => {
+    reject(response);
+  });
+  state.unauthorizedRequests.length = 0;
+}
+
 function retryUnauthorizedRequests () {
   debug('Retrying unauthorized requests', state.unauthorizedRequests.concat([]));
 
   const promises = state.unauthorizedRequests.map(({request, resolve, reject}) => {
     const retryRequest = request.retryClone || request;
-
-    retryRequest.headers.delete('Authorization');
-    retryRequest.headers.append('Authorization', `Bearer ${OAuthProvider.getAccessToken()}`);
 
     // to retry with use the low-level fetch instead of the http client to avoid the usage of interceptors
     // that can cause a never ending loop
@@ -99,15 +93,5 @@ function retryUnauthorizedRequests () {
 
   state.unauthorizedRequests.length = 0;
 }
-
-function rejectUnauthorizedRequests () {
-  state.unauthorizedRequests.map(({response, reject}) => {
-    reject(response);
-  });
-  state.unauthorizedRequests.length = 0;
-}
-
-
-
 
 export default OAuthInterceptor;

@@ -15,6 +15,7 @@ const retryCloneInterceptor = {
 
 client.configure(config => {
   config
+    .withDefaults({ credentials: 'same-origin' })
     .rejectErrorResponses()
     .withInterceptor(retryCloneInterceptor)
     .withInterceptor(OAuthInterceptor);

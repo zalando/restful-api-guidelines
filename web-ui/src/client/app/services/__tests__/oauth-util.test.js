@@ -1,72 +1,28 @@
-/* global global, window, jasmine */
-
-import {Request} from 'oauth2-client-js';
-import {requestToken, refreshToken, checkTokenIsValid} from '../oauth-util.js';
-import OAuthProvider from '../oauth-provider.js';
+import {refreshToken, me} from '../oauth-util.js';
 import fetch from '../fetch.js';
 import {client} from '../http-client.js';
 
-jest.mock('../oauth-provider');
 jest.mock('../fetch');
 jest.mock('../http-client');
 
-describe('requestToken', () => {
-  beforeEach(() => {
-    global.window = {
-      location: {},
-      env: {
-        OAUTH_CLIENT_ID: 'client_id',
-        OAUTH_REDIRECT_URI: 'redirect_uri',
-        OAUTH_SCOPES: 'scope'
-      }
-    };
-  });
-
-  afterEach(() => {
-    OAuthProvider.requestToken.mockReset();
-    OAuthProvider.remember.mockReset();
-    delete global.window;
-  });
-
-  test('redirect to authorize url and remember the request', () => {
-    const authorizeURL = 'http://www.google.com';
-    OAuthProvider.requestToken.mockReturnValueOnce(authorizeURL);
-
-    requestToken();
-    expect(OAuthProvider.remember).toHaveBeenCalledWith(jasmine.any(Request));
-
-    expect(global.window.location.href).toBe(authorizeURL);
-  });
-});
 
 describe('refreshToken', () => {
-  beforeEach(() => {
-    global.window = {
-      env: {
-        OAUTH_CLIENT_ID: 'client_id'
-      }
-    };
-  });
 
   afterEach(() => {
     fetch.mockReset();
-    delete global.window;
   });
 
-  test('when success should access and refresh tokens' , () => {
+  test('when success should resolve with response and body' , () => {
     const mockJson = jest.fn();
-    const newAccessToken = 'foo';
-    const newRefreshToken = 'bar';
-    mockJson.mockReturnValueOnce(Promise.resolve({
-      access_token: newAccessToken,
-      refresh_token: newRefreshToken
-    }));
-    fetch.mockReturnValueOnce(Promise.resolve({
+    const mockResponse = {
       json: mockJson
-    }));
-    return refreshToken().then(() => {
-      expect(OAuthProvider.getAccessToken()).toEqual(newAccessToken);
-      expect(OAuthProvider.getRefreshToken()).toEqual(newRefreshToken);
+    };
+    mockJson.mockReturnValueOnce(Promise.resolve('body'));
+    fetch.mockReturnValueOnce(Promise.resolve(mockResponse));
+
+    return refreshToken().then(({response, body}) => {
+      expect(response).toEqual(mockResponse);
+      expect(body).toEqual('body');
     });
   });
 
@@ -84,27 +40,27 @@ describe('refreshToken', () => {
   });
 });
 
-describe('checkTokenIsValid', () => {
+describe('me', () => {
 
   afterEach(() => {
     client.fetch.mockReset();
   });
 
-  test('resolve with response body if token is valid', () => {
-    const mockTokeninfoBody = {};
+  test('resolve with a "user" object', () => {
+    const mockMe = {};
     client.fetch.mockReturnValueOnce(Promise.resolve({
-      json: () => mockTokeninfoBody
+      json: () => mockMe
     }));
-    checkTokenIsValid().then((body) => {
+    me().then((body) => {
       expect(body).toBeDefined();
-      expect(body).toBe(mockTokeninfoBody);
+      expect(body).toBe(mockMe);
     });
   });
 
   test('reject with an error if token is not valid', (done) => {
-    const mockError = new Error('test checkTokenIsValid fails');
+    const mockError = new Error('test "me" fails');
     client.fetch.mockReturnValueOnce(Promise.reject(mockError));
-    checkTokenIsValid().catch((error) => {
+    me().catch((error) => {
       try {
         expect(error).toBeDefined();
         expect(error).toBe(mockError);

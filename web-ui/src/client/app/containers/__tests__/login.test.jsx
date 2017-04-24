@@ -4,8 +4,8 @@ import {Login} from '../login.jsx';
 
 describe('Login container component', () => {
 
-  const notAuthenticatedSelector = '[dataTestId="not-authenticated"]';
-  const authenticatedSelector = '[dataTestId="authenticated"]';
+  const notAuthenticatedSelector = '[data-test-id="not-authenticated"]';
+  const authenticatedSelector = '[data-test-id="authenticated"]';
 
   test('should show login UI if not authenticated', () => {
     const component = shallow(<Login route={{ user: { authenticated: false} }} />);

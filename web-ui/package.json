@@ -7,10 +7,9 @@
     "node": ">=7.6"
   },
   "scripts": {
-    "start": "NODE_ENV=production node src/server/index.js",
-    "dev": "webpack-dev-server & NODE_ENV=development nodemon src/server/index.js",
+    "start": "NODE_ENV=production node server.js",
+    "dev": "webpack-dev-server & NODE_ENV=development nodemon server.js",
     "build": "webpack -p",
-    "docker:build": "npm run build && scm-source > scm-source.json && docker build -t pierone.stups.zalan.do/architecture/zally-web-ui:${npm_package_version}-$(date +%s) .",
     "lint": "eslint src --ext .jsx --ext .js",
     "lint:report": "npm run lint -- -f checkstyle --output-file target/checkstyle.xml",
     "jest": "NODE_ENV=test jest --coverage --config ./jest.json",
@@ -34,23 +33,14 @@
   "homepage": "https://github.com/zalando-incubator/zally#readme",
   "dependencies": {
     "aurelia-fetch-client": "1.1.2",
-    "body-parser": "1.17.1",
-    "dotenv": "4.0.0",
-    "dotenv-parse-variables": "0.0.1",
     "dress-code": "2.0.0",
     "express": "4.15.2",
-    "js-yaml": "3.8.2",
     "lodash": "4.17.4",
-    "node-fetch": "1.6.3",
-    "oauth2-client-js": "0.0.15",
-    "query-string": "4.3.2",
     "react": "15.4.2",
     "react-ace": "4.2.0",
     "react-dom": "15.4.2",
     "react-router": "3.0.4",
-    "request": "2.81.0",
-    "whatwg-fetch": "2.0.3",
-    "winston": "2.3.1"
+    "whatwg-fetch": "2.0.3"
   },
   "devDependencies": {
     "babel-core": "6.24.0",
@@ -65,9 +55,9 @@
     "eslint-plugin-react": "6.10.3",
     "jest": "19.0.2",
     "node-sass": "4.5.2",
-    "@zalando/node-scm-source": "0.2.2",
     "nodemon": "1.11.0",
     "react-addons-test-utils": "15.4.2",
+    "request": "2.81.0",
     "sass-loader": "6.0.3",
     "style-loader": "0.16.1",
     "supertest": "3.0.0",

@@ -10,7 +10,7 @@ describe('run', () => {
   const mockGetElementById = jest.fn();
 
   mockFirewall.hasAuthResponse = jest.fn();
-  mockFirewall.mockReturnValueOnce(Promise.resolve());
+  mockFirewall.mockReturnValueOnce(Promise.resolve({user: { username: 'foo'}}));
   mockOAuthUtil.createUser.mockReturnValue({});
 
   jest.mock('../services/rest.js', () => ({}));

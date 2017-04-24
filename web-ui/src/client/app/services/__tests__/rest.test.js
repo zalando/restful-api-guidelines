@@ -1,4 +1,4 @@
-/* global jasmine */
+/* global global, jasmine */
 
 import {RestService} from '../rest.js';
 import {client} from '../http-client.js';
@@ -6,6 +6,15 @@ import {client} from '../http-client.js';
 jest.mock('../http-client');
 
 describe('RestService', () => {
+
+  beforeEach(() => {
+    global.window = {
+      env: {
+        ZALLY_API_URL : '/zally-api'
+      }
+    };
+  });
+
   afterEach(() => {
     client.fetch.mockReset();
   });

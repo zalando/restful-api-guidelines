@@ -7,7 +7,6 @@ describe('server.webpack-dev-server-proxy-handler', () => {
     jest.resetModules();
     mockRequest = jest.fn();
     jest.mock('request', () => mockRequest);
-    jest.mock('../logger', () => ({debug: () => {}}));
     webpackDevServerProxyHandlerFactory = require('../webpack-dev-server-proxy-handler');
     webpackDevServerProxyHandler = webpackDevServerProxyHandlerFactory({
       publicPath: '/assets',
