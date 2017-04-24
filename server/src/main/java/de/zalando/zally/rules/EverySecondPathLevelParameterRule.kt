@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component
 @Component
 class EverySecondPathLevelParameterRule : AbstractRule() {
     override val title = "Every Second Path Level To Be Parameter"
+    // TODO: Provide URL
     override val url = ""
     override val violationType = ViolationType.MUST
     override val code = "M005"

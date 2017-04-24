@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component
 @Component
 class NoProtocolInHostRule : AbstractRule() {
     override val title = "Host should not contain protocol"
+    // TODO: Provide URL
     override val url = ""
     override val violationType = ViolationType.MUST
     override val code = "M008"
