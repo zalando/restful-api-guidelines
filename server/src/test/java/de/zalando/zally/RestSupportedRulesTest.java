@@ -1,15 +1,16 @@
 package de.zalando.zally;
 
+import static java.util.Collections.sort;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import de.zalando.zally.rules.Rule;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,15 +43,33 @@ public class RestSupportedRulesTest {
     protected final TestRestTemplate restTemplate = new TestRestTemplate();
 
     @Test
-    public void shouldReturnListOfRules() throws Exception {
+    public void shouldReturn200WhenEverythingIsOk() throws Exception {
         final ResponseEntity<JsonNode> responseEntity = sendRequest(getUrl());
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+    }
 
+    @Test
+    public void shouldReturnListOfRules() throws Exception {
+        final ResponseEntity<JsonNode> responseEntity = sendRequest(getUrl());
         final JsonNode result = responseEntity.getBody();
-        assertThat(result.has("rules")).isTrue();
-
         final ArrayNode rules = (ArrayNode) result.get("rules");
         assertThat(rules.size()).isEqualTo(implementedRules.size());
+    }
+
+    @Test
+    public void shouldReturnProperObjectStructure() throws Exception {
+        final ResponseEntity<JsonNode> responseEntity = sendRequest(getUrl());
+        final JsonNode result = responseEntity.getBody();
+        final ArrayNode rules = (ArrayNode) result.get("rules");
+        final List<String> expectedFieldNames = Arrays.asList("code", "is_active", "title", "type", "url");
+
+        for (JsonNode rule : rules) {
+            final List<String> fieldNames = new ArrayList<>();
+            rule.fieldNames().forEachRemaining(fieldNames::add);
+            sort(fieldNames);
+
+            assertThat(fieldNames).as("Rule: " + rule.get("title")).isEqualTo(expectedFieldNames);
+        }
     }
 
     @Test

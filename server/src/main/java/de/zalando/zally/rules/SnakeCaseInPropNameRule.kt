@@ -16,7 +16,7 @@ class SnakeCaseInPropNameRule(@Autowired rulesConfig: Config) : AbstractRule() {
             "#must-property-names-must-be-snakecase-and-never-camelcase"
     override val violationType = ViolationType.MUST
     override val code = "M012"
-    val description = "Property names must be snake_case (and never camelCase)"
+    private val description = "Property names must be snake_case: "
 
     private val whitelist = rulesConfig.getStringList(SnakeCaseInPropNameRule::class.simpleName + ".whitelist").toSet()
 
@@ -27,8 +27,8 @@ class SnakeCaseInPropNameRule(@Autowired rulesConfig: Config) : AbstractRule() {
         }
         return if (result.isNotEmpty()) {
             val (props, paths) = result.unzip()
-            val description = "Properties that are not in snake_case: " + props.flatten().toSet().joinToString(", ")
-            Violation(this, title, description, violationType, url, paths)
+            val properties = props.flatten().toSet().joinToString(", ")
+            Violation(this, title, description + properties, violationType, url, paths)
         } else null
     }
 }

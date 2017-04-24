@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component
 @Component
 class EverySecondPathLevelParameterRule : AbstractRule() {
     override val title = "Every Second Path Level To Be Parameter"
-    override val url = null
+    override val url = ""
     override val violationType = ViolationType.MUST
     override val code = "M005"
     private val DESCRIPTION = "Every second path level must be a path parameter"
@@ -19,6 +19,6 @@ class EverySecondPathLevelParameterRule : AbstractRule() {
             val pathSegments = it.split("/").filter { it.isNotEmpty() }
             pathSegments.filterIndexed { i, segment -> isPathVariable(segment) == (i % 2 == 0) }.isEmpty()
         }
-        return if (paths.isNotEmpty()) Violation(this, title, DESCRIPTION, violationType, "", paths) else null
+        return if (paths.isNotEmpty()) Violation(this, title, DESCRIPTION, violationType, url, paths) else null
     }
 }

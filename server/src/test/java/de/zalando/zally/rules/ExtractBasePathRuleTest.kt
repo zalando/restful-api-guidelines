@@ -9,6 +9,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
 class ExtractBasePathRuleTest {
+    val DESC_PATTERN = "All paths start with prefix '%s'. This prefix could be part of base path."
 
     @Test
     fun validateEmptyPath() {
@@ -35,7 +36,7 @@ class ExtractBasePathRuleTest {
                 "/shipment/{shipment_id}/details"
         )
         val rule = ExtractBasePathRule()
-        val expected = Violation(ExtractBasePathRule(), rule.title, rule.DESC_PATTERN.format("/shipment"),
+        val expected = Violation(ExtractBasePathRule(), rule.title, DESC_PATTERN.format("/shipment"),
                 ViolationType.HINT, rule.url, emptyList())
         assertThat(rule.validate(swagger)).isEqualTo(expected)
     }
@@ -49,7 +50,7 @@ class ExtractBasePathRuleTest {
                 "/queue/models/summaries"
         )
         val rule = ExtractBasePathRule()
-        val expected = Violation(ExtractBasePathRule(), rule.title, rule.DESC_PATTERN.format("/queue/models"),
+        val expected = Violation(ExtractBasePathRule(), rule.title, DESC_PATTERN.format("/queue/models"),
                 ViolationType.HINT, rule.url, emptyList())
         assertThat(rule.validate(swagger)).isEqualTo(expected)
     }

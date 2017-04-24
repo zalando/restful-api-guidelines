@@ -14,7 +14,7 @@ class PluralizeResourceNamesRule : AbstractRule() {
             "#must-pluralize-resource-names"
     override val violationType = ViolationType.SHOULD
     override val code = "S008"
-    val DESC_PATTERN = "Resources %s are singular (but we are not sure)"
+    private val DESC_PATTERN = "Resources %s are singular (but we are not sure)"
 
     override fun validate(swagger: Swagger): Violation? {
         val res = swagger.paths.keys.flatMap { path ->
