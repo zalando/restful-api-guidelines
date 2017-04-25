@@ -31,9 +31,9 @@ permission ::= <name-space>::<permission-name>
 
 name-space ::= z --fix prefix for all permissions created by Zalando business partners
 
-permission-name ::= <functional-domain>.[<functional-component>].[<resource>].<access-type>
+permission-name ::= <functional-domain>[.<functional-component>].[<resource>].<access-type>
 
-functional-domain ::= [a-z][a-z0-9-]* ; name managed by central architecture team, defined together with you
+functional-domain ::= [a-z][a-z0-9]* ; name managed by central architecture team, defined together with you
 
 functional-component ::= [a-z][a-z0-9-]* ; name managed by central architecture team, defined together with you
 

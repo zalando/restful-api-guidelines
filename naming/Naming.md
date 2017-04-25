@@ -5,9 +5,9 @@
 All Zalando APIs must run under subdomains beneath zalandoapis.com and must match the following naming schema:
 
 ```
-api-hostname ::= [<functional-component>].<functional-domain>.zalandoapis.com
+api-hostname ::= <functional-domain>[-<functional-component>].zalandoapis.com
 
-functional-domain ::= [a-z][a-z0-9-]* ; name managed by central architecture team, defined together with you
+functional-domain ::= [a-z][a-z0-9]* ; name managed by central architecture team, defined together with you
 
 functional-component ::= [a-z][a-z0-9-]* ; name managed by central architecture team, defined together with you
 ```

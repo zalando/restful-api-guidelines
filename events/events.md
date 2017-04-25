@@ -233,7 +233,7 @@ All event names must match the following naming schema:
 ```
 event-name ::= <functional-domain>.[<functional-component>].<event>
 
-functional-domain ::= [a-z][a-z0-9-]* ; name managed by central architecture team, defined together with you
+functional-domain ::= [a-z][a-z0-9]* ; name managed by central architecture team, defined together with you
 
 functional-component ::= [a-z][a-z0-9-]* ; name managed by central architecture team, defined together with you
 
