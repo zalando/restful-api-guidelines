@@ -24,11 +24,17 @@ class AvoidSynonymsRule(@Autowired rulesConfig: Config) : AbstractRule() {
             .map { (key, config) -> key to config.unwrapped() as List<String> }
 
     override fun validate(swagger: Swagger): Violation? {
+        return validate(swagger, false)
+    }
+
+    fun validate(swagger: Swagger, returnViolation: Boolean): Violation? {
         val reversedDictionary = commonDictionary.flatMap { (canonical, synonyms) -> synonyms.map { it to canonical } }.toMap()
         val result = swagger.getAllJsonObjects().flatMap { (def, path) ->
             def.keys.filter { it in reversedDictionary }.map { it to path }
         }
-        return if (result.isNotEmpty()) {
+
+        // TODO: Start returning violations once we'll define a proper dictionary (#301)
+        return if (result.isNotEmpty() && returnViolation) {
             val (names, paths) = result.unzip()
             val details = names.toSet().groupBy(reversedDictionary::get)
                     .map { (canonical, synonyms) -> canonical + " instead of " + synonyms.joinToString(", ") }

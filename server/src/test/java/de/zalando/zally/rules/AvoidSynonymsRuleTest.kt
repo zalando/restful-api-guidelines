@@ -11,7 +11,7 @@ class AvoidSynonymsRuleTest {
     @Test
     fun positiveCase() {
         val swagger = swaggerWithDefinitions("ExampleDefinition" to listOf("customer_id", "some_unique_prop_name"))
-        assertThat(AvoidSynonymsRule(testConfig).validate(swagger)).isNull()
+        assertThat(AvoidSynonymsRule(testConfig).validate(swagger, true)).isNull()
     }
 
     @Test
@@ -20,7 +20,7 @@ class AvoidSynonymsRuleTest {
                 "Def1" to listOf("order_id", "c_id", "cust_id"),
                 "Def2" to listOf("orderid")
         )
-        val result = AvoidSynonymsRule(testConfig).validate(swagger)!!
+        val result = AvoidSynonymsRule(testConfig).validate(swagger, true)!!
         println(result.description)
         assertThat(result.description).contains("c_id", "cust_id", "orderid")
         assertThat(result.paths).hasSameElementsAs(listOf(
@@ -32,12 +32,12 @@ class AvoidSynonymsRuleTest {
     @Test
     fun positiveCaseSpp() {
         val swagger = getFixture("api_spp.json")
-        assertThat(AvoidSynonymsRule(testConfig).validate(swagger)).isNull()
+        assertThat(AvoidSynonymsRule(testConfig).validate(swagger, true)).isNull()
     }
 
     @Test
     fun positiveCaseSpa() {
         val swagger = getFixture("api_spa.yaml")
-        assertThat(AvoidSynonymsRule(testConfig).validate(swagger)).isNull()
+        assertThat(AvoidSynonymsRule(testConfig).validate(swagger, true)).isNull()
     }
 }
