@@ -6,10 +6,12 @@ import de.zalando.zally.ViolationType
 import de.zalando.zally.utils.getAllJsonObjects
 import io.swagger.models.Swagger
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.actuate.metrics.dropwizard.DropwizardMetricServices
 import org.springframework.stereotype.Component
 
 @Component
-class AvoidSynonymsRule(@Autowired rulesConfig: Config) : AbstractRule() {
+class AvoidSynonymsRule(
+        @Autowired rulesConfig: Config, @Autowired metricServices : DropwizardMetricServices) : AbstractRule() {
 
     override val title = "Use common property names"
     // TODO: Provide URL
@@ -18,6 +20,7 @@ class AvoidSynonymsRule(@Autowired rulesConfig: Config) : AbstractRule() {
     override val code = "S010"
 
     private val descPattern = "Property names should utilize common dictionary"
+    private val metricServices = metricServices
 
     @Suppress("UNCHECKED_CAST")
     private val commonDictionary = rulesConfig.getConfig("$name.dictionary").entrySet()
@@ -33,13 +36,25 @@ class AvoidSynonymsRule(@Autowired rulesConfig: Config) : AbstractRule() {
             def.keys.filter { it in reversedDictionary }.map { it to path }
         }
 
+        if (result.isEmpty()) {
+            return null
+        }
+
+        val (names, paths) = result.unzip()
+        submitStatistics(names)
+
         // TODO: Start returning violations once we'll define a proper dictionary (#301)
-        return if (result.isNotEmpty() && returnViolation) {
-            val (names, paths) = result.unzip()
+        return if (returnViolation) {
             val details = names.toSet().groupBy(reversedDictionary::get)
                     .map { (canonical, synonyms) -> canonical + " instead of " + synonyms.joinToString(", ") }
                     .joinToString("\n")
             Violation(this, title, "$descPattern:\n$details", violationType, url, paths.toSet().toList())
-        } else null
+        } else {
+            null
+        }
+    }
+
+    fun submitStatistics(names : List<String>) {
+        names.map { name -> metricServices.submit("histogram.rules.avoid-synonyms.synonym." + name, 1.0) }
     }
 }
