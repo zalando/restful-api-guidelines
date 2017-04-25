@@ -42,6 +42,13 @@ cases. Use it in your APIs — and compatible extend it if necessary for your AP
         description:
           a common address structure adequate for many use cases
         type: object
+        required:
+          - first_name
+          - last_name
+          - street
+          - city
+          - zip
+          - country_code
         properties:
           salutation:
             type: string
@@ -80,13 +87,6 @@ cases. Use it in your APIs — and compatible extend it if necessary for your AP
             type: string
             format: iso-3166-1-alpha-2
             example: DE
-        required:
-          - first_name
-          - last_name
-          - street
-          - city
-          - zip
-          - country_code
 
 ## {{ book.must }} Use Problem JSON
 
