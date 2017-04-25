@@ -182,7 +182,17 @@ Method implementations must fulfill the following basic properties:
 Please see also [Best Practices \[internal link\]](https://goo.gl/vhwh8a) for further hints on how to support the
 different HTTP methods on resources.
 
-## {{ book.must }} Use Meaningful HTTP Status Codes
+## {{ book.must }} Use Specific HTTP Status Codes
+
+This guideline groups the following rules for HTTP status codes usage:
+
+* You must not invent new HTTP status codes; only use standardized HTTP status codes and consistent with its intended semantics. 
+* You should use the most specific HTTP status code for your concrete resource request processing status or error situation. 
+* You should provide good documentation in the API definition when using HTTP status codes that are less commonly used and not listed below.  
+
+There are ~60 different HTTP status codes with specific semantics defined in the HTTP standards (mainly [RFC7231](https://tools.ietf.org/html/rfc7231#section-6) and [RFC-6585](https://tools.ietf.org/html/rfc6585)) - and there are upcoming new ones, e.g. [draft legally-restricted-status](https://tools.ietf.org/html/draft-tbray-http-legally-restricted-status-05) (see overview on all error codes on [Wikipedia](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes) or via https://httpstatuses.com/<error_code>). And there are unofficial ones, e.g. used by specific web servers like Nginx.  
+
+Our list of most commonly used and best understood HTTP status codes: 
 
 ### Success Codes
 
@@ -229,7 +239,6 @@ different HTTP methods on resources.
 | 501 | Not Implemented -  server cannot fulfill the request (usually implies future availability, e.g. new feature). | All |
 | 503 | Service Unavailable - server is (temporarily) not available (e.g. due to overload) -- client retry may be senseful. | All |
 
-All error codes can be found in [RFC7231](https://tools.ietf.org/html/rfc7231#section-6) and [Wikipedia](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes) or via https://httpstatuses.com/<error_code>.
 
 ## {{ book.must }} Provide Error Documentation
 
