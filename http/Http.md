@@ -40,16 +40,16 @@ does not solve the original problem.
 
 ### PUT
 
-PUT requests are used to create or update single resources or an entire collection resources. The
+PUT requests are used to create or update **entire** resources - single or collection resources. The
 semantic is best described as »*please put the enclosed representation at the resource mentioned by
-the URL*«.
+the URL, replacing any existing resource.*«.
 
 - PUT requests are usually applied to single resources, and not to collection resources, as this
   would imply replacing the entire collection
 - PUT requests are usually robust against non-existence of resources by implicitly creating before
   updating
-- on successful PUT requests, the server will replace the entire resource addressed by the URL with
-  the representation passed in the payload
+- on successful PUT requests, the server will **replace the entire resource** addressed by the URL
+  with the representation passed in the payload (subsequent reads will deliver the same payload)
 - successful PUT requests will usually generate 200 or 204 (if the resource was updated - with or
   without actual content returned), and 201 (if the resource was created)
 
