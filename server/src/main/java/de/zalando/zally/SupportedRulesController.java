@@ -10,16 +10,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RestController(value = "/supported_rules")
+@RestController("/supported_rules")
 public class SupportedRulesController {
+
     private final List<Rule> rules;
     private final ObjectMapper objectMapper;
     private final RulesPolicy rulesPolicy;
@@ -36,18 +36,18 @@ public class SupportedRulesController {
         binder.registerCustomEditor(ViolationType.class, new ViolationTypeBinder());
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public ResponseEntity<JsonNode> listSupportedRules(
             @RequestParam(value = "type", required = false) ViolationType typeFilter,
             @RequestParam(value = "is_active", required = false) Boolean isActiveFilter) {
 
         final ObjectNode response = objectMapper.createObjectNode();
-        final ArrayNode rulesNode = response.putArray("rules");
+        ArrayNode rulesNode = response.putArray("rules");
         final List<JsonNode> filteredRules = rules
                 .stream()
                 .filter(r -> filterByIsActive(r, isActiveFilter))
                 .filter(r -> filterByType(r, typeFilter))
-                .map(r -> this.transformRuleToObjectNode(r))
+                .map(r -> transformRuleToObjectNode(r))
                 .collect(Collectors.toList());
 
         rulesNode.addAll(filteredRules);
@@ -55,18 +55,18 @@ public class SupportedRulesController {
         return ResponseEntity.ok(response);
     }
 
-    private Boolean filterByIsActive(final Rule rule, final Boolean isActiveFilter) {
-        final Boolean isActive = rulesPolicy.accepts(rule);
-        return (isActiveFilter != null && !isActive.equals(isActiveFilter)) ? false : true;
+    private boolean filterByIsActive(final Rule rule, final Boolean isActiveFilter) {
+        final boolean isActive = rulesPolicy.accepts(rule);
+        return isActiveFilter == null || isActive == isActiveFilter;
     }
 
-    private Boolean filterByType(final Rule rule, final ViolationType typeFilter) {
-        return (typeFilter != null && !rule.getViolationType().equals(typeFilter)) ? false : true;
+    private boolean filterByType(final Rule rule, final ViolationType typeFilter) {
+        return typeFilter == null || rule.getViolationType().equals(typeFilter);
     }
 
     private ObjectNode transformRuleToObjectNode(final Rule rule) {
-        final Boolean isActive = rulesPolicy.accepts(rule);
-        final ObjectNode ruleJson = objectMapper.valueToTree(rule);
+        final boolean isActive = rulesPolicy.accepts(rule);
+        ObjectNode ruleJson = objectMapper.valueToTree(rule);
         ruleJson.put("is_active", isActive);
         return ruleJson;
     }
