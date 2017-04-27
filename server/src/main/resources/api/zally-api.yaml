@@ -32,6 +32,23 @@ parameters:
     required: true
     schema:
       $ref: '#/definitions/LintingRequest'
+  RulesType:
+    name: type
+    in: query
+    description: Rules Type
+    required: false
+    type: string
+    x-extensible-enum:
+      - MUST
+      - SHOULD
+      - COULD
+      - HINT
+  IsActive:
+    name: is_active
+    in: query
+    description: Is Rule Active
+    required: false
+    type: boolean
 
 paths:
   '/api-violations':
@@ -66,6 +83,37 @@ paths:
       security:
         - oauth2:
           - uid
+  '/supported-rules':
+    get:
+      summary:
+        Suported Rules
+      description: |
+        Returns a list of rules which are supported by a current Zally
+        installation.
+      parameters:
+        - $ref: '#/parameters/Authorization'
+        - $ref: '#/parameters/RulesType'
+        - $ref: '#/parameters/IsActive'
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        200:
+          description: List of supported rules is successfully returned
+          schema:
+            $ref: '#/definitions/SupportedRulesResponse'
+        400:
+          description: One of the query parameters is incorrect
+          schema:
+            $ref: 'https://zalando.github.io/problem/schema.yaml#/Problem'
+        default:
+          description: An array of error objects
+          schema:
+            $ref: 'https://zalando.github.io/problem/schema.yaml#/Problem'
+      security:
+        - oauth2:
+          - uid
 
 definitions:
   LintingRequest:
@@ -91,6 +139,17 @@ definitions:
         type: string
       violations_count:
         $ref: '#/definitions/ViolationsCount'
+
+  SupportedRulesResponse:
+    type: object
+    description: Supported Rules
+    required:
+      - supported_rules
+    properties:
+      supported_rules:
+        type: array
+        items:
+          $ref: '#/definitions/Rule'
 
   Violation:
     type: object
@@ -135,3 +194,29 @@ definitions:
         type: integer
       hint:
         type: integer
+
+  Rule:
+    type: object
+    description: Rule
+    required:
+      - title
+      - code
+      - type
+      - url
+      - is_active
+    properties:
+      title:
+        type: string
+        example: 'Do Not Use URI Versioning'
+      code:
+        type: string
+        example: 'M009'
+      type:
+        type: string
+        example: 'MUST'
+      url:
+        type: string
+        example: 'https://zalando.github.io/restful-api-guidelines/compatibility/Compatibility.html#must-do-not-use-uri-versioning'
+      is_active:
+        type: boolean
+        example: true

@@ -22,6 +22,7 @@ import org.springframework.stereotype.Component
 class NoUnusedDefinitionsRule : AbstractRule() {
     override val title = "Do not leave unused definitions"
     override val violationType = ViolationType.SHOULD
+    // TODO: Provide URL
     override val url = ""
     override val code = "S005"
 

@@ -8,10 +8,11 @@ import org.springframework.stereotype.Component
 @Component
 class NoProtocolInHostRule : AbstractRule() {
     override val title = "Host should not contain protocol"
+    // TODO: Provide URL
     override val url = ""
     override val violationType = ViolationType.MUST
     override val code = "M008"
-    val desc = "Information about protocol should be placed in schema. Current host value '%s' violates this rule"
+    private val desc = "Information about protocol should be placed in schema. Current host value '%s' violates this rule"
 
     override fun validate(swagger: Swagger): Violation? {
         val host = swagger.host.orEmpty()

@@ -12,11 +12,12 @@ import org.springframework.stereotype.Component
 class AvoidSynonymsRule(@Autowired rulesConfig: Config) : AbstractRule() {
 
     override val title = "Use common property names"
+    // TODO: Provide URL
     override val url = ""
     override val violationType = ViolationType.SHOULD
     override val code = "S010"
 
-    val descPattern = "Property names should utilize common dictionary"
+    private val descPattern = "Property names should utilize common dictionary"
 
     @Suppress("UNCHECKED_CAST")
     private val commonDictionary = rulesConfig.getConfig("$name.dictionary").entrySet()
