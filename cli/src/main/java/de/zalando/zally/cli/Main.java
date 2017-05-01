@@ -28,6 +28,9 @@ public class Main {
     @Option(opt = {"-t", "--token"}, description = "OAuth2 Security Token")
     private String token;
 
+    @Option(opt = {"-r", "--rules"}, description = "List supported rules")
+    private boolean rules;
+
     private static OptionParser parser;
 
     public static void main(String[] args) {
@@ -42,8 +45,12 @@ public class Main {
 
     private void run(String[] args) {
         try {
-            int exitCode = lint(args) ? 0 : 1;
-            System.exit(exitCode);
+            if (rules) {
+                getRules();
+            } else {
+                int exitCode = lint(args) ? 0 : 1;
+                System.exit(exitCode);
+            }
         } catch (CliException exception) {
             System.err.println(exception.getMessage());
             System.exit(1);
@@ -67,6 +74,10 @@ public class Main {
         } catch (IOException exception) {
             throw new CliException(CliExceptionType.CLI, "Linter error:", exception.getMessage());
         }
+    }
+
+    private void getRules() throws CliException {
+
     }
 
     private String getToken() {
