@@ -210,13 +210,25 @@ As common example similar to data change events, idempotent out-of-order process
 
 A receiver that is interested in the current state can then ignore events that are older than the last processed event of each resource. A receiver interested in the history of a resource can use the ordering key to recreate a (partially) ordered sequence of events.
 
-## {{ book.must }} Follow conventions for Event Type names
+## {{ book.must }} Event names must match Zalando naming schema
 
-Event types can follow these naming conventions (each convention has its own should, must or could conformance level) -
- 
- - Event type names must be url-safe. This is because the event type names are used by Nakadi as part of the URL for the event type and its stream.
+All event names must match the following naming schema:
 
- - Event type names should be lowercase words and numbers, using hyphens, underscores or periods as separators.
+```
+eventtype-name ::= <functional-domain>.[<functional-component>].<event-name>
+
+functional-domain ::= [a-z][a-z0-9]* ; name managed by central architecture team, defined together with you
+
+functional-component ::= [a-z][a-z0-9-]* ; name managed by central architecture team, defined together with you
+
+event-name ::= [a-z][a-z0-9-]* ; free identifer (functional name)
+```
+
+Functional-domain and functional-component are also used in hostnames of REST APIs, see [Zalando Hostname Schema](../naming/Naming.md).
+They must correspond to the `functional name` of the application producing the event and 
+are defined with central architecture team support as to provide global uniqueness and consistency with global architecture.  
+
+Resource change data events (also used for data integration) are owned by applications that typically also expose the resource via REST API. Event name should be the same as the resource name in the REST API, if both refer to the same entity.
 
 ## {{ book.must }} Prepare for duplicate Events
 
@@ -226,18 +238,4 @@ Most of message broker and event bus systems, like Nakadi, guarantee “at-least
 
 For example, these situations occur if the publisher sends an event and doesn't receive the acknowledgment (e.g. due to a network issue). In this case, the publisher will try to send the same event again. This leads to two identical events in the event bus which have to be processed by the consumers. Similar conditions can appear on consumer side: an event has been processed successfully, but the consumer fails to confirm the processing.
 
-## {{ book.must }} Event names must match Zalando naming schema
 
-All event names must match the following naming schema:
-
-```
-event-name ::= <functional-domain>.[<functional-component>].<event>
-
-functional-domain ::= [a-z][a-z0-9]* ; name managed by central architecture team, defined together with you
-
-functional-component ::= [a-z][a-z0-9-]* ; name managed by central architecture team, defined together with you
-
-event ::= [a-z][a-z0-9-]* ; free identifer (functional name)
-```
-
-The functional-domain and functional-component parts must correspond to the names of the system sending the event.
