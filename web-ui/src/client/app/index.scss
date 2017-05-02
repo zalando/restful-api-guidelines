@@ -90,9 +90,14 @@ footer {
 /*
  * tabs
  */
+.tab-navigation {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+
 .tab-navigation__link {
   font-weight:bold;
-  display: inline-block;
   padding: 1.2rem;
 }
 
@@ -103,6 +108,15 @@ footer {
 .tab-contents {
   background: $dc-gray80;
   padding: 1.8rem 1.2rem;
+}
+
+/*
+ * filters
+ */
+.filter-navigation__label {
+  float: left;
+  line-height: 2.5rem;
+  margin-right: 10px;
 }
 
 /*

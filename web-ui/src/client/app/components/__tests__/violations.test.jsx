@@ -1,35 +1,6 @@
 import React from 'react';
 import {shallow} from 'enzyme';
-import {ViolationType, ViolationRuleLink, ViolationPaths, Violations, Violation, ViolationsResult} from '../violations.jsx';
-
-describe('ViolationType component', () => {
-  describe('when violationType is MUST', () => {
-    test('should return dc-status--error', () => {
-      const component = shallow(<ViolationType type='MUST' />);
-      const status = component.find('.dc-status--error');
-
-      expect(status.length).toEqual(1);
-    });
-  });
-
-  describe('when violationType is SHOULD', () => {
-    test('should return dc-status--new', () => {
-      const component = shallow(<ViolationType type='SHOULD' />);
-      const status = component.find('.dc-status--new');
-
-      expect(status.length).toEqual(1);
-    });
-  });
-
-  describe('when violationType niether MUST nor SHOULD', () => {
-    test('should return dc-status--inactive', () => {
-      const component = shallow(<ViolationType type='' />);
-      const status = component.find('.dc-status--inactive');
-
-      expect(status.length).toEqual(1);
-    });
-  });
-});
+import {ViolationRuleLink, ViolationPaths, Violations, Violation, ViolationsResult} from '../violations.jsx';
 
 describe('ViolationRuleLink component', () => {
   test('should return a rule link', () => {
@@ -88,7 +59,7 @@ describe('Violation component', () => {
     const ViolationPaths = IfViolationPaths.dive().find('ViolationPaths');
 
     expect(component.find('p').text()).toEqual('Found 1 unused definitions');
-    expect(component.find('ViolationType').length).toEqual(1);
+    expect(component.find('RuleType').length).toEqual(1);
     expect(ViolationRuleLink.length).toEqual(1);
     expect(ViolationRuleLink.prop('ruleLink')).toEqual('link');
     expect(ViolationPaths.length).toEqual(1);

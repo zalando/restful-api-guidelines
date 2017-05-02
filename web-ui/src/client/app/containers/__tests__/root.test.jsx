@@ -12,7 +12,8 @@ describe('Root container component', () => {
   beforeEach(() => {
     MockRestService = {
       getApiViolationsByURL: jest.fn(),
-      getApiViolationsBySchema: jest.fn()
+      getApiViolationsBySchema: jest.fn(),
+      getSupportedRules: jest.fn()
     };
   });
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import {If} from './util.jsx';
 import {Msg} from './dress-code.jsx';
+import {RuleType} from './rules.jsx';
 
 export function Violations (props) {
   return (
@@ -19,7 +20,7 @@ export function Violation (props) {
   return (
     <li style={{marginBottom: '32px', paddingBottom: '32px', borderBottom: '1px solid #ccc'}}>
       <h4 className="dc-h4">
-        <ViolationType type={props.violation.violation_type} />
+        <RuleType type={props.violation.violation_type} />
         {props.violation.violation_type} {'\u2013'} {props.violation.title}
       </h4>
 
@@ -35,16 +36,6 @@ export function Violation (props) {
     </li>
   );
 }
-
-export function ViolationType (props) {
-  if ('MUST' === props.type)
-    return <span className="dc-status dc-status--error"></span>;
-  else if ('SHOULD' === props.type)
-    return <span className="dc-status dc-status--new"></span>;
-  else
-    return <span className="dc-status dc-status--inactive"></span>;
-}
-
 
 export function ViolationRuleLink (props) {
   return (

@@ -81,5 +81,53 @@ describe('RestService', () => {
     });
   });
 
+  test('getSupportedRules call api and resolve with response body representing rules', () => {
+    const mockRules = [];
+    const rulesResponse = {
+      json:() => mockRules
+    };
+    client.fetch.mockReturnValueOnce(Promise.resolve(rulesResponse));
 
+    return RestService.getSupportedRules().then((rules) => {
+      expect(rules).toBe(mockRules);
+      expect(client.fetch).toHaveBeenCalledWith('/zally-api/supported-rules', {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      });
+    });
+  });
+
+  test('getSupportedRules call api with filter query and resolve with response body representing rules', () => {
+    const mockRules = [];
+    const rulesResponse = {
+      json:() => mockRules
+    };
+    client.fetch.mockReturnValueOnce(Promise.resolve(rulesResponse));
+
+    return RestService.getSupportedRules({'is_active': true}).then((rules) => {
+      expect(rules).toBe(mockRules);
+      expect(client.fetch).toHaveBeenCalledWith('/zally-api/supported-rules?is_active=true', {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      });
+    });
+  });
+
+  test('objectToQuery call should return correct query when pass one param', () => {
+    expect(RestService.objectToParams({a: 1})).toEqual('?a=1');
+  });
+
+  test('objectToQuery call should return correct query when pass multiple params', () => {
+    expect(RestService.objectToParams({a: 1, b:2, c:3})).toEqual('?a=1&b=2&c=3');
+  });
+
+  test('objectToQuery call should return empty query when do not pass params', () => {
+    expect(RestService.objectToParams()).toEqual('');
+  });
 });
