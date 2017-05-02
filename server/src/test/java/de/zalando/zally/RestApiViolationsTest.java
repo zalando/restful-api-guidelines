@@ -84,9 +84,6 @@ public class RestApiViolationsTest extends RestApiBaseTest {
         assertThat(rootObject.has("meter.api-reviews.requested.fifteenMinuteRate")).isTrue();
         assertThat(rootObject.has("meter.api-reviews.processed.fifteenMinuteRate")).isTrue();
         assertThat(rootObject.has("meter.api-reviews.violations.rule.checkapinameispresentrule.fifteenMinuteRate")).isTrue();
-        assertThat(rootObject.has("histogram.api-reviews.violations.count")).isTrue();
-        assertThat(rootObject.has("histogram.api-reviews.violations.type.must.count")).isTrue();
-        assertThat(rootObject.has("histogram.api-reviews.violations.rule.checkapinameispresentrule.count")).isTrue();
     }
 
     @Test

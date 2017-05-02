@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @CrossOrigin
 @RestController(value = "/api-violations")
@@ -59,27 +58,10 @@ public class ApiViolationsController {
     }
 
     private void reportViolationMetrics(List<Violation> violations) {
-        reportViolationHistograms(violations);
-        reportAggregatedHistograms(violations);
-        reportViolationMeters(violations);
-    }
-
-    private void reportViolationMeters(List<Violation> violations) {
         violations.forEach(v -> {
             metricServices.increment("meter.api-reviews.violations.rule." + v.getRule().getName().toLowerCase());
             metricServices.increment("meter.api-reviews.violations.type." + v.getRule().getViolationType());
         });
-    }
-
-    private void reportViolationHistograms(List<Violation> violations) {
-        violations.stream().collect(Collectors.groupingBy(Violation::getRule)).forEach((r, v) ->
-                metricServices.submit("histogram.api-reviews.violations.rule." + r.getName().toLowerCase(), v.size()));
-    }
-
-    private void reportAggregatedHistograms(List<Violation> violations) {
-        metricServices.submit("histogram.api-reviews.violations", violations.size());
-        violations.stream().collect(Collectors.groupingBy(Violation::getViolationType)).forEach((t, v) ->
-                metricServices.submit("histogram.api-reviews.violations.type." + t.getMetricIdentifier(), v.size()));
     }
 
     private void setCounters(List<Violation> violations, ObjectNode result) {
