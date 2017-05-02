@@ -15,8 +15,12 @@ val testConfig: Config by lazy {
     ConfigFactory.load("rules-config-test.conf")
 }
 
-val testMetricsServices : DropwizardMetricServices by lazy {
-    DropwizardMetricServices(MetricRegistry())
+val testMetricRegistry : MetricRegistry by lazy {
+    MetricRegistry()
+}
+
+val testMetricServices: DropwizardMetricServices by lazy {
+    DropwizardMetricServices(testMetricRegistry)
 }
 
 fun getFixture(fileName: String): Swagger = SwaggerParser().read("fixtures/$fileName")

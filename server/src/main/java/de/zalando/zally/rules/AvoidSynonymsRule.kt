@@ -55,6 +55,10 @@ class AvoidSynonymsRule(
     }
 
     fun submitStatistics(names : List<String>) {
-        names.map { name -> metricServices.submit("histogram.rules.avoid-synonyms.synonym." + name, 1.0) }
+        names.groupBy { it }.map {
+            metricServices.submit(
+                    "histogram.rules.avoid-synonyms.synonym." + it.key, it.value.count().toDouble()
+            )
+        }
     }
 }
