@@ -38,7 +38,7 @@ public class ApiViolationsController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<JsonNode> validate(@RequestBody JsonNode request) {
-        metricServices.increment("counter.api-reviews.requested");
+        metricServices.increment("meter.api-reviews.requested");
 
         final ApiDefinitionReader apiDefinitionReader = new ApiDefinitionReader(request);
         final List<Violation> violations = rulesValidator.validate(apiDefinitionReader.read());
@@ -54,13 +54,21 @@ public class ApiViolationsController {
         setCounters(violations, violationsCount);
 
         reportViolationMetrics(violations);
-        metricServices.increment("counter.api-reviews.processed");
+        metricServices.increment("meter.api-reviews.processed");
         return ResponseEntity.ok(response);
     }
 
     private void reportViolationMetrics(List<Violation> violations) {
         reportViolationHistograms(violations);
         reportAggregatedHistograms(violations);
+        reportViolationMeters(violations);
+    }
+
+    private void reportViolationMeters(List<Violation> violations) {
+        violations.forEach(v -> {
+            metricServices.increment("meter.api-reviews.violations.rule." + v.getRule().getName().toLowerCase());
+            metricServices.increment("meter.api-reviews.violations.type." + v.getRule().getViolationType());
+        });
     }
 
     private void reportViolationHistograms(List<Violation> violations) {

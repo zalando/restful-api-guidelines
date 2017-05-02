@@ -80,10 +80,10 @@ public class RestApiViolationsTest extends RestApiBaseTest {
 
         ResponseEntity<JsonNode> metricsResponse = restTemplate.getForEntity("http://localhost:" + managementPort + "/metrics", JsonNode.class);
         assertThat(metricsResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
-        System.out.println("JSON: " + metricsResponse.getBody().toString());
         JsonNode rootObject = metricsResponse.getBody();
-        assertThat(rootObject.has("counter.api-reviews.requested")).isTrue();
-        assertThat(rootObject.has("counter.api-reviews.processed")).isTrue();
+        assertThat(rootObject.has("meter.api-reviews.requested.fifteenMinuteRate")).isTrue();
+        assertThat(rootObject.has("meter.api-reviews.processed.fifteenMinuteRate")).isTrue();
+        assertThat(rootObject.has("meter.api-reviews.violations.rule.checkapinameispresentrule.fifteenMinuteRate")).isTrue();
         assertThat(rootObject.has("histogram.api-reviews.violations.count")).isTrue();
         assertThat(rootObject.has("histogram.api-reviews.violations.type.must.count")).isTrue();
         assertThat(rootObject.has("histogram.api-reviews.violations.rule.checkapinameispresentrule.count")).isTrue();
