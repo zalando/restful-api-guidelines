@@ -50,7 +50,7 @@ public class ZallyApiClient {
         this.token = token;
     }
 
-    public ZallyApiResponse validate(String requestBody) throws CliException {
+    public ViolationsApiResponse validate(String requestBody) throws CliException {
         final HttpResponse<String> response = requestViolationsReport(requestBody);
         final int responseStatus = response.getStatus();
         final String responseBody = response.getBody();
@@ -63,7 +63,7 @@ public class ZallyApiClient {
             );
         }
 
-        return new ZallyApiResponse(getJsonObject(responseBody));
+        return new ViolationsApiResponse(getJsonObject(responseBody));
     }
 
     public String getErrorReason(String body) {

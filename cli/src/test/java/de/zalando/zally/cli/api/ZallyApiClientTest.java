@@ -37,7 +37,7 @@ public class ZallyApiClientTest {
 
     @Test
     public void validateReturnsOutputFromZallyServerWhenTokenIsPassed() throws Exception {
-        final ZallyApiResponse response = makeSuccessfulRequest(token);
+        final ViolationsApiResponse response = makeSuccessfulRequest(token);
 
         assertEquals(0, response.getViolations().size());
         verifyThatRequest().havingHeaderEqualTo("Authorization", "Bearer " + token).receivedOnce();
@@ -45,7 +45,7 @@ public class ZallyApiClientTest {
 
     @Test
     public void validateReturnsOutputFromZallyServerWhenTokenIsNull() throws Exception {
-        final ZallyApiResponse response = makeSuccessfulRequest(null);
+        final ViolationsApiResponse response = makeSuccessfulRequest(null);
 
         assertEquals(0, response.getViolations().size());
         verifyThatRequest().havingHeader("Authorization", nullValue());
@@ -53,7 +53,7 @@ public class ZallyApiClientTest {
 
     @Test
     public void validateReturnsOutputFromZallyServerWhenTokenIsEmpty() throws Exception {
-        final ZallyApiResponse response = makeSuccessfulRequest("");
+        final ViolationsApiResponse response = makeSuccessfulRequest("");
 
         assertEquals(0, response.getViolations().size());
         verifyThatRequest().havingHeader("Authorization", nullValue());
@@ -109,13 +109,13 @@ public class ZallyApiClientTest {
         client.validate(requestBody);
     }
 
-    private ZallyApiResponse makeSuccessfulRequest(String token) {
+    private ViolationsApiResponse makeSuccessfulRequest(String token) {
         final String responseBody = "{\"violations\":[], \"violations_count\":{}}";
 
         mockServer(200, responseBody);
 
         ZallyApiClient client = new ZallyApiClient("http://localhost:" + port() + "/", token);
-        ZallyApiResponse response = client.validate(requestBody);
+        ViolationsApiResponse response = client.validate(requestBody);
 
         return response;
     }

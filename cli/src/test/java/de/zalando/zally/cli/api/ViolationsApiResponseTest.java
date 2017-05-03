@@ -10,7 +10,7 @@ import org.json.JSONObject;
 import org.junit.Test;
 
 
-public class ZallyApiResponseTest {
+public class ViolationsApiResponseTest {
     @Test
     public void returnsListOfViolations() {
         final JSONObject firstViolation = new JSONObject();
@@ -32,7 +32,7 @@ public class ZallyApiResponseTest {
         final JSONObject jsonResponse = new JSONObject();
         jsonResponse.put("violations", violations);
 
-        ZallyApiResponse apiResponse = new ZallyApiResponse(jsonResponse);
+        ViolationsApiResponse apiResponse = new ViolationsApiResponse(jsonResponse);
 
         List<Violation> result = apiResponse.getViolations();
         assertEquals(2, result.size());
@@ -43,7 +43,7 @@ public class ZallyApiResponseTest {
         final JSONObject jsonObject = new JSONObject();
         jsonObject.put("message", "Test message");
 
-        final ZallyApiResponse response = new ZallyApiResponse(jsonObject);
+        final ViolationsApiResponse response = new ViolationsApiResponse(jsonObject);
 
         assertEquals("Test message", response.getMessage());
     }
@@ -59,7 +59,7 @@ public class ZallyApiResponseTest {
         final JSONObject jsonObject = new JSONObject();
         jsonObject.put("violations_count", violationsCount);
 
-        final ZallyApiResponse response = new ZallyApiResponse(jsonObject);
+        final ViolationsApiResponse response = new ViolationsApiResponse(jsonObject);
         final ViolationsCount counters = response.getCounters();
 
         assertEquals(Integer.valueOf(11), counters.get("must"));

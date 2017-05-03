@@ -10,14 +10,14 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 
-public class ZallyApiResponse {
+public class ViolationsApiResponse {
     private final JSONObject response;
 
     private static final String VIOLATIONS = "violations";
     private static final String MESSAGE = "message";
     private static final String VIOLATIONS_COUNT = "violations_count";
 
-    public ZallyApiResponse(JSONObject response) {
+    public ViolationsApiResponse(JSONObject response) {
         this.response = response;
     }
 

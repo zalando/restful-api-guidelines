@@ -8,7 +8,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import de.zalando.zally.cli.api.RequestWrapperStrategy;
 import de.zalando.zally.cli.api.UrlWrapperStrategy;
 import de.zalando.zally.cli.api.ZallyApiClient;
-import de.zalando.zally.cli.api.ZallyApiResponse;
+import de.zalando.zally.cli.api.ViolationsApiResponse;
 import de.zalando.zally.cli.domain.Violation;
 import java.io.IOException;
 import java.util.List;
@@ -113,7 +113,7 @@ public class LinterTest {
         final String message = "Test message";
         testResult.put("message", message);
 
-        Mockito.when(client.validate(anyString())).thenReturn(new ZallyApiResponse(testResult));
+        Mockito.when(client.validate(anyString())).thenReturn(new ViolationsApiResponse(testResult));
         linter = new Linter(client, resultPrinter);
         final boolean result = linter.lint(getUrlWrapperStrategy());
         assertEquals(result, true);
@@ -135,7 +135,7 @@ public class LinterTest {
     }
 
     private Boolean makeLinterCall(JSONObject testResult) throws IOException {
-        Mockito.when(client.validate(anyString())).thenReturn(new ZallyApiResponse(testResult));
+        Mockito.when(client.validate(anyString())).thenReturn(new ViolationsApiResponse(testResult));
 
         linter = new Linter(client, resultPrinter);
         final Boolean result = linter.lint(getUrlWrapperStrategy());

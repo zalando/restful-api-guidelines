@@ -2,7 +2,7 @@ package de.zalando.zally.cli;
 
 import de.zalando.zally.cli.api.RequestWrapperStrategy;
 import de.zalando.zally.cli.api.ZallyApiClient;
-import de.zalando.zally.cli.api.ZallyApiResponse;
+import de.zalando.zally.cli.api.ViolationsApiResponse;
 import de.zalando.zally.cli.domain.Violation;
 import de.zalando.zally.cli.exception.CliException;
 
@@ -24,7 +24,7 @@ public class Linter {
     }
 
     public boolean lint(RequestWrapperStrategy requestWrapper) throws IOException, CliException {
-        final ZallyApiResponse response = client.validate(requestWrapper.wrap());
+        final ViolationsApiResponse response = client.validate(requestWrapper.wrap());
         final ViolationsFilter violationsFilter = new ViolationsFilter(response.getViolations());
 
         if (response.getMessage() != null) {
