@@ -1,5 +1,7 @@
 package de.zalando.zally.cli.domain;
 
+import org.json.JSONObject;
+
 public class Rule {
     private String title;
     private String code;
@@ -11,6 +13,14 @@ public class Rule {
         this.title = title;
         this.code = code;
         this.type = type;
+    }
+
+    public Rule(final JSONObject ruleJson) {
+        title = ruleJson.getString("title");
+        code = ruleJson.getString("code");
+        type = ruleJson.getString("type");
+        url = ruleJson.getString("url");
+        isActive = ruleJson.getBoolean("is_active");
     }
 
     public String getTitle() {
