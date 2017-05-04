@@ -55,7 +55,7 @@ public class Rule {
         this.url = url;
     }
 
-    public Boolean getActive() {
+    public Boolean isActive() {
         return isActive;
     }
 

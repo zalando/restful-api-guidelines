@@ -66,7 +66,7 @@ public class ZallyApiClient {
         final HttpResponse<String> response = requestRuleList();
         final JSONObject result = getJsonResponseBody(response);
         final JSONArray ruleJsons = result.getJSONArray("rules");
-        final List<Rule> rules = new ArrayList<>();
+        List<Rule> rules = new ArrayList<>();
 
         for (int i = 0; i < ruleJsons.length(); i++) {
             rules.add(new Rule(ruleJsons.getJSONObject(i)));

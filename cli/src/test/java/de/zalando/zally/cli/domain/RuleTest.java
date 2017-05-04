@@ -16,7 +16,7 @@ public class RuleTest {
         assertEquals(rule.getTitle(), "Test title");
         assertEquals(rule.getCode(), "M001");
         assertEquals(rule.getType(), "MUST");
-        assertNull(rule.getActive());
+        assertNull(rule.isActive());
         assertNull(rule.getUrl());
     }
 
@@ -34,7 +34,7 @@ public class RuleTest {
         assertEquals(rule.getTitle(), "Test title");
         assertEquals(rule.getCode(), "M001");
         assertEquals(rule.getType(), "MUST");
-        assertEquals(rule.getActive(), true);
+        assertEquals(rule.isActive(), true);
         assertEquals(rule.getUrl(), "https://example.com");
     }
 }
