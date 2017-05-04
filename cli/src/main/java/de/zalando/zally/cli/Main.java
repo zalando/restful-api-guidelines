@@ -33,6 +33,8 @@ public class Main {
 
     private static OptionParser parser;
 
+    private final ResultPrinter printer = new ResultPrinter(System.out);
+
     public static void main(String[] args) {
         parser = new OptionParser(Main.class);
         try {
@@ -46,7 +48,7 @@ public class Main {
     private void run(String[] args) {
         try {
             if (rules) {
-                getRules();
+                displayRules();
             } else {
                 int exitCode = lint(args) ? 0 : 1;
                 System.exit(exitCode);
@@ -64,9 +66,7 @@ public class Main {
             throw new CliException();
         }
 
-        final ZallyApiClient client = new ZallyApiClient(getZallyUrl(), getToken());
-        final ResultPrinter printer = new ResultPrinter(System.out);
-        final Linter linter = new Linter(client, printer);
+        final Linter linter = new Linter(getApiClient(), printer);
         final RequestWrapperStrategy requestWrapper = new RequestWrapperFactory().create(args[0]);
 
         try {
@@ -76,8 +76,17 @@ public class Main {
         }
     }
 
-    private void getRules() throws CliException {
+    private void displayRules() throws CliException {
+        final RuleDisplayer displayer = new RuleDisplayer(getApiClient(), printer);
+        try {
+            displayer.display();
+        } catch (IOException exception) {
+            throw new CliException(CliExceptionType.CLI, "Cannot show rules:", exception.getMessage());
+        }
+    }
 
+    private ZallyApiClient getApiClient() {
+        return new ZallyApiClient(getZallyUrl(), getToken());
     }
 
     private String getToken() {
