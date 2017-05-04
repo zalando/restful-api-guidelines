@@ -5,6 +5,7 @@ import {Login} from './login.jsx';
 import {ViolationsTab} from './violations.jsx';
 import {URL} from './url.jsx';
 import {Editor} from './editor.jsx';
+import {Rules} from './rules.jsx';
 
 export function Root (props) {
   const {OAUTH_ENABLED} = props.env;
@@ -38,6 +39,10 @@ export function Root (props) {
           component={Editor}
           getApiViolations={props.RestService.getApiViolationsBySchema.bind(props.RestService)}
           Storage={props.Storage}
+        />
+        <Route path="/rules"
+               component={Rules}
+               getSupportedRules={props.RestService.getSupportedRules.bind(props.RestService)}
         />
       </Route>
       <Redirect from='*' to='/' /> { /* redirect not found to root */ }
