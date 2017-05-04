@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @CrossOrigin
 @RestController(value = "/api-violations")
@@ -38,7 +37,7 @@ public class ApiViolationsController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<JsonNode> validate(@RequestBody JsonNode request) {
-        metricServices.increment("counter.api-reviews.requested");
+        metricServices.increment("meter.api-reviews.requested");
 
         final ApiDefinitionReader apiDefinitionReader = new ApiDefinitionReader(request);
         final List<Violation> violations = rulesValidator.validate(apiDefinitionReader.read());
@@ -54,24 +53,15 @@ public class ApiViolationsController {
         setCounters(violations, violationsCount);
 
         reportViolationMetrics(violations);
-        metricServices.increment("counter.api-reviews.processed");
+        metricServices.increment("meter.api-reviews.processed");
         return ResponseEntity.ok(response);
     }
 
     private void reportViolationMetrics(List<Violation> violations) {
-        reportViolationHistograms(violations);
-        reportAggregatedHistograms(violations);
-    }
-
-    private void reportViolationHistograms(List<Violation> violations) {
-        violations.stream().collect(Collectors.groupingBy(Violation::getRule)).forEach((r, v) ->
-                metricServices.submit("histogram.api-reviews.violations.rule." + r.getName().toLowerCase(), v.size()));
-    }
-
-    private void reportAggregatedHistograms(List<Violation> violations) {
-        metricServices.submit("histogram.api-reviews.violations", violations.size());
-        violations.stream().collect(Collectors.groupingBy(Violation::getViolationType)).forEach((t, v) ->
-                metricServices.submit("histogram.api-reviews.violations.type." + t.getMetricIdentifier(), v.size()));
+        violations.forEach(v -> {
+            metricServices.increment("meter.api-reviews.violations.rule." + v.getRule().getName().toLowerCase());
+            metricServices.increment("meter.api-reviews.violations.type." + v.getRule().getViolationType());
+        });
     }
 
     private void setCounters(List<Violation> violations, ObjectNode result) {
