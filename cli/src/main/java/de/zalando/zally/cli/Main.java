@@ -6,8 +6,6 @@ import de.zalando.zally.cli.api.RequestWrapperFactory;
 import de.zalando.zally.cli.api.RequestWrapperStrategy;
 import de.zalando.zally.cli.api.ZallyApiClient;
 import de.zalando.zally.cli.exception.CliException;
-import de.zalando.zally.cli.exception.CliExceptionType;
-import java.io.IOException;
 
 
 @OptionParser.Command(name = "zally", descriptions = {
@@ -69,20 +67,12 @@ public class Main {
         final Linter linter = new Linter(getApiClient(), printer);
         final RequestWrapperStrategy requestWrapper = new RequestWrapperFactory().create(args[0]);
 
-        try {
-            return linter.lint(requestWrapper);
-        } catch (IOException exception) {
-            throw new CliException(CliExceptionType.CLI, "Linter error:", exception.getMessage());
-        }
+        return linter.lint(requestWrapper);
     }
 
     private void displayRules() throws CliException {
         final RuleDisplayer displayer = new RuleDisplayer(getApiClient(), printer);
-        try {
-            displayer.display();
-        } catch (IOException exception) {
-            throw new CliException(CliExceptionType.CLI, "Cannot show rules:", exception.getMessage());
-        }
+        displayer.display();
     }
 
     private ZallyApiClient getApiClient() {

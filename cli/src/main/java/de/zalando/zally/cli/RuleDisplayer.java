@@ -3,6 +3,7 @@ package de.zalando.zally.cli;
 import de.zalando.zally.cli.api.ZallyApiClient;
 import de.zalando.zally.cli.domain.Rule;
 import de.zalando.zally.cli.exception.CliException;
+import de.zalando.zally.cli.exception.CliExceptionType;
 
 import java.io.IOException;
 import java.util.List;
@@ -16,8 +17,16 @@ public class RuleDisplayer {
         this.printer = printer;
     }
 
-    public void display() throws CliException, IOException {
+    public void display() throws CliException {
         List<Rule> rules = apiClient.listRules();
-        printer.printRules(rules);
+        printRules(rules);
+    }
+
+    private void printRules(final List<Rule> rules) throws CliException {
+        try {
+            printer.printRules(rules);
+        } catch (IOException exception) {
+            throw new CliException(CliExceptionType.CLI, "Cannot display rules:", exception.getMessage());
+        }
     }
 }
