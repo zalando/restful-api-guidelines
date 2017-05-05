@@ -3,7 +3,6 @@ package de.zalando.zally.cli.api;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import de.zalando.zally.cli.domain.Rule;
 import de.zalando.zally.cli.exception.CliException;
 import de.zalando.zally.cli.exception.CliExceptionType;
 import java.security.KeyManagementException;
@@ -11,9 +10,7 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import javax.net.ssl.SSLContext;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
@@ -21,7 +18,6 @@ import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.ssl.SSLContextBuilder;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -62,17 +58,9 @@ public class ZallyApiClient {
         return new ViolationsApiResponse(getJsonResponseBody(response));
     }
 
-    public List<Rule> listRules() throws CliException {
+    public RulesApiResponse queryRules() throws CliException {
         final HttpResponse<String> response = requestRuleList();
-        final JSONObject result = getJsonResponseBody(response);
-        final JSONArray ruleJsons = result.getJSONArray("rules");
-        List<Rule> rules = new ArrayList<>();
-
-        for (int i = 0; i < ruleJsons.length(); i++) {
-            rules.add(new Rule(ruleJsons.getJSONObject(i)));
-        }
-
-        return rules;
+        return new RulesApiResponse(getJsonResponseBody(response));
     }
 
     private HttpResponse<String> requestViolationsReport(final String requestBody) throws CliException {

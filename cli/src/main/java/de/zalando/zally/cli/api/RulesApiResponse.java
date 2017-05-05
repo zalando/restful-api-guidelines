@@ -1,11 +1,11 @@
 package de.zalando.zally.cli.api;
 
 import de.zalando.zally.cli.domain.Rule;
+import java.util.ArrayList;
+import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class RulesApiResponse {
     private final JSONObject response;

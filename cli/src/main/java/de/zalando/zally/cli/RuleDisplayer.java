@@ -1,5 +1,6 @@
 package de.zalando.zally.cli;
 
+import de.zalando.zally.cli.api.RulesApiResponse;
 import de.zalando.zally.cli.api.ZallyApiClient;
 import de.zalando.zally.cli.domain.Rule;
 import de.zalando.zally.cli.exception.CliException;
@@ -18,7 +19,8 @@ public class RuleDisplayer {
     }
 
     public void display() throws CliException {
-        List<Rule> rules = apiClient.listRules();
+        final RulesApiResponse response = apiClient.queryRules();
+        final List<Rule> rules = response.getRules();
         printRules(rules);
     }
 

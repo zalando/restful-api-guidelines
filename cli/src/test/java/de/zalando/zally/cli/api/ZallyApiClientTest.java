@@ -11,12 +11,11 @@ import static org.junit.Assert.assertNotNull;
 
 import de.zalando.zally.cli.domain.Rule;
 import de.zalando.zally.cli.exception.CliException;
+import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
-import java.util.List;
 
 
 public class ZallyApiClientTest {
@@ -112,7 +111,8 @@ public class ZallyApiClientTest {
 
     @Test
     public void validateOutputFromListRules() {
-        final List<Rule> rules = makeSuccessfulListRulesRequest(token);
+        final RulesApiResponse response = makeSuccessfullRulesRequest(token);
+        final List<Rule> rules = response.getRules();
         assertEquals(rules.size(), 2);
     }
 
@@ -127,7 +127,7 @@ public class ZallyApiClientTest {
         return response;
     }
 
-    private List<Rule> makeSuccessfulListRulesRequest(String token) {
+    private RulesApiResponse makeSuccessfullRulesRequest(String token) {
         final String responseBody = "{\"rules\": [\n"
                 + "{\"title\": \"Test Rule 1\",\"type\": \"MUST\",\"code\": \"M001\",\"is_active\": true,"
                 + "\"url\": \"https://example.com/test-rule-1\"},\n"
@@ -138,7 +138,7 @@ public class ZallyApiClientTest {
         mockRulesServer(200, responseBody);
 
         ZallyApiClient client = new ZallyApiClient("http://localhost:" + port() + "/", token);
-        return client.listRules();
+        return client.queryRules();
     }
 
     private void mockViolationsServer(int status, String body) {

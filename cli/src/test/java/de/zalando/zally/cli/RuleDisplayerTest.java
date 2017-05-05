@@ -1,7 +1,15 @@
 package de.zalando.zally.cli;
 
+import static org.junit.Assert.assertEquals;
+
+import de.zalando.zally.cli.api.RulesApiResponse;
 import de.zalando.zally.cli.api.ZallyApiClient;
 import de.zalando.zally.cli.domain.Rule;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -11,11 +19,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
 
 public class RuleDisplayerTest {
     @Mock
@@ -37,34 +40,45 @@ public class RuleDisplayerTest {
 
     @Test
     public void shouldDisplayRulesFromApi() throws Exception {
-        final List<Rule> rules = getRules();
+        final JSONObject apiResponse = getApiResponse();
 
-        makeDisplayCall(rules);
+        makeDisplayCall(apiResponse);
 
-        assertEquals(rules, rulesCaptor.getValue());
+        JSONArray apiRules = apiResponse.getJSONArray("rules");
+        List<Rule> expectedRules = new ArrayList<>();
+        for (int i = 0; i < apiRules.length(); i++) {
+            expectedRules.add(new Rule(apiRules.getJSONObject(i)));
+        }
+
+        assertEquals(expectedRules, rulesCaptor.getValue());
     }
 
-    private void makeDisplayCall(List<Rule> rules) throws IOException {
-        Mockito.when(client.listRules()).thenReturn(rules);
+    private void makeDisplayCall(final JSONObject apiRules) throws IOException {
+        Mockito.when(client.queryRules()).thenReturn(new RulesApiResponse(apiRules));
 
         ruleDisplayer.display();
 
         Mockito.verify(resultPrinter, Mockito.times(1)).printRules(rulesCaptor.capture());
     }
 
-    private List<Rule> getRules() {
-        Rule firstRule = new Rule("First rule", "M001", "MUST");
-        firstRule.setActive(true);
-        firstRule.setUrl("https://example.com/first-rule");
+    private JSONObject getApiResponse() {
+        JSONArray rulesJson = new JSONArray();
+        rulesJson.put(createJsonRule("First Rule", "M001"));
+        rulesJson.put(createJsonRule("Second Rule", "M002"));
 
-        Rule secondRule = new Rule("Second rule", "S002", "SHOULD");
-        secondRule.setActive(true);
-        secondRule.setUrl("https://example.com/second-rule");
+        JSONObject apiRules = new JSONObject();
+        apiRules.put("rules", rulesJson);
 
-        List<Rule> rules = new ArrayList<>();
-        rules.add(firstRule);
-        rules.add(secondRule);
+        return apiRules;
+    }
 
-        return rules;
+    private JSONObject createJsonRule(final String title, final String code) {
+        final JSONObject rule = new JSONObject();
+        rule.put("title", title);
+        rule.put("code", code);
+        rule.put("type", "MUST");
+        rule.put("is_active", true);
+        rule.put("url", "https://example.com");
+        return rule;
     }
 }

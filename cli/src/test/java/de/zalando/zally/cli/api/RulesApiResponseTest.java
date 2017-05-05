@@ -1,14 +1,13 @@
 package de.zalando.zally.cli.api;
 
 import de.zalando.zally.cli.domain.Rule;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.junit.Test;
-
 import java.util.List;
 import java.util.stream.Collectors;
-
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.Assert;
+import org.junit.Test;
+
 
 public class RulesApiResponseTest {
     @Test
