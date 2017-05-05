@@ -47,12 +47,11 @@
 	[ "${#lines[@]}" -eq 66 ]
 }
 
-@test "Zally API Specification is valid" {
-	run cli/bin/zally server/src/main/resources/api/zally-api.yaml
+@test "Displays rule list" {
+	run cli/bin/zally -r
 	[ "$status" -eq 0 ]
-	[ "${lines[3]}" = "[0mMUST violations: 0" ]
-	[ "${lines[4]}" = "SHOULD violations: 0" ]
-	[ "${lines[5]}" = "COULD violations: 0" ]
-	[ "${lines[6]}" = "HINT violations: 0" ]
-	[ "${#lines[@]}" -eq 7 ]
+	[ "${lines[1]}" = "Supported Rules" ]
+	[ "${lines[2]}" = "===============" ]
+	[ "${lines[3]}" = "[0m[31mS001[0m SHOULD Avoid reserved Javascript keywords" ]
+	[ "${lines[5]}" = "[32mM001[0m MUST Avoid Link in Header Rule" ]
 }
