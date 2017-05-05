@@ -1,5 +1,6 @@
 package de.zalando.zally.cli.api;
 
+import de.zalando.zally.cli.TestUtils;
 import de.zalando.zally.cli.domain.Rule;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,8 +14,8 @@ public class RulesApiResponseTest {
     @Test
     public void shouldTransformRulesFromJson() throws Exception {
         JSONArray rulesJson = new JSONArray();
-        rulesJson.put(createJsonRule("First Rule", "M001"));
-        rulesJson.put(createJsonRule("Second Rule", "M002"));
+        rulesJson.put(TestUtils.createJsonRule("First Rule", "M001"));
+        rulesJson.put(TestUtils.createJsonRule("Second Rule", "M002"));
 
         JSONObject apiResponse = new JSONObject();
         apiResponse.put("rules", rulesJson);
@@ -27,15 +28,5 @@ public class RulesApiResponseTest {
         Assert.assertEquals(2, rules.size());
         Assert.assertTrue(ruleTitles.contains("First Rule"));
         Assert.assertTrue(ruleTitles.contains("Second Rule"));
-    }
-
-    private JSONObject createJsonRule(final String title, final String code) {
-        final JSONObject rule = new JSONObject();
-        rule.put("title", title);
-        rule.put("code", code);
-        rule.put("type", "MUST");
-        rule.put("is_active", true);
-        rule.put("url", "https://example.com");
-        return rule;
     }
 }
