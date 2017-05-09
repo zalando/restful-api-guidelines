@@ -3,7 +3,6 @@ package de.zalando.zally.cli.api;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import com.mashape.unirest.request.HttpRequestWithBody;
 import de.zalando.zally.cli.exception.CliException;
 import de.zalando.zally.cli.exception.CliExceptionType;
 import java.security.KeyManagementException;
@@ -11,6 +10,8 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.util.HashMap;
+import java.util.Map;
 import javax.net.ssl.SSLContext;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
@@ -41,61 +42,71 @@ public class ZallyApiClient {
         }
     }
 
-    private final String url;
+    private final String baseUrl;
     private final String token;
-    private static final String PATH = "/api-violations";
+    private static final String VIOLATIONS_URI = "/api-violations";
+    private static final String RULES_URI = "/supported-rules";
+    private static final String ERROR_MESSAGE = "An error occurred while querying Zally server";
 
     public ZallyApiClient(String baseUrl, String token) {
-        this.url = getUrl(baseUrl);
+        this.baseUrl = baseUrl.replaceAll("/$", "");
         this.token = token;
     }
 
-    public ZallyApiResponse validate(String requestBody) throws CliException {
+    public ViolationsApiResponse validate(String requestBody) throws CliException {
         final HttpResponse<String> response = requestViolationsReport(requestBody);
-        final int responseStatus = response.getStatus();
-        final String responseBody = response.getBody();
-
-        if (responseStatus >= 400 && responseStatus <= 599) {
-            throw new CliException(
-                    CliExceptionType.API,
-                    "An error occurred while querying Zally server",
-                    getErrorReason(responseBody)
-            );
-        }
-
-        return new ZallyApiResponse(getJsonObject(responseBody));
+        return new ViolationsApiResponse(getJsonResponseBody(response));
     }
 
-    public String getErrorReason(String body) {
-        JSONObject errorJson;
-        try {
-            errorJson = new JSONObject(body);
-        } catch (JSONException exception) {
-            return null;
-        }
-
-        return errorJson.optString("detail", null);
+    public RulesApiResponse queryRules() throws CliException {
+        final HttpResponse<String> response = requestRuleList();
+        return new RulesApiResponse(getJsonResponseBody(response));
     }
 
     private HttpResponse<String> requestViolationsReport(final String requestBody) throws CliException {
         try {
-            HttpRequestWithBody request = Unirest
-                    .post(url)
-                    .header("Content-Type", "application/json");
-
-            if (token != null && !token.isEmpty()) {
-                request = request.header("Authorization", "Bearer " + token);
-            }
-
-            return request.body(requestBody).asString();
+            return Unirest
+                    .post(baseUrl + VIOLATIONS_URI)
+                    .headers(getHeaders())
+                    .body(requestBody)
+                    .asString();
         } catch (UnirestException exception) {
-            String details = exception.getCause() == null ? exception.getMessage() : exception.getCause().getMessage();
-            throw new CliException(
-                    CliExceptionType.API,
-                    "An error occurred while querying Zally server",
-                    details
-            );
+            throw new CliException(CliExceptionType.API, ERROR_MESSAGE, getUnirestErrorDetails(exception));
         }
+    }
+
+    private HttpResponse<String> requestRuleList() throws CliException {
+        try {
+            return Unirest
+                    .get(baseUrl + RULES_URI)
+                    .headers(getHeaders())
+                    .asString();
+        } catch (UnirestException exception) {
+            throw new CliException(CliExceptionType.API, ERROR_MESSAGE, getUnirestErrorDetails(exception));
+        }
+    }
+
+    private Map<String, String> getHeaders() {
+        Map<String, String> headers = new HashMap<>();
+
+        headers.put("Content-Type", "application/json");
+
+        if (token != null && !token.isEmpty()) {
+            headers.put("Authorization", "Bearer " + token);
+        }
+
+        return headers;
+    }
+
+    private JSONObject getJsonResponseBody(final HttpResponse<String> response) throws CliException {
+        final int responseStatus = response.getStatus();
+        final String responseBody = response.getBody();
+
+        if (responseStatus >= 400 && responseStatus <= 599) {
+            throw new CliException(CliExceptionType.API, ERROR_MESSAGE, getErrorReason(responseBody));
+        }
+
+        return getJsonObject(responseBody);
     }
 
     private JSONObject getJsonObject(final String responseBody) throws CliException {
@@ -110,8 +121,18 @@ public class ZallyApiClient {
         }
     }
 
-    private String getUrl(String baseUrl) {
-        String url = baseUrl;
-        return url.replaceAll("/$", "") + PATH;
+    private String getUnirestErrorDetails(final UnirestException exception) {
+        return exception.getCause() == null ? exception.getMessage() : exception.getCause().getMessage();
+    }
+
+    private String getErrorReason(String body) {
+        JSONObject errorJson;
+        try {
+            errorJson = new JSONObject(body);
+        } catch (JSONException exception) {
+            return null;
+        }
+
+        return errorJson.optString("detail", null);
     }
 }

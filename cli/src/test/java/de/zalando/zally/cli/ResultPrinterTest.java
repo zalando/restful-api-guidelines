@@ -2,6 +2,7 @@ package de.zalando.zally.cli;
 
 import static org.junit.Assert.assertEquals;
 
+import de.zalando.zally.cli.domain.Rule;
 import de.zalando.zally.cli.domain.Violation;
 import de.zalando.zally.cli.domain.ViolationsCount;
 import java.io.ByteArrayOutputStream;
@@ -79,6 +80,34 @@ public class ResultPrinterTest {
     }
 
     @Test
+    public void printsRules() throws Exception {
+        Rule firstRule = new Rule("First rule", "M001", "MUST");
+        firstRule.setActive(true);
+        firstRule.setUrl("https://example.com/first-rule");
+
+        Rule secondRule = new Rule("Second rule", "S002", "SHOULD");
+        secondRule.setActive(true);
+        secondRule.setUrl("https://example.com/second-rule");
+
+        List<Rule> rules = new ArrayList<>();
+        rules.add(firstRule);
+        rules.add(secondRule);
+
+        final ResultPrinter resultPrinter = new ResultPrinter(outStream);
+        resultPrinter.printRules(rules);
+
+        final String expectedResult = ResultPrinter.ANSI_CYAN
+                + "\nSupported Rules\n"
+                + "===============\n"
+                + "\n" + ResultPrinter.ANSI_RESET
+                + ResultPrinter.ANSI_GREEN + "M001" + ResultPrinter.ANSI_RESET + " MUST First rule\n"
+                + "\t(https://example.com/first-rule)\n"
+                + ResultPrinter.ANSI_GREEN + "S002" + ResultPrinter.ANSI_RESET + " SHOULD Second rule\n"
+                + "\t(https://example.com/second-rule)\n";
+        assertEquals(expectedResult, outContent.toString());
+    }
+
+    @Test
     public void formatReturnsProperlyColoredString() {
         Violation violation = new Violation("Test title", "Test description");
 
@@ -117,6 +146,30 @@ public class ResultPrinterTest {
 
         String result = ResultPrinter.formatViolation(testColor, violation);
         assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void formatsActiveRule() {
+        Rule rule = new Rule("Test title", "M001", "MUST");
+        rule.setUrl("http://example.com/rule-description");
+        rule.setActive(true);
+
+        final String output = ResultPrinter.formatRule(rule);
+        final String expectedOutput = ResultPrinter.ANSI_GREEN + "M001" + ResultPrinter.ANSI_RESET
+                + " MUST Test title\n\t(http://example.com/rule-description)";
+        assertEquals(expectedOutput, output);
+    }
+
+    @Test
+    public void formatsInactiveRule() {
+        Rule rule = new Rule("Test title", "M001", "MUST");
+        rule.setUrl("http://example.com/rule-description");
+        rule.setActive(false);
+
+        final String output = ResultPrinter.formatRule(rule);
+        final String expectedOutput = ResultPrinter.ANSI_RED + "M001" + ResultPrinter.ANSI_RESET
+                + " MUST Test title\n\t(http://example.com/rule-description)";
+        assertEquals(expectedOutput, output);
     }
 
     @Test

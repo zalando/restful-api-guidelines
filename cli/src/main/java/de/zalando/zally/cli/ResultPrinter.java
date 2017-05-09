@@ -1,5 +1,6 @@
 package de.zalando.zally.cli;
 
+import de.zalando.zally.cli.domain.Rule;
 import de.zalando.zally.cli.domain.Violation;
 import de.zalando.zally.cli.domain.ViolationsCount;
 
@@ -54,6 +55,16 @@ public class ResultPrinter {
         }
     }
 
+    public void printRules(List<Rule> rules) throws IOException {
+        printHeader(ANSI_CYAN, "Supported Rules");
+
+        for (Rule rule : rules) {
+            writer.write(formatRule(rule) + "\n");
+        }
+
+        writer.flush();
+    }
+
     public void printSummary(List<String> violationTypeNames, ViolationsCount counters) throws IOException {
         printHeader(ANSI_CYAN, "Summary:");
         for (String name : violationTypeNames) {
@@ -90,6 +101,18 @@ public class ResultPrinter {
             }
             sb.append("\n");
         }
+        return sb.toString();
+    }
+
+    public static String formatRule(Rule rule) {
+        final String color = rule.isActive() ? ANSI_GREEN : ANSI_RED;
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(color + rule.getCode() + ANSI_RESET + " ");
+        sb.append(rule.getType() + " ");
+        sb.append(rule.getTitle() + "\n");
+        sb.append("\t(" + rule.getUrl() + ")");
+
         return sb.toString();
     }
 

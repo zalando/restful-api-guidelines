@@ -9,20 +9,20 @@ import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import de.zalando.zally.cli.domain.Rule;
 import de.zalando.zally.cli.exception.CliException;
+import java.util.List;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
 
 
 public class ZallyApiClientTest {
     private final String token = "1956eeee-ffff-eeee-ffff-abcdeff767325";
     private final String requestBody = "{\"hello\":\"world\"}";
 
-    @Rule
+    @org.junit.Rule
     public ExpectedException expectedException = ExpectedException.none();
 
     @Before
@@ -37,7 +37,7 @@ public class ZallyApiClientTest {
 
     @Test
     public void validateReturnsOutputFromZallyServerWhenTokenIsPassed() throws Exception {
-        final ZallyApiResponse response = makeSuccessfulRequest(token);
+        final ViolationsApiResponse response = makeSuccessfulViolationsRequest(token);
 
         assertEquals(0, response.getViolations().size());
         verifyThatRequest().havingHeaderEqualTo("Authorization", "Bearer " + token).receivedOnce();
@@ -45,7 +45,7 @@ public class ZallyApiClientTest {
 
     @Test
     public void validateReturnsOutputFromZallyServerWhenTokenIsNull() throws Exception {
-        final ZallyApiResponse response = makeSuccessfulRequest(null);
+        final ViolationsApiResponse response = makeSuccessfulViolationsRequest(null);
 
         assertEquals(0, response.getViolations().size());
         verifyThatRequest().havingHeader("Authorization", nullValue());
@@ -53,7 +53,7 @@ public class ZallyApiClientTest {
 
     @Test
     public void validateReturnsOutputFromZallyServerWhenTokenIsEmpty() throws Exception {
-        final ZallyApiResponse response = makeSuccessfulRequest("");
+        final ViolationsApiResponse response = makeSuccessfulViolationsRequest("");
 
         assertEquals(0, response.getViolations().size());
         verifyThatRequest().havingHeader("Authorization", nullValue());
@@ -64,7 +64,7 @@ public class ZallyApiClientTest {
         expectedException.expect(CliException.class);
         expectedException.expectMessage("A JSONObject text must begin with '{' at 1 [character 2 line 1]");
 
-        mockServer(200, "");
+        mockViolationsServer(200, "");
 
         ZallyApiClient client = new ZallyApiClient("http://localhost:" + port() + "/", token);
         assertNotNull(client);
@@ -77,7 +77,7 @@ public class ZallyApiClientTest {
         expectedException.expectMessage("API: An error occurred while querying Zally server");
 
 
-        mockServer(400, "");
+        mockViolationsServer(400, "");
 
         ZallyApiClient client = new ZallyApiClient("http://localhost:" + port() + "/", token);
         assertNotNull(client);
@@ -92,7 +92,7 @@ public class ZallyApiClientTest {
                 + "Could not read document: Unexpected end-of-input"
         );
 
-        mockServer(400, "{\"detail\":\"Could not read document: Unexpected end-of-input\"}");
+        mockViolationsServer(400, "{\"detail\":\"Could not read document: Unexpected end-of-input\"}");
 
         ZallyApiClient client = new ZallyApiClient("http://localhost:" + port() + "/", token);
         assertNotNull(client);
@@ -109,23 +109,53 @@ public class ZallyApiClientTest {
         client.validate(requestBody);
     }
 
-    private ZallyApiResponse makeSuccessfulRequest(String token) {
+    @Test
+    public void validateOutputFromListRules() {
+        final RulesApiResponse response = makeSuccessfullRulesRequest(token);
+        final List<Rule> rules = response.getRules();
+        assertEquals(rules.size(), 2);
+    }
+
+    private ViolationsApiResponse makeSuccessfulViolationsRequest(String token) {
         final String responseBody = "{\"violations\":[], \"violations_count\":{}}";
 
-        mockServer(200, responseBody);
+        mockViolationsServer(200, responseBody);
 
         ZallyApiClient client = new ZallyApiClient("http://localhost:" + port() + "/", token);
-        ZallyApiResponse response = client.validate(requestBody);
+        ViolationsApiResponse response = client.validate(requestBody);
 
         return response;
     }
 
-    private void mockServer(int status, String body) {
+    private RulesApiResponse makeSuccessfullRulesRequest(String token) {
+        final String responseBody = "{\"rules\": [\n"
+                + "{\"title\": \"Test Rule 1\",\"type\": \"MUST\",\"code\": \"M001\",\"is_active\": true,"
+                + "\"url\": \"https://example.com/test-rule-1\"},\n"
+                + "{\"title\": \"Test Rule 2\",\"type\": \"SHOULD\",\"code\": \"S001\",\"is_active\": false,"
+                + "\"url\": \"https://example.com/test-rule-2\"}\n"
+                + "]}";
+
+        mockRulesServer(200, responseBody);
+
+        ZallyApiClient client = new ZallyApiClient("http://localhost:" + port() + "/", token);
+        return client.queryRules();
+    }
+
+    private void mockViolationsServer(int status, String body) {
         onRequest()
                 .havingMethodEqualTo("POST")
                 .havingPathEqualTo("/api-violations")
                 .havingHeaderEqualTo("Content-Type", "application/json")
                 .havingBodyEqualTo(requestBody)
+                .respond()
+                .withStatus(status)
+                .withBody(body);
+    }
+
+    private void mockRulesServer(int status, String body) {
+        onRequest()
+                .havingMethodEqualTo("GET")
+                .havingPathEqualTo("/supported-rules")
                 .respond()
                 .withStatus(status)
                 .withBody(body);
