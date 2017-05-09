@@ -20,7 +20,7 @@ public class ViolationTest {
 
         assertEquals("Test", violation.getTitle());
         assertEquals("Test Description", violation.getDescription());
-        assertEquals("MUST", violation.getViolationType());
+        assertEquals(ViolationType.MUST, violation.getViolationType());
         assertEquals("http://example.com", violation.getRuleLink());
         assertEquals(expectedRules, violation.getPaths());
     }
@@ -36,7 +36,7 @@ public class ViolationTest {
 
         assertEquals("Test", violation.getTitle());
         assertEquals("Test Description", violation.getDescription());
-        assertEquals("MUST", violation.getViolationType());
+        assertEquals(ViolationType.MUST, violation.getViolationType());
         assertNull(violation.getRuleLink());
         assertEquals(new ArrayList<>(), violation.getPaths());
     }

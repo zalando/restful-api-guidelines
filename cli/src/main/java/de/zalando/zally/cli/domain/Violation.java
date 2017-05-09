@@ -11,7 +11,7 @@ import org.json.JSONObject;
 public class Violation {
     private String title;
     private String description;
-    private String violationType;
+    private ViolationType violationType;
     private String ruleLink;
     private List<String> paths = new ArrayList<>();
 
@@ -23,7 +23,7 @@ public class Violation {
     public Violation(JSONObject violationJson) {
         this.title = violationJson.getString("title");
         this.description = violationJson.getString("description");
-        this.violationType = violationJson.getString("violation_type");
+        this.violationType = ViolationType.valueOf(violationJson.getString("violation_type").toUpperCase());
 
         if (violationJson.has("rule_link")) {
             this.ruleLink = violationJson.getString("rule_link");
@@ -43,7 +43,7 @@ public class Violation {
         return description;
     }
 
-    public String getViolationType() {
+    public ViolationType getViolationType() {
         return violationType;
     }
 
@@ -63,7 +63,7 @@ public class Violation {
         this.description = description;
     }
 
-    public void setViolationType(String violationType) {
+    public void setViolationType(ViolationType violationType) {
         this.violationType = violationType;
     }
 

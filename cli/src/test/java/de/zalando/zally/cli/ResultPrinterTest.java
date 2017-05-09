@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import de.zalando.zally.cli.domain.Rule;
 import de.zalando.zally.cli.domain.Violation;
+import de.zalando.zally.cli.domain.ViolationType;
 import de.zalando.zally.cli.domain.ViolationsCount;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -34,11 +35,11 @@ public class ResultPrinterTest {
         paths.add("Violation 1 Path");
 
         final Violation violationOne = new Violation("Violation 1", "Violation 1 Description");
-        violationOne.setViolationType("MUST");
+        violationOne.setViolationType(ViolationType.MUST);
         violationOne.setPaths(paths);
 
         final Violation violationTwo = new Violation("Violation 2", "Violation 2 Description");
-        violationTwo.setViolationType("MUST");
+        violationTwo.setViolationType(ViolationType.MUST);
 
 
         final List<Violation> violations = new ArrayList<>();

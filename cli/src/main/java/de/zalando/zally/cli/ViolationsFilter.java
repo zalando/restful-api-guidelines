@@ -1,6 +1,7 @@
 package de.zalando.zally.cli;
 
 import de.zalando.zally.cli.domain.Violation;
+import de.zalando.zally.cli.domain.ViolationType;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,7 +17,7 @@ public class ViolationsFilter {
     public List<Violation> getViolations(String violationType) {
         return violations
                 .stream()
-                .filter(v -> v.getViolationType().equalsIgnoreCase(violationType))
+                .filter(v -> v.getViolationType().equals(ViolationType.valueOf(violationType.toUpperCase())))
                 .collect(Collectors.toList());
     }
 }

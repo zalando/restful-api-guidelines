@@ -5,6 +5,8 @@ import static org.junit.Assert.assertEquals;
 import de.zalando.zally.cli.domain.Violation;
 import java.util.ArrayList;
 import java.util.List;
+
+import de.zalando.zally.cli.domain.ViolationType;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -64,10 +66,9 @@ public class ViolationsFilterTest {
     }
 
     private List<Violation> getFixtureViolations() {
-        final String[] violationTypes = new String[] { "MUST", "SHOULD", "COULD", "HINT" };
         final List<Violation> result = new ArrayList<>();
 
-        for (String violationType : violationTypes) {
+        for (ViolationType violationType : ViolationType.values()) {
             Violation violation = new Violation("Test " + violationType, "Test " + violationType + " description");
             violation.setViolationType(violationType);
             result.add(violation);
