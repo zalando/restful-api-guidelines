@@ -56,7 +56,7 @@ Further reading:
 * [Paging in PostgreSQL](https://www.citusdata.com/blog/1872-joe-nelson/409-five-ways-paginate-postgres-basic-exotic)
 
 
-## {{ book.could }} Use Pagination Links Where Applicable
+## {{ book.may }} Use Pagination Links Where Applicable
 
 * Set links to provide information to the client about subsequent paging options.
 

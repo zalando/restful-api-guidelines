@@ -31,7 +31,7 @@ Examples:
 See also: [HTTP Headers are case-insensitive
 (RFC 7230)](http://tools.ietf.org/html/rfc7230#page-22).
 
-## {{ book.could }} Use Standardized Headers
+## {{ book.may }} Use Standardized Headers
 
 Use [this list](http://en.wikipedia.org/wiki/List_of_HTTP_header_fields) and mention its support in
 your OpenAPI definition.
@@ -40,7 +40,7 @@ your OpenAPI definition.
 
 Usually, a collection of resource instances is provided (at least API should be ready here). The special case of a resource singleton is a collection with cardinality 1.
 
-## {{ book.could }} Use /api as first Path Segment
+## {{ book.may }} Use /api as first Path Segment
 
 In most cases, all resources provided by a service are part of the public API, and therefore should
 be made available under the root “/” base path. If  the service should also support non-public,
@@ -52,7 +52,7 @@ clearly separate public and non-public API resources.
 The trailing slash must not have specific semantics. Resource paths must deliver the same results
 whether they have the trailing slash or not.
 
-## {{ book.could }} Use Conventional Query Strings
+## {{ book.may }} Use Conventional Query Strings
 
 If you provide query support for sorting, pagination, filtering functions or other actions, use the
 following standardized naming conventions:

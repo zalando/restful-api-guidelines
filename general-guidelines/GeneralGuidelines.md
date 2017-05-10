@@ -1,6 +1,6 @@
 # General Guidelines
 
-The titles are marked with the corresponding labels: {{ book.must }}, {{ book.should }}, {{ book.could }}.
+The titles are marked with the corresponding labels: {{ book.must }}, {{ book.should }}, {{ book.may }}.
 
 ## {{ book.must }} Follow API First Principle
 
