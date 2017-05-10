@@ -4,6 +4,7 @@ import de.zalando.zally.cli.api.RequestWrapperStrategy;
 import de.zalando.zally.cli.api.ViolationsApiResponse;
 import de.zalando.zally.cli.api.ZallyApiClient;
 import de.zalando.zally.cli.domain.Violation;
+import de.zalando.zally.cli.domain.ViolationType;
 import de.zalando.zally.cli.domain.ViolationsCount;
 import de.zalando.zally.cli.exception.CliException;
 import de.zalando.zally.cli.exception.CliExceptionType;
@@ -32,12 +33,12 @@ public class Linter {
 
 
         boolean hasMustViolations = false;
-        for (String violationType : violationTypes) {
+        for (ViolationType violationType : ViolationType.values()) {
             List<Violation> violations = violationsFilter.getViolations(violationType);
-            if (mustViolationType.equals(violationType)) {
+            if (ViolationType.MUST.equals(violationType)) {
                 hasMustViolations = violations.isEmpty();
             }
-            printViolations(violations, violationType);
+            printViolations(violations, violationType.name());
         }
 
         printSummary(response.getCounters());

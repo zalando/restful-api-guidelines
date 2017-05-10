@@ -68,9 +68,9 @@ public class LinterTest {
     @Test
     public void returnsTrueWhenOnlyShouldAndCouldViolationFound() throws Exception {
         final JSONArray violations = new JSONArray();
-        violations.put(getViolation("should", "should"));
-        violations.put(getViolation("could", "could"));
-        violations.put(getViolation("hint", "hint"));
+        violations.put(getViolation("SHOULD", "SHOULD"));
+        violations.put(getViolation("COULD", "COULD"));
+        violations.put(getViolation("HINT", "HINT"));
         final JSONObject testResult = getTestResult(violations);
 
         Boolean result = makeLinterCall(testResult);
@@ -84,9 +84,9 @@ public class LinterTest {
         assertEquals(1, shouldList.size());
         assertEquals(1, couldList.size());
         assertEquals(1, hintList.size());
-        assertEquals("should", shouldList.get(0).getTitle());
-        assertEquals("could", couldList.get(0).getTitle());
-        assertEquals("hint", hintList.get(0).getTitle());
+        assertEquals("SHOULD", shouldList.get(0).getTitle());
+        assertEquals("COULD", couldList.get(0).getTitle());
+        assertEquals("HINT", hintList.get(0).getTitle());
     }
 
     @Test
@@ -141,10 +141,10 @@ public class LinterTest {
         final Boolean result = linter.lint(getUrlWrapperStrategy());
 
         Mockito.verify(resultPrinter, Mockito.times(1)).printSummary(eq(linter.violationTypes), any());
-        Mockito.verify(resultPrinter, Mockito.times(1)).printViolations(mustListCaptor.capture(), eq("must"));
-        Mockito.verify(resultPrinter, Mockito.times(1)).printViolations(shouldListCaptor.capture(), eq("should"));
-        Mockito.verify(resultPrinter, Mockito.times(1)).printViolations(couldListCaptor.capture(), eq("could"));
-        Mockito.verify(resultPrinter, Mockito.times(1)).printViolations(hintListCaptor.capture(), eq("hint"));
+        Mockito.verify(resultPrinter, Mockito.times(1)).printViolations(mustListCaptor.capture(), eq("MUST"));
+        Mockito.verify(resultPrinter, Mockito.times(1)).printViolations(shouldListCaptor.capture(), eq("SHOULD"));
+        Mockito.verify(resultPrinter, Mockito.times(1)).printViolations(couldListCaptor.capture(), eq("COULD"));
+        Mockito.verify(resultPrinter, Mockito.times(1)).printViolations(hintListCaptor.capture(), eq("HINT"));
 
         return result;
     }

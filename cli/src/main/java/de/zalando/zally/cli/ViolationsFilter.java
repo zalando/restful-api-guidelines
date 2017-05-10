@@ -14,10 +14,10 @@ public class ViolationsFilter {
         this.violations = violations;
     }
 
-    public List<Violation> getViolations(String violationType) {
+    public List<Violation> getViolations(ViolationType violationType) {
         return violations
                 .stream()
-                .filter(v -> v.getViolationType().equals(ViolationType.valueOf(violationType.toUpperCase())))
+                .filter(v -> v.getViolationType().equals(violationType))
                 .collect(Collectors.toList());
     }
 }
