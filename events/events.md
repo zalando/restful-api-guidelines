@@ -24,7 +24,7 @@ The service specific data defined for an event is called the _payload_. Only thi
 
 ## {{ book.must }} Events must not provide sensitive customer personal data.
 
-+Similar to API permission scopes, there will be Event Type permissions passed via an OAuth token supported in near future by the Nakadi API. Hence, Nakadi will restrict event data access to clients with sufficient authorization. However, teams are asked to note the following:
+Similar to API permission scopes, there will be Event Type permissions passed via an OAuth token supported in near future by the Nakadi API. Hence, Nakadi will restrict event data access to clients with sufficient authorization. However, teams are asked to note the following:
 
  - Sensitive data, such as (e-mail addresses, phone numbers, etc) are subject to strict access and data protection controls. 
  
