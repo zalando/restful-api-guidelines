@@ -8,6 +8,8 @@ To see a list of all changes, please have a look at the [commit list in Github](
 
 ## Rule Changes
 
+* `2017-05-10:` Added the convention of using RFC2119 to describe guideline 
+levels, and replaced `book.could` with `book.may`.
 * `2017-03-30:` Added rule that permissions on resources in events must correspond to permissions on API resources
 * `2017-03-30:` Added rule that APIs should be modelled around business processes
 * `2017-02-28:` Extended information about how to reference sub-resources and the usage of composite identifiers in the [Resources](../resources/Resources.md#-bookmust--identify-resources-and-sub-resources-via-path-segments) part.

@@ -25,6 +25,10 @@ We encourage our teams to follow them to ensure that our APIs:
 
 Ideally, all Zalando APIs will look like the same author created them.
 
+## Conventions Used in These Guidelines
+
+The requirement level keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" used in this document (case insensitive) are to be interpreted as described in [RFC 2119](https://www.ietf.org/rfc/rfc2119.txt).
+
 ## Zalando specific information
 
 The purpose of our “RESTful API guidelines” is to define standards to successfully establish

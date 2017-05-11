@@ -15,7 +15,7 @@ they can be used in both, HTTP requests and responses. Commonly used content hea
  - [`Content-Range`](https://tools.ietf.org/html/rfc7233#section-4.2) is used in responses to range requests to indicate which part of the requested resource representation is delivered with the body.
  - [`Content-Type`](https://tools.ietf.org/html/rfc7231#section-3.1.1.5) indicates the media type of the body content.
 
-## {{ book.could }} Use Content-Location Header
+## {{ book.may }} Use Content-Location Header
 
 The Content-Location header is *optional* and can be used in successful write operations (PUT, POST or PATCH) or read operations (GET, HEAD) to guide caching and signal a receiver the actual location of the resource transmitted in the response body. This allows clients to identify the resource and to update their local copy when receiving a response with this header.
 
@@ -41,7 +41,7 @@ As the correct usage of Content-Location with respect to semantics and caching i
 
 More details in RFC 7231 [7.1.2 Location](https://tools.ietf.org/html/rfc7231#section-7.1.2), [3.1.4.2 Content-Location](https://tools.ietf.org/html/rfc7231#section-3.1.4.2)
 
-## {{ book.could }} Use the Prefer header to indicate processing preferences
+## {{ book.may }} Use the Prefer header to indicate processing preferences
 
 The  `Prefer` header defined in [RFC7240](https://tools.ietf.org/html/rfc7240) allows clients to request processing behaviors from servers. [RFC7240](https://tools.ietf.org/html/rfc7240) pre-defines a number of preferences and is extensible, to allow others to be defined. Support for the Prefer header is entirely optional and at the discretion of API designers, but as an existing Internet Standard, is recommended over defining proprietary "X-" headers for processing directives. 
 
@@ -64,7 +64,7 @@ The `Prefer` header can defined like this in an API definition:
 
 Supporting APIs may return the `Preference-Applied` header also defined in [RFC7240](https://tools.ietf.org/html/rfc7240) to indicate whether the preference was applied.
 
-## {{ book.could }} Consider using ETag together with If-(None-)Match header
+## {{ book.may }} Consider using ETag together with If-(None-)Match header
 
 When creating or updating resources it may be necessary to expose conflicts and to prevent the lost update
 problem. This can be best accomplished by using the [`ETag`](https://tools.ietf.org/html/rfc7232#section-2.3)

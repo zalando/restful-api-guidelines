@@ -12,7 +12,7 @@ You can see this expressed by many rules throughout these guidelines, e.g.:
 
 Although this is not HATEOAS, it should not prevent you from designing proper link relationships in your APIs as stated in rules below.
 
-## {{ book.could }} Use REST Maturity Level 3 - HATEOAS
+## {{ book.may }} Use REST Maturity Level 3 - HATEOAS
 
 We do not generally recommend to implement [REST Maturity Level 3](http://martinfowler.com/articles/richardsonMaturityModel.html#level3). HATEOAS comes with additional API complexity without real value in our SOA context where client and server interact via REST APIs and provide complex business functions as part of our e-commerce SaaS platform.
 
@@ -89,7 +89,7 @@ We don't allow the use of the [`Link` Header defined by RFC 5988](http://tools.i
 in conjunction with JSON media types, and favor [HAL](#must-use-hal) instead. The primary reason is to have a consistent
 place for links as well as the better support for links in JSON payloads compared to the uncommon link header syntax.
 
-## {{ book.could }} Use Custom Link Relations
+## {{ book.may }} Use Custom Link Relations
 
 You should consider using a custom link relation if and only if standard [link relations](http://www.iana.org/assignments/link-relations/link-relations.xml)
 are not sufficient to express a relation.

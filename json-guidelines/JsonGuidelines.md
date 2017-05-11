@@ -50,11 +50,11 @@ When it comes to storage, all dates should be consistently stored in UTC without
 
 Sometimes it can seem data is naturally represented using numerical timestamps, but this can introduce interpretation issues with precision - for example whether to represent a timestamp as 1460062925, 1460062925000 or 1460062925.000. Date strings, though more verbose and requiring more effort to parse, avoid this ambiguity.
 
-### {{ book.could }} Time durations and intervals could conform to ISO 8601
+### {{ book.may }} Time durations and intervals could conform to ISO 8601
 
 Schema based JSON properties that are by design durations and intervals could be strings formatted as recommended by ISO 8601 ([Appendix A of RFC 3399 contains a grammar](https://tools.ietf.org/html/rfc3339#appendix-A) for durations).
 
-### {{ book.could }} Standards could be used for Language, Country and Currency
+### {{ book.may }} Standards could be used for Language, Country and Currency
 
 - [ISO 3166-1-alpha2 country
 ](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
