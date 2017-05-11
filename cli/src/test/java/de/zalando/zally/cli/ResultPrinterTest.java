@@ -24,7 +24,7 @@ public class ResultPrinterTest {
     public void testNoViolationsCase() throws IOException {
         ResultPrinter violationPrinter = new ResultPrinter(outStream);
         List<Violation> violations = new ArrayList<>();
-        violationPrinter.printViolations(violations, "must");
+        violationPrinter.printViolations(violations, ViolationType.MUST);
 
         assertEquals("", outContent.toString());
     }
@@ -47,7 +47,7 @@ public class ResultPrinterTest {
         violations.add(violationTwo);
 
         ResultPrinter violationPrinter = new ResultPrinter(outStream);
-        violationPrinter.printViolations(violations, "must");
+        violationPrinter.printViolations(violations, ViolationType.MUST);
 
         String expectedResult =  violationPrinter.ANSI_RED + "\nFound the following MUST violations\n"
                 + "===================================\n\n" + violationPrinter.ANSI_RESET
@@ -69,7 +69,7 @@ public class ResultPrinterTest {
         counters.put("hint", 15);
 
         final ResultPrinter resultPrinter = new ResultPrinter(outStream);
-        resultPrinter.printSummary(Linter.violationTypes, new ViolationsCount(counters));
+        resultPrinter.printSummary(new ViolationsCount(counters));
 
         String expectedResult = resultPrinter.ANSI_CYAN + "\nSummary:\n"
                 + "========\n\n" + resultPrinter.ANSI_RESET

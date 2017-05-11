@@ -7,11 +7,13 @@ import static org.mockito.ArgumentMatchers.eq;
 
 import de.zalando.zally.cli.api.RequestWrapperStrategy;
 import de.zalando.zally.cli.api.UrlWrapperStrategy;
-import de.zalando.zally.cli.api.ZallyApiClient;
 import de.zalando.zally.cli.api.ViolationsApiResponse;
+import de.zalando.zally.cli.api.ZallyApiClient;
 import de.zalando.zally.cli.domain.Violation;
+import de.zalando.zally.cli.domain.ViolationType;
 import java.io.IOException;
 import java.util.List;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Before;
@@ -140,11 +142,26 @@ public class LinterTest {
         linter = new Linter(client, resultPrinter);
         final Boolean result = linter.lint(getUrlWrapperStrategy());
 
-        Mockito.verify(resultPrinter, Mockito.times(1)).printSummary(eq(linter.violationTypes), any());
-        Mockito.verify(resultPrinter, Mockito.times(1)).printViolations(mustListCaptor.capture(), eq("MUST"));
-        Mockito.verify(resultPrinter, Mockito.times(1)).printViolations(shouldListCaptor.capture(), eq("SHOULD"));
-        Mockito.verify(resultPrinter, Mockito.times(1)).printViolations(couldListCaptor.capture(), eq("COULD"));
-        Mockito.verify(resultPrinter, Mockito.times(1)).printViolations(hintListCaptor.capture(), eq("HINT"));
+        Mockito.verify(
+                resultPrinter,
+                Mockito.times(1)).printSummary(any()
+        );
+        Mockito.verify(
+                resultPrinter,
+                Mockito.times(1)).printViolations(mustListCaptor.capture(), eq(ViolationType.MUST)
+        );
+        Mockito.verify(
+                resultPrinter,
+                Mockito.times(1)).printViolations(shouldListCaptor.capture(), eq(ViolationType.SHOULD)
+        );
+        Mockito.verify(
+                resultPrinter,
+                Mockito.times(1)).printViolations(couldListCaptor.capture(), eq(ViolationType.COULD)
+        );
+        Mockito.verify(
+                resultPrinter,
+                Mockito.times(1)).printViolations(hintListCaptor.capture(), eq(ViolationType.HINT)
+        );
 
         return result;
     }

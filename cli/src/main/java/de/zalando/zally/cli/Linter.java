@@ -9,16 +9,12 @@ import de.zalando.zally.cli.domain.ViolationsCount;
 import de.zalando.zally.cli.exception.CliException;
 import de.zalando.zally.cli.exception.CliExceptionType;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 
 
 public class Linter {
-    public static final List<String> violationTypes = Arrays.asList("must", "should", "could", "hint");
-
     private final ZallyApiClient client;
     private final ResultPrinter printer;
-    private final String mustViolationType = "must";
 
     public Linter(ZallyApiClient client, ResultPrinter printer) {
         this.client = client;
@@ -38,7 +34,7 @@ public class Linter {
             if (ViolationType.MUST.equals(violationType)) {
                 hasMustViolations = violations.isEmpty();
             }
-            printViolations(violations, violationType.name());
+            printViolations(violations, violationType);
         }
 
         printSummary(response.getCounters());
@@ -58,7 +54,9 @@ public class Linter {
         }
     }
 
-    private void printViolations(final List<Violation> violations, final String violationType) throws CliException {
+    private void printViolations(
+            final List<Violation> violations, final ViolationType violationType) throws CliException {
+
         try {
             printer.printViolations(violations, violationType);
         }  catch (IOException exception) {
@@ -68,7 +66,7 @@ public class Linter {
 
     private void printSummary(final ViolationsCount counters) throws CliException {
         try {
-            printer.printSummary(violationTypes, counters);
+            printer.printSummary(counters);
         } catch (IOException exception) {
             throw new CliException(CliExceptionType.CLI, "Cannot print violations summary:", exception.getMessage());
         }
