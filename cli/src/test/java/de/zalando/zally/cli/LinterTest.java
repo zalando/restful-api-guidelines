@@ -7,11 +7,13 @@ import static org.mockito.ArgumentMatchers.eq;
 
 import de.zalando.zally.cli.api.RequestWrapperStrategy;
 import de.zalando.zally.cli.api.UrlWrapperStrategy;
-import de.zalando.zally.cli.api.ZallyApiClient;
 import de.zalando.zally.cli.api.ViolationsApiResponse;
+import de.zalando.zally.cli.api.ZallyApiClient;
 import de.zalando.zally.cli.domain.Violation;
+import de.zalando.zally.cli.domain.ViolationType;
 import java.io.IOException;
 import java.util.List;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Before;
@@ -68,9 +70,9 @@ public class LinterTest {
     @Test
     public void returnsTrueWhenOnlyShouldAndCouldViolationFound() throws Exception {
         final JSONArray violations = new JSONArray();
-        violations.put(getViolation("should", "should"));
-        violations.put(getViolation("could", "could"));
-        violations.put(getViolation("hint", "hint"));
+        violations.put(getViolation("SHOULD", "SHOULD"));
+        violations.put(getViolation("COULD", "COULD"));
+        violations.put(getViolation("HINT", "HINT"));
         final JSONObject testResult = getTestResult(violations);
 
         Boolean result = makeLinterCall(testResult);
@@ -84,9 +86,9 @@ public class LinterTest {
         assertEquals(1, shouldList.size());
         assertEquals(1, couldList.size());
         assertEquals(1, hintList.size());
-        assertEquals("should", shouldList.get(0).getTitle());
-        assertEquals("could", couldList.get(0).getTitle());
-        assertEquals("hint", hintList.get(0).getTitle());
+        assertEquals("SHOULD", shouldList.get(0).getTitle());
+        assertEquals("COULD", couldList.get(0).getTitle());
+        assertEquals("HINT", hintList.get(0).getTitle());
     }
 
     @Test
@@ -140,11 +142,26 @@ public class LinterTest {
         linter = new Linter(client, resultPrinter);
         final Boolean result = linter.lint(getUrlWrapperStrategy());
 
-        Mockito.verify(resultPrinter, Mockito.times(1)).printSummary(eq(linter.violationTypes), any());
-        Mockito.verify(resultPrinter, Mockito.times(1)).printViolations(mustListCaptor.capture(), eq("must"));
-        Mockito.verify(resultPrinter, Mockito.times(1)).printViolations(shouldListCaptor.capture(), eq("should"));
-        Mockito.verify(resultPrinter, Mockito.times(1)).printViolations(couldListCaptor.capture(), eq("could"));
-        Mockito.verify(resultPrinter, Mockito.times(1)).printViolations(hintListCaptor.capture(), eq("hint"));
+        Mockito.verify(
+                resultPrinter,
+                Mockito.times(1)).printSummary(any()
+        );
+        Mockito.verify(
+                resultPrinter,
+                Mockito.times(1)).printViolations(mustListCaptor.capture(), eq(ViolationType.MUST)
+        );
+        Mockito.verify(
+                resultPrinter,
+                Mockito.times(1)).printViolations(shouldListCaptor.capture(), eq(ViolationType.SHOULD)
+        );
+        Mockito.verify(
+                resultPrinter,
+                Mockito.times(1)).printViolations(couldListCaptor.capture(), eq(ViolationType.COULD)
+        );
+        Mockito.verify(
+                resultPrinter,
+                Mockito.times(1)).printViolations(hintListCaptor.capture(), eq(ViolationType.HINT)
+        );
 
         return result;
     }

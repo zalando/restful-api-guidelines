@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import de.zalando.zally.cli.domain.Rule;
 import de.zalando.zally.cli.domain.Violation;
+import de.zalando.zally.cli.domain.ViolationType;
 import de.zalando.zally.cli.domain.ViolationsCount;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -23,7 +24,7 @@ public class ResultPrinterTest {
     public void testNoViolationsCase() throws IOException {
         ResultPrinter violationPrinter = new ResultPrinter(outStream);
         List<Violation> violations = new ArrayList<>();
-        violationPrinter.printViolations(violations, "must");
+        violationPrinter.printViolations(violations, ViolationType.MUST);
 
         assertEquals("", outContent.toString());
     }
@@ -34,11 +35,11 @@ public class ResultPrinterTest {
         paths.add("Violation 1 Path");
 
         final Violation violationOne = new Violation("Violation 1", "Violation 1 Description");
-        violationOne.setViolationType("MUST");
+        violationOne.setViolationType(ViolationType.MUST);
         violationOne.setPaths(paths);
 
         final Violation violationTwo = new Violation("Violation 2", "Violation 2 Description");
-        violationTwo.setViolationType("MUST");
+        violationTwo.setViolationType(ViolationType.MUST);
 
 
         final List<Violation> violations = new ArrayList<>();
@@ -46,7 +47,7 @@ public class ResultPrinterTest {
         violations.add(violationTwo);
 
         ResultPrinter violationPrinter = new ResultPrinter(outStream);
-        violationPrinter.printViolations(violations, "must");
+        violationPrinter.printViolations(violations, ViolationType.MUST);
 
         String expectedResult =  violationPrinter.ANSI_RED + "\nFound the following MUST violations\n"
                 + "===================================\n\n" + violationPrinter.ANSI_RESET
@@ -68,7 +69,7 @@ public class ResultPrinterTest {
         counters.put("hint", 15);
 
         final ResultPrinter resultPrinter = new ResultPrinter(outStream);
-        resultPrinter.printSummary(Linter.violationTypes, new ViolationsCount(counters));
+        resultPrinter.printSummary(new ViolationsCount(counters));
 
         String expectedResult = resultPrinter.ANSI_CYAN + "\nSummary:\n"
                 + "========\n\n" + resultPrinter.ANSI_RESET

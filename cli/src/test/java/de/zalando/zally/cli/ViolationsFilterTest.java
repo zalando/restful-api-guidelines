@@ -3,6 +3,7 @@ package de.zalando.zally.cli;
 import static org.junit.Assert.assertEquals;
 
 import de.zalando.zally.cli.domain.Violation;
+import de.zalando.zally.cli.domain.ViolationType;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Rule;
@@ -21,7 +22,7 @@ public class ViolationsFilterTest {
 
         ViolationsFilter violationsFilter = new ViolationsFilter(fixtures);
 
-        List<Violation> result = violationsFilter.getViolations("MUST");
+        List<Violation> result = violationsFilter.getViolations(ViolationType.MUST);
         assertEquals(1, result.size());
         assertEquals(mustViolation, result.get(0));
     }
@@ -33,7 +34,7 @@ public class ViolationsFilterTest {
 
         ViolationsFilter violationsFilter = new ViolationsFilter(fixtures);
 
-        List<Violation> result = violationsFilter.getViolations("SHOULD");
+        List<Violation> result = violationsFilter.getViolations(ViolationType.SHOULD);
         assertEquals(1, result.size());
         assertEquals(shouldViolation, result.get(0));
     }
@@ -45,7 +46,7 @@ public class ViolationsFilterTest {
 
         ViolationsFilter violationsFilter = new ViolationsFilter(fixtures);
 
-        List<Violation> result = violationsFilter.getViolations("COULD");
+        List<Violation> result = violationsFilter.getViolations(ViolationType.COULD);
         assertEquals(1, result.size());
         assertEquals(couldViolations, result.get(0));
     }
@@ -58,16 +59,15 @@ public class ViolationsFilterTest {
 
         ViolationsFilter violationsFilter = new ViolationsFilter(fixtures);
 
-        List<Violation> result = violationsFilter.getViolations("HINT");
+        List<Violation> result = violationsFilter.getViolations(ViolationType.HINT);
         assertEquals(1, result.size());
         assertEquals(hintViolations, result.get(0));
     }
 
     private List<Violation> getFixtureViolations() {
-        final String[] violationTypes = new String[] { "MUST", "SHOULD", "COULD", "HINT" };
         final List<Violation> result = new ArrayList<>();
 
-        for (String violationType : violationTypes) {
+        for (ViolationType violationType : ViolationType.values()) {
             Violation violation = new Violation("Test " + violationType, "Test " + violationType + " description");
             violation.setViolationType(violationType);
             result.add(violation);

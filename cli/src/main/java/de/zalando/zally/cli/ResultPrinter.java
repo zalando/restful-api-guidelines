@@ -2,6 +2,7 @@ package de.zalando.zally.cli;
 
 import de.zalando.zally.cli.domain.Rule;
 import de.zalando.zally.cli.domain.Violation;
+import de.zalando.zally.cli.domain.ViolationType;
 import de.zalando.zally.cli.domain.ViolationsCount;
 
 import java.io.IOException;
@@ -39,12 +40,10 @@ public class ResultPrinter {
         }
     }
 
-    public void printViolations(List<Violation> violations, String violationType) throws IOException {
+    public void printViolations(List<Violation> violations, ViolationType violationType) throws IOException {
         if (!violations.isEmpty()) {
-
-            String normalizedViolationType = violationType.toUpperCase();
-            String header = String.format("Found the following %s violations", normalizedViolationType);
-            String headerColor = getHeaderColor(normalizedViolationType);
+            String header = String.format("Found the following %s violations", violationType.name());
+            String headerColor = getHeaderColor(violationType);
 
             printHeader(headerColor, header);
 
@@ -65,10 +64,11 @@ public class ResultPrinter {
         writer.flush();
     }
 
-    public void printSummary(List<String> violationTypeNames, ViolationsCount counters) throws IOException {
+    public void printSummary(ViolationsCount counters) throws IOException {
         printHeader(ANSI_CYAN, "Summary:");
-        for (String name : violationTypeNames) {
-            writer.write(name.toUpperCase() + " violations: " + counters.get(name) + "\n");
+        for (ViolationType violationType : ViolationType.values()) {
+            String name = violationType.name();
+            writer.write(name + " violations: " + counters.get(name.toLowerCase()) + "\n");
         }
         writer.flush();
     }
@@ -116,15 +116,15 @@ public class ResultPrinter {
         return sb.toString();
     }
 
-    private String getHeaderColor(String violationType) {
+    private String getHeaderColor(ViolationType violationType) {
         switch (violationType) {
-            case "MUST":
+            case MUST:
                 return ANSI_RED;
-            case "SHOULD":
+            case SHOULD:
                 return ANSI_YELLOW;
-            case "COULD":
+            case COULD:
                 return ANSI_GREEN;
-            case "HINT":
+            case HINT:
                 return ANSI_CYAN;
             default:
                 return ANSI_CYAN;
