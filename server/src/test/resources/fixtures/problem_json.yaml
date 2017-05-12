@@ -9,6 +9,18 @@ produces:
   - application/json
 paths:
   /products:
+    head:
+      summary: Check Products
+      responses:
+        200:
+          description: Products are found
+        404:
+          description: No products are found
+    options:
+      summary: Get available methods
+      responses:
+        404:
+          description: No available methods found
     get:
       summary: Product Types
       description: |
