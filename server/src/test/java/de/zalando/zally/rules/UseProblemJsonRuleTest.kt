@@ -100,8 +100,6 @@ class UseProblemJsonRuleTest {
                 "/products/{product_id} GET 429",
                 "/products/{product_id} PATCH 400",
                 "/products/{product_id} PATCH 429",
-                "/products/{product_id} HEAD 404",
-                "/products/{product_id} HEAD 429",
                 "/products/{product_id}/children GET 418",
                 "/products/{product_id}/children GET 429",
                 "/products/{product_id}/updates/{update_id} GET 429",

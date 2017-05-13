@@ -3,6 +3,7 @@ package de.zalando.zally.rules
 import de.zalando.zally.Violation
 import de.zalando.zally.ViolationType
 import io.swagger.models.ComposedModel
+import io.swagger.models.HttpMethod
 import io.swagger.models.Model
 import io.swagger.models.RefModel
 import io.swagger.models.Response
@@ -24,7 +25,7 @@ class UseProblemJsonRule : AbstractRule() {
 
     override fun validate(swagger: Swagger): Violation? {
         val paths = swagger.paths.orEmpty().flatMap { pathEntry ->
-            pathEntry.value.operationMap.orEmpty().flatMap { opEntry ->
+            pathEntry.value.operationMap.orEmpty().filter { it.key.shouldContainPayload() }.flatMap { opEntry ->
                 opEntry.value.responses.orEmpty().flatMap { responseEntry ->
                     val httpCode = responseEntry.key.toIntOrNull()
                     if (httpCode in 400..599 && (!isProblemJson(swagger, responseEntry.value))) {
@@ -54,4 +55,8 @@ class UseProblemJsonRule : AbstractRule() {
             else -> definition?.properties?.keys.orEmpty()
         }
     }
+
+    private fun HttpMethod.shouldContainPayload() : Boolean =
+        name.toLowerCase() !in listOf("head", "options")
+
 }
