@@ -25,8 +25,8 @@ class HyphenateHttpHeadersRuleTest {
     }
 
     @Test
-    fun mustAcceptETag() {
-        val swagger = swaggerWithHeaderParams("ETag")
+    fun mustAcceptValuesFromWhitelist() {
+        val swagger = swaggerWithHeaderParams("ETag", "X-Trace-ID")
         assertThat(HyphenateHttpHeadersRule(testConfig).validate(swagger)).isNull()
     }
 
