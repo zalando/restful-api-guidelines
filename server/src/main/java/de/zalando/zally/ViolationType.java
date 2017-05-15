@@ -4,7 +4,7 @@ public enum ViolationType {
 
     MUST("must"),
     SHOULD("should"),
-    COULD("could"),
+    MAY("may"),
     HINT("hint");
 
     private final String metricIdentifier;

@@ -7,13 +7,13 @@ import io.swagger.models.Swagger
 import org.springframework.stereotype.Component
 
 @Component
-class NestedPathsCouldBeRootPathsRule : AbstractRule() {
+class NestedPathsMayBeRootPathsRule : AbstractRule() {
     override val title = "Consider Using (Non-) Nested URLs"
     override val url = "http://zalando.github.io/restful-api-guidelines/resources/Resources.html" +
-            "#could-consider-using-non-nested-urls"
-    override val violationType = ViolationType.COULD
+            "#may-consider-using-non-nested-urls"
+    override val violationType = ViolationType.MAY
     override val code = "C001"
-    private val DESCRIPTION = "Nested paths / URLs could be top-level resource"
+    private val DESCRIPTION = "Nested paths / URLs may be top-level resource"
 
     override fun validate(swagger: Swagger): Violation? {
         val paths = swagger.paths.orEmpty().keys.filter {

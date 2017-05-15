@@ -41,7 +41,7 @@ parameters:
     x-extensible-enum:
       - MUST
       - SHOULD
-      - COULD
+      - MAY
       - HINT
   IsActive:
     name: is_active
@@ -168,7 +168,7 @@ definitions:
         enum:
         - MUST
         - SHOULD
-        - COULD
+        - MAY
         - HINT
       rule_link:
         type: string
@@ -183,14 +183,14 @@ definitions:
     required:
       - must
       - should
-      - could
+      - may
       - hint
     properties:
       must:
         type: integer
       should:
         type: integer
-      could:
+      may:
         type: integer
       hint:
         type: integer
