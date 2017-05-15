@@ -12,7 +12,7 @@
 	[ "$status" -eq 1 ]
 	[ "${lines[44]}" = "[0mMUST violations: 6" ]
 	[ "${lines[45]}" = "SHOULD violations: 0" ]
-	[ "${lines[46]}" = "COULD violations: 0" ]
+	[ "${lines[46]}" = "MAY violations: 0" ]
 	[ "${lines[47]}" = "HINT violations: 0" ]
 	[ "${#lines[@]}" -eq 48 ]
 }
@@ -22,7 +22,7 @@
 	[ "$status" -eq 1 ]
 	[ "${lines[60]}" = "[0mMUST violations: 2" ]
 	[ "${lines[61]}" = "SHOULD violations: 1" ]
-	[ "${lines[62]}" = "COULD violations: 1" ]
+	[ "${lines[62]}" = "MAY violations: 1" ]
 	[ "${lines[63]}" = "HINT violations: 0" ]
 	[ "${#lines[@]}" -eq 64 ]
 }
@@ -32,7 +32,7 @@
 	[ "$status" -eq 1 ]
 	[ "${lines[44]}" = "[0mMUST violations: 6" ]
 	[ "${lines[45]}" = "SHOULD violations: 0" ]
-	[ "${lines[46]}" = "COULD violations: 0" ]
+	[ "${lines[46]}" = "MAY violations: 0" ]
 	[ "${lines[47]}" = "HINT violations: 0" ]
 	[ "${#lines[@]}" -eq 48 ]
 }
@@ -42,7 +42,7 @@
 	[ "$status" -eq 1 ]
 	[ "${lines[60]}" = "[0mMUST violations: 2" ]
 	[ "${lines[61]}" = "SHOULD violations: 1" ]
-	[ "${lines[62]}" = "COULD violations: 1" ]
+	[ "${lines[62]}" = "MAY violations: 1" ]
 	[ "${lines[63]}" = "HINT violations: 0" ]
 	[ "${#lines[@]}" -eq 64 ]
 }
