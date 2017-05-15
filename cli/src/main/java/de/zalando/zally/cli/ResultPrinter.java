@@ -122,7 +122,7 @@ public class ResultPrinter {
                 return ANSI_RED;
             case SHOULD:
                 return ANSI_YELLOW;
-            case COULD:
+            case MAY:
                 return ANSI_GREEN;
             case HINT:
                 return ANSI_CYAN;
