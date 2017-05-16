@@ -4,6 +4,7 @@ public enum ViolationType {
 
     MUST("must"),
     SHOULD("should"),
+    COULD("could"),     // DEPRECATED, see #326
     MAY("may"),
     HINT("hint");
 

@@ -41,6 +41,7 @@ parameters:
     x-extensible-enum:
       - MUST
       - SHOULD
+      - COULD
       - MAY
       - HINT
   IsActive:
