@@ -292,3 +292,18 @@ The 'X-RateLimit' headers are:
 - `X-RateLimit-Reset`: The relative time in seconds when the rate limit window will be reset.
 
 The reason to allow both approaches is that APIs can have different needs. Retry-After is often sufficient for general load handling and request throttling scenarios and notably, does not strictly require the concept of a calling entity such as a tenant or named account. In turn this allows resource owners to minimise the amount of state they have to carry with respect to client requests. The 'X-RateLimit' headers are suitable for scenarios where clients are associated with pre-existing account or tenancy structures. 'X-RateLimit' headers are generally returned on every request and not just on a 429, which implies the service implementing the API is carrying sufficient state to track the number of requests made within a given window for each named entity.
+
+## {{ book.should }} Explicitly define the Collection Format of Query Parameters
+
+There are different ways of supplying a set of values as a query parameter.
+One particular type should be selected and stated explicitly in the API definition. 
+The OpenAPI property `[collectionFormat](http://swagger.io/specification/)` is used to specify the the format of the query parameter.
+
+We prefer comma separeted values (`csv`) or multiple parameter instances (`multi`) formats.
+
+| `collectionFormat` 	| Descirption			| Example						|
+|-----------------------|-------------------------------|-------------------------------------------------------|
+| `csv`			| Comma separated values	| `?parameter=value1,value2,value3`			|
+| `multi`		| Multiple parameter instances	| `?parameter=value1&parameter=value2&parameter=value3`	|
+
+When choosing the collection format, take into account the tool support, the escaping of special characters and the maximal URL length.
