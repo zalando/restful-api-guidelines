@@ -24,14 +24,19 @@ public class ApiViolationsController {
     private final RulesValidator rulesValidator;
     private final ObjectMapper mapper;
     private final DropwizardMetricServices metricServices;
+    private final ApiDefinitionReader apiDefinitionReader;
     private final String message;
 
     @Autowired
-    public ApiViolationsController(RulesValidator rulesValidator, ObjectMapper objectMapper,
-                                   DropwizardMetricServices metricServices, @Value("${zally.message:}") String message) {
+    public ApiViolationsController(RulesValidator rulesValidator,
+                                   ObjectMapper objectMapper,
+                                   DropwizardMetricServices metricServices,
+                                   ApiDefinitionReader apiDefinitionReader,
+                                   @Value("${zally.message:}") String message) {
         this.rulesValidator = rulesValidator;
         this.mapper = objectMapper;
         this.metricServices = metricServices;
+        this.apiDefinitionReader = apiDefinitionReader;
         this.message = message;
     }
 
@@ -39,8 +44,7 @@ public class ApiViolationsController {
     public ResponseEntity<JsonNode> validate(@RequestBody JsonNode request) {
         metricServices.increment("meter.api-reviews.requested");
 
-        final ApiDefinitionReader apiDefinitionReader = new ApiDefinitionReader(request);
-        final List<Violation> violations = rulesValidator.validate(apiDefinitionReader.read());
+        final List<Violation> violations = rulesValidator.validate(apiDefinitionReader.read(request));
         ObjectNode response = mapper.createObjectNode();
         if (message != null && !message.isEmpty()) {
             response.put("message", message);

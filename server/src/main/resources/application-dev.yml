@@ -13,3 +13,6 @@ security:
 twintip:
   mapping: /api
   yaml: "classpath:/api/zally-api.yaml"
+
+zally:
+  ignoreRules: S001,S010

@@ -12,8 +12,4 @@ public enum ViolationType {
     ViolationType(String metricIdentifier) {
         this.metricIdentifier = metricIdentifier;
     }
-
-    public String getMetricIdentifier() {
-        return metricIdentifier;
-    }
 }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.autoconfigure.LocalManagementPort;
 import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,8 +17,8 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(
-        webEnvironment = RANDOM_PORT,
-        classes = {Application.class, RestApiTestConfiguration.class}
+    webEnvironment = RANDOM_PORT,
+    classes = {Application.class, RestApiTestConfiguration.class}
 )
 @ActiveProfiles("test")
 public abstract class RestApiBaseTest {
@@ -28,15 +29,16 @@ public abstract class RestApiBaseTest {
     @LocalManagementPort
     protected int managementPort;
 
-    protected final TestRestTemplate restTemplate = new TestRestTemplate();
+    @Autowired
+    protected TestRestTemplate restTemplate;
 
     protected ResponseEntity<JsonNode> sendRequest(JsonNode body) {
         ObjectNode requestBody = new ObjectMapper().createObjectNode();
         requestBody.set("api_definition", body);
         return restTemplate.postForEntity(
-                getUrl(),
-                requestBody,
-                JsonNode.class);
+            getUrl(),
+            requestBody,
+            JsonNode.class);
     }
 
     protected String getUrl() {
