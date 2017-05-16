@@ -3,14 +3,6 @@ package de.zalando.zally;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.zalando.zally.exception.MissingApiDefinitionException;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.net.URI;
-import java.nio.file.Paths;
-import java.util.stream.Collectors;
-
 import de.zalando.zally.rules.InvalidApiSchemaRule;
 import net.jadler.stubbing.server.jdk.JdkStubHttpServer;
 import org.junit.After;
@@ -23,6 +15,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.util.ResourceUtils;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.net.URI;
+import java.nio.file.Paths;
+import java.util.stream.Collectors;
+
 import static net.jadler.Jadler.closeJadler;
 import static net.jadler.Jadler.initJadlerUsing;
 import static net.jadler.Jadler.onRequest;
@@ -31,6 +31,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @TestPropertySource(properties = "zally.message=Test message")
 public class RestApiViolationsTest extends RestApiBaseTest {
+
     @Before
     public void setUp() {
         initJadlerUsing(new JdkStubHttpServer());
@@ -44,7 +45,7 @@ public class RestApiViolationsTest extends RestApiBaseTest {
     @Test
     public void shouldValidateGivenApiDefinition() throws IOException {
         ResponseEntity<JsonNode> responseEntity = sendRequest(
-                new ObjectMapper().readTree(ResourceUtils.getFile("src/test/resources/fixtures/api_spp.json")));
+            new ObjectMapper().readTree(ResourceUtils.getFile("src/test/resources/fixtures/api_spp.json")));
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
 
         JsonNode rootObject = responseEntity.getBody();
@@ -62,7 +63,7 @@ public class RestApiViolationsTest extends RestApiBaseTest {
     @Test
     public void shouldReturnCounters() throws IOException {
         ResponseEntity<JsonNode> responseEntity = sendRequest(
-                new ObjectMapper().readTree(ResourceUtils.getFile("src/test/resources/fixtures/api_spp.json")));
+            new ObjectMapper().readTree(ResourceUtils.getFile("src/test/resources/fixtures/api_spp.json")));
         JsonNode rootObject = responseEntity.getBody();
 
         JsonNode counters = rootObject.get("violations_count");
@@ -75,7 +76,7 @@ public class RestApiViolationsTest extends RestApiBaseTest {
     @Test
     public void shouldReturnMetricsOfFoundViolations() throws IOException {
         ResponseEntity<JsonNode> responseEntity = sendRequest(
-                new ObjectMapper().readTree(ResourceUtils.getFile("src/test/resources/fixtures/api_spp.json")));
+            new ObjectMapper().readTree(ResourceUtils.getFile("src/test/resources/fixtures/api_spp.json")));
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
 
         ResponseEntity<JsonNode> metricsResponse = restTemplate.getForEntity("http://localhost:" + managementPort + "/metrics", JsonNode.class);
@@ -89,9 +90,9 @@ public class RestApiViolationsTest extends RestApiBaseTest {
     @Test
     public void shouldRespondWithBadRequestOnMalformedJson() throws IOException {
         RequestEntity requestEntity = RequestEntity
-                .post(URI.create(getUrl()))
-                .contentType(MediaType.APPLICATION_JSON)
-                .body("{\"malformed\": \"dummy\"");
+            .post(URI.create(getUrl()))
+            .contentType(MediaType.APPLICATION_JSON)
+            .body("{\"malformed\": \"dummy\"");
         ResponseEntity<JsonNode> responseEntity = restTemplate.exchange(requestEntity, JsonNode.class);
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
     }
@@ -99,9 +100,9 @@ public class RestApiViolationsTest extends RestApiBaseTest {
     @Test
     public void shouldRespondWithProblemJsonOnMalformedJson() throws IOException {
         RequestEntity requestEntity = RequestEntity
-                .post(URI.create(getUrl()))
-                .contentType(MediaType.APPLICATION_JSON)
-                .body("{\"malformed\": \"dummy\"");
+            .post(URI.create(getUrl()))
+            .contentType(MediaType.APPLICATION_JSON)
+            .body("{\"malformed\": \"dummy\"");
 
         ResponseEntity<JsonNode> responseEntity = restTemplate.exchange(requestEntity, JsonNode.class);
 
@@ -114,9 +115,9 @@ public class RestApiViolationsTest extends RestApiBaseTest {
     @Test
     public void shouldRespondWithBadRequestWhenApiDefinitionFieldIsMissing() throws IOException {
         RequestEntity requestEntity = RequestEntity
-                .post(URI.create(getUrl()))
-                .contentType(MediaType.APPLICATION_JSON)
-                .body("{\"my_api\": \"dummy\"}");
+            .post(URI.create(getUrl()))
+            .contentType(MediaType.APPLICATION_JSON)
+            .body("{\"my_api\": \"dummy\"}");
 
         ResponseEntity<JsonNode> responseEntity = restTemplate.exchange(requestEntity, JsonNode.class);
 
@@ -128,9 +129,9 @@ public class RestApiViolationsTest extends RestApiBaseTest {
     @Test
     public void shouldRespondWithViolationWhenApiDefinitionFieldIsNotValidSwaggerDefinition() throws IOException {
         RequestEntity requestEntity = RequestEntity
-                .post(URI.create(getUrl()))
-                .contentType(MediaType.APPLICATION_JSON)
-                .body("{\"api_definition\": \"no swagger definition\"}");
+            .post(URI.create(getUrl()))
+            .contentType(MediaType.APPLICATION_JSON)
+            .body("{\"api_definition\": \"no swagger definition\"}");
 
         ResponseEntity<JsonNode> responseEntity = restTemplate.exchange(requestEntity, JsonNode.class);
 
@@ -147,12 +148,12 @@ public class RestApiViolationsTest extends RestApiBaseTest {
     @Test
     public void shouldReadJsonSpecificationFromUrl() throws Exception {
         final String definitionUrl = getLocalUrl(
-                "src/test/resources/fixtures/api_spp.json", MediaType.APPLICATION_JSON.toString());
+            "src/test/resources/fixtures/api_spp.json", MediaType.APPLICATION_JSON.toString());
 
         final RequestEntity requestEntity = RequestEntity
-                .post(URI.create(getUrl()))
-                .contentType(MediaType.APPLICATION_JSON)
-                .body("{\"api_definition_url\": \"" + definitionUrl + "\"}");
+            .post(URI.create(getUrl()))
+            .contentType(MediaType.APPLICATION_JSON)
+            .body("{\"api_definition_url\": \"" + definitionUrl + "\"}");
         final ResponseEntity<JsonNode> responseEntity = restTemplate.exchange(requestEntity, JsonNode.class);
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
 
@@ -166,12 +167,12 @@ public class RestApiViolationsTest extends RestApiBaseTest {
     @Test
     public void shouldReadYamlSpecificationFromUrl() throws Exception {
         final String definitionUrl = getLocalUrl(
-                "src/test/resources/fixtures/api_spa.yaml", MediaType.APPLICATION_JSON.toString());
+            "src/test/resources/fixtures/api_spa.yaml", MediaType.APPLICATION_JSON.toString());
 
         final RequestEntity requestEntity = RequestEntity
-                .post(URI.create(getUrl()))
-                .contentType(MediaType.APPLICATION_JSON)
-                .body("{\"api_definition_url\": \"" + definitionUrl + "\"}");
+            .post(URI.create(getUrl()))
+            .contentType(MediaType.APPLICATION_JSON)
+            .body("{\"api_definition_url\": \"" + definitionUrl + "\"}");
         final ResponseEntity<JsonNode> responseEntity = restTemplate.exchange(requestEntity, JsonNode.class);
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
 
@@ -179,15 +180,15 @@ public class RestApiViolationsTest extends RestApiBaseTest {
 
         final JsonNode violations = rootObject.get("violations");
         assertThat(violations).hasSize(1);
-        assertThat(violations.get(0 ).get("title").asText()).isEqualTo("dummy2");
+        assertThat(violations.get(0).get("title").asText()).isEqualTo("dummy2");
     }
 
     @Test
     public void shouldReturn404WhenHostNotRecognised() throws Exception {
         final RequestEntity requestEntity = RequestEntity
-                .post(URI.create(getUrl()))
-                .contentType(MediaType.APPLICATION_JSON)
-                .body("{\"api_definition_url\": \"http://bad.example.localhost/test.yaml\"}");
+            .post(URI.create(getUrl()))
+            .contentType(MediaType.APPLICATION_JSON)
+            .body("{\"api_definition_url\": \"http://bad.example.localhost/test.yaml\"}");
 
         final ResponseEntity<JsonNode> responseEntity = restTemplate.exchange(requestEntity, JsonNode.class);
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
@@ -200,9 +201,9 @@ public class RestApiViolationsTest extends RestApiBaseTest {
     public void shouldReturn404WhenNotFound() throws Exception {
         final String definitionUrl = simulateNotFound();
         final RequestEntity requestEntity = RequestEntity
-                .post(URI.create(getUrl()))
-                .contentType(MediaType.APPLICATION_JSON)
-                .body("{\"api_definition_url\": \"" + definitionUrl + "\"}");
+            .post(URI.create(getUrl()))
+            .contentType(MediaType.APPLICATION_JSON)
+            .body("{\"api_definition_url\": \"" + definitionUrl + "\"}");
 
         final ResponseEntity<JsonNode> responseEntity = restTemplate.exchange(requestEntity, JsonNode.class);
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
@@ -221,12 +222,12 @@ public class RestApiViolationsTest extends RestApiBaseTest {
         final String url = "http://localhost:" + port() + remotePath;
 
         onRequest()
-                .havingMethodEqualTo("GET")
-                .havingPathEqualTo(remotePath)
-                .respond()
-                .withStatus(200)
-                .withHeader("Content-Type", contentType)
-                .withBody(content);
+            .havingMethodEqualTo("GET")
+            .havingPathEqualTo(remotePath)
+            .respond()
+            .withStatus(200)
+            .withHeader("Content-Type", contentType)
+            .withBody(content);
 
         return url;
     }
@@ -236,12 +237,12 @@ public class RestApiViolationsTest extends RestApiBaseTest {
         final String url = "http://localhost:" + port() + remotePath;
 
         onRequest()
-                .havingMethodEqualTo("GET")
-                .havingPathEqualTo(remotePath)
-                .respond()
-                .withStatus(404)
-                .withHeader("Content-Type", "text/plain")
-                .withBody("NotFound");
+            .havingMethodEqualTo("GET")
+            .havingPathEqualTo(remotePath)
+            .respond()
+            .withStatus(404)
+            .withHeader("Content-Type", "text/plain")
+            .withBody("NotFound");
 
         return url;
     }
