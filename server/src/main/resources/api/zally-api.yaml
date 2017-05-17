@@ -42,6 +42,7 @@ parameters:
       - MUST
       - SHOULD
       - COULD
+      - MAY
       - HINT
   IsActive:
     name: is_active
@@ -168,7 +169,7 @@ definitions:
         enum:
         - MUST
         - SHOULD
-        - COULD
+        - MAY
         - HINT
       rule_link:
         type: string
@@ -183,12 +184,15 @@ definitions:
     required:
       - must
       - should
+      - may
       - could
       - hint
     properties:
       must:
         type: integer
       should:
+        type: integer
+      may:
         type: integer
       could:
         type: integer

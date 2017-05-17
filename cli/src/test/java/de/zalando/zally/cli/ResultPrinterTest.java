@@ -64,8 +64,8 @@ public class ResultPrinterTest {
     public void printsProperSummary() throws IOException {
         final Map<String, Integer> counters = new HashMap<>();
         counters.put("must", 12);
-        counters.put("could", 13);
         counters.put("should", 14);
+        counters.put("may", 13);
         counters.put("hint", 15);
 
         final ResultPrinter resultPrinter = new ResultPrinter(outStream);
@@ -75,7 +75,7 @@ public class ResultPrinterTest {
                 + "========\n\n" + resultPrinter.ANSI_RESET
                 + "MUST violations: 12\n"
                 + "SHOULD violations: 14\n"
-                + "COULD violations: 13\n"
+                + "MAY violations: 13\n"
                 + "HINT violations: 15\n";
         assertEquals(expectedResult, outContent.toString());
     }
