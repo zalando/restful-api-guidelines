@@ -1,0 +1,12 @@
+language: node_js
+
+node_js:
+  - "7"
+
+script:
+  - node --version
+  - npm --version
+  - npm install -q
+  - npm test
+  - npm run build
+  - npm run codecov

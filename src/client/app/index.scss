@@ -1,0 +1,151 @@
+@import '../../../node_modules/dress-code/dist/sass/dress-code';
+
+body {
+  min-height: 100%;
+  background: $dc-white;
+}
+
+#app {
+  min-height: 100%;
+  position: relative;
+  padding-bottom: 4rem;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 1.2rem;
+  font-size: 1.2rem;
+  text-align: center;
+
+}
+
+/**
+ * main-navigation-bar
+ */
+.main-navigation-bar {
+  position: fixed;
+  z-index: 1000;
+  width: 100%;
+  padding: 0.8rem 2rem;
+  border-bottom: 1px solid $dc-gray60;
+  background: $dc-gray80;
+  box-shadow: 1px 0 4px rgba(0,0,0, 0.2);
+}
+
+.main-navigation-bar__title {
+  font-size: 16px; /* font-size: 16px */
+  font-weight: 500;
+  margin-bottom: 0;
+}
+.main-navigation-bar__logo {
+  display: inline-block;
+  float: left;
+  width: 55px;
+  margin-right: 8px;
+}
+
+.main-navigation-bar__link {
+  cursor: pointer;
+  color: $dc-gray10;
+  text-decoration: none;
+  &:hover, &:visited, &:active {
+    color: $dc-gray10;
+    text-decoration: none;
+  }
+}
+
+/*
+ * userinfo
+ */
+.user-info{
+  position: absolute;
+  top: 0;
+  right: 1rem;
+  padding: 1rem 1.5rem;
+}
+.user-info__icon{
+  font-size: 2rem;
+  height: 5.5rem;
+  line-height: 4rem;
+  span{
+    font-size: 1.4rem;
+    padding-left: 0.7rem;
+    line-height: normal;
+    font-style: normal;
+  }
+}
+.user-info__logout, .user-info__login{
+  line-height: 5rem;
+}
+
+/**
+ * page container
+ */
+.page-container {
+  padding: 10rem 2.4rem 1.2rem;
+}
+
+/*
+ * tabs
+ */
+.tab-navigation {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+
+.tab-navigation__link {
+  font-weight:bold;
+  padding: 1.2rem;
+}
+
+.tab-navigation__link--active {
+  background: $dc-gray80;
+}
+
+.tab-contents {
+  background: $dc-gray80;
+  padding: 1.8rem 1.2rem;
+}
+
+/*
+ * filters
+ */
+.filter-navigation__label {
+  float: left;
+  line-height: 2.5rem;
+  margin-right: 10px;
+}
+
+/*
+ * editor
+ */
+
+.editor {
+  border: 1px solid #dadada;
+  margin-bottom: 1.2rem;
+}
+
+.editor__ace-editor {
+  background: #f7f6f6;
+}
+
+.editor-input-form__bottom-button {
+  text-align: right;
+}
+
+.editor-input-form__label {
+  display: inline-block;
+  line-height: 4rem;
+  margin-right: 0.4rem
+}
+
+/*
+ * violations
+ */
+.violations-result__spinner {
+  padding: 2rem 0;
+  text-align:center;
+}
