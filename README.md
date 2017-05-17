@@ -13,7 +13,7 @@ Minimalistic API linter of awesomeness, bringing order to a sea of APIs.
 - Does not require a deployed service, only an API definition.
 - Accepts [swagger](https://swagger.io) yaml and json formats.
 - Easy-to-use [CLI](cli/README.md) allows you to check your API *right now*.
-- [Web UI](https://github.com/zalando-incubator/zally/tree/master/web-ui) provides an intuitive web interface with tons of features.
+- [Web UI](https://github.com/zalando-incubator/zally-web-ui) provides an intuitive web interface with tons of features.
 
 ### Core Technical Concepts
 
@@ -37,7 +37,7 @@ With Spring 5 we consider using Kotlin also on API side directly. Stay tuned.
 
 ### Installation and Usage
 
-You can find installation steps in the [Server Readme](server/README.md), [CLI Readme](cli/README.md) and [Web UI Readme](https://github.com/zalando-incubator/zally/tree/master/web-ui).
+You can find installation steps in the [Server Readme](server/README.md), [CLI Readme](cli/README.md) and [Web UI Readme](https://github.com/zalando-incubator/zally-web-ui).
 
 If you just wanna try it out: first run the server locally, then just use the cli tool as it is provided.
 

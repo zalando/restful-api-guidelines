@@ -1,9 +1,0 @@
-*node_modules
-*.env*
-*.log
-
-src/client/public/assets/bundle.*
-cert
-credentials
-scm-source.json
-target
