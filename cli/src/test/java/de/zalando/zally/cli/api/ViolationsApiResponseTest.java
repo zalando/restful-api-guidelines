@@ -53,7 +53,7 @@ public class ViolationsApiResponseTest {
         final JSONObject violationsCount = new JSONObject();
         violationsCount.put("must", 11);
         violationsCount.put("should", 13);
-        violationsCount.put("could", 15);
+        violationsCount.put("may", 15);
         violationsCount.put("hint", 17);
 
         final JSONObject jsonObject = new JSONObject();
@@ -64,7 +64,7 @@ public class ViolationsApiResponseTest {
 
         assertEquals(Integer.valueOf(11), counters.get("must"));
         assertEquals(Integer.valueOf(13), counters.get("should"));
-        assertEquals(Integer.valueOf(15), counters.get("could"));
+        assertEquals(Integer.valueOf(15), counters.get("may"));
         assertEquals(Integer.valueOf(17), counters.get("hint"));
     }
 }

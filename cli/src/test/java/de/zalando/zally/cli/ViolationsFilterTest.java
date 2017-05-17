@@ -40,15 +40,15 @@ public class ViolationsFilterTest {
     }
 
     @Test
-    public void getCouldViolationsReturnsOnlyShould() {
+    public void getMayViolationsReturnsOnlyMay() {
         List<Violation> fixtures = getFixtureViolations();
-        Violation couldViolations = fixtures.get(2);
+        Violation mayViolations = fixtures.get(2);
 
         ViolationsFilter violationsFilter = new ViolationsFilter(fixtures);
 
-        List<Violation> result = violationsFilter.getViolations(ViolationType.COULD);
+        List<Violation> result = violationsFilter.getViolations(ViolationType.MAY);
         assertEquals(1, result.size());
-        assertEquals(couldViolations, result.get(0));
+        assertEquals(mayViolations, result.get(0));
     }
 
 

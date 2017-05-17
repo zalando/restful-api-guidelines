@@ -14,7 +14,7 @@ public class ViolationTypeBinderTest {
     @Test
     public void shouldSetValueWhenTypeIsFound() {
         final ViolationTypeBinder typeBinder = new ViolationTypeBinder();
-        final String[] allowedTypes = {"Must", "MUST", "must", "SHOULD", "COULD", "HINT"};
+        final String[] allowedTypes = {"Must", "MUST", "must", "SHOULD", "MAY", "HINT"};
 
         for (String allowedType : allowedTypes) {
             ViolationType expectedType = ViolationType.valueOf(allowedType.toUpperCase());

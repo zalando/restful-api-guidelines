@@ -19,7 +19,7 @@ public class ViolationsCounterTest {
         final Map<ViolationType, Integer> expectedCounters = new HashMap<>();
         expectedCounters.put(ViolationType.MUST, 0);
         expectedCounters.put(ViolationType.SHOULD, 0);
-        expectedCounters.put(ViolationType.COULD, 0);
+        expectedCounters.put(ViolationType.MAY, 0);
         expectedCounters.put(ViolationType.HINT, 0);
 
         assertCounters(expectedCounters, violations);
@@ -34,7 +34,7 @@ public class ViolationsCounterTest {
         final Map<ViolationType, Integer> expectedCounters = new HashMap<>();
         expectedCounters.put(ViolationType.MUST, 5);
         expectedCounters.put(ViolationType.SHOULD, 0);
-        expectedCounters.put(ViolationType.COULD, 0);
+        expectedCounters.put(ViolationType.MAY, 0);
         expectedCounters.put(ViolationType.HINT, 0);
 
         assertCounters(expectedCounters, violations);
@@ -49,21 +49,21 @@ public class ViolationsCounterTest {
         final Map<ViolationType, Integer> expectedCounters = new HashMap<>();
         expectedCounters.put(ViolationType.MUST, 0);
         expectedCounters.put(ViolationType.SHOULD, 5);
-        expectedCounters.put(ViolationType.COULD, 0);
+        expectedCounters.put(ViolationType.MAY, 0);
         expectedCounters.put(ViolationType.HINT, 0);
         assertCounters(expectedCounters, violations);
     }
 
     @Test
-    public void countsCouldViolations() {
+    public void countsMayViolations() {
         final List<Violation> violations = new ArrayList<>();
         IntStream.range(0, 5).forEach(
-                (i) -> violations.add(generateViolation(ViolationType.COULD))
+                (i) -> violations.add(generateViolation(ViolationType.MAY))
         );
         final Map<ViolationType, Integer> expectedCounters = new HashMap<>();
         expectedCounters.put(ViolationType.MUST, 0);
         expectedCounters.put(ViolationType.SHOULD, 0);
-        expectedCounters.put(ViolationType.COULD, 5);
+        expectedCounters.put(ViolationType.MAY, 5);
         expectedCounters.put(ViolationType.HINT, 0);
 
         assertCounters(expectedCounters, violations);
@@ -78,7 +78,7 @@ public class ViolationsCounterTest {
         final Map<ViolationType, Integer> expectedCounters = new HashMap<>();
         expectedCounters.put(ViolationType.MUST, 0);
         expectedCounters.put(ViolationType.SHOULD, 0);
-        expectedCounters.put(ViolationType.COULD, 0);
+        expectedCounters.put(ViolationType.MAY, 0);
         expectedCounters.put(ViolationType.HINT, 5);
 
         assertCounters(expectedCounters, violations);

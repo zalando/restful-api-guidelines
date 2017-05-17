@@ -30,7 +30,7 @@ public class RestApiIgnoreRulesTest extends RestApiBaseTest {
 
         assertThat(counters.get("must").asInt()).isEqualTo(1);
         assertThat(counters.get("should").asInt()).isEqualTo(0);
-        assertThat(counters.get("could").asInt()).isEqualTo(0);
+        assertThat(counters.get("may").asInt()).isEqualTo(0);
         assertThat(counters.get("hint").asInt()).isEqualTo(0);
     }
 
