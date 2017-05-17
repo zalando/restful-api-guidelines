@@ -299,9 +299,9 @@ There are different ways of supplying a set of values as a query parameter.
 One particular type should be selected and stated explicitly in the API definition. 
 The OpenAPI property `[collectionFormat](http://swagger.io/specification/)` is used to specify the the format of the query parameter.
 
-We prefer comma separeted values (`csv`) or multiple parameter instances (`multi`) formats.
+Only the `csv` or `multi` formats should be used for multi-value query parameters as described below.
 
-| `collectionFormat` 	| Descirption			| Example						|
+| `collectionFormat` 	| Description			| Example						|
 |-----------------------|-------------------------------|-------------------------------------------------------|
 | `csv`			| Comma separated values	| `?parameter=value1,value2,value3`			|
 | `multi`		| Multiple parameter instances	| `?parameter=value1&parameter=value2&parameter=value3`	|
