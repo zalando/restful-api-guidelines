@@ -12,7 +12,7 @@
     "build": "webpack -p",
     "lint": "eslint src --ext .jsx --ext .js",
     "lint:report": "npm run lint -- -f checkstyle --output-file target/checkstyle.xml",
-    "jest": "NODE_ENV=test jest --coverage --config ./jest.json",
+    "jest": "NODE_ENV=test jest --coverage --no-cache --config ./jest.json",
     "test": "npm run lint:report && npm run jest",
     "codecov": "codecov -F webui -f target/coverage/lcov.info"
   },
@@ -35,7 +35,9 @@
     "aurelia-fetch-client": "1.1.2",
     "dress-code": "2.0.0",
     "express": "4.15.2",
+    "history": "3.0.0",
     "lodash": "4.17.4",
+    "pug": "2.0.0-rc.1",
     "react": "15.4.2",
     "react-ace": "4.2.0",
     "react-dom": "15.4.2",

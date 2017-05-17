@@ -7,6 +7,7 @@ describe('App component', () => {
   test('should show UserInfo child component', () => {
     const route = {
       user: {},
+      env: {},
       showUserInfo: true
     };
     const component = shallow(<App route={route}/>);
@@ -17,6 +18,7 @@ describe('App component', () => {
   test('should hide UserInfo child component', () => {
     const route = {
       user: {},
+      env: {},
       showUserInfo: false
     };
     const component = shallow(<App route={route}/>);
@@ -26,6 +28,7 @@ describe('App component', () => {
 
   test('should render children', () => {
     const route = {
+      env: {},
       user: {}
     };
     const component = shallow(

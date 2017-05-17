@@ -3,13 +3,15 @@ import {Link} from 'react-router';
 import UserInfo from '../components/user-info.jsx';
 
 export function App (props) {
-  const {user, showUserInfo, logout, login} = props.route;
+  const {user, showUserInfo, logout, login, env} = props.route;
+  const MOUNTPATH = env.MOUNTPATH || '/';
+
   return (
   <div>
     <div className="main-navigation-bar">
       <h1 className="dc-h1 main-navigation-bar__title">
         <Link to="/" className="main-navigation-bar__link">
-          <img className="main-navigation-bar__logo" src="/assets/logo.png" />
+          <img className="main-navigation-bar__logo" src={MOUNTPATH + 'assets/logo.png'} />
           Zally API Linter
         </Link>
       </h1>
