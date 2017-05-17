@@ -301,7 +301,7 @@ The OpenAPI property `[collectionFormat](http://swagger.io/specification/)` is u
 
 Only the `csv` or `multi` formats should be used for multi-value query parameters as described below.
 
-| `collectionFormat` 	| Description			| Example						|
+| Collection Format 	| Description			| Example						|
 |-----------------------|-------------------------------|-------------------------------------------------------|
 | `csv`			| Comma separated values	| `?parameter=value1,value2,value3`			|
 | `multi`		| Multiple parameter instances	| `?parameter=value1&parameter=value2&parameter=value3`	|
