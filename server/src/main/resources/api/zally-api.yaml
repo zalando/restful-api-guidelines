@@ -185,6 +185,7 @@ definitions:
       - must
       - should
       - may
+      - could
       - hint
     properties:
       must:
@@ -192,6 +193,8 @@ definitions:
       should:
         type: integer
       may:
+        type: integer
+      could:
         type: integer
       hint:
         type: integer

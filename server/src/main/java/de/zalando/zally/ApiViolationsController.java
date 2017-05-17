@@ -71,9 +71,6 @@ public class ApiViolationsController {
     private void setCounters(List<Violation> violations, ObjectNode result) {
         ViolationsCounter counter = new ViolationsCounter(violations);
         for (ViolationType violationType : ViolationType.values()) {
-            if (violationType == ViolationType.COULD) {
-                continue;
-            }
             result.put(violationType.toString().toLowerCase(), counter.getCounter(violationType));
         }
     }
