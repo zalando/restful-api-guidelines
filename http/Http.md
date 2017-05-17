@@ -297,7 +297,7 @@ The reason to allow both approaches is that APIs can have different needs. Retry
 
 There are different ways of supplying a set of values as a query parameter.
 One particular type should be selected and stated explicitly in the API definition. 
-The OpenAPI property `[collectionFormat](http://swagger.io/specification/)` is used to specify the the format of the query parameter.
+The OpenAPI property `[collectionFormat](http://swagger.io/specification/)` is used to specify the format of the query parameter.
 
 Only the `csv` or `multi` formats should be used for multi-value query parameters as described below.
 
