@@ -37,7 +37,7 @@ With Spring 5 we consider using Kotlin also on API side directly. Stay tuned.
 
 ### Installation and Usage
 
-You can find installation steps in the [Server Readme](server/README.md), [CLI Readme](cli/README.md) and [Web UI Readme](https://github.com/zalando-incubator/zally-web-ui).
+You can find installation steps in the [Server Readme](server/README.md), [CLI Readme](cli/README.md) and [Web UI Readme](https://github.com/zalando-incubator/zally-web-ui/blob/master/README.md).
 
 If you just wanna try it out: first run the server locally, then just use the cli tool as it is provided.
 
