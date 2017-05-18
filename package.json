@@ -28,7 +28,6 @@
     "Linter",
     "Zally"
   ],
-  "private": true,
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/zalando-incubator/zally-web-ui/issues"
