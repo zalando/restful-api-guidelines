@@ -46,6 +46,7 @@ class OAuthConfiguration extends ResourceServerConfigurerAdapter {
                 .antMatchers("/health").permitAll()
                 .antMatchers("/metrics").access("#oauth2.hasScope('uid')")
                 .antMatchers("/api-violations").access("#oauth2.hasScope('uid')")
+                .antMatchers("/supported-rules").access("#oauth2.hasScope('uid')")
                 .antMatchers("**").denyAll();
 
         http
