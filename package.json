@@ -14,7 +14,10 @@
     "lint:report": "npm run lint -- -f checkstyle --output-file target/checkstyle.xml",
     "jest": "NODE_ENV=test jest --coverage --no-cache --config ./jest.json",
     "test": "npm run lint:report && npm run jest",
-    "codecov": "codecov -F webui -f target/coverage/lcov.info"
+    "codecov": "codecov -F webui -f target/coverage/lcov.info",
+    "preversion": "npm test",
+    "version": "npm run build && git add --all",
+    "postversion": "git push && git push --tags"
   },
   "repository": {
     "type": "git",
