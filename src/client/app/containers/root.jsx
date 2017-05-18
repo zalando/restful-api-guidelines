@@ -1,5 +1,6 @@
 import React from 'react';
-import { Router, Route, browserHistory, Redirect } from 'react-router';
+import {useBasename} from 'history';
+import {Router, Route, browserHistory, Redirect} from 'react-router';
 import {App} from './app.jsx';
 import {Login} from './login.jsx';
 import {ViolationsTab} from './violations.jsx';
@@ -7,14 +8,22 @@ import {URL} from './url.jsx';
 import {Editor} from './editor.jsx';
 import {Rules} from './rules.jsx';
 
+
+
 export function Root (props) {
   const {OAUTH_ENABLED} = props.env;
-  return (<Router history={browserHistory}>
+
+  const createRouterHistory = () => {
+    return useBasename(() => browserHistory)({ basename: props.env.MOUNTPATH });
+  };
+
+  return (<Router history={createRouterHistory()}>
     <Route
       component={App}
       login={props.login}
       logout={props.logout}
       showUserInfo={OAUTH_ENABLED === true}
+      env={props.env}
       user={props.user}>
 
       { OAUTH_ENABLED === true ?

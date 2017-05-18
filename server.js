@@ -1,5 +1,5 @@
 const app = require('./src/server')();
-const webpackDevServerProxy = require('./src/server/webpack-dev-server-proxy');
+const webpackDevServerProxy = require('./src/server/dev/webpack-dev-server-proxy');
 
 /**
  * Proxy to webpack-dev-server for development

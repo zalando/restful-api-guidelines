@@ -35,7 +35,7 @@ app.listen(3000, () => {
 const app = require('express')()
 const zally = require('zally-web-ui')(/*options*/);
 
-app.use(zally);
+app.use('/api-linter', zally);
 app.listen(3000, () => {
   console.log('server running at http://localhost:3000');
 });
@@ -53,14 +53,14 @@ const zally = require('zally-web-ui')(options);
 ### Options
 
 * **windowEnv**: the windowEnv `object` contains all the values exposed to the client on `window.env` 
-* **windowEnv.OAUTH_ENABLED** (default: `false`): Enabled OAuth or just Auth support on the client side (an http call will be fired on `/me` endpoint to get the current logged in user, if any)  
+* **windowEnv.OAUTH_ENABLED** (default: `false`): enable OAuth or just Auth support on the client side (an http call will be fired on `/auth/me` endpoint to get the current logged in user, if any)  
 * **windowEnv.ZALLY_API_URL** (default: `http://localhost:8080`): URL pointing to Zally REST API
 * **windowEnv.DEBUG** (default: `true`): logs debugging message on the client side
-
+* **logger** (default: `console`): custom logger
 * **handlers**: the handlers `object` contains all route handlers used by zally-web-ui
 * **handlers.assets**: handler that serve static assets
 * **handlers.windowEnv**: handler that serve `/env.js` javascript file used to expose `windowEnv` values to the client on `window.env`
-* **handlers.spa**: handler that serve `index.html` (single page application entrypoint) on the wild card `*` to allow HTML5 History API working as expected
+* **handlers.index**: handler that serve the single page application entrypoint on the wild card `*` to allow HTML5 History API working as expected
 
 ## Development
 
