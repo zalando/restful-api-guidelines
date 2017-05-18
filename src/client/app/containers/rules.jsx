@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Link} from 'react-router';
 import {RulesTab} from '../components/rules.jsx';
 
+
 export class Rules extends Component {
 
   constructor (props) {
@@ -71,15 +72,15 @@ export class Rules extends Component {
           <div className="dc-column dc-column--small-12 dc-column--large-7">
             <label className="dc-label filter-navigation__label">Show only</label>
             <div className="dc-btn-group dc-btn-group--in-row">
-              <Link to="/rules?is_active=true" className="dc-btn dc-btn--small dc-btn--in-btn-group" activeClassName="dc-btn--primary">Active</Link>
-              <Link to="/rules?is_active=false" className="dc-btn dc-btn--small dc-btn--in-btn-group" activeClassName="dc-btn--primary">Inactive</Link>
+              <Link to={{ pathname: '/rules', query: {is_active: true}}} className="dc-btn dc-btn--small dc-btn--in-btn-group" activeClassName="dc-btn--primary">Active</Link>
+              <Link to={{ pathname: '/rules', query: {is_active: false}}} className="dc-btn dc-btn--small dc-btn--in-btn-group" activeClassName="dc-btn--primary">Inactive</Link>
             </div>
           </div>
         </div>
         <div className="dc-row">
           <div className="dc-column dc-column--small-12 dc-column--large-7">
             <div className="dc-column__contents">
-              <RulesTab rules={this.state.rules}></RulesTab>
+              <RulesTab error={this.state.error} rules={this.state.rules}></RulesTab>
             </div>
           </div>
         </div>

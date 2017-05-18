@@ -16,7 +16,7 @@ export function ViolationsTab (props) {
       <div className="tab-navigation-group">
         <Link to="/" className="dc-link tab-navigation__link" activeClassName="tab-navigation__link--active">BY URL</Link>
         <Link to="/editor" className="dc-link tab-navigation__link" activeClassName="tab-navigation__link--active">EDITOR</Link>
-        <Link to="/rules?is_active=true" className="dc-link tab-navigation__link" activeClassName="tab-navigation__link--active">RULES</Link>
+        <Link to="/rules" className="dc-link tab-navigation__link" activeClassName="tab-navigation__link--active">RULES</Link>
       </div>
     </div>
     <div className="tab-contents">

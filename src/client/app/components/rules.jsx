@@ -1,10 +1,13 @@
 import React from 'react';
 
+import {Msg} from './dress-code.jsx';
+
 export function RulesTab (props) {
   const rules = props.rules;
   return (
     <div>
       <h3>SUPPORTED RULES</h3>
+      { props.error ? <Msg type="error" title="ERROR" text={props.error} closeButton={false} /> : null }
       <ul style={{padding: 0, listStyle: 'none'}}>{
         rules.map((rule, index) => {
           return (<Rule key={index} rule={rule} />);
