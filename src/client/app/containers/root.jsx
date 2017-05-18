@@ -50,6 +50,11 @@ export function Root (props) {
           Storage={props.Storage}
         />
         <Route path="/rules"
+               onEnter={(nextState, replace) => {
+                 if (typeof nextState.location.query.is_active === 'undefined' ) {
+                   replace({pathname: '/rules', query: {is_active: true}});
+                 }
+               }}
                component={Rules}
                getSupportedRules={props.RestService.getSupportedRules.bind(props.RestService)}
         />
