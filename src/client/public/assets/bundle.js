@@ -1,7 +1,7 @@
 /*!
  * 
  * @name zally-web-ui
- * @version 0.1.0
+ * @version 0.1.1
  * @license MIT
  *     
  */

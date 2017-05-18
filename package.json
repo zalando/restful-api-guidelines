@@ -1,6 +1,6 @@
 {
   "name": "zally-web-ui",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Zally API Linter Web UI",
   "main": "src/server/index.js",
   "engines": {
@@ -14,10 +14,7 @@
     "lint:report": "npm run lint -- -f checkstyle --output-file target/checkstyle.xml",
     "jest": "NODE_ENV=test jest --coverage --no-cache --config ./jest.json",
     "test": "npm run lint:report && npm run jest",
-    "codecov": "codecov -F webui -f target/coverage/lcov.info",
-    "preversion": "npm test",
-    "version": "npm run build && git add --all",
-    "postversion": "git push && git push --tags"
+    "codecov": "codecov -F webui -f target/coverage/lcov.info"
   },
   "repository": {
     "type": "git",

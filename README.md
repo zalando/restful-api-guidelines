@@ -90,22 +90,6 @@ Build webpack bundle minified and source-map file(s).
 npm run build
 ```
 
-### Publishing
-
-1. Test, build and bump package version:
-
-  ```bash
-  npm version [major|minor|patch]
-  ```
-  
-  > see [npm-version](https://docs.npmjs.com/cli/version)
-
-2. Publish
-
-  ```bash
-  npm publish
-  ```
-
 ## Contributing
 
 People interested contributing to the web-ui project can open issues and related pull requests. 
