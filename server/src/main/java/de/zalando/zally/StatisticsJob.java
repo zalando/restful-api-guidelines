@@ -16,7 +16,7 @@ public class StatisticsJob {
 
     private static final Logger LOG = LoggerFactory.getLogger(StatisticsJob.class);
 
-    private static final long DAILY_IN_MS = 24 * 60 * 60 * 60 * 1000L;
+    private static final long DAILY_IN_MS = 24 * 60 * 60 * 1000L;
 
     private final ApiReviewRequestRepository repository;
     private final ReportStatisticRepository statisticRepository;
