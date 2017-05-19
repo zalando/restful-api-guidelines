@@ -4,8 +4,13 @@ public enum ViolationType {
 
     MUST("must"),
     SHOULD("should"),
-    COULD("could"),
-    HINT("hint");
+    MAY("may"),
+    HINT("hint"),
+
+    /*
+     * @deprecated Use MAY instead
+     */
+    @Deprecated COULD("could");
 
     private final String metricIdentifier;
 

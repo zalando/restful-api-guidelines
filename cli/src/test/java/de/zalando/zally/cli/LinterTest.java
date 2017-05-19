@@ -35,7 +35,7 @@ public class LinterTest {
     private ArgumentCaptor<List<Violation>> shouldListCaptor;
 
     @Captor
-    private ArgumentCaptor<List<Violation>> couldListCaptor;
+    private ArgumentCaptor<List<Violation>> mayListCaptor;
 
     @Captor
     private ArgumentCaptor<List<Violation>> hintListCaptor;
@@ -63,15 +63,15 @@ public class LinterTest {
 
         assertEquals(0, mustListCaptor.getAllValues().get(0).size());
         assertEquals(0, shouldListCaptor.getAllValues().get(0).size());
-        assertEquals(0, couldListCaptor.getAllValues().get(0).size());
+        assertEquals(0, mayListCaptor.getAllValues().get(0).size());
         assertEquals(0, hintListCaptor.getAllValues().get(0).size());
     }
 
     @Test
-    public void returnsTrueWhenOnlyShouldAndCouldViolationFound() throws Exception {
+    public void returnsTrueWhenOnlyShouldAndMayViolationFound() throws Exception {
         final JSONArray violations = new JSONArray();
         violations.put(getViolation("SHOULD", "SHOULD"));
-        violations.put(getViolation("COULD", "COULD"));
+        violations.put(getViolation("MAY", "MAY"));
         violations.put(getViolation("HINT", "HINT"));
         final JSONObject testResult = getTestResult(violations);
 
@@ -79,15 +79,15 @@ public class LinterTest {
         assertEquals(true, result);
 
         final List<Violation> shouldList = shouldListCaptor.getAllValues().get(0);
-        final List<Violation> couldList = couldListCaptor.getAllValues().get(0);
+        final List<Violation> mayList = mayListCaptor.getAllValues().get(0);
         final List<Violation> hintList = hintListCaptor.getAllValues().get(0);
 
         assertEquals(0, mustListCaptor.getAllValues().get(0).size());
         assertEquals(1, shouldList.size());
-        assertEquals(1, couldList.size());
+        assertEquals(1, mayList.size());
         assertEquals(1, hintList.size());
         assertEquals("SHOULD", shouldList.get(0).getTitle());
-        assertEquals("COULD", couldList.get(0).getTitle());
+        assertEquals("MAY", mayList.get(0).getTitle());
         assertEquals("HINT", hintList.get(0).getTitle());
     }
 
@@ -104,7 +104,7 @@ public class LinterTest {
 
         assertEquals(1, mustList.size());
         assertEquals(0, shouldListCaptor.getAllValues().get(0).size());
-        assertEquals(0, couldListCaptor.getAllValues().get(0).size());
+        assertEquals(0, mayListCaptor.getAllValues().get(0).size());
         assertEquals(0, hintListCaptor.getAllValues().get(0).size());
         assertEquals("must", mustList.get(0).getTitle());
     }
@@ -156,7 +156,7 @@ public class LinterTest {
         );
         Mockito.verify(
                 resultPrinter,
-                Mockito.times(1)).printViolations(couldListCaptor.capture(), eq(ViolationType.COULD)
+                Mockito.times(1)).printViolations(mayListCaptor.capture(), eq(ViolationType.MAY)
         );
         Mockito.verify(
                 resultPrinter,

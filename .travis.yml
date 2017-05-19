@@ -28,17 +28,6 @@ script:
   - ./gradlew build --info
   - cd ..
 
-  # web-ui
-  - nvm use 7.7
-  - node --version
-  - npm --version
-  - cd web-ui/
-  - npm install -q
-  - npm test
-  - npm run build
-  - npm run codecov
-  - cd ..
-
   # Launch local zally server
   - cd server/
   - echo "spring.profiles.active=dev" > application.properties
