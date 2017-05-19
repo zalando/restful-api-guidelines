@@ -4,8 +4,17 @@
 Zally WEB-UI
 ============
 
-Zally Web-UI project provides a web user interface to lint your api specs.
+The project provides a simple web user interface client for [Zally Rest API](https://github.com/zalando-incubator/zally), a tool to lint your api specs.
 
+It's implemented as an [express](https://expressjs.com/) app/middleware and a Single Page Application based on [React](https://facebook.github.io/react/). 
+
+
+## Main features
+
+* lint api spec by providing a url that point to a specification file
+* lint api spec by using the built-in yaml/json editor
+* show supported lint rules (active and inactive)
+* the ui can handle authenticated users
 
 ## Requirements
 
@@ -41,7 +50,7 @@ app.listen(3000, () => {
 });
 ```
 
-## Configuration options
+### Configuration options
 
 When instantiating the app you can pass an `options` object to customize the behavior. 
 
@@ -50,7 +59,7 @@ const options = { /* ..my options.. */}
 const zally = require('zally-web-ui')(options);
 ```
 
-### Options
+#### Options
 
 * **windowEnv**: the windowEnv `object` contains all the values exposed to the client on `window.env` 
 * **windowEnv.OAUTH_ENABLED** (default: `false`): enable OAuth or just Auth support on the client side (an http call will be fired on `/auth/me` endpoint to get the current logged in user, if any)  
@@ -62,12 +71,44 @@ const zally = require('zally-web-ui')(options);
 * **handlers.windowEnv**: handler that serve `/env.js` javascript file used to expose `windowEnv` values to the client on `window.env`
 * **handlers.index**: handler that serve the single page application entrypoint on the wild card `*` to allow HTML5 History API working as expected
 
+
+### Add Authentication
+
+To add authentication the express server serving zally-web-ui **MUST** implement some REST API JSON endpoints and set `windowEnv.OAUTH_ENABLED` to `true`.
+
+##### POST /auth/me
+  
+Should respond back with `200` http status code and a json response containing the current connected user in this format:
+
+```json
+{
+  "username": "John Doe",
+  "authenticated": true
+}
+```
+  
+Or with `401` http status code if the user is not connected
+  
+##### GET /auth/login
+   
+To show a login or redirect to an external login (if for example you are using some OAuth Provider)
+   
+##### GET /auth/logout
+   
+To logout the user (for example clearing the session, etc.)
+   
+##### POST /auth/refresh-token *(optional)*
+  
+Optionally implement this endpoint to refresh an expired token (if for example you are using some OAuth Provider that support this feature)
+
 ## Development
+
+> A Zally Rest Api server **MUST** be running on your local machine or somewhere over the network. <br>
+ Use `windowEnv.ZALLY_API_URL` configuration option to set the desired value.
 
 ### Install, build and run in development mode
 
 ```
-cd web-ui
 npm install
 npm run dev
 ```
