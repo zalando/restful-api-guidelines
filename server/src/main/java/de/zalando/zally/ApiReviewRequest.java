@@ -1,5 +1,6 @@
 package de.zalando.zally;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
@@ -40,12 +41,12 @@ public class ApiReviewRequest implements Serializable {
         super();
     }
 
-    public ApiReviewRequest(String jsonPayload) {
+    public ApiReviewRequest(JsonNode jsonPayload) {
         this(jsonPayload, null);
     }
 
-    public ApiReviewRequest(String jsonPayload, String apiDefinition) {
-        this.jsonPayload = jsonPayload;
+    public ApiReviewRequest(JsonNode jsonPayload, String apiDefinition) {
+        this.jsonPayload = jsonPayload.toString();
         this.apiDefinition = apiDefinition;
         this.successfulProcessed = StringUtils.isNotBlank(apiDefinition);
         this.created = Instant.now().atOffset(ZoneOffset.UTC);

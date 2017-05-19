@@ -69,10 +69,10 @@ public class ApiViolationsController {
     private String retrieveApiDefinition(JsonNode request) {
         try {
             String apiDefinition = apiDefinitionReader.read(request);
-            apiReviewRequestRepository.save(new ApiReviewRequest(request.toString(), apiDefinition));
+            apiReviewRequestRepository.save(new ApiReviewRequest(request, apiDefinition));
             return apiDefinition;
         } catch (MissingApiDefinitionException | UnaccessibleResourceUrlException e) {
-            apiReviewRequestRepository.save(new ApiReviewRequest(request.toString()));
+            apiReviewRequestRepository.save(new ApiReviewRequest(request));
             throw e;
         }
     }
