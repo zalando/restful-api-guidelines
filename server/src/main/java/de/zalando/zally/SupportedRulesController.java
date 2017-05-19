@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @CrossOrigin
-@RestController("/supported_rules")
+@RestController("/supported-rules")
 public class SupportedRulesController {
 
     private final List<Rule> rules;
