@@ -61,7 +61,6 @@ public class ApiViolationsController {
         ObjectNode violationsCount = response.putObject("violations_count");
         setCounters(violations, violationsCount);
 
-        reportViolationMetrics(violations);
         metricServices.increment("meter.api-reviews.processed");
         return ResponseEntity.ok(response);
     }
@@ -75,13 +74,6 @@ public class ApiViolationsController {
             apiReviewRequestRepository.save(new ApiReviewRequest(request));
             throw e;
         }
-    }
-
-    private void reportViolationMetrics(List<Violation> violations) {
-        violations.forEach(v -> {
-            metricServices.increment("meter.api-reviews.violations.rule." + v.getRule().getName().toLowerCase());
-            metricServices.increment("meter.api-reviews.violations.type." + v.getRule().getViolationType());
-        });
     }
 
     private void setCounters(List<Violation> violations, ObjectNode result) {

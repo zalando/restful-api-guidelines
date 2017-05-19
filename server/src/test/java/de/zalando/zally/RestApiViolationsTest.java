@@ -91,7 +91,6 @@ public class RestApiViolationsTest extends RestApiBaseTest {
         JsonNode rootObject = metricsResponse.getBody();
         assertThat(rootObject.has("meter.api-reviews.requested.fifteenMinuteRate")).isTrue();
         assertThat(rootObject.has("meter.api-reviews.processed.fifteenMinuteRate")).isTrue();
-        assertThat(rootObject.has("meter.api-reviews.violations.rule.checkapinameispresentrule.fifteenMinuteRate")).isTrue();
     }
 
     @Test
