@@ -11,10 +11,9 @@ It's implemented as an [express](https://expressjs.com/) app/middleware and a Si
 
 ## Main features
 
-* lint api spec by providing a url that point to a specification file
-* lint api spec by using the built-in yaml/json editor
-* show supported lint rules (active and inactive)
-* the ui can handle authenticated users
+* lint api spec by url or using the built-in yaml/json editor
+* show active/inactive supported lint rules
+* optional authentication hooks
 
 ## Requirements
 
