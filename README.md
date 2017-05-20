@@ -15,6 +15,32 @@ It's implemented as an [express](https://expressjs.com/) app/middleware and a Si
 * show active/inactive supported lint rules
 * optional authentication hooks
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## Contents
+
+- [Requirements](#requirements)
+- [Install](#install)
+- [Usage](#usage)
+  - [Basic](#basic)
+  - [Mount to an existing application](#mount-to-an-existing-application)
+  - [Configuration options](#configuration-options)
+    - [Options](#options)
+  - [Add Authentication](#add-authentication)
+      - [POST /auth/me](#post-authme)
+      - [GET /auth/login](#get-authlogin)
+      - [GET /auth/logout](#get-authlogout)
+      - [POST /auth/refresh-token *(optional)*](#post-authrefresh-token-optional)
+- [Development](#development)
+  - [Install, build and run in development mode](#install-build-and-run-in-development-mode)
+  - [Run in production mode](#run-in-production-mode)
+  - [Build optimized client javascript bundle](#build-optimized-client-javascript-bundle)
+- [Contributing](#contributing)
+  - [Contact](#contact)
+  - [License](#license)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## Requirements
 
 * NodeJS >= 7.6
