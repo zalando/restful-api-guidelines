@@ -1,14 +1,16 @@
 package de.zalando.zally.rules
 
+import com.typesafe.config.Config
 import de.zalando.zally.Violation
 import de.zalando.zally.ViolationType
 import io.swagger.models.HttpMethod
 import io.swagger.models.Operation
 import io.swagger.models.Swagger
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
 @Component
-class UseSpecificHttpStatusCodes : AbstractRule() {
+class UseSpecificHttpStatusCodes(@Autowired rulesConfig: Config) : AbstractRule() {
     override val title = "Use Specific HTTP Status Codes"
     override val url = "http://zalando.github.io/restful-api-guidelines/http/Http.html" +
         "#must-use-specific-http-status-codes"
@@ -16,17 +18,9 @@ class UseSpecificHttpStatusCodes : AbstractRule() {
     override val code = "M016"
     private val description = "Operatons should use specific HTTP status codes"
 
-    private val allowedStatusCodes = mapOf(
-            "get" to listOf("304"),
-            "post" to listOf("201", "202", "207", "303"),
-            "put" to listOf("201", "202", "204", "303", "409", "412", "415", "423"),
-            "patch" to listOf("202", "303", "409", "412", "415", "423"),
-            "delete" to listOf("202", "204", "303", "409", "412", "415", "423"),
-            "all" to listOf(
-                    "200", "301", "400", "401", "403", "404", "405", "406", "408", "410", "428", "429",
-                    "500", "501", "503"
-            )
-    )
+    private val allowedStatusCodes = rulesConfig
+            .getConfig("$name.allowed_codes").entrySet()
+            .map { (key, config) -> (key to config.unwrapped() as List<String>) }.toMap()
 
     override fun validate(swagger: Swagger): Violation? {
         val badPaths = swagger.paths.orEmpty().flatMap { path ->
