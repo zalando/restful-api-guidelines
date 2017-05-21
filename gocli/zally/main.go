@@ -22,6 +22,8 @@ func createApp() *cli.App {
 	app.Name = "Zally"
 	app.Version = "1.1"
 	app.Usage = "Zally Command Line Interface"
-	app.Commands = []cli.Command{}
+	app.Commands = []cli.Command{
+		SupportedRulesCommand,
+	}
 	return app
 }
