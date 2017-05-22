@@ -21,7 +21,19 @@ public class ExceptionHandling implements ProblemHandling, SpringAdviceTrait {
 
     @ExceptionHandler
     public ResponseEntity<Problem> handleUnaccessibleResourceUrlException(
-            UnaccessibleResourceUrlException exception, NativeWebRequest request) {
+        UnaccessibleResourceUrlException exception, NativeWebRequest request) {
         return create(exception.getHttpStatus(), exception, request);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<Problem> handleUnsufficientTimeIntervalParameterException(
+        UnsufficientTimeIntervalParameterException exception, NativeWebRequest request) {
+        return create(HttpStatus.BAD_REQUEST, exception, request);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<Problem> handleUnsufficientTimeIntervalParameterException(
+        TimeParameterIsInTheFutureException exception, NativeWebRequest request) {
+        return create(HttpStatus.BAD_REQUEST, exception, request);
     }
 }

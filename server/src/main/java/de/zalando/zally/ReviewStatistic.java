@@ -1,5 +1,7 @@
 package de.zalando.zally;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -68,5 +70,10 @@ public class ReviewStatistic implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(name, value, day);
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
     }
 }

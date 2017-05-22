@@ -26,8 +26,12 @@ public abstract class RestApiBaseTest {
     @Autowired
     protected ApiReviewRequestRepository apiReviewRequestRepository;
 
+    @Autowired
+    protected ReviewStatisticRepository reviewStatisticRepository;
+
     @Before
     public void cleanDatabase() {
+        reviewStatisticRepository.deleteAll();
         apiReviewRequestRepository.deleteAll();
     }
 
