@@ -107,7 +107,7 @@ public class RestReviewStatisticsTest extends RestApiBaseTest {
         return statistics;
     }
 
-    private void expectBadRequestFor(String queryParameter) {
+    private void expectBadRequestFor(String queryParameter) throws AssertionError {
         assertThat(requestStatistics(queryParameter).getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
     }
 
