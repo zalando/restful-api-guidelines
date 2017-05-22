@@ -29,7 +29,7 @@ public class StatisticsJobTest {
     private ApiReviewRequestRepository reviewRequestRepository;
 
     @Autowired
-    private ReportStatisticRepository statisticRepository;
+    private ReviewStatisticRepository statisticRepository;
 
     @Before
     public void cleanDatabase() {
@@ -74,7 +74,7 @@ public class StatisticsJobTest {
     }
 
     private void assertStatisticWasReportedExactlyOnce(String name) {
-        List<ReportStatistic> allStatistics = Lists.newArrayList(statisticRepository.findAll()).stream()
+        List<ReviewStatistic> allStatistics = Lists.newArrayList(statisticRepository.findAll()).stream()
             .filter(statistic -> statistic.getName().equals(name))
             .collect(Collectors.toList());
 

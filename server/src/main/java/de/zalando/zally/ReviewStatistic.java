@@ -10,21 +10,21 @@ import java.time.ZoneOffset;
 import java.util.Objects;
 
 @Entity
-public class ReportStatistic implements Serializable {
+public class ReviewStatistic implements Serializable {
 
     @Id
     private String name;
 
     @Column(nullable = false)
-    private int value;
+    private double value;
 
     @Column(nullable = false)
     private LocalDate day;
 
-    protected ReportStatistic() {
+    protected ReviewStatistic() {
     }
 
-    public ReportStatistic(String name, int value) {
+    public ReviewStatistic(String name, double value) {
         this.name = name;
         this.value = value;
         day = Instant.now().atOffset(ZoneOffset.UTC).toLocalDate();
@@ -38,11 +38,11 @@ public class ReportStatistic implements Serializable {
         this.name = name;
     }
 
-    public int getValue() {
+    public double getValue() {
         return value;
     }
 
-    public void setValue(int value) {
+    public void setValue(double value) {
         this.value = value;
     }
 
@@ -59,7 +59,7 @@ public class ReportStatistic implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ReportStatistic that = (ReportStatistic) o;
+        ReviewStatistic that = (ReviewStatistic) o;
         return Objects.equals(name, that.name)
             && Objects.equals(value, that.value)
             && Objects.equals(day, that.day);

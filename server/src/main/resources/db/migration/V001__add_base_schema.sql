@@ -6,13 +6,13 @@ CREATE TABLE api_review_request (
   created               TIMESTAMP WITHOUT TIME ZONE NOT NULL
 );
 
-CREATE TABLE report_statistic (
+CREATE TABLE review_statistic (
   name  TEXT PRIMARY KEY,
-  value INTEGER NOT NULL,
+  value DOUBLE PRECISION NOT NULL,
   day   DATE NOT NULL
 );
 
-ALTER TABLE report_statistic ADD CONSTRAINT unique_value_per_day UNIQUE (name, value, day);
+ALTER TABLE review_statistic ADD CONSTRAINT unique_value_per_day UNIQUE (name, value, day);
 
 CREATE INDEX api_review_request_created_idx ON api_review_request (created);
-CREATE INDEX report_statistic_day_idx ON report_statistic (day);
+CREATE INDEX report_statistic_day_idx ON review_statistic (day);

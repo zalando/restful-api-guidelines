@@ -19,12 +19,12 @@ public class StatisticsJob {
     private static final long DAILY_IN_MS = 24 * 60 * 60 * 1000L;
 
     private final ApiReviewRequestRepository repository;
-    private final ReportStatisticRepository statisticRepository;
+    private final ReviewStatisticRepository statisticRepository;
     private final RulesValidator rulesValidator;
 
     @Autowired
     public StatisticsJob(ApiReviewRequestRepository repository,
-                         ReportStatisticRepository statisticRepository,
+                         ReviewStatisticRepository statisticRepository,
                          RulesValidator rulesValidator) {
         this.repository = repository;
         this.statisticRepository = statisticRepository;
@@ -48,18 +48,18 @@ public class StatisticsJob {
     }
 
     private void reportApiReviewRequests(Collection<ApiReviewRequest> reviewRequests) {
-        statisticRepository.save(new ReportStatistic("api-reviews.all", reviewRequests.size()));
+        statisticRepository.save(new ReviewStatistic("api-reviews.all", reviewRequests.size()));
     }
 
     private void reportViolationsCount(List<Violation> violations) {
-        statisticRepository.save(new ReportStatistic("api-reviews.violations.all", violations.size()));
+        statisticRepository.save(new ReviewStatistic("api-reviews.violations.all", violations.size()));
     }
 
     private void reportViolationTypes(Collection<Violation> violations) {
         violations.stream()
             .collect(Collectors.groupingBy(Violation::getViolationType))
             .forEach((violationType, v) ->
-                statisticRepository.save(new ReportStatistic(
+                statisticRepository.save(new ReviewStatistic(
                     "api-reviews.violations.type." + violationType.name().toLowerCase(), v.size()))
             );
     }
@@ -68,7 +68,7 @@ public class StatisticsJob {
         violations.stream()
             .collect(Collectors.groupingBy(Violation::getRule))
             .forEach((violationType, v) ->
-                statisticRepository.save(new ReportStatistic(
+                statisticRepository.save(new ReviewStatistic(
                     "api-reviews.violations.rule." + toLowercaseWithDashes(violationType.getName()), v.size()))
             );
     }
@@ -77,4 +77,3 @@ public class StatisticsJob {
         return str.toLowerCase().replace(' ', '-');
     }
 }
-
