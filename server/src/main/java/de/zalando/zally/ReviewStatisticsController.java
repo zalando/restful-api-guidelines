@@ -43,12 +43,8 @@ public class ReviewStatisticsController {
             throw new UnsufficientTimeIntervalParameterException();
         }
 
-        if (to == null) {
-            to = Instant.now().atOffset(ZoneOffset.UTC).toLocalDate();
-        }
-
         final List<ReviewStatistic> statistics = from != null
-            ? repository.findByDayBetween(from, to)
+            ? repository.findByDayBetween(from, to != null ? to : today())
             : repository.findAllFromLastWeek();
 
         LOG.info("Found {} statistics from {} to {}", statistics.size(), from, to);
