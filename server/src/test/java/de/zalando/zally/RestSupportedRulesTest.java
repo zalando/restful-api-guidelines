@@ -1,46 +1,29 @@
 package de.zalando.zally;
 
-import static java.util.Collections.sort;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import de.zalando.zally.rules.Rule;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.TestPropertySource;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.embedded.LocalServerPort;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import static java.util.Collections.sort;
+import static org.assertj.core.api.Assertions.assertThat;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(
-        webEnvironment = RANDOM_PORT,
-        classes = {Application.class, RestApiTestConfiguration.class}
-)
-@ActiveProfiles("test")
 @TestPropertySource(properties = "zally.ignoreRules=M001,S001,C001")
-public class RestSupportedRulesTest {
-    @LocalServerPort
-    protected int port;
+public class RestSupportedRulesTest extends RestApiBaseTest {
 
     @Autowired
     private List<Rule> implementedRules;
 
     private final List<String> ignoredRules = Arrays.asList("M001", "S001", "C001");
-
-    protected final TestRestTemplate restTemplate = new TestRestTemplate();
 
     @Test
     public void shouldReturn200WhenEverythingIsOk() throws Exception {
@@ -121,22 +104,23 @@ public class RestSupportedRulesTest {
         assertThat(rules.size()).isEqualTo(expectedRules.size());
     }
 
-    protected ResponseEntity<JsonNode> sendRequest(String url) {
+    @Override
+    String getUrl() {
+        return "/supported-rules";
+    }
+
+    private ResponseEntity<JsonNode> sendRequest(String url) {
         return restTemplate.getForEntity(url, JsonNode.class);
     }
 
-    protected String getUrl() {
-        return "http://localhost:" + port + "/supported-rules";
-    }
-
-    protected List<Rule> getRulesByType(final ViolationType violationType) {
+    private List<Rule> getRulesByType(final ViolationType violationType) {
         return implementedRules
-                .stream()
-                .filter(r -> r.getViolationType() == violationType)
-                .collect(Collectors.toList());
+            .stream()
+            .filter(r -> r.getViolationType() == violationType)
+            .collect(Collectors.toList());
     }
 
-    protected ArrayNode getRulesFromUrl(final String url) {
+    private ArrayNode getRulesFromUrl(final String url) {
         final ResponseEntity<JsonNode> responseEntity = sendRequest(url);
         final JsonNode result = responseEntity.getBody();
         return (ArrayNode) result.get("rules");

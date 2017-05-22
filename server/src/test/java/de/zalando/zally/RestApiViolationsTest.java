@@ -8,7 +8,7 @@ import net.jadler.stubbing.server.jdk.JdkStubHttpServer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.autoconfigure.LocalManagementPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
@@ -33,20 +33,24 @@ import static org.assertj.core.api.Assertions.assertThat;
 @TestPropertySource(properties = "zally.message=Test message")
 public class RestApiViolationsTest extends RestApiBaseTest {
 
-    @Autowired
-    private ApiReviewRequestRepository apiReviewRequestRepository;
+    @LocalManagementPort
+    private int managementPort;
 
     private final String notAccessibleApiDefinitionUrl = "{\"api_definition_url\": \"http://bad.example.localhost/test.yaml\"}";
 
     @Before
     public void setUp() {
         initJadlerUsing(new JdkStubHttpServer());
-        apiReviewRequestRepository.deleteAll();
     }
 
     @After
     public void tearDown() {
         closeJadler();
+    }
+
+    @Override
+    String getUrl() {
+        return "/api-violations";
     }
 
     @Test

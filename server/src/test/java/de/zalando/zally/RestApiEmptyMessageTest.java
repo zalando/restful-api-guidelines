@@ -14,10 +14,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @TestPropertySource(properties = "zally.message=")
 public class RestApiEmptyMessageTest extends RestApiBaseTest {
+
+    @Override
+    String getUrl() {
+        return "/api-violations";
+    }
+
     @Test
     public void shouldNotContainMessageFieldWhenMessageIsEmpty() throws IOException {
         ResponseEntity<JsonNode> responseEntity = sendRequest(
-                new ObjectMapper().readTree(ResourceUtils.getFile("src/test/resources/fixtures/api_spp.json")));
+            new ObjectMapper().readTree(ResourceUtils.getFile("src/test/resources/fixtures/api_spp.json")));
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
 
         JsonNode rootObject = responseEntity.getBody();
