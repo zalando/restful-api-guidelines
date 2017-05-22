@@ -14,10 +14,10 @@ public final class TestDateUtil {
     }
 
     public static OffsetDateTime yesterday() {
-        return Instant.now().atOffset(ZoneOffset.UTC).minusDays(1L);
+        return now().minusDays(1L);
     }
 
     public static OffsetDateTime tomorrow() {
-        return Instant.now().atOffset(ZoneOffset.UTC).plusDays(1L);
+        return now().plusDays(1L);
     }
 }
