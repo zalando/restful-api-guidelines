@@ -1,22 +1,28 @@
 swagger: '2.0'
+
 info:
  title: Zally
  description: Zalando's API Linter
- version: "0.0.1"
+ version: "1.1.0"
  contact:
-   name: Felix Mueller
-   email: felix.mueller2@zalando.de
-host: "zally.architecture.zalan.do"
+   name: Team API Management
+   email: team-api-management@zalando.de
+
+host: "zally.overarching.zalan.do"
+
 schemes:
   - https
+
 basePath: /
+
 securityDefinitions:
   oauth2:
     type: oauth2
-    authorizationUrl: https://auth.zalando.com/oauth2/authorize
+    tokenUrl: https://somewhere.on.the.internet
     flow: password
     scopes:
       uid: submit API specification for validation
+
 parameters:
   Authorization:
     name: Authorization
@@ -50,6 +56,20 @@ parameters:
     description: Is Rule Active
     required: false
     type: boolean
+  From:
+    name: from
+    in: query
+    description: All review statistics from this day
+    required: false
+    type: string
+    format: date
+  To:
+    name: to
+    in: query
+    description: All review statistics til this day, only works in conjunction with from parameter
+    required: false
+    type: string
+    format: date
 
 paths:
   '/api-violations':
@@ -84,6 +104,7 @@ paths:
       security:
         - oauth2:
           - uid
+
   '/supported-rules':
     get:
       summary:
@@ -115,6 +136,39 @@ paths:
       security:
         - oauth2:
           - uid
+
+  '/review-statistics':
+      get:
+        summary:
+          Provides query capabilites for automatically computed review statistics.
+        description: |
+          Returns a list of all review statistics for a given interval in time.
+          If none of the query parameters is supplied, a list of all review statistics
+          for the last week is returned.
+        parameters:
+          - $ref: '#/parameters/Authorization'
+          - $ref: '#/parameters/From'
+          - $ref: '#/parameters/To'
+        consumes:
+          - application/json
+        produces:
+          - application/json
+        responses:
+          200:
+            description: List of queried review statistics
+            schema:
+              $ref: '#/definitions/ReviewStatisticsResponse'
+          400:
+            description: One of the query parameters is incorrect
+            schema:
+              $ref: 'https://zalando.github.io/problem/schema.yaml#/Problem'
+          default:
+            description: An array of error objects
+            schema:
+              $ref: 'https://zalando.github.io/problem/schema.yaml#/Problem'
+        security:
+          - oauth2:
+            - uid
 
 definitions:
   LintingRequest:
@@ -151,6 +205,36 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/Rule'
+
+  ReviewStatisticsResponse:
+    type: object
+    description: Review statistics for a given interval in time
+    required:
+      - review_statistics
+    properties:
+      review_statistics:
+        type: array
+        items:
+          $ref: '#/definitions/ReviewStatistic'
+
+  ReviewStatistic:
+    type: object
+    description: One statistic for API reviews on a certain day
+    required:
+      - name
+      - value
+      - day
+    properties:
+      name:
+        type: string
+        example: 'api-reviews.all'
+      value:
+        type: number
+        example: 129.0
+      day:
+        type: string
+        format: date
+        example: '2017-09-21'
 
   Violation:
     type: object
