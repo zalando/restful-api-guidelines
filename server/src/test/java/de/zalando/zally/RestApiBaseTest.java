@@ -21,10 +21,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public abstract class RestApiBaseTest {
 
     @Autowired
-    TestRestTemplate restTemplate;
+    protected TestRestTemplate restTemplate;
 
     @Autowired
-    ApiReviewRequestRepository apiReviewRequestRepository;
+    protected ApiReviewRequestRepository apiReviewRequestRepository;
 
     @Before
     public void cleanDatabase() {
