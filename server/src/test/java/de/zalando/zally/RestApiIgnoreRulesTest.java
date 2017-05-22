@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class RestApiIgnoreRulesTest extends RestApiBaseTest {
 
     @Override
-    String getUrl() {
+    protected String getUrl() {
         return "/api-violations";
     }
 

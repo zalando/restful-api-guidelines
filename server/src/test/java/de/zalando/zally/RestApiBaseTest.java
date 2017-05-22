@@ -31,7 +31,7 @@ public abstract class RestApiBaseTest {
         apiReviewRequestRepository.deleteAll();
     }
 
-    ResponseEntity<JsonNode> sendRequest(JsonNode body) {
+    protected ResponseEntity<JsonNode> sendRequest(JsonNode body) {
         ObjectNode requestBody = new ObjectMapper().createObjectNode();
         requestBody.set("api_definition", body);
         return restTemplate.postForEntity(
@@ -40,5 +40,5 @@ public abstract class RestApiBaseTest {
             JsonNode.class);
     }
 
-    abstract String getUrl();
+    protected abstract String getUrl();
 }

@@ -25,6 +25,11 @@ public class RestSupportedRulesTest extends RestApiBaseTest {
 
     private final List<String> ignoredRules = Arrays.asList("M001", "S001", "C001");
 
+    @Override
+    protected String getUrl() {
+        return "/supported-rules";
+    }
+
     @Test
     public void shouldReturn200WhenEverythingIsOk() throws Exception {
         final ResponseEntity<JsonNode> responseEntity = sendRequest(getUrl());
@@ -102,11 +107,6 @@ public class RestSupportedRulesTest extends RestApiBaseTest {
         final List<Rule> expectedRules = getRulesByType(ViolationType.valueOf(ruleType.toUpperCase()));
 
         assertThat(rules.size()).isEqualTo(expectedRules.size());
-    }
-
-    @Override
-    String getUrl() {
-        return "/supported-rules";
     }
 
     private ResponseEntity<JsonNode> sendRequest(String url) {
