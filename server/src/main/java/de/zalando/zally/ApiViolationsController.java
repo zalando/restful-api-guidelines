@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @CrossOrigin
-@RestController("/api-violations")
+@RestController
 public class ApiViolationsController {
 
     private final RulesValidator rulesValidator;
@@ -44,7 +44,7 @@ public class ApiViolationsController {
         this.message = message;
     }
 
-    @PostMapping
+    @PostMapping("/api-violations")
     public ResponseEntity<JsonNode> validate(@RequestBody JsonNode request) {
         metricServices.increment("meter.api-reviews.requested");
 
