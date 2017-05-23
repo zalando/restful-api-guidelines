@@ -17,7 +17,7 @@ var SupportedRulesCommand = cli.Command{
 }
 
 func listRules(c *cli.Context) error {
-	response, err := http.Get(fmt.Sprintf("%s/supported-rules", ZallyURL))
+	response, err := http.Get(fmt.Sprintf("%s/supported-rules", c.GlobalString("linter-service")))
 	if err != nil {
 		return err
 	}
