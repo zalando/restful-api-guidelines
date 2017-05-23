@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @CrossOrigin
-@RestController("/supported-rules")
+@RestController
 public class SupportedRulesController {
 
     private final List<Rule> rules;
@@ -38,7 +38,7 @@ public class SupportedRulesController {
         binder.registerCustomEditor(ViolationType.class, new ViolationTypeBinder());
     }
 
-    @GetMapping
+    @GetMapping("/supported-rules")
     public ResponseEntity<JsonNode> listSupportedRules(
             @RequestParam(value = "type", required = false) ViolationType typeFilter,
             @RequestParam(value = "is_active", required = false) Boolean isActiveFilter) {

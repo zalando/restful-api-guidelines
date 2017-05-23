@@ -1,6 +1,13 @@
 spring:
   profiles:
     active: production
+  datasource:
+    url: jdbc:hsqldb:mem:storage;sql.syntax_pgs=true
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: validate
   oauth2:
     resource:
       tokenInfoUri: "https://info.services.auth.zalando.com/oauth2/tokeninfo"

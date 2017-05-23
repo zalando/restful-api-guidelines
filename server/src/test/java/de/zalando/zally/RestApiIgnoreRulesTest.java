@@ -1,19 +1,25 @@
 package de.zalando.zally;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.IOException;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.util.ResourceUtils;
 
+import java.io.IOException;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @TestPropertySource(properties = "zally.ignoreRules=H999")
 public class RestApiIgnoreRulesTest extends RestApiBaseTest {
+
+    @Override
+    protected String getUrl() {
+        return "/api-violations";
+    }
+
     @Test
     public void shouldIgnoreSpecifiedRules() throws Exception {
         final JsonNode rootObject = getRootObject();
@@ -36,7 +42,7 @@ public class RestApiIgnoreRulesTest extends RestApiBaseTest {
 
     private JsonNode getRootObject() throws IOException {
         final ResponseEntity<JsonNode> responseEntity = sendRequest(
-                new ObjectMapper().readTree(ResourceUtils.getFile("src/test/resources/fixtures/api_spp.json")));
+            new ObjectMapper().readTree(ResourceUtils.getFile("src/test/resources/fixtures/api_spp.json")));
 
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
 

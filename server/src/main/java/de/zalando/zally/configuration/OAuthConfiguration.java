@@ -36,23 +36,24 @@ class OAuthConfiguration extends ResourceServerConfigurerAdapter {
     @Override
     public void configure(final HttpSecurity http) throws Exception {
         http
-                .httpBasic().disable()
-                .requestMatchers().antMatchers("/**")
-                .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.NEVER)
-                .and()
-                .authorizeRequests()
-                .antMatchers("/health").permitAll()
-                .antMatchers("/metrics").access("#oauth2.hasScope('uid')")
-                .antMatchers("/api-violations").access("#oauth2.hasScope('uid')")
-                .antMatchers("/supported-rules").access("#oauth2.hasScope('uid')")
-                .antMatchers("**").denyAll();
+            .httpBasic().disable()
+            .requestMatchers().antMatchers("/**")
+            .and()
+            .sessionManagement()
+            .sessionCreationPolicy(SessionCreationPolicy.NEVER)
+            .and()
+            .authorizeRequests()
+            .antMatchers("/health").permitAll()
+            .antMatchers("/metrics",
+                "/api-violations",
+                "/supported-rules",
+                "/review-statistics").access("#oauth2.hasScope('uid')")
+            .antMatchers("**").denyAll();
 
         http
-                .exceptionHandling()
-                .authenticationEntryPoint(problemSupport)
-                .accessDeniedHandler(problemSupport);
+            .exceptionHandling()
+            .authenticationEntryPoint(problemSupport)
+            .accessDeniedHandler(problemSupport);
     }
 
     @Bean
