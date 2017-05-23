@@ -66,7 +66,7 @@ parameters:
   To:
     name: to
     in: query
-    description: All review statistics til this day, only works in conjunction with from parameter
+    description: All review statistics until this day, only works in conjunction with from parameter
     required: false
     type: string
     format: date
