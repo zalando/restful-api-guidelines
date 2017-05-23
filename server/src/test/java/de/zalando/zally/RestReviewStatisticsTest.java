@@ -73,22 +73,22 @@ public class RestReviewStatisticsTest extends RestApiBaseTest {
 
     @Test
     public void shouldReturnBadRequestForFromInTheFuture() {
-        expectBadRequestFor("?from=" + TestDateUtil.tomorrow().toLocalDate().toString());
+        assertBadRequestFor("?from=" + TestDateUtil.tomorrow().toLocalDate().toString());
     }
 
     @Test
     public void shouldReturnBadRequestForMalformedFromParameter() {
-        expectBadRequestFor("?from=nodate");
+        assertBadRequestFor("?from=nodate");
     }
 
     @Test
     public void shouldReturnBadRequestForMalformedToParameter() {
-        expectBadRequestFor("?to=nodate");
+        assertBadRequestFor("?to=nodate");
     }
 
     @Test
     public void shouldReturnBadRequestWhenToParameterIsProvidedWithoutFromParameter() {
-        expectBadRequestFor("?to=2017-01-10");
+        assertBadRequestFor("?to=2017-01-10");
     }
 
     private List<ReviewStatistic> createRandomReviewStatisticInBetween(LocalDate from, LocalDate to) {
@@ -107,7 +107,7 @@ public class RestReviewStatisticsTest extends RestApiBaseTest {
         return statistics;
     }
 
-    private void expectBadRequestFor(String queryParameter) throws AssertionError {
+    private void assertBadRequestFor(String queryParameter) throws AssertionError {
         assertThat(requestStatistics(queryParameter).getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
     }
 
