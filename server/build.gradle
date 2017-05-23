@@ -53,7 +53,16 @@ targetCompatibility = 1.8
 dependencies {
     compile("io.swagger:swagger-parser:1.0.28")
     compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-undertow")
     compile("org.springframework.boot:spring-boot-starter-actuator")
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile('org.flywaydb:flyway-core:4.1.2')
+    compile('org.hsqldb:hsqldb:2.3.3')
+    compile('org.postgresql:postgresql:42.1.1')
+    compile('org.hibernate:hibernate-core:5.2.9.Final')
+    compile('org.jadira.usertype:usertype.core:6.0.1.GA')
+    compile('com.fasterxml.jackson.module:jackson-module-parameter-names:2.8.7')
+    compile('com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.8.7')
     compile("org.zalando.stups:stups-spring-oauth2-server:1.0.18")
     compile("org.zalando:problem-spring-web:0.19.0")
     compile("org.zalando:twintip-spring-web:1.1.0")
@@ -72,6 +81,7 @@ dependencies {
     testCompile("net.jadler:jadler-junit:1.3.0")
     testCompile("org.springframework.boot:spring-boot-starter-test")
     testCompile("org.assertj:assertj-core:3.7.0")
+    testCompile('com.jayway.jsonpath:json-path-assert:2.2.0')
 
     ktlint("com.github.shyiko:ktlint:0.6.1")
 }

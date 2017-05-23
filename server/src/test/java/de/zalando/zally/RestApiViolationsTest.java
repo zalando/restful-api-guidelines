@@ -8,6 +8,7 @@ import net.jadler.stubbing.server.jdk.JdkStubHttpServer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.boot.actuate.autoconfigure.LocalManagementPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
@@ -32,6 +33,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 @TestPropertySource(properties = "zally.message=Test message")
 public class RestApiViolationsTest extends RestApiBaseTest {
 
+    @LocalManagementPort
+    private int managementPort;
+
+    private final String notAccessibleApiDefinitionUrl = "{\"api_definition_url\": \"http://bad.example.localhost/test.yaml\"}";
+
     @Before
     public void setUp() {
         initJadlerUsing(new JdkStubHttpServer());
@@ -40,6 +46,11 @@ public class RestApiViolationsTest extends RestApiBaseTest {
     @After
     public void tearDown() {
         closeJadler();
+    }
+
+    @Override
+    protected String getUrl() {
+        return "/api-violations";
     }
 
     @Test
@@ -84,7 +95,6 @@ public class RestApiViolationsTest extends RestApiBaseTest {
         JsonNode rootObject = metricsResponse.getBody();
         assertThat(rootObject.has("meter.api-reviews.requested.fifteenMinuteRate")).isTrue();
         assertThat(rootObject.has("meter.api-reviews.processed.fifteenMinuteRate")).isTrue();
-        assertThat(rootObject.has("meter.api-reviews.violations.rule.checkapinameispresentrule.fifteenMinuteRate")).isTrue();
     }
 
     @Test
@@ -188,7 +198,7 @@ public class RestApiViolationsTest extends RestApiBaseTest {
         final RequestEntity requestEntity = RequestEntity
             .post(URI.create(getUrl()))
             .contentType(MediaType.APPLICATION_JSON)
-            .body("{\"api_definition_url\": \"http://bad.example.localhost/test.yaml\"}");
+            .body(notAccessibleApiDefinitionUrl);
 
         final ResponseEntity<JsonNode> responseEntity = restTemplate.exchange(requestEntity, JsonNode.class);
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
@@ -210,6 +220,23 @@ public class RestApiViolationsTest extends RestApiBaseTest {
 
         final JsonNode rootObject = responseEntity.getBody();
         assertThat(rootObject.get("detail").asText()).isEqualTo("404 Not Found");
+    }
+
+    @Test
+    public void shouldStoreSuccessfulApiReviewRequest() throws IOException {
+        sendRequest(new ObjectMapper().readTree(ResourceUtils.getFile("src/test/resources/fixtures/api_spp.json")));
+        assertThat(apiReviewRequestRepository.count()).isEqualTo(1L);
+        assertThat(apiReviewRequestRepository.findAll().iterator().next().isSuccessfulProcessed()).isTrue();
+    }
+
+    @Test
+    public void shouldStoreUnsuccessfulApiReviewRequest() throws IOException {
+        restTemplate.exchange(RequestEntity
+            .post(URI.create(getUrl()))
+            .contentType(MediaType.APPLICATION_JSON)
+            .body(notAccessibleApiDefinitionUrl), JsonNode.class);
+        assertThat(apiReviewRequestRepository.count()).isEqualTo(1L);
+        assertThat(apiReviewRequestRepository.findAll().iterator().next().isSuccessfulProcessed()).isFalse();
     }
 
     private String getLocalUrl(final String resourceFilePath, final String contentType) throws Exception {

@@ -6,6 +6,15 @@ endpoints:
     enabled: true
     sensitive: false
 
+spring:
+  datasource:
+    url: jdbc:hsqldb:mem:storage;sql.syntax_pgs=true
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: validate
+
 security:
   basic:
     enabled: false
