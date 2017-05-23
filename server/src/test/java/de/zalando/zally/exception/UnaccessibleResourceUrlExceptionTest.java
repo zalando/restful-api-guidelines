@@ -10,7 +10,7 @@ public class UnaccessibleResourceUrlExceptionTest {
     @Test
     public void shouldReturnParametersSpecifiedInConstructor() {
         final UnaccessibleResourceUrlException exception = new UnaccessibleResourceUrlException(
-                "Test Message", HttpStatus.BAD_REQUEST);
+            "Test Message", HttpStatus.BAD_REQUEST);
 
         assertEquals("Test Message", exception.getMessage());
         assertEquals(HttpStatus.BAD_REQUEST, exception.getHttpStatus());
