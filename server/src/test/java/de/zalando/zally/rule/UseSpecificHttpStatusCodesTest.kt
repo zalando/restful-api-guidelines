@@ -1,4 +1,4 @@
-package de.zalando.zally.rules
+package de.zalando.zally.rule
 
 import de.zalando.zally.swaggerWithOperations
 import de.zalando.zally.testConfig
