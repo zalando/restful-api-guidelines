@@ -17,7 +17,7 @@ val testConfig: Config by lazy {
     ConfigFactory.load("rules-config-test.conf")
 }
 
-val testMetricRegistry : MetricRegistry by lazy {
+val testMetricRegistry: MetricRegistry by lazy {
     MetricRegistry()
 }
 
@@ -28,16 +28,16 @@ val testMetricServices: DropwizardMetricServices by lazy {
 fun getFixture(fileName: String): Swagger = SwaggerParser().read("fixtures/$fileName")
 
 fun swaggerWithPaths(vararg specificPaths: String): Swagger =
-        Swagger().apply {
-            paths = specificPaths.map { it to Path() }.toMap()
-        }
+    Swagger().apply {
+        paths = specificPaths.map { it to Path() }.toMap()
+    }
 
 fun swaggerWithHeaderParams(vararg names: String) =
-        Swagger().apply {
-            parameters = names.map { header ->
-                header to HeaderParameter().apply { name = header }
-            }.toMap()
-        }
+    Swagger().apply {
+        parameters = names.map { header ->
+            header to HeaderParameter().apply { name = header }
+        }.toMap()
+    }
 
 fun swaggerWithDefinitions(vararg defs: Pair<String, List<String>>): Swagger =
         Swagger().apply {

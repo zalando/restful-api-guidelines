@@ -1,7 +1,5 @@
 package de.zalando.zally;
 
-import java.util.concurrent.TimeUnit;
-
 import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.Slf4jReporter;
 import org.slf4j.LoggerFactory;
@@ -9,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
+
+import java.util.concurrent.TimeUnit;
 
 @Component
 public class MetricsExporter implements ApplicationListener<ApplicationReadyEvent> {
@@ -23,10 +23,10 @@ public class MetricsExporter implements ApplicationListener<ApplicationReadyEven
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
         final Slf4jReporter reporter = Slf4jReporter.forRegistry(metricRegistry)
-                .outputTo(LoggerFactory.getLogger(MetricsExporter.class))
-                .convertRatesTo(TimeUnit.SECONDS)
-                .convertDurationsTo(TimeUnit.MILLISECONDS)
-                .build();
+            .outputTo(LoggerFactory.getLogger(MetricsExporter.class))
+            .convertRatesTo(TimeUnit.SECONDS)
+            .convertDurationsTo(TimeUnit.MILLISECONDS)
+            .build();
         reporter.start(1, TimeUnit.MINUTES);
     }
 }
