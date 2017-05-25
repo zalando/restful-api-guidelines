@@ -1,4 +1,4 @@
-package main
+package domain
 
 // Violation keeps information about Zally violations
 type Violation struct {

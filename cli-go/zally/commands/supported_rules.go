@@ -1,4 +1,4 @@
-package main
+package commands
 
 import (
 	"fmt"
@@ -8,6 +8,7 @@ import (
 
 	"github.com/logrusorgru/aurora"
 	"github.com/urfave/cli"
+	"github.com/zalando-incubator/zally/cli-go/zally/domain"
 )
 
 // SupportedRulesCommand lists supported rules
@@ -28,7 +29,7 @@ func listRules(c *cli.Context) error {
 
 	decoder := json.NewDecoder(response.Body)
 
-	var rules Rules
+	var rules domain.Rules
 	decoder.Decode(&rules)
 
 	for _, rule := range rules.Rules {
@@ -51,7 +52,7 @@ func buildRequest(httpVerb string, path string, context *cli.Context) (request *
 	return req
 }
 
-func printRule(rule *Rule) {
+func printRule(rule *domain.Rule) {
 	colorize := colorizeByTypeFunc(rule.Type)
 	fmt.Printf("%s %s: %s\n\t%s\n\n", colorize(rule.Code), colorize(rule.Type), rule.Title, rule.URL)
 }

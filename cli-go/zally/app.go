@@ -1,6 +1,9 @@
 package main
 
-import "github.com/urfave/cli"
+import (
+	"github.com/urfave/cli"
+	"github.com/zalando-incubator/zally/cli-go/zally/commands"
+)
 
 // CreateApp creates CLI application with defined commands
 func CreateApp() *cli.App {
@@ -10,7 +13,7 @@ func CreateApp() *cli.App {
 	app.Usage = "Zally Command Line Interface"
 
 	app.Commands = []cli.Command{
-		SupportedRulesCommand,
+		commands.SupportedRulesCommand,
 	}
 
 	app.Flags = []cli.Flag{
