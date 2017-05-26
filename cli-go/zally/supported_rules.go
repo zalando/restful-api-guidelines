@@ -17,18 +17,9 @@ var SupportedRulesCommand = cli.Command{
 }
 
 func listRules(c *cli.Context) error {
-	oauth2Token := c.GlobalString("token")
 	client := &http.Client{}
-	req, err := http.NewRequest("GET", fmt.Sprintf("%s/supported-rules", c.GlobalString("linter-service")), nil)
-	if err != nil {
-		return err
-	}
-
-	if len(oauth2Token) > 0 {
-		req.Header.Add("Authorization", fmt.Sprintf("Bearer %s", oauth2Token))
-	}
-
-	response, err := client.Do(req)
+	request := buildRequest("GET", fmt.Sprintf("%s/supported-rules", c.GlobalString("linter-service")), c)
+	response, err := client.Do(request)
 
 	if err != nil {
 		return err
@@ -44,6 +35,19 @@ func listRules(c *cli.Context) error {
 	}
 
 	return nil
+}
+
+func buildRequest(httpVerb string, path string, context *cli.Context) (request *http.Request) {
+	req, err := http.NewRequest(httpVerb, path, nil)
+	if err != nil {
+		panic(err)
+	}
+
+	oauth2Token := context.GlobalString("token")
+	if len(oauth2Token) > 0 {
+		req.Header.Add("Authorization", fmt.Sprintf("Bearer %s", oauth2Token))
+	}
+	return req
 }
 
 func printRule(rule *Rule) {
