@@ -54,6 +54,38 @@ func TestApp(t *testing.T) {
 		app.Run([]string{"", "-l", "https://localhost:9091"})
 		app.Run([]string{"", "--linter-service", "https://localhost:9091"})
 	})
+
+	t.Run("has_token_flag", func(t *testing.T) {
+		app := CreateApp()
+		assertEquals(t, "token, t", app.Flags[1].GetName())
+	})
+
+	t.Run("token_can_be_set_from_env", func(t *testing.T) {
+		app := CreateApp()
+		app.Before = func(c *cli.Context) error {
+			assertEquals(t, "some-oauth2-token", c.String("token"))
+			return nil
+		}
+
+		os.Clearenv()
+		os.Setenv("TOKEN", "some-oauth2-token")
+
+		app.Run([]string{""})
+
+		os.Clearenv()
+	})
+
+	t.Run("token_can_be_set_from_cli", func(t *testing.T) {
+		app := CreateApp()
+		app.Before = func(c *cli.Context) error {
+			assertEquals(t, "some-oauth2-token", c.String("token"))
+			return nil
+		}
+
+		app.Run([]string{"", "-t", "some-oauth2-token"})
+		app.Run([]string{"", "--token", "some-oauth2-token"})
+	})
+
 }
 
 func assertEquals(t *testing.T, expected interface{}, actual interface{}) {

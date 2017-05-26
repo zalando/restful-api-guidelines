@@ -20,6 +20,11 @@ func CreateApp() *cli.App {
 			Value:  "http://localhost:8080",
 			EnvVar: "ZALLY_URL",
 		},
+		cli.StringFlag{
+			Name:   "token, t",
+			Usage:  "OAuth2 Token `OAUTH2_TOKEN`",
+			EnvVar: "TOKEN",
+		},
 	}
 
 	return app

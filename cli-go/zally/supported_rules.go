@@ -17,7 +17,15 @@ var SupportedRulesCommand = cli.Command{
 }
 
 func listRules(c *cli.Context) error {
-	response, err := http.Get(fmt.Sprintf("%s/supported-rules", c.GlobalString("linter-service")))
+	oauth2Token := c.GlobalString("token")
+	client := &http.Client{}
+	req, _ := http.NewRequest("GET", fmt.Sprintf("%s/supported-rules", c.GlobalString("linter-service")), nil)
+	if len(oauth2Token) > 0 {
+		req.Header.Add("Authorization", fmt.Sprintf("Bearer %s", oauth2Token))
+	}
+
+	response, err := client.Do(req)
+
 	if err != nil {
 		return err
 	}
