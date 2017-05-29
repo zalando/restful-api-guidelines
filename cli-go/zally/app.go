@@ -14,6 +14,7 @@ func CreateApp() *cli.App {
 
 	app.Commands = []cli.Command{
 		commands.SupportedRulesCommand,
+		commands.LintCommand,
 	}
 
 	app.Flags = []cli.Flag{
