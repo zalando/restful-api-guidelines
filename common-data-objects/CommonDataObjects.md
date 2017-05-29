@@ -11,19 +11,26 @@ Use the following common money structure:
       properties:
         amount:
           type: number
+          description: Amount expressed as a decimal number of major currency units
           format: decimal
           example: 99.95
         currency:
           type: string
+          description: 3 letter currency code as defined by ISO-4217
           format: iso-4217
           example: EUR
       required:
         - amount
         - currency
 
-The `amount` field must not assume that consumers apply any kind of conversion, e.g. division by 100 to get Euros from a Cent value. Decimal values can represent unit and subunit at once, so the only correct representation for 42 Euros and 23 Cents is:
+The decimal values for "amount" describe unit and subunit of the currency in a single value, where
+the digits before the decimal point are for the major unit and the digits after the decimal point are
+for the minor unit. Examples for correct representations (in EUR):
 
-    { "amount": "42.23", "currency": "EUR" }
+- `42.23` = 42 Euros, 23 Cent
+- `0.23` = 23 Cent
+- `42.0` = 42 Euros
+- `1024.42` = 1024 Euros, 42 Cent
 
 Make sure that you don’t convert the “amount” field to `float` / `double` types when implementing
 this interface in a specific language or when doing calculations. Otherwise, you might lose
