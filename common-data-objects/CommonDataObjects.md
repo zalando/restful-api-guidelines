@@ -21,6 +21,10 @@ Use the following common money structure:
         - amount
         - currency
 
+The `amount` field must not assume that consumers apply any kind of conversion, e.g. division by 100 to get Euros from a Cent value. Decimal values can represent unit and subunit at once, so the only correct representation for 42 Euros and 23 Cents is:
+
+    { "amount": "42.23", "currency": "EUR" }
+
 Make sure that you don’t convert the “amount” field to `float` / `double` types when implementing
 this interface in a specific language or when doing calculations. Otherwise, you might lose
 precision. Instead, use exact formats like
