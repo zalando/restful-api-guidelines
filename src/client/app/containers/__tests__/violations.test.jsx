@@ -1,5 +1,5 @@
 import React from 'react';
-import {Violations} from '../violations.jsx';
+import {Violations, ViolationsTab} from '../violations.jsx';
 import {shallow} from 'enzyme';
 
 describe('Violations container component', () => {
@@ -73,6 +73,16 @@ describe('Violations container component', () => {
           done.fail(e);
         }
       });
+    });
+  });
+
+  describe('when we render the violation title', () => {
+    test('links should open a new tab/page', () => {
+      const violationsTab = shallow(<ViolationsTab {...props} />);
+      const links = violationsTab.find('.dc-h4 a');
+      for (let i = links.length - 1; i >= 0; i--) {
+        expect(links.at(i).props().target).toBe('_blank');
+      }
     });
   });
 });
