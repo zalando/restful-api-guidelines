@@ -56,11 +56,17 @@ func printRule(rule *Rule) {
 	fmt.Printf("%s %s: %s\n\t%s\n\n", colorize(rule.Code), colorize(rule.Type), rule.Title, rule.URL)
 }
 
-func colorizeByTypeFunc(ruleType string) func(interface {}) aurora.Value {
+func colorizeByTypeFunc(ruleType string) func(interface{}) aurora.Value {
 	switch ruleType {
-	case "MUST": return aurora.Red
-	case "SHOULD": return aurora.Brown
-	case "HINT": return aurora.Green
-	default: return aurora.Gray
+	case "MUST":
+		return aurora.Red
+	case "SHOULD":
+		return aurora.Brown
+	case "MAY":
+		return aurora.Green
+	case "HINT":
+		return aurora.Cyan
+	default:
+		return aurora.Gray
 	}
 }
