@@ -13,6 +13,7 @@ import (
 	"github.com/urfave/cli"
 	"github.com/zalando-incubator/zally/cli-go/zally/domain"
 	"github.com/zalando-incubator/zally/cli-go/zally/readers"
+	"github.com/zalando-incubator/zally/cli-go/zally/utils"
 )
 
 // LintCommand lints given API definition file
@@ -66,9 +67,13 @@ func doRequest(baseURL string, token string, data json.RawMessage) (*domain.Viol
 		return nil, err
 	}
 
+	requestBuilder := utils.NewRequestBuilder(baseURL, token)
+	request, err := requestBuilder.Build("POST", "/api-violations", bytes.NewBuffer(requestBody))
+	if err != nil {
+		return nil, err
+	}
+
 	client := &http.Client{}
-	request := buildRequest("POST", fmt.Sprintf("%s/api-violations", baseURL), token, bytes.NewBuffer(requestBody))
-	request.Header.Add("Content-Type", "application/json")
 	response, err := client.Do(request)
 	if err != nil {
 		return nil, err

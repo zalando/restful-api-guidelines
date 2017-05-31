@@ -9,6 +9,7 @@ import (
 	"github.com/logrusorgru/aurora"
 	"github.com/urfave/cli"
 	"github.com/zalando-incubator/zally/cli-go/zally/domain"
+	"github.com/zalando-incubator/zally/cli-go/zally/utils"
 )
 
 // SupportedRulesCommand lists supported rules
@@ -20,13 +21,13 @@ var SupportedRulesCommand = cli.Command{
 
 func listRules(c *cli.Context) error {
 	client := &http.Client{}
-	request := buildRequest(
-		"GET",
-		fmt.Sprintf("%s/supported-rules", c.GlobalString("linter-service")),
-		c.GlobalString("token"),
-		nil)
-	response, err := client.Do(request)
+	requestBuilder := utils.NewRequestBuilder(c.GlobalString("linter-service"), c.GlobalString("token"))
+	request, err := requestBuilder.Build("GET", "/supported-rules", nil)
+	if err != nil {
+		return err
+	}
 
+	response, err := client.Do(request)
 	if err != nil {
 		return err
 	}
