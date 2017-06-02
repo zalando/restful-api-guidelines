@@ -4,11 +4,12 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
-	"path/filepath"
 
 	"encoding/json"
 
 	"bytes"
+
+	"path/filepath"
 
 	"github.com/urfave/cli"
 	"github.com/zalando-incubator/zally/cli-go/zally/domain"
@@ -20,22 +21,29 @@ import (
 var LintCommand = cli.Command{
 	Name:      "lint",
 	Usage:     "Lint given `FILE` with API definition",
-	Action:    lintFile,
+	Action:    lint,
 	ArgsUsage: "FILE",
 }
 
-func lintFile(c *cli.Context) error {
+func lint(c *cli.Context) error {
 	if !c.Args().Present() {
 		cli.ShowCommandHelp(c, c.Command.Name)
 		return fmt.Errorf("Please specify Swagger File")
 	}
 
-	data, err := readFile(c.Args().First())
+	path := c.Args().First()
+	requestBuilder := utils.NewRequestBuilder(c.GlobalString("linter-service"), c.GlobalString("token"))
+
+	return lintFile(path, requestBuilder)
+}
+
+func lintFile(path string, requestBuilder *utils.RequestBuilder) error {
+	data, err := readFile(path)
 	if err != nil {
 		return err
 	}
 
-	violations, err := doRequest(c.GlobalString("linter-service"), c.GlobalString("token"), data)
+	violations, err := doRequest(requestBuilder, data)
 
 	fmt.Print("Violations:\n===========\n\n")
 	fmt.Print(violations.ToString())
@@ -43,8 +51,8 @@ func lintFile(c *cli.Context) error {
 	return err
 }
 
-func readFile(file string) (json.RawMessage, error) {
-	absolutePath, err := filepath.Abs(file)
+func readFile(path string) (json.RawMessage, error) {
+	absolutePath, err := filepath.Abs(path)
 	if err != nil {
 		return nil, err
 	}
@@ -59,7 +67,7 @@ func readFile(file string) (json.RawMessage, error) {
 	return reader.Read()
 }
 
-func doRequest(baseURL string, token string, data json.RawMessage) (*domain.Violations, error) {
+func doRequest(requestBuilder *utils.RequestBuilder, data json.RawMessage) (*domain.Violations, error) {
 	var apiViolationsRequest domain.APIViolationsRequest
 	apiViolationsRequest.APIDefinition = &data
 	requestBody, err := json.MarshalIndent(apiViolationsRequest, "", "  ")
@@ -67,7 +75,6 @@ func doRequest(baseURL string, token string, data json.RawMessage) (*domain.Viol
 		return nil, err
 	}
 
-	requestBuilder := utils.NewRequestBuilder(baseURL, token)
 	request, err := requestBuilder.Build("POST", "/api-violations", bytes.NewBuffer(requestBody))
 	if err != nil {
 		return nil, err
@@ -79,9 +86,20 @@ func doRequest(baseURL string, token string, data json.RawMessage) (*domain.Viol
 		return nil, err
 	}
 
+	if response.StatusCode != 200 {
+		defer response.Body.Close()
+		body, _ := ioutil.ReadAll(response.Body)
+
+		return nil, fmt.Errorf(
+			"Cannot submit file for linting. HTTP Status: %d, Response: %s", response.StatusCode, string(body))
+	}
+
 	decoder := json.NewDecoder(response.Body)
 	var violations domain.Violations
 	err = decoder.Decode(&violations)
+	if err != nil {
+		return nil, err
+	}
 
-	return &violations, err
+	return &violations, nil
 }

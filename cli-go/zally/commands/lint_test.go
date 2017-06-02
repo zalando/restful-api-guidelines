@@ -1,10 +1,17 @@
 package commands
 
 import (
+	"io/ioutil"
 	"testing"
 
 	"encoding/json"
 
+	"net/http"
+	"net/http/httptest"
+
+	"io"
+
+	"github.com/zalando-incubator/zally/cli-go/zally/domain"
 	"github.com/zalando-incubator/zally/cli-go/zally/utils"
 )
 
@@ -19,5 +26,42 @@ func TestReadFile(t *testing.T) {
 		data, err := readFile("testdata/minimal_swagger.json")
 		utils.AssertEquals(t, json.RawMessage("{\n  \"swagger\": \"2.0\"\n}"), data)
 		utils.AssertEquals(t, nil, err)
+	})
+}
+
+func TestDoRequest(t *testing.T) {
+	t.Run("returns_violations_when_success", func(t *testing.T) {
+		handler := func(w http.ResponseWriter, r *http.Request) {
+			fixture, _ := ioutil.ReadFile("testdata/violations_response.json")
+			w.Header().Set("Content-Type", "application/json")
+			io.WriteString(w, string(fixture))
+		}
+		testServer := httptest.NewServer(http.HandlerFunc(handler))
+		defer testServer.Close()
+
+		requestBuilder := utils.NewRequestBuilder(testServer.URL, "")
+		data, _ := readFile("testdata/minimal_swagger.json")
+
+		violations, err := doRequest(requestBuilder, data)
+
+		utils.AssertEquals(t, nil, err)
+		utils.AssertEquals(t, "First Violation", violations.Violations[0].Title)
+		utils.AssertEquals(t, "Second Violation", violations.Violations[1].Title)
+	})
+
+	t.Run("returns_error_if_http_error_occured", func(t *testing.T) {
+		handler := func(w http.ResponseWriter, r *http.Request) {
+			http.Error(w, "Not Found", 404)
+		}
+		testServer := httptest.NewServer(http.HandlerFunc(handler))
+		defer testServer.Close()
+
+		requestBuilder := utils.NewRequestBuilder(testServer.URL, "")
+		data, _ := readFile("testdata/minimal_swagger.json")
+
+		violations, err := doRequest(requestBuilder, data)
+
+		utils.AssertEquals(t, "Cannot submit file for linting. HTTP Status: 404, Response: Not Found\n", err.Error())
+		utils.AssertEquals(t, (*domain.Violations)(nil), violations)
 	})
 }
