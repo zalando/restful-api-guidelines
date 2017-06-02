@@ -6,5 +6,5 @@ import (
 
 // SpecsReader is an interface for all Swagger specification readers
 type SpecsReader interface {
-	read() (json.RawMessage, error)
+	Read() (json.RawMessage, error)
 }
