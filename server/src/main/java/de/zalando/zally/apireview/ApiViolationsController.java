@@ -29,7 +29,7 @@ public class ApiViolationsController {
     private final ObjectMapper mapper;
     private final DropwizardMetricServices metricServices;
     private final ApiDefinitionReader apiDefinitionReader;
-    private final ApiReviewRequestRepository apiReviewRequestRepository;
+    private final ApiReviewRepository apiReviewRepository;
     private final String message;
 
     @Autowired
@@ -37,13 +37,13 @@ public class ApiViolationsController {
                                    ObjectMapper objectMapper,
                                    DropwizardMetricServices metricServices,
                                    ApiDefinitionReader apiDefinitionReader,
-                                   ApiReviewRequestRepository apiReviewRequestRepository,
+                                   ApiReviewRepository apiReviewRepository,
                                    @Value("${zally.message:}") String message) {
         this.rulesValidator = rulesValidator;
         this.mapper = objectMapper;
         this.metricServices = metricServices;
         this.apiDefinitionReader = apiDefinitionReader;
-        this.apiReviewRequestRepository = apiReviewRequestRepository;
+        this.apiReviewRepository = apiReviewRepository;
         this.message = message;
     }
 
@@ -53,6 +53,8 @@ public class ApiViolationsController {
 
         final String apiDefinition = retrieveApiDefinition(request);
         final List<Violation> violations = rulesValidator.validate(apiDefinition);
+        apiReviewRepository.save(new ApiReview(request, apiDefinition, violations));
+
         ObjectNode response = mapper.createObjectNode();
         if (message != null && !message.isEmpty()) {
             response.put("message", message);
@@ -70,11 +72,9 @@ public class ApiViolationsController {
 
     private String retrieveApiDefinition(JsonNode request) {
         try {
-            String apiDefinition = apiDefinitionReader.read(request);
-            apiReviewRequestRepository.save(new ApiReviewRequest(request, apiDefinition));
-            return apiDefinition;
+            return apiDefinitionReader.read(request);
         } catch (MissingApiDefinitionException | UnaccessibleResourceUrlException e) {
-            apiReviewRequestRepository.save(new ApiReviewRequest(request));
+            apiReviewRepository.save(new ApiReview(request));
             throw e;
         }
     }
