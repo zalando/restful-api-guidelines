@@ -1,4 +1,4 @@
-#Changelog
+# Appendix: Changelog
 
 This change log only contains major changes made after October 2016.
 

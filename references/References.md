@@ -1,4 +1,4 @@
-# References
+# Appendix: References
 
 This section collects links to documents to which we refer, and base our guidelines on.
 
