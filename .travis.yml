@@ -10,6 +10,7 @@ before_install:
   - sudo add-apt-repository ppa:duggan/bats --yes
   - sudo apt-get update -qq
   - sudo apt-get install -qq bats
+  - eval "$(GIMME_GO_VERSION=1.8.3 gimme)"
 
   # Codacy coverage
   - curl -sL http://repo1.maven.org/maven2/com/codacy/codacy-coverage-reporter/1.0.13/codacy-coverage-reporter-1.0.13-assembly.jar > ~/codacy-coverage-reporter.jar
