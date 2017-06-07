@@ -8,73 +8,76 @@ import java.util.stream.Collectors;
 
 public class ReviewStatistics {
 
-    private int reviews;
-    private int apisWithoutViolations;
-    private int apisWithMustViolations;
-    private int apisWithShouldViolations;
-    private int apisWithMayViolations;
-    private int apisWithHintViolations;
+    private int totalReviews;
+    private int successfulReviews;
+    private int mustViolations;
+    private int shouldViolations;
+    private int mayViolations;
+    private int hintViolations;
     private List<ApiReviewStatistic> apis;
 
     ReviewStatistics() {
     }
 
     ReviewStatistics(Collection<ApiReview> apiReviews) {
-        reviews = apiReviews.size();
-        apisWithoutViolations = (int) apiReviews.stream().filter(review -> review.getRuleViolations().isEmpty()).count();
-        apisWithMustViolations = (int) apiReviews.stream().filter(review -> review.getMustViolations() > 0).count();
-        apisWithShouldViolations = (int) apiReviews.stream().filter(review -> review.getShouldViolations() > 0).count();
-        apisWithMayViolations = (int) apiReviews.stream().filter(review -> review.getMayViolations() > 0).count();
-        apisWithHintViolations = (int) apiReviews.stream().filter(review -> review.getHintViolations() > 0).count();
+        totalReviews = apiReviews.size();
+        successfulReviews = apiReviews.stream()
+            .map(apiReview -> apiReview.isSuccessfulProcessed() ? 1 : 0)
+            .mapToInt(Integer::intValue)
+            .sum();
+        mustViolations = apiReviews.stream().mapToInt(ApiReview::getMustViolations).sum();
+        shouldViolations = apiReviews.stream().mapToInt(ApiReview::getShouldViolations).sum();
+        mayViolations = apiReviews.stream().mapToInt(ApiReview::getMayViolations).sum();
+        hintViolations = apiReviews.stream().mapToInt(ApiReview::getHintViolations).sum();
         apis = apiReviews.stream().map(ApiReviewStatistic::new).collect(Collectors.toList());
     }
 
-    public int getReviews() {
-        return reviews;
+    public int getTotalReviews() {
+        return totalReviews;
     }
 
-    public void setReviews(int reviews) {
-        this.reviews = reviews;
+    public void setTotalReviews(int totalReviews) {
+        this.totalReviews = totalReviews;
     }
 
-    public int getApisWithoutViolations() {
-        return apisWithoutViolations;
+    public int getSuccessfulReviews() {
+        return successfulReviews;
     }
 
-    public void setApisWithoutViolations(int apisWithoutViolations) {
-        this.apisWithoutViolations = apisWithoutViolations;
+    public void setSuccessfulReviews(int successfulReviews) {
+        this.successfulReviews = successfulReviews;
     }
 
-    public int getApisWithMustViolations() {
-        return apisWithMustViolations;
+    public int getMustViolations() {
+        return mustViolations;
     }
 
-    public void setApisWithMustViolations(int apisWithMustViolations) {
-        this.apisWithMustViolations = apisWithMustViolations;
+    public void setMustViolations(int mustViolations) {
+        this.mustViolations = mustViolations;
     }
 
-    public int getApisWithShouldViolations() {
-        return apisWithShouldViolations;
+    public int getShouldViolations() {
+        return shouldViolations;
     }
 
-    public void setApisWithShouldViolations(int apisWithShouldViolations) {
-        this.apisWithShouldViolations = apisWithShouldViolations;
+    public void setShouldViolations(int shouldViolations) {
+        this.shouldViolations = shouldViolations;
     }
 
-    public int getApisWithMayViolations() {
-        return apisWithMayViolations;
+    public int getMayViolations() {
+        return mayViolations;
     }
 
-    public void setApisWithMayViolations(int apisWithMayViolations) {
-        this.apisWithMayViolations = apisWithMayViolations;
+    public void setMayViolations(int mayViolations) {
+        this.mayViolations = mayViolations;
     }
 
-    public int getApisWithHintViolations() {
-        return apisWithHintViolations;
+    public int getHintViolations() {
+        return hintViolations;
     }
 
-    public void setApisWithHintViolations(int apisWithHintViolations) {
-        this.apisWithHintViolations = apisWithHintViolations;
+    public void setHintViolations(int hintViolations) {
+        this.hintViolations = hintViolations;
     }
 
     public List<ApiReviewStatistic> getApis() {

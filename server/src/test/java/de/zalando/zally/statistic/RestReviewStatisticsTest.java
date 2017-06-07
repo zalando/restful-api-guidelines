@@ -40,7 +40,9 @@ public class RestReviewStatisticsTest extends RestApiBaseTest {
     public void shouldFormatJsonFieldProperlyWithSnakeCase() {
         ResponseEntity<JsonNode> response = restTemplate.getForEntity(getUrl(), JsonNode.class);
 
-        assertThat(response.getBody().has("apis_with_must_violations")).isTrue();
+        assertThat(response.getBody().has("must_violations")).isTrue();
+        assertThat(response.getBody().has("total_reviews")).isTrue();
+        assertThat(response.getBody().has("successful_reviews")).isTrue();
     }
 
     @Test
@@ -66,8 +68,9 @@ public class RestReviewStatisticsTest extends RestApiBaseTest {
         ResponseEntity<ReviewStatistics> response = restTemplate.getForEntity(
             getUrl() + "?from=" + from.toString(), ReviewStatistics.class);
 
-        assertThat(response.getBody().getApisWithMustViolations()).isEqualTo(reviews.size());
-        assertThat(response.getBody().getApisWithoutViolations()).isEqualTo(0);
+        assertThat(response.getBody().getMustViolations()).isEqualTo(reviews.size());
+        assertThat(response.getBody().getTotalReviews()).isEqualTo(reviews.size());
+        assertThat(response.getBody().getSuccessfulReviews()).isEqualTo(reviews.size());
         assertThat(response.getBody().getApis()).hasSize(reviews.size());
     }
 
@@ -109,7 +112,7 @@ public class RestReviewStatisticsTest extends RestApiBaseTest {
 
         LocalDate currentDate = LocalDate.from(from);
         while (currentDate.isBefore(to)) {
-            ApiReview review = new ApiReview(emptyJsonPayload, "", createRandomViolations());
+            ApiReview review = new ApiReview(emptyJsonPayload, "dummyApiDefinition", createRandomViolations());
             review.setDay(currentDate);
 
             reviews.add(review);
