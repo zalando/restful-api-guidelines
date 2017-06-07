@@ -1,4 +1,4 @@
-package main
+package commands
 
 import (
 	"fmt"
@@ -8,6 +8,8 @@ import (
 
 	"github.com/logrusorgru/aurora"
 	"github.com/urfave/cli"
+	"github.com/zalando-incubator/zally/cli-go/zally/domain"
+	"github.com/zalando-incubator/zally/cli-go/zally/utils"
 )
 
 // SupportedRulesCommand lists supported rules
@@ -19,16 +21,20 @@ var SupportedRulesCommand = cli.Command{
 
 func listRules(c *cli.Context) error {
 	client := &http.Client{}
-	request := buildRequest("GET", fmt.Sprintf("%s/supported-rules", c.GlobalString("linter-service")), c)
-	response, err := client.Do(request)
+	requestBuilder := utils.NewRequestBuilder(c.GlobalString("linter-service"), c.GlobalString("token"))
+	request, err := requestBuilder.Build("GET", "/supported-rules", nil)
+	if err != nil {
+		return err
+	}
 
+	response, err := client.Do(request)
 	if err != nil {
 		return err
 	}
 
 	decoder := json.NewDecoder(response.Body)
 
-	var rules Rules
+	var rules domain.Rules
 	decoder.Decode(&rules)
 
 	for _, rule := range rules.Rules {
@@ -38,20 +44,7 @@ func listRules(c *cli.Context) error {
 	return nil
 }
 
-func buildRequest(httpVerb string, path string, context *cli.Context) (request *http.Request) {
-	req, err := http.NewRequest(httpVerb, path, nil)
-	if err != nil {
-		panic(err)
-	}
-
-	oauth2Token := context.GlobalString("token")
-	if len(oauth2Token) > 0 {
-		req.Header.Add("Authorization", fmt.Sprintf("Bearer %s", oauth2Token))
-	}
-	return req
-}
-
-func printRule(rule *Rule) {
+func printRule(rule *domain.Rule) {
 	colorize := colorizeByTypeFunc(rule.Type)
 	fmt.Printf("%s %s: %s\n\t%s\n\n", colorize(rule.Code), colorize(rule.Type), rule.Title, rule.URL)
 }
