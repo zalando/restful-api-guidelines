@@ -1,18 +1,24 @@
-CREATE TABLE api_review_request (
+CREATE TABLE api_review (
   id                    BIGSERIAL PRIMARY KEY,
+  name                  TEXT,
   json_payload          TEXT NOT NULL,
   api_definition        TEXT,
   successful_processed  BOOLEAN NOT NULL,
-  created               TIMESTAMP WITHOUT TIME ZONE NOT NULL
+  day                   DATE NOT NULL,
+  created               TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+  number_of_endpoints   INT,
+  must_violations       INT,
+  should_violations     INT,
+  may_violations        INT,
+  hint_violations       INT
 );
 
-CREATE TABLE review_statistic (
-  name  TEXT PRIMARY KEY,
-  value DOUBLE PRECISION NOT NULL,
-  day   DATE NOT NULL
+CREATE TABLE rule_violation (
+  id            BIGSERIAL PRIMARY KEY,
+  api_review_id BIGINT REFERENCES api_review (id),
+  name          TEXT NOT NULL,
+  type          VARCHAR(10) NOT NULL,
+  occurrence    INT NOT NULL
 );
 
-ALTER TABLE review_statistic ADD CONSTRAINT unique_value_per_day UNIQUE (name, value, day);
-
-CREATE INDEX api_review_request_created_idx ON api_review_request (created);
-CREATE INDEX report_statistic_day_idx ON review_statistic (day);
+CREATE INDEX api_review_day_idx ON api_review (day);

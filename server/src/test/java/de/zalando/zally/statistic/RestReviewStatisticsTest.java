@@ -1,21 +1,27 @@
 package de.zalando.zally.statistic;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import de.zalando.zally.apireview.ApiReview;
 import de.zalando.zally.apireview.RestApiBaseTest;
+import de.zalando.zally.rule.InvalidApiSchemaRule;
 import de.zalando.zally.util.TestDateUtil;
-import org.apache.commons.lang.math.RandomUtils;
-import org.apache.commons.lang3.RandomStringUtils;
+import de.zalando.zally.violation.Violation;
+import de.zalando.zally.violation.ViolationType;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class RestReviewStatisticsTest extends RestApiBaseTest {
+
+    private final JsonNode emptyJsonPayload = new ObjectMapper().createObjectNode();
 
     @Override
     protected String getUrl() {
@@ -24,23 +30,30 @@ public class RestReviewStatisticsTest extends RestApiBaseTest {
 
     @Test
     public void shouldReturnEmptyReviewStatisticsList() {
-        ResponseEntity<ReviewStatisticList> response = restTemplate.getForEntity(getUrl(), ReviewStatisticList.class);
+        ResponseEntity<ReviewStatistics> response = restTemplate.getForEntity(getUrl(), ReviewStatistics.class);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(response.getBody().getReviewStatistics()).isEmpty();
+        assertThat(response.getBody().getApis()).isEmpty();
+    }
+
+    @Test
+    public void shouldFormatJsonFieldProperlyWithSnakeCase() {
+        ResponseEntity<JsonNode> response = restTemplate.getForEntity(getUrl(), JsonNode.class);
+
+        assertThat(response.getBody().has("must_violations")).isTrue();
+        assertThat(response.getBody().has("total_reviews")).isTrue();
+        assertThat(response.getBody().has("successful_reviews")).isTrue();
     }
 
     @Test
     public void shouldReturnAllReviewStatisticsFromLastWeekIfNoIntervalParametersAreSupplied() {
         LocalDate from = TestDateUtil.now().minusDays(7L).toLocalDate();
 
-        List<ReviewStatistic> statistics = createRandomReviewStatisticInBetween(from, TestDateUtil.now().toLocalDate());
+        List<ApiReview> reviews = createRandomReviewsInBetween(from, TestDateUtil.now().toLocalDate());
 
-        ResponseEntity<ReviewStatisticList> response = restTemplate.getForEntity(getUrl(), ReviewStatisticList.class);
+        ResponseEntity<ReviewStatistics> response = restTemplate.getForEntity(getUrl(), ReviewStatistics.class);
 
-        assertThat(response.getBody().getReviewStatistics())
-            .containsOnlyElementsOf(statistics)
-            .hasSize(statistics.size());
+        assertThat(response.getBody().getApis()).hasSize(reviews.size());
     }
 
     @Test
@@ -48,16 +61,17 @@ public class RestReviewStatisticsTest extends RestApiBaseTest {
         LocalDate from = TestDateUtil.now().minusDays(5L).toLocalDate();
 
         // this data should not be loaded later
-        createRandomReviewStatisticInBetween(from.minusDays(10L), from.minusDays(5L));
+        createRandomReviewsInBetween(from.minusDays(10L), from.minusDays(5L));
 
-        List<ReviewStatistic> statistics = createRandomReviewStatisticInBetween(from, TestDateUtil.now().toLocalDate());
+        List<ApiReview> reviews = createRandomReviewsInBetween(from, TestDateUtil.now().toLocalDate());
 
-        ResponseEntity<ReviewStatisticList> response = restTemplate.getForEntity(
-            getUrl() + "?from=" + from.toString(), ReviewStatisticList.class);
+        ResponseEntity<ReviewStatistics> response = restTemplate.getForEntity(
+            getUrl() + "?from=" + from.toString(), ReviewStatistics.class);
 
-        assertThat(response.getBody().getReviewStatistics())
-            .containsOnlyElementsOf(statistics)
-            .hasSize(statistics.size());
+        assertThat(response.getBody().getMustViolations()).isEqualTo(reviews.size());
+        assertThat(response.getBody().getTotalReviews()).isEqualTo(reviews.size());
+        assertThat(response.getBody().getSuccessfulReviews()).isEqualTo(reviews.size());
+        assertThat(response.getBody().getApis()).hasSize(reviews.size());
     }
 
     @Test
@@ -65,12 +79,12 @@ public class RestReviewStatisticsTest extends RestApiBaseTest {
         LocalDate from = TestDateUtil.now().minusDays(5L).toLocalDate();
         LocalDate to = TestDateUtil.yesterday().minusDays(1L).toLocalDate();
 
-        List<ReviewStatistic> statistics = createRandomReviewStatisticInBetween(from, TestDateUtil.now().toLocalDate());
+        List<ApiReview> reviews = createRandomReviewsInBetween(from, TestDateUtil.now().toLocalDate());
 
-        ResponseEntity<ReviewStatisticList> response = restTemplate.getForEntity(
-            getUrl() + "?from=" + from.toString() + "&to=" + to.toString(), ReviewStatisticList.class);
+        ResponseEntity<ReviewStatistics> response = restTemplate.getForEntity(
+            getUrl() + "?from=" + from.toString() + "&to=" + to.toString(), ReviewStatistics.class);
 
-        assertThat(response.getBody().getReviewStatistics()).hasSize(statistics.size() - 1);
+        assertThat(response.getBody().getApis()).hasSize(reviews.size() - 1);
     }
 
     @Test
@@ -93,20 +107,24 @@ public class RestReviewStatisticsTest extends RestApiBaseTest {
         assertBadRequestFor("?to=2017-01-10");
     }
 
-    private List<ReviewStatistic> createRandomReviewStatisticInBetween(LocalDate from, LocalDate to) {
-        List<ReviewStatistic> statistics = new LinkedList<>();
+    private List<ApiReview> createRandomReviewsInBetween(LocalDate from, LocalDate to) {
+        List<ApiReview> reviews = new LinkedList<>();
 
         LocalDate currentDate = LocalDate.from(from);
         while (currentDate.isBefore(to)) {
-            ReviewStatistic statistic = new ReviewStatistic(RandomStringUtils.randomAlphanumeric(10), RandomUtils.nextDouble());
-            statistic.setDay(currentDate);
+            ApiReview review = new ApiReview(emptyJsonPayload, "dummyApiDefinition", createRandomViolations());
+            review.setDay(currentDate);
 
-            statistics.add(statistic);
+            reviews.add(review);
             currentDate = currentDate.plusDays(1L);
         }
 
-        reviewStatisticRepository.save(statistics);
-        return statistics;
+        apiReviewRepository.save(reviews);
+        return reviews;
+    }
+
+    private List<Violation> createRandomViolations() {
+        return Arrays.asList(new Violation(new InvalidApiSchemaRule(), "", "", ViolationType.MUST, "", Arrays.asList("path")));
     }
 
     private void assertBadRequestFor(String queryParameter) throws AssertionError {

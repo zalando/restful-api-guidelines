@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.zalando.zally.Application;
-import de.zalando.zally.statistic.ReviewStatisticRepository;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,15 +25,11 @@ public abstract class RestApiBaseTest {
     protected TestRestTemplate restTemplate;
 
     @Autowired
-    protected ApiReviewRequestRepository apiReviewRequestRepository;
-
-    @Autowired
-    protected ReviewStatisticRepository reviewStatisticRepository;
+    protected ApiReviewRepository apiReviewRepository;
 
     @Before
     public void cleanDatabase() {
-        reviewStatisticRepository.deleteAll();
-        apiReviewRequestRepository.deleteAll();
+        apiReviewRepository.deleteAll();
     }
 
     protected ResponseEntity<JsonNode> sendRequest(JsonNode body) {

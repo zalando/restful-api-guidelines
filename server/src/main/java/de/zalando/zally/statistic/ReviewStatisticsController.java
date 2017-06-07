@@ -1,5 +1,7 @@
 package de.zalando.zally.statistic;
 
+import de.zalando.zally.apireview.ApiReview;
+import de.zalando.zally.apireview.ApiReviewRepository;
 import de.zalando.zally.exception.TimeParameterIsInTheFutureException;
 import de.zalando.zally.exception.UnsufficientTimeIntervalParameterException;
 import org.slf4j.Logger;
@@ -15,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
-import java.util.List;
+import java.util.Collection;
 
 @CrossOrigin
 @RestController
@@ -23,15 +25,15 @@ public class ReviewStatisticsController {
 
     private static final Logger LOG = LoggerFactory.getLogger(ReviewStatisticsController.class);
 
-    private final ReviewStatisticRepository repository;
+    private final ApiReviewRepository apiReviewRepository;
 
     @Autowired
-    public ReviewStatisticsController(ReviewStatisticRepository repository) {
-        this.repository = repository;
+    public ReviewStatisticsController(ApiReviewRepository apiReviewRepository) {
+        this.apiReviewRepository = apiReviewRepository;
     }
 
     @GetMapping("/review-statistics")
-    public ResponseEntity<ReviewStatisticList> retrieveReviewStatistics(
+    public ResponseEntity<ReviewStatistics> retrieveReviewStatistics(
         @RequestParam(value = "from", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate from,
         @RequestParam(value = "to", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate to) {
 
@@ -43,12 +45,12 @@ public class ReviewStatisticsController {
             throw new UnsufficientTimeIntervalParameterException();
         }
 
-        final List<ReviewStatistic> statistics = from != null
-            ? repository.findByDayBetween(from, to != null ? to : today())
-            : repository.findAllFromLastWeek();
+        final Collection<ApiReview> apiReviews = from != null
+            ? apiReviewRepository.findByDayBetween(from, to != null ? to : today())
+            : apiReviewRepository.findAllFromLastWeek();
 
-        LOG.info("Found {} statistics from {} to {}", statistics.size(), from, to);
-        return ResponseEntity.ok(new ReviewStatisticList(statistics));
+        LOG.info("Found {} api reviews from {} to {}", apiReviews.size(), from, to);
+        return ResponseEntity.ok(new ReviewStatistics(apiReviews));
     }
 
     private LocalDate today() {

@@ -224,8 +224,8 @@ public class RestApiViolationsTest extends RestApiBaseTest {
     @Test
     public void shouldStoreSuccessfulApiReviewRequest() throws IOException {
         sendRequest(new ObjectMapper().readTree(ResourceUtils.getFile("src/test/resources/fixtures/api_spp.json")));
-        assertThat(apiReviewRequestRepository.count()).isEqualTo(1L);
-        assertThat(apiReviewRequestRepository.findAll().iterator().next().isSuccessfulProcessed()).isTrue();
+        assertThat(apiReviewRepository.count()).isEqualTo(1L);
+        assertThat(apiReviewRepository.findAll().iterator().next().isSuccessfulProcessed()).isTrue();
     }
 
     @Test
@@ -234,8 +234,8 @@ public class RestApiViolationsTest extends RestApiBaseTest {
             .post(URI.create(getUrl()))
             .contentType(MediaType.APPLICATION_JSON)
             .body(notAccessibleApiDefinitionUrl), JsonNode.class);
-        assertThat(apiReviewRequestRepository.count()).isEqualTo(1L);
-        assertThat(apiReviewRequestRepository.findAll().iterator().next().isSuccessfulProcessed()).isFalse();
+        assertThat(apiReviewRepository.count()).isEqualTo(1L);
+        assertThat(apiReviewRepository.findAll().iterator().next().isSuccessfulProcessed()).isFalse();
     }
 
     private String getLocalUrl(final String resourceFilePath, final String contentType) throws Exception {
