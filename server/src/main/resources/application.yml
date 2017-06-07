@@ -24,6 +24,8 @@ security:
   basic:
     enabled: false
 
+management.port: 7979
+
 twintip:
   mapping: /api
   yaml: "classpath:/api/zally-api.yaml"
