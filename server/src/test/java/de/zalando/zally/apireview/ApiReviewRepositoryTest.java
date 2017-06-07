@@ -16,10 +16,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Transactional
-public class ApiReviewRequestRepositoryTest {
+public class ApiReviewRepositoryTest {
 
     @Autowired
-    private ApiReviewRequestRepository repository;
+    private ApiReviewRepository repository;
 
     @Before
     public void cleanDatabase() {
@@ -28,7 +28,8 @@ public class ApiReviewRequestRepositoryTest {
 
     @Test
     public void shouldFindOneApiReviewRequestFromYesterday() {
-        ApiReviewRequest reviewRequest = new ApiReviewRequest(new ObjectMapper().createObjectNode());
+        ApiReview reviewRequest = new ApiReview(new ObjectMapper().createObjectNode());
+        reviewRequest.setDay(yesterday().toLocalDate());
         reviewRequest.setCreated(yesterday());
         repository.save(reviewRequest);
 
