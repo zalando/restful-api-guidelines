@@ -1,4 +1,4 @@
-package main
+package domain
 
 // Rule keeps information about API rules
 type Rule struct {
