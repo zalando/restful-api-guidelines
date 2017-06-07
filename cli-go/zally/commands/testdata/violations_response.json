@@ -1,0 +1,18 @@
+{
+    "violations": [
+        {
+            "title": "First Violation",
+            "description": "First Description",
+            "violation_type": "MUST",
+            "rule_link": "http://example.com/first_violation",
+            "paths": ["/abcde/", "/wvxyz/"]
+        },
+        {
+            "title": "Second Violation",
+            "description": "Second Description",
+            "violation_type": "SHOULD",
+            "rule_link": "http://example.com/second_violation",
+            "paths": ["/abcde/"]
+        }
+    ]
+}
