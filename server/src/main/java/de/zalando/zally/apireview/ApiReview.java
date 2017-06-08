@@ -76,6 +76,7 @@ public class ApiReview implements Serializable {
         this.created = Instant.now().atOffset(ZoneOffset.UTC);
         this.day = created.toLocalDate();
 
+        this.name = ApiNameParser.extractApiName(apiDefinition);
         this.ruleViolations = violations.stream()
             .map(v -> new RuleViolation(this, v.getRule().getName(), v.getViolationType(), v.getPaths().size()))
             .collect(Collectors.toList());
