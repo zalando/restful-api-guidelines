@@ -10,6 +10,7 @@ before_install:
   - sudo add-apt-repository ppa:duggan/bats --yes
   - sudo apt-get update -qq
   - sudo apt-get install -qq bats
+  - eval "$(GIMME_GO_VERSION=1.8.3 gimme)"
 
   # Codacy coverage
   - curl -sL http://repo1.maven.org/maven2/com/codacy/codacy-coverage-reporter/1.0.13/codacy-coverage-reporter-1.0.13-assembly.jar > ~/codacy-coverage-reporter.jar
@@ -50,9 +51,7 @@ script:
   - cp -R cli-go $ZALLY_GO_PATH
   - cd $ZALLY_GO_PATH/cli-go/zally
   - go get -t
-  
-  # TODO: Enable tests once switch to Go 1.8
-  # - go test -v -cover ./...
+  - go test -v -cover ./...
 
 after_success:
   - java -cp ~/codacy-coverage-reporter.jar com.codacy.CodacyCoverageReporter --language Java --coverageReport cli/build/reports/jacoco/test/jacocoTestReport.xml -t $CODACY_PROJECT_TOKEN
