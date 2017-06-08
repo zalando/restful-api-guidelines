@@ -80,16 +80,27 @@ public class ApiReviewTest {
         Violation violation1 = new Violation(dummyRule, "", "", ViolationType.MUST, "", asList("1", "2"));
         Violation violation2 = new Violation(dummyRule, "", "", ViolationType.MUST, "", asList("3"));
 
-        String apiDefinition = FileUtils.readFileToString(
-            new File(this.getClass().getResource("/fixtures/limitNumberOfResourcesValid.json").toURI()),
-            Charset.forName("UTF-8"));
+        String apiDefinition = readDummyApiDefinition();
 
         ApiReview apiReview = new ApiReview(emptyReviewRequest(), apiDefinition, asList(violation1, violation2));
 
         assertThat(apiReview.getNumberOfEndpoints()).isEqualTo(2);
     }
 
+    @Test
+    public void shouldParseApiNameFromApiDefinition() throws IOException, URISyntaxException {
+        String apiDefinition = readDummyApiDefinition();
+        ApiReview apiReview = new ApiReview(emptyReviewRequest(), apiDefinition, Collections.emptyList());
+        assertThat(apiReview.getName()).isEqualTo("Test Service");
+    }
+
     private ObjectNode emptyReviewRequest() {
         return new ObjectMapper().createObjectNode();
+    }
+
+    private String readDummyApiDefinition() throws IOException, URISyntaxException {
+        return FileUtils.readFileToString(
+            new File(this.getClass().getResource("/fixtures/limitNumberOfResourcesValid.json").toURI()),
+            Charset.forName("UTF-8"));
     }
 }

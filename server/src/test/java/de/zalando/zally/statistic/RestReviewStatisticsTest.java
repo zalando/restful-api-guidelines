@@ -107,6 +107,13 @@ public class RestReviewStatisticsTest extends RestApiBaseTest {
         assertBadRequestFor("?to=2017-01-10");
     }
 
+    @Test
+    public void shouldReturnApiName() {
+        createRandomReviewsInBetween(TestDateUtil.now().minusDays(7L).toLocalDate(), TestDateUtil.now().toLocalDate());
+        ResponseEntity<JsonNode> response = restTemplate.getForEntity(getUrl(), JsonNode.class);
+        assertThat(response.getBody().toString()).contains("My API");
+    }
+
     private List<ApiReview> createRandomReviewsInBetween(LocalDate from, LocalDate to) {
         List<ApiReview> reviews = new LinkedList<>();
 
@@ -114,6 +121,7 @@ public class RestReviewStatisticsTest extends RestApiBaseTest {
         while (currentDate.isBefore(to)) {
             ApiReview review = new ApiReview(emptyJsonPayload, "dummyApiDefinition", createRandomViolations());
             review.setDay(currentDate);
+            review.setName("My API");
 
             reviews.add(review);
             currentDate = currentDate.plusDays(1L);

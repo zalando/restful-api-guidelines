@@ -8,6 +8,7 @@ import java.util.List;
 
 public class ApiReviewStatistic {
 
+    private String api;
     private boolean successful;
     private int numberOfEndpoints;
     private List<RuleViolation> violations;
@@ -16,9 +17,18 @@ public class ApiReviewStatistic {
     }
 
     ApiReviewStatistic(ApiReview apiReview) {
+        api = apiReview.getName();
         successful = apiReview.isSuccessfulProcessed();
         numberOfEndpoints = apiReview.getNumberOfEndpoints();
         violations = new LinkedList<>(apiReview.getRuleViolations());
+    }
+
+    public String getApi() {
+        return api;
+    }
+
+    public void setApi(String api) {
+        this.api = api;
     }
 
     public boolean isSuccessful() {
