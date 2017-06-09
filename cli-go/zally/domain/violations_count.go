@@ -14,9 +14,9 @@ type ViolationsCount struct {
 // ToString creates string representation of Violation
 func (v *ViolationsCount) ToString() string {
 	var buffer bytes.Buffer
-	fmt.Fprintf(&buffer, "MUST: %d", v.Must)
-	fmt.Fprintf(&buffer, "SHOULD: %d", v.Should)
-	fmt.Fprintf(&buffer, "MAY: %d", v.May)
-	fmt.Fprintf(&buffer, "HINT: %d", v.Hint)
+	fmt.Fprintf(&buffer, "MUST violations: %d\n", v.Must)
+	fmt.Fprintf(&buffer, "SHOULD violations: %d\n", v.Should)
+	fmt.Fprintf(&buffer, "MAY violations: %d\n", v.May)
+	fmt.Fprintf(&buffer, "HINT violations: %d\n", v.Hint)
 	return buffer.String()
 }

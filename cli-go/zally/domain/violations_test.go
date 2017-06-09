@@ -3,6 +3,8 @@ package domain
 import (
 	"testing"
 
+	"fmt"
+
 	"github.com/zalando-incubator/zally/cli-go/zally/utils"
 )
 
@@ -29,11 +31,22 @@ func TestViolations(t *testing.T) {
 		firstViolation.Decription = "Second Description"
 		firstViolation.Paths = []string{"/path/three", "/path/four"}
 
+		var violationsCount ViolationsCount
+		violationsCount.Must = 1
+		violationsCount.Should = 2
+		violationsCount.May = 3
+		violationsCount.Hint = 4
+
 		var violations Violations
 		violations.Violations = []Violation{firstViolation, secondViolation}
+		violations.ViolationsCount = violationsCount
 
 		actualResult := violations.ToString()
-		expectedResult := firstViolation.ToString() + secondViolation.ToString()
+		expectedResult := fmt.Sprintf(
+			"Violations:\n===========\n\n%s%sSummary:\n========\n\n%s",
+			firstViolation.ToString(),
+			secondViolation.ToString(),
+			violationsCount.ToString())
 
 		utils.AssertEquals(t, expectedResult, actualResult)
 	})
