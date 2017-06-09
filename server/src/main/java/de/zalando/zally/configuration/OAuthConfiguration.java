@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Profile;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
@@ -43,6 +44,7 @@ class OAuthConfiguration extends ResourceServerConfigurerAdapter {
             .sessionCreationPolicy(SessionCreationPolicy.NEVER)
             .and()
             .authorizeRequests()
+            .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
             .antMatchers("/health").permitAll()
             .antMatchers("/metrics",
                 "/api-violations",
