@@ -44,8 +44,6 @@ func lintFile(path string, requestBuilder *utils.RequestBuilder) error {
 	}
 
 	violations, err := doRequest(requestBuilder, data)
-
-	fmt.Print("Violations:\n===========\n\n")
 	fmt.Print(violations.ToString())
 
 	return err
