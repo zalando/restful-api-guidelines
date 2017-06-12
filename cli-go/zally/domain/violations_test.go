@@ -5,6 +5,8 @@ import (
 
 	"fmt"
 
+	"bytes"
+
 	"github.com/zalando-incubator/zally/cli-go/zally/utils"
 )
 
@@ -57,7 +59,7 @@ func TestViolations(t *testing.T) {
 	t.Run("ToString returns list of violation strings", func(t *testing.T) {
 		actualResult := violations.ToString()
 		expectedResult := fmt.Sprintf(
-			"Violations:\n===========\n\n%s%s%s%sSummary:\n========\n\n%s",
+			"MUST\n====\n\n%sSHOULD\n======\n\n%sMAY\n===\n\n%sHINT\n====\n\n%sSummary:\n========\n\n%s",
 			mustViolation.ToString(),
 			shouldViolation.ToString(),
 			mayViolation.ToString(),
@@ -117,5 +119,36 @@ func TestViolations(t *testing.T) {
 		expectedResult := violations.filterViolations("Hint")
 
 		utils.AssertEquals(t, expectedResult, actualResult)
+	})
+
+	t.Run("formatHeader adds a line", func(t *testing.T) {
+		actualResult := formatHeader("Header")
+		expectedResult := "Header\n======\n\n"
+
+		utils.AssertEquals(t, expectedResult, actualResult)
+	})
+
+	t.Run("formatHeader returns empty string when no header", func(t *testing.T) {
+		result := formatHeader("")
+		utils.AssertEquals(t, "", result)
+	})
+
+	t.Run("printViolations prints violations and header", func(t *testing.T) {
+		var buffer bytes.Buffer
+		printViolations(&buffer, "MUST", violations.Must())
+
+		actualResult := string(buffer.Bytes())
+		expectedResult := fmt.Sprintf("MUST\n====\n\n%s", mustViolation.ToString())
+
+		utils.AssertEquals(t, expectedResult, actualResult)
+	})
+
+	t.Run("printViolations prints nothing when no violations", func(t *testing.T) {
+		var buffer bytes.Buffer
+		printViolations(&buffer, "MUST", []Violation{})
+
+		result := string(buffer.Bytes())
+
+		utils.AssertEquals(t, "", result)
 	})
 }

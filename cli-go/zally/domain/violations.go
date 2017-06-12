@@ -16,13 +16,13 @@ type Violations struct {
 func (v *Violations) ToString() string {
 	var buffer bytes.Buffer
 
-	if len(v.Violations) > 0 {
-		fmt.Fprint(&buffer, "Violations:\n===========\n\n")
-		for _, violation := range v.Violations {
-			fmt.Fprint(&buffer, violation.ToString())
-		}
+	printViolations(&buffer, "MUST", v.Must())
+	printViolations(&buffer, "SHOULD", v.Should())
+	printViolations(&buffer, "MAY", v.May())
+	printViolations(&buffer, "HINT", v.Hint())
 
-		fmt.Fprint(&buffer, "Summary:\n========\n\n")
+	if len(v.Violations) > 0 {
+		fmt.Fprint(&buffer, formatHeader("Summary:"))
 		fmt.Fprint(&buffer, v.ViolationsCount.ToString())
 	}
 
@@ -57,4 +57,20 @@ func (v *Violations) filterViolations(violationType string) []Violation {
 		}
 	}
 	return result
+}
+
+func printViolations(buffer *bytes.Buffer, header string, violations []Violation) {
+	if len(violations) > 0 {
+		fmt.Fprint(buffer, formatHeader(header))
+		for _, violation := range violations {
+			fmt.Fprint(buffer, violation.ToString())
+		}
+	}
+}
+
+func formatHeader(header string) string {
+	if len(header) == 0 {
+		return ""
+	}
+	return fmt.Sprintf("%s\n%s\n\n", header, strings.Repeat("=", len(header)))
 }
