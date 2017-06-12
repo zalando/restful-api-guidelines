@@ -2,6 +2,31 @@
 
 Zalando’s architecture centers around decoupled microservices and in that context we favour asynchronous event driven approaches. The guidelines in this section focus on how to design and publish events intended to be shared for others to consume. 
 
+**Events, Event Types and Categories.**
+
+Events are defined using an item called an _Event Type_. The Event Type allows
+events to have their structure declared  with a schema by producers and understood by
+consumers. An Event Type declares standard information, such as a name, an owning
+application (and by implication, an owning team), a schema defining the event's
+custom data, and a compatibility mode declaring how the schema will be
+evolved. Event Types also allow the declaration of validation and enrichment
+strategies for events, along with supplemental information such as how events
+can be partitioned in an event stream.
+
+Event Types belong to a well known _Event Category_ (such as a data change
+category), which provides extra information that is common to that kind of
+event.
+
+Event Types can be published and made available as API resources for teams to
+use, typically in an _Event Type Registry_. Each event published can then be
+validated against the overall structure of its event type and the schema for its
+custom data.
+
+The basic model described above was originally developed in the
+[Nakadi project](https://github.com/zalando/nakadi), which acts as a reference
+implementation of the event type registry, and as a validating publish/subscribe
+broker for event producers and consumers.
+
 ## {{ book.must }} Treat Events as part of the service interface
 
 Events are part of a service’s interface to the outside world equivalent in standing to a service’s REST API. Services publishing data for integration must treat their events as a first class design concern, just as they would an API. For example this means approaching events with the "API first" principle in mind [as described in the Introduction](../Introduction.md).
@@ -64,27 +89,368 @@ Open API _extends_ JSON-Schema with some keywords:
     fall back to must-ignore processing. A future version of the guidelines may
     define well known vendor extensions for events.
 
+## {{ book.must }} Ensure that Events are registered as Event Types
+
+In Zalando's architecture, events are registered using a structure called an
+_Event Type_. The Event Type declares standard information as follows:
+
+- A well known event category, such as a general or data change category.
+- The name of the event type.
+- An owning application, and by implication, an owning team.
+- A schema defining the event payload. 
+- The compatability mode for the type.
+
+Event Types allow easier discovery of event information and ensure that
+information is well-structured, consistent, and can be validated.
+
+Event type owners must pay attention to the choice of compatability mode.  The
+mode provides a means to evolve thee schema. The range of modes are designed to
+be flexible enough so that producers can evolve schemas while not inadvertently
+breaking existing consumers:
+
+- 'none': Any schema modification is accepted, even if it might break existing
+  producers or consumers. When validating events, undefined properties are
+  accepted unless declared in the schema.
+
+- 'forward': A schema `S1` is forward compatible if the previously registered 
+schema, `S0` can read events defined by `S1`  - that is, consumers can read 
+events tagged with the latest schema version using the previous version as 
+long as consumers follow the robustness principle described in the guideline's
+  [API Design Principles](../DesignPrinciples.md).
+
+- 'compatible': This means changes are fully compatible. A new schema, `S1`, 
+is fully compatible when every event published since the first schema version 
+will validate against to the new schema. When in compatible mode, it's allowed 
+to add new optional properties and definitions to an existing schema, but no other
+  changes are allowed. 
+
+The compatibility levels interact with revision numbers in the schema
+`"version"` field, which follows semantic versioning (MAJOR.MINOR.PATCH):
+
+   - Changing a `"compatible"` level type can lead to a PATCH or MINOR version
+     revision. MAJOR breaking changes are not allowed.
+   
+   - Changing a `"forward"` level event type can lead to a PATCH or MINOR
+     version revision. MAJOR breaking changes are not allowed.
+   
+   - Changing a `"none"` level event type can lead to PATCH, MINOR or MAJOR
+     level changes.
+
+For examples of changes:
+
+- Changes to the event type's `"title"` or `"description"` are considered PATCH
+  level.
+
+- Adding new optional fields to an event type's schema is considered a MINOR
+  level change.
+
+- All other changes are considered MAJOR level, such as renaming or removing
+  fields, or adding new required fields.
+
+The core Event Type structure is shown below as an Open API object definition:
+
+```yaml
+EventType:
+    description: | 
+      An event type defines the schema and its runtime properties. The required
+      fields are the minimum set the creator of an event type is expected to
+      supply.
+    required:
+      - name
+      - category
+      - owning_application
+      - schema    
+    properties:
+      name:
+        description: |
+          Name of this EventType.  Note: the name can encode the
+          owner/responsible for this EventType and ideally should follow the
+          common pattern 'functional-component'.'business event or entity' that
+          makes it easy to read and understand.
+        type: string
+        pattern: '[a-zA-Z][-0-9a-zA-Z_]*(\.[a-zA-Z][-0-9a-zA-Z_]*)*'
+        example: order.order_cancelled, business_partner.contract
+      owning_application:
+        description: |
+          Name of the application (eg, as would be used in infrastructure
+          application or service registry) owning this `EventType`.
+        type: string
+        example: price-service
+      category:
+        description: Defines the category of this EventType. 
+        type: string
+        x-extensible-enum:
+          - data
+          - general
+      compatibility_mode:
+        description: |
+          The compatibility modes are:
+            - "compatible"
+            - "forward"
+            - "none"
+        type: string
+        default: forward
+      schema:
+        description: The most recent payload schema for this EventType. 
+        type: object
+        properties:
+          version:
+            description: Values are based on semantic versioning (eg "1.2.1"). 
+            type: string
+            default: '1.0.0'
+          created_at:
+            description: Creation timestamp of the schema. 
+            type: string
+            readOnly: true
+            format: date-time
+            example: '1996-12-19T16:39:57-08:00'
+          type:
+            description: | 
+               The schema language of schema definition. Currently only
+               json_schema (JSON Schema v04) syntax is defined, but in the
+               future there could be others.
+            type: string
+            x-extensible-enum:
+              - json_schema
+          schema:
+            description: | 
+                The schema as string in the syntax defined in the field type.
+            type: string
+        required:
+          - type
+          - schema
+      created_at:
+        description: When this event type was created.      
+        type: string
+        pattern: date-time
+      updated_at:
+        description: When this event type was last updated.      
+        type: string
+        pattern: date-time
+```
+
+APIs such as registries supporting event types, may extend the model, including
+the set of supported categories and schema formats. For example the Nakadi API's
+event category registration also allows the declaration of validation and
+enrichment strategies for events, along with supplemental information, such as
+how events are partitioned in the stream.
+
+## {{ book.must }} Ensure Events conform to a well-known Event Category
+
+An _event category_ describes a generic class of event. The guidelines define
+two such categories:
+
+- General Event: a general purpose category.
+
+- Data Change Event: a category used for describing changes to data entities
+  used for data replication based data integration.
+
+The set of categories is expected to evolve in the future.
+
+A category describes a predefined structure that event publishers must conform
+to along with standard information about that kind of event (such as the
+operation for a data change event).
+
+**The General Event Category.**
+
+The structure of the _General Event Category_ is shown below as an Open API
+Schema Object definition:
+
+```yaml
+  GeneralEvent:
+    description: |
+      A general kind of event. Event kinds based on this event define their
+      custom schema payload as the top level of the document, with the
+      "metadata" field being required and reserved for standard metadata. An
+      instance of an event based on the event type thus conforms to both the
+      EventMetadata definition and the custom schema definition. Previously this
+      category was called the Business Category
+    required:
+      - metadata
+    properties:
+      metadata:
+          $ref: '#/definitions/EventMetadata'
+
+```
+
+Event types based on the General Event Category define their custom schema payload 
+at the top-level of the document, with the `metadata` field being reserved for 
+standard information (the contents of `metadata` are described further down in 
+this section).
+
+In the example fragment below, the reserved metadata field is shown with fields
+"a" and "b" being defined as part of the custom schema:
+
+<pre style="font-size: .85em">
+  {
+    <span style="font-weight: bold;">"metadata" : {...}</span>
+    <span style="color: blue;">"a": "a1",</span>
+    <span style="color: blue;">"b": "b1"</span>
+  }
+</pre>
+
+Note: 
+
+- The General Event in a previous version of the guidelines was called a
+_Business Event_.  Implementation experience has shown that the category's
+structure gets used for other kinds of events, hence the name has been
+generalized to reflect how teams are using it. 
+
+- The General Event is still useful and recommended for the purpose of 
+defining events that drive a business process.
+
+- The Nakadi broker still refers to the General Category as the Business 
+Category and uses the keyword "business" for event type registration. 
+Other than that, the JSON structures are identical.
+
+See
+["Use Business Events to signal steps and arrival points in business processes"](../events/event.md#must-use-the-general-event-category-to-signal-steps-and-arrival-points-in-business-processes)
+for more guidance on how to use the category.
+
+**The Data Change Event Category.**
+
+The _Data Change Event Category_ structure is shown below as an Open API Schema
+Object:
+
+```yaml
+  DataChangeEvent:
+     description: |
+        Represents a change to an entity. The required fields are those expected
+        to be sent by the producer, other fields may be added by intermediaries
+        such as a publish/subcribe broker. An instance of an event based on the
+        event type conforms to both the DataChangeEvent's definition and the
+        custom schema definition.      
+    required:
+      - metadata
+      - data_op
+      - data_type
+      - data    
+    properties:
+      metadata:
+        description: The metadata for this event.
+        $ref: '#/definitions/EventMetadata'
+      data:
+        description: | 
+          Contains custom payload for the event type. The payload must conform
+          to a schema associated with the event type declared in the metadata
+          object's `event_type` field.                
+        type: object
+      data_type:     
+        description: name of the (business) data entity that has been mutated
+        type: string
+        example: 'sales_order.order'
+      data_op:
+        type: string
+        enum: ['C', 'U', 'D', 'S']
+        description: |
+          The type of operation executed on the entity:
+
+          - C: Creation of an entity
+          - U: An update to an entity.
+          - D: Deletion of an entity.
+          - S: A snapshot of an entity at a point in time.
+```
+
+The Data Change Event Category is structurally different to the General Event Category. It defines
+a field called `"data"` for placing the custom payload information, as well as
+specific information related to data changes in the `data_type`. In the example
+fragment below, the fields `"a"` and `"b"` are part of the custom payload housed
+inside the `"data"` field:
+
+<pre style="font-size: .85em">
+  {
+    <span style="font-weight: bold;">"metadata": {...}</span>
+    <span style="font-weight: bold">"data_op": "C"</span>
+    <span style="font-weight: bold">"data_type": "example.order"</span>
+    <span style="font-weight: bold">"data": {</span>
+      <span style="color: blue;">"a": "a1",</span>
+      <span style="color: blue;">"b": "b1"</span>
+    <span style="font-weight: bold">}</span>
+  }
+</pre>
+
+See the following guidelines for more guidance on how to use the Data Change Event
+Category:
+
+- ["Ensure that Data Change Events match API representations."](../events/event.md#should-ensure-that-data-change-events-match-api-representations)
+
+- ["Use Data Change Events to signal mutations."](../events/event.md#must-use-data-change-events-to-signal-mutations))
+
+- ["Use the hash partition strategy for Data Change Events."](../events/event.md#should-use-the-hash-partition-strategy-for-data-change-events))
+
+**Event Metadata.**
+
+The General and Data Change event categories share a common structure for
+_metadata_. The metadata structure is shown below as an Open API Schema Object:
+
+```yaml
+  EventMetadata:
+    type: object
+    description: | 
+      Carries metadata for an Event along with common fields. The required
+      fields are those expected to be sent by the producer, other fields may be
+      added by intermediaries such as publish/subscribe broker.      
+    required:
+      - eid
+      - occurred_at      
+    properties:
+      eid:
+        description: Identifier of this event.
+        type: string
+        format: uuid
+        example: '105a76d8-db49-4144-ace7-e683e8f4ba46'
+      event_type:
+        description: The name of the EventType of this Event. 
+        type: string
+        example: 'example.important-business-event'
+      occurred_at:
+        description: When the event was created according to the producer.
+        type: string
+        format: date-time
+        example: '1996-12-19T16:39:57-08:00'
+      received_at:      
+        description: |           
+          When the event was seen by an intermediary such as a broker.
+        type: string
+        readOnly: true
+        format: date-time
+        example: '1996-12-19T16:39:57-08:00'
+      version:
+        description: |    
+          Version of the schema used for validating this event. This may be
+          enriched upon reception by intermediaries. This string uses semantic
+          versioning.          
+        type: string
+        readOnly: true
+      parent_eids:
+        description: |
+          Event identifiers of the Event that caused the generation of 
+          this Event. Set by the producer.      
+        type: array
+        items:
+          type: string
+          format: uuid
+        example: '105a76d8-db49-4144-ace7-e683e8f4ba46'
+      flow_id:
+        description: | 
+          A flow-id for this event (corresponds to the X-Flow-Id HTTP header).          
+        type: string
+        example: 'JAh6xH4OQhCJ9PutIV_RYw'
+      partition:
+        description: |
+          Indicates the partition assigned to this Event. Used for systems where
+          an event type's events can be sub-divided into partitions.          
+        type: string
+        example: '0'
+```
+
+Please note than intermediaries acting between the producer of an event and its ulimate consumers, may perform operations like validation of events and enrichment of an event's `"metadata"`. For example brokers such as Nakadi, can validate and enrich events with arbitrary additional fields that are not specified here and may set default or other values, if some of the specified fields are not supplied. How such systems work is outside the scope of these guidelines but producers and consumers working with such systems should be look into their documentation for additional information.
+
 ## {{ book.must }} Ensure that Events define useful business resources
  
  Events are intended to be used by other services including business process/data analytics and monitoring. They should be based around the resources and business processes you have defined for your service domain and adhere to its natural lifecycle (see also "Should: Define useful resources" in the [General Guidelines](../general-guidelines/GeneralGuidelines.md)).
  
 As there is a cost in creating an explosion of event types and topics, prefer to define event types that are abstract/generic enough to be valuable for multiple use cases, and avoid publishing event types without a clear need.
-
-## {{ book.must }} Ensure that events conform to Zalando's event types
-
-Events are defined using a structure called an _EventType_, which describes details for a particular kind of event. The EventType declares standard information, such as a name, an owning application (and by implication, an owning team), a well known event category (such as a business process or data change), and a schema defining the event payload. It also allows the declaration of validation and enrichment strategies for events, along with supplemental information such as how events are partitioned in the stream. 
-
-An EventType is registered via a _Schema Registry API_ (for example, the Nakadi service provides a schema registry). Once the EventType is created, individual events that conform to the type and its payload schema can be published, and consumers can access them as stream of Events. 
-
-The [current Open API descriptions](https://github.com/zalando/nakadi/blob/master/api/nakadi-event-bus-api.yaml) include the definitions for three category types:
-
-- BusinessEvent, for business process events.
-- DataChangeEvent for data change events.
-- Undefined, for generic 'undefined' type.
-
-This list of categories may be extended in the future.
-
-The types consist of a predefined part that publishers must conform to, and a service specific part that is defined by the publisher using a schema (the service specific data defined for an event is called the _payload_).
 
 ## {{ book.must }} Events must not provide sensitive customer personal data.
 
@@ -94,9 +460,10 @@ Similar to API permission scopes, there will be Event Type permissions passed vi
  
  - Event type owners **must not** publish sensitive information unless it's mandatory or neccessary to do so. For example, events sometimes need to provide personal data, such as delivery addresses in shipment orders  (as do other APIs), and this is fine.
 
-## {{ book.must }} Use Business Events to signal steps and arrival points in business processes
+## {{ book.must }} Use the General Event Category to signal steps and arrival points in business processes
 
-A specific event type for business processes is defined, called [BusinessEvent](https://github.com/zalando/nakadi/blob/nakadi-jvm/api/nakadi-event-bus-api.yaml#/definitions/BusinessEvent). When publishing events that represent steps in a business process, event types must be based on the BusinessEvent type.
+When publishing events that represent steps in a business process, event types
+must be based on the General Event category.
 
 All your events of a single business process will conform to the following rules:
 
@@ -114,7 +481,8 @@ At the moment we cannot state whether it's best practice to publish all the even
 
 ## {{ book.must }} Use Data Change Events to signal mutations
 
-A specific event type for data and resource changes is defined, called a [DataChangeEvent](https://github.com/zalando/nakadi/blob/nakadi-jvm/api/nakadi-event-bus-api.yaml#/definitions/DataChangeEvent). When publishing events that represents created, updated, or deleted data, change event types must be based on the DataChangeEvent category.
+When publishing events that represents created, updated, or deleted data, change
+event types must be based on the Data Change Event category.
 
 - Change events must identify the changed entity to allow aggregation of all related events for the entity.
 - Change events should [contain a means of ordering](#should-provide-a-means-of-event-ordering) events for a given entity.
