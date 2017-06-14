@@ -70,17 +70,34 @@ Content-Type: application/json
 }
 ```
 
-The approach we recommend for field filtering is a Zalando Github project,
-[json-fields](https://github.com/zalando/json-fields). It defines a formal grammar for the ANTLR
- parser generator and provides a ready-to use library for Java / Jackson based projects
- ([Maven link](http://mvnrepository.com/artifact/org.zalando.guild.api/json-fields-jackson)).
-Teams that use other JSON serializers are encouraged to contribute to the open source project and
-create their own parser / framework based on this grammar.
+The approach we recommend for field filtering is adding a request parameter like e.g. `fields` 
+which value follows the following [BNF](https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form) grammar.
 
-Other approaches we have considered are JSONPath or GraphQL. While they have advantages, neither of
-them can easily be plugged into an existing serialization process, so they require an additional,
-manual serialization process, whereas the above solution addresses our main filter use cases and
-can easily be introduced with a minimum of effort.
+```
+<fields> ::= <negation> <fields_expression> | <fields_expression>
+
+<negation> ::= "!"
+
+<fields_expression> ::= "(" <field_set> ")"
+
+<field_set> ::= <qualified_field> | <qualified_field> "," <field_set>
+
+<qualified_field> ::= <field> | <field> <fields_expression>
+
+<field> ::= <DASH_LETTER_DIGIT> | <DASH_LETTER_DIGIT> <field>
+
+<DASH_LETTER_DIGIT> ::= <DASH> | <LETTER> | <DIGIT>
+
+<DASH> ::= "-" | "_"
+
+<LETTER> ::= "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z" | "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z"
+
+<DIGIT> ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+```
+
+A `fields_expression` as defined by the grammar describes the properties of an object, i.e. `(name)` would define to
+return only the `name` property of the root object. `(name,partner(name))` would define to return the `name` and 
+`partner` properties where `partner` itself would also be an object and only its `name` property should be returned.
 
 Hint: OpenAPI doesn't allow you to formally specify whether depending on a given parameter will
 return different parts of the specified result schema. Explain this in English in the parameter
@@ -93,7 +110,9 @@ cases where clients know upfront that they need some related resources they can 
 data eagerly. Whether this is optimized on the server, e.g. a database join, or done in a generic way, e.g. an HTTP
 proxy that transparently embeds resources, is up to the implementation.
 
-See [*Conventional Query Strings*](../naming/Naming.md#could-use-conventional-query-strings) for naming. Please use [json-fields](https://github.com/zalando/json-fields) library, already mentioned above for filtering, when it comes to an embedding query syntax.
+See [*Conventional Query Strings*](../naming/Naming.md#could-use-conventional-query-strings) for naming. Please use the 
+[BNF](https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form) grammar, as already defined above for filtering, when it 
+comes to an embedding query syntax.
 
 Embedding a sub-resource can possibly look like this where an order resource has its order items as sub-resource (/order/{orderId}/items):
 
