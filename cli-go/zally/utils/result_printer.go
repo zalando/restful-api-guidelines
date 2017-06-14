@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"bytes"
 	"fmt"
 	"io"
 	"strings"
@@ -56,7 +57,7 @@ func (r *ResultPrinter) printViolations(header string, violations []domain.Viola
 	if len(violations) > 0 {
 		fmt.Fprint(r.buffer, r.formatHeader(header))
 		for _, violation := range violations {
-			fmt.Fprint(r.buffer, violation.ToString())
+			fmt.Fprint(r.buffer, r.formatViolation(&violation))
 		}
 	}
 }
@@ -81,4 +82,20 @@ func (r *ResultPrinter) formatHeader(header string) string {
 		return ""
 	}
 	return fmt.Sprintf("%s\n%s\n\n", header, strings.Repeat("=", len(header)))
+}
+
+func (r *ResultPrinter) formatViolation(v *domain.Violation) string {
+	var buffer bytes.Buffer
+
+	fmt.Fprintf(&buffer, "%s %s\n", v.ViolationType, v.Title)
+	fmt.Fprintf(&buffer, "\t%s\n", v.Decription)
+	fmt.Fprintf(&buffer, "\t%s\n", v.RuleLink)
+
+	for _, path := range v.Paths {
+		fmt.Fprintf(&buffer, "\t\t%s\n", path)
+	}
+
+	fmt.Fprintf(&buffer, "\n")
+
+	return buffer.String()
 }

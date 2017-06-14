@@ -155,7 +155,7 @@ func TestPrintViolations(t *testing.T) {
 		resultPrinter.printViolations("MUST", violations.Must())
 
 		actualResult := string(buffer.Bytes())
-		expectedResult := fmt.Sprintf("MUST\n====\n\n%s", mustViolation.ToString())
+		expectedResult := fmt.Sprintf("MUST\n====\n\n%s", resultPrinter.formatViolation(&mustViolation))
 
 		tests.AssertEquals(t, expectedResult, actualResult)
 	})
@@ -187,9 +187,29 @@ func TestPrintViolations(t *testing.T) {
 		actualResult := string(buffer.Bytes())
 		expectedResult := fmt.Sprintf(
 			"MUST\n====\n\n%sSHOULD\n======\n\n%sSummary:\n========\n\n%s",
-			mustViolation.ToString(),
-			shouldViolation.ToString(),
+			resultPrinter.formatViolation(&mustViolation),
+			resultPrinter.formatViolation(&shouldViolation),
 			violationsCount.ToString())
+
+		tests.AssertEquals(t, expectedResult, actualResult)
+	})
+}
+
+func TestFormatViolation(t *testing.T) {
+	var buffer bytes.Buffer
+	resultPrinter := NewResultPrinter(&buffer)
+
+	t.Run("Converts violation to string", func(t *testing.T) {
+
+		var violation domain.Violation
+		violation.Title = "Test Title"
+		violation.RuleLink = "http://example.com/violation"
+		violation.ViolationType = "MUST"
+		violation.Decription = "Test Description"
+		violation.Paths = []string{"/path/one", "/path/two"}
+
+		actualResult := resultPrinter.formatViolation(&violation)
+		expectedResult := "MUST Test Title\n\tTest Description\n\thttp://example.com/violation\n\t\t/path/one\n\t\t/path/two\n\n"
 
 		tests.AssertEquals(t, expectedResult, actualResult)
 	})
