@@ -1,4 +1,6 @@
-# Tooling
+# Appendix: Tooling
+
+This is not a part of the actual guidelines, but might be helpful for following them. Using a tool mentioned here doesn't automatically ensure you follow the guidelines.
 
 ## API First Integrations
 
