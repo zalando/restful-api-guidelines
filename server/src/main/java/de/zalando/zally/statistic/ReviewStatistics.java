@@ -37,7 +37,9 @@ public class ReviewStatistics {
             .collect(Collectors.groupingBy(RuleViolation::getName, Collectors.toList()))
             .entrySet().stream()
             .filter(entry -> !entry.getValue().isEmpty())
-            .map(entry -> new ViolationStatistic(entry.getValue().get(0), entry.getValue().size()))
+            .map(entry ->
+                new ViolationStatistic(entry.getValue().get(0),
+                    entry.getValue().stream().mapToInt(RuleViolation::getOccurrence).sum()))
             .collect(Collectors.toList());
     }
 

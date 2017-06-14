@@ -210,31 +210,85 @@ definitions:
     type: object
     description: Review statistics for a given interval in time
     required:
-      - review_statistics
+      - total_reviews
+      - successful_reviews
+      - must_violations
+      - should_violations
+      - may_violations
+      - hint_violations
+      - reviews
+      - violations
     properties:
-      review_statistics:
+      total_reviews:
+        type: number
+        example: 23
+      successful_reviews:
+        type: number
+        example: 17
+      must_violations:
+        type: number
+        example: 123
+      should_violations:
+        type: number
+        example: 81
+      may_violations:
+        type: number
+        example: 32
+      hint_violations:
+        type: number
+        example: 5
+      reviews:
         type: array
         items:
           $ref: '#/definitions/ReviewStatistic'
+      violations:
+        type: array
+        items:
+          $ref: '#/definitions/ViolationStatistic'
 
   ReviewStatistic:
     type: object
-    description: One statistic for API reviews on a certain day
+    description: One api review
+    required:
+      - api
+      - successful
+      - number_of_endpoints
+      - violations
+    properties:
+      api:
+        type: string
+        example: 'My API'
+      successful:
+        type: boolean
+      number_of_endpoints:
+        type: number
+        example: 7
+      violations:
+        type: array
+        items:
+          $ref: '#/definitions/ViolationStatistic'
+
+  ViolationStatistic:
+    type: object
+    description: One violation in statistics
     required:
       - name
-      - value
-      - day
+      - type
+      - occurrence
     properties:
       name:
         type: string
-        example: 'api-reviews.all'
-      value:
-        type: number
-        example: 129.0
-      day:
+        example: 'My API'
+      type:
         type: string
-        format: date
-        example: '2017-09-21'
+        x-extensible-enum:
+        - MUST
+        - SHOULD
+        - MAY
+        - HINT
+      occurrence:
+        type: number
+        example: 6
 
   Violation:
     type: object
@@ -250,7 +304,7 @@ definitions:
         type: string
       violation_type:
         type: string
-        enum:
+        x-extensible-enum:
         - MUST
         - SHOULD
         - MAY
