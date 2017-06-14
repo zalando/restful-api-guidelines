@@ -54,6 +54,8 @@ public class RestReviewStatisticsTest extends RestApiBaseTest {
         ResponseEntity<ReviewStatistics> response = restTemplate.getForEntity(getUrl(), ReviewStatistics.class);
 
         assertThat(response.getBody().getReviews()).hasSize(reviews.size());
+        assertThat(response.getBody().getViolations()).hasSize(1);
+        assertThat(response.getBody().getViolations().get(0).getOccurrence()).isEqualTo(reviews.size());
     }
 
     @Test
@@ -72,6 +74,7 @@ public class RestReviewStatisticsTest extends RestApiBaseTest {
         assertThat(response.getBody().getTotalReviews()).isEqualTo(reviews.size());
         assertThat(response.getBody().getSuccessfulReviews()).isEqualTo(reviews.size());
         assertThat(response.getBody().getReviews()).hasSize(reviews.size());
+        assertThat(response.getBody().getViolations()).hasSize(1);
     }
 
     @Test

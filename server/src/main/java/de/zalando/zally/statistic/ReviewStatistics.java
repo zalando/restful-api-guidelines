@@ -1,6 +1,7 @@
 package de.zalando.zally.statistic;
 
 import de.zalando.zally.apireview.ApiReview;
+import de.zalando.zally.apireview.RuleViolation;
 
 import java.util.Collection;
 import java.util.List;
@@ -15,6 +16,7 @@ public class ReviewStatistics {
     private int mayViolations;
     private int hintViolations;
     private List<ApiReviewStatistic> reviews;
+    private List<ViolationStatistic> violations;
 
     ReviewStatistics() {
     }
@@ -30,6 +32,13 @@ public class ReviewStatistics {
         mayViolations = apiReviews.stream().mapToInt(ApiReview::getMayViolations).sum();
         hintViolations = apiReviews.stream().mapToInt(ApiReview::getHintViolations).sum();
         reviews = apiReviews.stream().map(ApiReviewStatistic::new).collect(Collectors.toList());
+        violations = apiReviews.stream()
+            .flatMap(r -> r.getRuleViolations().stream())
+            .collect(Collectors.groupingBy(RuleViolation::getName, Collectors.toList()))
+            .entrySet().stream()
+            .filter(entry -> !entry.getValue().isEmpty())
+            .map(entry -> new ViolationStatistic(entry.getValue().get(0), entry.getValue().size()))
+            .collect(Collectors.toList());
     }
 
     public int getTotalReviews() {
@@ -86,5 +95,13 @@ public class ReviewStatistics {
 
     public void setReviews(List<ApiReviewStatistic> reviews) {
         this.reviews = reviews;
+    }
+
+    public List<ViolationStatistic> getViolations() {
+        return violations;
+    }
+
+    public void setViolations(List<ViolationStatistic> violations) {
+        this.violations = violations;
     }
 }
