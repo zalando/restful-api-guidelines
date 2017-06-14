@@ -18,12 +18,14 @@ allow us to make compatible changes without versioning.
 
 Please note that the compatibility guarantees are for the on-the-wire format,
 i.e. they ensure that consumers relying on the old API definition will work
-with servers which already implement a newer API definitions, assuming both API
+with servers which already implement a newer API definition, assuming both API
 designers and client and server implementors adhere to the following rules.
 
-(Binary or source compatibility of code generated from an API definition is not covered
-by this – if you update the definition to a new version, it is expected that code changes
-are necessary.)
+**Note:** Binary or source compatibility of code generated from an API definition
+is not covered by these rules.  If client implementations update their generation
+process to a new version of the API definition, it has to be expected that code
+changes are necessary.
+
 
 ## {{ book.should }} Prefer Compatible Extensions
 
