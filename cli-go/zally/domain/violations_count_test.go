@@ -3,7 +3,7 @@ package domain
 import (
 	"testing"
 
-	"github.com/zalando-incubator/zally/cli-go/zally/utils"
+	"github.com/zalando-incubator/zally/cli-go/zally/tests"
 )
 
 func TestViolationsCount(t *testing.T) {
@@ -17,6 +17,6 @@ func TestViolationsCount(t *testing.T) {
 		actualResult := count.ToString()
 		expectedResult := "MUST violations: 1\nSHOULD violations: 2\nMAY violations: 3\nHINT violations: 4\n"
 
-		utils.AssertEquals(t, expectedResult, actualResult)
+		tests.AssertEquals(t, expectedResult, actualResult)
 	})
 }

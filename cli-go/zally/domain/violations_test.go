@@ -7,7 +7,7 @@ import (
 
 	"bytes"
 
-	"github.com/zalando-incubator/zally/cli-go/zally/utils"
+	"github.com/zalando-incubator/zally/cli-go/zally/tests"
 )
 
 func TestViolations(t *testing.T) {
@@ -53,7 +53,7 @@ func TestViolations(t *testing.T) {
 		var violations Violations
 		actualResult := violations.ToString()
 
-		utils.AssertEquals(t, "", actualResult)
+		tests.AssertEquals(t, "", actualResult)
 	})
 
 	t.Run("ToString returns list of violation strings", func(t *testing.T) {
@@ -66,35 +66,35 @@ func TestViolations(t *testing.T) {
 			hintViolation.ToString(),
 			violationsCount.ToString())
 
-		utils.AssertEquals(t, expectedResult, actualResult)
+		tests.AssertEquals(t, expectedResult, actualResult)
 	})
 
 	t.Run("filterViolations returns filtered list of MUST violations", func(t *testing.T) {
 		actualResult := violations.filterViolations("MUST")
 		expectedResult := []Violation{mustViolation}
 
-		utils.AssertEquals(t, expectedResult, actualResult)
+		tests.AssertEquals(t, expectedResult, actualResult)
 	})
 
 	t.Run("filterViolations returns filtered list of SHOULD violations", func(t *testing.T) {
 		actualResult := violations.filterViolations("SHOULD")
 		expectedResult := []Violation{shouldViolation}
 
-		utils.AssertEquals(t, expectedResult, actualResult)
+		tests.AssertEquals(t, expectedResult, actualResult)
 	})
 
 	t.Run("filterViolations uses case-insensitive type", func(t *testing.T) {
 		actualResult := violations.filterViolations("Should")
 		expectedResult := []Violation{shouldViolation}
 
-		utils.AssertEquals(t, expectedResult, actualResult)
+		tests.AssertEquals(t, expectedResult, actualResult)
 	})
 
 	t.Run("Must filters by MUST violations", func(t *testing.T) {
 		actualResult := violations.Must()
 		expectedResult := violations.filterViolations("Must")
 
-		utils.AssertEquals(t, expectedResult, actualResult)
+		tests.AssertEquals(t, expectedResult, actualResult)
 
 	})
 
@@ -102,7 +102,7 @@ func TestViolations(t *testing.T) {
 		actualResult := violations.Should()
 		expectedResult := violations.filterViolations("Should")
 
-		utils.AssertEquals(t, expectedResult, actualResult)
+		tests.AssertEquals(t, expectedResult, actualResult)
 
 	})
 
@@ -110,7 +110,7 @@ func TestViolations(t *testing.T) {
 		actualResult := violations.May()
 		expectedResult := violations.filterViolations("May")
 
-		utils.AssertEquals(t, expectedResult, actualResult)
+		tests.AssertEquals(t, expectedResult, actualResult)
 
 	})
 
@@ -118,19 +118,19 @@ func TestViolations(t *testing.T) {
 		actualResult := violations.Hint()
 		expectedResult := violations.filterViolations("Hint")
 
-		utils.AssertEquals(t, expectedResult, actualResult)
+		tests.AssertEquals(t, expectedResult, actualResult)
 	})
 
 	t.Run("formatHeader adds a line", func(t *testing.T) {
 		actualResult := formatHeader("Header")
 		expectedResult := "Header\n======\n\n"
 
-		utils.AssertEquals(t, expectedResult, actualResult)
+		tests.AssertEquals(t, expectedResult, actualResult)
 	})
 
 	t.Run("formatHeader returns empty string when no header", func(t *testing.T) {
 		result := formatHeader("")
-		utils.AssertEquals(t, "", result)
+		tests.AssertEquals(t, "", result)
 	})
 
 	t.Run("printViolations prints violations and header", func(t *testing.T) {
@@ -140,7 +140,7 @@ func TestViolations(t *testing.T) {
 		actualResult := string(buffer.Bytes())
 		expectedResult := fmt.Sprintf("MUST\n====\n\n%s", mustViolation.ToString())
 
-		utils.AssertEquals(t, expectedResult, actualResult)
+		tests.AssertEquals(t, expectedResult, actualResult)
 	})
 
 	t.Run("printViolations prints nothing when no violations", func(t *testing.T) {
@@ -149,6 +149,6 @@ func TestViolations(t *testing.T) {
 
 		result := string(buffer.Bytes())
 
-		utils.AssertEquals(t, "", result)
+		tests.AssertEquals(t, "", result)
 	})
 }

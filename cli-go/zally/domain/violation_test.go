@@ -3,7 +3,7 @@ package domain
 import (
 	"testing"
 
-	"github.com/zalando-incubator/zally/cli-go/zally/utils"
+	"github.com/zalando-incubator/zally/cli-go/zally/tests"
 )
 
 func TestViolation(t *testing.T) {
@@ -19,6 +19,6 @@ func TestViolation(t *testing.T) {
 		actualResult := violation.ToString()
 		expectedResult := "MUST Test Title\n\tTest Description\n\thttp://example.com/violation\n\t\t/path/one\n\t\t/path/two\n\n"
 
-		utils.AssertEquals(t, expectedResult, actualResult)
+		tests.AssertEquals(t, expectedResult, actualResult)
 	})
 }

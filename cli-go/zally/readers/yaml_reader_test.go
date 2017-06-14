@@ -5,7 +5,7 @@ import (
 
 	"encoding/json"
 
-	"github.com/zalando-incubator/zally/cli-go/zally/utils"
+	"github.com/zalando-incubator/zally/cli-go/zally/tests"
 )
 
 func TestYAMLReader(t *testing.T) {
@@ -20,8 +20,8 @@ func TestYAMLReader(t *testing.T) {
 
 		outputResult, err := result.MarshalJSON()
 
-		utils.AssertEquals(t, nil, err)
-		utils.AssertEquals(t, expected, string(outputResult))
+		tests.AssertEquals(t, nil, err)
+		tests.AssertEquals(t, expected, string(outputResult))
 	})
 
 	t.Run("raises_error_when_yaml_cannot_be_parsed", func(t *testing.T) {
@@ -30,10 +30,10 @@ func TestYAMLReader(t *testing.T) {
 
 		result, err := reader.Read()
 
-		utils.AssertEquals(
+		tests.AssertEquals(
 			t,
 			"yaml: line 2: could not find expected ':'",
 			err.Error())
-		utils.AssertEquals(t, json.RawMessage(nil), result)
+		tests.AssertEquals(t, json.RawMessage(nil), result)
 	})
 }
