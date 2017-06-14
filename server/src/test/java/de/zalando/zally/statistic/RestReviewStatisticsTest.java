@@ -33,7 +33,7 @@ public class RestReviewStatisticsTest extends RestApiBaseTest {
         ResponseEntity<ReviewStatistics> response = restTemplate.getForEntity(getUrl(), ReviewStatistics.class);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(response.getBody().getApis()).isEmpty();
+        assertThat(response.getBody().getReviews()).isEmpty();
     }
 
     @Test
@@ -53,7 +53,7 @@ public class RestReviewStatisticsTest extends RestApiBaseTest {
 
         ResponseEntity<ReviewStatistics> response = restTemplate.getForEntity(getUrl(), ReviewStatistics.class);
 
-        assertThat(response.getBody().getApis()).hasSize(reviews.size());
+        assertThat(response.getBody().getReviews()).hasSize(reviews.size());
     }
 
     @Test
@@ -71,7 +71,7 @@ public class RestReviewStatisticsTest extends RestApiBaseTest {
         assertThat(response.getBody().getMustViolations()).isEqualTo(reviews.size());
         assertThat(response.getBody().getTotalReviews()).isEqualTo(reviews.size());
         assertThat(response.getBody().getSuccessfulReviews()).isEqualTo(reviews.size());
-        assertThat(response.getBody().getApis()).hasSize(reviews.size());
+        assertThat(response.getBody().getReviews()).hasSize(reviews.size());
     }
 
     @Test
@@ -84,7 +84,7 @@ public class RestReviewStatisticsTest extends RestApiBaseTest {
         ResponseEntity<ReviewStatistics> response = restTemplate.getForEntity(
             getUrl() + "?from=" + from.toString() + "&to=" + to.toString(), ReviewStatistics.class);
 
-        assertThat(response.getBody().getApis()).hasSize(reviews.size() - 1);
+        assertThat(response.getBody().getReviews()).hasSize(reviews.size() - 1);
     }
 
     @Test
