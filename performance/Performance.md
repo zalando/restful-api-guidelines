@@ -70,8 +70,8 @@ Content-Type: application/json
 }
 ```
 
-The approach we recommend for field filtering is adding a request parameter like e.g. `fields` 
-which value follows the following [BNF](https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form) grammar.
+As illustrated by this example, field filtering should be done via request parameter "fields" with value range defined 
+by the following [BNF](https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form) grammar.
 
 ```
 <fields> ::= <negation> <fields_expression> | <fields_expression>
@@ -110,7 +110,8 @@ cases where clients know upfront that they need some related resources they can 
 data eagerly. Whether this is optimized on the server, e.g. a database join, or done in a generic way, e.g. an HTTP
 proxy that transparently embeds resources, is up to the implementation.
 
-See [*Conventional Query Strings*](../naming/Naming.md#could-use-conventional-query-strings) for naming. Please use the 
+See [*Conventional Query Parameters*](../naming/Naming.md#could-use-conventional-query-strings) for naming, e.g. 
+"embed" for steering of embedded resource expansion. Please use the 
 [BNF](https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form) grammar, as already defined above for filtering, when it 
 comes to an embedding query syntax.
 
