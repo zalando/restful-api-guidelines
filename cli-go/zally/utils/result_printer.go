@@ -3,6 +3,7 @@ package utils
 import (
 	"fmt"
 	"io"
+	"strings"
 
 	"github.com/logrusorgru/aurora"
 	"github.com/zalando-incubator/zally/cli-go/zally/domain"
@@ -38,6 +39,28 @@ func (r *ResultPrinter) printRule(rule *domain.Rule) {
 		rule.URL)
 }
 
+// PrintViolations creates string representation of Violation
+func (r *ResultPrinter) PrintViolations(v *domain.Violations) {
+	r.printViolations("MUST", v.Must())
+	r.printViolations("SHOULD", v.Should())
+	r.printViolations("MAY", v.May())
+	r.printViolations("HINT", v.Hint())
+
+	if len(v.Violations) > 0 {
+		fmt.Fprint(r.buffer, r.formatHeader("Summary:"))
+		fmt.Fprint(r.buffer, v.ViolationsCount.ToString())
+	}
+}
+
+func (r *ResultPrinter) printViolations(header string, violations []domain.Violation) {
+	if len(violations) > 0 {
+		fmt.Fprint(r.buffer, r.formatHeader(header))
+		for _, violation := range violations {
+			fmt.Fprint(r.buffer, violation.ToString())
+		}
+	}
+}
+
 func (r *ResultPrinter) colorizeByTypeFunc(ruleType string) func(interface{}) aurora.Value {
 	switch ruleType {
 	case "MUST":
@@ -51,4 +74,11 @@ func (r *ResultPrinter) colorizeByTypeFunc(ruleType string) func(interface{}) au
 	default:
 		return aurora.Gray
 	}
+}
+
+func (r *ResultPrinter) formatHeader(header string) string {
+	if len(header) == 0 {
+		return ""
+	}
+	return fmt.Sprintf("%s\n%s\n\n", header, strings.Repeat("=", len(header)))
 }

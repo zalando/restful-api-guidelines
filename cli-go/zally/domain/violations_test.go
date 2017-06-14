@@ -3,10 +3,6 @@ package domain
 import (
 	"testing"
 
-	"fmt"
-
-	"bytes"
-
 	"github.com/zalando-incubator/zally/cli-go/zally/tests"
 )
 
@@ -48,26 +44,6 @@ func TestViolations(t *testing.T) {
 	var violations Violations
 	violations.Violations = []Violation{mustViolation, shouldViolation, mayViolation, hintViolation}
 	violations.ViolationsCount = violationsCount
-
-	t.Run("ToString returns empty string if no violations", func(t *testing.T) {
-		var violations Violations
-		actualResult := violations.ToString()
-
-		tests.AssertEquals(t, "", actualResult)
-	})
-
-	t.Run("ToString returns list of violation strings", func(t *testing.T) {
-		actualResult := violations.ToString()
-		expectedResult := fmt.Sprintf(
-			"MUST\n====\n\n%sSHOULD\n======\n\n%sMAY\n===\n\n%sHINT\n====\n\n%sSummary:\n========\n\n%s",
-			mustViolation.ToString(),
-			shouldViolation.ToString(),
-			mayViolation.ToString(),
-			hintViolation.ToString(),
-			violationsCount.ToString())
-
-		tests.AssertEquals(t, expectedResult, actualResult)
-	})
 
 	t.Run("filterViolations returns filtered list of MUST violations", func(t *testing.T) {
 		actualResult := violations.filterViolations("MUST")
@@ -119,36 +95,5 @@ func TestViolations(t *testing.T) {
 		expectedResult := violations.filterViolations("Hint")
 
 		tests.AssertEquals(t, expectedResult, actualResult)
-	})
-
-	t.Run("formatHeader adds a line", func(t *testing.T) {
-		actualResult := formatHeader("Header")
-		expectedResult := "Header\n======\n\n"
-
-		tests.AssertEquals(t, expectedResult, actualResult)
-	})
-
-	t.Run("formatHeader returns empty string when no header", func(t *testing.T) {
-		result := formatHeader("")
-		tests.AssertEquals(t, "", result)
-	})
-
-	t.Run("printViolations prints violations and header", func(t *testing.T) {
-		var buffer bytes.Buffer
-		printViolations(&buffer, "MUST", violations.Must())
-
-		actualResult := string(buffer.Bytes())
-		expectedResult := fmt.Sprintf("MUST\n====\n\n%s", mustViolation.ToString())
-
-		tests.AssertEquals(t, expectedResult, actualResult)
-	})
-
-	t.Run("printViolations prints nothing when no violations", func(t *testing.T) {
-		var buffer bytes.Buffer
-		printViolations(&buffer, "MUST", []Violation{})
-
-		result := string(buffer.Bytes())
-
-		tests.AssertEquals(t, "", result)
 	})
 }
