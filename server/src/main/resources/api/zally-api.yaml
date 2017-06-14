@@ -281,7 +281,7 @@ definitions:
         example: 'My API'
       type:
         type: string
-        enum:
+        x-extensible-enum:
         - MUST
         - SHOULD
         - MAY
@@ -304,7 +304,7 @@ definitions:
         type: string
       violation_type:
         type: string
-        enum:
+        x-extensible-enum:
         - MUST
         - SHOULD
         - MAY
