@@ -14,7 +14,7 @@ class UseSpecificHttpStatusCodes(@Autowired rulesConfig: Config) : AbstractRule(
     override val title = "Use Specific HTTP Status Codes"
     override val url = "http://zalando.github.io/restful-api-guidelines/http/Http.html" +
         "#must-use-specific-http-status-codes"
-    override val violationType = ViolationType.MUST
+    override val violationType = ViolationType.SHOULD
     override val code = "M016"
     private val description = "Operatons should use specific HTTP status codes"
 
