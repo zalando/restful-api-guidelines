@@ -95,9 +95,9 @@ by the following [BNF](https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form) g
 <DIGIT> ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
 ```
 
-A `fields_expression` as defined by the grammar describes the properties of an object, i.e. `(name)` would define to
-return only the `name` property of the root object. `(name,partner(name))` would define to return the `name` and 
-`partner` properties where `partner` itself would also be an object and only its `name` property should be returned.
+A `fields_expression` as defined by the grammar describes the properties of an object, i.e. `(name)` returns only the 
+`name` property of the root object. `(name,partner(name))` returns the `name` and  `partner` properties where `partner` 
+itself is also an object and only its `name` property is returned.
 
 Hint: OpenAPI doesn't allow you to formally specify whether depending on a given parameter will
 return different parts of the specified result schema. Explain this in English in the parameter
