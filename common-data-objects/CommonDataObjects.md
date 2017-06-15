@@ -137,7 +137,7 @@ Stack traces contain implementation details that are not part of an API, and on 
 should never rely. Moreover, stack traces can leak sensitive information that partners and third
 parties are not allowed to receive and may disclose insights about vulnerabilities to attackers.
 
-### {{ book.must }} Use common field names
+## {{ book.must }} Use common field names
 
 There are some data fields that come up again and again in API data. We describe four here:
 
