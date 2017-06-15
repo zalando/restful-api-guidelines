@@ -43,7 +43,7 @@ There are some data fields that come up again and again in API data:
 
 - `id`: the identity of the object. If used, IDs must opaque strings and not numbers. IDs are unique within some documented context, are stable and don't change for a given object once assigned, and are never recycled cross entities.
 
-- _`xyz_`_`id`: an attribute within one object holding the identifier of another object must use a name that corresponds to the type of the referenced object or the relationship to the referenced object followed by `_id` (e.g. `customer_id` not `customer_number`; `parent_id` for the reference to a parent node of a child node, even if both have the type `Node`)
+- _`xyz_`_`id`: an attribute within one object holding the identifier of another object must use a name that corresponds to the type of the referenced object or the relationship to the referenced object followed by `_id` (e.g. `customer_id` not `customer_number`; `parent_node_id` for the reference to a parent node from a child node, even if both have the type `Node`)
 
 - `created`: when the object was created. If used this must be a date-time construct.
 
@@ -51,6 +51,35 @@ There are some data fields that come up again and again in API data:
 
 - `type`: the kind of thing this object is. If used the type of this field should be a string. Types allow runtime information on the entity provided that otherwise requires examining the Open API file.
 
+Example JSON schema:
+
+    tree_node:
+      type: object
+      properties: 
+        id:
+          description: the identifier of this node
+          type: string
+        created:
+          description: when got this node created
+          type: string
+          format: 'date-time'
+        modified:
+          description: when got this node last updated
+          type: string
+          format: 'date-time'
+        type:
+          type: string
+          enum: [ 'LEAF', 'NODE' ]
+        parent_node_id:
+          description: the identifier of the parent node of this node
+          type: string
+      example:
+        id: '123435'
+        created: '2017-04-12T23:20:50.52Z'
+        modified: '2017-04-12T23:20:50.52Z'
+        type: 'LEAF'
+        parent_node_id: '534321'
+        
 These properties are not always strictly necessary, but making them idiomatic allows API client developers to build up a common understanding of Zalando's resources. There is very little utility for API consumers in having different names or value types for these fields across APIs.
 
 ### Address Fields
@@ -82,7 +111,7 @@ Grouping and cardinality of fields in specific data types may vary based on the 
         properties:
           salutation:
             type: string
-          example: Mr
+            example: Mr
           first_name:
             type: string
             example: Hans Dieter
