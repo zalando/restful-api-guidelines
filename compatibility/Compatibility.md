@@ -13,8 +13,19 @@ There are two techniques to change APIs without breaking them:
 - introduce new API versions and still support older versions
 
 We strongly encourage using compatible API extensions and discourage versioning.
-With Postel’s Law in mind, here are some rules for providers and consumers that
-allow us to make compatible changes without versioning:
+With Postel’s Law in mind, the following five rules for providers and consumers
+allow us to make compatible changes without versioning.
+
+Please note that the compatibility guarantees are for the on-the-wire format,
+i.e. they ensure that consumers relying on the old API definition will work
+with servers which already implement a newer API definition, assuming both API
+designers and client and server implementors adhere to the following rules.
+
+**Note:** Binary or source compatibility of code generated from an API definition
+is not covered by these rules.  If client implementations update their generation
+process to a new version of the API definition, it has to be expected that code
+changes are necessary.
+
 
 ## {{ book.should }} Prefer Compatible Extensions
 
