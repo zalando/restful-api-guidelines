@@ -209,7 +209,7 @@ func TestFormatViolation(t *testing.T) {
 		violation.Paths = []string{"/path/one", "/path/two"}
 
 		actualResult := resultPrinter.formatViolation(&violation)
-		expectedResult := "MUST Test Title\n\tTest Description\n\thttp://example.com/violation\n\t\t/path/one\n\t\t/path/two\n\n"
+		expectedResult := "\x1b[31mMUST\x1b[0m \x1b[31mTest Title\x1b[0m\n\tTest Description\n\thttp://example.com/violation\n\t\t/path/one\n\t\t/path/two\n\n"
 
 		tests.AssertEquals(t, expectedResult, actualResult)
 	})

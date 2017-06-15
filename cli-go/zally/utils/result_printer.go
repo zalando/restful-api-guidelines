@@ -87,7 +87,9 @@ func (r *ResultPrinter) formatHeader(header string) string {
 func (r *ResultPrinter) formatViolation(v *domain.Violation) string {
 	var buffer bytes.Buffer
 
-	fmt.Fprintf(&buffer, "%s %s\n", v.ViolationType, v.Title)
+	colorize := r.colorizeByTypeFunc(v.ViolationType)
+
+	fmt.Fprintf(&buffer, "%s %s\n", colorize(v.ViolationType), colorize(v.Title))
 	fmt.Fprintf(&buffer, "\t%s\n", v.Decription)
 	fmt.Fprintf(&buffer, "\t%s\n", v.RuleLink)
 
