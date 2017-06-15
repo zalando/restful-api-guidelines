@@ -49,7 +49,7 @@ func (r *ResultPrinter) PrintViolations(v *domain.Violations) {
 
 	if len(v.Violations) > 0 {
 		fmt.Fprint(r.buffer, r.formatHeader("Summary:"))
-		fmt.Fprint(r.buffer, v.ViolationsCount.ToString())
+		fmt.Fprint(r.buffer, r.formatViolationsCount(&v.ViolationsCount))
 	}
 }
 
@@ -97,5 +97,14 @@ func (r *ResultPrinter) formatViolation(v *domain.Violation) string {
 
 	fmt.Fprintf(&buffer, "\n")
 
+	return buffer.String()
+}
+
+func (r *ResultPrinter) formatViolationsCount(v *domain.ViolationsCount) string {
+	var buffer bytes.Buffer
+	fmt.Fprintf(&buffer, "MUST violations: %d\n", v.Must)
+	fmt.Fprintf(&buffer, "SHOULD violations: %d\n", v.Should)
+	fmt.Fprintf(&buffer, "MAY violations: %d\n", v.May)
+	fmt.Fprintf(&buffer, "HINT violations: %d\n", v.Hint)
 	return buffer.String()
 }

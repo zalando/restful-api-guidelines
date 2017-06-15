@@ -189,7 +189,7 @@ func TestPrintViolations(t *testing.T) {
 			"MUST\n====\n\n%sSHOULD\n======\n\n%sSummary:\n========\n\n%s",
 			resultPrinter.formatViolation(&mustViolation),
 			resultPrinter.formatViolation(&shouldViolation),
-			violationsCount.ToString())
+			resultPrinter.formatViolationsCount(&violationsCount))
 
 		tests.AssertEquals(t, expectedResult, actualResult)
 	})
@@ -210,6 +210,24 @@ func TestFormatViolation(t *testing.T) {
 
 		actualResult := resultPrinter.formatViolation(&violation)
 		expectedResult := "MUST Test Title\n\tTest Description\n\thttp://example.com/violation\n\t\t/path/one\n\t\t/path/two\n\n"
+
+		tests.AssertEquals(t, expectedResult, actualResult)
+	})
+}
+
+func TestViolationsCount(t *testing.T) {
+	t.Run("ToString converts ViolationsCount to string", func(t *testing.T) {
+		var buffer bytes.Buffer
+		resultPrinter := NewResultPrinter(&buffer)
+
+		var count domain.ViolationsCount
+		count.Must = 1
+		count.Should = 2
+		count.May = 3
+		count.Hint = 4
+
+		actualResult := resultPrinter.formatViolationsCount(&count)
+		expectedResult := "MUST violations: 1\nSHOULD violations: 2\nMAY violations: 3\nHINT violations: 4\n"
 
 		tests.AssertEquals(t, expectedResult, actualResult)
 	})
