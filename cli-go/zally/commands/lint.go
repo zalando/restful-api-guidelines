@@ -44,9 +44,12 @@ func lintFile(path string, requestBuilder *utils.RequestBuilder) error {
 	}
 
 	violations, err := doRequest(requestBuilder, data)
-	fmt.Print(violations.ToString())
+	if err != nil {
+		return err
+	}
 
-	return err
+	fmt.Print(violations.ToString())
+	return nil
 }
 
 func readFile(path string) (json.RawMessage, error) {
