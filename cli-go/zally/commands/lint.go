@@ -11,6 +11,8 @@ import (
 
 	"path/filepath"
 
+	"strings"
+
 	"github.com/urfave/cli"
 	"github.com/zalando-incubator/zally/cli-go/zally/domain"
 	"github.com/zalando-incubator/zally/cli-go/zally/readers"
@@ -63,9 +65,7 @@ func readFile(path string) (json.RawMessage, error) {
 		return nil, err
 	}
 
-	reader := readers.NewJSONReader(contents)
-
-	return reader.Read()
+	return getReader(absolutePath, contents).Read()
 }
 
 func doRequest(requestBuilder *utils.RequestBuilder, data json.RawMessage) (*domain.Violations, error) {
@@ -103,4 +103,12 @@ func doRequest(requestBuilder *utils.RequestBuilder, data json.RawMessage) (*dom
 	}
 
 	return &violations, nil
+}
+
+func getReader(path string, contents []byte) readers.SpecsReader {
+	extension := strings.ToLower(filepath.Ext(path))
+	if extension == ".yml" || extension == ".yaml" {
+		return readers.NewYAMLReader(contents)
+	}
+	return readers.NewJSONReader(contents)
 }
