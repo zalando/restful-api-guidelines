@@ -32,7 +32,7 @@ When embedding links to other resources into representations you must use the co
 
 * `href`: The URI of the resource the hypertext control is linking to. All our API are using HTTP(s) as URI scheme. 
 
-When designing an API that contains any hypertext controls, the attribute name `href` should be reserved for usage within hypertext controls.
+In API that contain any hypertext controls, the attribute name `href` is reserved for usage within hypertext controls.
 
 The schema for hypertext controls can be derived from this model:
 
