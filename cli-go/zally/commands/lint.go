@@ -50,7 +50,12 @@ func lintFile(path string, requestBuilder *utils.RequestBuilder) error {
 		return err
 	}
 
-	fmt.Print(violations.ToString())
+	var buffer bytes.Buffer
+	resultPrinter := utils.NewResultPrinter(&buffer)
+	resultPrinter.PrintViolations(violations)
+
+	fmt.Print(buffer.String())
+
 	return nil
 }
 
