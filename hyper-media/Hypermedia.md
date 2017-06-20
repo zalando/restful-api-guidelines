@@ -26,62 +26,56 @@ with APIs explicitly defined outside the code with standard specification langua
 
 However, we do not forbid HATEOAS; you could use it, if you checked its limitations and still see clear value for your usage scenario that justifies its additional complexity. If you use HATEOAS please share experience and present your findings in the [API Guild \[internal link\]](https://techwiki.zalando.net/display/GUL/API+Guild).
 
-## {{ book.must }} Use a well-defined subset of HAL
+## {{ book.must }} Use common hypertext controls
 
-Links to other resources must be defined exclusively using [HAL](http://stateless.co/hal_specification.html) and
-preferably using standard [link relations](http://www.iana.org/assignments/link-relations/link-relations.xml).
+When embedding links to other resources into representations you must use the common hypertext control object. It contains at least one attribute:
 
-Clients and Servers are required to support `_links` with its `href` and `rel` attributes, not only at the root level
-but also in nested objects. To reduce the effort needed by clients to process hypertext data from servers it's not recommended to serve data with CURIEs, URI templates or embedded resources. Nor is it required to support the HAL media type `application/hal+json`. The following snippet specifies the HAL link structure in JSONSchema:
+* `href`: The URI of the resource the hypertext control is linking to. All our API are using HTTP(s) as URI scheme. 
+
+In API that contain any hypertext controls, the attribute name `href` is reserved for usage within hypertext controls.
+
+The schema for hypertext controls can be derived from this model:
 
 ```yaml
-Link:
+HttpLink:
+  description: A base type of objects representing links to resources.
   type: object
   properties:
     href:
+      description: Any URI that is using http or https protocol
       type: string
       format: uri
-      example: https://api.example.com/sales-orders/10101058747628
-  required:
-    - href
-Links:
-  type: object
-  description: |
-    Values can be either a single Link or an array of Links
-    See https://docs.pennybags.zalan.do/ for more.
-  additionalProperties:
-    # keys are link relations
-    type: array
-    items:
-      $ref: '#/definitions/Link'
-  example:
-    'self':
-      - href: https://api.example.com/sales-orders/10101058747628
+  required: [ "href" ]
 ```
 
-We opted for this subset of HAL after conducting a comparison of different hypermedia formats based on properties like:
+The name of an attribute holding such a `HttpLink` object specifies the relation between the object that 
+contains the link and the linked resource. Implementations should use names from the 
+[IANA Link Relation Registry](http://www.iana.org/assignments/link-relations/link-relations.xhtml) 
+whenever appropriate.
 
-* Simplicity: resource link syntax and concepts are easy to understand and interpret for API clients.
-* Compatibility: introducing and adding links to resources is not breaking existing API clients.
-* Adoption: use in open-source libraries and tools as well as other companies
-* Docs: degree of good documentation
+Specific link objects may extend the basic link type with additional attributes, to give additional information
+related to the linked resource or the relationship between the source resource and the linked one.
 
-<p></p>
+E.g. a service providing "Person" resources could model a person who is married with some other person with a hypertext control that contains attributes which describe the other person (`id`, `name`) but also the relationship "spouse" between between the two persons (`since`):
 
-| Standard                                                       | Simplicity | Compatibility | Adoption | Primary Focus           | Docs |
-|----------------------------------------------------------------|------------|---------------|----------|-------------------------|------|
-| HAL Subset                                                     | ✓          | ✓             | ✓        | Links and relationships | ✓    |
-| [HAL](http://stateless.co/hal_specification.html)              | ✗          | ✓             | ✓        | Links and relationships | ✓    |
-| [JSON API](http://jsonapi.org/)                                | ✗          | ✗             | ✓        | Response format         | ✓    |
-| [JSON-LD](http://json-ld.org/)                                 | ✗          | ✓             | ?        | Link data               | ?    |
-| [Siren](https://github.com/kevinswiber/siren)                  | ✗          | ✗             | ✗        | Entities and navigation | ✗    |
-| [Collection+JSON](http://amundsen.com/media-types/collection/) | ✗          | ✗             | ✗        | Collections and queries | ✓    |
 
-We define HAL links to be extensible, i.e. to contain additional properties if needed. For consistency extensions should reuse attributes from the [`Link` header](https://tools.ietf.org/html/rfc5988#section-5).
+```json
+{
+  "id": "446f9876-e89b-12d3-a456-426655440000",
+  "name": "Peter Mustermann",
+  "spouse": {
+    "href": "https://...",
+    "since": "1996-12-19",
+    "id": "123e4567-e89b-12d3-a456-426655440000",
+    "name": "Linda Mustermann"
+  }
+}
+```
 
-Interesting articles for comparisons of different hypermedia formats:
-* [Kevin Sookocheff’s On choosing a hypermedia type for your API](http://sookocheff.com/post/api/on-choosing-a-hypermedia-format/)
-* [Mike Stowe's API Best Practices: Hypermedia](http://blogs.mulesoft.com/dev/api-dev/api-best-practices-hypermedia-part-3/)
+Hypertext controls are allowed anywhere within a JSON model. While this specification would
+allow [HAL](http://stateless.co/hal_specification.html), we actually don't recommend/enforce the 
+usage of HAL anymore as the structural separation of meta-data and data creates more harm than value to the 
+understandability and usability of an API.
 
 ## {{ book.must }} Do Not Use Link Headers with JSON entities
 
