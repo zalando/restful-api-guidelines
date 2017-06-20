@@ -11,6 +11,8 @@ import (
 
 	"io"
 
+	"fmt"
+
 	"github.com/zalando-incubator/zally/cli-go/zally/domain"
 	"github.com/zalando-incubator/zally/cli-go/zally/utils"
 )
@@ -63,5 +65,31 @@ func TestDoRequest(t *testing.T) {
 
 		utils.AssertEquals(t, "Cannot submit file for linting. HTTP Status: 404, Response: Not Found\n", err.Error())
 		utils.AssertEquals(t, (*domain.Violations)(nil), violations)
+	})
+}
+
+func TestGetReader(t *testing.T) {
+	yamlFixture := []byte("swagger: \"2.0\"")
+	jsonFixture := []byte("{\"swagger\": \"2.0\"}")
+
+	t.Run("returns_yaml_reader_when_extension_is_yaml", func(t *testing.T) {
+		absolutePath := "/tmp/file.yaml"
+		reader := getReader(absolutePath, yamlFixture)
+
+		utils.AssertEquals(t, "*readers.YAMLReader", fmt.Sprintf("%T", reader))
+	})
+
+	t.Run("returns_yaml_reader_when_extension_is_yml", func(t *testing.T) {
+		absolutePath := "/tmp/file.yml"
+		reader := getReader(absolutePath, yamlFixture)
+
+		utils.AssertEquals(t, "*readers.YAMLReader", fmt.Sprintf("%T", reader))
+	})
+
+	t.Run("returns_json_reader_when_extension_is_other", func(t *testing.T) {
+		absolutePath := "/tmp/file.json"
+		reader := getReader(absolutePath, jsonFixture)
+
+		utils.AssertEquals(t, "*readers.JSONReader", fmt.Sprintf("%T", reader))
 	})
 }
