@@ -1,4 +1,4 @@
-# Common Data Objects
+# Common Data Types
 
 Definitions of data objects that are good candidates for wider usage:
 
@@ -47,15 +47,81 @@ Some JSON parsers (NodeJS’s, for example) convert numbers to floats by default
 we’ve decided on "decimal" as our amount format. It is not a standard OpenAPI format, but should
 help us to avoid parsing numbers as float / doubles.
 
-## {{ book.should }} Use Common Address Fields
+
+## {{ book.must }} Use common field names and semantics
+
+There exist a variety of field types that are required in multiple places. To achieve consistency across all API implementations, you must use common field names and semantics whenever applicable.
+
+### Generic Fields
+
+There are some data fields that come up again and again in API data:
+
+- `id`: the identity of the object. If used, IDs must opaque strings and not numbers. IDs are unique within some documented context, are stable and don't change for a given object once assigned, and are never recycled cross entities.
+
+- _`xyz_`_`id`: an attribute within one object holding the identifier of another object must use a name that corresponds to the type of the referenced object or the relationship to the referenced object followed by `_id` (e.g. `customer_id` not `customer_number`; `parent_node_id` for the reference to a parent node from a child node, even if both have the type `Node`)
+
+- `created`: when the object was created. If used this must be a date-time construct.
+
+- `modified`: when the object was updated. If used this must be a date-time construct.
+
+- `type`: the kind of thing this object is. If used the type of this field should be a string. Types allow runtime information on the entity provided that otherwise requires examining the Open API file.
+
+Example JSON schema:
+
+    tree_node:
+      type: object
+      properties: 
+        id:
+          description: the identifier of this node
+          type: string
+        created:
+          description: when got this node created
+          type: string
+          format: 'date-time'
+        modified:
+          description: when got this node last updated
+          type: string
+          format: 'date-time'
+        type:
+          type: string
+          enum: [ 'LEAF', 'NODE' ]
+        parent_node_id:
+          description: the identifier of the parent node of this node
+          type: string
+      example:
+        id: '123435'
+        created: '2017-04-12T23:20:50.52Z'
+        modified: '2017-04-12T23:20:50.52Z'
+        type: 'LEAF'
+        parent_node_id: '534321'
+        
+These properties are not always strictly necessary, but making them idiomatic allows API client developers to build up a common understanding of Zalando's resources. There is very little utility for API consumers in having different names or value types for these fields across APIs.
+
+### Address Fields
 
 Address structures play a role in different functional and use-case contexts, including country
-variances. The address structure below should be sufficient for most of our business-related use
-cases. Use it in your APIs — and compatible extend it if necessary for your API concerns:
+variances. All attributes that relate to address information should follow the naming
+and semantics defined below.
 
-    address:
+- `salutation`: a salutation and/or title used for personal contacts to some addressee.
+    __Hint__: not to be confused with the gender information that is stored per customer account
+
+- `first_name`: given name(s) or first name(s) of a person; may also include the middle names.
+- `last_name`: family name(s) or surname(s) of a person
+- `business_name`: company name of the business organization. Used when a business is the actual addressee. For personal shipments to office addresses, use `care_of` instead.
+- `care_of` (_c/o_): the person that resides at the address, if different from addressee. E.g. used when sending a personal parcel to the office / someone else's home where the addressee resides temporarily.
+- `street`: the full street address including house number and street name
+- `additional`: further details like building name, suite, apartment number, etc.
+- `city`: name of the city / locality
+- `zip`: zip code or postal code
+- `country_code`: the country code according to [iso-3166-1-alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
+
+Grouping and cardinality of fields in specific data types may vary based on the specific use case
+(e.g. combining addressee and address fields into a single type when modeling an address label vs distinct addressee and address types when modeling users and their addresses).
+
+    addressee:
         description:
-          a common address structure adequate for many use cases
+          a (natural or legal) person that gets addressed
         type: object
         required:
           - first_name
@@ -67,41 +133,48 @@ cases. Use it in your APIs — and compatible extend it if necessary for your AP
         properties:
           salutation:
             type: string
-            description: |
-              A salutation and/or title which may be used for personal contacts. Hint: not to be confused with the gender information that is stored per customer account
             example: Mr
           first_name:
             type: string
-            description: given name(s) or first name(s) of a person; may also include the middle names
             example: Hans Dieter
           last_name:
             type: string
-            description: family name(s) or surname(s) of a person
             example: Mustermann
           business_name:
             type: string
-            description: company name of the business organization
+            example: Consulting Services GmbH
+        required:
+          - first_name
+          - last_name
+    
+    address:
+        description:
+          an address of a location/destination
+        type: object
+        properties:
+          care_of:
+            type: string
             example: Consulting Services GmbH
           street:
             type: string
-            description: full street address including house number and street name
             example: Schönhauser Allee 103
           additional:
             type: string
-            description: further details like suite, apartment number, etc.
             example: 2. Hinterhof rechts
           city:
             type: string
-            description: name of the city
             example: Berlin
           zip:
             type: string
-            description: Zip code or postal code
             example: 14265
           country_code:
             type: string
-            format: iso-3166-1-alpha-2
             example: DE
+        required:
+          - street
+          - city
+          - zip
+          - country_code
 
 ## {{ book.must }} Use Problem JSON
 
@@ -137,16 +210,3 @@ Stack traces contain implementation details that are not part of an API, and on 
 should never rely. Moreover, stack traces can leak sensitive information that partners and third
 parties are not allowed to receive and may disclose insights about vulnerabilities to attackers.
 
-## {{ book.must }} Use common field names
-
-There are some data fields that come up again and again in API data. We describe four here:
-
-- `id`: the identity of the object. If used, IDs must opaque strings and not numbers. IDs are unique within some documented context, are stable and don't change for a given object once assigned, and are never recycled cross entities. 
-
-- `created`: when the object was created. If used this must be a date-time construct.
-
-- `modified`: when the object was updated. If used this must be a date-time construct.
-
-- `type`: the kind of thing this object is. If used the type of this field should be a string. Types allow runtime information on the entity provided that otherwise requires examining the Open API file. 
-
-These properties are not always strictly neccessary, but making them idiomatic allows API client developers to build up a common understanding of Zalando's resources. There is very little utility for API consumers in having different names or value types for these fields across APIs. 
