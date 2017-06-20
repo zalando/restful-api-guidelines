@@ -5,7 +5,7 @@
 Change APIs, but keep all consumers
 running. Consumers usually have independent release lifecycles, focus on
 stability, and avoid changes that do not provide additional value. APIs are
-service contracts that cannot be broken via unilateral decisions.
+service contracts between service provider and its clients that cannot be broken via unilateral decisions.
 
 There are two techniques to change APIs without breaking them:
 
@@ -13,53 +13,79 @@ There are two techniques to change APIs without breaking them:
 - introduce new API versions and still support older versions
 
 We strongly encourage using compatible API extensions and discourage versioning.
-With Postel’s Law in mind, the following five rules for providers and consumers
-allow us to make compatible changes without versioning.
+The guideline rules below for providers and consumers enable us with Postel’s Law 
+in mind to make compatible changes without versioning.
 
-Please note that the compatibility guarantees are for the on-the-wire format,
+**Hint:** Please note that the compatibility guarantees are for the on-the-wire format,
 i.e. they ensure that consumers relying on the old API definition will work
 with servers which already implement a newer API definition, assuming both API
 designers and client and server implementors adhere to the following rules.
 
-**Note:** Binary or source compatibility of code generated from an API definition
+Hence, binary or source compatibility of code generated from an API definition
 is not covered by these rules.  If client implementations update their generation
 process to a new version of the API definition, it has to be expected that code
 changes are necessary.
 
 
-## {{ book.should }} Prefer Compatible Extensions
+## {{ book.should }} Service Provider Prefer Compatible Extensions
 
-Apply the following rules to evolve RESTful APIs in a backward-compatible way:
+Service provider should apply the following rules to evolve RESTful APIs in a backward-compatible way:
 
-* Ignore unknown fields in the payload
 * Add only optional, never mandatory fields
-* Never change the meaning of a field.
-* Enum ranges cannot not be extended when used for output parameters — clients
-  may not be prepared to handle it. However, enum ranges can be extended when
-  used for input parameters.
-* Enum ranges can be reduced when used as input parameters, only if the server
-  is ready to accept and handle old range values too. Enum values can be reduced
+* Never change the meaning of a field (e.g. by being more restrictive).
+* Enum ranges can be reduced when used as input parameters, only if the server 
+  is ready to accept and handle old range values too. Enum range can be reduced 
   when used as output parameters.
+* Enum ranges cannot not be extended when used for output parameters — clients 
+  may not be prepared to handle it. However, enum ranges can be extended when 
+  used for input parameters.
 * Use [`x-extensible-enum`](#should-used-openended-list-of-values-xextensibleenum-instead-of-enumerations),
   if range is used for output parameters and likely to
   be extended with growing functionality. It defines an open list of explicit
-  values and clients must be agnostic to new values (e.g. via casuistic with
-  default behavior).
+  values and clients must be agnostic to new values.
 * Support redirection in case an URL has to change
- ([301 Moved Permanently](https://en.wikipedia.org/wiki/HTTP_301))
+  ([301 Moved Permanently](https://en.wikipedia.org/wiki/HTTP_301))
 
+## {{ book.must }} Service Clients Do Not Crash With Compatible API Extensions
 
-## {{ book.must }} Prepare Clients for Compatible API Extensions (the Robustness Principle)
-
-How to do this:
+Service clients apply the robustness principle and must be prepared for compatible API extensions of service providers:
 
 * Ignore new and unknown fields in the payload (see also Fowler’s
   “[TolerantReader](http://martinfowler.com/bliki/TolerantReader.html)” post)
-* Be prepared for new enum values declared with
-  [`x-extensible-enum`](#should-used-openended-list-of-values-xextensibleenum-instead-of-enumerations);
-  provide default behavior for unknown values, if applicable
-* Follow the redirect when the server returns an “HTTP 301 Moved Permanently” response code
-* Be prepared to handle HTTP status codes not explicitly specified in endpoint definitions! Note also, that status codes are extensible -- default handling is how you would treat the corresponding x00 code (see [RFC7231  Section 6](https://tools.ietf.org/html/rfc7231#section-6))
+* Be prepared that [`x-extensible-enum`](#should-used-openended-list-of-values-xextensibleenum-instead-of-enumerations)
+  return parameter may deliver new values; either be agnostic or provide default behavior for unknown values. 
+* Be prepared to handle HTTP status codes not explicitly specified in endpoint definitions. 
+  Note also, that status codes are  extensible. Default handling is how you would treat the 
+  corresponding x00 code (see [RFC7231  Section 6](https://tools.ietf.org/html/rfc7231#section-6))
+* Follow the redirect when the server returns HTTP status
+  [301 Moved Permanently](https://en.wikipedia.org/wiki/HTTP_301).
+
+## {{ book.should }} Service Provider Are Conservative
+
+Service provider should be conservative and accurate in what they accept from clients:
+
+* Unknown fields in payload or URL should not be ignored.
+* Be accurate in defining input data constraints (like formats, ranges, lengths etc.) — and 
+  checking the constraints with dedicated error return information in case of violations. 
+* Prefer being more specific and restrictive, if compliant to functional requirements, 
+  e.g. by defining length range of strings; it may simplify implementation while providing 
+  freedom for further evolution as compatible extensions. 
+
+This is a strong recommendation; servers might want to take different approach with 
+"unknown fields" but should be aware of the following problems and be explicit in what is supported: 
+
+* Ignoring unknown fields is actually no option for PUT, since it becomes asymmetric 
+  with subsequent GET response and HTTP is pretty clear about the PUT "replace" 
+  semantics and default roundtrip expectations 
+  (see [RFC7231  Section 4.3.4](https://tools.ietf.org/html/rfc7231#section-4.3.4)).
+* Certain client errors cannot be recognized by server, e.g. attribute name typing 
+  errors will be ignored without server error feedback. The server cannot differ between 
+  client provided intentionally an additional field vs. client field name typing error 
+  where client intentionally wanted to provide a specific optional input field.
+* Future extensions of the input data structure might be in conflict with already 
+  ignored fields and, hence, will not be compatible, i.e. break clients that already 
+  use this field but with different type.
+
 
 ## {{ book.must }} Always Return JSON Objects As Top-Level Data Structures To Support Extensibility
 
