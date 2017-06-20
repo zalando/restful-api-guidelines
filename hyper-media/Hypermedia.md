@@ -36,19 +36,19 @@ When designing an API that contains any hypertext controls, the attribute name `
 
 The schema for hypertext controls can be derived from this model:
 
-    HttpLink:
-      description: |
-        A base type of objects representing links to resources.
-      type: object
-      properties:
-        href:
-          description: |
-            Any URI that is using http or https protocol
-          type: string
-          format: uri
-      required: [ "href" ]
- 
-The name of an attribute holding such a HttpLink object specifies the relation between the object that 
+```yaml
+HttpLink:
+  description: A base type of objects representing links to resources.
+  type: object
+  properties:
+    href:
+      description: Any URI that is using http or https protocol
+      type: string
+      format: uri
+  required: [ "href" ]
+```
+
+The name of an attribute holding such a `HttpLink` object specifies the relation between the object that 
 contains the link and the linked resource. Implementations should use names from the 
 [IANA Link Relation Registry](http://www.iana.org/assignments/link-relations/link-relations.xhtml) 
 whenever appropriate.
@@ -56,18 +56,21 @@ whenever appropriate.
 Specific link objects may extend the basic link type with additional attributes, to give additional information
 related to the linked resource or the relationship between the source resource and the linked one.
 
-E.g. when modeling a person that is married with some other person you could have attributes in the hypertext control that describe both, the spouse and the relationship between the two persons:
+E.g. a service providing "Person" resources could model a person who is married with some other person with a hypertext control that contains attributes which describe the other person (`id`, `name`) but also the relationship "spouse" between between the two persons (`since`):
 
-    {
-      "id": "446f9876-e89b-12d3-a456-426655440000",
-      "name": "Peter Mustermann",
-      "spouse": {
-        "href": "https://...",
-        "since": "1996-12-19",
-        "id": "123e4567-e89b-12d3-a456-426655440000",
-        "name": "Linda Mustermann"
-      }
-    }
+
+```json
+{
+  "id": "446f9876-e89b-12d3-a456-426655440000",
+  "name": "Peter Mustermann",
+  "spouse": {
+    "href": "https://...",
+    "since": "1996-12-19",
+    "id": "123e4567-e89b-12d3-a456-426655440000",
+    "name": "Linda Mustermann"
+  }
+}
+```
 
 Hypertext controls are allowed anywhere within a JSON model. While this specification would
 allow [HAL](http://stateless.co/hal_specification.html), we actually don't recommend/enforce the 
