@@ -58,13 +58,13 @@ There are some data fields that come up again and again in API data:
 
 - `id`: the identity of the object. If used, IDs must opaque strings and not numbers. IDs are unique within some documented context, are stable and don't change for a given object once assigned, and are never recycled cross entities.
 
-- _`xyz_`_`id`: an attribute within one object holding the identifier of another object must use a name that corresponds to the type of the referenced object or the relationship to the referenced object followed by `_id` (e.g. `customer_id` not `customer_number`; `parent_node_id` for the reference to a parent node from a child node, even if both have the type `Node`)
+- `xyz_id`: an attribute within one object holding the identifier of another object must use a name that corresponds to the type of the referenced object or the relationship to the referenced object followed by `_id` (e.g. `customer_id` not `customer_number`; `parent_node_id` for the reference to a parent node from a child node, even if both have the type `Node`)
 
-- `created`: when the object was created. If used this must be a date-time construct.
+- `created`: when the object was created. If used, this must be a date-time construct.
 
-- `modified`: when the object was updated. If used this must be a date-time construct.
+- `modified`: when the object was updated. If used, this must be a date-time construct.
 
-- `type`: the kind of thing this object is. If used the type of this field should be a string. Types allow runtime information on the entity provided that otherwise requires examining the Open API file.
+- `type`: the kind of thing this object is. If used, the type of this field should be a string. Types allow runtime information on the entity provided that otherwise requires examining the Open API file.
 
 Example JSON schema:
 
