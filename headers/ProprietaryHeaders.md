@@ -5,6 +5,16 @@ they address overarching service-related concerns. Whether services support thes
 optional; therefore, the OpenAPI API specification is the right place to make this explicitly
 visible. Use the parameter definitions of the resource HTTP methods.
 
+HTTP/1.1 standard ([RFC-2068](https://www.ietf.org/rfc/rfc2068.txt)) defines two types of headers: end-to-end and hop-by-bop headers.
+End-to-end headers must be transmitted to the ultimate recipient of a request or response.
+Hop-by-hop headers, on the contrary, are meaningful for a single connection only.
+
+**All Zalando's proprietary headers are end-to-end headers**.
+
+In general, proprietary headers should be avoided.
+They can be used in cases when parameter represents a pass-through end-to-end header.
+A valid use-case of a proprietary header is providing context information which is not a part of the actual API, but is used by subsequent communication.
+
 Remember that HTTP header field names are not case-sensitive.
 
 | Header field name | Type    | Description                       | Header field value example                |
@@ -17,3 +27,30 @@ Remember that HTTP header field names are not case-sensitive.
 | X-Device-Type      | String | There are also use cases for steering customer experience (incl. features and content) depending on device type. Via this header info should be passed-through as generic aspect. Current range is smartphone, tablet, desktop, other | tablet |
 | X-Device-OS      | String | On top of device type above, we even want to differ between device platform, e.g. smartphone Android vs. iOS. Via this header info should be passed-through as generic aspect. Current range is iOS, Android, Windows, Linux, MacOS | Android |
 | X-App-Domain      | Integer | The app domain (i.e. shop channel context) of the request. Note, app-domain is a legacy concept that will be replaced in new platform by combinations of main CFA concerns like retailer, sales channel, country | 16 |
+
+
+## {{ book.must }} use only the Specified Proprietary Zalando Headers
+
+Avoid using proprietary headers other than specified in the overview above.
+
+`X-` headers were initially reserved for unstandardized parameters.
+Now, their usage is deprecated ([RFC-6648](https://tools.ietf.org/html/rfc6648)).
+This fact complicates the contract definition between consumer and producer of an API, since there is no aligned way of handling those headers.
+Additionally, there is a chance of having intermediate proxies in the cloud environment, which may drop or alter unstandardized headers.
+
+**Exception:** The only exception to this guideline are the conventional hop-by-hop `X-RateLimit-` headers which can be used as defined in [HTTP/Must-Use-429-with-Headers-For-Rate-Limits](../http/Http.md#must-use-429-with-headers-for-rate-limits).
+
+
+## {{ book.must }} pass-through End-to-end Proprietary Headers
+
+All specified above headers must be passed to the services down the call chain.
+The header names and values must remain unchanged.
+Passing unchanged header values must happen even if a subset of them is transmitted as a part of the message body in the successive communication.
+
+Some of the transitive services may require the meta information provided via proprietary headers and/or rely on it.
+Besides, the values of the custom headers can influence the results of the queries (e.g. the device type information influences the recommendation results).
+
+
+*Footnote:*
+The Internet Engineering Task Force's states in [RFC-6648](https://tools.ietf.org/html/rfc6648) that company specific header' names should incorporate the organization's name.
+We aim for backward compatibility, and therefore keep the `X-` prefix.
