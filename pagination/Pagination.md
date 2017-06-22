@@ -58,41 +58,75 @@ Further reading:
 
 ## {{ book.may }} Use Pagination Links Where Applicable
 
-* Set links to provide information to the client about subsequent paging options.
+* API implementing [HATEOS](../hyper-media/Hypermedia.html#may-use-rest-maturity-level-3--hateoas) may use [simplified hypertext controls](../hyper-media/Hypermedia.html#should-pagination-and-self-references) for pagination within collections.
 
-For example:
+Those collections should then have an `items` attribute holding the items of the current page. The collection may contain additional metadata about the collection or the current page (e.g. `index`, `page_size`) when necessary.
 
-```http
-GET http://catalog-service.zalando.net/products?offset=10&limit=5 HTTP/1.1
-Accept: application/json
+You should avoid providing a total count in your API unless there's a clear need to do so. Very often, there are systems and performance implications to supporting full counts, especially as datasets grow and requests become complex queries or filters that drive full scans (e.g., your database might need to look at all candidate items to count them). While this is an implementation detail relative to the API, it's important to consider your ability to support serving counts over the life of a service.
 
-HTTP/1.1 200 OK
-Content-Type: application/json
+If the collection consists of links to other resources, the collection object name should use [IANA registered link relations](http://www.iana.org/assignments/link-relations/link-relations.xml) as names whenever appropriate, but use plural form.
 
+E.g. a service for articles could represent an `Article` that embeds a collection `authors` with hyperlinks to the article's authors like that:
+
+```json
 {
-  "_links": {
-    "next": {
-      "href": "http://catalog-service.zalando.net/products?offset=15&limit=5"
-    },
-    "prev": {
-      "href": "http://catalog-service.zalando.net/products?offset=5&limit=5"
-    }
-  },
-  "total_count": 42,
-  "products": [
-    {"id": "7e4ab218-1772-11e6-892c-836df3feeaee"},
-    {"id": "9469725a-1772-11e6-83c2-ab22ac368913"},
-    {"id": "a3625d80-1772-11e6-9213-d3a20f9e6bf4"},
-    {"id": "a802f070-1772-11e6-a772-c3020d55eb5f"},
-    {"id": "adb407ac-1772-11e6-b255-078fb28ff55b"}
-  ]
+  "self": "https://...",
+  "id": "446f9876-e89b-12d3-a456-426655440000",
+  "title": "Manifesto for Agile Software Development ",
+  "authors": {
+    "index": 0,
+    "page_size": 5
+    "items": [
+      {  
+        "href": "https://...",
+        "id": "123e4567-e89b-12d3-a456-426655440000",
+        "name": "Kent Beck"
+      },
+      {  
+        "href": "https://...",
+        "id": "987e2343-e89b-12d3-a456-426655440000",
+        "name": "Mike Beedle"
+      },
+      ...
+    ],
+    "first": "https://...",
+    "next": "https://...",
+    "prev": "https://...",
+    "last": "https://..."
+  }
 }
+
+```
+Following any of the pagination links would then just return another page of authors
+
+
+```json
+{
+  "items": [
+    "index": 5,
+    "page_size": 5    {  
+      "href": "https://...",
+      "id": "353e4567-e89b-12d3-a456-426655440000",
+      "name": "Martin Fowler"
+    },
+    {  
+      "href": "https://...",
+      "id": "687e2343-e89b-12d3-a456-426655440000",
+      "name": "James Grenning"
+    },
+    ...
+  ],
+  "first": "https://...",
+  "next": "https://...",
+  "prev": "https://...",
+  "last": "https://..."
+}
+
 ```
 
-[Possible relations](http://www.iana.org/assignments/link-relations/link-relations.xml):
-`next`, `prev`, `last`, `first`.
+Previous editions of the guidlines required the use HAL compliant hypertext controls. This requirement has been relaxed to enable more concise representation of links.
 
-Previous editions of the guidelines documented the `X-Total-Count` header to send back the total count of entities in conjunction with the `Link` header, which has since been deprecated. Instead when returning an object structure, the count can be added as a JSON property, and this is the preferred way to return count (or other result level) information. 
+Previous editions of the guidelines also documented the `X-Total-Count` header to send back the total count of entities in conjunction with the `Link` header, which has since been deprecated. Instead when returning an object structure, the count can be added as a JSON property, and this is the preferred way to return count (or other result level) information. 
 
 The `X-Total-Count` is applicable in these cases:
 
@@ -100,4 +134,4 @@ The `X-Total-Count` is applicable in these cases:
 * The API is returning a non-JSON response media type, and isn't able to carry the information.
 * The JSON response is an array and not an object.
 
-You should avoid providing a total count in your API unless there's a clear need to do so. Very often, there are systems and performance implications to supporting full counts, especially as datasets grow and requests become complex queries or filters that drive full scans (e.g., your database might need to look at all candidate items to count them). While this is an implementation detail relative to the API, it's important to consider your ability to support serving counts over the life of a service.
+
