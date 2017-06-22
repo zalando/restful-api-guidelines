@@ -75,7 +75,7 @@ E.g. a service for articles could represent an `Article` that embeds a collectio
   "title": "Manifesto for Agile Software Development ",
   "authors": {
     "index": 0,
-    "page_size": 5
+    "page_size": 5,
     "items": [
       {  
         "href": "https://...",
@@ -97,14 +97,15 @@ E.g. a service for articles could represent an `Article` that embeds a collectio
 }
 
 ```
-Following any of the pagination links would then just return another page of authors
+Following any of the pagination links would then return another page of authors
 
 
 ```json
 {
+  "index": 5,
+  "page_size": 5,
   "items": [
-    "index": 5,
-    "page_size": 5    {  
+    {  
       "href": "https://...",
       "id": "353e4567-e89b-12d3-a456-426655440000",
       "name": "Martin Fowler"
@@ -124,7 +125,7 @@ Following any of the pagination links would then just return another page of aut
 
 ```
 
-Previous editions of the guidlines required the use HAL compliant hypertext controls. This requirement has been relaxed to enable more concise representation of links.
+Previous editions of the guidelines required the use HAL compliant hypertext controls. This requirement has been relaxed to enable a more [concise representation and placement of links](../hyper-media/Hypermedia.html#must-use-common-hypertext-controls).
 
 Previous editions of the guidelines also documented the `X-Total-Count` header to send back the total count of entities in conjunction with the `Link` header, which has since been deprecated. Instead when returning an object structure, the count can be added as a JSON property, and this is the preferred way to return count (or other result level) information. 
 
