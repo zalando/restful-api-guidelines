@@ -1,12 +1,12 @@
 package commands
 
 import (
+	"bytes"
 	"fmt"
 	"net/http"
 
 	"encoding/json"
 
-	"github.com/logrusorgru/aurora"
 	"github.com/urfave/cli"
 	"github.com/zalando-incubator/zally/cli-go/zally/domain"
 	"github.com/zalando-incubator/zally/cli-go/zally/utils"
@@ -37,29 +37,11 @@ func listRules(c *cli.Context) error {
 	var rules domain.Rules
 	decoder.Decode(&rules)
 
-	for _, rule := range rules.Rules {
-		printRule(&rule)
-	}
+	var buffer bytes.Buffer
+	resultPrinter := utils.NewResultPrinter(&buffer)
+	resultPrinter.PrintRules(&rules)
+
+	fmt.Print(buffer.String())
 
 	return nil
-}
-
-func printRule(rule *domain.Rule) {
-	colorize := colorizeByTypeFunc(rule.Type)
-	fmt.Printf("%s %s: %s\n\t%s\n\n", colorize(rule.Code), colorize(rule.Type), rule.Title, rule.URL)
-}
-
-func colorizeByTypeFunc(ruleType string) func(interface{}) aurora.Value {
-	switch ruleType {
-	case "MUST":
-		return aurora.Red
-	case "SHOULD":
-		return aurora.Brown
-	case "MAY":
-		return aurora.Green
-	case "HINT":
-		return aurora.Cyan
-	default:
-		return aurora.Gray
-	}
 }

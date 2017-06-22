@@ -1,8 +1,6 @@
 package domain
 
 import (
-	"bytes"
-	"fmt"
 	"strings"
 )
 
@@ -10,23 +8,6 @@ import (
 type Violations struct {
 	Violations      []Violation     `json:"violations"`
 	ViolationsCount ViolationsCount `json:"violations_count"`
-}
-
-// ToString creates string representation of Violation
-func (v *Violations) ToString() string {
-	var buffer bytes.Buffer
-
-	printViolations(&buffer, "MUST", v.Must())
-	printViolations(&buffer, "SHOULD", v.Should())
-	printViolations(&buffer, "MAY", v.May())
-	printViolations(&buffer, "HINT", v.Hint())
-
-	if len(v.Violations) > 0 {
-		fmt.Fprint(&buffer, formatHeader("Summary:"))
-		fmt.Fprint(&buffer, v.ViolationsCount.ToString())
-	}
-
-	return buffer.String()
 }
 
 // Must returns must violations
@@ -57,20 +38,4 @@ func (v *Violations) filterViolations(violationType string) []Violation {
 		}
 	}
 	return result
-}
-
-func printViolations(buffer *bytes.Buffer, header string, violations []Violation) {
-	if len(violations) > 0 {
-		fmt.Fprint(buffer, formatHeader(header))
-		for _, violation := range violations {
-			fmt.Fprint(buffer, violation.ToString())
-		}
-	}
-}
-
-func formatHeader(header string) string {
-	if len(header) == 0 {
-		return ""
-	}
-	return fmt.Sprintf("%s\n%s\n\n", header, strings.Repeat("=", len(header)))
 }

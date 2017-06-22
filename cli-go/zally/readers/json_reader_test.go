@@ -3,9 +3,9 @@ package readers
 import (
 	"testing"
 
-	"encoding/json"
+	"github.com/zalando-incubator/zally/cli-go/zally/tests"
 
-	"github.com/zalando-incubator/zally/cli-go/zally/utils"
+	"encoding/json"
 )
 
 func TestJSONReader(t *testing.T) {
@@ -19,8 +19,8 @@ func TestJSONReader(t *testing.T) {
 
 		outputResult, err := result.MarshalJSON()
 
-		utils.AssertEquals(t, nil, err)
-		utils.AssertEquals(t, []byte(fixture), outputResult)
+		tests.AssertEquals(t, nil, err)
+		tests.AssertEquals(t, []byte(fixture), outputResult)
 	})
 
 	t.Run("raises_error_when_json_cannot_be_parsed", func(t *testing.T) {
@@ -29,8 +29,8 @@ func TestJSONReader(t *testing.T) {
 
 		result, err := reader.Read()
 
-		utils.AssertEquals(t, "unexpected end of JSON input", err.Error())
-		utils.AssertEquals(t, json.RawMessage(nil), result)
+		tests.AssertEquals(t, "unexpected end of JSON input", err.Error())
+		tests.AssertEquals(t, json.RawMessage(nil), result)
 	})
 
 	t.Run("raises_error_when_json_is_empty", func(t *testing.T) {
@@ -39,7 +39,7 @@ func TestJSONReader(t *testing.T) {
 
 		result, err := reader.Read()
 
-		utils.AssertEquals(t, "unexpected end of JSON input", err.Error())
-		utils.AssertEquals(t, json.RawMessage(nil), result)
+		tests.AssertEquals(t, "unexpected end of JSON input", err.Error())
+		tests.AssertEquals(t, json.RawMessage(nil), result)
 	})
 }
