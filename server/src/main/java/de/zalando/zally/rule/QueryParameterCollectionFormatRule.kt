@@ -13,12 +13,12 @@ class QueryParameterCollectionFormatRule : AbstractRule() {
     override val violationType = ViolationType.SHOULD
     override val code = "S011"
     val formatsAllowed = listOf("csv", "multi")
-    val violationDescription = "CollectionFormat should be one of: " + formatsAllowed
+    val violationDescription = "CollectionFormat should be one of: {formatsAllowed}"
 
     override fun validate(swagger: Swagger): Violation? {
         fun Collection<Parameter>?.extractInvalidQueryParam(path: String) =
             orEmpty().filterIsInstance<QueryParameter>()
-                .filter { it.`type` == "array" && it.`collectionFormat` !in formatsAllowed }
+                .filter { it.`type` == "array" && it.collectionFormat !in formatsAllowed }
                 .map { path to it.name }
 
         val fromParams = swagger.parameters.orEmpty().values.extractInvalidQueryParam("parameters")
@@ -31,8 +31,7 @@ class QueryParameterCollectionFormatRule : AbstractRule() {
         val allHeaders = fromParams + fromPaths
         val paths = allHeaders
             .map { "${it.first} ${it.second}" }
-            .toSet()
-            .toList()
+            .distinct()
 
         return if (paths.isNotEmpty()) createViolation(paths) else null
     }
