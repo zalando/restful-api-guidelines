@@ -42,16 +42,22 @@ script:
   # Run CLI integration test
   - ./cli/integration_tests/tests.bats
 
-  # Kill Zally server instace
-  - kill -9 `cat /tmp/zally_server.pid`
-
-  # Run CLI-GO tests
+  # Unit-test and build Go version of CLI
   - export ZALLY_GO_PATH="$GOPATH/src/github.com/zalando-incubator/zally"
   - mkdir -p $ZALLY_GO_PATH
-  - cp -R cli-go $ZALLY_GO_PATH
+  - cp -R . $ZALLY_GO_PATH
   - cd $ZALLY_GO_PATH/cli-go/zally
   - go get -t
   - go test -v -cover ./...
+  - go build
+  - cd ../..
+
+  # Run Go version of CLI integration test
+  - ./cli-go/integration_tests/tests.bats
+  - cd $TRAVIS_BUILD_DIR
+
+  # Kill Zally server instace
+  - kill -9 `cat /tmp/zally_server.pid`
 
 after_success:
   - java -cp ~/codacy-coverage-reporter.jar com.codacy.CodacyCoverageReporter --language Java --coverageReport cli/build/reports/jacoco/test/jacocoTestReport.xml -t $CODACY_PROJECT_TOKEN
