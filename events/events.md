@@ -10,6 +10,60 @@ Events are part of a service’s interface to the outside world equivalent in st
 
 Services publishing event data for use by others must make the event schema available for review. 
 
+## {{ book.must }} Ensure Event Type schemas conform to Open API's Schema Object
+
+Event type schema are defined in accordance with the Open API Schema Object
+specification, which uses a subset of
+[JSON Schema Draft 4](http://json-schema.org/), and also adds other
+features. This allows events to properly align with API resource representations
+(it's particulary useful for events that represent data changes about
+resources). The guideline exists since declaring event type schema using
+JSON-Schema syntax is common practice (because Open API doesn't yet allow
+standalone object definitions).
+
+In the rest of this section we'll call out some of the more notable differences
+between Open API and JSON-Schema. Please note this is not a complete list - in
+general it's recommended to familiarise yourself with Open API's Schema Object
+(the details are available from the
+["Schema Object" section of that specification](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#schemaObject)).
+
+Open API _removes_ some JSON-Schema keywords. These must not be used in event
+type schemas. The list of Open API object keywords can be seen
+[here](https://github.com/OAI/OpenAPI-Specification/blob/master/schemas/v2.0/schema.json#L935-L1063),
+but for convenience the list of non-available keywords relative to JSON-Schema
+are:
+
+  - `additionalItems`
+  - `contains`
+  - `patternProperties`
+  - `dependencies`
+  - `propertyNames`
+  - `const`
+  - `not`
+  - `oneOf`
+
+Open API _redefines_ some keywords:
+  
+  - `additionalProperties`: For event types that declare compatibility
+    guarantees, there are recommended constraints around the use of this
+    field. See the guideline "Avoid `additionalProperties` in event type
+    definitions" for details.
+
+Open API _extends_ JSON-Schema with some keywords:
+
+  - `readOnly`: events are logically immutable, so `readOnly` can be considered
+    redundant, but harmless.
+
+  - `discriminator`: discriminators exist to support polymorphism and act as an 
+    alternative to `oneOf`. 
+    
+  - `^x-`: patterned objects in the form of
+    [vendor extensions](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#vendorExtensions)
+    can be used in event type schema, but it might be the case that general
+    purpose validators do not understand them to enforce a validation check, and
+    fall back to must-ignore processing. A future version of the guidelines may
+    define well known vendor extensions for events.
+
 ## {{ book.must }} Ensure that Events define useful business resources
  
  Events are intended to be used by other services including business process/data analytics and monitoring. They should be based around the resources and business processes you have defined for your service domain and adhere to its natural lifecycle (see also "Should: Define useful resources" in the [General Guidelines](../general-guidelines/GeneralGuidelines.md)).
@@ -170,15 +224,25 @@ and regular considerations for event design. The guidelines recommend the
 following to enable event schema evolution:
 
 - Publishers who intend to provide compatibility and allow their schemas 
-  to evolve safely over time must define new optional fields 
-  (as additive changes) and update their schemas in advance of publishing 
-  those fields. In doing so, they **must not** declare an `additionalProperties` 
-  field as a wildcard extension point. 
+  to evolve safely over time  **must not** declare an `additionalProperties` 
+  field with a value of `true` (i.e., a wildcard extension point). Instead 
+  they must define new optional fields and update their schemas in advance 
+  of publishing those fields. 
 
-- Consumers must ignore fields they cannot process and not raise 
-  errors, just as they would as an API client. This can happen if they are 
+- Consumers **must** ignore fields they cannot process and not raise 
+  errors. This can happen if they are 
   processing events with an older copy of the event schema than the one
   containing the new definitions specified by the publishers. 
+
+The above constraint does not mean fields can never be added in 
+future revisions of an event type schema - additive compatible 
+changes are allowed, only that the new schema for an event type 
+must define the field first before it is published within an 
+event. By the same turn the consumer must ignore fields it does not 
+know about from its copy of the schema, just as they would as an API 
+client - that is, they cannot treat the absence of an 
+`additionalProperties` field as though the event type schema was 
+closed for extension.
 
 Requiring event publishers to define their fields ahead of publishing avoids 
 the problem of _field redefinition_. This is when a publisher defines a 
