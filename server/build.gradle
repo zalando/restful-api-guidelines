@@ -83,7 +83,7 @@ dependencies {
     testCompile("org.assertj:assertj-core:3.7.0")
     testCompile('com.jayway.jsonpath:json-path-assert:2.2.0')
 
-    ktlint("com.github.shyiko:ktlint:0.6.1")
+    ktlint("com.github.shyiko:ktlint:0.8.3")
 }
 
 jacoco {
