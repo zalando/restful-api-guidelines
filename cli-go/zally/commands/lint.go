@@ -60,17 +60,39 @@ func lintFile(path string, requestBuilder *utils.RequestBuilder) error {
 }
 
 func readFile(path string) (json.RawMessage, error) {
+	var contents []byte
+	var err error
+
+	if strings.HasPrefix(path, "http://") || strings.HasPrefix(path, "https://") {
+		contents, err = readRemoteFile(path)
+	} else {
+		contents, err = readLocalFile(path)
+	}
+
+	if err != nil {
+		return nil, err
+	}
+
+	return getReader(path, contents).Read()
+}
+
+func readLocalFile(path string) ([]byte, error) {
 	absolutePath, err := filepath.Abs(path)
 	if err != nil {
 		return nil, err
 	}
 
-	contents, err := ioutil.ReadFile(absolutePath)
+	return ioutil.ReadFile(absolutePath)
+}
+
+func readRemoteFile(url string) ([]byte, error) {
+	response, err := http.Get(url)
 	if err != nil {
 		return nil, err
 	}
 
-	return getReader(absolutePath, contents).Read()
+	defer response.Body.Close()
+	return ioutil.ReadAll(response.Body)
 }
 
 func doRequest(requestBuilder *utils.RequestBuilder, data json.RawMessage) (*domain.Violations, error) {

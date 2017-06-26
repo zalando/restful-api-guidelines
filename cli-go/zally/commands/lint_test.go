@@ -19,14 +19,29 @@ import (
 )
 
 func TestReadFile(t *testing.T) {
-	t.Run("fails_if_file_is_not_found", func(t *testing.T) {
+	t.Run("fails_if_local_file_is_not_found", func(t *testing.T) {
 		data, err := readFile("/tmp/non_existing_file")
 		tests.AssertEquals(t, json.RawMessage(nil), data)
 		tests.AssertEquals(t, "open /tmp/non_existing_file: no such file or directory", err.Error())
 	})
 
-	t.Run("returns_contents_when_file_is_found", func(t *testing.T) {
+	t.Run("returns_contents_when_local_file_is_found", func(t *testing.T) {
 		data, err := readFile("testdata/minimal_swagger.json")
+		tests.AssertEquals(t, json.RawMessage("{\n  \"swagger\": \"2.0\"\n}"), data)
+		tests.AssertEquals(t, nil, err)
+	})
+
+	t.Run("returns_contents_when_file_is_remote", func(t *testing.T) {
+		handler := func(w http.ResponseWriter, r *http.Request) {
+			fixture, _ := ioutil.ReadFile("testdata/minimal_swagger.json")
+			w.Header().Set("Content-Type", "application/json")
+			io.WriteString(w, string(fixture))
+		}
+		testServer := httptest.NewServer(http.HandlerFunc(handler))
+		defer testServer.Close()
+
+		data, err := readFile(testServer.URL)
+		fmt.Print(testServer.URL)
 		tests.AssertEquals(t, json.RawMessage("{\n  \"swagger\": \"2.0\"\n}"), data)
 		tests.AssertEquals(t, nil, err)
 	})
@@ -74,22 +89,22 @@ func TestGetReader(t *testing.T) {
 	jsonFixture := []byte("{\"swagger\": \"2.0\"}")
 
 	t.Run("returns_yaml_reader_when_extension_is_yaml", func(t *testing.T) {
-		absolutePath := "/tmp/file.yaml"
-		reader := getReader(absolutePath, yamlFixture)
+		path := "/tmp/file.yaml"
+		reader := getReader(path, yamlFixture)
 
 		tests.AssertEquals(t, "*readers.YAMLReader", fmt.Sprintf("%T", reader))
 	})
 
 	t.Run("returns_yaml_reader_when_extension_is_yml", func(t *testing.T) {
-		absolutePath := "/tmp/file.yml"
-		reader := getReader(absolutePath, yamlFixture)
+		path := "/tmp/file.yml"
+		reader := getReader(path, yamlFixture)
 
 		tests.AssertEquals(t, "*readers.YAMLReader", fmt.Sprintf("%T", reader))
 	})
 
 	t.Run("returns_json_reader_when_extension_is_other", func(t *testing.T) {
-		absolutePath := "/tmp/file.json"
-		reader := getReader(absolutePath, jsonFixture)
+		path := "/tmp/file.json"
+		reader := getReader(path, jsonFixture)
 
 		tests.AssertEquals(t, "*readers.JSONReader", fmt.Sprintf("%T", reader))
 	})
