@@ -29,7 +29,7 @@ Remember that HTTP header field names are not case-sensitive.
 | X-App-Domain      | Integer | The app domain (i.e. shop channel context) of the request. Note, app-domain is a legacy concept that will be replaced in new platform by combinations of main CFA concerns like retailer, sales channel, country | 16 |
 
 
-## {{ book.must }} use only the Specified Proprietary Zalando Headers
+## {{ book.must }} Use Only the Specified Proprietary Zalando Headers
 
 Avoid using proprietary headers other than specified in the overview above.
 
@@ -41,7 +41,7 @@ Additionally, there is a chance of having intermediate proxies in the cloud envi
 **Exception:** The only exception to this guideline are the conventional hop-by-hop `X-RateLimit-` headers which can be used as defined in [HTTP/Must-Use-429-with-Headers-For-Rate-Limits](../http/Http.md#must-use-429-with-headers-for-rate-limits).
 
 
-## {{ book.must }} pass-through End-to-end Proprietary Headers
+## {{ book.must }} Pass-through End-to-end Proprietary Headers
 
 All specified above headers must be passed to the services down the call chain.
 The header names and values must remain unchanged.
