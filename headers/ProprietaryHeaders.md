@@ -13,7 +13,7 @@ A valid use-case of a proprietary header is providing context information which 
 
 From a conceptual point of view, the semantic of an operation should always be expressed by resource name and query parameters, i.e. what goes into the URL.
 Headers implement protocol-close functions like control, content negotiation and authentication.
-Thus, headers are reserved for general context information [RFC-7231](https://tools.ietf.org/html/rfc7231).
+Thus, headers are reserved for general context information ([RFC-7231](https://tools.ietf.org/html/rfc7231)).
 
 `X-` headers were initially reserved for unstandardized parameters.
 The usage of `X-` headers is deprecated ([RFC-6648](https://tools.ietf.org/html/rfc6648)).
@@ -50,7 +50,9 @@ The values of the proprietary headers may be used as a part of the request body 
 In such cases, the proprietary headers must also be propagated as headers to the successive calls, despite the duplication.
 
 
+
 *Footnotes:*
+
 The Internet Engineering Task Force's states in [RFC-6648](https://tools.ietf.org/html/rfc6648) that company specific header' names should incorporate the organization's name.
 We aim for backward compatibility, and therefore keep the `X-` prefix.
 
