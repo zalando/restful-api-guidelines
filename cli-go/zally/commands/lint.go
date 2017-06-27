@@ -52,7 +52,7 @@ func lintFile(path string, requestBuilder *utils.RequestBuilder) error {
 
 	numberOfMustViolations := len(violations.Must())
 	if numberOfMustViolations > 0 {
-		err = fmt.Errorf("%d must violation(s) found", numberOfMustViolations)
+		err = fmt.Errorf("Failing because: %d must violation(s) found", numberOfMustViolations)
 	}
 
 	var buffer bytes.Buffer

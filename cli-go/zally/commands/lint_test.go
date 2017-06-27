@@ -140,6 +140,6 @@ func TestLintFile(t *testing.T) {
 
 		err := lintFile("testdata/minimal_swagger.json", requestBuilder)
 
-		tests.AssertEquals(t, "1 must violation(s) found", err.Error())
+		tests.AssertEquals(t, "Failing because: 1 must violation(s) found", err.Error())
 	})
 }

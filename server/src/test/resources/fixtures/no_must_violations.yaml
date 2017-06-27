@@ -1,0 +1,544 @@
+swagger: '2.0'
+
+info:
+  title: API Repository API
+  version: '1.0.0'
+  description: |
+    Repository API of the API Infrastructure Solution is currently used to manage APIs: Versions, Definitions, and
+    Applications which implement the API. Later it could be used to manage API meta information like
+    documentation and user manuals as well.
+
+    API resource represents an abstract API. One particular API has one or more semantic Versions which can be deployed
+    in multiple applications. An Application can implement multiple APIs. An API Version represents the version of the
+    API which is stated in the formal definition (e.g. OpenAPI). In the ideal case, there is only one Definition
+    instance per Version. Nevertheless, under some circumstances, multiple definitions can exist for the same version
+    (e.g. developers forget to increase the API version after some changes).
+
+    A crawled API (seen deployment instance) has a defined Lifecycle. A recently crawled API definition implemented by an
+    Application has the ACTIVE status. It gets INACTIVE or DECOMMISSIONED if it wasn't available for a long period of
+    time. These lifecycle statuses get lifted to the API Version, Application, and the abstract API: if there was a
+    recent crawling of an API Version then the API Version becomes ACTIVE. A typical transition of the status is
+    ACTIVE -> INACTIVE -> DECOMMISSIONED. For the time being, the lifecycle status is based on crawling information
+    only.
+
+externalDocs:
+  description: API Infrastructure Solution Documentation
+  url: https://github.com/zalando-incubator/api-discovery
+
+basePath: /
+produces:
+- application/json
+consumes:
+- application/json
+
+securityDefinitions:
+  oauth2:
+    type: oauth2
+    flow: implicit
+    authorizationUrl: https://example.com/oauth2/dialog
+    scopes:
+      uid: Unique identifier of the user accessing the service.
+      api-is.api-repository.api-definition.write: Scope allowing the user to write API definitions.
+
+security:
+- oauth2: [uid, api-is.api-repository.api-definition.write]
+
+parameters:
+  ApiId:
+    name: api_id
+    in: path
+    type: string
+    description: ID of the API
+    required: true
+  VersionId:
+    name: version_id
+    in: path
+    type: string
+    description: The API version (e.g. 1.0.0)
+    required: true
+  DefinitionId:
+    name: definition_id
+    in: path
+    type: string
+    description: ID of the API definition
+    required: true
+  ApplicationName:
+    name: application_name
+    in: path
+    type: string
+    description: Name of the application
+    required: true
+  LifecycleState:
+    name: lifecycle_state
+    in: query
+    type: string
+    description: Filter APIs by lifecycle state
+    required: false
+  CrawledAPIDefinition:
+    name: CrawledAPIDefinition
+    in: body
+    description: API definition details that will be saved
+    schema:
+      $ref: '#/definitions/CrawledAPIDefinition'
+    required: true
+
+paths:
+  '/apis':
+    get:
+      summary: list all APIs
+      description: Lists of all APIs
+      operationId: 'org.zalando.api-is.api-repository/read-apis'
+      tags:
+      - APIs
+      security:
+      - oauth2:
+        - uid
+      parameters:
+      - $ref: "#/parameters/LifecycleState"
+      responses:
+        200:
+          description: List of APIs
+          schema:
+            type: object
+            properties:
+              apis:
+                type: array
+                items:
+                  $ref: '#/definitions/APIMetadata'
+        default:
+          $ref: '#/responses/Error'
+
+  '/apis/{api_id}':
+    get:
+      summary: read API
+      description: Returns details about the API
+      operationId: 'org.zalando.api-is.api-repository/read-api'
+      tags:
+      - APIs
+      security:
+      - oauth2:
+        - uid
+      parameters:
+      - $ref: "#/parameters/ApiId"
+      responses:
+        200:
+          description: API's details
+          schema:
+            $ref: '#/definitions/API'
+        default:
+          $ref: '#/responses/Error'
+
+  '/apis/{api_id}/versions':
+    get:
+      summary: reads all versions of an API
+      description: List of all versions of an API
+      operationId: "org.zalando.api-is.api-repository/get-api-versions!"
+      tags:
+      - APIs
+      - Versions
+      security:
+      - oauth2:
+        - uid
+      parameters:
+      - $ref: "#/parameters/ApiId"
+      - $ref: "#/parameters/LifecycleState"
+      responses:
+        200:
+          description: List of API's versions
+          schema:
+            type: object
+            properties:
+              versions:
+                type: array
+                items:
+                  $ref: '#/definitions/Version'
+        default:
+          $ref: '#/responses/Error'
+
+  '/apis/{api_id}/versions/{version_id}':
+    get:
+      summary: reads a version of an API
+      description: Specific version of an API
+      operationId: "org.zalando.api-is.api-repository/get-api-version!"
+      tags:
+      - APIs
+      - Versions
+      security:
+      - oauth2:
+        - uid
+      parameters:
+      - $ref: "#/parameters/ApiId"
+      - $ref: "#/parameters/VersionId"
+      responses:
+        200:
+          description: Version of the API
+          schema:
+            $ref: '#/definitions/Version'
+        default:
+          $ref: '#/responses/Error'
+
+  '/apis/{api_id}/versions/{version_id}/definitions/{definition_id}':
+    get:
+      summary: reads a definition of an API versions
+      description: Definition of an API versions
+      operationId: "org.zalando.api-is.api-repository/get-api-version-definition!"
+      tags:
+      - APIs
+      - Versions
+      - Definitions
+      security:
+      - oauth2:
+        - uid
+      parameters:
+      - $ref: "#/parameters/ApiId"
+      - $ref: "#/parameters/VersionId"
+      - $ref: "#/parameters/DefinitionId"
+      responses:
+        200:
+          description: Swagger Definition of the API
+          schema:
+            $ref: '#/definitions/Definition'
+        default:
+          $ref: '#/responses/Error'
+
+  '/apis/{api_id}/deployments':
+    get:
+      summary: reads all Deployments of an API
+      description: List of all Deployments of an API
+      operationId: "org.zalando.api-is.api-repository/get-api-deployments!"
+      tags:
+      - APIs
+      - Deployments
+      security:
+      - oauth2:
+        - uid
+      parameters:
+      - $ref: "#/parameters/ApiId"
+      responses:
+        200:
+          description: List of API's Deployments
+          schema:
+            type: object
+            properties:
+              deployments:
+                type: array
+                items:
+                  $ref: '#/definitions/Deployment'
+        default:
+          $ref: '#/responses/Error'
+
+  '/applications':
+    get:
+      summary: reads all Applications
+      description: List of all Applications
+      operationId: "org.zalando.api-is.api-repository/get-applications!"
+      tags:
+      - Applications
+      security:
+      - oauth2:
+        - uid
+      responses:
+        200:
+          description: List of Applications
+          schema:
+            type: object
+            properties:
+              applications:
+                type: array
+                items:
+                  $ref: '#/definitions/Application'
+        default:
+          $ref: '#/responses/Error'
+
+  '/applications/{application_name}':
+    get:
+      summary: reads all Applications
+      description: List of all Applications
+      operationId: "org.zalando.api-is.api-repository/get-application!"
+      tags:
+      - Applications
+      security:
+      - oauth2:
+        - uid
+      parameters:
+      - $ref: '#/parameters/ApplicationName'
+      responses:
+        200:
+          description: Application details
+          schema:
+            $ref: '#/definitions/Application'
+        default:
+          $ref: '#/responses/Error'
+
+  '/api-definitions':
+    post:
+      summary: Saves an API definition
+      description: Saves an API definition
+      operationId: "org.zalando.api-is.api-repository/create-api-definition!"
+      tags:
+      - Definitions
+      security:
+      - oauth2:
+        - uid
+        - api-is.api-repository.api-definition.write
+      parameters:
+      - $ref: "#/parameters/CrawledAPIDefinition"
+      responses:
+        200:
+          description: API definition has been saved
+        default:
+          $ref: '#/responses/Error'
+
+responses:
+  Error:
+    description: The occured error
+    schema:
+      $ref: '#/definitions/Problem'
+
+definitions:
+  CrawledAPIDefinition:
+    type: object
+    properties:
+      status:
+        type: string
+        x-extensible-enum: [SUCCESSFUL, UNSUCCESSFUL]
+        description: The current status of the crawling
+        example: SUCCESSFUL
+      type:
+        type: string
+        description: Type of API definition
+        example: SWAGGER-2.0
+      api_name:
+        type: string
+        description: Name of the API
+        example: Kio API
+      version:
+        type: string
+        description: Version of the API
+        example: "1.0"
+      app_name:
+        type: string
+        description: Name of the application this API is deployed on
+        example: kio
+      service_url:
+        type: string
+        description: URL pointing to the Application which is providing the API
+        example: https://kio.example.com
+      url:
+        type: string
+        description: Path to the API definition file
+        example: /swagger/api.json
+      ui:
+        type: string
+        description: Path to the UI for browsing the API
+        example: /swagger-ui
+      definition:
+        type: string
+        description: The API definition
+        example: |
+          {"swagger": "2.0"
+           "foo": "bar"}
+    required:
+    - status
+    - app_name
+
+  Definition:
+    type: object
+    properties:
+      type:
+        type: string
+        description: Type of API definition
+        example: SWAGGER-2.0
+      definition:
+        type: string
+        description: The API definition
+        example: |
+          {"swagger": "2.0"
+           "foo": "bar"}
+      applications:
+        type: array
+        items:
+          $ref: '#/definitions/ApplicationLink'
+
+  API:
+    description: A representation of an abstract API
+    allOf:
+    - $ref: '#/definitions/APIMetadata'
+    - type: object
+      properties:
+        applications:
+          type: array
+          items:
+            $ref: '#/definitions/Application'
+        versions:
+          type: array
+          items:
+            $ref: '#/definitions/Version'
+
+  APIMetadata:
+    type: object
+    properties:
+      id:
+        type: string
+        description: ID of the API, extracted from API Name field
+        example: kio-api
+      lifecycle_state:
+        $ref: '#/definitions/LifecycleState'
+
+  Application:
+    type: object
+    description: A deployed instance of the API
+    properties:
+      name:
+        type: string
+        description: Application name (e.g. application and/or environment name)
+        example: sales-orders-app
+      app_url:
+        type: string
+        description: URL of the Application
+        example: sales-orders.api.zalando.com
+      definitions:
+        type: array
+        items:
+          $ref: '#/definitions/DefinitionLink'
+
+  Deployment:
+    type: object
+    description: A Deployment of an Application
+    properties:
+      api_version:
+        type: string
+        description: Version of the API
+        example: 1.0.0
+      application:
+        type: object
+        properties:
+          name:
+            type: string
+            description: Application name (e.g. application and/or environment name)
+            example: sales-orders-app
+          href:
+            type: string
+            description: link to the Application
+            example: https://meta.api.example.com/applications/sales-orders-app
+      definition:
+        type: object
+        properties:
+          href:
+            type: string
+            description: link to the current API definition
+            example: https://meta.api.example.com/apis/orders-api/1.0.0/definitions/3
+
+  Version:
+    type: object
+    description: A version of one particular API
+    properties:
+      api_version:
+        type: string
+        description: Version from the definition
+        example: 1.0.0
+      lifecycle_state:
+        $ref: '#/definitions/LifecycleState'
+      definitions:
+        type: array
+        items:
+          $ref: '#/definitions/Definition'
+
+  LifecycleState:
+    type: string
+    x-extensible-enum:
+    - ACTIVE
+    - INACTIVE
+    - DECOMMISSIONED
+
+  DefinitionLink:
+    type: object
+    properties:
+      api_ui:
+        type: string
+        description: Path to the UI for browsing the API
+        example: /swagger-ui
+      api_url:
+        type: string
+        description: Path to the API definition
+        example: /swagger/api.json
+      created:
+        type: string
+        format: date-time
+        description: first time crawled
+      last_updated:
+        type: string
+        format: date-time
+        description: last time crawled
+      lifecycle_state:
+        $ref: '#/definitions/LifecycleState'
+      href:
+        type: string
+        format: uri
+        example: https://meta.api.example.com/apis/sales-orders-api/versions/1.0.0/definitions/1
+    required:
+    - href
+
+  ApplicationLink:
+    type: object
+    properties:
+      api_ui:
+        type: string
+        description: Path to the UI for browsing the API
+        example: /swagger-ui
+      api_url:
+        type: string
+        description: Path to the API definition
+        example: /swagger/api.json
+      created:
+        type: string
+        format: date-time
+        description: first time crawled
+      last_updated:
+        type: string
+        format: date-time
+        description: last time crawled
+      lifecycle_state:
+        $ref: '#/definitions/LifecycleState'
+      href:
+        type: string
+        format: uri
+        example: https://meta.api.example.com/applications/sales-orders-app
+    required:
+    - href
+
+  Problem:
+    type: object
+    properties:
+      type:
+        type: string
+        format: uri
+        description: |
+          An absolute URI that identifies the problem type.  When dereferenced,
+          it SHOULD provide human-readable documentation for the problem type
+          (e.g., using HTML).
+        default: 'about:blank'
+        example: 'https://zalando.github.io/problem/constraint-violation'
+      title:
+        type: string
+        description: |
+          A short, summary of the problem type. Written in english and readable
+          for engineers (usually not suited for non technical stakeholders and
+          not localized); example: Service Unavailable
+      status:
+        type: integer
+        format: int32
+        description: |
+          The HTTP status code generated by the origin server for this occurrence
+          of the problem.
+        minimum: 100
+        maximum: 600
+        exclusiveMaximum: true
+        example: 503
+      detail:
+        type: string
+        description: |
+          A human readable explanation specific to this occurrence of the
+          problem.
+        example: Connection to database timed out
+
