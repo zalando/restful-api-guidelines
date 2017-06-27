@@ -23,7 +23,7 @@ Not feature-complete, in active development
 
     ```bash
     cd $GOPATH/github.com/zalando-incubator/zally/cli-go/zally
-    go test -v
+    go test -v ./...
     ```
 
 1. Build the binary:
