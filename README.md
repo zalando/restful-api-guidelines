@@ -15,6 +15,7 @@ E-Book Support
 -----
 
 You can easily generate PDF, ePub, Mobi files out of our guidelines. Please refer to this [explanation](https://toolchain.gitbook.com/ebook.html) - you have to install Callibre.
+You have to use node version 5.1.1 to build the guidelines.
 CAUTION: you need to add version 2.6.7 identifier to every build command:
 
   ```bash
