@@ -46,3 +46,10 @@
 	[ "${lines[62]}" = "HINT violations: 0" ]
 	[ "${#lines[@]}" -eq 63 ]
 }
+
+@test "Displays rule list" {
+	run cli-go/zally/zally rules
+	[ "$status" -eq 0 ]
+	[ "${lines[0]}" = "[33mS001[0m [33mSHOULD[0m: Avoid reserved Javascript keywords" ]
+	[ "${lines[1]}" = "	http://zalando.github.io/restful-api-guidelines/naming/Naming.html#should-reserved-javascript-keywords-should-be-avoided" ]
+}
