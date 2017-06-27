@@ -11,12 +11,13 @@ public class ReviewStatistics {
 
     private int totalReviews;
     private int successfulReviews;
+    private int numberOfEndpoints;
     private int mustViolations;
     private int shouldViolations;
     private int mayViolations;
     private int hintViolations;
-    private List<ApiReviewStatistic> reviews;
     private List<ViolationStatistic> violations;
+    private List<ApiReviewStatistic> reviews;
 
     ReviewStatistics() {
     }
@@ -27,20 +28,21 @@ public class ReviewStatistics {
             .map(apiReview -> apiReview.isSuccessfulProcessed() ? 1 : 0)
             .mapToInt(Integer::intValue)
             .sum();
+        numberOfEndpoints = apiReviews.stream().mapToInt(ApiReview::getNumberOfEndpoints).sum();
         mustViolations = apiReviews.stream().mapToInt(ApiReview::getMustViolations).sum();
         shouldViolations = apiReviews.stream().mapToInt(ApiReview::getShouldViolations).sum();
         mayViolations = apiReviews.stream().mapToInt(ApiReview::getMayViolations).sum();
         hintViolations = apiReviews.stream().mapToInt(ApiReview::getHintViolations).sum();
-        reviews = apiReviews.stream().map(ApiReviewStatistic::new).collect(Collectors.toList());
         violations = apiReviews.stream()
             .flatMap(r -> r.getRuleViolations().stream())
-            .collect(Collectors.groupingBy(RuleViolation::getName, Collectors.toList()))
+            .collect(Collectors.groupingBy(RuleViolation::getName))
             .entrySet().stream()
             .filter(entry -> !entry.getValue().isEmpty())
             .map(entry ->
                 new ViolationStatistic(entry.getValue().get(0),
                     entry.getValue().stream().mapToInt(RuleViolation::getOccurrence).sum()))
             .collect(Collectors.toList());
+        reviews = apiReviews.stream().map(ApiReviewStatistic::new).collect(Collectors.toList());
     }
 
     public int getTotalReviews() {
@@ -57,6 +59,14 @@ public class ReviewStatistics {
 
     public void setSuccessfulReviews(int successfulReviews) {
         this.successfulReviews = successfulReviews;
+    }
+
+    public int getNumberOfEndpoints() {
+        return numberOfEndpoints;
+    }
+
+    public void setNumberOfEndpoints(int numberOfEndpoints) {
+        this.numberOfEndpoints = numberOfEndpoints;
     }
 
     public int getMustViolations() {
@@ -91,19 +101,19 @@ public class ReviewStatistics {
         this.hintViolations = hintViolations;
     }
 
-    public List<ApiReviewStatistic> getReviews() {
-        return reviews;
-    }
-
-    public void setReviews(List<ApiReviewStatistic> reviews) {
-        this.reviews = reviews;
-    }
-
     public List<ViolationStatistic> getViolations() {
         return violations;
     }
 
     public void setViolations(List<ViolationStatistic> violations) {
         this.violations = violations;
+    }
+
+    public List<ApiReviewStatistic> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<ApiReviewStatistic> reviews) {
+        this.reviews = reviews;
     }
 }
