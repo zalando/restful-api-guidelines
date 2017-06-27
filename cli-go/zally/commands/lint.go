@@ -27,10 +27,10 @@ var LintCommand = cli.Command{
 	ArgsUsage: "FILE",
 }
 
-func lint(c *cli.Context) error {
+func lint(c *cli.Context) (bool, error) {
 	if !c.Args().Present() {
 		cli.ShowCommandHelp(c, c.Command.Name)
-		return fmt.Errorf("Please specify Swagger File")
+		return false, fmt.Errorf("Please specify Swagger File")
 	}
 
 	path := c.Args().First()
@@ -39,15 +39,20 @@ func lint(c *cli.Context) error {
 	return lintFile(path, requestBuilder)
 }
 
-func lintFile(path string, requestBuilder *utils.RequestBuilder) error {
+func lintFile(path string, requestBuilder *utils.RequestBuilder) (bool, error) {
+	anyMustViolations := false
 	data, err := readFile(path)
 	if err != nil {
-		return err
+		return anyMustViolations, err
 	}
 
 	violations, err := doRequest(requestBuilder, data)
 	if err != nil {
-		return err
+		return anyMustViolations, err
+	}
+
+	if len(violations.Must()) > 0 {
+		anyMustViolations = true
 	}
 
 	var buffer bytes.Buffer
@@ -56,7 +61,7 @@ func lintFile(path string, requestBuilder *utils.RequestBuilder) error {
 
 	fmt.Print(buffer.String())
 
-	return nil
+	return anyMustViolations, nil
 }
 
 func readFile(path string) (json.RawMessage, error) {

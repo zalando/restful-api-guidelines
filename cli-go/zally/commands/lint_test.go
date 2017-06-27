@@ -109,3 +109,39 @@ func TestGetReader(t *testing.T) {
 		tests.AssertEquals(t, "*readers.JSONReader", fmt.Sprintf("%T", reader))
 	})
 }
+
+func TestLintFile(t *testing.T) {
+	t.Run("returns_false_when_no_must_violations", func(t *testing.T) {
+		handler := func(w http.ResponseWriter, r *http.Request) {
+			fixture, _ := ioutil.ReadFile("testdata/violations_response_without_must_violations.json")
+			w.Header().Set("Content-Type", "application/json")
+			io.WriteString(w, string(fixture))
+		}
+		testServer := httptest.NewServer(http.HandlerFunc(handler))
+		defer testServer.Close()
+
+		requestBuilder := utils.NewRequestBuilder(testServer.URL, "")
+
+		anyMustViolations, err := lintFile("testdata/minimal_swagger.json", requestBuilder)
+
+		tests.AssertEquals(t, nil, err)
+		tests.AssertEquals(t, false, anyMustViolations)
+	})
+
+	t.Run("returns_true_when_any_must_violations", func(t *testing.T) {
+		handler := func(w http.ResponseWriter, r *http.Request) {
+			fixture, _ := ioutil.ReadFile("testdata/violations_response.json")
+			w.Header().Set("Content-Type", "application/json")
+			io.WriteString(w, string(fixture))
+		}
+		testServer := httptest.NewServer(http.HandlerFunc(handler))
+		defer testServer.Close()
+
+		requestBuilder := utils.NewRequestBuilder(testServer.URL, "")
+
+		anyMustViolations, err := lintFile("testdata/minimal_swagger.json", requestBuilder)
+
+		tests.AssertEquals(t, nil, err)
+		tests.AssertEquals(t, true, anyMustViolations)
+	})
+}
