@@ -212,12 +212,13 @@ definitions:
     required:
       - total_reviews
       - successful_reviews
+      - number_of_endpoints
       - must_violations
       - should_violations
       - may_violations
       - hint_violations
-      - reviews
       - violations
+      - reviews
     properties:
       total_reviews:
         type: number
@@ -225,6 +226,9 @@ definitions:
       successful_reviews:
         type: number
         example: 17
+      number_of_endpoints:
+        type: number
+        example: 10
       must_violations:
         type: number
         example: 123
@@ -237,14 +241,14 @@ definitions:
       hint_violations:
         type: number
         example: 5
-      reviews:
-        type: array
-        items:
-          $ref: '#/definitions/ReviewStatistic'
       violations:
         type: array
         items:
           $ref: '#/definitions/ViolationStatistic'
+      reviews:
+        type: array
+        items:
+          $ref: '#/definitions/ReviewStatistic'
 
   ReviewStatistic:
     type: object
