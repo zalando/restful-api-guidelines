@@ -46,6 +46,13 @@ public class RestReviewStatisticsTest extends RestApiBaseTest {
     }
 
     @Test
+    public void shouldPutViolationsListBeforeReviewsList() {
+        ResponseEntity<String> response = restTemplate.getForEntity(getUrl(), String.class);
+
+        assertThat(response.getBody().indexOf("\"violations\":")).isLessThan(response.getBody().indexOf("\"reviews\":"));
+    }
+
+    @Test
     public void shouldReturnAllReviewStatisticsFromLastWeekIfNoIntervalParametersAreSupplied() {
         LocalDate from = TestDateUtil.now().minusDays(7L).toLocalDate();
 
@@ -70,6 +77,7 @@ public class RestReviewStatisticsTest extends RestApiBaseTest {
         ResponseEntity<ReviewStatistics> response = restTemplate.getForEntity(
             getUrl() + "?from=" + from.toString(), ReviewStatistics.class);
 
+        assertThat(response.getBody().getNumberOfEndpoints()).isEqualTo(reviews.size() * 2);
         assertThat(response.getBody().getMustViolations()).isEqualTo(reviews.size());
         assertThat(response.getBody().getTotalReviews()).isEqualTo(reviews.size());
         assertThat(response.getBody().getSuccessfulReviews()).isEqualTo(reviews.size());
@@ -125,6 +133,7 @@ public class RestReviewStatisticsTest extends RestApiBaseTest {
             ApiReview review = new ApiReview(emptyJsonPayload, "dummyApiDefinition", createRandomViolations());
             review.setDay(currentDate);
             review.setName("My API");
+            review.setNumberOfEndpoints(2);
 
             reviews.add(review);
             currentDate = currentDate.plusDays(1L);
