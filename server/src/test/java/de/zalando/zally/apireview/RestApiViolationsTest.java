@@ -33,7 +33,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @TestPropertySource(properties = "zally.message=Test message")
 public class RestApiViolationsTest extends RestApiBaseTest {
 
-    private final String notAccessibleApiDefinitionUrl = "{\"api_definition_url\": \"http://bad.example.localhost/test.yaml\"}";
+    private final String notAccessibleApiDefinitionUrl = "{\"api_definition_url\": \"http://remote-localhost/test.yaml\"}";
     @LocalManagementPort
     private int managementPort;
 
@@ -203,7 +203,7 @@ public class RestApiViolationsTest extends RestApiBaseTest {
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
 
         final JsonNode rootObject = responseEntity.getBody();
-        assertThat(rootObject.get("detail").asText()).isEqualTo("Unknown host: bad.example.localhost");
+        assertThat(rootObject.get("detail").asText()).isEqualTo("Unknown host: remote-localhost");
     }
 
     @Test
