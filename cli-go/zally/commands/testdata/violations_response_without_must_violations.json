@@ -1,0 +1,11 @@
+{
+    "violations": [
+        {
+            "title": "Some Violation",
+            "description": "Some Description",
+            "violation_type": "SHOULD",
+            "rule_link": "http://example.com/some_violation",
+            "paths": ["/abcde/"]
+        }
+    ]
+}

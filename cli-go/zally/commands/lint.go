@@ -50,13 +50,18 @@ func lintFile(path string, requestBuilder *utils.RequestBuilder) error {
 		return err
 	}
 
+	numberOfMustViolations := len(violations.Must())
+	if numberOfMustViolations > 0 {
+		err = fmt.Errorf("Failing because: %d must violation(s) found", numberOfMustViolations)
+	}
+
 	var buffer bytes.Buffer
 	resultPrinter := utils.NewResultPrinter(&buffer)
 	resultPrinter.PrintViolations(violations)
 
 	fmt.Print(buffer.String())
 
-	return nil
+	return err
 }
 
 func readFile(path string) (json.RawMessage, error) {
