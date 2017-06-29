@@ -3,6 +3,7 @@ package commands
 import (
 	"bytes"
 	"fmt"
+	"io/ioutil"
 	"net/http"
 
 	"encoding/json"
@@ -20,16 +21,36 @@ var SupportedRulesCommand = cli.Command{
 }
 
 func listRules(c *cli.Context) error {
-	client := &http.Client{}
 	requestBuilder := utils.NewRequestBuilder(c.GlobalString("linter-service"), c.GlobalString("token"))
-	request, err := requestBuilder.Build("GET", "/supported-rules", nil)
+
+	rules, err := fetchRules(requestBuilder)
 	if err != nil {
 		return err
 	}
 
+	printRules(rules)
+
+	return nil
+}
+
+func fetchRules(requestBuilder *utils.RequestBuilder) (*domain.Rules, error) {
+	request, err := requestBuilder.Build("GET", "/supported-rules", nil)
+	if err != nil {
+		return nil, err
+	}
+
+	client := &http.Client{}
 	response, err := client.Do(request)
 	if err != nil {
-		return err
+		return nil, err
+	}
+
+	if response.StatusCode != 200 {
+		defer response.Body.Close()
+		body, _ := ioutil.ReadAll(response.Body)
+
+		return nil, fmt.Errorf(
+			"Cannot submit file for linting. HTTP Status: %d, Response: %s", response.StatusCode, string(body))
 	}
 
 	decoder := json.NewDecoder(response.Body)
@@ -37,11 +58,13 @@ func listRules(c *cli.Context) error {
 	var rules domain.Rules
 	decoder.Decode(&rules)
 
+	return &rules, nil
+}
+
+func printRules(rules *domain.Rules) {
 	var buffer bytes.Buffer
 	resultPrinter := utils.NewResultPrinter(&buffer)
-	resultPrinter.PrintRules(&rules)
+	resultPrinter.PrintRules(rules)
 
 	fmt.Print(buffer.String())
-
-	return nil
 }
