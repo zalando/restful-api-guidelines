@@ -32,87 +32,72 @@ class ExtensibleEnumRule : AbstractRule() {
 
     override fun validate(swagger: Swagger): Violation? {
         val enumProperties = enumPropertiesInDefinitions(swagger)
-        val definitionsWithEnumProperties = definitionsWithEnums(swagger)
+        val enumParameters = enumParametersInPaths(swagger)
 
-        val pathsWithDefinitionsWithEnums = swagger.paths.orEmpty().entries
-            .filter { (_, path) -> havingParameters(path, definitionsWithEnumProperties) }
-            .map { it.key }
+        val enumNames = (enumProperties + enumParameters).distinct()
+        if (enumNames.isNotEmpty()) {
+            val pathsWithEnumParameters = pathsWithEnumParameters(swagger, enumParameters)
+            val pathsWithEnumProperties = pathWithEnumDefinitions(swagger)
 
-        val enumParameters = swagger.paths.orEmpty().values
-            .flatMap{ it.get?.parameters.orEmpty().filter { isEnum(it) } }
-            .map { it.name }
-
-        val pathsWithEnumParameters = swagger.paths.orEmpty().filter { havingParameters(it.value, enumParameters) }.keys
-
-
-        val enums = (enumProperties + enumParameters).distinct()
-        val paths = (pathsWithDefinitionsWithEnums + pathsWithEnumParameters).distinct()
-
-        if (enums.isNotEmpty())
-            return Violation(rule = this, paths = paths, ruleLink = url, violationType = violationType,
-                title = title, description = "Properties/Fields $enums are not extensible enums")
-        else
+            return Violation(rule = this, violationType = violationType, title = title, ruleLink = url,
+                paths = (pathsWithEnumProperties + pathsWithEnumParameters).distinct(),
+                description = "Properties/Parameters $enumNames are not extensible enums")
+        } else
             return null
     }
 
-    private fun havingParameters(path: Path?, names: List<String>): Boolean {
+    private fun enumPropertiesInDefinitions(swagger: Swagger): List<String> = swagger.definitions.orEmpty().entries
+        .flatMap { (_, def) -> def.properties.orEmpty().filter { (_, prop) -> isEnum(prop) }.map { it.key } }
+
+    private fun enumParametersInPaths(swagger: Swagger): List<String> {
+        fun isEnum(parameter: Parameter?) =
+            (parameter as? SerializableParameter)?.enum?.orEmpty()?.isNotEmpty() ?: false
+
+        return swagger.paths.orEmpty().values
+            .flatMap { it.get?.parameters.orEmpty().filter { isEnum(it) } }
+            .map { it.name }
+    }
+
+    private fun pathsWithEnumParameters(swagger: Swagger, parameters: List<String>) = swagger.paths.orEmpty()
+        .filter { hasParameters(it.value, parameters) }.map { it.key }
+
+    private fun pathWithEnumDefinitions(swagger: Swagger): List<String> {
+        fun enumProperties(def: Model?): List<String> = def?.properties.orEmpty()
+            .filter { (_, prop) -> isEnum(prop) }
+            .map { it.key }
+
+        fun definitionsWithEnums(): List<String> = swagger.definitions.orEmpty().entries
+            .filter { (_, def) -> enumProperties(def).isNotEmpty() }
+            .map { it.key }
+
+        return swagger.paths.orEmpty().entries
+            .filter { (_, path) -> hasParameters(path, definitionsWithEnums()) }
+            .map { it.key }
+    }
+
+    private fun hasParameters(path: Path?, names: List<String>): Boolean {
         fun isIn(op: Operation?): Boolean = op?.parameters.orEmpty().any { it.name in names }
 
         return isIn(path?.post) || isIn(path?.get) || isIn(path?.put) || isIn(path?.delete) || isIn(path?.options)
             || isIn(path?.head) || isIn(path?.patch)
     }
 
-    private fun isEnum(parameter: Parameter?) = (parameter as? SerializableParameter)?.enum?.orEmpty()?.isNotEmpty() ?: false
-
-    private fun definitionsWithEnums(swagger: Swagger): List<String> = swagger.definitions.orEmpty().entries
-        .filter { (_, def) -> enumProperties(def).isNotEmpty() }
-        .map { it.key }
-
-    private fun enumPropertiesInDefinitions(swagger: Swagger): List<String> = swagger.definitions.orEmpty().entries
-        .flatMap { (_, def) -> def.properties.orEmpty().filter { (_, prop) -> isEnum(prop) }.map { it.key } }
-
-    private fun enumProperties(def: Model?): List<String> {
-        return def?.properties.orEmpty()
-            .filter { (_, prop) -> isEnum(prop) }
-            .map { it.key }
-    }
-
     private fun isEnum(property: Property): Boolean {
-        fun <T> notEmpty(values: List<T>?) = values.orEmpty().isNotEmpty()
+        fun <T> isNotEmpty(list: List<T>?) = list.orEmpty().isNotEmpty()
 
         return when (property) {
-            is StringProperty -> notEmpty(property.enum)
-            is BinaryProperty -> notEmpty(property.enum)
-            is DateProperty -> notEmpty(property.enum)
-            is DateTimeProperty -> notEmpty(property.enum)
-            is BooleanProperty -> notEmpty(property.enum)
-            is DoubleProperty -> notEmpty(property.enum)
-            is EmailProperty -> notEmpty(property.enum)
-            is FloatProperty -> notEmpty(property.enum)
-            is IntegerProperty -> notEmpty(property.enum)
-            is LongProperty -> notEmpty(property.enum)
-            is PasswordProperty -> notEmpty(property.enum)
+            is StringProperty -> isNotEmpty(property.enum)
+            is BinaryProperty -> isNotEmpty(property.enum)
+            is DateProperty -> isNotEmpty(property.enum)
+            is DateTimeProperty -> isNotEmpty(property.enum)
+            is BooleanProperty -> isNotEmpty(property.enum)
+            is DoubleProperty -> isNotEmpty(property.enum)
+            is EmailProperty -> isNotEmpty(property.enum)
+            is FloatProperty -> isNotEmpty(property.enum)
+            is IntegerProperty -> isNotEmpty(property.enum)
+            is LongProperty -> isNotEmpty(property.enum)
+            is PasswordProperty -> isNotEmpty(property.enum)
             else -> false
         }
     }
-
-    fun Property.hasEnumValues(): Boolean {
-        fun <T> notEmpty(values: List<T>) = values.orEmpty().isNotEmpty()
-
-        return when (this) {
-            is StringProperty -> notEmpty(enum)
-            is BinaryProperty -> notEmpty(enum)
-            is DateProperty -> notEmpty(enum)
-            is DateTimeProperty -> notEmpty(enum)
-            is BooleanProperty -> notEmpty(enum)
-            is DoubleProperty -> notEmpty(enum)
-            is EmailProperty -> notEmpty(enum)
-            is FloatProperty -> notEmpty(enum)
-            is IntegerProperty -> notEmpty(enum)
-            is LongProperty -> notEmpty(enum)
-            is PasswordProperty -> notEmpty(enum)
-            else -> false
-        }
-    }
-
 }
