@@ -2,9 +2,7 @@ package de.zalando.zally.rule
 
 import de.zalando.zally.violation.Violation
 import de.zalando.zally.violation.ViolationType.SHOULD
-import io.swagger.models.Model
 import io.swagger.models.Operation
-import io.swagger.models.Path
 import io.swagger.models.Swagger
 import io.swagger.models.parameters.Parameter
 import io.swagger.models.parameters.SerializableParameter
@@ -31,55 +29,48 @@ class ExtensibleEnumRule : AbstractRule() {
     override val code = "S012"
 
     override fun validate(swagger: Swagger): Violation? {
-        val enumProperties = enumPropertiesInDefinitions(swagger)
-        val enumParameters = enumParametersInPaths(swagger)
+        val properties = enumProperties(swagger)
+        val parameters = enumParameters(swagger)
 
-        val enumNames = (enumProperties + enumParameters).distinct()
-        if (enumNames.isNotEmpty()) {
-            val pathsWithEnumParameters = pathsWithEnumParameters(swagger, enumParameters)
-            val pathsWithEnumProperties = pathWithEnumDefinitions(swagger)
-
+        val enumNames = (properties.keys + parameters.keys).distinct()
+        val enumPaths = (properties.values + parameters.values).distinct()
+        if (enumNames.isNotEmpty())
             return Violation(rule = this, violationType = violationType, title = title, ruleLink = url,
-                paths = (pathsWithEnumProperties + pathsWithEnumParameters).distinct(),
-                description = "Properties/Parameters $enumNames are not extensible enums")
-        } else
-            return null
+                paths = enumPaths, description = "Properties/Parameters $enumNames are not extensible enums")
+
+        return null
     }
 
-    private fun enumPropertiesInDefinitions(swagger: Swagger): List<String> = swagger.definitions.orEmpty().entries
-        .flatMap { (_, def) -> def.properties.orEmpty().filter { (_, prop) -> isEnum(prop) }.map { it.key } }
-
-    private fun enumParametersInPaths(swagger: Swagger): List<String> {
-        fun isEnum(parameter: Parameter?) =
-            (parameter as? SerializableParameter)?.enum?.orEmpty()?.isNotEmpty() ?: false
-
-        return swagger.paths.orEmpty().values
-            .flatMap { it.get?.parameters.orEmpty().filter { isEnum(it) } }
-            .map { it.name }
+    private fun enumProperties(swagger: Swagger): Map<String, String> {
+        val propertiesAndPaths = mutableMapOf<String, String>()
+        swagger.definitions.orEmpty().forEach { (defName, model) ->
+            val enumPropNames = model.properties.orEmpty().filter { (_, prop) -> isEnum(prop) }.map { it.key }
+            enumPropNames.forEach { propertyName ->
+                propertiesAndPaths.put(propertyName, "#/definitions/$defName/properties/$propertyName")
+            }
+        }
+        return propertiesAndPaths
     }
 
-    private fun pathsWithEnumParameters(swagger: Swagger, parameters: List<String>) = swagger.paths.orEmpty()
-        .filter { hasParameters(it.value, parameters) }.map { it.key }
+    private fun enumParameters(swagger: Swagger): Map<String, String> {
+        fun enumsIn(operation: Operation?): List<String> {
+            fun isEnum(parameter: Parameter?) =
+                (parameter as? SerializableParameter)?.enum?.orEmpty()?.isNotEmpty() ?: false
 
-    private fun pathWithEnumDefinitions(swagger: Swagger): List<String> {
-        fun enumProperties(def: Model?): List<String> = def?.properties.orEmpty()
-            .filter { (_, prop) -> isEnum(prop) }
-            .map { it.key }
+            return operation?.parameters.orEmpty().filter { isEnum(it) }.map { it.name }
+        }
 
-        fun definitionsWithEnums(): List<String> = swagger.definitions.orEmpty().entries
-            .filter { (_, def) -> enumProperties(def).isNotEmpty() }
-            .map { it.key }
+        val parametersAndPaths = mutableMapOf<String, String>()
 
-        return swagger.paths.orEmpty().entries
-            .filter { (_, path) -> hasParameters(path, definitionsWithEnums()) }
-            .map { it.key }
-    }
+        swagger.paths.orEmpty().forEach { (pathName, path) ->
+            path.operationMap.orEmpty().forEach { (opName, op) ->
+                enumsIn(op).forEach { parameterName ->
+                    parametersAndPaths.put(parameterName, "#/paths$pathName/$opName/parameters/$parameterName")
+                }
+            }
+        }
 
-    private fun hasParameters(path: Path?, names: List<String>): Boolean {
-        fun isIn(op: Operation?): Boolean = op?.parameters.orEmpty().any { it.name in names }
-
-        return isIn(path?.post) || isIn(path?.get) || isIn(path?.put) || isIn(path?.delete) || isIn(path?.options)
-            || isIn(path?.head) || isIn(path?.patch)
+        return parametersAndPaths
     }
 
     private fun isEnum(property: Property): Boolean {

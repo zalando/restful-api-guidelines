@@ -98,6 +98,13 @@ paths:
         - uid
       parameters:
       - $ref: "#/parameters/LifecycleState"
+      - in: path
+        name: environment
+        type: string
+        enum:
+        - production
+        - staging
+        required: false
       responses:
         200:
           description: List of APIs
