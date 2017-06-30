@@ -24,7 +24,14 @@ func NewResultPrinter(buffer io.Writer) ResultPrinter {
 
 // PrintRules prints a list of supported rules
 func (r *ResultPrinter) PrintRules(rules *domain.Rules) {
-	for _, rule := range rules.Rules {
+	r.printRules(rules.Must())
+	r.printRules(rules.Should())
+	r.printRules(rules.May())
+	r.printRules(rules.Hint())
+}
+
+func (r *ResultPrinter) printRules(rules []domain.Rule) {
+	for _, rule := range rules {
 		r.printRule(&rule)
 	}
 }
