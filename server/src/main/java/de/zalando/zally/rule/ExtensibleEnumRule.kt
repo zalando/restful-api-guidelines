@@ -34,9 +34,9 @@ class ExtensibleEnumRule : AbstractRule() {
 
         val enumNames = (properties.keys + parameters.keys).distinct()
         val enumPaths = (properties.values + parameters.values).distinct()
-        if (enumNames.isNotEmpty())
-            return Violation(rule = this, violationType = violationType, title = title, ruleLink = url,
-                paths = enumPaths, description = "Properties/Parameters $enumNames are not extensible enums")
+        if (enumNames.isNotEmpty()) return Violation(
+            rule = this, violationType = violationType, title = title, ruleLink = url, paths = enumPaths,
+            description = "Properties/Parameters $enumNames are not extensible enums")
 
         return null
     }
@@ -53,6 +53,7 @@ class ExtensibleEnumRule : AbstractRule() {
     }
 
     private fun enumParameters(swagger: Swagger): Map<String, String> {
+
         fun enumsIn(operation: Operation?): List<String> {
             fun isEnum(parameter: Parameter?) =
                 (parameter as? SerializableParameter)?.enum?.orEmpty()?.isNotEmpty() ?: false
