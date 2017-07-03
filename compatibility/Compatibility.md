@@ -2,10 +2,10 @@
 
 ## {{ book.must }} Don’t Break Backward Compatibility
 
-Change APIs, but keep all consumers
+Change APIs, but keep all consumers 
 running. Consumers usually have independent release lifecycles, focus on
 stability, and avoid changes that do not provide additional value. APIs are
-service contracts between service provider and its clients that cannot be broken via unilateral decisions.
+contracts between service providers and service consumers that cannot be broken via unilateral decisions.
 
 There are two techniques to change APIs without breaking them:
 
@@ -13,8 +13,8 @@ There are two techniques to change APIs without breaking them:
 - introduce new API versions and still support older versions
 
 We strongly encourage using compatible API extensions and discourage versioning.
-The guideline rules below for providers and consumers enable us with Postel’s Law 
-in mind to make compatible changes without versioning.
+The below guideline rules for service providers and consumers enable us (having Postel’s Law in mind) 
+to make compatible changes without versioning.
 
 **Hint:** Please note that the compatibility guarantees are for the on-the-wire format,
 i.e. they ensure that consumers relying on the old API definition will work
@@ -27,9 +27,9 @@ process to a new version of the API definition, it has to be expected that code
 changes are necessary.
 
 
-## {{ book.should }} Service Provider Prefer Compatible Extensions
+## {{ book.should }} Prefer Compatible Extensions
 
-Service provider should apply the following rules to evolve RESTful APIs in a backward-compatible way:
+API designers should apply the following rules to evolve RESTful APIs for services in a backward-compatible way:
 
 * Add only optional, never mandatory fields
 * Never change the meaning of a field (e.g. by being more restrictive).
@@ -46,7 +46,7 @@ Service provider should apply the following rules to evolve RESTful APIs in a ba
 * Support redirection in case an URL has to change
   ([301 Moved Permanently](https://en.wikipedia.org/wiki/HTTP_301))
 
-## {{ book.must }} Service Clients Do Not Crash With Compatible API Extensions
+## {{ book.must }} Not Crash Clients With Compatible API Extensions
 
 Service clients apply the robustness principle and must be prepared for compatible API extensions of service providers:
 
@@ -60,19 +60,21 @@ Service clients apply the robustness principle and must be prepared for compatib
 * Follow the redirect when the server returns HTTP status
   [301 Moved Permanently](https://en.wikipedia.org/wiki/HTTP_301).
 
-## {{ book.should }} Service Provider Are Conservative
+## {{ book.should }} Design Service Providers Conservatively 
 
-Service provider should be conservative and accurate in what they accept from clients:
+Designers of service APIs should be conservative and accurate in what they accept from clients:
 
-* Unknown fields in payload or URL should not be ignored.
+* Unknown fields in payload or URL should not be ignored; 
+  provide error feedback to client via HTTP 400 return code.
 * Be accurate in defining input data constraints (like formats, ranges, lengths etc.) — and 
   checking the constraints with dedicated error return information in case of violations. 
 * Prefer being more specific and restrictive, if compliant to functional requirements, 
   e.g. by defining length range of strings; it may simplify implementation while providing 
   freedom for further evolution as compatible extensions. 
 
-This is a strong recommendation; servers might want to take different approach with 
-"unknown fields" but should be aware of the following problems and be explicit in what is supported: 
+Not ignoring unknown fields is different from Postel's Law and a strong recommendation.
+Servers might want to take different approach but should be aware of the following 
+problems and be explicit in what is supported: 
 
 * Ignoring unknown fields is actually no option for PUT, since it becomes asymmetric 
   with subsequent GET response and HTTP is pretty clear about the PUT "replace" 
@@ -86,6 +88,10 @@ This is a strong recommendation; servers might want to take different approach w
   ignored fields and, hence, will not be compatible, i.e. break clients that already 
   use this field but with different type.
 
+In specific situations, where a (known) field is not needed anymore as input parameter
+it either can stay in the API definition with "not used anymore" description or it can 
+be removed from the API definition as long as the server ignores this specific parameter 
+to not break the clients. 
 
 ## {{ book.must }} Always Return JSON Objects As Top-Level Data Structures To Support Extensibility
 
