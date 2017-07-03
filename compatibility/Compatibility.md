@@ -46,7 +46,7 @@ API designers should apply the following rules to evolve RESTful APIs for servic
 * Support redirection in case an URL has to change
   ([301 Moved Permanently](https://en.wikipedia.org/wiki/HTTP_301))
 
-## {{ book.must }} Not Crash Clients With Compatible API Extensions
+## {{ book.must }} Clients Do Not Crash With Compatible API Extensions
 
 Service clients apply the robustness principle and must be prepared for compatible API extensions of service providers:
 
@@ -60,11 +60,11 @@ Service clients apply the robustness principle and must be prepared for compatib
 * Follow the redirect when the server returns HTTP status
   [301 Moved Permanently](https://en.wikipedia.org/wiki/HTTP_301).
 
-## {{ book.should }} Design Service Providers Conservatively 
+## {{ book.should }} Design APIs Conservatively 
 
-Designers of service APIs should be conservative and accurate in what they accept from clients:
+Designers of service provider APIs should be conservative and accurate in what they accept from clients:
 
-* Unknown fields in payload or URL should not be ignored; 
+* Unknown input fields in payload or URL should not be ignored; 
   provide error feedback to client via HTTP 400 return code.
 * Be accurate in defining input data constraints (like formats, ranges, lengths etc.) — and 
   checking the constraints with dedicated error return information in case of violations. 
@@ -72,14 +72,16 @@ Designers of service APIs should be conservative and accurate in what they accep
   e.g. by defining length range of strings; it may simplify implementation while providing 
   freedom for further evolution as compatible extensions. 
 
-Not ignoring unknown fields is different from Postel's Law and a strong recommendation.
+Not ignoring unknown input fields is a specific deviation from Postel's Law and a strong recommendation.
 Servers might want to take different approach but should be aware of the following 
 problems and be explicit in what is supported: 
 
-* Ignoring unknown fields is actually no option for PUT, since it becomes asymmetric 
+* Ignoring unknown input fields is actually no option for PUT, since it becomes asymmetric 
   with subsequent GET response and HTTP is pretty clear about the PUT "replace" 
   semantics and default roundtrip expectations 
   (see [RFC7231  Section 4.3.4](https://tools.ietf.org/html/rfc7231#section-4.3.4)).
+  Note, accepting (i.e. not ignoring) unknown input fields and returning it in subsequent 
+  GET responses is a different situation and compliant to PUT semantics. 
 * Certain client errors cannot be recognized by server, e.g. attribute name typing 
   errors will be ignored without server error feedback. The server cannot differ between 
   client provided intentionally an additional field vs. client field name typing error 
@@ -88,10 +90,10 @@ problems and be explicit in what is supported:
   ignored fields and, hence, will not be compatible, i.e. break clients that already 
   use this field but with different type.
 
-In specific situations, where a (known) field is not needed anymore as input parameter
-it either can stay in the API definition with "not used anymore" description or it can 
-be removed from the API definition as long as the server ignores this specific parameter 
-to not break the clients. 
+In specific situations, where an (known) input field is not needed anymore
+it either can stay in the API definition with "not used anymore" description or 
+it can be removed from the API definition as long as the server ignores 
+this specific parameter to not break the clients. 
 
 ## {{ book.must }} Always Return JSON Objects As Top-Level Data Structures To Support Extensibility
 
