@@ -64,56 +64,25 @@ Those collections should then have an `items` attribute holding the items of the
 
 You should avoid providing a total count in your API unless there's a clear need to do so. Very often, there are systems and performance implications to supporting full counts, especially as datasets grow and requests become complex queries or filters that drive full scans (e.g., your database might need to look at all candidate items to count them). While this is an implementation detail relative to the API, it's important to consider your ability to support serving counts over the life of a service.
 
-If the collection consists of links to other resources, the collection object name should use [IANA registered link relations](http://www.iana.org/assignments/link-relations/link-relations.xml) as names whenever appropriate, but use plural form.
+If the collection consists of links to other resources, the collection name should use [IANA registered link relations](http://www.iana.org/assignments/link-relations/link-relations.xml) as names whenever appropriate, but use plural form.
 
-E.g. a service for articles could represent an `Article` that embeds a collection `authors` with hyperlinks to the article's authors like that:
-
-```json
-{
-  "self": "https://...",
-  "id": "446f9876-e89b-12d3-a456-426655440000",
-  "title": "Manifesto for Agile Software Development ",
-  "authors": {
-    "index": 0,
-    "page_size": 5,
-    "items": [
-      {  
-        "href": "https://...",
-        "id": "123e4567-e89b-12d3-a456-426655440000",
-        "name": "Kent Beck"
-      },
-      {  
-        "href": "https://...",
-        "id": "987e2343-e89b-12d3-a456-426655440000",
-        "name": "Mike Beedle"
-      },
-      ...
-    ],
-    "first": "https://...",
-    "next": "https://...",
-    "prev": "https://...",
-    "last": "https://..."
-  }
-}
-
-```
-Following any of the pagination links would then return another page of authors
-
+E.g. a service for articles could represent the collection of hyperlinks to an article's `authors` like that:
 
 ```json
 {
-  "index": 5,
+  "self": "https://.../articles/xyz/authors/",
+  "index": 0,
   "page_size": 5,
   "items": [
     {  
       "href": "https://...",
-      "id": "353e4567-e89b-12d3-a456-426655440000",
-      "name": "Martin Fowler"
+      "id": "123e4567-e89b-12d3-a456-426655440000",
+      "name": "Kent Beck"
     },
     {  
       "href": "https://...",
-      "id": "687e2343-e89b-12d3-a456-426655440000",
-      "name": "James Grenning"
+      "id": "987e2343-e89b-12d3-a456-426655440000",
+      "name": "Mike Beedle"
     },
     ...
   ],
@@ -124,15 +93,3 @@ Following any of the pagination links would then return another page of authors
 }
 
 ```
-
-Previous editions of the guidelines required the use HAL compliant hypertext controls. This requirement has been relaxed to enable a more [concise representation and placement of links](../hyper-media/Hypermedia.html#must-use-common-hypertext-controls).
-
-Previous editions of the guidelines also documented the `X-Total-Count` header to send back the total count of entities in conjunction with the `Link` header, which has since been deprecated. Instead when returning an object structure, the count can be added as a JSON property, and this is the preferred way to return count (or other result level) information. 
-
-The `X-Total-Count` is applicable in these cases:
-
-* The API design is still using the `Link` header.
-* The API is returning a non-JSON response media type, and isn't able to carry the information.
-* The JSON response is an array and not an object.
-
-

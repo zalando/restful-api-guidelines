@@ -77,13 +77,13 @@ allow [HAL](http://stateless.co/hal_specification.html), we actually don't recom
 usage of HAL anymore as the structural separation of meta-data and data creates more harm than value to the 
 understandability and usability of an API.
 
-## {{ book.should }} Pagination and Self-References
+## {{ book.should }} Use Simple Hypertext Controls for Pagination and Self-References
 
 Hypertext controls for pagination inside collections and self-references should use a simple URI value in combination with their corresponding [link relations](http://www.iana.org/assignments/link-relations/link-relations.xml) (`next`, `prev`, `first`, `last`, `self`) instead of the extensible common hypertext control 
 
 See [Pagination](../pagination/Pagination.html) for information how to best represent paginateable collections.
 
-## {{ book.must }} Do Not Use Link Headers with JSON entities
+## {{ book.must }} Not Use Link Headers with JSON entities
 
 We don't allow the use of the [`Link` Header defined by RFC 5988](http://tools.ietf.org/html/rfc5988#section-5)
 in conjunction with JSON media types. We prefer links directly embedded in JSON payloads to the uncommon link header syntax.
