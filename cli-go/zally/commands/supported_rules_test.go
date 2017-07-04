@@ -23,7 +23,7 @@ func TestFetchRules(t *testing.T) {
 		defer testServer.Close()
 
 		requestBuilder := utils.NewRequestBuilder(testServer.URL, "")
-		rules, err := fetchRules(requestBuilder)
+		rules, err := fetchRules(requestBuilder, "")
 
 		tests.AssertEquals(t, nil, err)
 		tests.AssertEquals(t, len(rules.Rules), 15)
@@ -43,9 +43,23 @@ func TestFetchRules(t *testing.T) {
 		defer testServer.Close()
 
 		requestBuilder := utils.NewRequestBuilder(testServer.URL, "")
-		rules, err := fetchRules(requestBuilder)
+		rules, err := fetchRules(requestBuilder, "")
 
 		tests.AssertEquals(t, "Cannot submit file for linting. HTTP Status: 400, Response: Something went wrong", err.Error())
 		tests.AssertEquals(t, (*domain.Rules)(nil), rules)
+	})
+
+	t.Run("supports_type_filter", func(t *testing.T) {
+		handler := func(w http.ResponseWriter, r *http.Request) {
+			fixture, _ := ioutil.ReadFile("testdata/rules_response.json")
+			w.Header().Set("Content-Type", "application/json")
+			io.WriteString(w, string(fixture))
+			tests.AssertEquals(t, r.URL.RawQuery, "type=must")
+		}
+		testServer := httptest.NewServer(http.HandlerFunc(handler))
+		defer testServer.Close()
+
+		requestBuilder := utils.NewRequestBuilder(testServer.URL, "")
+		fetchRules(requestBuilder, "must")
 	})
 }

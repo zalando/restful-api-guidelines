@@ -18,12 +18,18 @@ var SupportedRulesCommand = cli.Command{
 	Name:   "rules",
 	Usage:  "List supported rules",
 	Action: listRules,
+	Flags: []cli.Flag{
+		cli.StringFlag{
+			Name:  "type",
+			Usage: "Rules Type",
+		},
+	},
 }
 
 func listRules(c *cli.Context) error {
 	requestBuilder := utils.NewRequestBuilder(c.GlobalString("linter-service"), c.GlobalString("token"))
 
-	rules, err := fetchRules(requestBuilder)
+	rules, err := fetchRules(requestBuilder, c.String("type"))
 	if err != nil {
 		return err
 	}
@@ -33,8 +39,12 @@ func listRules(c *cli.Context) error {
 	return nil
 }
 
-func fetchRules(requestBuilder *utils.RequestBuilder) (*domain.Rules, error) {
-	request, err := requestBuilder.Build("GET", "/supported-rules", nil)
+func fetchRules(requestBuilder *utils.RequestBuilder, rulesType string) (*domain.Rules, error) {
+	uri := "/supported-rules"
+	if rulesType != "" {
+		uri += "?type=" + rulesType
+	}
+	request, err := requestBuilder.Build("GET", uri, nil)
 	if err != nil {
 		return nil, err
 	}
