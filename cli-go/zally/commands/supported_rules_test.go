@@ -7,10 +7,31 @@ import (
 	"net/http/httptest"
 	"testing"
 
+	"fmt"
+
+	"flag"
+
+	"github.com/urfave/cli"
 	"github.com/zalando-incubator/zally/cli-go/zally/domain"
 	"github.com/zalando-incubator/zally/cli-go/zally/tests"
 	"github.com/zalando-incubator/zally/cli-go/zally/utils"
 )
+
+func TestListRules(t *testing.T) {
+
+	t.Run("fails_when_wrong_filter_is_specified", func(t *testing.T) {
+		handler := func(w http.ResponseWriter, r *http.Request) {
+			fixture, _ := ioutil.ReadFile("testdata/rules_response.json")
+			w.Header().Set("Content-Type", "application/json")
+			io.WriteString(w, string(fixture))
+		}
+		testServer := httptest.NewServer(http.HandlerFunc(handler))
+		defer testServer.Close()
+
+		err := listRules(getContext(testServer.URL, "mustt"))
+		tests.AssertEquals(t, "mustt is not supported", err.Error())
+	})
+}
 
 func TestFetchRules(t *testing.T) {
 	t.Run("returns_rules_list_when_success", func(t *testing.T) {
@@ -62,4 +83,34 @@ func TestFetchRules(t *testing.T) {
 		requestBuilder := utils.NewRequestBuilder(testServer.URL, "")
 		fetchRules(requestBuilder, "must")
 	})
+}
+
+func TestValidateType(t *testing.T) {
+	t.Run("returns no error if type is supported", func(t *testing.T) {
+		var supportedTypes = []string{"must", "hint", "may", "should", ""}
+		for _, supportedType := range supportedTypes {
+			tests.AssertEquals(t, nil, validateType(supportedType))
+		}
+	})
+
+	t.Run("returns error if type is not supported", func(t *testing.T) {
+		var unsupportedTypes = []string{"MuSt", "MUST", "something", "mayy"}
+		for _, unsupportedType := range unsupportedTypes {
+			expectedError := fmt.Sprintf("%s is not supported", unsupportedType)
+			tests.AssertEquals(t, expectedError, validateType(unsupportedType).Error())
+		}
+	})
+}
+
+func getContext(url string, ruleType string) *cli.Context {
+	globalSet := flag.NewFlagSet("test", 0)
+	globalSet.String("linter-service", url, "doc")
+	globalSet.String("token", "test-token", "doc")
+
+	localSet := flag.NewFlagSet("test", 0)
+	localSet.String("type", ruleType, "doc")
+
+	globalCtx := cli.NewContext(nil, globalSet, nil)
+
+	return cli.NewContext(cli.NewApp(), localSet, globalCtx)
 }

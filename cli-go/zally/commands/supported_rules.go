@@ -8,6 +8,8 @@ import (
 
 	"encoding/json"
 
+	"strings"
+
 	"github.com/urfave/cli"
 	"github.com/zalando-incubator/zally/cli-go/zally/domain"
 	"github.com/zalando-incubator/zally/cli-go/zally/utils"
@@ -26,10 +28,17 @@ var SupportedRulesCommand = cli.Command{
 	},
 }
 
+var supportedTypes = []string{}
+
 func listRules(c *cli.Context) error {
 	requestBuilder := utils.NewRequestBuilder(c.GlobalString("linter-service"), c.GlobalString("token"))
+	ruleType := strings.ToLower(c.String("type"))
+	err := validateType(ruleType)
+	if err != nil {
+		return err
+	}
 
-	rules, err := fetchRules(requestBuilder, c.String("type"))
+	rules, err := fetchRules(requestBuilder, ruleType)
 	if err != nil {
 		return err
 	}
@@ -37,6 +46,19 @@ func listRules(c *cli.Context) error {
 	printRules(rules)
 
 	return nil
+}
+
+func validateType(ruleType string) error {
+	switch ruleType {
+	case
+		"must",
+		"should",
+		"may",
+		"hint",
+		"":
+		return nil
+	}
+	return fmt.Errorf("%s is not supported", ruleType)
 }
 
 func fetchRules(requestBuilder *utils.RequestBuilder, rulesType string) (*domain.Rules, error) {
