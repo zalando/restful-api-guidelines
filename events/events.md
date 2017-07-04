@@ -227,3 +227,20 @@ Event consumers must be able to process duplicate events.
 Most message brokers and data streaming systems offer “at-least-once” delivery. That is, one particular event is delivered to the consumers one or more times. Other circumstances can also cause duplicate events.
 
 For example, these situations occur if the publisher sends an event and doesn't receive the acknowledgment (e.g. due to a network issue). In this case, the publisher will try to send the same event again. This leads to two identical events in the event bus which have to be processed by the consumers. Similar conditions can appear on consumer side: an event has been processed successfully, but the consumer fails to confirm the processing.
+
+
+## {{ book.should }} Avoid remote references in Event Type schema
+
+The `$ref` keyword should not use remote references in event type schema -
+schemas should be self-contained and use local references.
+
+This is a consideration for agents in a distributed publish/subcribe system that
+are temporally and spatial decoupled. Consumers might have to process events 
+asynchronously, outside the typical request-response cycle of an API, and might 
+do so long after the event was published by a producer. One example is historial 
+processing of event data from long term storage, where schema access is needed  
+after the event was published. Having a single, self-contained schema simplifies 
+consumer designs and avoids transitive changes to remote schema that are not 
+directly managed as part of the event type, or schema that are no longer located 
+at a given url. Remote references allow the compatibility assurances available in
+event types to be broken.
