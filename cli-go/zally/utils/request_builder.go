@@ -5,7 +5,6 @@ import (
 	"io"
 	"net/http"
 	"net/url"
-	"path"
 )
 
 // RequestBuilder builds Zally specific requests
@@ -44,11 +43,14 @@ func (r *RequestBuilder) Build(httpVerb string, uri string, body io.Reader) (*ht
 }
 
 func (r *RequestBuilder) getAbsoluteURL(uri string) (string, error) {
-	u, err := url.Parse(r.baseURL)
+	base, err := url.Parse(r.baseURL)
+	if err != nil {
+		return "", err
+	}
+	u, err := url.Parse(uri)
 	if err != nil {
 		return "", err
 	}
 
-	u.Path = path.Join(u.Path, uri)
-	return u.String(), nil
+	return base.ResolveReference(u).String(), nil
 }

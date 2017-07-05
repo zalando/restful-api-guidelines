@@ -61,6 +61,6 @@
 @test "Displays rule list" {
 	run cli-go/zally/zally rules
 	[ "$status" -eq 0 ]
-	[ "${lines[0]}" = "[33mS001[0m [33mSHOULD[0m: Avoid reserved Javascript keywords" ]
-	[ "${lines[1]}" = "	http://zalando.github.io/restful-api-guidelines/naming/Naming.html#should-reserved-javascript-keywords-should-be-avoided" ]
+	[ "${lines[0]}" = "[31mM001[0m [31mMUST[0m: Avoid Link in Header Rule" ]
+	[ "${lines[1]}" = "	http://zalando.github.io/restful-api-guidelines/hyper-media/Hypermedia.html#must-do-not-use-link-headers-with-json-entities" ]
 }

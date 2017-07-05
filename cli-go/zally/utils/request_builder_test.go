@@ -19,9 +19,9 @@ func TestNewRequestBuilder(t *testing.T) {
 func TestRequestBuilderBuild(t *testing.T) {
 	t.Run("creates_absolute_url", func(t *testing.T) {
 		builder := NewRequestBuilder("http://example.com/", "some_token")
-		request, err := builder.Build("GET", "/my-path", nil)
+		request, err := builder.Build("GET", "/my-path?abcd=efgh", nil)
 
-		tests.AssertEquals(t, "http://example.com/my-path", request.URL.String())
+		tests.AssertEquals(t, "http://example.com/my-path?abcd=efgh", request.URL.String())
 		tests.AssertEquals(t, nil, err)
 	})
 

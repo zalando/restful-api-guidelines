@@ -3,9 +3,12 @@ package commands
 import (
 	"bytes"
 	"fmt"
+	"io/ioutil"
 	"net/http"
 
 	"encoding/json"
+
+	"strings"
 
 	"github.com/urfave/cli"
 	"github.com/zalando-incubator/zally/cli-go/zally/domain"
@@ -17,19 +20,69 @@ var SupportedRulesCommand = cli.Command{
 	Name:   "rules",
 	Usage:  "List supported rules",
 	Action: listRules,
+	Flags: []cli.Flag{
+		cli.StringFlag{
+			Name:  "type",
+			Usage: "Rules Type",
+		},
+	},
 }
 
+var supportedTypes = []string{}
+
 func listRules(c *cli.Context) error {
-	client := &http.Client{}
 	requestBuilder := utils.NewRequestBuilder(c.GlobalString("linter-service"), c.GlobalString("token"))
-	request, err := requestBuilder.Build("GET", "/supported-rules", nil)
+	ruleType := strings.ToLower(c.String("type"))
+	err := validateType(ruleType)
 	if err != nil {
 		return err
 	}
 
-	response, err := client.Do(request)
+	rules, err := fetchRules(requestBuilder, ruleType)
 	if err != nil {
 		return err
+	}
+
+	printRules(rules)
+
+	return nil
+}
+
+func validateType(ruleType string) error {
+	switch ruleType {
+	case
+		"must",
+		"should",
+		"may",
+		"hint",
+		"":
+		return nil
+	}
+	return fmt.Errorf("%s is not supported", ruleType)
+}
+
+func fetchRules(requestBuilder *utils.RequestBuilder, rulesType string) (*domain.Rules, error) {
+	uri := "/supported-rules"
+	if rulesType != "" {
+		uri += "?type=" + rulesType
+	}
+	request, err := requestBuilder.Build("GET", uri, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	client := &http.Client{}
+	response, err := client.Do(request)
+	if err != nil {
+		return nil, err
+	}
+
+	if response.StatusCode != 200 {
+		defer response.Body.Close()
+		body, _ := ioutil.ReadAll(response.Body)
+
+		return nil, fmt.Errorf(
+			"Cannot submit file for linting. HTTP Status: %d, Response: %s", response.StatusCode, string(body))
 	}
 
 	decoder := json.NewDecoder(response.Body)
@@ -37,11 +90,13 @@ func listRules(c *cli.Context) error {
 	var rules domain.Rules
 	decoder.Decode(&rules)
 
+	return &rules, nil
+}
+
+func printRules(rules *domain.Rules) {
 	var buffer bytes.Buffer
 	resultPrinter := utils.NewResultPrinter(&buffer)
-	resultPrinter.PrintRules(&rules)
+	resultPrinter.PrintRules(rules)
 
 	fmt.Print(buffer.String())
-
-	return nil
 }

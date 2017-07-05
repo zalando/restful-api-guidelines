@@ -73,34 +73,54 @@ func TestPrintRule(t *testing.T) {
 }
 
 func TestPrintRules(t *testing.T) {
-	t.Run("Prints all rules when found", func(t *testing.T) {
+	var mustRule domain.Rule
+	mustRule.Title = "First Rule"
+	mustRule.Type = "MUST"
+	mustRule.Code = "M001"
+	mustRule.IsActive = true
+	mustRule.URL = "https://example.com/first-rule"
+
+	var shouldRule domain.Rule
+	shouldRule.Title = "Second Rule"
+	shouldRule.Type = "SHOULD"
+	shouldRule.Code = "S001"
+	shouldRule.IsActive = true
+	shouldRule.URL = "https://example.com/second-rule"
+
+	var mayRule domain.Rule
+	mayRule.Title = "Third Rule"
+	mayRule.Type = "MAY"
+	mayRule.Code = "C001"
+	mayRule.IsActive = true
+	mayRule.URL = "https://example.com/third-rule"
+
+	t.Run("Prints sorted rules when found", func(t *testing.T) {
 		var buffer bytes.Buffer
 		resultPrinter := NewResultPrinter(&buffer)
 
-		var firstRule domain.Rule
-		firstRule.Title = "First Rule"
-		firstRule.Type = "MUST"
-		firstRule.Code = "M001"
-		firstRule.IsActive = true
-		firstRule.URL = "https://example.com/first-rule"
-
-		var secondRule domain.Rule
-		secondRule.Title = "Second Rule"
-		secondRule.Type = "SHOULD"
-		secondRule.Code = "S001"
-		secondRule.IsActive = true
-		secondRule.URL = "https://example.com/second-rule"
-
 		var rules domain.Rules
-		rules.Rules = []domain.Rule{firstRule, secondRule}
+		rules.Rules = []domain.Rule{mayRule, shouldRule, mustRule}
 
 		resultPrinter.PrintRules(&rules)
 
 		tests.AssertEquals(
 			t,
-			"\x1b[31mM001\x1b[0m \x1b[31mMUST\x1b[0m: First Rule\n\thttps://example.com/first-rule\n\n"+
-				"\x1b[33mS001\x1b[0m \x1b[33mSHOULD\x1b[0m: Second Rule\n\thttps://example.com/second-rule\n\n",
+			"\x1b[31mM001\x1b[0m \x1b[31mMUST\x1b[0m: First Rule\n\thttps://example.com/first-rule\n\n\x1b[33mS001\x1b[0m "+
+				"\x1b[33mSHOULD\x1b[0m: Second Rule\n\thttps://example.com/second-rule\n\n\x1b[32mC001\x1b[0m "+
+				"\x1b[32mMAY\x1b[0m: Third Rule\n\thttps://example.com/third-rule\n\n",
 			buffer.String())
+	})
+
+	t.Run("Prints no rules when not found", func(t *testing.T) {
+		var buffer bytes.Buffer
+		resultPrinter := NewResultPrinter(&buffer)
+
+		var rules domain.Rules
+		rules.Rules = []domain.Rule{}
+
+		resultPrinter.PrintRules(&rules)
+
+		tests.AssertEquals(t, "", buffer.String())
 	})
 }
 

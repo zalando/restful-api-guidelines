@@ -1,0 +1,109 @@
+{
+    "rules": [
+        {
+            "title": "Avoid Link in Header Rule",
+            "url": "http://zalando.github.io/restful-api-guidelines/hyper-media/Hypermedia.html#must-do-not-use-link-headers-with-json-entities",
+            "code": "M001",
+            "type": "MUST",
+            "is_active": true
+        },
+        {
+            "title": "Avoid Trailing Slashes",
+            "url": "http://zalando.github.io/restful-api-guidelines/naming/Naming.html",
+            "code": "M002",
+            "type": "MUST",
+            "is_active": true
+        },
+        {
+            "title": "Use common field names",
+            "url": "http://zalando.github.io/restful-api-guidelines/common-data-objects/CommonDataObjects.html#must-use-common-field-names",
+            "code": "M003",
+            "type": "MUST",
+            "is_active": true
+        },
+        {
+            "title": "Define and Assign Access Rights (Scopes)",
+            "url": "http://zalando.github.io/restful-api-guidelines/security/Security.html#must-secure-endpoints-with-oauth-20",
+            "code": "M004",
+            "type": "MUST",
+            "is_active": true
+        },
+        {
+            "title": "Every Second Path Level To Be Parameter",
+            "url": "",
+            "code": "M005",
+            "type": "MUST",
+            "is_active": true
+        },
+        {
+            "title": "Use Hyphenated HTTP Headers",
+            "url": "http://zalando.github.io/restful-api-guidelines/naming/Naming.html#must-use-hyphenated-http-headers",
+            "code": "M006",
+            "type": "MUST",
+            "is_active": true
+        },
+        {
+            "title": "Lowercase words with hyphens",
+            "url": "http://zalando.github.io/restful-api-guidelines/naming/Naming.html#must-use-lowercase-separate-words-with-hyphens-for-path-segments",
+            "code": "M007",
+            "type": "MUST",
+            "is_active": true
+        },
+        {
+            "title": "Host should not contain protocol",
+            "url": "",
+            "code": "M008",
+            "type": "MUST",
+            "is_active": true
+        },
+        {
+            "title": "Do Not Use URI Versioning",
+            "url": "https://zalando.github.io/restful-api-guidelines/compatibility/Compatibility.html#must-do-not-use-uri-versioning",
+            "code": "M009",
+            "type": "MUST",
+            "is_active": true
+        },
+        {
+            "title": "Secure Endpoints with OAuth 2.0",
+            "url": "https://zalando.github.io/restful-api-guidelines/security/Security.html#must-secure-endpoints-with-oauth-20",
+            "code": "M010",
+            "type": "MUST",
+            "is_active": true
+        },
+        {
+            "title": "Use snake_case (never camelCase) for Query Parameters",
+            "url": "http://zalando.github.io/restful-api-guidelines/naming/Naming.html#must-use-snakecase-never-camelcase-for-query-parameters",
+            "code": "M011",
+            "type": "MUST",
+            "is_active": true
+        },
+        {
+            "title": "snake_case property names",
+            "url": "http://zalando.github.io/restful-api-guidelines/json-guidelines/JsonGuidelines.html#must-property-names-must-be-snakecase-and-never-camelcase",
+            "code": "M012",
+            "type": "MUST",
+            "is_active": true
+        },
+        {
+            "title": "Response As JSON Object",
+            "url": "https://zalando.github.io/restful-api-guidelines/compatibility/Compatibility.html#must-always-return-json-objects-as-toplevel-data-structures-to-support-extensibility",
+            "code": "M013",
+            "type": "MUST",
+            "is_active": true
+        },
+        {
+            "title": "Use 429 With Header For Rate Limits",
+            "url": "http://zalando.github.io/restful-api-guidelines/http/Http.html#must-use-429-with-headers-for-rate-limits",
+            "code": "M014",
+            "type": "MUST",
+            "is_active": true
+        },
+        {
+            "title": "Use Problem JSON",
+            "url": "https://zalando.github.io/restful-api-guidelines/common-data-objects/CommonDataObjects.html#must-use-problem-json",
+            "code": "M015",
+            "type": "MUST",
+            "is_active": true
+        }
+    ]
+}
