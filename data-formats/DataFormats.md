@@ -34,6 +34,42 @@ Use the following standard formats for country, language and currency codes:
 
 * [ISO 4217 currency codes](https://en.wikipedia.org/wiki/ISO_4217)
 
+## {{ book.must }} Use Define Format for Type Number and Integer
+
+Whenever an API defines a property of type `number` or `integer`, the precision has to be defined by the format as follows to prevent clients from guessing the precision incorrect:
+
+| type    | format  | language types |
+|---------|---------|----------------|
+| integer | int32   | int, Integer   |
+| integer | int34   | long, Long     |
+| integer | bigint  | BigInteger     |
+| number  | float   | float, Float   |
+| number  | double  | double, Double |
+| number  | decimal | BigDecimal     |
+
+The precision must be translated by clients and servers into the most specific language types. An Example of the correct usage can be found below:
+
+```yaml
+Money:
+  type: object
+  properties:
+    amount:
+      type: number
+      description: Amount expressed as a decimal number of major currency units
+      format: decimal
+      example: 99.95
+   ...
+
+OrdersList:
+  type: object
+  properties:
+    count:
+      type: integer
+      description: Number of orders in list
+      format: int32
+      example: 42
+```
+
 ## {{ book.should }} Prefer standard Media type name `application/json`
 
 Previously, this guideline allowed the use of custom media types like `application/x.zalando.article+json`.
