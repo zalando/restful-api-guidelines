@@ -34,62 +34,48 @@ class ExtensibleEnumRule : AbstractRule() {
 
         val enumNames = (properties.keys + parameters.keys).distinct()
         val enumPaths = (properties.values + parameters.values).distinct()
-        if (enumNames.isNotEmpty()) return Violation(
-            rule = this, violationType = violationType, title = title, ruleLink = url, paths = enumPaths,
-            description = "Properties/Parameters $enumNames are not extensible enums")
-
-        return null
+        return if (enumNames.isNotEmpty()) Violation(this, title,
+            "Properties/Parameters $enumNames are not extensible enums", violationType, url, enumPaths)
+        else null
     }
 
-    private fun enumProperties(swagger: Swagger): Map<String, String> {
-        val propertiesAndPaths = mutableMapOf<String, String>()
-        swagger.definitions.orEmpty().forEach { (defName, model) ->
-            val enumPropNames = model.properties.orEmpty().filter { (_, prop) -> isEnum(prop) }.map { it.key }
-            enumPropNames.forEach { propertyName ->
-                propertiesAndPaths.put(propertyName, "#/definitions/$defName/properties/$propertyName")
-            }
-        }
-        return propertiesAndPaths
-    }
+    private fun enumProperties(swagger: Swagger): Map<String, String> =
+        swagger.definitions.orEmpty().flatMap { (defName, model) ->
+            val enumProps = model.properties.orEmpty().filter { (_, prop) -> prop.isEnum() }
+            enumProps.map { (propName, _) -> propName to "#/definitions/$defName/properties/$propName" }
+        }.toMap()
 
     private fun enumParameters(swagger: Swagger): Map<String, String> {
+        val pathsOperationsAndEnums = swagger.paths.orEmpty().map { (pathName, path) ->
+            pathName to path.operationMap.orEmpty().map { (opName, op) -> opName to op.getEnumParameters() }.toMap()
+        }.toMap()
 
-        fun enumsIn(operation: Operation?): List<String> {
-            fun isEnum(parameter: Parameter?) =
-                (parameter as? SerializableParameter)?.enum?.orEmpty()?.isNotEmpty() ?: false
-
-            return operation?.parameters.orEmpty().filter { isEnum(it) }.map { it.name }
-        }
-
-        val parametersAndPaths = mutableMapOf<String, String>()
-
-        swagger.paths.orEmpty().forEach { (pathName, path) ->
-            path.operationMap.orEmpty().forEach { (opName, op) ->
-                enumsIn(op).forEach { parameterName ->
-                    parametersAndPaths.put(parameterName, "#/paths$pathName/$opName/parameters/$parameterName")
-                }
-            }
-        }
-
-        return parametersAndPaths
+        return pathsOperationsAndEnums
+            .filter { (_, opAndEnums) -> opAndEnums.isNotEmpty() }
+            .flatMap { (pathName, opAndEnums) -> opAndEnums.map { (op, enums) -> "#/paths$pathName/$op" to enums } }
+            .flatMap { (operationPath, enums) -> enums.map { it to "$operationPath/parameters/$it" } }.toMap()
     }
 
-    private fun isEnum(property: Property): Boolean {
-        fun <T> isNotEmpty(list: List<T>?) = list.orEmpty().isNotEmpty()
+    private fun Property.isEnum(): Boolean {
+        fun <T> hasValues(list: List<T>?) = list.orEmpty().isNotEmpty()
 
-        return when (property) {
-            is StringProperty -> isNotEmpty(property.enum)
-            is BinaryProperty -> isNotEmpty(property.enum)
-            is DateProperty -> isNotEmpty(property.enum)
-            is DateTimeProperty -> isNotEmpty(property.enum)
-            is BooleanProperty -> isNotEmpty(property.enum)
-            is DoubleProperty -> isNotEmpty(property.enum)
-            is EmailProperty -> isNotEmpty(property.enum)
-            is FloatProperty -> isNotEmpty(property.enum)
-            is IntegerProperty -> isNotEmpty(property.enum)
-            is LongProperty -> isNotEmpty(property.enum)
-            is PasswordProperty -> isNotEmpty(property.enum)
+        return when (this) {
+            is StringProperty -> hasValues(this.enum)
+            is BinaryProperty -> hasValues(this.enum)
+            is DateProperty -> hasValues(this.enum)
+            is DateTimeProperty -> hasValues(this.enum)
+            is BooleanProperty -> hasValues(this.enum)
+            is DoubleProperty -> hasValues(this.enum)
+            is EmailProperty -> hasValues(this.enum)
+            is FloatProperty -> hasValues(this.enum)
+            is IntegerProperty -> hasValues(this.enum)
+            is LongProperty -> hasValues(this.enum)
+            is PasswordProperty -> hasValues(this.enum)
             else -> false
         }
     }
+
+    private fun Operation?.getEnumParameters() = this?.parameters.orEmpty().filter { it.isEnum() }.map { it.name }
+
+    private fun Parameter?.isEnum() = (this as? SerializableParameter)?.enum?.orEmpty()?.isNotEmpty() ?: false
 }
