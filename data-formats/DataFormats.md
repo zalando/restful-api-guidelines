@@ -34,7 +34,7 @@ Use the following standard formats for country, language and currency codes:
 
 * [ISO 4217 currency codes](https://en.wikipedia.org/wiki/ISO_4217)
 
-## {{ book.must }} Use Define Format for Type Number and Integer
+## {{ book.must }} Define Format for Type Number and Integer
 
 Whenever an API defines a property of type `number` or `integer`, the precision has to be defined by the format as follows to prevent clients from guessing the precision incorrect, and thereby changing the value unintentionally:
 
