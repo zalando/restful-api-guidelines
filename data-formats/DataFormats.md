@@ -36,16 +36,16 @@ Use the following standard formats for country, language and currency codes:
 
 ## {{ book.must }} Use Define Format for Type Number and Integer
 
-Whenever an API defines a property of type `number` or `integer`, the precision has to be defined by the format as follows to prevent clients from guessing the precision incorrect:
+Whenever an API defines a property of type `number` or `integer`, the precision has to be defined by the format as follows to prevent clients from guessing the precision incorrect, and thereby changing the value unintentionally:
 
-| type    | format  | language types |
-|---------|---------|----------------|
-| integer | int32   | int, Integer   |
-| integer | int34   | long, Long     |
-| integer | bigint  | BigInteger     |
-| number  | float   | float, Float   |
-| number  | double  | double, Double |
-| number  | decimal | BigDecimal     |
+| type    | format  | specified value range                                 |
+|---------|---------|-------------------------------------------------------|
+| integer | int32   | integer between -2<sup>31</sup> and 2<sup>31</sup>-1  |
+| integer | int64   | integer between -2<sup>63</sup> and 2<sup>63</sup>-1  |
+| integer | bigint  | arbitrarily large signed integer number               |
+| number  | float   | IEEE 754-2008/ISO 60559:2011 binary64 decimal number  |
+| number  | double  | IEEE 754-2008/ISO 60559:2011 binary128 decimal number |
+| number  | decimal | arbitrarily precise signed decimal number             |
 
 The precision must be translated by clients and servers into the most specific language types. An Example of the correct usage can be found below:
 
