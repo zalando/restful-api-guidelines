@@ -11,15 +11,15 @@ In general, proprietary headers should be avoided.
 They can be used in cases when parameter represents a pass-through end-to-end header.
 A valid use-case of a proprietary header is providing context information which is not a part of the actual API, but is used by subsequent communication.
 
-From a conceptual point of view, the semantic of an operation should always be expressed by resource name and query parameters, i.e. what goes into the URL.
-Headers implement protocol-close functions like control, content negotiation and authentication.
-Thus, headers are reserved for general context information ([RFC-7231](https://tools.ietf.org/html/rfc7231)).
+From a conceptual point of view, the semantic of an operation should always be expressed by path and query parameters, i.e. what goes into the URL, as well as the content.
+Headers are used to implement functions close to the protocol layer, such as flow control, content negotiation, and authentication.
+Thus, headers are reserved for general context information ([RFC-7231](https://tools.ietf.org/html/rfc7231#section-5)).
 
 `X-` headers were initially reserved for unstandardized parameters.
 The usage of `X-` headers is deprecated ([RFC-6648](https://tools.ietf.org/html/rfc6648)).
 This fact complicates the contract definition between consumer and producer of an API, since there is no aligned way of handling those headers.
 
-You can use following proprietary headers specified in the overview.
+The following proprietary headers have been specified by this guideline for usage so far.
 Remember that HTTP header field names are not case-sensitive.
 
 | Header field name | Type    | Description                       | Header field value example                |
@@ -46,7 +46,7 @@ The header names and values must remain unchanged.
 Some of the transitive services may require the meta information provided via proprietary headers and/or rely on it.
 Besides, the values of the custom headers can influence the results of the queries (e.g. the device type information influences the recommendation results).
 
-The values of the proprietary headers may be used as a part of the request body in the following communication.
+The values of the proprietary headers may be used as a part of the request body in the subsequent communication.
 In such cases, the proprietary headers must also be propagated as headers to the successive calls, despite the duplication.
 
 
