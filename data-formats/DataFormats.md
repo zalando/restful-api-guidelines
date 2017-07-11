@@ -34,6 +34,42 @@ Use the following standard formats for country, language and currency codes:
 
 * [ISO 4217 currency codes](https://en.wikipedia.org/wiki/ISO_4217)
 
+## {{ book.must }} Define Format for Type Number and Integer
+
+Whenever an API defines a property of type `number` or `integer`, the precision must be defined by the format as follows to prevent clients from guessing the precision incorrectly, and thereby changing the value unintentionally:
+
+| type    | format  | specified value range                                 |
+|---------|---------|-------------------------------------------------------|
+| integer | int32   | integer between -2<sup>31</sup> and 2<sup>31</sup>-1  |
+| integer | int64   | integer between -2<sup>63</sup> and 2<sup>63</sup>-1  |
+| integer | bigint  | arbitrarily large signed integer number               |
+| number  | float   | IEEE 754-2008/ISO 60559:2011 binary64 decimal number  |
+| number  | double  | IEEE 754-2008/ISO 60559:2011 binary128 decimal number |
+| number  | decimal | arbitrarily precise signed decimal number             |
+
+The precision must be translated by clients and servers into the most specific language types. E.g. for the following definitions the most specific language types in Java will translate to `BigDecimal` for `Money.amount` and `int` or `Integer` for the `OrderList.page_size`:
+
+```yaml
+Money:
+  type: object
+  properties:
+    amount:
+      type: number
+      description: Amount expressed as a decimal number of major currency units
+      format: decimal
+      example: 99.95
+   ...
+
+OrderList:
+  type: object
+  properties:
+    page_size:
+      type: integer
+      description: Number of orders in list
+      format: int32
+      example: 42
+```
+
 ## {{ book.should }} Prefer standard Media type name `application/json`
 
 Previously, this guideline allowed the use of custom media types like `application/x.zalando.article+json`.
