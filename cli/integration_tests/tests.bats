@@ -10,11 +10,11 @@
 @test "CLI works with local .yaml file" {
 	run cli/bin/zally -l http://localhost:8080 server/src/test/resources/fixtures/api_spa.yaml
 	[ "$status" -eq 1 ]
-	[ "${lines[52]}" = "[0mMUST violations: 6" ]
-	[ "${lines[53]}" = "SHOULD violations: 1" ]
-	[ "${lines[54]}" = "MAY violations: 0" ]
-	[ "${lines[55]}" = "HINT violations: 0" ]
-	[ "${#lines[@]}" -eq 56 ]
+	[ "${lines[57]}" = "[0mMUST violations: 6" ]
+	[ "${lines[58]}" = "SHOULD violations: 2" ]
+	[ "${lines[59]}" = "MAY violations: 0" ]
+	[ "${lines[60]}" = "HINT violations: 0" ]
+	[ "${#lines[@]}" -eq 61 ]
 }
 
 @test "CLI works with local .json file" {
@@ -30,11 +30,11 @@
 @test "CLI works with remote .yaml file" {
 	run cli/bin/zally -l http://localhost:8080 https://raw.githubusercontent.com/zalando-incubator/zally/e542a2d6e8f7f37f4adf2242343e453961537a08/server/src/test/resources/api_spa.yaml
 	[ "$status" -eq 1 ]
-	[ "${lines[52]}" = "[0mMUST violations: 6" ]
-	[ "${lines[53]}" = "SHOULD violations: 1" ]
-	[ "${lines[54]}" = "MAY violations: 0" ]
-	[ "${lines[55]}" = "HINT violations: 0" ]
-	[ "${#lines[@]}" -eq 56 ]
+	[ "${lines[57]}" = "[0mMUST violations: 6" ]
+	[ "${lines[58]}" = "SHOULD violations: 2" ]
+	[ "${lines[59]}" = "MAY violations: 0" ]
+	[ "${lines[60]}" = "HINT violations: 0" ]
+	[ "${#lines[@]}" -eq 61 ]
 }
 
 @test "CLI works with remote .json file" {
