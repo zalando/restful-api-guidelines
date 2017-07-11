@@ -56,23 +56,23 @@ class ExtensibleEnumRule : AbstractRule() {
             .flatMap { (operationPath, enums) -> enums.map { it to "$operationPath/parameters/$it" } }.toMap()
     }
 
-    private fun Property.isEnum(): Boolean {
-        fun <T> hasValues(list: List<T>?) = list.orEmpty().isNotEmpty()
+    private fun Property.isEnum(): Boolean = when (this) {
+        is StringProperty -> this.enum.hasValues()
+        is BinaryProperty -> this.enum.hasValues()
+        is DateProperty -> this.enum.hasValues()
+        is DateTimeProperty -> this.enum.hasValues()
+        is BooleanProperty -> this.enum.hasValues()
+        is DoubleProperty -> this.enum.hasValues()
+        is EmailProperty -> this.enum.hasValues()
+        is FloatProperty -> this.enum.hasValues()
+        is IntegerProperty -> this.enum.hasValues()
+        is LongProperty -> this.enum.hasValues()
+        is PasswordProperty -> this.enum.hasValues()
+        else -> false
+    }
 
-        return when (this) {
-            is StringProperty -> hasValues(this.enum)
-            is BinaryProperty -> hasValues(this.enum)
-            is DateProperty -> hasValues(this.enum)
-            is DateTimeProperty -> hasValues(this.enum)
-            is BooleanProperty -> hasValues(this.enum)
-            is DoubleProperty -> hasValues(this.enum)
-            is EmailProperty -> hasValues(this.enum)
-            is FloatProperty -> hasValues(this.enum)
-            is IntegerProperty -> hasValues(this.enum)
-            is LongProperty -> hasValues(this.enum)
-            is PasswordProperty -> hasValues(this.enum)
-            else -> false
-        }
+    private fun <T> List<T>?.hasValues() : Boolean {
+        return this.orEmpty().isNotEmpty()
     }
 
     private fun Operation?.getEnumParameters() = this?.parameters.orEmpty().filter { it.isEnum() }.map { it.name }
