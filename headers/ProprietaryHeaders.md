@@ -8,8 +8,8 @@ visible. Use the parameter definitions of the resource HTTP methods.
 ## {{ book.must }} Use Only the Specified Proprietary Zalando Headers
 
 In general, proprietary headers should be avoided.
-They can be used in cases when parameter represents a pass-through end-to-end header.
-A valid use-case of a proprietary header is providing context information which is not a part of the actual API, but is used by subsequent communication.
+Still they can be used in cases where context parameters should be pass-through multiple services in an end-to-end fashion.
+A valid use-case of a proprietary header is providing context information which is not a part of the actual API, but is needed by subsequent communication.
 
 From a conceptual point of view, the semantic of an operation should always be expressed by path and query parameters, i.e. what goes into the URL, as well as the content.
 Headers are used to implement functions close to the protocol layer, such as flow control, content negotiation, and authentication.
