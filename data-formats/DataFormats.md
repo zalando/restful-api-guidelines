@@ -36,7 +36,7 @@ Use the following standard formats for country, language and currency codes:
 
 ## {{ book.must }} Define Format for Type Number and Integer
 
-Whenever an API defines a property of type `number` or `integer`, the precision has to be defined by the format as follows to prevent clients from guessing the precision incorrect, and thereby changing the value unintentionally:
+Whenever an API defines a property of type `number` or `integer`, the precision must be defined by the format as follows to prevent clients from guessing the precision incorrectly, and thereby changing the value unintentionally:
 
 | type    | format  | specified value range                                 |
 |---------|---------|-------------------------------------------------------|
@@ -47,7 +47,7 @@ Whenever an API defines a property of type `number` or `integer`, the precision 
 | number  | double  | IEEE 754-2008/ISO 60559:2011 binary128 decimal number |
 | number  | decimal | arbitrarily precise signed decimal number             |
 
-The precision must be translated by clients and servers into the most specific language types. An Example of the correct usage can be found below:
+The precision must be translated by clients and servers into the most specific language types. E.g. for the following definitions the most specific language types in Java will translate to `BigDecimal` for `Money.amount` and `int` or `Integer` for the `OrderList.count`:
 
 ```yaml
 Money:
