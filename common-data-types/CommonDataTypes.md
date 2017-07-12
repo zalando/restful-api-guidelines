@@ -190,8 +190,8 @@ Grouping and cardinality of fields in specific data types may vary based on the 
 
 ## {{ book.must }} Follow Hypertext Control Conventions
 
-API that provide hypertext controls (links) to interconnect API resources must follow
-the conventions for naming and modeling of hypertext controls as defined in section. [Hypermedia](../hyper-media/Hypermedia.html). 
+APIs that provide hypertext controls (links) to interconnect API resources must follow
+the conventions for naming and modeling of hypertext controls as defined in section [Hypermedia](../hyper-media/Hypermedia.html). 
 
 ## {{ book.must }} Use Problem JSON
 
