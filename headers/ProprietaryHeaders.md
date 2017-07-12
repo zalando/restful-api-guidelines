@@ -5,6 +5,24 @@ they address overarching service-related concerns. Whether services support thes
 optional; therefore, the OpenAPI API specification is the right place to make this explicitly
 visible. Use the parameter definitions of the resource HTTP methods.
 
+## {{ book.must }} Use Only the Specified Proprietary Zalando Headers
+
+As a general rule, proprietary HTTP headers should be avoided.
+Still they can be useful in cases where context needs to be passed through multiple services in an end-to-end fashion.
+As such, a valid use-case for a proprietary header is providing context information, which is not a part of the actual API, but is needed by subsequent communication.
+
+From a conceptual point of view, the semantics and intent of an operation should always be expressed by URLs path and query parameters, the method, and the content.
+Headers are more often used to implement functions close to the protocol considerations, such as flow control, content negotiation, and authentication.
+Thus, headers are reserved for general context information ([RFC-7231](https://tools.ietf.org/html/rfc7231#section-5)).
+
+`X-` headers were initially reserved for unstandardized parameters, but the usage of `X-` headers is deprecated ([RFC-6648](https://tools.ietf.org/html/rfc6648)).
+This complicates the contract definition between consumer and producer of an API following these guidelines, since there is no aligned way of using those headers.
+Because of this, the guidelines restrict which `X-` headers can be used and how they are used.
+
+The Internet Engineering Task Force's states in [RFC-6648](https://tools.ietf.org/html/rfc6648) that company specific header' names should incorporate the organization's name.
+We aim for backward compatibility, and therefore keep the `X-` prefix.
+
+The following proprietary headers have been specified by this guideline for usage so far.
 Remember that HTTP header field names are not case-sensitive.
 
 | Header field name | Type    | Description                       | Header field value example                |
@@ -17,3 +35,26 @@ Remember that HTTP header field names are not case-sensitive.
 | X-Device-Type      | String | There are also use cases for steering customer experience (incl. features and content) depending on device type. Via this header info should be passed-through as generic aspect. Current range is smartphone, tablet, desktop, other | tablet |
 | X-Device-OS      | String | On top of device type above, we even want to differ between device platform, e.g. smartphone Android vs. iOS. Via this header info should be passed-through as generic aspect. Current range is iOS, Android, Windows, Linux, MacOS | Android |
 | X-App-Domain      | Integer | The app domain (i.e. shop channel context) of the request. Note, app-domain is a legacy concept that will be replaced in new platform by combinations of main CFA concerns like retailer, sales channel, country | 16 |
+
+**Exception:** The only exception to this guideline are the conventional hop-by-hop `X-RateLimit-` headers which can be used as defined in [HTTP/Must-Use-429-with-Headers-For-Rate-Limits](../http/Http.md#must-use-429-with-headers-for-rate-limits).
+
+
+## {{ book.must }} Propagate Proprietary Headers
+
+All Zalando's proprietary headers are end-to-end headers.
+
+All headers specified above must be propagated to the services down the call chain.
+The header names and values must remain unchanged.
+
+For example, the values of the custom headers like `X-Device-Type` can affect the results of queries by using device type information to influence recommendation results.
+Besides, the values of the custom headers can influence the results of the queries (e.g. the device type information influences the recommendation results).
+
+Sometimes the value of a proprietary header will be used as part of the entity in a subsequent request.
+In such cases, the proprietary headers must still be propagated as headers with the subsequent request, despite the duplication of information.
+
+
+*Footnote:*
+
+HTTP/1.1 standard ([RFC-7230](https://tools.ietf.org/html/rfc7230#section-6.1)) defines two types of headers: end-to-end and hop-by-hop headers.
+End-to-end headers must be transmitted to the ultimate recipient of a request or response.
+Hop-by-hop headers, on the contrary, are meaningful for a single connection only.
