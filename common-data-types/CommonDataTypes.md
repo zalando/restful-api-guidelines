@@ -60,9 +60,9 @@ There are some data fields that come up again and again in API data:
 
 - `xyz_id`: an attribute within one object holding the identifier of another object must use a name that corresponds to the type of the referenced object or the relationship to the referenced object followed by `_id` (e.g. `customer_id` not `customer_number`; `parent_node_id` for the reference to a parent node from a child node, even if both have the type `Node`)
 
-- `created`: when the object was created. If used, this must be a date-time construct.
+- `created`: when the object was created. If used, this must be a `date-time` construct.
 
-- `modified`: when the object was updated. If used, this must be a date-time construct.
+- `modified`: when the object was updated. If used, this must be a `date-time` construct.
 
 - `type`: the kind of thing this object is. If used, the type of this field should be a string. Types allow runtime information on the entity provided that otherwise requires examining the Open API file.
 
@@ -103,22 +103,6 @@ Address structures play a role in different functional and use-case contexts, in
 variances. All attributes that relate to address information should follow the naming
 and semantics defined below.
 
-- `salutation`: a salutation and/or title used for personal contacts to some addressee.
-    __Hint__: not to be confused with the gender information that is stored per customer account
-
-- `first_name`: given name(s) or first name(s) of a person; may also include the middle names.
-- `last_name`: family name(s) or surname(s) of a person
-- `business_name`: company name of the business organization. Used when a business is the actual addressee. For personal shipments to office addresses, use `care_of` instead.
-- `care_of` (_c/o_): the person that resides at the address, if different from addressee. E.g. used when sending a personal parcel to the office / someone else's home where the addressee resides temporarily.
-- `street`: the full street address including house number and street name
-- `additional`: further details like building name, suite, apartment number, etc.
-- `city`: name of the city / locality
-- `zip`: zip code or postal code
-- `country_code`: the country code according to [iso-3166-1-alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
-
-Grouping and cardinality of fields in specific data types may vary based on the specific use case
-(e.g. combining addressee and address fields into a single type when modeling an address label vs distinct addressee and address types when modeling users and their addresses).
-
     addressee:
         description:
           a (natural or legal) person that gets addressed
@@ -132,15 +116,25 @@ Grouping and cardinality of fields in specific data types may vary based on the 
           - country_code
         properties:
           salutation:
+            description: |
+              a salutation and/or title used for personal contacts to some addressee;
+              not to be confused with the gender information!
             type: string
             example: Mr
           first_name:
+            description: |
+              given name(s) or first name(s) of a person; may also include the middle names.
             type: string
             example: Hans Dieter
           last_name:
+            description: |
+              family name(s) or surname(s) of a person
             type: string
             example: Mustermann
           business_name:
+            description: |
+              company name of the business organization. Used when a business is the actual
+              addressee; for personal shipments to office addresses, use `care_of` instead.
             type: string
             example: Consulting Services GmbH
         required:
@@ -153,21 +147,36 @@ Grouping and cardinality of fields in specific data types may vary based on the 
         type: object
         properties:
           care_of:
+            description: |
+              (aka c/o) the person that resides at the address, if different from
+              addressee. E.g. used when sending a personal parcel to the 
+              office /someone else's home where the addressee resides temporarily
             type: string
             example: Consulting Services GmbH
           street:
+            description: |
+              the full street address including house number and street name
             type: string
             example: Schönhauser Allee 103
           additional:
+            description: |
+              further details like building name, suite, apartment number, etc.
             type: string
             example: 2. Hinterhof rechts
           city:
+            description: |
+              name of the city / locality
             type: string
             example: Berlin
           zip:
+            description: |
+              zip code or postal code
             type: string
             example: 14265
           country_code:
+            description: |
+              the country code according to 
+              [iso-3166-1-alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
             type: string
             example: DE
         required:
@@ -175,6 +184,14 @@ Grouping and cardinality of fields in specific data types may vary based on the 
           - city
           - zip
           - country_code
+
+Grouping and cardinality of fields in specific data types may vary based on the specific use case
+(e.g. combining addressee and address fields into a single type when modeling an address label vs distinct addressee and address types when modeling users and their addresses).
+
+## {{ book.must }} Follow Hypertext Control Conventions
+
+API that provide hypertext controls (links) to interconnect API resources must follow
+the conventions for naming and modeling of hypertext controls as defined in section. [Hypermedia](../hyper-media/Hypermedia.html). 
 
 ## {{ book.must }} Use Problem JSON
 
