@@ -51,7 +51,7 @@ HttpLink:
 The name of an attribute holding such a `HttpLink` object specifies the relation between the object that 
 contains the link and the linked resource. Implementations should use names from the 
 [IANA Link Relation Registry](http://www.iana.org/assignments/link-relations/link-relations.xhtml) 
-whenever appropriate.
+whenever appropriate. As IANA link relation names use hyphen-case notation, while this guide enforces snake_case notation for attribute names, hyphens in IANA names have to be replaced with underscores (e.g. the IANA link relation type `version-history` would become the attribute `version_history`) 
 
 Specific link objects may extend the basic link type with additional attributes, to give additional information
 related to the linked resource or the relationship between the source resource and the linked one.
