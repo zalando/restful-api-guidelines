@@ -3,6 +3,7 @@ package commands
 import (
 	"io/ioutil"
 	"testing"
+	"time"
 
 	"encoding/json"
 
@@ -80,6 +81,29 @@ func TestDoRequest(t *testing.T) {
 		violations, err := doRequest(requestBuilder, data)
 
 		tests.AssertEquals(t, "Cannot submit file for linting. HTTP Status: 404, Response: Not Found\n", err.Error())
+		tests.AssertEquals(t, (*domain.Violations)(nil), violations)
+	})
+
+	t.Run("fails when timeout is reached", func(t *testing.T) {
+		handler := func(w http.ResponseWriter, r *http.Request) {
+			time.Sleep(6 * time.Second)
+			w.Header().Set("Content-Type", "application/json")
+			io.WriteString(w, "Hello")
+		}
+		testServer := httptest.NewServer(http.HandlerFunc(handler))
+		defer testServer.Close()
+
+		requestBuilder := utils.NewRequestBuilder(testServer.URL, "")
+		data, _ := readFile("testdata/minimal_swagger.json")
+
+		violations, err := doRequest(requestBuilder, data)
+
+		expectedError := fmt.Sprintf(
+			"Post %s/api-violations: net/http: request canceled"+
+				" (Client.Timeout exceeded while awaiting headers)",
+			testServer.URL,
+		)
+		tests.AssertEquals(t, expectedError, err.Error())
 		tests.AssertEquals(t, (*domain.Violations)(nil), violations)
 	})
 }

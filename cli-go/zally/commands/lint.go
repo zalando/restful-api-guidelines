@@ -113,8 +113,7 @@ func doRequest(requestBuilder *utils.RequestBuilder, data json.RawMessage) (*dom
 		return nil, err
 	}
 
-	client := &http.Client{}
-	response, err := client.Do(request)
+	response, err := utils.DoHTTPRequest(request)
 	if err != nil {
 		return nil, err
 	}

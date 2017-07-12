@@ -11,6 +11,8 @@ import (
 
 	"flag"
 
+	"time"
+
 	"github.com/urfave/cli"
 	"github.com/zalando-incubator/zally/cli-go/zally/domain"
 	"github.com/zalando-incubator/zally/cli-go/zally/tests"
@@ -31,6 +33,25 @@ func TestListRules(t *testing.T) {
 		err := listRules(getContext(testServer.URL, "mustt"))
 		tests.AssertEquals(t, "mustt is not supported", err.Error())
 	})
+
+	t.Run("fails_when_timeout_is_reached", func(t *testing.T) {
+		handler := func(w http.ResponseWriter, r *http.Request) {
+			time.Sleep(6 * time.Second)
+			w.Header().Set("Content-Type", "application/json")
+			io.WriteString(w, "Hello")
+		}
+		testServer := httptest.NewServer(http.HandlerFunc(handler))
+		defer testServer.Close()
+
+		err := listRules(getContext(testServer.URL, "must"))
+		expectedError := fmt.Sprintf(
+			"Get %s/supported-rules?type=must: net/http: request canceled"+
+				" (Client.Timeout exceeded while awaiting headers)",
+			testServer.URL,
+		)
+		tests.AssertEquals(t, expectedError, err.Error())
+	})
+
 }
 
 func TestFetchRules(t *testing.T) {
