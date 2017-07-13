@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"fmt"
 	"io/ioutil"
-	"net/http"
 
 	"encoding/json"
 
@@ -71,8 +70,7 @@ func fetchRules(requestBuilder *utils.RequestBuilder, rulesType string) (*domain
 		return nil, err
 	}
 
-	client := &http.Client{}
-	response, err := client.Do(request)
+	response, err := utils.DoHTTPRequest(request)
 	if err != nil {
 		return nil, err
 	}
