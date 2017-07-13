@@ -10,7 +10,7 @@ spring:
       ddl-auto: validate
   oauth2:
     resource:
-      tokenInfoUri: "https://info.services.auth.zalando.com/oauth2/tokeninfo"
+      tokenInfoUri: ${TOKEN_INFO_URI}
 
 endpoints:
   enabled: false
@@ -24,7 +24,7 @@ security:
   basic:
     enabled: false
 
-management.port: 7979
+management.port: ${MANAGEMENT_PORT}
 
 twintip:
   mapping: /api
@@ -35,3 +35,8 @@ rules-config-path: "rules-config.conf"
 # FYI: S001 is disabled because Zalando's API guidelines changed.
 zally:
   ignoreRules: S001,S010
+
+---
+spring.profiles: local
+TOKEN_INFO_URI: https://auth.example.com/oauth2/tokeninfo
+MANAGEMENT_PORT: 7979
