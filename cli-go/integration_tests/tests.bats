@@ -58,6 +58,17 @@
 	[ "$status" -eq 0 ]
 }
 
+@test "CLI should validate zally API definition" {
+	run cli-go/zally/zally lint server/src/main/resources/api/zally-api.yaml
+	[ "$status" -eq 0 ]
+	[ "${lines[2]}" = "[33mSHOULD[0m [33mUse Specific HTTP Status Codes[0m" ]
+	[ "${lines[10]}" = "MUST violations: 0" ]
+	[ "${lines[11]}" = "SHOULD violations: 1" ]
+	[ "${lines[12]}" = "MAY violations: 0" ]
+	[ "${lines[13]}" = "HINT violations: 0" ]
+	[ "${#lines[@]}" -eq 14 ]
+}
+
 @test "Displays rule list" {
 	run cli-go/zally/zally rules
 	[ "$status" -eq 0 ]
