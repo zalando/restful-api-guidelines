@@ -10,41 +10,41 @@
 @test "CLI works with local .yaml file" {
 	run cli/bin/zally -l http://localhost:8080 server/src/test/resources/fixtures/api_spa.yaml
 	[ "$status" -eq 1 ]
-	[ "${lines[57]}" = "[0mMUST violations: 6" ]
-	[ "${lines[58]}" = "SHOULD violations: 2" ]
-	[ "${lines[59]}" = "MAY violations: 0" ]
-	[ "${lines[60]}" = "HINT violations: 0" ]
-	[ "${#lines[@]}" -eq 61 ]
+	[ "${lines[67]}" = "[0mMUST violations: 6" ]
+	[ "${lines[68]}" = "SHOULD violations: 2" ]
+	[ "${lines[69]}" = "MAY violations: 0" ]
+	[ "${lines[70]}" = "HINT violations: 1" ]
+	[ "${#lines[@]}" -eq 71 ]
 }
 
 @test "CLI works with local .json file" {
 	run cli/bin/zally -l http://localhost:8080 server/src/test/resources/fixtures/api_spp.json
 	[ "$status" -eq 1 ]
-	[ "${lines[68]}" = "[0mMUST violations: 2" ]
-	[ "${lines[69]}" = "SHOULD violations: 2" ]
-	[ "${lines[70]}" = "MAY violations: 1" ]
-	[ "${lines[71]}" = "HINT violations: 0" ]
-	[ "${#lines[@]}" -eq 72 ]
+	[ "${lines[78]}" = "[0mMUST violations: 2" ]
+	[ "${lines[79]}" = "SHOULD violations: 2" ]
+	[ "${lines[80]}" = "MAY violations: 1" ]
+	[ "${lines[81]}" = "HINT violations: 1" ]
+	[ "${#lines[@]}" -eq 82 ]
 }
 
 @test "CLI works with remote .yaml file" {
 	run cli/bin/zally -l http://localhost:8080 https://raw.githubusercontent.com/zalando-incubator/zally/e542a2d6e8f7f37f4adf2242343e453961537a08/server/src/test/resources/api_spa.yaml
 	[ "$status" -eq 1 ]
-	[ "${lines[57]}" = "[0mMUST violations: 6" ]
-	[ "${lines[58]}" = "SHOULD violations: 2" ]
-	[ "${lines[59]}" = "MAY violations: 0" ]
-	[ "${lines[60]}" = "HINT violations: 0" ]
-	[ "${#lines[@]}" -eq 61 ]
+	[ "${lines[67]}" = "[0mMUST violations: 6" ]
+	[ "${lines[68]}" = "SHOULD violations: 2" ]
+	[ "${lines[69]}" = "MAY violations: 0" ]
+	[ "${lines[70]}" = "HINT violations: 1" ]
+	[ "${#lines[@]}" -eq 71 ]
 }
 
 @test "CLI works with remote .json file" {
 	run cli/bin/zally -l http://localhost:8080 https://raw.githubusercontent.com/zalando-incubator/zally/e542a2d6e8f7f37f4adf2242343e453961537a08/server/src/test/resources/api_spp.json
 	[ "$status" -eq 1 ]
-	[ "${lines[68]}" = "[0mMUST violations: 2" ]
-	[ "${lines[69]}" = "SHOULD violations: 2" ]
-	[ "${lines[70]}" = "MAY violations: 1" ]
-	[ "${lines[71]}" = "HINT violations: 0" ]
-	[ "${#lines[@]}" -eq 72 ]
+	[ "${lines[78]}" = "[0mMUST violations: 2" ]
+	[ "${lines[79]}" = "SHOULD violations: 2" ]
+	[ "${lines[80]}" = "MAY violations: 1" ]
+	[ "${lines[81]}" = "HINT violations: 1" ]
+	[ "${#lines[@]}" -eq 82 ]
 }
 
 @test "Displays rule list" {
@@ -60,10 +60,10 @@
 	run curl -sL https://github.com/zalando-incubator/zally/releases/download/v1.0.0/zally-1.0.0.jar -o zally-1.0.0.jar
 	run java -jar zally-1.0.0.jar -l http://localhost:8080 https://raw.githubusercontent.com/zalando-incubator/zally/e542a2d6e8f7f37f4adf2242343e453961537a08/server/src/test/resources/api_spp.json
 	[ "$status" -eq 1 ]
-	[ "${lines[60]}" = "[0mMUST violations: 2" ]
-	[ "${lines[61]}" = "SHOULD violations: 2" ]
-	[ "${lines[62]}" = "COULD violations: 0" ]
-	[ "${lines[63]}" = "HINT violations: 0" ]
-	[ "${#lines[@]}" -eq 64 ]
+	[ "${lines[70]}" = "[0mMUST violations: 2" ]
+	[ "${lines[71]}" = "SHOULD violations: 2" ]
+	[ "${lines[72]}" = "COULD violations: 0" ]
+	[ "${lines[73]}" = "HINT violations: 1" ]
+	[ "${#lines[@]}" -eq 74 ]
 	run rm zally-1.0.0.jar
 }

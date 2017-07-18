@@ -10,46 +10,46 @@
 @test "CLI works with local .yaml file" {
 	run cli-go/zally/zally lint server/src/test/resources/fixtures/api_spa.yaml
 	[ "$status" -eq 1 ]
-	[ "${lines[46]}" = "MUST violations: 6" ]
-	[ "${lines[47]}" = "SHOULD violations: 2" ]
-	[ "${lines[48]}" = "MAY violations: 0" ]
-	[ "${lines[49]}" = "HINT violations: 0" ]
-	[ "${#lines[@]}" -eq 51 ]
+	[ "${lines[54]}" = "MUST violations: 6" ]
+	[ "${lines[55]}" = "SHOULD violations: 2" ]
+	[ "${lines[56]}" = "MAY violations: 0" ]
+	[ "${lines[57]}" = "HINT violations: 1" ]
+	[ "${#lines[@]}" -eq 59 ]
 }
 
 @test "CLI works with local .json file" {
 	run cli-go/zally/zally lint server/src/test/resources/fixtures/api_spp.json
 	[ "$status" -eq 1 ]
-	[ "${lines[59]}" = "MUST violations: 2" ]
-	[ "${lines[60]}" = "SHOULD violations: 2" ]
-	[ "${lines[61]}" = "MAY violations: 1" ]
-	[ "${lines[62]}" = "HINT violations: 0" ]
-	[ "${#lines[@]}" -eq 64 ]
+	[ "${lines[67]}" = "MUST violations: 2" ]
+	[ "${lines[68]}" = "SHOULD violations: 2" ]
+	[ "${lines[69]}" = "MAY violations: 1" ]
+	[ "${lines[70]}" = "HINT violations: 1" ]
+	[ "${#lines[@]}" -eq 72 ]
 }
 
 @test "CLI works with remote .yaml file" {
 	run cli-go/zally/zally lint https://raw.githubusercontent.com/zalando-incubator/zally/e542a2d6e8f7f37f4adf2242343e453961537a08/server/src/test/resources/api_spa.yaml
 	[ "$status" -eq 1 ]
-	[ "${lines[46]}" = "MUST violations: 6" ]
-	[ "${lines[47]}" = "SHOULD violations: 2" ]
-	[ "${lines[48]}" = "MAY violations: 0" ]
-	[ "${lines[49]}" = "HINT violations: 0" ]
-	[ "${#lines[@]}" -eq 51 ]
+	[ "${lines[54]}" = "MUST violations: 6" ]
+	[ "${lines[55]}" = "SHOULD violations: 2" ]
+	[ "${lines[56]}" = "MAY violations: 0" ]
+	[ "${lines[57]}" = "HINT violations: 1" ]
+	[ "${#lines[@]}" -eq 59 ]
 }
 
 @test "CLI works with remote .json file" {
 	run cli-go/zally/zally lint https://raw.githubusercontent.com/zalando-incubator/zally/e542a2d6e8f7f37f4adf2242343e453961537a08/server/src/test/resources/api_spp.json
 	[ "$status" -eq 1 ]
-	[ "${lines[59]}" = "MUST violations: 2" ]
-	[ "${lines[60]}" = "SHOULD violations: 2" ]
-	[ "${lines[61]}" = "MAY violations: 1" ]
-	[ "${lines[62]}" = "HINT violations: 0" ]
-	[ "${#lines[@]}" -eq 64 ]
+	[ "${lines[67]}" = "MUST violations: 2" ]
+	[ "${lines[68]}" = "SHOULD violations: 2" ]
+	[ "${lines[69]}" = "MAY violations: 1" ]
+	[ "${lines[70]}" = "HINT violations: 1" ]
+	[ "${#lines[@]}" -eq 72 ]
 }
 
 @test "CLI should fail when any MUST violations" {
 	run cli-go/zally/zally lint server/src/test/resources/fixtures/api_spp.json
-	[ "${lines[63]}" = "Failing because: 2 must violation(s) found" ]
+	[ "${lines[71]}" = "Failing because: 2 must violation(s) found" ]
 	[ "$status" -eq 1 ]
 }
 
