@@ -3,14 +3,7 @@ package de.zalando.zally.rule
 import com.typesafe.config.Config
 import de.zalando.zally.violation.Violation
 import de.zalando.zally.violation.ViolationType
-import io.swagger.models.ComposedModel
-import io.swagger.models.HttpMethod
-import io.swagger.models.Model
-import io.swagger.models.RefModel
-import io.swagger.models.Response
 import io.swagger.models.Swagger
-import io.swagger.models.properties.ObjectProperty
-import io.swagger.models.properties.RefProperty
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
