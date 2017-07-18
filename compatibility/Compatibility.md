@@ -31,8 +31,11 @@ changes are necessary.
 
 API designers should apply the following rules to evolve RESTful APIs for services in a backward-compatible way:
 
-* Add only optional, never mandatory fields
-* Never change the meaning of a field (e.g. by being more restrictive).
+* Add only optional, never mandatory fields.
+* Never change the meaning of a field (e.g. switching to customer-number 
+  semantics for customer-id, both being unique customer keys).
+* Input fields may have (complexer) constaints being validated via server-side business logic.
+  Never change the validation logic to be more restrictive and make sure that constraints a clearly defined in description. 
 * Enum ranges can be reduced when used as input parameters, only if the server 
   is ready to accept and handle old range values too. Enum range can be reduced 
   when used as output parameters.
@@ -44,19 +47,19 @@ API designers should apply the following rules to evolve RESTful APIs for servic
   be extended with growing functionality. It defines an open list of explicit
   values and clients must be agnostic to new values.
 * Support redirection in case an URL has to change
-  ([301 Moved Permanently](https://en.wikipedia.org/wiki/HTTP_301))
+  ([301 Moved Permanently](https://en.wikipedia.org/wiki/HTTP_301)).
 
 ## {{ book.must }} Clients Do Not Crash With Compatible API Extensions
 
 Service clients apply the robustness principle and must be prepared for compatible API extensions of service providers:
 
 * Ignore new and unknown fields in the payload (see also Fowler’s
-  “[TolerantReader](http://martinfowler.com/bliki/TolerantReader.html)” post)
+  “[TolerantReader](http://martinfowler.com/bliki/TolerantReader.html)” post).
 * Be prepared that [`x-extensible-enum`](#should-used-openended-list-of-values-xextensibleenum-instead-of-enumerations)
   return parameter may deliver new values; either be agnostic or provide default behavior for unknown values. 
 * Be prepared to handle HTTP status codes not explicitly specified in endpoint definitions. 
   Note also, that status codes are  extensible. Default handling is how you would treat the 
-  corresponding x00 code (see [RFC7231  Section 6](https://tools.ietf.org/html/rfc7231#section-6))
+  corresponding x00 code (see [RFC7231  Section 6](https://tools.ietf.org/html/rfc7231#section-6)).
 * Follow the redirect when the server returns HTTP status
   [301 Moved Permanently](https://en.wikipedia.org/wiki/HTTP_301).
 
@@ -65,11 +68,11 @@ Service clients apply the robustness principle and must be prepared for compatib
 Designers of service provider APIs should be conservative and accurate in what they accept from clients:
 
 * Unknown input fields in payload or URL should not be ignored; 
-  provide error feedback to client via HTTP 400 return code.
+  provide error feedback to clients via HTTP 400 return code.
 * Be accurate in defining input data constraints (like formats, ranges, lengths etc.) — and 
-  checking the constraints with dedicated error return information in case of violations. 
-* Prefer being more specific and restrictive, if compliant to functional requirements, 
-  e.g. by defining length range of strings; it may simplify implementation while providing 
+  check constraints and return dedicated error information in case of violations. 
+* Prefer being more specific and restrictive (if compliant to functional requirements), 
+  e.g. by defining length range of strings. It may simplify implementation while providing 
   freedom for further evolution as compatible extensions. 
 
 Not ignoring unknown input fields is a specific deviation from Postel's Law and a strong recommendation.
@@ -82,18 +85,17 @@ problems and be explicit in what is supported:
   (see [RFC7231  Section 4.3.4](https://tools.ietf.org/html/rfc7231#section-4.3.4)).
   Note, accepting (i.e. not ignoring) unknown input fields and returning it in subsequent 
   GET responses is a different situation and compliant to PUT semantics. 
-* Certain client errors cannot be recognized by server, e.g. attribute name typing 
-  errors will be ignored without server error feedback. The server cannot differ between 
+* Certain client errors cannot be recognized by servers, e.g. attribute name typing 
+  errors will be ignored without server error feedback. The server cannot differentiate between 
   client provided intentionally an additional field vs. client field name typing error 
   where client intentionally wanted to provide a specific optional input field.
 * Future extensions of the input data structure might be in conflict with already 
   ignored fields and, hence, will not be compatible, i.e. break clients that already 
   use this field but with different type.
 
-In specific situations, where an (known) input field is not needed anymore
-it either can stay in the API definition with "not used anymore" description or 
-it can be removed from the API definition as long as the server ignores 
-this specific parameter to not break the clients. 
+In specific situations, where a (known) input field is not needed anymore, it either can 
+stay in the API definition with "not used anymore" description or can be removed from 
+the API definition as long as the server ignores this specific parameter. 
 
 ## {{ book.must }} Always Return JSON Objects As Top-Level Data Structures To Support Extensibility
 
