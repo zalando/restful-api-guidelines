@@ -17,14 +17,13 @@ import org.springframework.stereotype.Component
 @Component
 class NotSpecifyStandardErrorCodesRule(@Autowired rulesConfig: Config) : AbstractRule() {
     override val title = "Not Specify Standard Error Codes"
-    // TODO add reference to manual if any
-    override val url = "https://zalando.github.io/restful-api-guidelines/"
+    override val url = "http://zalando.github.io/restful-api-guidelines/http/Http.html" +
+            "#must-provide-error-documentation"
     override val violationType = ViolationType.HINT
     override val code = "H002"
     private val description = "Not Specify Standard Error Status Codes Like 400, 404, 503 " +
             "Unless They Have Another Meaning Or Special Implementation/Contract Detail"
 
-    // TODO clarify: the list of standard error codes should not be request type specific - iow no diff for POST and GET, right?
     private val standardErrorStatusCodes = rulesConfig.getConfig(name)
             .getIntList("standard_error_codes").toSet()
 
