@@ -34,7 +34,7 @@ API designers should apply the following rules to evolve RESTful APIs for servic
 * Add only optional, never mandatory fields.
 * Never change the meaning of a field (e.g. switching to customer-number 
   semantics for customer-id, both being unique customer keys).
-* Input fields may have (complexer) constaints being validated via server-side business logic.
+* Input fields may have (complex) constaints being validated via server-side business logic.
   Never change the validation logic to be more restrictive and make sure that constraints a clearly defined in description. 
 * Enum ranges can be reduced when used as input parameters, only if the server 
   is ready to accept and handle old range values too. Enum range can be reduced 
@@ -68,27 +68,29 @@ Service clients apply the robustness principle and must be prepared for compatib
 Designers of service provider APIs should be conservative and accurate in what they accept from clients:
 
 * Unknown input fields in payload or URL should not be ignored; 
-  provide error feedback to clients via HTTP 400 return code.
+  servers should provide error feedback to clients via an HTTP 400 response code.
 * Be accurate in defining input data constraints (like formats, ranges, lengths etc.) — and 
   check constraints and return dedicated error information in case of violations. 
 * Prefer being more specific and restrictive (if compliant to functional requirements), 
   e.g. by defining length range of strings. It may simplify implementation while providing 
   freedom for further evolution as compatible extensions. 
 
-Not ignoring unknown input fields is a specific deviation from Postel's Law and a strong recommendation.
+Not ignoring unknown input fields is a specific deviation from Postel's Law (e.g. see also  
+[The Robustness Principle Reconsidered](https://cacm.acm.org/magazines/2011/8/114933-the-robustness-principle-reconsidered/fulltext) 
+and a strong recommendation.
 Servers might want to take different approach but should be aware of the following 
 problems and be explicit in what is supported: 
 
-* Ignoring unknown input fields is actually no option for PUT, since it becomes asymmetric 
-  with subsequent GET response and HTTP is pretty clear about the PUT "replace" 
+* Ignoring unknown input fields is actually not an option for PUT, since it becomes asymmetric 
+  with subsequent GET response and HTTP is clear about the PUT "replace" 
   semantics and default roundtrip expectations 
   (see [RFC7231  Section 4.3.4](https://tools.ietf.org/html/rfc7231#section-4.3.4)).
   Note, accepting (i.e. not ignoring) unknown input fields and returning it in subsequent 
   GET responses is a different situation and compliant to PUT semantics. 
 * Certain client errors cannot be recognized by servers, e.g. attribute name typing 
   errors will be ignored without server error feedback. The server cannot differentiate between 
-  client provided intentionally an additional field vs. client field name typing error 
-  where client intentionally wanted to provide a specific optional input field.
+  the client intentionally providing an additional field versus the client sending a mistakenly
+  named field, when the client's actual intent was to provide an optional input field.
 * Future extensions of the input data structure might be in conflict with already 
   ignored fields and, hence, will not be compatible, i.e. break clients that already 
   use this field but with different type.
