@@ -13,7 +13,7 @@
 	[[ "$output" =~ "MUST violations: 6" ]]
 	[[ "$output" =~ "SHOULD violations: 2" ]]
 	[[ "$output" =~ "MAY violations: 0" ]]
-	[[ "$output" =~ "HINT violations: 0" ]]
+	[[ "$output" =~ "HINT violations: 1" ]]
 }
 
 @test "CLI works with local .json file" {
@@ -22,7 +22,7 @@
 	[[ "$output" =~ "MUST violations: 2" ]]
 	[[ "$output" =~ "SHOULD violations: 2" ]]
 	[[ "$output" =~ "MAY violations: 1" ]]
-	[[ "$output" =~ "HINT violations: 0" ]]
+	[[ "$output" =~ "HINT violations: 1" ]]
 }
 
 @test "CLI works with remote .yaml file" {
@@ -31,7 +31,7 @@
 	[[ "$output" =~ "MUST violations: 6" ]]
 	[[ "$output" =~ "SHOULD violations: 2" ]]
 	[[ "$output" =~ "MAY violations: 0" ]]
-	[[ "$output" =~ "HINT violations: 0" ]]
+	[[ "$output" =~ "HINT violations: 1" ]]
 }
 
 @test "CLI works with remote .json file" {
@@ -40,7 +40,7 @@
 	[[ "$output" =~ "MUST violations: 2" ]]
 	[[ "$output" =~ "SHOULD violations: 2" ]]
 	[[ "$output" =~ "MAY violations: 1" ]]
-	[[ "$output" =~ "HINT violations: 0" ]]
+	[[ "$output" =~ "HINT violations: 1" ]]
 }
 
 @test "CLI should fail when any MUST violations" {

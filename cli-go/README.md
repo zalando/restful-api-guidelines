@@ -18,6 +18,11 @@ Not feature-complete, in active development
     ```bash
     git clone git@github.com:zalando-incubator/zally.git $GOPATH/github.com/zalando-incubator/zally
     ``` 
+1. Get dependencies:
+
+    ```bash
+    go get -t -v
+    ```
 
 1. Run tests:
 

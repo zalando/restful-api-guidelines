@@ -48,7 +48,7 @@ fun swaggerWithDefinitions(vararg defs: Pair<String, List<String>>): Swagger =
             }.toMap()
         }
 
-fun swaggerWithOperations(operations: Map<String, List<String>>): Swagger =
+fun swaggerWithOperations(operations: Map<String, Iterable<String>>): Swagger =
         Swagger().apply {
             val path = Path()
             operations.forEach { method, statuses ->
