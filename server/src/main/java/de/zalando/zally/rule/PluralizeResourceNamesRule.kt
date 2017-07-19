@@ -1,24 +1,31 @@
 package de.zalando.zally.rule
 
+import com.typesafe.config.Config
 import de.zalando.zally.util.PatternUtil
 import de.zalando.zally.util.WordUtil.isPlural
 import de.zalando.zally.violation.Violation
 import de.zalando.zally.violation.ViolationType
 import io.swagger.models.Swagger
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
 @Component
-class PluralizeResourceNamesRule : AbstractRule() {
+class PluralizeResourceNamesRule(@Autowired rulesConfig: Config) : AbstractRule() {
     override val title = "Pluralize Resource Names"
     override val url = "http://zalando.github.io/restful-api-guidelines/naming/Naming.html" +
         "#must-pluralize-resource-names"
     override val violationType = ViolationType.SHOULD
     override val code = "S008"
     private val DESC_PATTERN = "Resources %s are singular (but we are not sure)"
+    private val allowedPrefixes = rulesConfig.getConfig(name).getStringList("whitelist_prefixes")
 
     override fun validate(swagger: Swagger): Violation? {
         val res = swagger.paths.keys.flatMap { path ->
-            path.split("/".toRegex()).filter { s -> !s.isEmpty() && !PatternUtil.isPathVariable(s) && !isPlural(s) }
+            val allParts = path.split("/".toRegex())
+            val partsToCheck = if (allParts.size > 1 && allowedPrefixes.contains(allParts.first())) allParts.drop(1)
+            else allParts
+
+            partsToCheck.filter { s -> !s.isEmpty() && !PatternUtil.isPathVariable(s) && !isPlural(s) }
                 .map { it to path }
         }
         return if (res.isNotEmpty()) {
