@@ -1,6 +1,6 @@
 # Data Formats
 
-## {{ book.should }} Use JSON as the Body Payload
+## {{ book.must }} Use JSON to Encode Structured Data
 
 Use JSON-encoded body payload for transferring structured data. 
 The JSON payload must follow [RFC-7159](https://tools.ietf.org/html/rfc7159) by having
@@ -8,14 +8,14 @@ The JSON payload must follow [RFC-7159](https://tools.ietf.org/html/rfc7159) by 
 This also applies for collection resources where one naturally would assume an array. See the
 [pagination](../pagination/Pagination.md#could-use-pagination-links-where-applicable) section for an example.
 
+## {{ book.may }} Use non JSON Media Types for Binary Data or Alternative Content Representations
+
 Other media types may be used in following cases:
-* Transferring binary data or data whose structure is not relevant. This is the case if payload structure 
-is not interpreted and consumed by clients as is. Examples:
-  * Downloading images (JPG, PNG, GIF)
-  * Exporting data in external document formats (PDF, DOC, XML)
-* Returning structured data in other media formats if this is required by external system that cannot 
-be made JSON-compatible. In this case data should also be available JSON-encoded if a client requests
-it with content negotiation.
+* Transferring binary data or data whose structure is not relevant. This is the case if payload structure
+is not interpreted and consumed by clients as is. Example of such use case is downloading images
+in formats JPG, PNG, GIF.
+* In addition to JSON version alternative data representations (e.g. in formats PDF, DOC, XML)
+may be made available through content negotiation.
 
 ## {{ book.must }} Use Standard Date and Time Formats
 
