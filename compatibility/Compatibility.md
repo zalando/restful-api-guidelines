@@ -49,7 +49,7 @@ API designers should apply the following rules to evolve RESTful APIs for servic
 * Support redirection in case an URL has to change
   ([301 Moved Permanently](https://en.wikipedia.org/wiki/HTTP_301)).
 
-## {{ book.must }} Clients Do Not Crash With Compatible API Extensions
+## {{ book.must }} Prepare Clients To Not Crash On Compatible API Extensions
 
 Service clients apply the robustness principle and must be prepared for compatible API extensions of service providers:
 
