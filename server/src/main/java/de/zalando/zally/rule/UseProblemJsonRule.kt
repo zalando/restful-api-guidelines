@@ -2,7 +2,13 @@ package de.zalando.zally.rule
 
 import de.zalando.zally.violation.Violation
 import de.zalando.zally.violation.ViolationType
-import io.swagger.models.*
+import io.swagger.models.ComposedModel
+import io.swagger.models.HttpMethod
+import io.swagger.models.Model
+import io.swagger.models.RefModel
+import io.swagger.models.Response
+import io.swagger.models.Swagger
+import io.swagger.models.Operation
 import io.swagger.models.properties.ObjectProperty
 import io.swagger.models.properties.RefProperty
 import org.springframework.stereotype.Component
@@ -54,23 +60,18 @@ class UseProblemJsonRule : AbstractRule() {
         }
     }
 
-    private fun producesJson(swagger: Swagger, operation: Operation): Boolean {
-        if (operation.produces == null || operation.produces.isEmpty()) {
-            return swagger.produces != null && swagger.producesContainsJson()
+    private fun producesJson(swagger: Swagger, operation: Operation) =
+        if (operation.produces.orEmpty().isEmpty()) {
+            swagger.produces.orEmpty().containsJson()
         } else {
-            return operation.producesContainsJson()
+            operation.produces.containsJson()
         }
-    }
 
     // support for application/json also with set charset e.g. "application/json; charset=utf-8"
-    private fun Swagger.producesContainsJson() =
-        produces.any { it.startsWith("application/json") }
-
-    // support for application/json also with set charset e.g. "application/json; charset=utf-8"
-    private fun Operation.producesContainsJson() =
-        produces.any { it.startsWith("application/json") }
+    private fun List<String>.containsJson() =
+        any { it.startsWith("application/json") }
 
     private fun HttpMethod.shouldContainPayload(): Boolean =
-            name.toLowerCase() !in listOf("head", "options")
+        name.toLowerCase() !in listOf("head", "options")
 
 }
