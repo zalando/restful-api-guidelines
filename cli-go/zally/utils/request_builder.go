@@ -15,11 +15,11 @@ type RequestBuilder struct {
 }
 
 // NewRequestBuilder creates an instance of RequestBuilder
-func NewRequestBuilder(baseURL string, token string, agent string) *RequestBuilder {
+func NewRequestBuilder(baseURL string, token string, userAgent string) *RequestBuilder {
 	var builder RequestBuilder
 	builder.baseURL = baseURL
 	builder.token = token
-	builder.userAgent = agent
+	builder.userAgent = userAgent
 	return &builder
 }
 
