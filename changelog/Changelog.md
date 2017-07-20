@@ -8,6 +8,7 @@ To see a list of all changes, please have a look at the [commit list in Github](
 
 ## Rule Changes
 
+* `2017-07-20:` Be more precise on client vs. server obligations for compatible API extensions.
 * `2017-06-06:` Made money object guideline clearer.
 * `2017-05-17:` Added guideline on query parameter collection format.
 * `2017-05-10:` Added the convention of using RFC2119 to describe guideline 
