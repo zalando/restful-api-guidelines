@@ -4,9 +4,6 @@ import com.fasterxml.jackson.annotation.JsonRawValue
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import de.zalando.zally.util.JsonRawValueDeserializer
 
-/**
- * @author innokenty
- */
 data class ApiDefinitionRequest (
 
     @JsonRawValue

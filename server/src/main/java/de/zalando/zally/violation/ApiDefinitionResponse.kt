@@ -1,8 +1,5 @@
 package de.zalando.zally.violation
 
-/**
- * @author innokenty
- */
 data class ApiDefinitionResponse (
 
     var message: String? = null,
