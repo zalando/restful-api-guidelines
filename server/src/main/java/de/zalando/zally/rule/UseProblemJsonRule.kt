@@ -2,12 +2,7 @@ package de.zalando.zally.rule
 
 import de.zalando.zally.violation.Violation
 import de.zalando.zally.violation.ViolationType
-import io.swagger.models.ComposedModel
-import io.swagger.models.HttpMethod
-import io.swagger.models.Model
-import io.swagger.models.RefModel
-import io.swagger.models.Response
-import io.swagger.models.Swagger
+import io.swagger.models.*
 import io.swagger.models.properties.ObjectProperty
 import io.swagger.models.properties.RefProperty
 import org.springframework.stereotype.Component
@@ -28,7 +23,7 @@ class UseProblemJsonRule : AbstractRule() {
             pathEntry.value.operationMap.orEmpty().filter { it.key.shouldContainPayload() }.flatMap { opEntry ->
                 opEntry.value.responses.orEmpty().flatMap { responseEntry ->
                     val httpCode = responseEntry.key.toIntOrNull()
-                    if (httpCode in 400..599 && (!isProblemJson(swagger, responseEntry.value))) {
+                    if (httpCode in 400..599 && !isValidProblemJson(swagger, responseEntry.value, opEntry.value)) {
                         listOf("${pathEntry.key} ${opEntry.key} ${responseEntry.key}")
                     } else emptyList()
                 }
@@ -37,6 +32,9 @@ class UseProblemJsonRule : AbstractRule() {
 
         return if (paths.isNotEmpty()) Violation(this, title, description, violationType, url, paths) else null
     }
+
+    private fun isValidProblemJson(swagger: Swagger, response: Response, operation: Operation) =
+        isProblemJson(swagger, response) && producesJson(swagger, operation)
 
     private fun isProblemJson(swagger: Swagger, response: Response): Boolean {
         val schema = response.schema
@@ -56,7 +54,23 @@ class UseProblemJsonRule : AbstractRule() {
         }
     }
 
+    private fun producesJson(swagger: Swagger, operation: Operation): Boolean {
+        if (operation.produces == null || operation.produces.isEmpty()) {
+            return swagger.produces != null && swagger.producesContainsJson()
+        } else {
+            return operation.producesContainsJson()
+        }
+    }
+
+    // support for application/json also with set charset e.g. "application/json; charset=utf-8"
+    private fun Swagger.producesContainsJson() =
+        produces.any { it.startsWith("application/json") }
+
+    // support for application/json also with set charset e.g. "application/json; charset=utf-8"
+    private fun Operation.producesContainsJson() =
+        produces.any { it.startsWith("application/json") }
+
     private fun HttpMethod.shouldContainPayload(): Boolean =
-        name.toLowerCase() !in listOf("head", "options")
+            name.toLowerCase() !in listOf("head", "options")
 
 }

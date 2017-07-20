@@ -13,6 +13,25 @@ class UseProblemJsonRuleTest {
     }
 
     @Test
+    fun shouldReturnViolationsWhenErrorsReferencingToProblemJsonButNotProducingJson() {
+        val swagger = getFixture("problem_json_not_produces_json.yaml")
+        val result = UseProblemJsonRule().validate(swagger)!!
+        assertThat(result.paths).hasSameElementsAs(listOf(
+            "/products GET 400",
+            "/products GET 401",
+            "/products GET 403",
+            "/products GET 404",
+            "/products GET 405"
+        ))
+    }
+
+    @Test
+    fun shouldReturnNoViolationsWhenOperationsAreProducingJson() {
+        val swagger = getFixture("problem_json_operations_produce_json.yaml")
+        assertThat(UseProblemJsonRule().validate(swagger)).isNull()
+    }
+
+    @Test
     fun shouldReturnViolationsWhenCustomReferenceIsUsed() {
         val swagger = getFixture("api_tinbox.yaml")
         val result = UseProblemJsonRule().validate(swagger)!!
