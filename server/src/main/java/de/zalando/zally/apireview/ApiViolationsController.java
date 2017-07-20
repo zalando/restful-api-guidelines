@@ -1,6 +1,5 @@
 package de.zalando.zally.apireview;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import de.zalando.zally.exception.MissingApiDefinitionException;
 import de.zalando.zally.exception.UnaccessibleResourceUrlException;
 import de.zalando.zally.rule.RulesValidator;
@@ -29,7 +28,6 @@ import static java.util.stream.Collectors.toMap;
 public class ApiViolationsController {
 
     private final RulesValidator rulesValidator;
-    private final ObjectMapper mapper;
     private final DropwizardMetricServices metricServices;
     private final ApiDefinitionReader apiDefinitionReader;
     private final ApiReviewRepository apiReviewRepository;
@@ -37,13 +35,11 @@ public class ApiViolationsController {
 
     @Autowired
     public ApiViolationsController(RulesValidator rulesValidator,
-                                   ObjectMapper objectMapper,
                                    DropwizardMetricServices metricServices,
                                    ApiDefinitionReader apiDefinitionReader,
                                    ApiReviewRepository apiReviewRepository,
                                    @Value("${zally.message:}") String message) {
         this.rulesValidator = rulesValidator;
-        this.mapper = objectMapper;
         this.metricServices = metricServices;
         this.apiDefinitionReader = apiDefinitionReader;
         this.apiReviewRepository = apiReviewRepository;
