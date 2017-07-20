@@ -31,7 +31,6 @@ script:
 
   # Launch local zally server
   - cd server/
-  - echo "spring.profiles.active=dev" > application.properties
   - ./gradlew bootRun > /dev/null &
   - echo $! > /tmp/zally_server.pid
   - cd ..

@@ -20,15 +20,12 @@ an API check.
     ./gradlew clean build
     ```
 
-4. [Optional] Disable OAuth2 authentication for testing purposes:
-    ```bash
-    echo "spring.profiles.active=dev" > application.properties
-    ```
-
-5. Run Zally server using:
+4. Run Zally server using:
     ```bash
     ./gradlew bootRun
     ```
+    The bootRun task is configured to run with 'dev' profile by default.
+
 
 ## Usage
 

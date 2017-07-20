@@ -2,6 +2,7 @@ package de.zalando.zally.rule
 
 import de.zalando.zally.violation.Violation
 import de.zalando.zally.violation.ViolationType
+import io.swagger.models.Scheme
 import io.swagger.models.Swagger
 import org.springframework.stereotype.Component
 
@@ -15,8 +16,12 @@ class SecureWithOAuth2Rule : AbstractRule() {
 
     override fun validate(swagger: Swagger): Violation? {
         val hasOAuth = swagger.securityDefinitions.orEmpty().values.any { it.type?.toLowerCase() == "oauth2" }
+        val containsHttpScheme = swagger.schemes.orEmpty().contains(Scheme.HTTP)
         return if (!hasOAuth)
             Violation(this, title, "No OAuth2 security definitions found", violationType, url, emptyList())
-        else null
+        else if (containsHttpScheme)
+            Violation(this, title, "OAuth2 should be only used together with https", violationType, url, emptyList())
+        else
+            null
     }
 }
