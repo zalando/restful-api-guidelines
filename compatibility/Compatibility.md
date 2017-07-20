@@ -16,12 +16,8 @@ We strongly encourage using compatible API extensions and discourage versioning.
 The below guideline rules for service providers and consumers enable us (having Postel’s Law in mind) 
 to make compatible changes without versioning.
 
-**Hint:** Please note that the compatibility guarantees are for the on-the-wire format,
-i.e. they ensure that consumers relying on the old API definition will work
-with servers which already implement a newer API definition, assuming both API
-designers and client and server implementors adhere to the following rules.
-
-Hence, binary or source compatibility of code generated from an API definition
+**Hint:** Please note that the compatibility guarantees are for the "on the wire" format.
+Binary or source compatibility of code generated from an API definition
 is not covered by these rules.  If client implementations update their generation
 process to a new version of the API definition, it has to be expected that code
 changes are necessary.
@@ -32,10 +28,11 @@ changes are necessary.
 API designers should apply the following rules to evolve RESTful APIs for services in a backward-compatible way:
 
 * Add only optional, never mandatory fields.
-* Never change the meaning of a field (e.g. switching to customer-number 
+* Never change the meaning of a field (e.g. change to customer-number 
   semantics for customer-id, both being unique customer keys).
 * Input fields may have (complex) constraints being validated via server-side business logic.
-  Never change the validation logic to be more restrictive and make sure that constraints a clearly defined in description. 
+  Never change the validation logic to be more restrictive and make sure that all 
+  constraints a clearly defined in description. 
 * Enum ranges can be reduced when used as input parameters, only if the server 
   is ready to accept and handle old range values too. Enum range can be reduced 
   when used as output parameters.
@@ -51,10 +48,12 @@ API designers should apply the following rules to evolve RESTful APIs for servic
 
 ## {{ book.must }} Prepare Clients To Not Crash On Compatible API Extensions
 
-Service clients apply the robustness principle and must be prepared for compatible API extensions of service providers:
+Service clients apply the robustness principle and must be prepared for compatible API 
+extensions of service providers 
+(see also Fowler’s ["TolerantReader"](http://martinfowler.com/bliki/TolerantReader.html) post):
 
-* Ignore new and unknown fields in the payload (see also Fowler’s
-  “[TolerantReader](http://martinfowler.com/bliki/TolerantReader.html)” post).
+* Be prepared for new and unknown fields in the payload, i.e. ignore new field 
+  but don't eliminate it from payload used for subsequent PUT calls.
 * Be prepared that [`x-extensible-enum`](#should-used-openended-list-of-values-xextensibleenum-instead-of-enumerations)
   return parameter may deliver new values; either be agnostic or provide default behavior for unknown values. 
 * Be prepared to handle HTTP status codes not explicitly specified in endpoint definitions. 
@@ -76,7 +75,7 @@ Designers of service provider APIs should be conservative and accurate in what t
   freedom for further evolution as compatible extensions. 
 
 Not ignoring unknown input fields is a specific deviation from Postel's Law (e.g. see also  
-[The Robustness Principle Reconsidered](https://cacm.acm.org/magazines/2011/8/114933-the-robustness-principle-reconsidered/fulltext) 
+[The Robustness Principle Reconsidered](https://cacm.acm.org/magazines/2011/8/114933-the-robustness-principle-reconsidered/fulltext)) 
 and a strong recommendation.
 Servers might want to take different approach but should be aware of the following 
 problems and be explicit in what is supported: 
