@@ -46,7 +46,7 @@ After a short Introduction, these guidelines include chapters on the following t
 - [Pagination](http://zalando.github.io/restful-api-guidelines/pagination/Pagination.html)
 - [Hypermedia](http://zalando.github.io/restful-api-guidelines/hyper-media/Hypermedia.html)
 - [Data Formats](http://zalando.github.io/restful-api-guidelines/data-formats/DataFormats.html)
-- [Common Data Objects](http://zalando.github.io/restful-api-guidelines/common-data-objects/CommonDataObjects.html)
+- [Common Data Objects](http://zalando.github.io/restful-api-guidelines/common-data-types/CommonDataTypes.html)
 - [Common Headers](http://zalando.github.io/restful-api-guidelines/headers/CommonHeaders.html)
 - [Proprietary Headers](http://zalando.github.io/restful-api-guidelines/headers/ProprietaryHeaders.html)
 - [API Operation](http://zalando.github.io/restful-api-guidelines/api-operation/ApiOperation.html)

@@ -13,7 +13,7 @@
 * [Pagination](pagination/Pagination.md)
 * [Hypermedia](hyper-media/Hypermedia.md)
 * [Data Formats](data-formats/DataFormats.md)
-* [Common Data Objects](common-data-objects/CommonDataObjects.md)
+* [Common Data Types](common-data-types/CommonDataTypes.md)
 * [Common Headers](headers/CommonHeaders.md)
 * [Proprietary Headers](headers/ProprietaryHeaders.md)
 * [Deprecation](deprecation/Deprecation.md)

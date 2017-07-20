@@ -183,7 +183,7 @@ The following existing guideline sections are applicable to events -
 
 - [Data Formats](../data-formats/DataFormats.md)
 
-- [Common Data Objects](../common-data-objects/CommonDataObjects.md)
+- [Common Data Objects](../common-data-types/CommonDataTypes.md)
 
 - [Hypermedia](../hyper-media/Hypermedia.md) - 
 
