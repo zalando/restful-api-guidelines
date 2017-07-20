@@ -1,8 +1,7 @@
 package de.zalando.zally.apireview;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.zalando.zally.rule.Rule;
+import de.zalando.zally.violation.ApiDefinitionRequest;
 import de.zalando.zally.violation.Violation;
 import de.zalando.zally.violation.ViolationType;
 import io.swagger.models.Swagger;
@@ -67,7 +66,7 @@ public class ApiReviewTest {
         Violation mustViolation2 = new Violation(dummyRule, "", "", ViolationType.MUST, "", Collections.emptyList());
         Violation shouldViolation = new Violation(dummyRule, "", "", ViolationType.SHOULD, "", Collections.emptyList());
 
-        ApiReview apiReview = new ApiReview(emptyReviewRequest(), "", asList(mustViolation1, mustViolation2, shouldViolation));
+        ApiReview apiReview = new ApiReview(new ApiDefinitionRequest(), "", asList(mustViolation1, mustViolation2, shouldViolation));
 
         assertThat(apiReview.getMustViolations()).isEqualTo(2);
         assertThat(apiReview.getShouldViolations()).isEqualTo(1);
@@ -82,7 +81,7 @@ public class ApiReviewTest {
 
         String apiDefinition = readDummyApiDefinition();
 
-        ApiReview apiReview = new ApiReview(emptyReviewRequest(), apiDefinition, asList(violation1, violation2));
+        ApiReview apiReview = new ApiReview(new ApiDefinitionRequest(), apiDefinition, asList(violation1, violation2));
 
         assertThat(apiReview.getNumberOfEndpoints()).isEqualTo(2);
     }
@@ -90,12 +89,8 @@ public class ApiReviewTest {
     @Test
     public void shouldParseApiNameFromApiDefinition() throws IOException, URISyntaxException {
         String apiDefinition = readDummyApiDefinition();
-        ApiReview apiReview = new ApiReview(emptyReviewRequest(), apiDefinition, Collections.emptyList());
+        ApiReview apiReview = new ApiReview(new ApiDefinitionRequest(), apiDefinition, Collections.emptyList());
         assertThat(apiReview.getName()).isEqualTo("Test Service");
-    }
-
-    private ObjectNode emptyReviewRequest() {
-        return new ObjectMapper().createObjectNode();
     }
 
     private String readDummyApiDefinition() throws IOException, URISyntaxException {

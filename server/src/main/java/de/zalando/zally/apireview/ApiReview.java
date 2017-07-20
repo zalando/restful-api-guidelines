@@ -1,6 +1,6 @@
 package de.zalando.zally.apireview;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import de.zalando.zally.violation.ApiDefinitionRequest;
 import de.zalando.zally.violation.Violation;
 import de.zalando.zally.violation.ViolationType;
 import org.apache.commons.lang3.StringUtils;
@@ -63,15 +63,14 @@ public class ApiReview implements Serializable {
      * for Hibernate
      */
     protected ApiReview() {
-        super();
     }
 
-    public ApiReview(JsonNode jsonPayload) {
-        this(jsonPayload, null, Collections.emptyList());
+    public ApiReview(ApiDefinitionRequest request) {
+        this(request, null, Collections.emptyList());
     }
 
-    public ApiReview(JsonNode jsonPayload, String apiDefinition, List<Violation> violations) {
-        this.jsonPayload = jsonPayload.toString();
+    public ApiReview(ApiDefinitionRequest request, String apiDefinition, List<Violation> violations) {
+        this.jsonPayload = request.toString();
         this.apiDefinition = apiDefinition;
         this.successfulProcessed = StringUtils.isNotBlank(apiDefinition);
         this.created = Instant.now().atOffset(ZoneOffset.UTC);

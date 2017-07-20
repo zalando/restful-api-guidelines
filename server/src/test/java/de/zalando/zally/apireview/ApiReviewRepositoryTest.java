@@ -1,6 +1,6 @@
 package de.zalando.zally.apireview;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import de.zalando.zally.violation.ApiDefinitionRequest;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,7 +30,7 @@ public class ApiReviewRepositoryTest {
 
     @Test
     public void shouldFindOneApiReviewRequestFromYesterday() {
-        ApiReview reviewRequest = new ApiReview(new ObjectMapper().createObjectNode());
+        ApiReview reviewRequest = new ApiReview(new ApiDefinitionRequest());
         reviewRequest.setDay(yesterday().toLocalDate());
         reviewRequest.setCreated(yesterday());
         repository.save(reviewRequest);

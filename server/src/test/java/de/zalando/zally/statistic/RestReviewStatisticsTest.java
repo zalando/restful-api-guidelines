@@ -1,11 +1,11 @@
 package de.zalando.zally.statistic;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import de.zalando.zally.apireview.ApiReview;
 import de.zalando.zally.apireview.RestApiBaseTest;
 import de.zalando.zally.rule.InvalidApiSchemaRule;
 import de.zalando.zally.util.TestDateUtil;
+import de.zalando.zally.violation.ApiDefinitionRequest;
 import de.zalando.zally.violation.Violation;
 import de.zalando.zally.violation.ViolationType;
 import org.junit.Test;
@@ -20,8 +20,6 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class RestReviewStatisticsTest extends RestApiBaseTest {
-
-    private final JsonNode emptyJsonPayload = new ObjectMapper().createObjectNode();
 
     @Override
     protected String getUrl() {
@@ -130,7 +128,7 @@ public class RestReviewStatisticsTest extends RestApiBaseTest {
 
         LocalDate currentDate = LocalDate.from(from);
         while (currentDate.isBefore(to)) {
-            ApiReview review = new ApiReview(emptyJsonPayload, "dummyApiDefinition", createRandomViolations());
+            ApiReview review = new ApiReview(new ApiDefinitionRequest(), "dummyApiDefinition", createRandomViolations());
             review.setDay(currentDate);
             review.setName("My API");
             review.setNumberOfEndpoints(2);
