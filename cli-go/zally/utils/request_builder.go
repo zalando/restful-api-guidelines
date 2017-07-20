@@ -2,6 +2,7 @@ package utils
 
 import (
 	"fmt"
+	"github.com/urfave/cli"
 	"io"
 	"net/http"
 	"net/url"
@@ -15,11 +16,11 @@ type RequestBuilder struct {
 }
 
 // NewRequestBuilder creates an instance of RequestBuilder
-func NewRequestBuilder(baseURL string, token string, userAgent string) *RequestBuilder {
+func NewRequestBuilder(baseURL string, token string, app *cli.App) *RequestBuilder {
 	var builder RequestBuilder
 	builder.baseURL = baseURL
 	builder.token = token
-	builder.userAgent = userAgent
+	builder.userAgent = fmt.Sprintf("%s/%s", app.Name, app.Version)
 	return &builder
 }
 

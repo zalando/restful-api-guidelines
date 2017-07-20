@@ -14,10 +14,13 @@ import (
 
 	"fmt"
 
+	"github.com/urfave/cli"
 	"github.com/zalando-incubator/zally/cli-go/zally/domain"
 	"github.com/zalando-incubator/zally/cli-go/zally/tests"
 	"github.com/zalando-incubator/zally/cli-go/zally/utils"
 )
+
+var app = cli.NewApp()
 
 func TestReadFile(t *testing.T) {
 	t.Run("fails_if_local_file_is_not_found", func(t *testing.T) {
@@ -58,7 +61,7 @@ func TestDoRequest(t *testing.T) {
 		testServer := httptest.NewServer(http.HandlerFunc(handler))
 		defer testServer.Close()
 
-		requestBuilder := utils.NewRequestBuilder(testServer.URL, "", "")
+		requestBuilder := utils.NewRequestBuilder(testServer.URL, "", app)
 		data, _ := readFile("testdata/minimal_swagger.json")
 
 		violations, err := doRequest(requestBuilder, data)
@@ -75,7 +78,7 @@ func TestDoRequest(t *testing.T) {
 		testServer := httptest.NewServer(http.HandlerFunc(handler))
 		defer testServer.Close()
 
-		requestBuilder := utils.NewRequestBuilder(testServer.URL, "", "")
+		requestBuilder := utils.NewRequestBuilder(testServer.URL, "", app)
 		data, _ := readFile("testdata/minimal_swagger.json")
 
 		violations, err := doRequest(requestBuilder, data)
@@ -93,7 +96,7 @@ func TestDoRequest(t *testing.T) {
 		testServer := httptest.NewServer(http.HandlerFunc(handler))
 		defer testServer.Close()
 
-		requestBuilder := utils.NewRequestBuilder(testServer.URL, "", "")
+		requestBuilder := utils.NewRequestBuilder(testServer.URL, "", app)
 		data, _ := readFile("testdata/minimal_swagger.json")
 
 		violations, err := doRequest(requestBuilder, data)
@@ -144,7 +147,7 @@ func TestLintFile(t *testing.T) {
 		testServer := httptest.NewServer(http.HandlerFunc(handler))
 		defer testServer.Close()
 
-		requestBuilder := utils.NewRequestBuilder(testServer.URL, "", "")
+		requestBuilder := utils.NewRequestBuilder(testServer.URL, "", app)
 
 		err := lintFile("testdata/minimal_swagger.json", requestBuilder)
 
@@ -160,7 +163,7 @@ func TestLintFile(t *testing.T) {
 		testServer := httptest.NewServer(http.HandlerFunc(handler))
 		defer testServer.Close()
 
-		requestBuilder := utils.NewRequestBuilder(testServer.URL, "", "")
+		requestBuilder := utils.NewRequestBuilder(testServer.URL, "", app)
 
 		err := lintFile("testdata/minimal_swagger.json", requestBuilder)
 
