@@ -34,7 +34,7 @@ API designers should apply the following rules to evolve RESTful APIs for servic
 * Add only optional, never mandatory fields.
 * Never change the meaning of a field (e.g. switching to customer-number 
   semantics for customer-id, both being unique customer keys).
-* Input fields may have (complex) constaints being validated via server-side business logic.
+* Input fields may have (complex) constraints being validated via server-side business logic.
   Never change the validation logic to be more restrictive and make sure that constraints a clearly defined in description. 
 * Enum ranges can be reduced when used as input parameters, only if the server 
   is ready to accept and handle old range values too. Enum range can be reduced 
