@@ -58,7 +58,7 @@ func TestDoRequest(t *testing.T) {
 		testServer := httptest.NewServer(http.HandlerFunc(handler))
 		defer testServer.Close()
 
-		requestBuilder := utils.NewRequestBuilder(testServer.URL, "")
+		requestBuilder := utils.NewRequestBuilder(testServer.URL, "", "")
 		data, _ := readFile("testdata/minimal_swagger.json")
 
 		violations, err := doRequest(requestBuilder, data)
@@ -75,7 +75,7 @@ func TestDoRequest(t *testing.T) {
 		testServer := httptest.NewServer(http.HandlerFunc(handler))
 		defer testServer.Close()
 
-		requestBuilder := utils.NewRequestBuilder(testServer.URL, "")
+		requestBuilder := utils.NewRequestBuilder(testServer.URL, "", "")
 		data, _ := readFile("testdata/minimal_swagger.json")
 
 		violations, err := doRequest(requestBuilder, data)
@@ -93,7 +93,7 @@ func TestDoRequest(t *testing.T) {
 		testServer := httptest.NewServer(http.HandlerFunc(handler))
 		defer testServer.Close()
 
-		requestBuilder := utils.NewRequestBuilder(testServer.URL, "")
+		requestBuilder := utils.NewRequestBuilder(testServer.URL, "", "")
 		data, _ := readFile("testdata/minimal_swagger.json")
 
 		violations, err := doRequest(requestBuilder, data)
@@ -144,7 +144,7 @@ func TestLintFile(t *testing.T) {
 		testServer := httptest.NewServer(http.HandlerFunc(handler))
 		defer testServer.Close()
 
-		requestBuilder := utils.NewRequestBuilder(testServer.URL, "")
+		requestBuilder := utils.NewRequestBuilder(testServer.URL, "", "")
 
 		err := lintFile("testdata/minimal_swagger.json", requestBuilder)
 
@@ -160,7 +160,7 @@ func TestLintFile(t *testing.T) {
 		testServer := httptest.NewServer(http.HandlerFunc(handler))
 		defer testServer.Close()
 
-		requestBuilder := utils.NewRequestBuilder(testServer.URL, "")
+		requestBuilder := utils.NewRequestBuilder(testServer.URL, "", "")
 
 		err := lintFile("testdata/minimal_swagger.json", requestBuilder)
 

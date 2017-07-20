@@ -27,6 +27,10 @@ var LintCommand = cli.Command{
 	ArgsUsage: "FILE",
 }
 
+func generateUserAgent(app *cli.App) string {
+	return fmt.Sprintf("%s/%s", app.Name, app.Version)
+}
+
 func lint(c *cli.Context) error {
 	if !c.Args().Present() {
 		cli.ShowCommandHelp(c, c.Command.Name)
@@ -34,7 +38,7 @@ func lint(c *cli.Context) error {
 	}
 
 	path := c.Args().First()
-	requestBuilder := utils.NewRequestBuilder(c.GlobalString("linter-service"), c.GlobalString("token"))
+	requestBuilder := utils.NewRequestBuilder(c.GlobalString("linter-service"), c.GlobalString("token"), generateUserAgent(c.App))
 
 	return lintFile(path, requestBuilder)
 }
