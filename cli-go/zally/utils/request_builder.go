@@ -2,6 +2,7 @@ package utils
 
 import (
 	"fmt"
+	"github.com/urfave/cli"
 	"io"
 	"net/http"
 	"net/url"
@@ -9,15 +10,17 @@ import (
 
 // RequestBuilder builds Zally specific requests
 type RequestBuilder struct {
-	baseURL string
-	token   string
+	baseURL   string
+	token     string
+	userAgent string
 }
 
 // NewRequestBuilder creates an instance of RequestBuilder
-func NewRequestBuilder(baseURL string, token string) *RequestBuilder {
+func NewRequestBuilder(baseURL string, token string, app *cli.App) *RequestBuilder {
 	var builder RequestBuilder
 	builder.baseURL = baseURL
 	builder.token = token
+	builder.userAgent = fmt.Sprintf("%s/%s", app.Name, app.Version)
 	return &builder
 }
 
@@ -34,6 +37,7 @@ func (r *RequestBuilder) Build(httpVerb string, uri string, body io.Reader) (*ht
 	}
 
 	request.Header.Add("Content-Type", "application/json")
+	request.Header.Add("User-Agent", r.userAgent)
 
 	if len(r.token) > 0 {
 		request.Header.Add("Authorization", fmt.Sprintf("Bearer %s", r.token))
