@@ -44,9 +44,9 @@ public class SupportedRulesController {
         @RequestParam(value = "type", required = false) ViolationType typeFilter,
         @RequestParam(value = "is_active", required = false) Boolean isActiveFilter) {
 
-        final ObjectNode response = objectMapper.createObjectNode();
+        ObjectNode response = objectMapper.createObjectNode();
         ArrayNode rulesNode = response.putArray("rules");
-        final List<JsonNode> filteredRules = rules
+        List<JsonNode> filteredRules = rules
             .stream()
             .filter(r -> filterByIsActive(r, isActiveFilter))
             .filter(r -> filterByType(r, typeFilter))
@@ -58,17 +58,17 @@ public class SupportedRulesController {
         return response;
     }
 
-    private boolean filterByIsActive(final Rule rule, final Boolean isActiveFilter) {
-        final boolean isActive = rulesPolicy.accepts(rule);
+    private boolean filterByIsActive(Rule rule, Boolean isActiveFilter) {
+        boolean isActive = rulesPolicy.accepts(rule);
         return isActiveFilter == null || isActive == isActiveFilter;
     }
 
-    private boolean filterByType(final Rule rule, final ViolationType typeFilter) {
+    private boolean filterByType(Rule rule, ViolationType typeFilter) {
         return typeFilter == null || rule.getViolationType().equals(typeFilter);
     }
 
-    private ObjectNode transformRuleToObjectNode(final Rule rule) {
-        final boolean isActive = rulesPolicy.accepts(rule);
+    private ObjectNode transformRuleToObjectNode(Rule rule) {
+        boolean isActive = rulesPolicy.accepts(rule);
         ObjectNode ruleJson = objectMapper.valueToTree(rule);
         ruleJson.put("is_active", isActive);
         return ruleJson;
