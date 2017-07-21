@@ -1,6 +1,7 @@
 package de.zalando.zally.dto;
 
 import de.zalando.zally.rule.AvoidTrailingSlashesRule;
+import de.zalando.zally.rule.Violation;
 import org.junit.Test;
 
 import java.util.ArrayList;

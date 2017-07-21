@@ -1,8 +1,8 @@
 package de.zalando.zally.apireview;
 
 import de.zalando.zally.dto.ApiDefinitionRequest;
-import de.zalando.zally.dto.Violation;
 import de.zalando.zally.dto.ViolationType;
+import de.zalando.zally.rule.Violation;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;

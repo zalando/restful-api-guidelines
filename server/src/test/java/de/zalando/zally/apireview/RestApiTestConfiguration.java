@@ -1,11 +1,11 @@
 package de.zalando.zally.apireview;
 
-import de.zalando.zally.dto.Violation;
 import de.zalando.zally.dto.ViolationType;
 import de.zalando.zally.rule.AbstractRule;
 import de.zalando.zally.rule.Rule;
 import de.zalando.zally.rule.RulesPolicy;
 import de.zalando.zally.rule.RulesValidator;
+import de.zalando.zally.rule.Violation;
 import io.swagger.models.Swagger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

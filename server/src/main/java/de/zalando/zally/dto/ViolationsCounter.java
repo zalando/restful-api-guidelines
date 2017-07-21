@@ -1,5 +1,7 @@
 package de.zalando.zally.dto;
 
+import de.zalando.zally.rule.Violation;
+
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
