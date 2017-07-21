@@ -7,12 +7,12 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.zalando.zally.violation.ViolationType;
 import de.zalando.zally.violation.ViolationTypeBinder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -38,8 +38,9 @@ public class SupportedRulesController {
         binder.registerCustomEditor(ViolationType.class, new ViolationTypeBinder());
     }
 
+    @ResponseBody
     @GetMapping("/supported-rules")
-    public ResponseEntity<JsonNode> listSupportedRules(
+    public ObjectNode listSupportedRules(
         @RequestParam(value = "type", required = false) ViolationType typeFilter,
         @RequestParam(value = "is_active", required = false) Boolean isActiveFilter) {
 
@@ -54,7 +55,7 @@ public class SupportedRulesController {
 
         rulesNode.addAll(filteredRules);
 
-        return ResponseEntity.ok(response);
+        return response;
     }
 
     private boolean filterByIsActive(final Rule rule, final Boolean isActiveFilter) {
