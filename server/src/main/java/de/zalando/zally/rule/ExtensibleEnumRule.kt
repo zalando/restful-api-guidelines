@@ -6,7 +6,18 @@ import io.swagger.models.Operation
 import io.swagger.models.Swagger
 import io.swagger.models.parameters.Parameter
 import io.swagger.models.parameters.SerializableParameter
-import io.swagger.models.properties.*
+import io.swagger.models.properties.BinaryProperty
+import io.swagger.models.properties.BooleanProperty
+import io.swagger.models.properties.DateProperty
+import io.swagger.models.properties.DateTimeProperty
+import io.swagger.models.properties.DoubleProperty
+import io.swagger.models.properties.EmailProperty
+import io.swagger.models.properties.FloatProperty
+import io.swagger.models.properties.IntegerProperty
+import io.swagger.models.properties.LongProperty
+import io.swagger.models.properties.PasswordProperty
+import io.swagger.models.properties.Property
+import io.swagger.models.properties.StringProperty
 import org.springframework.stereotype.Component
 
 @Component
