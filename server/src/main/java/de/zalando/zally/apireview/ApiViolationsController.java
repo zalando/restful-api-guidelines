@@ -3,6 +3,7 @@ package de.zalando.zally.apireview;
 import de.zalando.zally.dto.ApiDefinitionRequest;
 import de.zalando.zally.dto.ApiDefinitionResponse;
 import de.zalando.zally.dto.Violation;
+import de.zalando.zally.dto.ViolationDTO;
 import de.zalando.zally.dto.ViolationType;
 import de.zalando.zally.dto.ViolationsCounter;
 import de.zalando.zally.exception.MissingApiDefinitionException;
@@ -21,6 +22,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
 
 @CrossOrigin
@@ -72,9 +74,19 @@ public class ApiViolationsController {
     private ApiDefinitionResponse buildApiDefinitionResponse(List<Violation> violations) {
         ApiDefinitionResponse response = new ApiDefinitionResponse();
         response.setMessage(message);
-        response.setViolations(violations);
+        response.setViolations(violations.stream().map(this::toDto).collect(toList()));
         response.setViolationsCount(buildViolationsCount(violations));
         return response;
+    }
+
+    private ViolationDTO toDto(Violation violation) {
+        return new ViolationDTO(
+                violation.getTitle(),
+                violation.getDescription(),
+                violation.getViolationType(),
+                violation.getRuleLink(),
+                violation.getPaths()
+        );
     }
 
     private Map<String, Integer> buildViolationsCount(List<Violation> violations) {
