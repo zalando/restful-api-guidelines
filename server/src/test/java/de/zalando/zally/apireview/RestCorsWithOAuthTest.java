@@ -13,17 +13,12 @@ public class RestCorsWithOAuthTest extends RestApiBaseTest {
 
     @Test
     public void shouldSupportCorsWhenOAuthIsEnabledOnAllResources() {
-        assertThat(optionsRequest(getUrl())).isEqualTo(HttpStatus.OK);
+        assertThat(optionsRequest(API_VIOLATIONS_URL)).isEqualTo(HttpStatus.OK);
         assertThat(optionsRequest("/supported-rules")).isEqualTo(HttpStatus.OK);
         assertThat(optionsRequest("/review-statistics")).isEqualTo(HttpStatus.OK);
     }
 
     private HttpStatus optionsRequest(String url) {
         return restTemplate.exchange(url, HttpMethod.OPTIONS, RequestEntity.EMPTY, String.class).getStatusCode();
-    }
-
-    @Override
-    protected String getUrl() {
-        return "/api-violations";
     }
 }

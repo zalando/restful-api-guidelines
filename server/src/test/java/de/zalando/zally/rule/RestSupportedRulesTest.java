@@ -22,23 +22,19 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class RestSupportedRulesTest extends RestApiBaseTest {
 
     private final List<String> ignoredRules = Arrays.asList("M001", "S001", "C001");
+
     @Autowired
     private List<Rule> implementedRules;
 
-    @Override
-    protected String getUrl() {
-        return "/supported-rules";
-    }
-
     @Test
     public void shouldReturn200WhenEverythingIsOk() throws Exception {
-        final ResponseEntity<JsonNode> responseEntity = sendRequest(getUrl());
+        final ResponseEntity<JsonNode> responseEntity = sendRequest(SUPPORTED_RULES_URL);
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
 
     @Test
     public void shouldReturnListOfRules() throws Exception {
-        final ResponseEntity<JsonNode> responseEntity = sendRequest(getUrl());
+        final ResponseEntity<JsonNode> responseEntity = sendRequest(SUPPORTED_RULES_URL);
         final JsonNode result = responseEntity.getBody();
         final ArrayNode rules = (ArrayNode) result.get("rules");
         assertThat(rules.size()).isEqualTo(implementedRules.size());
@@ -46,7 +42,7 @@ public class RestSupportedRulesTest extends RestApiBaseTest {
 
     @Test
     public void shouldReturnProperObjectStructure() throws Exception {
-        final ResponseEntity<JsonNode> responseEntity = sendRequest(getUrl());
+        final ResponseEntity<JsonNode> responseEntity = sendRequest(SUPPORTED_RULES_URL);
         final JsonNode result = responseEntity.getBody();
         final ArrayNode rules = (ArrayNode) result.get("rules");
         final List<String> expectedFieldNames = Arrays.asList("code", "is_active", "title", "type", "url");
@@ -62,7 +58,7 @@ public class RestSupportedRulesTest extends RestApiBaseTest {
 
     @Test
     public void shouldMarkRulesAsInactive() throws Exception {
-        final ArrayNode rules = getRulesFromUrl(getUrl());
+        final ArrayNode rules = getRulesFromUrl(SUPPORTED_RULES_URL);
 
         for (JsonNode rule : rules) {
             assertThat(rule.get("is_active").asBoolean()).isEqualTo(!ignoredRules.contains(rule.get("code").asText()));
@@ -79,7 +75,7 @@ public class RestSupportedRulesTest extends RestApiBaseTest {
 
     @Test
     public void shouldReturn400WhenTypeNotFound() throws Exception {
-        final String url = getUrl() + "?type=" + "SOLUTION";
+        final String url = SUPPORTED_RULES_URL + "?type=" + "SOLUTION";
         final ResponseEntity<JsonNode> responseEntity = sendRequest(url);
 
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
@@ -87,7 +83,7 @@ public class RestSupportedRulesTest extends RestApiBaseTest {
 
     @Test
     public void shouldFilterByActiveRules() throws Exception {
-        final String url = getUrl() + "?is_active=true";
+        final String url = SUPPORTED_RULES_URL + "?is_active=true";
         final ArrayNode rules = getRulesFromUrl(url);
 
         assertThat(rules.size()).isEqualTo(implementedRules.size() - ignoredRules.size());
@@ -95,14 +91,14 @@ public class RestSupportedRulesTest extends RestApiBaseTest {
 
     @Test
     public void shouldFilterByInactiveRules() throws Exception {
-        final String url = getUrl() + "?is_active=false";
+        final String url = SUPPORTED_RULES_URL + "?is_active=false";
         final ArrayNode rules = getRulesFromUrl(url);
 
         assertThat(rules.size()).isEqualTo(ignoredRules.size());
     }
 
     private void assertFilteredByRuleType(String ruleType) throws AssertionError {
-        final String url = getUrl() + "?type=" + ruleType;
+        final String url = SUPPORTED_RULES_URL + "?type=" + ruleType;
         final ArrayNode rules = getRulesFromUrl(url);
         final List<Rule> expectedRules = getRulesByType(ViolationType.valueOf(ruleType.toUpperCase()));
 

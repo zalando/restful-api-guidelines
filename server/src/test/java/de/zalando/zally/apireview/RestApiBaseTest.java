@@ -27,6 +27,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 public abstract class RestApiBaseTest {
 
     public static final String API_VIOLATIONS_URL = "/api-violations";
+    public static final String APPLICATION_PROBLEM_JSON = "application/problem+json";
+    public static final String REVIEW_STATISTICS_URL = "/review-statistics";
+    public static final String SUPPORTED_RULES_URL = "/supported-rules";
 
     @Autowired
     protected TestRestTemplate restTemplate;
@@ -48,20 +51,16 @@ public abstract class RestApiBaseTest {
             JsonNode.class);
     }
 
-    protected final ApiDefinitionResponse sendApiViolationsRequest(ApiDefinitionRequest request) {
-        ResponseEntity<ApiDefinitionResponse> entity = restTemplate.postForEntity(
-                API_VIOLATIONS_URL, request, ApiDefinitionResponse.class
-        );
-
-        assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        return entity.getBody();
-    }
-
-    protected final ApiDefinitionResponse sendApiViolationsRequestFromResource(String resource) {
-        return sendApiViolationsRequest(
-                ApiDefinitionRequest.Factory.fromJsonResource(resource)
+    protected final <T> ResponseEntity<T> sendApiDefinition(ApiDefinitionRequest request, Class<T> responseType) {
+        return restTemplate.postForEntity(
+                API_VIOLATIONS_URL, request, responseType
         );
     }
 
-    protected abstract String getUrl();
+    protected final ApiDefinitionResponse sendApiDefinition(ApiDefinitionRequest request) {
+        ResponseEntity<ApiDefinitionResponse> responseEntity = sendApiDefinition(request, ApiDefinitionResponse.class);
+
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        return responseEntity.getBody();
+    }
 }
