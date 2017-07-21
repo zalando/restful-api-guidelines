@@ -28,8 +28,8 @@ changes are necessary.
 API designers should apply the following rules to evolve RESTful APIs for services in a backward-compatible way:
 
 * Add only optional, never mandatory fields.
-* Never change the meaning of a field (e.g. change to customer-number 
-  semantics for customer-id, both being unique customer keys).
+* Never change the semantic of fields (e.g. changing the semantic from
+  customer-number to customer-id, as both are different unique customer keys)
 * Input fields may have (complex) constraints being validated via server-side business logic.
   Never change the validation logic to be more restrictive and make sure that all 
   constraints a clearly defined in description. 
@@ -50,15 +50,16 @@ API designers should apply the following rules to evolve RESTful APIs for servic
 
 Service clients should apply the robustness principle:
 
-* be conservative with API calls and data passed as input, e.g. avoid making use of definition 
-  deficits like passing gigabytes for strings with unspecified maximum length. 
-* be tolerant in processing API call responses and reading data, more specifically...
+* Be conservative with API requests and data passed as input, e.g. avoid to exploit 
+  definition eficits like passing megabytes for strings with unspecified maximum length.
+  
+* Be tolerant in processing and reading data of API responses, more specifically...
 
 Service clients must be prepared for compatible API extensions of service providers:
  
 * Be tolerant with unknown fields in the payload
   (see also Fowler’s ["TolerantReader"](http://martinfowler.com/bliki/TolerantReader.html) post),
-  i.e. ignore a new field but don't eliminate it from payload used for subsequent PUT calls.
+  i.e. ignore new fields but do not eliminate them from payload if needed for subsequent PUT requests.
 * Be prepared that [`x-extensible-enum`](#should-used-openended-list-of-values-xextensibleenum-instead-of-enumerations)
   return parameter may deliver new values; either be agnostic or provide default behavior for unknown values. 
 * Be prepared to handle HTTP status codes not explicitly specified in endpoint definitions. 
