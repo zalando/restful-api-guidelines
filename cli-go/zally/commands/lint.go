@@ -34,7 +34,7 @@ func lint(c *cli.Context) error {
 	}
 
 	path := c.Args().First()
-	requestBuilder := utils.NewRequestBuilder(c.GlobalString("linter-service"), c.GlobalString("token"))
+	requestBuilder := utils.NewRequestBuilder(c.GlobalString("linter-service"), c.GlobalString("token"), c.App)
 
 	return lintFile(path, requestBuilder)
 }
