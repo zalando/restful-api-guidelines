@@ -1,6 +1,6 @@
-package de.zalando.zally.dto
+package de.zalando.zally.rule
 
-import de.zalando.zally.rule.Rule
+import de.zalando.zally.dto.ViolationType
 
 data class Violation(
 

@@ -2,13 +2,13 @@ package de.zalando.zally.apireview;
 
 import de.zalando.zally.dto.ApiDefinitionRequest;
 import de.zalando.zally.dto.ApiDefinitionResponse;
-import de.zalando.zally.dto.Violation;
 import de.zalando.zally.dto.ViolationDTO;
 import de.zalando.zally.dto.ViolationType;
 import de.zalando.zally.dto.ViolationsCounter;
 import de.zalando.zally.exception.MissingApiDefinitionException;
 import de.zalando.zally.exception.UnaccessibleResourceUrlException;
 import de.zalando.zally.rule.RulesValidator;
+import de.zalando.zally.rule.Violation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.actuate.metrics.dropwizard.DropwizardMetricServices;

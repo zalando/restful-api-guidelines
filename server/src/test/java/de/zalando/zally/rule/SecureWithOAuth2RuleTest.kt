@@ -1,6 +1,5 @@
 package de.zalando.zally.rule
 
-import de.zalando.zally.dto.Violation
 import de.zalando.zally.dto.ViolationType
 import io.swagger.models.Scheme
 import io.swagger.models.Swagger
@@ -13,12 +12,12 @@ import org.junit.Test
 class SecureWithOAuth2RuleTest {
 
     val expectedOauthViolation = Violation(
-        SecureWithOAuth2Rule(),
-        "Secure Endpoints with OAuth 2.0",
-        "No OAuth2 security definitions found",
-        ViolationType.MUST,
-        SecureWithOAuth2Rule().url,
-        emptyList())
+            SecureWithOAuth2Rule(),
+            "Secure Endpoints with OAuth 2.0",
+            "No OAuth2 security definitions found",
+            ViolationType.MUST,
+            SecureWithOAuth2Rule().url,
+            emptyList())
 
     val expectedHttpsViolation = Violation(
             SecureWithOAuth2Rule(),
