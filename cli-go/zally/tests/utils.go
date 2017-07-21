@@ -1,7 +1,6 @@
 package tests
 
 import (
-	"github.com/urfave/cli"
 	"reflect"
 	"testing"
 )
