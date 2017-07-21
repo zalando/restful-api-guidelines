@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component
 
 @Component
 class AvoidSynonymsRule(
-    @Autowired rulesConfig: Config, @Autowired metricServices: DropwizardMetricServices) : AbstractRule() {
+    @Autowired rulesConfig: Config, @Autowired metricServices: DropwizardMetricServices) : SwaggerRule() {
 
     override val title = "Use common property names"
     // TODO: Provide URL

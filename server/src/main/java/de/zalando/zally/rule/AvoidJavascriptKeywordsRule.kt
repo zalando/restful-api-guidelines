@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
 @Component
-class AvoidJavascriptKeywordsRule(@Autowired rulesConfig: Config) : AbstractRule() {
+class AvoidJavascriptKeywordsRule(@Autowired rulesConfig: Config) : SwaggerRule() {
 
     override val title = "Avoid reserved Javascript keywords"
     override val url = "http://zalando.github.io/restful-api-guidelines/naming/Naming.html" +

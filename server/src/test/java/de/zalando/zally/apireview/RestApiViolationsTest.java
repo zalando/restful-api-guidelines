@@ -6,7 +6,7 @@ import de.zalando.zally.dto.ApiDefinitionRequest;
 import de.zalando.zally.dto.ApiDefinitionResponse;
 import de.zalando.zally.dto.ViolationDTO;
 import de.zalando.zally.exception.MissingApiDefinitionException;
-import de.zalando.zally.rule.InvalidApiSchemaRule;
+import de.zalando.zally.rule.InvalidApiSpecificationRule;
 import de.zalando.zally.util.ErrorResponse;
 import de.zalando.zally.util.JadlerUtil;
 import net.jadler.stubbing.server.jdk.JdkStubHttpServer;
@@ -52,9 +52,10 @@ public class RestApiViolationsTest extends RestApiBaseTest {
         ApiDefinitionResponse response = sendApiDefinition(readApiDefinition("fixtures/api_spp.json"));
 
         List<ViolationDTO> violations = response.getViolations();
-        assertThat(violations).hasSize(2);
+        assertThat(violations).hasSize(3);
         assertThat(violations.get(0).getTitle()).isEqualTo("dummy1");
         assertThat(violations.get(1).getTitle()).isEqualTo("dummy2");
+        assertThat(violations.get(2).getTitle()).isEqualTo("schema");
 
         assertThat(response.getMessage()).isEqualTo(TEST_MESSAGE);
     }
@@ -64,7 +65,7 @@ public class RestApiViolationsTest extends RestApiBaseTest {
         ApiDefinitionResponse response = sendApiDefinition(readApiDefinition("fixtures/api_spp.json"));
 
         Map<String, Integer> count = response.getViolationsCount();
-        assertThat(count.get("must")).isEqualTo(1);
+        assertThat(count.get("must")).isEqualTo(2);
         assertThat(count.get("should")).isEqualTo(0);
         assertThat(count.get("may")).isEqualTo(0);
         assertThat(count.get("hint")).isEqualTo(1);
@@ -115,7 +116,7 @@ public class RestApiViolationsTest extends RestApiBaseTest {
         );
 
         assertThat(response.getViolations()).hasSize(1);
-        assertThat(response.getViolations().get(0).getTitle()).isEqualTo(new InvalidApiSchemaRule().getTitle());
+        assertThat(response.getViolations().get(0).getTitle()).isEqualTo(new InvalidApiSpecificationRule().getTitle());
     }
 
     @Test
@@ -126,7 +127,7 @@ public class RestApiViolationsTest extends RestApiBaseTest {
                 ApiDefinitionRequest.Factory.fromUrl(definitionUrl)
         ).getViolations();
 
-        assertThat(violations).hasSize(2);
+        assertThat(violations).hasSize(3);
         assertThat(violations.get(0).getTitle()).isEqualTo("dummy1");
         assertThat(violations.get(1).getTitle()).isEqualTo("dummy2");
     }

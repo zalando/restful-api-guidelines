@@ -1,8 +1,7 @@
 package de.zalando.zally.dto;
 
-import org.springframework.util.StringUtils;
-
 import java.beans.PropertyEditorSupport;
+import org.springframework.util.StringUtils;
 
 public class ViolationTypeBinder extends PropertyEditorSupport {
 

@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
 @Component
-class NotSpecifyStandardErrorCodesRule(@Autowired rulesConfig: Config) : AbstractRule() {
+class NotSpecifyStandardErrorCodesRule(@Autowired rulesConfig: Config) : SwaggerRule() {
     override val title = "Not Specify Standard Error Codes"
     override val url = "http://zalando.github.io/restful-api-guidelines/http/Http.html" +
             "#must-provide-error-documentation"

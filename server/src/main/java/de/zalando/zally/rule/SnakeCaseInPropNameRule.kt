@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
 @Component
-class SnakeCaseInPropNameRule(@Autowired rulesConfig: Config) : AbstractRule() {
+class SnakeCaseInPropNameRule(@Autowired rulesConfig: Config) : SwaggerRule() {
     override val title = "snake_case property names"
     override val url = "http://zalando.github.io/restful-api-guidelines/json-guidelines/JsonGuidelines.html" +
         "#must-property-names-must-be-snakecase-and-never-camelcase"

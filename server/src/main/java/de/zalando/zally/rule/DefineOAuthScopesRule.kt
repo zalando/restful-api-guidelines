@@ -8,7 +8,7 @@ import io.swagger.models.auth.OAuth2Definition
 import org.springframework.stereotype.Component
 
 @Component
-class DefineOAuthScopesRule : AbstractRule() {
+class DefineOAuthScopesRule : SwaggerRule() {
     override val title = "Define and Assign Access Rights (Scopes)"
     override val url = "http://zalando.github.io/restful-api-guidelines/security/Security.html" +
         "#must-secure-endpoints-with-oauth-20"

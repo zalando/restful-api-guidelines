@@ -5,17 +5,16 @@ import de.zalando.zally.apireview.ApiReview;
 import de.zalando.zally.apireview.RestApiBaseTest;
 import de.zalando.zally.dto.ApiDefinitionRequest;
 import de.zalando.zally.dto.ViolationType;
-import de.zalando.zally.rule.InvalidApiSchemaRule;
+import de.zalando.zally.rule.InvalidApiSpecificationRule;
 import de.zalando.zally.rule.Violation;
 import de.zalando.zally.util.TestDateUtil;
-import org.junit.Test;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import org.junit.Test;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -137,7 +136,7 @@ public class RestReviewStatisticsTest extends RestApiBaseTest {
     }
 
     private List<Violation> createRandomViolations() {
-        return Arrays.asList(new Violation(new InvalidApiSchemaRule(), "", "", ViolationType.MUST, "", Arrays.asList("path")));
+        return Arrays.asList(new Violation(new InvalidApiSpecificationRule(), "", "", ViolationType.MUST, "", Arrays.asList("path")));
     }
 
     private void assertBadRequestFor(String queryParameter) throws AssertionError {

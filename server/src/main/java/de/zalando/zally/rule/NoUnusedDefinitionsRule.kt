@@ -18,7 +18,7 @@ import io.swagger.models.properties.RefProperty
 import org.springframework.stereotype.Component
 
 @Component
-class NoUnusedDefinitionsRule : AbstractRule() {
+class NoUnusedDefinitionsRule : SwaggerRule() {
     override val title = "Do not leave unused definitions"
     override val violationType = ViolationType.SHOULD
     // TODO: Provide URL

@@ -9,7 +9,7 @@ import io.swagger.models.properties.RefProperty
 import org.springframework.stereotype.Component
 
 @Component
-class SuccessResponseAsJsonObjectRule : AbstractRule() {
+class SuccessResponseAsJsonObjectRule : SwaggerRule() {
 
     override val title = "Response As JSON Object"
     override val violationType = ViolationType.MUST

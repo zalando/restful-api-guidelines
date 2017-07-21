@@ -1,11 +1,10 @@
 package de.zalando.zally.apireview;
 
-import org.springframework.data.repository.CrudRepository;
-
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.Collection;
+import org.springframework.data.repository.CrudRepository;
 
 public interface ApiReviewRepository extends CrudRepository<ApiReview, Long> {
 

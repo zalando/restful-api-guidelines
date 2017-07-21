@@ -4,7 +4,7 @@ import de.zalando.zally.dto.ViolationType
 import io.swagger.models.Swagger
 import io.swagger.models.auth.OAuth2Definition
 
-class UsePasswordFlowWithOauth2Rule : AbstractRule() {
+class UsePasswordFlowWithOauth2Rule : SwaggerRule() {
     override val title = "Set Flow to Password When Using OAuth 2.0"
     override val url = "https://zalando.github.io/restful-api-guidelines/security/Security.html" +
             "#must-secure-endpoints-with-oauth-20"

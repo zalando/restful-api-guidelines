@@ -5,7 +5,7 @@ import io.swagger.models.Swagger
 import org.springframework.stereotype.Component
 
 @Component
-class ExtractBasePathRule : AbstractRule() {
+class ExtractBasePathRule : SwaggerRule() {
 
     override val title = "Base path can be extracted"
     override val url = "http://zalando.github.io/restful-api-guidelines/naming/Naming.html"

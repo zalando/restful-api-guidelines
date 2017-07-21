@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
 @Component
-class PluralizeResourceNamesRule(@Autowired rulesConfig: Config) : AbstractRule() {
+class PluralizeResourceNamesRule(@Autowired rulesConfig: Config) : SwaggerRule() {
     override val title = "Pluralize Resource Names"
     override val url = "http://zalando.github.io/restful-api-guidelines/naming/Naming.html" +
         "#must-pluralize-resource-names"

@@ -1,8 +1,10 @@
 package de.zalando.zally
 
 import com.codahale.metrics.MetricRegistry
+import com.fasterxml.jackson.databind.JsonNode
 import com.typesafe.config.Config
 import com.typesafe.config.ConfigFactory
+import de.zalando.json.validation.ObjectTreeReader
 import io.swagger.models.ModelImpl
 import io.swagger.models.Operation
 import io.swagger.models.Path
@@ -11,6 +13,7 @@ import io.swagger.models.Swagger
 import io.swagger.models.parameters.HeaderParameter
 import io.swagger.models.properties.StringProperty
 import io.swagger.parser.SwaggerParser
+import io.swagger.parser.util.ClasspathHelper
 import org.springframework.boot.actuate.metrics.dropwizard.DropwizardMetricServices
 
 val testConfig: Config by lazy {
@@ -26,6 +29,10 @@ val testMetricServices: DropwizardMetricServices by lazy {
 }
 
 fun getFixture(fileName: String): Swagger = SwaggerParser().read("fixtures/$fileName")
+
+fun getResourceContent(fileName: String): String = ClasspathHelper.loadFileFromClasspath("fixtures/$fileName")
+
+fun getResourceJson(fileName: String): JsonNode = ObjectTreeReader().read(getResourceContent(fileName))
 
 fun swaggerWithPaths(vararg specificPaths: String): Swagger =
     Swagger().apply {

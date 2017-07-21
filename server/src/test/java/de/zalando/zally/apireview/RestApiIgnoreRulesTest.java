@@ -19,11 +19,12 @@ public class RestApiIgnoreRulesTest extends RestApiBaseTest {
         ApiDefinitionResponse response = sendApiDefinition(readApiDefinition("fixtures/api_spp.json"));
 
         List<ViolationDTO> violations = response.getViolations();
-        assertThat(violations).hasSize(1);
+        assertThat(violations).hasSize(2);
         assertThat(violations.get(0).getTitle()).isEqualTo("dummy1");
+        assertThat(violations.get(1).getTitle()).isEqualTo("schema");
 
         Map<String, Integer> count = response.getViolationsCount();
-        assertThat(count.get("must")).isEqualTo(1);
+        assertThat(count.get("must")).isEqualTo(2);
         assertThat(count.get("should")).isEqualTo(0);
         assertThat(count.get("may")).isEqualTo(0);
         assertThat(count.get("hint")).isEqualTo(0);

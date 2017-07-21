@@ -2,7 +2,6 @@ package de.zalando.zally.statistic;
 
 import de.zalando.zally.apireview.ApiReview;
 import de.zalando.zally.apireview.RuleViolation;
-
 import java.util.LinkedList;
 import java.util.List;
 

@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
 @Component
-class CommonFieldTypesRule(@Autowired rulesConfig: Config) : AbstractRule() {
+class CommonFieldTypesRule(@Autowired rulesConfig: Config) : SwaggerRule() {
     override val title = "Use common field names"
     override val url = "http://zalando.github.io/restful-api-guidelines/common-data-objects/CommonDataObjects.html" +
         "#must-use-common-field-names"

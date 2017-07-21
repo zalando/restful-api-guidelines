@@ -6,7 +6,7 @@ import io.swagger.models.Swagger
 import org.springframework.stereotype.Component
 
 @Component
-class KebabCaseInPathSegmentsRule : AbstractRule() {
+class KebabCaseInPathSegmentsRule : SwaggerRule() {
 
     override val title = "Lowercase words with hyphens"
     override val url = "http://zalando.github.io/restful-api-guidelines/naming/Naming.html" +

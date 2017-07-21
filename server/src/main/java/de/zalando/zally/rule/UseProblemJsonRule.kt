@@ -13,7 +13,7 @@ import io.swagger.models.properties.RefProperty
 import org.springframework.stereotype.Component
 
 @Component
-class UseProblemJsonRule : AbstractRule() {
+class UseProblemJsonRule : SwaggerRule() {
     override val title = "Use Problem JSON"
     override val url = "https://zalando.github.io/restful-api-guidelines/common-data-objects/CommonDataObjects.html" +
         "#must-use-problem-json"

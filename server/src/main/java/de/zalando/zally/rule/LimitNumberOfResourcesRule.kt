@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
 @Component
-class LimitNumberOfResourcesRule(@Autowired rulesConfig: Config) : AbstractRule() {
+class LimitNumberOfResourcesRule(@Autowired rulesConfig: Config) : SwaggerRule() {
     override val title = "Limit number of Resources"
     override val url = "http://zalando.github.io/restful-api-guidelines/resources/Resources.html" +
         "#should-limit-number-of-resources"
