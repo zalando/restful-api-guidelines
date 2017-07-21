@@ -8,6 +8,7 @@ import io.swagger.models.Model
 import io.swagger.models.RefModel
 import io.swagger.models.Response
 import io.swagger.models.Swagger
+import io.swagger.models.Operation
 import io.swagger.models.properties.ObjectProperty
 import io.swagger.models.properties.RefProperty
 import org.springframework.stereotype.Component
@@ -28,7 +29,7 @@ class UseProblemJsonRule : AbstractRule() {
             pathEntry.value.operationMap.orEmpty().filter { it.key.shouldContainPayload() }.flatMap { opEntry ->
                 opEntry.value.responses.orEmpty().flatMap { responseEntry ->
                     val httpCode = responseEntry.key.toIntOrNull()
-                    if (httpCode in 400..599 && (!isProblemJson(swagger, responseEntry.value))) {
+                    if (httpCode in 400..599 && !isValidProblemJson(swagger, responseEntry.value, opEntry.value)) {
                         listOf("${pathEntry.key} ${opEntry.key} ${responseEntry.key}")
                     } else emptyList()
                 }
@@ -37,6 +38,9 @@ class UseProblemJsonRule : AbstractRule() {
 
         return if (paths.isNotEmpty()) Violation(this, title, description, violationType, url, paths) else null
     }
+
+    private fun isValidProblemJson(swagger: Swagger, response: Response, operation: Operation) =
+        isProblemJson(swagger, response) && producesJson(swagger, operation)
 
     private fun isProblemJson(swagger: Swagger, response: Response): Boolean {
         val schema = response.schema
@@ -55,6 +59,17 @@ class UseProblemJsonRule : AbstractRule() {
             else -> definition?.properties?.keys.orEmpty()
         }
     }
+
+    private fun producesJson(swagger: Swagger, operation: Operation) =
+        if (operation.produces.orEmpty().isEmpty()) {
+            swagger.produces.orEmpty().containsJson()
+        } else {
+            operation.produces.containsJson()
+        }
+
+    // support for application/json also with set charset e.g. "application/json; charset=utf-8"
+    private fun List<String>.containsJson() =
+        any { it.startsWith("application/json") }
 
     private fun HttpMethod.shouldContainPayload(): Boolean =
         name.toLowerCase() !in listOf("head", "options")
