@@ -2,6 +2,8 @@ package de.zalando.zally.apireview;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import de.zalando.zally.dto.ApiDefinitionResponse;
+import de.zalando.zally.dto.ViolationDTO;
 import de.zalando.zally.exception.MissingApiDefinitionException;
 import de.zalando.zally.rule.InvalidApiSchemaRule;
 import net.jadler.stubbing.server.jdk.JdkStubHttpServer;
@@ -22,6 +24,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.URI;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static net.jadler.Jadler.closeJadler;
@@ -47,27 +50,21 @@ public class RestApiViolationsTest extends RestApiBaseTest {
         closeJadler();
     }
 
-    @Override
     protected String getUrl() {
         return "/api-violations";
     }
 
     @Test
     public void shouldValidateGivenApiDefinition() throws IOException {
-        ResponseEntity<JsonNode> responseEntity = sendRequest(
-            new ObjectMapper().readTree(ResourceUtils.getFile("src/test/resources/fixtures/api_spp.json")));
-        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        ApiDefinitionResponse response = sendApiViolationsRequestFromResource("fixtures/api_spp.json");
+        List<ViolationDTO> violations = response.getViolations();
 
-        JsonNode rootObject = responseEntity.getBody();
-        assertThat(rootObject.has("violations")).isTrue();
-
-        JsonNode violations = rootObject.get("violations");
+        assertThat(violations).isNotEmpty();
         assertThat(violations).hasSize(2);
-        assertThat(violations.get(0).get("title").asText()).isEqualTo("dummy1");
-        assertThat(violations.get(1).get("title").asText()).isEqualTo("dummy2");
+        assertThat(violations.get(0).getTitle()).isEqualTo("dummy1");
+        assertThat(violations.get(1).getTitle()).isEqualTo("dummy2");
 
-        String message = rootObject.get("message").asText();
-        assertThat(message).isEqualTo("Test message");
+        assertThat(response.getMessage()).isEqualTo("Test message");
     }
 
     @Test
