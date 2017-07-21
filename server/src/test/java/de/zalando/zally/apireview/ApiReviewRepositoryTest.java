@@ -1,6 +1,6 @@
 package de.zalando.zally.apireview;
 
-import de.zalando.zally.violation.ApiDefinitionRequest;
+import de.zalando.zally.dto.ApiDefinitionRequest;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

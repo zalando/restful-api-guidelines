@@ -1,7 +1,7 @@
 package de.zalando.zally.apireview;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import de.zalando.zally.violation.ViolationType;
+import de.zalando.zally.dto.ViolationType;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

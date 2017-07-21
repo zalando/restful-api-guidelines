@@ -1,24 +1,13 @@
 package de.zalando.zally.rule
 
-import de.zalando.zally.violation.Violation
-import de.zalando.zally.violation.ViolationType.SHOULD
+import de.zalando.zally.dto.Violation
+import de.zalando.zally.dto.ViolationType.SHOULD
 import io.swagger.models.Operation
 import io.swagger.models.Swagger
 import io.swagger.models.parameters.Parameter
 import io.swagger.models.parameters.SerializableParameter
-import io.swagger.models.properties.BinaryProperty
-import io.swagger.models.properties.BooleanProperty
-import io.swagger.models.properties.DateProperty
-import io.swagger.models.properties.DateTimeProperty
-import io.swagger.models.properties.DoubleProperty
-import io.swagger.models.properties.EmailProperty
-import io.swagger.models.properties.FloatProperty
-import io.swagger.models.properties.IntegerProperty
-import io.swagger.models.properties.LongProperty
-import io.swagger.models.properties.PasswordProperty
-import io.swagger.models.properties.Property
+import io.swagger.models.properties.*
 import org.springframework.stereotype.Component
-import io.swagger.models.properties.StringProperty
 
 @Component
 class ExtensibleEnumRule : AbstractRule() {

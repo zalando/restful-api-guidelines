@@ -1,21 +1,11 @@
 package de.zalando.zally.rule
 
-import de.zalando.zally.violation.Violation
-import de.zalando.zally.violation.ViolationType
-import io.swagger.models.ArrayModel
-import io.swagger.models.ComposedModel
-import io.swagger.models.Model
-import io.swagger.models.ModelImpl
-import io.swagger.models.RefModel
-import io.swagger.models.Response
-import io.swagger.models.Swagger
+import de.zalando.zally.dto.Violation
+import de.zalando.zally.dto.ViolationType
+import io.swagger.models.*
 import io.swagger.models.parameters.BodyParameter
 import io.swagger.models.parameters.Parameter
-import io.swagger.models.properties.ArrayProperty
-import io.swagger.models.properties.MapProperty
-import io.swagger.models.properties.ObjectProperty
-import io.swagger.models.properties.Property
-import io.swagger.models.properties.RefProperty
+import io.swagger.models.properties.*
 import org.springframework.stereotype.Component
 
 @Component

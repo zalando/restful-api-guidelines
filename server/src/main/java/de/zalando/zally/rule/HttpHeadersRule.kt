@@ -1,7 +1,7 @@
 package de.zalando.zally.rule
 
 import com.typesafe.config.Config
-import de.zalando.zally.violation.Violation
+import de.zalando.zally.dto.Violation
 import io.swagger.models.Response
 import io.swagger.models.Swagger
 import io.swagger.models.parameters.Parameter

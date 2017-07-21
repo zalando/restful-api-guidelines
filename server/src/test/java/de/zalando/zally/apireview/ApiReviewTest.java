@@ -1,9 +1,9 @@
 package de.zalando.zally.apireview;
 
+import de.zalando.zally.dto.ApiDefinitionRequest;
+import de.zalando.zally.dto.Violation;
+import de.zalando.zally.dto.ViolationType;
 import de.zalando.zally.rule.Rule;
-import de.zalando.zally.violation.ApiDefinitionRequest;
-import de.zalando.zally.violation.Violation;
-import de.zalando.zally.violation.ViolationType;
 import io.swagger.models.Swagger;
 import org.apache.commons.io.FileUtils;
 import org.jetbrains.annotations.NotNull;

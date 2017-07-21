@@ -1,4 +1,4 @@
-package de.zalando.zally.violation;
+package de.zalando.zally.dto;
 
 import java.util.List;
 import java.util.Map;

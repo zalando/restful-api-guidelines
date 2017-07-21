@@ -1,8 +1,8 @@
 package de.zalando.zally.apireview;
 
+import de.zalando.zally.dto.ApiDefinitionRequest;
 import de.zalando.zally.exception.MissingApiDefinitionException;
 import de.zalando.zally.exception.UnaccessibleResourceUrlException;
-import de.zalando.zally.violation.ApiDefinitionRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;

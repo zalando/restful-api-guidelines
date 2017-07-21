@@ -1,8 +1,8 @@
 package de.zalando.zally.rule
 
 import com.google.common.collect.Sets
-import de.zalando.zally.violation.Violation
-import de.zalando.zally.violation.ViolationType.MUST
+import de.zalando.zally.dto.Violation
+import de.zalando.zally.dto.ViolationType.MUST
 import io.swagger.models.Operation
 import io.swagger.models.Swagger
 import io.swagger.models.auth.OAuth2Definition

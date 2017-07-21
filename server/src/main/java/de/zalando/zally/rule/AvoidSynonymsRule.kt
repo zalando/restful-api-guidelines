@@ -1,9 +1,9 @@
 package de.zalando.zally.rule
 
 import com.typesafe.config.Config
+import de.zalando.zally.dto.Violation
+import de.zalando.zally.dto.ViolationType
 import de.zalando.zally.util.getAllJsonObjects
-import de.zalando.zally.violation.Violation
-import de.zalando.zally.violation.ViolationType
 import io.swagger.models.Swagger
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.actuate.metrics.dropwizard.DropwizardMetricServices

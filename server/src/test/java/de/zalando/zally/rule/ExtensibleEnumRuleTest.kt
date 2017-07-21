@@ -1,8 +1,8 @@
 package de.zalando.zally.rule
 
+import de.zalando.zally.dto.Violation
+import de.zalando.zally.dto.ViolationType
 import de.zalando.zally.getFixture
-import de.zalando.zally.violation.Violation
-import de.zalando.zally.violation.ViolationType
 import io.swagger.models.Swagger
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
