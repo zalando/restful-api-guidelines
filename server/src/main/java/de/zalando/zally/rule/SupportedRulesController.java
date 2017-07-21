@@ -1,9 +1,7 @@
 package de.zalando.zally.rule;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
+import de.zalando.zally.dto.RuleDTO;
+import de.zalando.zally.dto.RulesListDTO;
 import de.zalando.zally.dto.ViolationType;
 import de.zalando.zally.dto.ViolationTypeBinder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,20 +14,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 @CrossOrigin
 @RestController
 public class SupportedRulesController {
 
     private final List<Rule> rules;
-    private final ObjectMapper objectMapper;
     private final RulesPolicy rulesPolicy;
 
     @Autowired
-    public SupportedRulesController(List<Rule> rules, ObjectMapper objectMapper, RulesPolicy rulesPolicy) {
+    public SupportedRulesController(List<Rule> rules, RulesPolicy rulesPolicy) {
         this.rules = rules;
-        this.objectMapper = objectMapper;
         this.rulesPolicy = rulesPolicy;
     }
 
@@ -40,22 +37,18 @@ public class SupportedRulesController {
 
     @ResponseBody
     @GetMapping("/supported-rules")
-    public ObjectNode listSupportedRules(
+    public RulesListDTO listSupportedRules(
         @RequestParam(value = "type", required = false) ViolationType typeFilter,
         @RequestParam(value = "is_active", required = false) Boolean isActiveFilter) {
 
-        ObjectNode response = objectMapper.createObjectNode();
-        ArrayNode rulesNode = response.putArray("rules");
-        List<JsonNode> filteredRules = rules
+        List<RuleDTO> filteredRules = rules
             .stream()
             .filter(r -> filterByIsActive(r, isActiveFilter))
             .filter(r -> filterByType(r, typeFilter))
-            .map(r -> transformRuleToObjectNode(r))
-            .collect(Collectors.toList());
+            .map(this::toDto)
+            .collect(toList());
 
-        rulesNode.addAll(filteredRules);
-
-        return response;
+        return new RulesListDTO(filteredRules);
     }
 
     private boolean filterByIsActive(Rule rule, Boolean isActiveFilter) {
@@ -67,10 +60,7 @@ public class SupportedRulesController {
         return typeFilter == null || rule.getViolationType().equals(typeFilter);
     }
 
-    private ObjectNode transformRuleToObjectNode(Rule rule) {
-        boolean isActive = rulesPolicy.accepts(rule);
-        ObjectNode ruleJson = objectMapper.valueToTree(rule);
-        ruleJson.put("is_active", isActive);
-        return ruleJson;
+    private RuleDTO toDto(Rule rule) {
+        return new RuleDTO(rule, rulesPolicy.accepts(rule));
     }
 }
