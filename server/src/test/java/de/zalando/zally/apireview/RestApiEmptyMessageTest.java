@@ -28,7 +28,7 @@ public class RestApiEmptyMessageTest extends RestApiBaseTest {
 
         JsonNode rootObject = responseEntity.getBody();
         assertThat(rootObject.has("violations")).isTrue();
-
-        assertThat(rootObject.has("message")).isFalse();
+        assertThat(rootObject.has("message")).isTrue();
+        assertThat(rootObject.get("message").asText()).isEmpty();
     }
 }

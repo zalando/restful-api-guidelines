@@ -1,8 +1,8 @@
 package de.zalando.zally.apireview;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import de.zalando.zally.exception.MissingApiDefinitionException;
 import de.zalando.zally.exception.UnaccessibleResourceUrlException;
+import de.zalando.zally.violation.ApiDefinitionRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -23,11 +23,11 @@ public class ApiDefinitionReader {
         this.client = client;
     }
 
-    public String read(JsonNode requestBody) throws MissingApiDefinitionException, UnaccessibleResourceUrlException {
-        if (requestBody.has("api_definition")) {
-            return requestBody.get("api_definition").toString();
-        } else if (requestBody.has("api_definition_url")) {
-            return readFromUrl(requestBody.get("api_definition_url").textValue());
+    public String read(ApiDefinitionRequest request) throws MissingApiDefinitionException, UnaccessibleResourceUrlException {
+        if (request.getApiDefinition() != null) {
+            return request.getApiDefinition();
+        } else if (request.getApiDefinitionUrl() != null) {
+            return readFromUrl(request.getApiDefinitionUrl());
         } else {
             throw new MissingApiDefinitionException();
         }

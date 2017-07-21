@@ -1,9 +1,7 @@
 package de.zalando.zally.apireview;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.zalando.zally.exception.MissingApiDefinitionException;
+import de.zalando.zally.violation.ApiDefinitionRequest;
 import net.jadler.stubbing.server.jdk.JdkStubHttpServer;
 import org.junit.After;
 import org.junit.Before;
@@ -35,12 +33,12 @@ public class ApiDefinitionReaderTest {
 
     @Test(expected = MissingApiDefinitionException.class)
     public void shouldThrowMissingApiDefinitionExceptionWhenDefinitionIsNotFound() {
-        reader.read(getJsonNodeWithoutApiDefinition());
+        reader.read(new ApiDefinitionRequest());
     }
 
     @Test
     public void shouldReturnStringWhenApiDefinitionIsFound() {
-        final String result = reader.read(getJsonNodeWithEmptyApiDefinition());
+        final String result = reader.read(getJsonNodeWithApiDefinition());
         assertEquals("{\"swagger\":\"2.0\"}", result);
     }
 
@@ -73,32 +71,23 @@ public class ApiDefinitionReaderTest {
         assertEquals(contentInJson, result);
     }
 
-    private JsonNode getJsonNodeWithoutApiDefinition() {
-        final ObjectMapper mapper = new ObjectMapper();
-        final ObjectNode node = mapper.createObjectNode();
-        node.putObject("some_definition");
-        return node;
+    private ApiDefinitionRequest getJsonNodeWithApiDefinition() {
+        ApiDefinitionRequest request = new ApiDefinitionRequest();
+        request.setApiDefinition("{\"swagger\":\"2.0\"}");
+        request.setApiDefinitionUrl("http://zalando.de");
+        return request;
     }
 
-    private JsonNode getJsonNodeWithEmptyApiDefinition() {
-        final ObjectMapper mapper = new ObjectMapper();
-        final ObjectNode node = mapper.createObjectNode();
-        final ObjectNode apiDefinitionNode = node.putObject("api_definition");
-        apiDefinitionNode.put("swagger", "2.0");
-        return node;
-    }
-
-    private JsonNode getJsonNodeWithApiDefinitionUrlWithSpecialCharacters() {
+    private ApiDefinitionRequest getJsonNodeWithApiDefinitionUrlWithSpecialCharacters() {
         final String fileName = "test.json";
         final String contentType = "application/json";
         return getJsonNodeWithApiDefinitionUrl(startServer(fileName, contentInJson, contentType) + "%3D%3D");
     }
 
-    private JsonNode getJsonNodeWithApiDefinitionUrl(String url) {
-        final ObjectMapper mapper = new ObjectMapper();
-        final ObjectNode node = mapper.createObjectNode();
-        node.put("api_definition_url", url);
-        return node;
+    private ApiDefinitionRequest getJsonNodeWithApiDefinitionUrl(String url) {
+        ApiDefinitionRequest request = new ApiDefinitionRequest();
+        request.setApiDefinitionUrl(url);
+        return request;
     }
 
     private String startServer(final String fileName, final String content, final String contentType) {
