@@ -5,7 +5,8 @@ import de.zalando.zally.testConfig
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
-class InvalidJsonSchemaRuleTest {
+class InvalidApiSchemaRuleTest {
+
     companion object {
         val invalidSchemaRule = InvalidApiSchemaRule(testConfig)
     }

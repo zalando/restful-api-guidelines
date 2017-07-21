@@ -25,6 +25,16 @@
 	[[ "$output" =~ "HINT violations: 1" ]]
 }
 
+@test "CLI works with local .json file" {
+	run cli/bin/zally -l http://localhost:8080 server/src/test/resources/fixtures/api_tinbox.yaml
+	[ "$status" -eq 1 ]
+	[[ "$output" =~ "OpenAPI 2.0 schema" ]]
+	[[ "$output" =~ "[0mMUST violations: 8" ]]
+	[[ "$output" =~ "SHOULD violations: 3" ]]
+	[[ "$output" =~ "MAY violations: 0" ]]
+	[[ "$output" =~ "HINT violations: 1" ]]
+}
+
 @test "CLI works with remote .yaml file" {
 	run cli/bin/zally -l http://localhost:8080 https://raw.githubusercontent.com/zalando-incubator/zally/e542a2d6e8f7f37f4adf2242343e453961537a08/server/src/test/resources/api_spa.yaml
 	[ "$status" -eq 1 ]
