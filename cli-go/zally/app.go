@@ -8,7 +8,7 @@ import (
 // CreateApp creates CLI application with defined commands
 func CreateApp() *cli.App {
 	app := cli.NewApp()
-	app.Name = "Zally"
+	app.Name = "Zally-CLI"
 	app.Version = "1.1"
 	app.Usage = "Zally Command Line Interface"
 

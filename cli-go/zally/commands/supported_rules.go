@@ -30,7 +30,7 @@ var SupportedRulesCommand = cli.Command{
 var supportedTypes = []string{}
 
 func listRules(c *cli.Context) error {
-	requestBuilder := utils.NewRequestBuilder(c.GlobalString("linter-service"), c.GlobalString("token"))
+	requestBuilder := utils.NewRequestBuilder(c.GlobalString("linter-service"), c.GlobalString("token"), c.App)
 	ruleType := strings.ToLower(c.String("type"))
 	err := validateType(ruleType)
 	if err != nil {
