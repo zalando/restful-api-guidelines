@@ -1,4 +1,4 @@
-package de.zalando.zally.violation;
+package de.zalando.zally.dto;
 
 import de.zalando.zally.rule.AvoidTrailingSlashesRule;
 import org.junit.Test;

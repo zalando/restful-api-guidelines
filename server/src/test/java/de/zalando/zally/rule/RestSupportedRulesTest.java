@@ -3,7 +3,7 @@ package de.zalando.zally.rule;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import de.zalando.zally.apireview.RestApiBaseTest;
-import de.zalando.zally.violation.ViolationType;
+import de.zalando.zally.dto.ViolationType;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

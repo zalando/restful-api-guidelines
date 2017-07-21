@@ -1,4 +1,4 @@
-package de.zalando.zally.violation
+package de.zalando.zally.dto
 
 import com.fasterxml.jackson.annotation.JsonRawValue
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize

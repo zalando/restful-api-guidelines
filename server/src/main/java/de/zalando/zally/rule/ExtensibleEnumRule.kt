@@ -1,7 +1,7 @@
 package de.zalando.zally.rule
 
-import de.zalando.zally.violation.Violation
-import de.zalando.zally.violation.ViolationType.SHOULD
+import de.zalando.zally.dto.Violation
+import de.zalando.zally.dto.ViolationType.SHOULD
 import io.swagger.models.Operation
 import io.swagger.models.Swagger
 import io.swagger.models.parameters.Parameter
@@ -17,8 +17,8 @@ import io.swagger.models.properties.IntegerProperty
 import io.swagger.models.properties.LongProperty
 import io.swagger.models.properties.PasswordProperty
 import io.swagger.models.properties.Property
-import org.springframework.stereotype.Component
 import io.swagger.models.properties.StringProperty
+import org.springframework.stereotype.Component
 
 @Component
 class ExtensibleEnumRule : AbstractRule() {

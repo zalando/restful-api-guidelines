@@ -1,7 +1,7 @@
 package de.zalando.zally.apireview;
 
+import de.zalando.zally.dto.ApiDefinitionRequest;
 import de.zalando.zally.exception.MissingApiDefinitionException;
-import de.zalando.zally.violation.ApiDefinitionRequest;
 import net.jadler.stubbing.server.jdk.JdkStubHttpServer;
 import org.junit.After;
 import org.junit.Before;

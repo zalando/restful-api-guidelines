@@ -1,6 +1,6 @@
 package de.zalando.zally.rule
 
-import de.zalando.zally.violation.ViolationType
+import de.zalando.zally.dto.ViolationType
 import io.swagger.models.Operation
 import io.swagger.models.Path
 import io.swagger.models.Swagger

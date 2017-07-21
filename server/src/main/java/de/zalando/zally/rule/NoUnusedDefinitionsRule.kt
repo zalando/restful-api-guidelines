@@ -1,7 +1,7 @@
 package de.zalando.zally.rule
 
-import de.zalando.zally.violation.Violation
-import de.zalando.zally.violation.ViolationType
+import de.zalando.zally.dto.Violation
+import de.zalando.zally.dto.ViolationType
 import io.swagger.models.ArrayModel
 import io.swagger.models.ComposedModel
 import io.swagger.models.Model

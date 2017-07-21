@@ -1,7 +1,7 @@
 package de.zalando.zally.statistic;
 
 import de.zalando.zally.apireview.RuleViolation;
-import de.zalando.zally.violation.ViolationType;
+import de.zalando.zally.dto.ViolationType;
 
 public class ViolationStatistic {
 

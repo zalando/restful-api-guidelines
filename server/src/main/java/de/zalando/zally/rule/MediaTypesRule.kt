@@ -1,9 +1,9 @@
 package de.zalando.zally.rule
 
+import de.zalando.zally.dto.Violation
+import de.zalando.zally.dto.ViolationType
 import de.zalando.zally.util.PatternUtil.isApplicationJsonOrProblemJson
 import de.zalando.zally.util.PatternUtil.isCustomMediaTypeWithVersioning
-import de.zalando.zally.violation.Violation
-import de.zalando.zally.violation.ViolationType
 import io.swagger.models.Swagger
 import org.springframework.stereotype.Component
 
