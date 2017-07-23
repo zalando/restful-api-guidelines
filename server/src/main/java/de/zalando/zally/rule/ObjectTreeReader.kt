@@ -1,4 +1,4 @@
-package de.zalando.json.validation
+package de.zalando.zally.rule
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper

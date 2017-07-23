@@ -2,11 +2,11 @@ package de.zalando.zally.apireview;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import de.zalando.zally.dto.ViolationType;
+import de.zalando.zally.rule.ApiValidator;
 import de.zalando.zally.rule.CompositeRulesValidator;
 import de.zalando.zally.rule.JsonRule;
 import de.zalando.zally.rule.JsonRulesValidator;
 import de.zalando.zally.rule.RulesPolicy;
-import de.zalando.zally.rule.RulesValidator;
 import de.zalando.zally.rule.SwaggerRule;
 import de.zalando.zally.rule.SwaggerRulesValidator;
 import de.zalando.zally.rule.Violation;
@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
 
 @Configuration
 public class RestApiTestConfiguration {
@@ -27,7 +28,8 @@ public class RestApiTestConfiguration {
 
     @Bean
     @Primary
-    public RulesValidator validator() {
+    @Profile("test")
+    public ApiValidator validator() {
         final List<SwaggerRule> rules = Arrays.asList(
             new CheckApiNameIsPresentRule("Product Service"),
             new AlwaysGiveAHintRule()

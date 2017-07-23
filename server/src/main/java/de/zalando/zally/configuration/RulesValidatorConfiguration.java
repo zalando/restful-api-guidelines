@@ -1,7 +1,7 @@
 package de.zalando.zally.configuration;
 
+import de.zalando.zally.rule.ApiValidator;
 import de.zalando.zally.rule.CompositeRulesValidator;
-import de.zalando.zally.rule.RulesValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +15,7 @@ public class RulesValidatorConfiguration {
 
     @Bean
     @Primary
-    public RulesValidator validator() {
+    public ApiValidator validator() {
         return compositeValidator;
     }
 }

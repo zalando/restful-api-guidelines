@@ -1,10 +1,9 @@
-package de.zalando.json.validation
+package de.zalando.zally.rule
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.github.fge.jsonschema.cfg.ValidationConfiguration
 import com.github.fge.jsonschema.core.exceptions.ProcessingException
 import com.github.fge.jsonschema.core.report.ProcessingMessage
-import com.github.fge.jsonschema.core.util.AsJson
 import com.github.fge.jsonschema.main.JsonSchemaFactory
 import com.github.fge.jsonschema.messages.JsonSchemaValidationBundle
 import com.github.fge.msgsimple.bundle.MessageBundle
@@ -14,7 +13,15 @@ import java.io.IOException
 
 class JsonSchemaValidator(val schema: JsonNode) {
 
-    private val factory: JsonSchemaFactory
+    data class ValidationResult(
+            val isSuccess: Boolean,
+            val messages: List<ValidationMessage>
+    )
+
+    data class ValidationMessage(
+            val message: String,
+            val path: String
+    )
 
     private object Keywords {
         val oneOf = "oneOf"
@@ -22,48 +29,36 @@ class JsonSchemaValidator(val schema: JsonNode) {
         val additionalProperties = "additionalProperties"
     }
 
+    private val factory: JsonSchemaFactory
+
     init {
-        val validationMessages = getValidationMessagesBundle()
-        val validationConfiguration = ValidationConfiguration.newBuilder().setValidationMessages(validationMessages).freeze()
-
-        factory = JsonSchemaFactory.newBuilder()
-                .setValidationConfiguration(validationConfiguration).freeze()
-    }
-
-    private fun getValidationMessagesBundle(): MessageBundle {
-        val customValidationMessages = PropertiesMessageSource.fromResource("/schema-validation-messages.properties")
-        val validationMessages = MessageBundles.getBundle(JsonSchemaValidationBundle::class.java).thaw()
-                .appendSource(customValidationMessages).freeze()
-        return validationMessages
+        factory = createValidatorFactory()
     }
 
     @Throws(ProcessingException::class, IOException::class)
-    fun validate(swaggerSpec: JsonNode): JsonValidationResult {
+    fun validate(jsonToValidate: JsonNode): ValidationResult {
         val validator = factory.validator
-
-        val report = validator.validateUnchecked(schema, swaggerSpec, true)
-
+        val report = validator.validateUnchecked(schema, jsonToValidate, true)
         val messages = report
-                .map(ProcessingMessage::asJson)
                 .map(this::toValidationMessage)
                 .toList()
-
-        return JsonValidationResult(report.isSuccess, messages, (report as AsJson).asJson())
+        return ValidationResult(report.isSuccess, messages)
     }
 
-    fun toValidationMessage(node: JsonNode): JsonValidationMessage {
+    private fun toValidationMessage(processingMessage: ProcessingMessage): ValidationMessage {
+        val node = processingMessage.asJson()
         val keyword = node.path("keyword").textValue()
         val message = node.path("message").textValue()
         val specPath = node.at("/instance/pointer").textValue().let { if (it.isNullOrEmpty()) "/" else it }
 
         return when (keyword) {
-            Keywords.oneOf, Keywords.anyOf -> createViolationMessageWithSchema(node, message, specPath, keyword)
-            Keywords.additionalProperties -> createAdditionalPropertiesViolationMessage(node, message, specPath)
-            else -> JsonValidationMessage(message, specPath)
+            Keywords.oneOf, Keywords.anyOf -> createValidationMessageWithSchemaRefs(node, message, specPath, keyword)
+            Keywords.additionalProperties -> createValidationMessageWithSchemaPath(node, message, specPath)
+            else -> ValidationMessage(message, specPath)
         }
     }
 
-    private fun createViolationMessageWithSchema(node: JsonNode, message: String, specPath: String, keyword: String): JsonValidationMessage {
+    private fun createValidationMessageWithSchemaRefs(node: JsonNode, message: String, specPath: String, keyword: String): ValidationMessage {
         val schemaPath = node.at("/schema/pointer").textValue()
         if (!schemaPath.isNullOrBlank()) {
             val schemaRefNodes = schema.at(schemaPath + "/" + keyword)
@@ -72,25 +67,28 @@ class JsonSchemaValidator(val schema: JsonNode) {
                     .filterNot(JsonNode::isMissingNode)
                     .map(JsonNode::textValue)
                     .joinToString("; ")
-            return JsonValidationMessage(message + schemaRefs, specPath)
+            return ValidationMessage(message + schemaRefs, specPath)
         } else {
-            return JsonValidationMessage(message, specPath)
+            return ValidationMessage(message, specPath)
         }
     }
 
-    private fun createAdditionalPropertiesViolationMessage(node: JsonNode, message: String, specPath: String): JsonValidationMessage {
+    private fun createValidationMessageWithSchemaPath(node: JsonNode, message: String, specPath: String): ValidationMessage {
         val schemaPath = node.at("/schema/pointer").textValue()
-        return JsonValidationMessage(message + schemaPath, specPath)
+        return ValidationMessage(message + schemaPath, specPath)
+    }
+
+    private fun createValidatorFactory(): JsonSchemaFactory {
+        val validationMessages = getValidationMessagesBundle()
+        val validationConfiguration = ValidationConfiguration.newBuilder().setValidationMessages(validationMessages).freeze()
+
+        return JsonSchemaFactory.newBuilder().setValidationConfiguration(validationConfiguration).freeze()
+    }
+
+    private fun getValidationMessagesBundle(): MessageBundle {
+        val customValidationMessages = PropertiesMessageSource.fromResource("/schema-validation-messages.properties")
+        val validationMessages = MessageBundles.getBundle(JsonSchemaValidationBundle::class.java).thaw()
+                .appendSource(customValidationMessages).freeze()
+        return validationMessages
     }
 }
-
-data class JsonValidationResult(
-        val isSuccess: Boolean,
-        val messages: List<JsonValidationMessage>,
-        val rawResult: JsonNode
-)
-
-data class JsonValidationMessage(
-        val message: String,
-        val path: String
-)

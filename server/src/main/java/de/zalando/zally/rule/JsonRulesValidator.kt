@@ -1,28 +1,18 @@
 package de.zalando.zally.rule
 
-import de.zalando.json.validation.ObjectTreeReader
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
 @Component
-class JsonRulesValidator(@Autowired val rules: List<JsonRule>,
-                         @Autowired val rulesPolicy: RulesPolicy) : RulesValidator {
+class JsonRulesValidator(@Autowired rules: List<JsonRule>,
+                         @Autowired rulesPolicy: RulesPolicy) : RulesValidator<JsonRule>(rules, rulesPolicy) {
 
-    val invalidApiRule = InvalidApiSpecificationRule()
-    val jsonTreeReader = ObjectTreeReader()
+    private val jsonTreeReader = ObjectTreeReader()
 
-    override fun validate(swaggerContent: String): List<Violation> {
-        val swaggerJson = try {
-            jsonTreeReader.read(swaggerContent)
-        } catch (e: Exception) {
-            return listOf(invalidApiRule.getGeneralViolation())
-        }
-        return rules
-                .filter { rule -> rulesPolicy.accepts(rule) }
-                .flatMap { it.validate(swaggerJson) }
-                .filterNotNull()
-                .sortedBy { it.violationType }
-
+    @Throws(java.lang.Exception::class)
+    override fun createRuleChecker(swaggerContent: String): (JsonRule) -> Iterable<Violation> {
+        val swaggerJson = jsonTreeReader.read(swaggerContent)
+        return { rule -> rule.validate(swaggerJson) }
     }
 
 }

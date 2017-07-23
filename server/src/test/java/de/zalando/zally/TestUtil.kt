@@ -4,7 +4,7 @@ import com.codahale.metrics.MetricRegistry
 import com.fasterxml.jackson.databind.JsonNode
 import com.typesafe.config.Config
 import com.typesafe.config.ConfigFactory
-import de.zalando.json.validation.ObjectTreeReader
+import de.zalando.zally.rule.ObjectTreeReader
 import io.swagger.models.ModelImpl
 import io.swagger.models.Operation
 import io.swagger.models.Path
