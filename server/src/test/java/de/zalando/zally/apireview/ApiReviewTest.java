@@ -4,16 +4,13 @@ import de.zalando.zally.dto.ApiDefinitionRequest;
 import de.zalando.zally.dto.ViolationType;
 import de.zalando.zally.rule.Rule;
 import de.zalando.zally.rule.Violation;
+import de.zalando.zally.util.ResourceUtil;
 import io.swagger.models.Swagger;
-import org.apache.commons.io.FileUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.junit.Test;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.nio.charset.Charset;
 import java.util.Collections;
 
 import static java.util.Arrays.asList;
@@ -75,11 +72,11 @@ public class ApiReviewTest {
     }
 
     @Test
-    public void shouldCalculateNumberOfEndpoints() throws URISyntaxException, IOException {
+    public void shouldCalculateNumberOfEndpoints() throws IOException {
         Violation violation1 = new Violation(dummyRule, "", "", ViolationType.MUST, "", asList("1", "2"));
         Violation violation2 = new Violation(dummyRule, "", "", ViolationType.MUST, "", asList("3"));
 
-        String apiDefinition = readDummyApiDefinition();
+        String apiDefinition = ResourceUtil.resourceToString("fixtures/limitNumberOfResourcesValid.json");
 
         ApiReview apiReview = new ApiReview(new ApiDefinitionRequest(), apiDefinition, asList(violation1, violation2));
 
@@ -87,15 +84,9 @@ public class ApiReviewTest {
     }
 
     @Test
-    public void shouldParseApiNameFromApiDefinition() throws IOException, URISyntaxException {
-        String apiDefinition = readDummyApiDefinition();
+    public void shouldParseApiNameFromApiDefinition() throws IOException {
+        String apiDefinition = ResourceUtil.resourceToString("fixtures/limitNumberOfResourcesValid.json");
         ApiReview apiReview = new ApiReview(new ApiDefinitionRequest(), apiDefinition, Collections.emptyList());
         assertThat(apiReview.getName()).isEqualTo("Test Service");
-    }
-
-    private String readDummyApiDefinition() throws IOException, URISyntaxException {
-        return FileUtils.readFileToString(
-            new File(this.getClass().getResource("/fixtures/limitNumberOfResourcesValid.json").toURI()),
-            Charset.forName("UTF-8"));
     }
 }

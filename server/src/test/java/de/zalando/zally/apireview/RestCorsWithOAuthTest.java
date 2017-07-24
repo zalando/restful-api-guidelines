@@ -14,8 +14,8 @@ public class RestCorsWithOAuthTest extends RestApiBaseTest {
     @Test
     public void shouldSupportCorsWhenOAuthIsEnabledOnAllResources() {
         assertThat(optionsRequest(API_VIOLATIONS_URL)).isEqualTo(HttpStatus.OK);
-        assertThat(optionsRequest("/supported-rules")).isEqualTo(HttpStatus.OK);
-        assertThat(optionsRequest("/review-statistics")).isEqualTo(HttpStatus.OK);
+        assertThat(optionsRequest(SUPPORTED_RULES_URL)).isEqualTo(HttpStatus.OK);
+        assertThat(optionsRequest(REVIEW_STATISTICS_URL)).isEqualTo(HttpStatus.OK);
     }
 
     private HttpStatus optionsRequest(String url) {
