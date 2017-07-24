@@ -182,8 +182,11 @@ public class RestApiViolationsTest extends RestApiBaseTest {
 
     @Test
     public void shouldStoreUnsuccessfulApiReviewRequest() {
-        ApiDefinitionRequest request = ApiDefinitionRequest.Factory.fromUrl(simulateNotFound());
-        restTemplate.postForEntity(API_VIOLATIONS_URL, request, ErrorResponse.class);
+        sendApiDefinition(
+                ApiDefinitionRequest.Factory.fromUrl(simulateNotFound()),
+                ErrorResponse.class
+        );
+
         assertThat(apiReviewRepository.count()).isEqualTo(1L);
         assertThat(apiReviewRepository.findAll().iterator().next().isSuccessfulProcessed()).isFalse();
     }
