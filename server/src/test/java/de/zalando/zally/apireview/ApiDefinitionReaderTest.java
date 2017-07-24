@@ -2,6 +2,7 @@ package de.zalando.zally.apireview;
 
 import de.zalando.zally.dto.ApiDefinitionRequest;
 import de.zalando.zally.exception.MissingApiDefinitionException;
+import de.zalando.zally.util.JadlerUtil;
 import net.jadler.stubbing.server.jdk.JdkStubHttpServer;
 import org.junit.After;
 import org.junit.Before;
@@ -10,11 +11,11 @@ import org.springframework.web.client.RestTemplate;
 
 import static net.jadler.Jadler.closeJadler;
 import static net.jadler.Jadler.initJadlerUsing;
-import static net.jadler.Jadler.onRequest;
-import static net.jadler.Jadler.port;
 import static org.junit.Assert.assertEquals;
 
 public class ApiDefinitionReaderTest {
+
+    private static final String APPLICATION_X_YAML_VALUE = "application/x-yaml";
 
     private final String contentInJson = "{\"swagger\":\"2.0\"}";
 
@@ -38,70 +39,31 @@ public class ApiDefinitionReaderTest {
 
     @Test
     public void shouldReturnStringWhenApiDefinitionIsFound() {
-        final String result = reader.read(getJsonNodeWithApiDefinition());
-        assertEquals("{\"swagger\":\"2.0\"}", result);
+        ApiDefinitionRequest request = new ApiDefinitionRequest(contentInJson, "http://zalando.de");
+        String result = reader.read(request);
+        assertEquals(contentInJson, result);
     }
 
     @Test
     public void shouldReadJsonSwaggerDefinitionFromUrl() {
-        final String fileName = "test.json";
-        final String contentType = "application/json";
-        final String url = startServer(fileName, contentInJson, contentType);
-
-        final String result = reader.read(getJsonNodeWithApiDefinitionUrl(url));
-
+        String url = JadlerUtil.stubResource("test.json", contentInJson);
+        String result = reader.read(ApiDefinitionRequest.Factory.fromUrl(url));
         assertEquals(contentInJson, result);
     }
 
     @Test
     public void shouldReadYamlSwaggerDefinitionFromUrl() {
-        final String fileName = "test.yaml";
-        final String content = "swagger: \"2.0\"";
-        final String contentType = "application/x-yaml";
-        final String url = startServer(fileName, content, contentType);
+        String contentInYaml = "swagger: \"2.0\"";
+        String url = JadlerUtil.stubResource("test.yaml", contentInYaml, APPLICATION_X_YAML_VALUE);
+        String result = reader.read(ApiDefinitionRequest.Factory.fromUrl(url));
 
-        final String result = reader.read(getJsonNodeWithApiDefinitionUrl(url));
-
-        assertEquals(content, result);
+        assertEquals(contentInYaml, result);
     }
 
     @Test
     public void shouldRetryLoadingOfUrlIfEndsWithSpecialEncodedCharacters() {
-        final String result = reader.read(getJsonNodeWithApiDefinitionUrlWithSpecialCharacters());
+        String url = JadlerUtil.stubResource("test.json", contentInJson);
+        String result = reader.read(ApiDefinitionRequest.Factory.fromUrl(url + "%3D%3D"));
         assertEquals(contentInJson, result);
-    }
-
-    private ApiDefinitionRequest getJsonNodeWithApiDefinition() {
-        ApiDefinitionRequest request = new ApiDefinitionRequest();
-        request.setApiDefinition("{\"swagger\":\"2.0\"}");
-        request.setApiDefinitionUrl("http://zalando.de");
-        return request;
-    }
-
-    private ApiDefinitionRequest getJsonNodeWithApiDefinitionUrlWithSpecialCharacters() {
-        final String fileName = "test.json";
-        final String contentType = "application/json";
-        return getJsonNodeWithApiDefinitionUrl(startServer(fileName, contentInJson, contentType) + "%3D%3D");
-    }
-
-    private ApiDefinitionRequest getJsonNodeWithApiDefinitionUrl(String url) {
-        ApiDefinitionRequest request = new ApiDefinitionRequest();
-        request.setApiDefinitionUrl(url);
-        return request;
-    }
-
-    private String startServer(final String fileName, final String content, final String contentType) {
-        final String remotePath = "/" + fileName;
-        final String url = "http://localhost:" + port() + remotePath;
-
-        onRequest()
-            .havingMethodEqualTo("GET")
-            .havingPathEqualTo(remotePath)
-            .respond()
-            .withStatus(200)
-            .withHeader("Content-Type", contentType)
-            .withBody(content);
-
-        return url;
     }
 }

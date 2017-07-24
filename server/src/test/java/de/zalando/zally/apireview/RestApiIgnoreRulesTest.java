@@ -1,15 +1,14 @@
 package de.zalando.zally.apireview;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import de.zalando.zally.dto.ApiDefinitionResponse;
+import de.zalando.zally.dto.ViolationDTO;
 import org.junit.Test;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.util.ResourceUtils;
 
-import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
+import static de.zalando.zally.util.ResourceUtil.readApiDefinition;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @TestPropertySource(properties = "zally.ignoreRules=H999")
@@ -17,30 +16,16 @@ public class RestApiIgnoreRulesTest extends RestApiBaseTest {
 
     @Test
     public void shouldIgnoreSpecifiedRules() throws Exception {
-        final JsonNode rootObject = getRootObject();
-        final JsonNode violations = rootObject.get("violations");
+        ApiDefinitionResponse response = sendApiDefinition(readApiDefinition("fixtures/api_spp.json"));
 
+        List<ViolationDTO> violations = response.getViolations();
         assertThat(violations).hasSize(1);
-        assertThat(violations.get(0).get("title").asText()).isEqualTo("dummy1");
-    }
+        assertThat(violations.get(0).getTitle()).isEqualTo("dummy1");
 
-    @Test
-    public void shouldAffectCounters() throws Exception {
-        final JsonNode rootObject = getRootObject();
-        final JsonNode counters = rootObject.get("violations_count");
-
-        assertThat(counters.get("must").asInt()).isEqualTo(1);
-        assertThat(counters.get("should").asInt()).isEqualTo(0);
-        assertThat(counters.get("may").asInt()).isEqualTo(0);
-        assertThat(counters.get("hint").asInt()).isEqualTo(0);
-    }
-
-    private JsonNode getRootObject() throws IOException {
-        final ResponseEntity<JsonNode> responseEntity = sendRequest(
-            new ObjectMapper().readTree(ResourceUtils.getFile("src/test/resources/fixtures/api_spp.json")));
-
-        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-
-        return responseEntity.getBody();
+        Map<String, Integer> count = response.getViolationsCount();
+        assertThat(count.get("must")).isEqualTo(1);
+        assertThat(count.get("should")).isEqualTo(0);
+        assertThat(count.get("may")).isEqualTo(0);
+        assertThat(count.get("hint")).isEqualTo(0);
     }
 }
