@@ -15,11 +15,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @TestPropertySource(properties = "zally.ignoreRules=H999")
 public class RestApiIgnoreRulesTest extends RestApiBaseTest {
 
-    @Override
-    protected String getUrl() {
-        return "/api-violations";
-    }
-
     @Test
     public void shouldIgnoreSpecifiedRules() throws Exception {
         final JsonNode rootObject = getRootObject();

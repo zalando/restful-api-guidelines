@@ -1,39 +1,46 @@
 package de.zalando.zally.apireview;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.collect.ImmutableMap;
+import de.zalando.zally.dto.ApiDefinitionRequest;
+import de.zalando.zally.dto.ApiDefinitionResponse;
+import de.zalando.zally.dto.ViolationDTO;
 import de.zalando.zally.exception.MissingApiDefinitionException;
 import de.zalando.zally.rule.InvalidApiSchemaRule;
+import de.zalando.zally.util.ErrorResponse;
 import net.jadler.stubbing.server.jdk.JdkStubHttpServer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.boot.actuate.autoconfigure.LocalManagementPort;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.util.ResourceUtils;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.net.URI;
-import java.nio.file.Paths;
-import java.util.stream.Collectors;
+import java.util.List;
+import java.util.Map;
 
+import static de.zalando.zally.util.ResourceUtil.readApiDefinition;
+import static de.zalando.zally.util.ResourceUtil.resourceToString;
 import static net.jadler.Jadler.closeJadler;
 import static net.jadler.Jadler.initJadlerUsing;
 import static net.jadler.Jadler.onRequest;
 import static net.jadler.Jadler.port;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.http.HttpHeaders.CONTENT_TYPE;
+import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import static org.springframework.http.MediaType.TEXT_PLAIN_VALUE;
 
-@TestPropertySource(properties = "zally.message=Test message")
+@TestPropertySource(properties = "zally.message=" + RestApiViolationsTest.TEST_MESSAGE)
 public class RestApiViolationsTest extends RestApiBaseTest {
 
-    private final String notAccessibleApiDefinitionUrl = "{\"api_definition_url\": \"http://remote-localhost/test.yaml\"}";
+    public static final String TEST_MESSAGE = "Test message";
+
     @LocalManagementPort
     private int managementPort;
 
@@ -47,47 +54,33 @@ public class RestApiViolationsTest extends RestApiBaseTest {
         closeJadler();
     }
 
-    @Override
-    protected String getUrl() {
-        return "/api-violations";
-    }
-
     @Test
     public void shouldValidateGivenApiDefinition() throws IOException {
-        ResponseEntity<JsonNode> responseEntity = sendRequest(
-            new ObjectMapper().readTree(ResourceUtils.getFile("src/test/resources/fixtures/api_spp.json")));
-        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        ApiDefinitionResponse response = sendApiDefinition(readApiDefinition("fixtures/api_spp.json"));
 
-        JsonNode rootObject = responseEntity.getBody();
-        assertThat(rootObject.has("violations")).isTrue();
-
-        JsonNode violations = rootObject.get("violations");
+        List<ViolationDTO> violations = response.getViolations();
+        assertThat(violations).isNotEmpty();
         assertThat(violations).hasSize(2);
-        assertThat(violations.get(0).get("title").asText()).isEqualTo("dummy1");
-        assertThat(violations.get(1).get("title").asText()).isEqualTo("dummy2");
+        assertThat(violations.get(0).getTitle()).isEqualTo("dummy1");
+        assertThat(violations.get(1).getTitle()).isEqualTo("dummy2");
 
-        String message = rootObject.get("message").asText();
-        assertThat(message).isEqualTo("Test message");
+        assertThat(response.getMessage()).isEqualTo(TEST_MESSAGE);
     }
 
     @Test
     public void shouldReturnCounters() throws IOException {
-        ResponseEntity<JsonNode> responseEntity = sendRequest(
-            new ObjectMapper().readTree(ResourceUtils.getFile("src/test/resources/fixtures/api_spp.json")));
-        JsonNode rootObject = responseEntity.getBody();
+        ApiDefinitionResponse response = sendApiDefinition(readApiDefinition("fixtures/api_spp.json"));
 
-        JsonNode counters = rootObject.get("violations_count");
-        assertThat(counters.get("must").asInt()).isEqualTo(1);
-        assertThat(counters.get("should").asInt()).isEqualTo(0);
-        assertThat(counters.get("may").asInt()).isEqualTo(0);
-        assertThat(counters.get("hint").asInt()).isEqualTo(1);
+        Map<String, Integer> count = response.getViolationsCount();
+        assertThat(count.get("must")).isEqualTo(1);
+        assertThat(count.get("should")).isEqualTo(0);
+        assertThat(count.get("may")).isEqualTo(0);
+        assertThat(count.get("hint")).isEqualTo(1);
     }
 
     @Test
     public void shouldReturnMetricsOfFoundViolations() throws IOException {
-        ResponseEntity<JsonNode> responseEntity = sendRequest(
-            new ObjectMapper().readTree(ResourceUtils.getFile("src/test/resources/fixtures/api_spp.json")));
-        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        sendApiDefinition(readApiDefinition("fixtures/api_spp.json"));
 
         ResponseEntity<JsonNode> metricsResponse = restTemplate.getForEntity("http://localhost:" + managementPort + "/metrics", JsonNode.class);
         assertThat(metricsResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
@@ -98,176 +91,130 @@ public class RestApiViolationsTest extends RestApiBaseTest {
 
     @Test
     public void shouldRespondWithBadRequestOnMalformedJson() throws IOException {
-        RequestEntity requestEntity = RequestEntity
-            .post(URI.create(getUrl()))
-            .contentType(MediaType.APPLICATION_JSON)
-            .body("{\"malformed\": \"dummy\"");
-        ResponseEntity<JsonNode> responseEntity = restTemplate.exchange(requestEntity, JsonNode.class);
-        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
-    }
+        ResponseEntity<ErrorResponse> responseEntity = sendApiDefinition(
+                ApiDefinitionRequest.Factory.fromJson("{\"malformed\": \"dummy\""),
+                ErrorResponse.class
+        );
 
-    @Test
-    public void shouldRespondWithProblemJsonOnMalformedJson() throws IOException {
-        RequestEntity requestEntity = RequestEntity
-            .post(URI.create(getUrl()))
-            .contentType(MediaType.APPLICATION_JSON)
-            .body("{\"malformed\": \"dummy\"");
-
-        ResponseEntity<JsonNode> responseEntity = restTemplate.exchange(requestEntity, JsonNode.class);
-
-        assertThat(responseEntity.getHeaders().getContentType().toString()).isEqualTo("application/problem+json");
-        assertThat(responseEntity.getBody().has("title")).isTrue();
-        assertThat(responseEntity.getBody().has("status")).isTrue();
-        assertThat(responseEntity.getBody().has("detail")).isTrue();
+        assertThat(responseEntity.getStatusCode()).isEqualTo(BAD_REQUEST);
+        assertThat(responseEntity.getHeaders().getContentType().toString()).isEqualTo(APPLICATION_PROBLEM_JSON);
+        assertThat(responseEntity.getBody().getTitle()).isEqualTo(BAD_REQUEST.getReasonPhrase());
+        assertThat(responseEntity.getBody().getStatus()).isNotEmpty();
+        assertThat(responseEntity.getBody().getDetail()).isNotEmpty();
     }
 
     @Test
     public void shouldRespondWithBadRequestWhenApiDefinitionFieldIsMissing() throws IOException {
-        RequestEntity requestEntity = RequestEntity
-            .post(URI.create(getUrl()))
-            .contentType(MediaType.APPLICATION_JSON)
-            .body("{\"my_api\": \"dummy\"}");
+        ResponseEntity<ErrorResponse> responseEntity = restTemplate.postForEntity(
+                API_VIOLATIONS_URL, ImmutableMap.of("my_api", "dummy"), ErrorResponse.class
+        );
 
-        ResponseEntity<JsonNode> responseEntity = restTemplate.exchange(requestEntity, JsonNode.class);
-
-        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
-        assertThat(responseEntity.getBody().get("title").asText()).isEqualTo("Bad Request");
-        assertThat(responseEntity.getBody().get("detail").asText()).isEqualTo(MissingApiDefinitionException.MESSAGE);
+        assertThat(responseEntity.getStatusCode()).isEqualTo(BAD_REQUEST);
+        assertThat(responseEntity.getHeaders().getContentType().toString()).isEqualTo(APPLICATION_PROBLEM_JSON);
+        assertThat(responseEntity.getBody().getTitle()).isEqualTo(BAD_REQUEST.getReasonPhrase());
+        assertThat(responseEntity.getBody().getStatus()).isNotEmpty();
+        assertThat(responseEntity.getBody().getDetail()).isEqualTo(MissingApiDefinitionException.MESSAGE);
     }
 
     @Test
     public void shouldRespondWithViolationWhenApiDefinitionFieldIsNotValidSwaggerDefinition() throws IOException {
-        RequestEntity requestEntity = RequestEntity
-            .post(URI.create(getUrl()))
-            .contentType(MediaType.APPLICATION_JSON)
-            .body("{\"api_definition\": \"no swagger definition\"}");
+        ApiDefinitionResponse response = sendApiDefinition(
+                ApiDefinitionRequest.Factory.fromJson("\"no swagger definition\"")
+        );
 
-        ResponseEntity<JsonNode> responseEntity = restTemplate.exchange(requestEntity, JsonNode.class);
-
-        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-
-        JsonNode rootObject = responseEntity.getBody();
-        assertThat(rootObject.has("violations")).isTrue();
-
-        JsonNode violations = rootObject.get("violations");
-        assertThat(violations).hasSize(1);
-        assertThat(violations.get(0).get("title").asText()).isEqualTo(new InvalidApiSchemaRule().getTitle());
+        assertThat(response.getViolations()).hasSize(1);
+        assertThat(response.getViolations().get(0).getTitle()).isEqualTo(new InvalidApiSchemaRule().getTitle());
     }
 
     @Test
     public void shouldReadJsonSpecificationFromUrl() throws Exception {
-        final String definitionUrl = getLocalUrl(
-            "src/test/resources/fixtures/api_spp.json", MediaType.APPLICATION_JSON.toString());
+        String definitionUrl = getLocalUrl("fixtures/api_spp.json");
 
-        final RequestEntity requestEntity = RequestEntity
-            .post(URI.create(getUrl()))
-            .contentType(MediaType.APPLICATION_JSON)
-            .body("{\"api_definition_url\": \"" + definitionUrl + "\"}");
-        final ResponseEntity<JsonNode> responseEntity = restTemplate.exchange(requestEntity, JsonNode.class);
-        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        List<ViolationDTO> violations = sendApiDefinition(
+                ApiDefinitionRequest.Factory.fromUrl(definitionUrl)
+        ).getViolations();
 
-        final JsonNode rootObject = responseEntity.getBody();
-        final JsonNode violations = rootObject.get("violations");
         assertThat(violations).hasSize(2);
-        assertThat(violations.get(0).get("title").asText()).isEqualTo("dummy1");
-        assertThat(violations.get(1).get("title").asText()).isEqualTo("dummy2");
+        assertThat(violations.get(0).getTitle()).isEqualTo("dummy1");
+        assertThat(violations.get(1).getTitle()).isEqualTo("dummy2");
     }
 
     @Test
     public void shouldReadYamlSpecificationFromUrl() throws Exception {
-        final String definitionUrl = getLocalUrl(
-            "src/test/resources/fixtures/api_spa.yaml", MediaType.APPLICATION_JSON.toString());
+        String definitionUrl = getLocalUrl("fixtures/api_spa.yaml");
 
-        final RequestEntity requestEntity = RequestEntity
-            .post(URI.create(getUrl()))
-            .contentType(MediaType.APPLICATION_JSON)
-            .body("{\"api_definition_url\": \"" + definitionUrl + "\"}");
-        final ResponseEntity<JsonNode> responseEntity = restTemplate.exchange(requestEntity, JsonNode.class);
-        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        List<ViolationDTO> violations = sendApiDefinition(
+                ApiDefinitionRequest.Factory.fromUrl(definitionUrl)
+        ).getViolations();
 
-        final JsonNode rootObject = responseEntity.getBody();
-
-        final JsonNode violations = rootObject.get("violations");
         assertThat(violations).hasSize(1);
-        assertThat(violations.get(0).get("title").asText()).isEqualTo("dummy2");
+        assertThat(violations.get(0).getTitle()).isEqualTo("dummy2");
     }
 
     @Test
     public void shouldReturn404WhenHostNotRecognised() throws Exception {
-        final RequestEntity requestEntity = RequestEntity
-            .post(URI.create(getUrl()))
-            .contentType(MediaType.APPLICATION_JSON)
-            .body(notAccessibleApiDefinitionUrl);
+        ApiDefinitionRequest request = ApiDefinitionRequest.Factory.fromUrl("http://remote-localhost/test.yaml");
+        ResponseEntity<ErrorResponse> responseEntity = restTemplate.postForEntity(
+                API_VIOLATIONS_URL, request, ErrorResponse.class
+        );
 
-        final ResponseEntity<JsonNode> responseEntity = restTemplate.exchange(requestEntity, JsonNode.class);
-        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
-
-        final JsonNode rootObject = responseEntity.getBody();
-        assertThat(rootObject.get("detail").asText()).isEqualTo("Unknown host: remote-localhost");
+        assertThat(responseEntity.getStatusCode()).isEqualTo(NOT_FOUND);
+        assertThat(responseEntity.getBody().getDetail()).isEqualTo("Unknown host: remote-localhost");
     }
 
     @Test
-    public void shouldReturn404WhenNotFound() throws Exception {
-        final String definitionUrl = simulateNotFound();
-        final RequestEntity requestEntity = RequestEntity
-            .post(URI.create(getUrl()))
-            .contentType(MediaType.APPLICATION_JSON)
-            .body("{\"api_definition_url\": \"" + definitionUrl + "\"}");
+    public void shouldReturn404WhenNotFound() {
+        ApiDefinitionRequest request = ApiDefinitionRequest.Factory.fromUrl(simulateNotFound());
+        ResponseEntity<ErrorResponse> responseEntity = restTemplate.postForEntity(
+                API_VIOLATIONS_URL, request, ErrorResponse.class
+        );
 
-        final ResponseEntity<JsonNode> responseEntity = restTemplate.exchange(requestEntity, JsonNode.class);
-        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
-
-        final JsonNode rootObject = responseEntity.getBody();
-        assertThat(rootObject.get("detail").asText()).isEqualTo("404 Not Found");
+        assertThat(responseEntity.getStatusCode()).isEqualTo(NOT_FOUND);
+        assertThat(responseEntity.getBody().getDetail()).isEqualTo("404 Not Found");
     }
 
     @Test
     public void shouldStoreSuccessfulApiReviewRequest() throws IOException {
-        sendRequest(new ObjectMapper().readTree(ResourceUtils.getFile("src/test/resources/fixtures/api_spp.json")));
+        sendApiDefinition(readApiDefinition("fixtures/api_spp.json"));
         assertThat(apiReviewRepository.count()).isEqualTo(1L);
         assertThat(apiReviewRepository.findAll().iterator().next().isSuccessfulProcessed()).isTrue();
     }
 
     @Test
-    public void shouldStoreUnsuccessfulApiReviewRequest() throws IOException {
-        restTemplate.exchange(RequestEntity
-            .post(URI.create(getUrl()))
-            .contentType(MediaType.APPLICATION_JSON)
-            .body(notAccessibleApiDefinitionUrl), JsonNode.class);
+    public void shouldStoreUnsuccessfulApiReviewRequest() {
+        sendApiDefinition(
+                ApiDefinitionRequest.Factory.fromUrl(simulateNotFound()),
+                ErrorResponse.class
+        );
+
         assertThat(apiReviewRepository.count()).isEqualTo(1L);
         assertThat(apiReviewRepository.findAll().iterator().next().isSuccessfulProcessed()).isFalse();
     }
 
-    private String getLocalUrl(final String resourceFilePath, final String contentType) throws Exception {
-        final File file = ResourceUtils.getFile(resourceFilePath);
-        final BufferedReader reader = new BufferedReader(new FileReader(file));
-        final String content = reader.lines().collect(Collectors.joining("\n"));
-
-        final String fileName = Paths.get(resourceFilePath).getFileName().toString();
-        final String remotePath = "/" + fileName;
-        final String url = "http://localhost:" + port() + remotePath;
+    private String getLocalUrl(String resourceName) throws Exception {
+        String url = String.format("http://localhost:%d/%s", port(), resourceName);
 
         onRequest()
-            .havingMethodEqualTo("GET")
-            .havingPathEqualTo(remotePath)
+            .havingMethodEqualTo(GET.name())
+            .havingPathEqualTo("/" + resourceName)
             .respond()
-            .withStatus(200)
-            .withHeader("Content-Type", contentType)
-            .withBody(content);
+            .withStatus(OK.value())
+            .withHeader(CONTENT_TYPE, APPLICATION_JSON_VALUE)
+            .withBody(resourceToString(resourceName));
 
         return url;
     }
 
-    private String simulateNotFound() throws Exception {
-        final String remotePath = "/abcde.yaml";
-        final String url = "http://localhost:" + port() + remotePath;
+    private String simulateNotFound() {
+        String remotePath = "/abcde.yaml";
+        String url = "http://localhost:" + port() + remotePath;
 
         onRequest()
-            .havingMethodEqualTo("GET")
+            .havingMethodEqualTo(GET.name())
             .havingPathEqualTo(remotePath)
             .respond()
-            .withStatus(404)
-            .withHeader("Content-Type", "text/plain")
+            .withStatus(NOT_FOUND.value())
+            .withHeader(CONTENT_TYPE, TEXT_PLAIN_VALUE)
             .withBody("NotFound");
 
         return url;

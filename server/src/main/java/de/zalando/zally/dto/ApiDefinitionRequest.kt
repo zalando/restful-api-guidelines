@@ -11,4 +11,12 @@ data class ApiDefinitionRequest (
     var apiDefinition: String? = null,
 
     var apiDefinitionUrl: String? = null
-)
+) {
+    /** for java invocations: it doesn't have overloaded constructors */
+    companion object Factory {
+
+        fun fromJson(json: String) = ApiDefinitionRequest(json)
+
+        fun fromUrl(url: String) = ApiDefinitionRequest(apiDefinitionUrl = url)
+    }
+}

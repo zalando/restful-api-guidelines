@@ -15,11 +15,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @TestPropertySource(properties = "zally.message=")
 public class RestApiEmptyMessageTest extends RestApiBaseTest {
 
-    @Override
-    protected String getUrl() {
-        return "/api-violations";
-    }
-
     @Test
     public void shouldNotContainMessageFieldWhenMessageIsEmpty() throws IOException {
         ResponseEntity<JsonNode> responseEntity = sendRequest(

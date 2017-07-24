@@ -21,14 +21,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class RestReviewStatisticsTest extends RestApiBaseTest {
 
-    @Override
-    protected String getUrl() {
-        return "/review-statistics";
-    }
-
     @Test
     public void shouldReturnEmptyReviewStatisticsList() {
-        ResponseEntity<ReviewStatistics> response = restTemplate.getForEntity(getUrl(), ReviewStatistics.class);
+        ResponseEntity<ReviewStatistics> response = restTemplate.getForEntity(REVIEW_STATISTICS_URL, ReviewStatistics.class);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody().getReviews()).isEmpty();
@@ -36,7 +31,7 @@ public class RestReviewStatisticsTest extends RestApiBaseTest {
 
     @Test
     public void shouldFormatJsonFieldProperlyWithSnakeCase() {
-        ResponseEntity<JsonNode> response = restTemplate.getForEntity(getUrl(), JsonNode.class);
+        ResponseEntity<JsonNode> response = restTemplate.getForEntity(REVIEW_STATISTICS_URL, JsonNode.class);
 
         assertThat(response.getBody().has("must_violations")).isTrue();
         assertThat(response.getBody().has("total_reviews")).isTrue();
@@ -45,7 +40,7 @@ public class RestReviewStatisticsTest extends RestApiBaseTest {
 
     @Test
     public void shouldPutViolationsListBeforeReviewsList() {
-        ResponseEntity<String> response = restTemplate.getForEntity(getUrl(), String.class);
+        ResponseEntity<String> response = restTemplate.getForEntity(REVIEW_STATISTICS_URL, String.class);
 
         assertThat(response.getBody().indexOf("\"violations\":")).isLessThan(response.getBody().indexOf("\"reviews\":"));
     }
@@ -56,7 +51,7 @@ public class RestReviewStatisticsTest extends RestApiBaseTest {
 
         List<ApiReview> reviews = createRandomReviewsInBetween(from, TestDateUtil.now().toLocalDate());
 
-        ResponseEntity<ReviewStatistics> response = restTemplate.getForEntity(getUrl(), ReviewStatistics.class);
+        ResponseEntity<ReviewStatistics> response = restTemplate.getForEntity(REVIEW_STATISTICS_URL, ReviewStatistics.class);
 
         assertThat(response.getBody().getReviews()).hasSize(reviews.size());
         assertThat(response.getBody().getViolations()).hasSize(1);
@@ -73,7 +68,7 @@ public class RestReviewStatisticsTest extends RestApiBaseTest {
         List<ApiReview> reviews = createRandomReviewsInBetween(from, TestDateUtil.now().toLocalDate());
 
         ResponseEntity<ReviewStatistics> response = restTemplate.getForEntity(
-            getUrl() + "?from=" + from.toString(), ReviewStatistics.class);
+            REVIEW_STATISTICS_URL + "?from=" + from.toString(), ReviewStatistics.class);
 
         assertThat(response.getBody().getNumberOfEndpoints()).isEqualTo(reviews.size() * 2);
         assertThat(response.getBody().getMustViolations()).isEqualTo(reviews.size());
@@ -91,7 +86,7 @@ public class RestReviewStatisticsTest extends RestApiBaseTest {
         List<ApiReview> reviews = createRandomReviewsInBetween(from, TestDateUtil.now().toLocalDate());
 
         ResponseEntity<ReviewStatistics> response = restTemplate.getForEntity(
-            getUrl() + "?from=" + from.toString() + "&to=" + to.toString(), ReviewStatistics.class);
+            REVIEW_STATISTICS_URL + "?from=" + from.toString() + "&to=" + to.toString(), ReviewStatistics.class);
 
         assertThat(response.getBody().getReviews()).hasSize(reviews.size() - 1);
     }
@@ -119,7 +114,7 @@ public class RestReviewStatisticsTest extends RestApiBaseTest {
     @Test
     public void shouldReturnApiName() {
         createRandomReviewsInBetween(TestDateUtil.now().minusDays(7L).toLocalDate(), TestDateUtil.now().toLocalDate());
-        ResponseEntity<JsonNode> response = restTemplate.getForEntity(getUrl(), JsonNode.class);
+        ResponseEntity<JsonNode> response = restTemplate.getForEntity(REVIEW_STATISTICS_URL, JsonNode.class);
         assertThat(response.getBody().toString()).contains("My API");
     }
 
@@ -150,6 +145,6 @@ public class RestReviewStatisticsTest extends RestApiBaseTest {
     }
 
     private ResponseEntity<JsonNode> requestStatistics(String queryParameters) {
-        return restTemplate.getForEntity(getUrl() + queryParameters, JsonNode.class);
+        return restTemplate.getForEntity(REVIEW_STATISTICS_URL + queryParameters, JsonNode.class);
     }
 }
