@@ -15,9 +15,6 @@ public class ResourceUtil {
     }
 
     public static ApiDefinitionRequest readApiDefinition(String resourceName) throws IOException {
-        ApiDefinitionRequest request = new ApiDefinitionRequest();
-        String apiDefinitionJson = resourceToString(resourceName);
-        request.setApiDefinition(apiDefinitionJson);
-        return request;
+        return ApiDefinitionRequest.Factory.fromJson(resourceToString(resourceName));
     }
 }
