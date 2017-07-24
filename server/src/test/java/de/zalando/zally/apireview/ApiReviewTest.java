@@ -5,7 +5,6 @@ import de.zalando.zally.dto.ViolationType;
 import de.zalando.zally.rule.Rule;
 import de.zalando.zally.rule.Violation;
 import de.zalando.zally.util.ResourceUtil;
-import io.swagger.models.Swagger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.junit.Test;
@@ -50,11 +49,6 @@ public class ApiReviewTest {
             return "dummyRule";
         }
 
-        @Nullable
-        @Override
-        public Violation validate(@NotNull Swagger swagger) {
-            return null;
-        }
     };
 
     @Test

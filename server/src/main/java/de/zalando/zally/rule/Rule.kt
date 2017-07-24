@@ -1,7 +1,6 @@
 package de.zalando.zally.rule
 
 import de.zalando.zally.dto.ViolationType
-import io.swagger.models.Swagger
 
 interface Rule {
 
@@ -11,5 +10,4 @@ interface Rule {
     val code: String
     val name: String
 
-    fun validate(swagger: Swagger): Violation?
 }

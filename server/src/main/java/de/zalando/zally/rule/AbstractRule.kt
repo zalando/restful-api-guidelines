@@ -1,6 +1,6 @@
 package de.zalando.zally.rule
 
-abstract class AbstractRule() : Rule {
+abstract class AbstractRule : Rule {
 
     override val name: String = javaClass.simpleName
 

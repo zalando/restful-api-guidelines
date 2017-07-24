@@ -6,7 +6,7 @@ import io.swagger.models.properties.Property
 import org.springframework.stereotype.Component
 
 @Component
-class Use429HeaderForRateLimitRule : AbstractRule() {
+class Use429HeaderForRateLimitRule : SwaggerRule() {
     override val title = "Use 429 With Header For Rate Limits"
     override val url = "http://zalando.github.io/restful-api-guidelines/http/Http.html" +
         "#must-use-429-with-headers-for-rate-limits"

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component
  * Lint for snake case for query params
  */
 @Component
-class SnakeCaseForQueryParamsRule : AbstractRule() {
+class SnakeCaseForQueryParamsRule : SwaggerRule() {
     override val title = "Use snake_case (never camelCase) for Query Parameters"
     override val url = "http://zalando.github.io/restful-api-guidelines/naming/Naming.html" +
         "#must-use-snakecase-never-camelcase-for-query-parameters"

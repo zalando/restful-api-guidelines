@@ -7,7 +7,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class RulesPolicyTest {
-    class TestRule(val result: Violation?) : AbstractRule() {
+    class TestRule(val result: Violation?) : SwaggerRule() {
         override val title = "Test Rule"
         override val url = null
         override val violationType = ViolationType.MUST

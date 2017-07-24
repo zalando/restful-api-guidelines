@@ -5,7 +5,7 @@ import de.zalando.zally.apireview.ApiReview;
 import de.zalando.zally.apireview.RestApiBaseTest;
 import de.zalando.zally.dto.ApiDefinitionRequest;
 import de.zalando.zally.dto.ViolationType;
-import de.zalando.zally.rule.InvalidApiSchemaRule;
+import de.zalando.zally.rule.AvoidTrailingSlashesRule;
 import de.zalando.zally.rule.Violation;
 import de.zalando.zally.util.TestDateUtil;
 import org.junit.Test;
@@ -137,7 +137,7 @@ public class RestReviewStatisticsTest extends RestApiBaseTest {
     }
 
     private List<Violation> createRandomViolations() {
-        return Arrays.asList(new Violation(new InvalidApiSchemaRule(), "", "", ViolationType.MUST, "", Arrays.asList("path")));
+        return Arrays.asList(new Violation(new AvoidTrailingSlashesRule(), "", "", ViolationType.MUST, "", Arrays.asList("path")));
     }
 
     private void assertBadRequestFor(String queryParameter) throws AssertionError {

@@ -6,7 +6,7 @@ import io.swagger.models.Swagger
 import org.springframework.stereotype.Component
 
 @Component
-class NoVersionInUriRule : AbstractRule() {
+class NoVersionInUriRule : SwaggerRule() {
     override val title = "Do Not Use URI Versioning"
     override val url = "https://zalando.github.io/restful-api-guidelines/compatibility/Compatibility.html" +
         "#must-do-not-use-uri-versioning"

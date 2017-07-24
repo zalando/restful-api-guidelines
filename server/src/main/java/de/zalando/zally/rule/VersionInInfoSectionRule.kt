@@ -6,7 +6,7 @@ import io.swagger.models.Swagger
 import org.springframework.stereotype.Component
 
 @Component
-class VersionInInfoSectionRule : AbstractRule() {
+class VersionInInfoSectionRule : SwaggerRule() {
     override val title = "Provide version information"
     override val url = "http://zalando.github.io/restful-api-guidelines/compatibility/Compatibility.html" +
         "#should-provide-version-information-in-openapi-documentation"

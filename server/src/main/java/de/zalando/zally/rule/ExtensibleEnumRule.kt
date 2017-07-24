@@ -20,7 +20,7 @@ import io.swagger.models.properties.StringProperty
 import org.springframework.stereotype.Component
 
 @Component
-class ExtensibleEnumRule : AbstractRule() {
+class ExtensibleEnumRule : SwaggerRule() {
     override val title = "Prefer Compatible Extensions"
     override val url = "http://zalando.github.io/restful-api-guidelines/compatibility/Compatibility.html" +
         "#should-prefer-compatible-extensions"

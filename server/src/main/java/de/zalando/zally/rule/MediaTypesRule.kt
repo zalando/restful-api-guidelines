@@ -7,7 +7,7 @@ import io.swagger.models.Swagger
 import org.springframework.stereotype.Component
 
 @Component
-class MediaTypesRule : AbstractRule() {
+class MediaTypesRule : SwaggerRule() {
 
     override val title = "Prefer standard media type names"
     override val url = "http://zalando.github.io/restful-api-guidelines/data-formats/DataFormats.html" +

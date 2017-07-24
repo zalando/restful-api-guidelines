@@ -5,7 +5,7 @@ import io.swagger.models.Swagger
 import org.springframework.stereotype.Component
 
 @Component
-class NoProtocolInHostRule : AbstractRule() {
+class NoProtocolInHostRule : SwaggerRule() {
     override val title = "Host should not contain protocol"
     // TODO: Provide URL
     override val url = ""

@@ -6,7 +6,7 @@ import io.swagger.models.Swagger
 import org.springframework.stereotype.Component
 
 @Component
-class EverySecondPathLevelParameterRule : AbstractRule() {
+class EverySecondPathLevelParameterRule : SwaggerRule() {
     override val title = "Every Second Path Level To Be Parameter"
     // TODO: Provide URL
     override val url = ""

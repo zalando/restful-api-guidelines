@@ -7,7 +7,7 @@ import de.zalando.zally.dto.ViolationType;
 import de.zalando.zally.dto.ViolationsCounter;
 import de.zalando.zally.exception.MissingApiDefinitionException;
 import de.zalando.zally.exception.UnaccessibleResourceUrlException;
-import de.zalando.zally.rule.RulesValidator;
+import de.zalando.zally.rule.ApiValidator;
 import de.zalando.zally.rule.Violation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,14 +29,14 @@ import static java.util.stream.Collectors.toMap;
 @RestController
 public class ApiViolationsController {
 
-    private final RulesValidator rulesValidator;
+    private final ApiValidator rulesValidator;
     private final DropwizardMetricServices metricServices;
     private final ApiDefinitionReader apiDefinitionReader;
     private final ApiReviewRepository apiReviewRepository;
     private final String message;
 
     @Autowired
-    public ApiViolationsController(RulesValidator rulesValidator,
+    public ApiViolationsController(ApiValidator rulesValidator,
                                    DropwizardMetricServices metricServices,
                                    ApiDefinitionReader apiDefinitionReader,
                                    ApiReviewRepository apiReviewRepository,

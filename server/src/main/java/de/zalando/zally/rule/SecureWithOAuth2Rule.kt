@@ -6,7 +6,7 @@ import io.swagger.models.Swagger
 import org.springframework.stereotype.Component
 
 @Component
-class SecureWithOAuth2Rule : AbstractRule() {
+class SecureWithOAuth2Rule : SwaggerRule() {
     override val title = "Secure Endpoints with OAuth 2.0"
     override val url = "https://zalando.github.io/restful-api-guidelines/security/Security.html" +
         "#must-secure-endpoints-with-oauth-20"

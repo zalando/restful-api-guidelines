@@ -1,26 +1,19 @@
 package de.zalando.zally.rule
 
-import io.swagger.parser.SwaggerParser
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Component
+abstract class RulesValidator<RuleT>(val rules: List<RuleT>, val rulesPolicy: RulesPolicy, val invalidApiRule: InvalidApiSchemaRule) : ApiValidator where RuleT : Rule {
 
-/**
- * This validator validates a given Swagger definition based
- * on set of rules. It will sort the output by path.
- */
-@Component
-class RulesValidator(@Autowired val rules: List<Rule>, @Autowired val rulesPolicy: RulesPolicy) {
-
-    fun validate(swaggerContent: String): List<Violation> {
-        val swagger = try {
-            SwaggerParser().parse(swaggerContent)!!
+    override fun validate(swaggerContent: String): List<Violation> {
+        val ruleChecker = try {
+            createRuleChecker(swaggerContent)
         } catch (e: Exception) {
-            return listOf(InvalidApiSchemaRule().validate())
+            return listOf(invalidApiRule.getGeneralViolation())
         }
         return rules
-            .filter { rule -> rulesPolicy.accepts(rule) }
-            .map { it.validate(swagger) }
-            .filterNotNull()
-            .sortedBy { it.violationType }
+                .filter { rule -> rulesPolicy.accepts(rule) }
+                .flatMap(ruleChecker)
+                .sortedBy(Violation::violationType)
     }
+
+    @Throws(java.lang.Exception::class)
+    abstract fun createRuleChecker(swaggerContent: String): (RuleT) -> Iterable<Violation>
 }

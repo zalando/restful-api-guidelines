@@ -6,7 +6,7 @@ import io.swagger.models.Swagger
 import org.springframework.stereotype.Component
 
 @Component
-class AvoidTrailingSlashesRule : AbstractRule() {
+class AvoidTrailingSlashesRule : SwaggerRule() {
     override val title = "Avoid Trailing Slashes"
     override val url = "http://zalando.github.io/restful-api-guidelines/naming/Naming.html"
     override val violationType = ViolationType.MUST
