@@ -6,7 +6,6 @@ import de.zalando.zally.dto.ApiDefinitionRequest;
 import de.zalando.zally.dto.ApiDefinitionResponse;
 import de.zalando.zally.dto.ViolationDTO;
 import de.zalando.zally.exception.MissingApiDefinitionException;
-import de.zalando.zally.rule.InvalidApiSpecificationRule;
 import de.zalando.zally.util.ErrorResponse;
 import de.zalando.zally.util.JadlerUtil;
 import net.jadler.stubbing.server.jdk.JdkStubHttpServer;
@@ -116,7 +115,7 @@ public class RestApiViolationsTest extends RestApiBaseTest {
         );
 
         assertThat(response.getViolations()).hasSize(1);
-        assertThat(response.getViolations().get(0).getTitle()).isEqualTo(new InvalidApiSpecificationRule().getTitle());
+        assertThat(response.getViolations().get(0).getTitle()).isEqualTo("OpenAPI 2.0 schema");
     }
 
     @Test

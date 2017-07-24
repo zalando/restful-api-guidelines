@@ -10,7 +10,8 @@ import org.springframework.stereotype.Component
  */
 @Component
 class SwaggerRulesValidator(@Autowired rules: List<SwaggerRule>,
-                            @Autowired rulesPolicy: RulesPolicy) : RulesValidator<SwaggerRule>(rules, rulesPolicy) {
+                            @Autowired rulesPolicy: RulesPolicy,
+                            @Autowired invalidApiRule: InvalidApiSchemaRule) : RulesValidator<SwaggerRule>(rules, rulesPolicy, invalidApiRule) {
 
     @Throws(java.lang.Exception::class)
     override fun createRuleChecker(swaggerContent: String): (SwaggerRule) -> Iterable<Violation> {

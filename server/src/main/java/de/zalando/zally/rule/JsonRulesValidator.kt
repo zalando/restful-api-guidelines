@@ -5,7 +5,8 @@ import org.springframework.stereotype.Component
 
 @Component
 class JsonRulesValidator(@Autowired rules: List<JsonRule>,
-                         @Autowired rulesPolicy: RulesPolicy) : RulesValidator<JsonRule>(rules, rulesPolicy) {
+                         @Autowired rulesPolicy: RulesPolicy,
+                         @Autowired invalidApiRule: InvalidApiSchemaRule) : RulesValidator<JsonRule>(rules, rulesPolicy, invalidApiRule) {
 
     private val jsonTreeReader = ObjectTreeReader()
 

@@ -1,8 +1,6 @@
 package de.zalando.zally.rule
 
-abstract class RulesValidator<RuleT>(val rules: List<RuleT>, val rulesPolicy: RulesPolicy) : ApiValidator where RuleT : Rule {
-
-    private val invalidApiRule = InvalidApiSpecificationRule()
+abstract class RulesValidator<RuleT>(val rules: List<RuleT>, val rulesPolicy: RulesPolicy, val invalidApiRule: InvalidApiSchemaRule) : ApiValidator where RuleT : Rule {
 
     override fun validate(swaggerContent: String): List<Violation> {
         val ruleChecker = try {
