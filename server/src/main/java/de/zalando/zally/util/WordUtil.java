@@ -1,6 +1,7 @@
 package de.zalando.zally.util;
 
 import de.zalando.zally.external.jbossdna.Inflector;
+
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;

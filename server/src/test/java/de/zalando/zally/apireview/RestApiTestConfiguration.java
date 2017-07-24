@@ -11,14 +11,15 @@ import de.zalando.zally.rule.SwaggerRule;
 import de.zalando.zally.rule.SwaggerRulesValidator;
 import de.zalando.zally.rule.Violation;
 import io.swagger.models.Swagger;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 @Configuration
 public class RestApiTestConfiguration {

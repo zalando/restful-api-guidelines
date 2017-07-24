@@ -8,13 +8,14 @@ import de.zalando.zally.dto.ViolationType;
 import de.zalando.zally.rule.InvalidApiSpecificationRule;
 import de.zalando.zally.rule.Violation;
 import de.zalando.zally.util.TestDateUtil;
+import org.junit.Test;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import org.junit.Test;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

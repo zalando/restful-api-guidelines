@@ -2,7 +2,7 @@ package de.zalando.zally.apireview;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import de.zalando.zally.dto.ViolationType;
-import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import java.io.Serializable;
 
 @Entity
 public class RuleViolation implements Serializable {

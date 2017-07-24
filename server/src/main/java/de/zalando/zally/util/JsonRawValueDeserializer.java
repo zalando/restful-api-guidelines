@@ -3,6 +3,7 @@ package de.zalando.zally.util;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
+
 import java.io.IOException;
 
 public class JsonRawValueDeserializer extends JsonDeserializer<String> {

@@ -4,7 +4,6 @@ import de.zalando.zally.dto.RuleDTO;
 import de.zalando.zally.dto.RulesListDTO;
 import de.zalando.zally.dto.ViolationType;
 import de.zalando.zally.dto.ViolationTypeBinder;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,6 +12,8 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 
