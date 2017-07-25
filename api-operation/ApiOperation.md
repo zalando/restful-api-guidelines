@@ -5,10 +5,17 @@
 All service applications must support access to the OpenAPI Reference Definitions of their external APIs — it
 is optional for internal APIs — via the following two API endpoints:  
 
-* endpoint(s) for GET access on its OpenAPI definition(s), for instance
-  `https://example.com/swagger.json` or `https://example.com/swagger.yaml`.
-* API Discovery endpoint `https://example.com/.well-known/schema-discovery` that delivers
-  the OpenAPI definition endpoint(s) above (see the link below for a description of its format).
+* endpoint(s) for GET access on its OpenAPI definition(s), for instance `https://example.com/swagger.json` or `https://example.com/swagger.yaml`.
+* API Discovery endpoint `https://example.com/.well-known/schema-discovery` that delivers the following JSON discovery document:
+
+```
+{
+    "schema_url": "/swagger.json",
+    "schema_type": "swagger-2.0",
+    "ui_url": "/ui/"
+}
+```
+
 * whether these endpoints have to be secured by OAuth depends on context of your API and product management
 * if you secure these endpoint, only use `uid` scope
 
