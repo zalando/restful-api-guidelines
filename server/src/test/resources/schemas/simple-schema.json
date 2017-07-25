@@ -1,0 +1,16 @@
+{
+  "title": "Person",
+  "type": "object",
+  "properties": {
+    "firstName": {
+      "$ref": "http://simple-referenced-schema.json/schema#/properties/title"
+    },
+    "lastName": {
+      "type": "string"
+    },
+    "age": {
+      "$ref": "http://simple-referenced-schema.json/schema#/properties/age"
+    }
+  },
+  "required": ["firstName", "lastName"]
+}

@@ -2,14 +2,19 @@ package de.zalando.zally.rule
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.google.common.io.Resources
 import com.typesafe.config.Config
 import de.zalando.zally.dto.ViolationType
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
+import java.io.IOException
 import java.net.URL
 
 @Component
-open class InvalidApiSchemaRule(@Autowired val rulesConfig: Config) : JsonRule() {
+open class InvalidApiSchemaRule(@Autowired rulesConfig: Config) : JsonRule() {
+
+    private val log = LoggerFactory.getLogger(InvalidApiSchemaRule::class.java)
 
     override val title = "OpenAPI 2.0 schema"
     override val violationType = ViolationType.MUST
@@ -21,15 +26,38 @@ open class InvalidApiSchemaRule(@Autowired val rulesConfig: Config) : JsonRule()
     val jsonSchemaValidator: JsonSchemaValidator
 
     init {
-        val swaggerSchemaUrl = URL(rulesConfig.getConfig(name).getString("swagger_schema_url"))
-        val swaggerSchema = ObjectMapper().readTree(swaggerSchemaUrl)
-        jsonSchemaValidator = JsonSchemaValidator(swaggerSchema)
+        jsonSchemaValidator = getSchemaValidator(rulesConfig.getConfig(name))
+    }
+
+    private fun getSchemaValidator(ruleConfig: Config): JsonSchemaValidator {
+        val schemaUrlProperty = "swagger_schema_url"
+        if (!ruleConfig.hasPath(schemaUrlProperty)) {
+            return getSchemaValidatorFromResource()
+        }
+
+        val swaggerSchemaUrl = URL(ruleConfig.getString(schemaUrlProperty))
+        try {
+            val schema = ObjectMapper().readTree(swaggerSchemaUrl)
+            return JsonSchemaValidator(schema)
+        } catch (ex: IOException) {
+            log.warn("Unable to load swagger schema using URL: '$swaggerSchemaUrl' ${ex.message}. Using schema from resources.")
+            return getSchemaValidatorFromResource()
+        }
+    }
+
+    private fun getSchemaValidatorFromResource(): JsonSchemaValidator {
+        val referencedOnlineSchema = "http://json-schema.org/draft-04/schema"
+        val localResource = Resources.getResource("schemas/json-schema.json").toString()
+
+        val schemaUrl = Resources.getResource("schemas/swagger-schema.json")
+        val schema = ObjectTreeReader().readJson(schemaUrl)
+        return JsonSchemaValidator(schema, schemaRedirects = mapOf(referencedOnlineSchema to localResource))
     }
 
     override fun validate(swagger: JsonNode): List<Violation> {
         return jsonSchemaValidator.validate(swagger).let { validationResult ->
             validationResult.messages.map { message ->
-                    Violation(this, this.title, message.message, this.violationType, this.url, listOf(message.path))
+                Violation(this, this.title, message.message, this.violationType, this.url, listOf(message.path))
             }
         }
     }
