@@ -1,0 +1,12 @@
+.*
+
+nodemon.json
+jest.json
+
+__tests__
+server.js
+server.mount.js
+
+webpack.config.js
+target
+
