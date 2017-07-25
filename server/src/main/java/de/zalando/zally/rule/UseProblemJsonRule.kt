@@ -44,7 +44,7 @@ class UseProblemJsonRule : SwaggerRule() {
     private fun isProblemJson(swagger: Swagger, response: Response): Boolean {
         val schema = response.schema
         val properties = when (schema) {
-            is RefProperty -> getProperties(swagger, swagger.definitions[(response.schema as RefProperty).simpleRef])
+            is RefProperty -> getProperties(swagger, swagger.definitions?.get((response.schema as RefProperty).simpleRef))
             is ObjectProperty -> schema.properties?.keys.orEmpty()
             else -> emptySet<String>()
         }
