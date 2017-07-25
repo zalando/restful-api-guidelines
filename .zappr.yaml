@@ -2,13 +2,15 @@
 # a more exhaustive description is at
 # https://zappr.readthedocs.io/en/latest/setup
 
+# Every PR needs two approvals from Zalando employees.
 approvals:
-  pattern: "(:\\+1:|👍|:ship:|:shipit:|:rocket:|LGTM)"
-  minimum: 1
-
-  ignore: pr_opener
-
-  from:
-    collaborators: true
+  groups:
+    zalando:
+      minimum: 2
+      from:
+        orgs:
+          # Only "zalando" allowed here!
+          - zalando
 
 X-Zalando-Team: architecture
+X-Zalando-Type: code
