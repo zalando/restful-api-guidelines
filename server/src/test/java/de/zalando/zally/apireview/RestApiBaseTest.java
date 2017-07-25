@@ -3,6 +3,8 @@ package de.zalando.zally.apireview;
 import de.zalando.zally.Application;
 import de.zalando.zally.dto.ApiDefinitionRequest;
 import de.zalando.zally.dto.ApiDefinitionResponse;
+import de.zalando.zally.dto.RuleDTO;
+import de.zalando.zally.dto.RulesListDTO;
 import de.zalando.zally.statistic.ReviewStatistics;
 import org.junit.Before;
 import org.junit.runner.RunWith;
@@ -15,6 +17,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.web.util.UriComponentsBuilder.fromPath;
@@ -75,5 +78,24 @@ public abstract class RestApiBaseTest {
         ResponseEntity<ReviewStatistics> responseEntity = getReviewStatistics(from, to, ReviewStatistics.class);
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         return responseEntity.getBody();
+    }
+
+    protected final List<RuleDTO> getSupportedRules() {
+        return getSupportedRules(null, null);
+    }
+
+    protected final List<RuleDTO> getSupportedRules(String ruleType, Boolean active) {
+        ResponseEntity<RulesListDTO> responseEntity = getSupportedRules(ruleType, active, RulesListDTO.class);
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        return responseEntity.getBody().getRules();
+    }
+
+    protected final <T> ResponseEntity<T> getSupportedRules(String ruleType, Boolean active, Class<T> responseType) {
+        String url = fromPath(SUPPORTED_RULES_URL)
+                .queryParam("type", ruleType)
+                .queryParam("is_active", active)
+                .build().encode().toUriString();
+
+        return restTemplate.getForEntity(url, responseType);
     }
 }
