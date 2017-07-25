@@ -46,6 +46,7 @@ open class InvalidApiSchemaRule(@Autowired rulesConfig: Config) : JsonRule() {
     }
 
     private fun getSchemaValidatorFromResource(): JsonSchemaValidator {
+        // The downloadSwaggerSchema gradle task can be used to download latest versions of schemas
         val referencedOnlineSchema = "http://json-schema.org/draft-04/schema"
         val localResource = Resources.getResource("schemas/json-schema.json").toString()
 
