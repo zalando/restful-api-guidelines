@@ -22,7 +22,7 @@ An internal API is only used within the application and only by the owning team,
 for operational or implementation internal purposes.
 
 Background: In our dynamic and complex service infrastructure, it is important to provide API client developers a central place with online access to the OpenAPI reference definitions of all running applications.
-As a part of Zalando infrastructire, API Discovery solution is used as an API definition crawler.
+As a part of the Zalando infrastructure, the `.well-known/schema-discovery` endpoint is used by the API Discovery to detect all API definitions.
 It checks all running applications via the endpoint above and stores the discovered API definitions.
 API Discovery itself provides a RESTful API as well as an API Viewer (Swagger-UI) for central access to all discovered API definitions.
 
