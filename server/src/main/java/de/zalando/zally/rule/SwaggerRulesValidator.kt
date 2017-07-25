@@ -16,7 +16,10 @@ class SwaggerRulesValidator(@Autowired rules: List<SwaggerRule>,
     @Throws(java.lang.Exception::class)
     override fun createRuleChecker(swaggerContent: String): (SwaggerRule) -> Iterable<Violation> {
         val swagger = SwaggerParser().parse(swaggerContent)!!
-        return { rule -> listOfNotNull(rule.validate(swagger)) }
+        return {
+            if (it.accepts(swagger)) listOfNotNull(it.validate(swagger))
+            else emptyList()
+        }
     }
 
 }

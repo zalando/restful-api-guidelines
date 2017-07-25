@@ -5,6 +5,7 @@ import de.zalando.zally.dto.ViolationDTO;
 import org.junit.Test;
 import org.springframework.test.context.TestPropertySource;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class RestApiIgnoreRulesTest extends RestApiBaseTest {
 
     @Test
-    public void shouldIgnoreSpecifiedRules() throws Exception {
+    public void shouldIgnoreWithProperty() throws IOException {
         ApiDefinitionResponse response = sendApiDefinition(readApiDefinition("fixtures/api_spp.json"));
 
         List<ViolationDTO> violations = response.getViolations();
@@ -28,5 +29,11 @@ public class RestApiIgnoreRulesTest extends RestApiBaseTest {
         assertThat(count.get("should")).isEqualTo(0);
         assertThat(count.get("may")).isEqualTo(0);
         assertThat(count.get("hint")).isEqualTo(0);
+    }
+
+    @Test
+    public void testIgnoreAllActiveWithVendorExtension() throws IOException {
+        ApiDefinitionResponse response = sendApiDefinition(readApiDefinition("fixtures/api_spp_ignored_rules.json"));
+        assertThat(response.getViolations()).isEmpty();
     }
 }

@@ -13,7 +13,10 @@ class JsonRulesValidator(@Autowired rules: List<JsonRule>,
     @Throws(java.lang.Exception::class)
     override fun createRuleChecker(swaggerContent: String): (JsonRule) -> Iterable<Violation> {
         val swaggerJson = jsonTreeReader.read(swaggerContent)
-        return { rule -> rule.validate(swaggerJson) }
+        return {
+            if (it.accepts(swaggerJson)) it.validate(swaggerJson)
+            else emptyList()
+        }
     }
 
 }
