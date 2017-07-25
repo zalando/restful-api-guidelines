@@ -126,4 +126,15 @@ class UseProblemJsonRuleTest {
             "/request-groups/{request_group_id}/updates GET 429"
         ))
     }
+
+    @Test
+    fun shouldNotThrowExOnSchemasWithReferencesToEmptyDefinitions() {
+        val swagger = getFixture("missing_definitions.yaml")
+        val result = UseProblemJsonRule().validate(swagger)!!
+        assertThat(result.paths).hasSameElementsAs(listOf(
+                "/identifier-types/{identifier_type}/source-ids/{source_identifier} GET 401",
+                "/identifier-types/{identifier_type}/source-ids/{source_identifier} GET 403",
+                "/identifier-types/{identifier_type}/source-ids/{source_identifier} GET 404"
+        ))
+    }
 }
