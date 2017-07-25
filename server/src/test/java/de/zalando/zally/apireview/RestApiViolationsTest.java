@@ -82,6 +82,15 @@ public class RestApiViolationsTest extends RestApiBaseTest {
     }
 
     @Test
+    public void shouldIgnoreRulesWithVendorExtension() throws IOException {
+        ApiDefinitionResponse response = sendApiDefinition(readApiDefinition("fixtures/api_spp_ignored_rules.json"));
+
+        List<ViolationDTO> violations = response.getViolations();
+        assertThat(violations).hasSize(1);
+        assertThat(violations.get(0).getTitle()).isEqualTo("dummy2");
+    }
+
+    @Test
     public void shouldRespondWithBadRequestOnMalformedJson() throws IOException {
         ResponseEntity<ErrorResponse> responseEntity = sendApiDefinition(
                 ApiDefinitionRequest.Factory.fromJson("{\"malformed\": \"dummy\""),
