@@ -3,6 +3,7 @@ package de.zalando.zally.rule
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
+import java.net.URL
 
 class ObjectTreeReader {
 
@@ -22,6 +23,12 @@ class ObjectTreeReader {
 
     fun readYaml(content: String): JsonNode =
             yamlMapper.readTree(content)
+
+    fun readYaml(yamlUrl: URL): JsonNode =
+            yamlMapper.readTree(yamlUrl)
+
+    fun readJson(jsonUrl: URL): JsonNode =
+            jsonMapper.readTree(jsonUrl)
 
     private fun isYaml(specContent: String): Boolean =
             !specContent.matches(jsonRegex)

@@ -1,5 +1,6 @@
 package de.zalando.zally.rule
 
+import com.typesafe.config.ConfigFactory
 import de.zalando.zally.getResourceJson
 import de.zalando.zally.testConfig
 import org.assertj.core.api.Assertions.assertThat
@@ -58,6 +59,36 @@ class InvalidApiSchemaRuleTest {
         assertThat(validations[0].paths[0]).isEqualTo("/definitions/PetAnyOf")
         assertThat(validations[1].paths[0]).isEqualTo("/definitions/PetOneOf")
         assertThat(validations[2].paths[0]).isEqualTo("/paths/~1pets/post/parameters/1")
+    }
+
+    @Test
+    fun shouldLoadSchemaFromResourceIfUrlNotSpecified() {
+        val config = ConfigFactory.parseString("""
+        InvalidApiSchemaRule {
+             // swagger_schema_url not defined
+        }
+        """)
+
+        val swaggerJson = getResourceJson("common_fields_invalid.yaml")
+        val validations = InvalidApiSchemaRule(config).validate(swaggerJson)
+        assertThat(validations).hasSize(1)
+        assertThat(validations[0].description).isEqualTo("""object has missing required properties (["paths"])""")
+
+    }
+
+    @Test
+    fun shouldLoadSchemaFromResourceIfLoadFromUrlFailed() {
+        val config = ConfigFactory.parseString("""
+        InvalidApiSchemaRule {
+             swagger_schema_url: "http://localhost/random_url.html"
+        }
+        """)
+
+        val swaggerJson = getResourceJson("common_fields_invalid.yaml")
+        val validations = InvalidApiSchemaRule(config).validate(swaggerJson)
+        assertThat(validations).hasSize(1)
+        assertThat(validations[0].description).isEqualTo("""object has missing required properties (["paths"])""")
+
     }
 
 }
