@@ -1,0 +1,58 @@
+swagger: '2.0'
+info:
+  title: Product Service
+  version: 1.0.0
+
+parameters:
+  identifier_type:
+    name: identifier_type
+    description: Specifies the type of the customer identifier.
+    in: path
+    type: string
+    x-extensible-enum:
+      - customer_hash
+      - cookie_id
+      - fullvisitorid
+      - client_id
+      - idfa
+    required: true
+
+  target_identifier_type:
+    name: identifier_type
+    description: Specifies what type of customer identifiers to be returned
+    in: query
+    type: string
+    x-extensible-enum:
+      - customer_hash
+      - cookie_id
+      - fullvisitorid
+      - client_id
+      - idfa
+    required: false
+
+paths:
+  /identifier-types/{identifier_type}/source-ids/{source_identifier}:
+    get:
+      tags:
+        - id-mappings
+      description: List of identifiers associated with the source id.
+      parameters:
+        - $ref: '#/parameters/identifier_type'
+        - $ref: '#/parameters/source_identifier'
+        - $ref: '#/parameters/target_identifier_type'
+      responses:
+        200:
+          description: The identifiers associated with the source id.
+          schema:
+            $ref: '#/definitions/IdMappingResults'
+        401:
+          description: User is not authenticated
+        403:
+          description: User is not authorized
+        404:
+          description: Identifier is not found
+          schema:
+            $ref: '#definitions/Problem'
+      security:
+        - oauth2:
+          - 'cross-device-graph-service.read'

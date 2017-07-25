@@ -3,6 +3,8 @@ package de.zalando.zally.rule
 import com.fasterxml.jackson.databind.JsonNode
 import com.github.fge.jsonschema.cfg.ValidationConfiguration
 import com.github.fge.jsonschema.core.exceptions.ProcessingException
+import com.github.fge.jsonschema.core.load.configuration.LoadingConfiguration
+import com.github.fge.jsonschema.core.load.uri.URITranslatorConfiguration
 import com.github.fge.jsonschema.core.report.ProcessingMessage
 import com.github.fge.jsonschema.main.JsonSchemaFactory
 import com.github.fge.jsonschema.messages.JsonSchemaValidationBundle
@@ -11,7 +13,7 @@ import com.github.fge.msgsimple.load.MessageBundles
 import com.github.fge.msgsimple.source.PropertiesMessageSource
 import java.io.IOException
 
-class JsonSchemaValidator(val schema: JsonNode) {
+class JsonSchemaValidator(val schema: JsonNode, schemaRedirects: Map<String, String> = mapOf()) {
 
     data class ValidationResult(
             val isSuccess: Boolean,
@@ -32,7 +34,7 @@ class JsonSchemaValidator(val schema: JsonNode) {
     private val factory: JsonSchemaFactory
 
     init {
-        factory = createValidatorFactory()
+        factory = createValidatorFactory(schemaRedirects)
     }
 
     @Throws(ProcessingException::class, IOException::class)
@@ -78,11 +80,28 @@ class JsonSchemaValidator(val schema: JsonNode) {
         return ValidationMessage(message + schemaPath, specPath)
     }
 
-    private fun createValidatorFactory(): JsonSchemaFactory {
+    private fun createValidatorFactory(schemaRedirects: Map<String, String>): JsonSchemaFactory {
         val validationMessages = getValidationMessagesBundle()
-        val validationConfiguration = ValidationConfiguration.newBuilder().setValidationMessages(validationMessages).freeze()
+        val validationConfiguration = ValidationConfiguration.newBuilder()
+                .setValidationMessages(validationMessages)
+                .freeze()
 
-        return JsonSchemaFactory.newBuilder().setValidationConfiguration(validationConfiguration).freeze()
+        val loadingConfig = createLoadingConfiguration(schemaRedirects)
+
+        return JsonSchemaFactory.newBuilder()
+                .setValidationConfiguration(validationConfiguration)
+                .setLoadingConfiguration(loadingConfig)
+                .freeze()
+    }
+
+    private fun createLoadingConfiguration(schemaRedirects: Map<String, String>): LoadingConfiguration? {
+        val urlTranslatorConfig = URITranslatorConfiguration.newBuilder()
+        schemaRedirects.forEach { (from, to) -> urlTranslatorConfig.addSchemaRedirect(from, to) }
+
+        val loadingConfig = LoadingConfiguration.newBuilder()
+                .setURITranslatorConfiguration(urlTranslatorConfig.freeze())
+                .freeze()
+        return loadingConfig
     }
 
     private fun getValidationMessagesBundle(): MessageBundle {
