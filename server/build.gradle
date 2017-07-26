@@ -23,6 +23,7 @@ buildscript {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
         classpath "org.jetbrains.kotlin:kotlin-allopen:$kotlin_version"
         classpath('com.github.ben-manes:gradle-versions-plugin:0.14.0')
+        classpath('de.undercouch:gradle-download-task:3.2.0')
     }
 }
 
@@ -32,6 +33,7 @@ apply plugin: 'kotlin-allopen'
 apply plugin: 'jacoco'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'com.github.ben-manes.versions'
+apply plugin: 'de.undercouch.download'
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.14.1'
@@ -108,4 +110,17 @@ check.dependsOn ktlint
 
 bootRun {
     jvmArgs = ["-Dspring.profiles.active=dev"]
+}
+
+task downloadSwaggerSchema {
+    doFirst {
+        download {
+            src 'http://swagger.io/v2/schema.json'
+            dest "$rootDir/src/main/resources/schemas/swagger-schema.json"
+        }
+        download {
+            src 'http://json-schema.org/draft-04/schema'
+            dest "$rootDir/src/main/resources/schemas/json-schema.json"
+        }
+    }
 }

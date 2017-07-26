@@ -26,7 +26,6 @@ an API check.
     ```
     The bootRun task is configured to run with 'dev' profile by default.
 
-
 ## Usage
 
 We recommend to use [Zally's CLI tool](../cli). Otherwise you can use any other 
@@ -75,3 +74,9 @@ tool to issue an HTTP request, see below for details.
         --data "@test.json" \
         localhost:8080/api-violations
     ```
+
+The 'downloadSwaggerSchema' task can be used to update Swagger schema in project resources (/src/main/resources/schemas): 
+
+```$bash
+./gradlew downloadSwaggerSchema
+```
