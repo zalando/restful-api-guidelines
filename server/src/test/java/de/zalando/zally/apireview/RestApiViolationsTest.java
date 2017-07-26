@@ -2,20 +2,30 @@ package de.zalando.zally.apireview;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.google.common.collect.ImmutableMap;
+import de.zalando.zally.configuration.WebMvcConfiguration;
 import de.zalando.zally.dto.ApiDefinitionRequest;
 import de.zalando.zally.dto.ApiDefinitionResponse;
 import de.zalando.zally.dto.ViolationDTO;
 import de.zalando.zally.exception.MissingApiDefinitionException;
 import de.zalando.zally.util.ErrorResponse;
 import de.zalando.zally.util.JadlerUtil;
+import de.zalando.zally.util.ResourceUtil;
 import net.jadler.stubbing.server.jdk.JdkStubHttpServer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.autoconfigure.LocalManagementPort;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -36,6 +46,9 @@ public class RestApiViolationsTest extends RestApiBaseTest {
 
     @LocalManagementPort
     private int managementPort;
+
+    @Autowired
+    private WebApplicationContext wac;
 
     @Before
     public void setUp() {
@@ -202,5 +215,32 @@ public class RestApiViolationsTest extends RestApiBaseTest {
 
         assertThat(apiReviewRepository.count()).isEqualTo(1L);
         assertThat(apiReviewRepository.findAll().iterator().next().isSuccessfulProcessed()).isFalse();
+    }
+
+    @Test
+    public void shouldAcceptYamlAndRespondwithJson() throws Exception {
+        MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/api-violations")
+                .contentType(WebMvcConfiguration.MEDIA_TYPE_APP_XYAML)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(ResourceUtil.resourceToString("fixtures/api_violations_request.yaml"));
+
+        MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+        assertThat(result.getResponse().getStatus()).isEqualTo(200);
+        assertThat(result.getResponse().getContentType()).isEqualTo(MediaType.APPLICATION_JSON_UTF8_VALUE);
+    }
+
+    @Test
+    public void shouldNotAcceptYamlWithoutCorrectContentType() throws Exception {
+        MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/api-violations")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(ResourceUtil.resourceToString("fixtures/api_violations_request.yaml"));
+
+        MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+        assertThat(result.getResponse().getStatus()).isEqualTo(400);
     }
 }
