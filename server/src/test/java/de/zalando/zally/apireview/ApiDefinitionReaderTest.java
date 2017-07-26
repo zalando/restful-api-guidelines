@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.web.client.RestTemplate;
 
+import static java.util.Collections.emptyList;
 import static net.jadler.Jadler.closeJadler;
 import static net.jadler.Jadler.initJadlerUsing;
 import static org.junit.Assert.assertEquals;
@@ -39,7 +40,7 @@ public class ApiDefinitionReaderTest {
 
     @Test
     public void shouldReturnStringWhenApiDefinitionIsFound() {
-        ApiDefinitionRequest request = new ApiDefinitionRequest(contentInJson, "http://zalando.de");
+        ApiDefinitionRequest request = new ApiDefinitionRequest(contentInJson, "http://zalando.de", emptyList());
         String result = reader.read(request);
         assertEquals(contentInJson, result);
     }

@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -84,6 +85,17 @@ public class RestApiViolationsTest extends RestApiBaseTest {
     @Test
     public void shouldIgnoreRulesWithVendorExtension() throws IOException {
         ApiDefinitionResponse response = sendApiDefinition(readApiDefinition("fixtures/api_spp_ignored_rules.json"));
+
+        List<ViolationDTO> violations = response.getViolations();
+        assertThat(violations).hasSize(1);
+        assertThat(violations.get(0).getTitle()).isEqualTo("dummy2");
+    }
+
+    @Test
+    public void shouldIgnoreRulesWithApiParameter() throws IOException {
+        ApiDefinitionRequest request = readApiDefinition("fixtures/api_spp.json");
+        request.setIgnoreRules(Arrays.asList("M001", "M999"));
+        ApiDefinitionResponse response = sendApiDefinition(request);
 
         List<ViolationDTO> violations = response.getViolations();
         assertThat(violations).hasSize(1);

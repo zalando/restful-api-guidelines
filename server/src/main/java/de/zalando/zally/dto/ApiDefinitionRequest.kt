@@ -10,7 +10,9 @@ data class ApiDefinitionRequest (
     @JsonDeserialize(using = JsonRawValueDeserializer::class)
     var apiDefinition: String? = null,
 
-    var apiDefinitionUrl: String? = null
+    var apiDefinitionUrl: String? = null,
+
+    var ignoreRules: List<String>? = emptyList()
 ) {
     /** for java invocations: it doesn't have overloaded constructors */
     companion object Factory {
