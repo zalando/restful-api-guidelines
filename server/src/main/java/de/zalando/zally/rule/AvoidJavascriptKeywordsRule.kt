@@ -11,8 +11,7 @@ import org.springframework.stereotype.Component
 class AvoidJavascriptKeywordsRule(@Autowired rulesConfig: Config) : SwaggerRule() {
 
     override val title = "Avoid reserved Javascript keywords"
-    override val url = "http://zalando.github.io/restful-api-guidelines/naming/Naming.html" +
-        "#should-reserved-javascript-keywords-should-be-avoided"
+    override val url = "/naming/Naming.html#should-reserved-javascript-keywords-should-be-avoided"
     override val violationType = ViolationType.SHOULD
     override val code = "S001"
     private val DESC_PATTERN = "Property names should not coincide with reserved javascript keywords"

@@ -6,6 +6,7 @@ import de.zalando.zally.dto.ViolationType;
 import de.zalando.zally.util.ErrorResponse;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
 
@@ -24,15 +25,22 @@ public class RestSupportedRulesTest extends RestApiBaseTest {
     @Autowired
     private List<Rule> implementedRules;
 
+    @Value("${zally.apiGuidelinesBaseUrl:something went wrong!}")
+    private String baseUrl;
+
     @Test
     public void testRulesCount() {
         assertThat(getSupportedRules().size()).isEqualTo(implementedRules.size());
     }
 
     @Test
-    public void testRulesFieldsAreNotNull() {
+    public void testRulesFields() {
         for (RuleDTO rule : getSupportedRules()) {
-            assertThat(rule.getCode()).as("Rule: " + rule.getTitle()).isNotNull();
+            assertThat(rule.getCode()).isNotEmpty();
+            assertThat(rule.getTitle()).isNotEmpty();
+            assertThat(rule.getType()).isNotNull();
+            assertThat(rule.getUrl()).isNotNull();
+            assertThat(rule.getUrl()).startsWith(baseUrl);
         }
     }
 

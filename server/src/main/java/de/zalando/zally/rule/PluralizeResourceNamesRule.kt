@@ -11,8 +11,7 @@ import org.springframework.stereotype.Component
 @Component
 class PluralizeResourceNamesRule(@Autowired rulesConfig: Config) : SwaggerRule() {
     override val title = "Pluralize Resource Names"
-    override val url = "http://zalando.github.io/restful-api-guidelines/naming/Naming.html" +
-        "#must-pluralize-resource-names"
+    override val url = "/naming/Naming.html#must-pluralize-resource-names"
     override val violationType = ViolationType.SHOULD
     override val code = "S008"
     private val DESC_PATTERN = "Resources %s are singular (but we are not sure)"

@@ -9,8 +9,7 @@ import org.springframework.stereotype.Component
 @Component
 class NotSpecifyStandardErrorCodesRule(@Autowired rulesConfig: Config) : SwaggerRule() {
     override val title = "Not Specify Standard Error Codes"
-    override val url = "http://zalando.github.io/restful-api-guidelines/http/Http.html" +
-            "#must-provide-error-documentation"
+    override val url = "/http/Http.html#must-provide-error-documentation"
     override val violationType = ViolationType.HINT
     override val code = "H002"
     private val description = "Not Specify Standard Error Status Codes Like 400, 404, 503 " +

@@ -11,8 +11,7 @@ import org.springframework.stereotype.Component
 @Component
 class CommonFieldTypesRule(@Autowired rulesConfig: Config) : SwaggerRule() {
     override val title = "Use common field names"
-    override val url = "http://zalando.github.io/restful-api-guidelines/common-data-objects/CommonDataObjects.html" +
-        "#must-use-common-field-names"
+    override val url = "/common-data-objects/CommonDataObjects.html#must-use-common-field-names"
     override val violationType = ViolationType.MUST
     override val code = "M003"
 

@@ -13,8 +13,7 @@ class SuccessResponseAsJsonObjectRule : SwaggerRule() {
 
     override val title = "Response As JSON Object"
     override val violationType = ViolationType.MUST
-    override val url = "https://zalando.github.io/restful-api-guidelines/compatibility/Compatibility.html" +
-        "#must-always-return-json-objects-as-toplevel-data-structures-to-support-extensibility"
+    override val url = "/compatibility/Compatibility.html#must-always-return-json-objects-as-toplevel-data-structures-to-support-extensibility"
     override val code = "M013"
     private val DESCRIPTION = "Always Return JSON Objects As Top-Level Data Structures To Support Extensibility"
 

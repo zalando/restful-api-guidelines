@@ -18,8 +18,7 @@ open class InvalidApiSchemaRule(@Autowired rulesConfig: Config) : JsonRule() {
 
     override val title = "OpenAPI 2.0 schema"
     override val violationType = ViolationType.MUST
-    override val url = "http://zalando.github.io/restful-api-guidelines/general-guidelines/GeneralGuidelines.html" +
-            "#must-provide-api-reference-definition-using-openapi"
+    override val url = "/general-guidelines/GeneralGuidelines.html#must-provide-api-reference-definition-using-openapi"
     override val code = "M000"
     open val description = "Given file is not OpenAPI 2.0 compliant."
 
