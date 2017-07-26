@@ -1,11 +1,11 @@
 package de.zalando.zally.apireview;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.zalando.zally.Application;
 import de.zalando.zally.dto.ApiDefinitionRequest;
 import de.zalando.zally.dto.ApiDefinitionResponse;
+import de.zalando.zally.dto.RuleDTO;
+import de.zalando.zally.dto.RulesListDTO;
+import de.zalando.zally.statistic.ReviewStatistics;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.web.util.UriComponentsBuilder.fromPath;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(
@@ -27,9 +31,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 public abstract class RestApiBaseTest {
 
     public static final String API_VIOLATIONS_URL = "/api-violations";
-    public static final String APPLICATION_PROBLEM_JSON = "application/problem+json";
     public static final String REVIEW_STATISTICS_URL = "/review-statistics";
     public static final String SUPPORTED_RULES_URL = "/supported-rules";
+
+    public static final String APPLICATION_PROBLEM_JSON = "application/problem+json";
 
     @Autowired
     protected TestRestTemplate restTemplate;
@@ -40,15 +45,6 @@ public abstract class RestApiBaseTest {
     @Before
     public void cleanDatabase() {
         apiReviewRepository.deleteAll();
-    }
-
-    protected ResponseEntity<JsonNode> sendRequest(JsonNode body) {
-        ObjectNode requestBody = new ObjectMapper().createObjectNode();
-        requestBody.set("api_definition", body);
-        return restTemplate.postForEntity(
-            API_VIOLATIONS_URL,
-            requestBody,
-            JsonNode.class);
     }
 
     protected final <T> ResponseEntity<T> sendApiDefinition(ApiDefinitionRequest request, Class<T> responseType) {
@@ -62,5 +58,44 @@ public abstract class RestApiBaseTest {
 
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         return responseEntity.getBody();
+    }
+
+
+    protected final <T> ResponseEntity<T> getReviewStatistics(Object from, Object to, Class<T> responseType) {
+        String url = fromPath(REVIEW_STATISTICS_URL)
+                .queryParam("from", from)
+                .queryParam("to", to)
+                .build().encode().toUriString();
+
+        return restTemplate.getForEntity(url, responseType);
+    }
+
+    protected final ReviewStatistics getReviewStatistics() {
+        return getReviewStatistics(null, null);
+    }
+
+    protected final ReviewStatistics getReviewStatistics(LocalDate from, LocalDate to) {
+        ResponseEntity<ReviewStatistics> responseEntity = getReviewStatistics(from, to, ReviewStatistics.class);
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        return responseEntity.getBody();
+    }
+
+    protected final List<RuleDTO> getSupportedRules() {
+        return getSupportedRules(null, null);
+    }
+
+    protected final List<RuleDTO> getSupportedRules(String ruleType, Boolean active) {
+        ResponseEntity<RulesListDTO> responseEntity = getSupportedRules(ruleType, active, RulesListDTO.class);
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        return responseEntity.getBody().getRules();
+    }
+
+    protected final <T> ResponseEntity<T> getSupportedRules(String ruleType, Boolean active, Class<T> responseType) {
+        String url = fromPath(SUPPORTED_RULES_URL)
+                .queryParam("type", ruleType)
+                .queryParam("is_active", active)
+                .build().encode().toUriString();
+
+        return restTemplate.getForEntity(url, responseType);
     }
 }
