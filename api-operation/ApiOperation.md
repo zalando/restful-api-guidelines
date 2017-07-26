@@ -5,10 +5,17 @@
 All service applications must support access to the OpenAPI Reference Definitions of their external APIs — it
 is optional for internal APIs — via the following two API endpoints:  
 
-* endpoint(s) for GET access on its OpenAPI definition(s), for instance
-  `https://example.com/swagger.json` or `https://example.com/swagger.yaml`.
-* API Discovery endpoint `https://example.com/.well-known/schema-discovery` that delivers
-  the OpenAPI definition endpoint(s) above (see the link below for a description of its format).
+* endpoint(s) for GET access on its OpenAPI definition(s), for instance `https://example.com/swagger.json` or `https://example.com/swagger.yaml`.
+* API Discovery endpoint `https://example.com/.well-known/schema-discovery` that delivers a JSON discovery document of the following form (adapt the `schema_url` to point to the endpoint mentioned above):
+
+    ```
+    {
+        "schema_url": "/swagger.json",
+        "schema_type": "swagger-2.0",
+        "ui_url": "/ui/"
+    }
+    ```
+
 * whether these endpoints have to be secured by OAuth depends on context of your API and product management
 * if you secure these endpoint, only use `uid` scope
 
@@ -21,12 +28,10 @@ another application owned by a different team or even an external business partn
 An internal API is only used within the application and only by the owning team, for instance,
 for operational or implementation internal purposes.
 
-Background: In our dynamic and complex service infrastructure, it is important to provide API client
-developers a central place with online access to the OpenAPI reference definitions of all running applications.
-[API Discovery](https://github.com/zalando-incubator/api-discovery) is an API definition
-crawler of the Zalando platform infrastructure; it checks all running applications via the endpoint above and
-stores the discovered API definitions. API Discovery itself provides a RESTful API as well as an
-API Viewer (Swagger-UI) for central access to all discovered API definitions.
+Background: In our dynamic and complex service infrastructure, it is important to provide API client developers a central place with online access to the OpenAPI reference definitions of all running applications.
+As a part of the Zalando infrastructure, the `.well-known/schema-discovery` endpoint is used by the API Discovery to detect all API definitions.
+It checks all running applications via the endpoint above and stores the discovered API definitions.
+API Discovery itself provides a RESTful API as well as an API Viewer (Swagger-UI) for central access to all discovered API definitions.
 
 Editorial: For the time being, this document is an appropriate place to mention this rule, even though it is
 not a RESTful API definition rule but related to service implementation obligations to support client developer API discovery.
