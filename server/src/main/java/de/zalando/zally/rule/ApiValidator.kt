@@ -1,5 +1,5 @@
 package de.zalando.zally.rule
 
 interface ApiValidator {
-    fun validate(swaggerContent: String): List<Violation>
+    fun validate(swaggerContent: String, ignoreRules: List<String> = emptyList()): List<Violation>
 }

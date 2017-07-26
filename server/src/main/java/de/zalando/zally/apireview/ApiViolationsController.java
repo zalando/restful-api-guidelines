@@ -53,8 +53,8 @@ public class ApiViolationsController {
     public ApiDefinitionResponse validate(@RequestBody ApiDefinitionRequest request) {
         metricServices.increment("meter.api-reviews.requested");
 
-        final String apiDefinition = retrieveApiDefinition(request);
-        final List<Violation> violations = rulesValidator.validate(apiDefinition);
+        String apiDefinition = retrieveApiDefinition(request);
+        List<Violation> violations = rulesValidator.validate(apiDefinition, request.getIgnoreRules());
         apiReviewRepository.save(new ApiReview(request, apiDefinition, violations));
 
         ApiDefinitionResponse response = buildApiDefinitionResponse(violations);
