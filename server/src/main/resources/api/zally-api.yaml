@@ -179,6 +179,10 @@ definitions:
         type: object
       api_definition_url:
         type: string
+      ignoreRules:
+        type: array
+        items:
+          type: string
 
   LintingResponse:
     type: object
