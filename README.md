@@ -13,7 +13,7 @@ Minimalistic API linter of awesomeness, bringing order to a sea of APIs.
 - Does not require a deployed service, only an API definition.
 - Accepts [swagger](https://swagger.io) yaml and json formats.
 - Easy-to-use [CLI](cli/README.md) allows you to check your API *right now*.
-- [Web UI](https://github.com/zalando-incubator/zally-web-ui) provides an intuitive web interface with tons of features.
+- [Web UI](web-ui/README.md) provides an intuitive web interface with tons of features.
 
 ### Core Technical Concepts
 
