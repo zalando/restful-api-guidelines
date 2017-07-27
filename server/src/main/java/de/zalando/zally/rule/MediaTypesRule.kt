@@ -10,8 +10,7 @@ import org.springframework.stereotype.Component
 class MediaTypesRule : SwaggerRule() {
 
     override val title = "Prefer standard media type names"
-    override val url = "http://zalando.github.io/restful-api-guidelines/data-formats/DataFormats.html" +
-        "#should-prefer-standard-media-type-name-applicationjson"
+    override val url = "/data-formats/DataFormats.html#should-prefer-standard-media-type-name-applicationjson"
     override val violationType = ViolationType.SHOULD
     override val code = "S004"
     private val DESCRIPTION = "Custom media types should only be used for versioning"

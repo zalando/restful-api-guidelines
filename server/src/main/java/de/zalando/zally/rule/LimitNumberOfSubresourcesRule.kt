@@ -10,8 +10,7 @@ import org.springframework.stereotype.Component
 @Component
 class LimitNumberOfSubresourcesRule(@Autowired rulesConfig: Config) : SwaggerRule() {
     override val title = "Limit number of Sub-resources level"
-    override val url = "http://zalando.github.io/restful-api-guidelines/resources/Resources.html" +
-        "#should-limit-number-of-subresource-levels"
+    override val url = "/resources/Resources.html#should-limit-number-of-subresource-levels"
     override val violationType = ViolationType.SHOULD
     override val code = "S003"
     private val DESC = "Number of sub-resources should not exceed 3"

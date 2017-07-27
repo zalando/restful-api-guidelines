@@ -11,8 +11,7 @@ import org.springframework.stereotype.Component
 @Component
 class UseSpecificHttpStatusCodes(@Autowired rulesConfig: Config) : SwaggerRule() {
     override val title = "Use Specific HTTP Status Codes"
-    override val url = "http://zalando.github.io/restful-api-guidelines/http/Http.html" +
-        "#must-use-specific-http-status-codes"
+    override val url = "/http/Http.html#must-use-specific-http-status-codes"
 
     // as a quick fix this rule is only SHOULD (normally MUST), see https://github.com/zalando-incubator/zally/issues/374
     override val violationType = ViolationType.SHOULD

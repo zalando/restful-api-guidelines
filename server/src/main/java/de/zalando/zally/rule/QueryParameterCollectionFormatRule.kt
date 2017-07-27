@@ -8,7 +8,7 @@ import io.swagger.models.parameters.QueryParameter
 class QueryParameterCollectionFormatRule : SwaggerRule() {
 
     override val title = "Explicitly define the Collection Format of Query Parameters"
-    override val url = "http://zalando.github.io/restful-api-guidelines/http/Http.html#should-explicitly-define-the-collection-format-of-query-parameters"
+    override val url = "/http/Http.html#should-explicitly-define-the-collection-format-of-query-parameters"
     override val violationType = ViolationType.SHOULD
     override val code = "S011"
     val formatsAllowed = listOf("csv", "multi")

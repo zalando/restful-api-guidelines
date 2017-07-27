@@ -9,8 +9,7 @@ import org.springframework.stereotype.Component
 @Component
 class PluralizeNamesForArraysRule : SwaggerRule() {
     override val title = "Array names should be pluralized"
-    override val url = "http://zalando.github.io/restful-api-guidelines/json-guidelines/JsonGuidelines.html" +
-        "#should-array-names-should-be-pluralized"
+    override val url = "/json-guidelines/JsonGuidelines.html#should-array-names-should-be-pluralized"
     override val violationType = ViolationType.SHOULD
     override val code = "S007"
 

@@ -22,8 +22,7 @@ import org.springframework.stereotype.Component
 @Component
 class ExtensibleEnumRule : SwaggerRule() {
     override val title = "Prefer Compatible Extensions"
-    override val url = "http://zalando.github.io/restful-api-guidelines/compatibility/Compatibility.html" +
-        "#should-prefer-compatible-extensions"
+    override val url = "/compatibility/Compatibility.html#should-prefer-compatible-extensions"
     override val violationType = SHOULD
     override val code = "S012"
 

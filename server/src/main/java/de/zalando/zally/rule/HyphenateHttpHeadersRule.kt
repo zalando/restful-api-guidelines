@@ -9,8 +9,7 @@ import org.springframework.stereotype.Component
 @Component
 class HyphenateHttpHeadersRule(@Autowired rulesConfig: Config) : HttpHeadersRule(rulesConfig) {
     override val title = "Use Hyphenated HTTP Headers"
-    override val url = "http://zalando.github.io/restful-api-guidelines/naming/Naming.html" +
-        "#must-use-hyphenated-http-headers"
+    override val url = "/naming/Naming.html#must-use-hyphenated-http-headers"
     override val violationType = ViolationType.MUST
     override val code = "M006"
 

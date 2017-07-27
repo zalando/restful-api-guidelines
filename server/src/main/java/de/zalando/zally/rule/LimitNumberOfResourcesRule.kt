@@ -9,8 +9,7 @@ import org.springframework.stereotype.Component
 @Component
 class LimitNumberOfResourcesRule(@Autowired rulesConfig: Config) : SwaggerRule() {
     override val title = "Limit number of Resources"
-    override val url = "http://zalando.github.io/restful-api-guidelines/resources/Resources.html" +
-        "#should-limit-number-of-resources"
+    override val url = "/resources/Resources.html#should-limit-number-of-resources"
     override val violationType = ViolationType.SHOULD
     override val code = "S002"
     private val pathCountLimit = rulesConfig.getConfig(name).getInt("paths_count_limit")
