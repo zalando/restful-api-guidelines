@@ -58,6 +58,16 @@ script:
   # Kill Zally server instace
   - kill -9 `cat /tmp/zally_server.pid`
 
+  # Unit-test web UI
+  - cd web-ui
+  - node --version
+  - npm --version
+  - npm install -q
+  - npm test
+  - npm run build
+  - npm run codecov
+  - cd $TRAVIS_BUILD_DIR
+  
 after_success:
   - java -cp ~/codacy-coverage-reporter.jar com.codacy.CodacyCoverageReporter --language Java --coverageReport cli/build/reports/jacoco/test/jacocoTestReport.xml -t $CODACY_PROJECT_TOKEN
   - java -cp ~/codacy-coverage-reporter.jar com.codacy.CodacyCoverageReporter --language Java --coverageReport server/build/reports/jacoco/test/jacocoTestReport.xml -t $CODACY_PROJECT_TOKEN

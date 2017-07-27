@@ -8,3 +8,8 @@ scm-source.json
 out/
 **/classes/
 
+*node_modules
+*.env*
+*.log
+
+target
