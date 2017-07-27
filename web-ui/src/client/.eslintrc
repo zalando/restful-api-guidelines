@@ -1,0 +1,16 @@
+env:
+  browser: true
+parserOptions:
+  sourceType: module
+  ecmaFeatures:
+    experimentalObjectRestSpread: true
+    jsx: true
+plugins:
+  - "react"
+rules:
+  strict: 0
+  react/jsx-uses-react: 2
+  react/jsx-uses-vars: 2
+
+
+
