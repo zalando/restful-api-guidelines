@@ -21,6 +21,7 @@ Not feature-complete, in active development
 1. Get dependencies:
 
     ```bash
+    cd $GOPATH/github.com/zalando-incubator/zally/cli-go/zally
     go get -t -v
     ```
 
