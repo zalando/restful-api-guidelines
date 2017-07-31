@@ -4,10 +4,11 @@ import (
 	"strings"
 )
 
-// Violations stores list of violations
+// Violations stores api_violations response
 type Violations struct {
 	Violations      []Violation     `json:"violations"`
 	ViolationsCount ViolationsCount `json:"violations_count"`
+	Message         string          `json:"message"`
 }
 
 // Must returns must violations
