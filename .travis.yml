@@ -36,7 +36,7 @@ script:
   - cd ..
 
   # Wait until Spring Boot will start
-  - while ! echo "GET / HTTP/1.0\n" | nc localhost 8080; do sleep 3; done
+  - while ! echo "GET / HTTP/1.0\n" | nc localhost 8080; do sleep 1; done
 
   # Run CLI integration test
   - ./cli/integration_tests/tests.bats
@@ -49,10 +49,6 @@ script:
   - go get -t
   - go test -v -cover ./...
   - go build
-  - cd ../..
-
-  # Run Go version of CLI integration test
-  - ./cli-go/integration_tests/tests.bats
   - cd $TRAVIS_BUILD_DIR
 
   # Kill Zally server instace
