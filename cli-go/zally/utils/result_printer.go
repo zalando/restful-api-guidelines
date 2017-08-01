@@ -58,6 +58,7 @@ func (r *ResultPrinter) PrintViolations(v *domain.Violations) {
 		fmt.Fprint(r.buffer, r.formatHeader("Summary:"))
 		fmt.Fprint(r.buffer, r.formatViolationsCount(&v.ViolationsCount))
 	}
+	r.printServerMessage(v.Message)
 }
 
 func (r *ResultPrinter) printViolations(header string, violations []domain.Violation) {
@@ -66,6 +67,12 @@ func (r *ResultPrinter) printViolations(header string, violations []domain.Viola
 		for _, violation := range violations {
 			fmt.Fprint(r.buffer, r.formatViolation(&violation))
 		}
+	}
+}
+
+func (r *ResultPrinter) printServerMessage(message string) {
+	if message != "" {
+		fmt.Fprintf(r.buffer, "\n\n%s%s\n\n\n", r.formatHeader("Server message:"), aurora.Green(message))
 	}
 }
 

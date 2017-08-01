@@ -169,6 +169,7 @@ func TestPrintViolations(t *testing.T) {
 	var violations domain.Violations
 	violations.Violations = []domain.Violation{mustViolation, shouldViolation}
 	violations.ViolationsCount = violationsCount
+	violations.Message = "Hello world!"
 
 	t.Run("printViolations prints violations and header", func(t *testing.T) {
 		buffer.Reset()
@@ -206,7 +207,8 @@ func TestPrintViolations(t *testing.T) {
 
 		actualResult := string(buffer.Bytes())
 		expectedResult := fmt.Sprintf(
-			"MUST\n====\n\n%sSHOULD\n======\n\n%sSummary:\n========\n\n%s",
+			"MUST\n====\n\n%sSHOULD\n======\n\n%sSummary:\n========\n\n%s\n\n"+
+				"Server message:\n===============\n\n\x1b[32mHello world!\x1b[0m\n\n\n",
 			resultPrinter.formatViolation(&mustViolation),
 			resultPrinter.formatViolation(&shouldViolation),
 			resultPrinter.formatViolationsCount(&violationsCount))
@@ -249,6 +251,29 @@ func TestViolationsCount(t *testing.T) {
 		actualResult := resultPrinter.formatViolationsCount(&count)
 		expectedResult := "MUST violations: 1\nSHOULD violations: 2\nMAY violations: 3\nHINT violations: 4\n"
 
+		tests.AssertEquals(t, expectedResult, actualResult)
+	})
+}
+
+func TestPrintServerMessage(t *testing.T) {
+	t.Run("Prints nothing when no message", func(t *testing.T) {
+		var buffer bytes.Buffer
+		resultPrinter := NewResultPrinter(&buffer)
+
+		resultPrinter.printServerMessage("")
+
+		actualResult := string(buffer.Bytes())
+		tests.AssertEquals(t, "", actualResult)
+	})
+
+	t.Run("Prints message when specified", func(t *testing.T) {
+		var buffer bytes.Buffer
+		resultPrinter := NewResultPrinter(&buffer)
+
+		resultPrinter.printServerMessage("Hello world!")
+
+		actualResult := string(buffer.Bytes())
+		expectedResult := "\n\nServer message:\n===============\n\n\x1b[32mHello world!\x1b[0m\n\n\n"
 		tests.AssertEquals(t, expectedResult, actualResult)
 	})
 }
