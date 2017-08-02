@@ -136,3 +136,15 @@ GET /order/123?embed=(items) HTTP/1.1
   }
 }
 ```
+
+## {{ book.must }} Not Implement Client-Side Caching If Not Supported by the API Provider
+
+API consumers must not implement client-side caching.
+By default, the API producers don't support this.
+Client-side caching is only allowed if the support is explicitly specified by the API producer.
+
+If an API producer wants to allow client-side caching, he must specify the support in the API definition explicitly.
+In this case, the producer must also set the `Vary` headers ([RFC-7234](https://tools.ietf.org/html/rfc7234#section-4.1)).
+
+Zalando's [proprietary headers](http://zalando.github.io/restful-api-guidelines/headers/ProprietaryHeaders.html) can affect the query results.
+Existing caching solutions and libraries are not aware of the semantics and expected implications to the caching.
