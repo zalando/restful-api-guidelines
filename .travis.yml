@@ -19,11 +19,6 @@ before_install:
 install: true
 
 script:
-  # Unit-test and build CLI tool
-  - cd cli/
-  - ./gradlew build --info
-  - cd ..
-
   # Unit-test and build server
   - cd server/
   - ./gradlew build --info
@@ -38,14 +33,11 @@ script:
   # Wait until Spring Boot will start
   - while ! echo "GET / HTTP/1.0\n" | nc localhost 8080; do sleep 1; done
 
-  # Run CLI integration test
-  - ./cli/integration_tests/tests.bats
-
-  # Unit-test and build Go version of CLI
+  # Test and build CLI
   - export ZALLY_GO_PATH="$GOPATH/src/github.com/zalando-incubator/zally"
   - mkdir -p $ZALLY_GO_PATH
   - cp -R . $ZALLY_GO_PATH
-  - cd $ZALLY_GO_PATH/cli-go/zally
+  - cd $ZALLY_GO_PATH/cli/zally
   - go get -t
   - go test -v -cover ./...
   - go build
@@ -65,5 +57,4 @@ script:
   - cd $TRAVIS_BUILD_DIR
   
 after_success:
-  - java -cp ~/codacy-coverage-reporter.jar com.codacy.CodacyCoverageReporter --language Java --coverageReport cli/build/reports/jacoco/test/jacocoTestReport.xml -t $CODACY_PROJECT_TOKEN
   - java -cp ~/codacy-coverage-reporter.jar com.codacy.CodacyCoverageReporter --language Java --coverageReport server/build/reports/jacoco/test/jacocoTestReport.xml -t $CODACY_PROJECT_TOKEN
