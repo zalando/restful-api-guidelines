@@ -19,7 +19,6 @@ import org.springframework.boot.actuate.autoconfigure.LocalManagementPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
@@ -39,10 +38,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
-@TestPropertySource(properties = "zally.message=" + RestApiViolationsTest.TEST_MESSAGE)
 public class RestApiViolationsTest extends RestApiBaseTest {
-
-    public static final String TEST_MESSAGE = "Test message";
 
     @LocalManagementPort
     private int managementPort;
@@ -69,8 +65,6 @@ public class RestApiViolationsTest extends RestApiBaseTest {
         assertThat(violations.get(0).getTitle()).isEqualTo("dummy1");
         assertThat(violations.get(1).getTitle()).isEqualTo("dummy2");
         assertThat(violations.get(2).getTitle()).isEqualTo("schema");
-
-        assertThat(response.getMessage()).isEqualTo(TEST_MESSAGE);
     }
 
     @Test
@@ -218,7 +212,7 @@ public class RestApiViolationsTest extends RestApiBaseTest {
     }
 
     @Test
-    public void shouldAcceptYamlAndRespondwithJson() throws Exception {
+    public void shouldAcceptYamlAndRespondWithJson() throws Exception {
         MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
         RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/api-violations")
                 .contentType(WebMvcConfiguration.MEDIA_TYPE_APP_XYAML)

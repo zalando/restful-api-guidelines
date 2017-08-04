@@ -153,3 +153,13 @@ func TestIntegrationDisplayRulesList(t *testing.T) {
 		assert.Nil(t, e)
 	})
 }
+
+func TestIntegrationNotReceiveDeprecationMessage(t *testing.T) {
+	t.Run("notShowDeprecationMessage", func(t *testing.T) {
+		out, e := RunAppAndCaptureOutput([]string{"", "rules"})
+
+		assert.NotContains(t, out, "Please update your CLI:")
+
+		assert.Nil(t, e)
+	})
+}
