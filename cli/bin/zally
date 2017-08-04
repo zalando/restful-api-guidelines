@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-
-function zally {
-    export ZALLY_BIN_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-    java -Done-jar.silent=true -jar $ZALLY_BIN_PATH/zally.jar "$@"
-}
-
-zally $@

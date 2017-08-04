@@ -3,44 +3,39 @@
 This is Zally's cli tool: it reads a swagger file locally and lints it by
 requesting violations check at a given Zally server.
 
-## Building from Sources
 
-1. Clone Zally repository
-    ```bash
-    git clone git@github.com:zalando-incubator/zally.git zally
-    ```
+## Building from sources
 
-2. Switch to `cli` folder:
-	```bash
-	cd zally/cli
-	```
+1. Follow [Go installation instructions](https://golang.org/doc/install)
 
-3. Build JAR package:
-	```bash
-	./gradlew clean build
-	```
+1. Make sure that `$GOPATH` and `$GOROOT` variables are set
 
-4. Check that `zally` command is working
-	```bash
-	./bin/zally
-	```
-
-5. Add `./bin` directory to `PATH`
-
-
-## Installing from Binaries
-
-1. Download latest zally-cli JAR file from the [releases page](https://github.com/zalando-incubator/zally/releases)
-
-2. Create a `zally` start script in your `/usr/local/bin`:
+1. Clone the repository:
 
     ```bash
-    #!/usr/bin/env bash
-    function zally {
-        java -Done-jar.silent=true -jar /PATH/TO/zally-1.0.0.jar "$@"
-    }
-    zally $@
+    git clone git@github.com:zalando-incubator/zally.git $GOPATH/github.com/zalando-incubator/zally
+    ``` 
+1. Get dependencies:
+
+    ```bash
+    cd $GOPATH/github.com/zalando-incubator/zally/cli/zally
+    go get -t -v
     ```
+
+1. Run tests:
+
+    ```bash
+    cd $GOPATH/github.com/zalando-incubator/zally/cli/zally
+    go test -v ./...
+    ```
+
+1. Build the binary:
+
+    ```bash
+    cd $GOPATH/github.com/zalando-incubator/zally/cli/zally
+    go build
+    ```
+
 
 ## Usage
 
@@ -49,7 +44,7 @@ requesting violations check at a given Zally server.
 To launch `zally-cli`, run the following command:
 
 ```bash
-zally swagger_definition.yml
+zally lint swagger_definition.yml
 ```
 
 By default `zally-cli` uses API located at http://localhost:8080/ and no security
@@ -59,7 +54,7 @@ token. You can provide alternative settings using either environment variables
 ```bash
 export ZALLY_URL="http://zally.example.com/"
 export TOKEN="f123-4567-890a-bcde"
-zally swagger_definition.yml
+zally lint swagger_definition.yml
 ```
 
 or `--linter-service` and `--token` command-line arguments:
@@ -76,25 +71,52 @@ To get commands help message, simply type:
 zally --help
 ```
 
-## Building next release
+### Getting the list of rules
 
-1. Make sure that the current state of the Git repository is clean:
-    
-    ```bash
-    git stash -a
-    ```
+To get the list of enabled rules, please run:
 
-2. Create a release:
+```bash
+zally rules
+```
 
-    ```bash
-    ./gradlew clean build -Pversion=1.0.0
-    ```
 
-3. Unstash the changes:
+## Release it
+
+1. Install `goreleaser` tool:
 
     ```bash
-    git stash pop
+    go get -v github.com/goreleaser/goreleaser
+    cd $GOPATH/src/github.com/goreleaser/goreleaser
+    go install
     ```
 
-4. You can find the release JAR file in `releases` folder.
+    Alternatively you can download a latest release from [goreleaser Releases Page](https://github.com/goreleaser/goreleaser/releases)
 
+1. Clean up folder `cli/zally/dist` if exists
+
+1. Make sure that the repository state is clean:
+
+    ```bash
+    git status
+    ```
+
+1. Tag the release:
+
+    ```bash
+    git tag v1.1.0
+    ```
+
+1. Run `goreleaser`:
+
+    ```bash
+    cd cli/zally
+    goreleaser --skip-publish v1.1.0
+    ```
+
+1. Check builds inside `cli/zally/dist` directory.
+
+1. Publish release tag to GitHub:
+
+    ```bash
+    git push origin v1.1.0
+    ```
