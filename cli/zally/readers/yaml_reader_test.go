@@ -5,7 +5,7 @@ import (
 
 	"encoding/json"
 
-	"github.com/zalando-incubator/zally/cli-go/zally/tests"
+	"github.com/zalando-incubator/zally/cli/zally/tests"
 )
 
 func TestYAMLReader(t *testing.T) {

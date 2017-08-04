@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/urfave/cli"
-	"github.com/zalando-incubator/zally/cli-go/zally/tests"
+	"github.com/zalando-incubator/zally/cli/zally/tests"
 )
 
 var app = cli.NewApp()

@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/urfave/cli"
-	"github.com/zalando-incubator/zally/cli-go/zally/commands"
+	"github.com/zalando-incubator/zally/cli/zally/commands"
 )
 
 // CreateApp creates CLI application with defined commands

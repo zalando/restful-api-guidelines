@@ -14,9 +14,9 @@ import (
 	"strings"
 
 	"github.com/urfave/cli"
-	"github.com/zalando-incubator/zally/cli-go/zally/domain"
-	"github.com/zalando-incubator/zally/cli-go/zally/readers"
-	"github.com/zalando-incubator/zally/cli-go/zally/utils"
+	"github.com/zalando-incubator/zally/cli/zally/domain"
+	"github.com/zalando-incubator/zally/cli/zally/readers"
+	"github.com/zalando-incubator/zally/cli/zally/utils"
 )
 
 // LintCommand lints given API definition file
