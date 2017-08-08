@@ -26,3 +26,8 @@ twintip:
   yaml: "classpath:/api/zally-api.yaml"
 
 rules-config-path: "rules-config-test.conf"
+
+zally:
+  cli:
+    releasesPage: https://github.com/zalando-incubator/zally/releases
+    deprecatedCliAgents: unirest-java/1.3.11,Zally-CLI/1.0
