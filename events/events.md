@@ -98,47 +98,47 @@ _Event Type_. The Event Type declares standard information as follows:
 - The name of the event type.
 - An owning application, and by implication, an owning team.
 - A schema defining the event payload. 
-- The compatability mode for the type.
+- The compatibility mode for the type.
 
 Event Types allow easier discovery of event information and ensure that
 information is well-structured, consistent, and can be validated.
 
-Event type owners must pay attention to the choice of compatability mode.  The
+Event type owners must pay attention to the choice of compatibility mode.  The
 mode provides a means to evolve thee schema. The range of modes are designed to
 be flexible enough so that producers can evolve schemas while not inadvertently
 breaking existing consumers:
 
-- 'none': Any schema modification is accepted, even if it might break existing
+- `none`: Any schema modification is accepted, even if it might break existing
   producers or consumers. When validating events, undefined properties are
   accepted unless declared in the schema.
 
-- 'forward': A schema `S1` is forward compatible if the previously registered 
+- `forward`: A schema `S1` is forward compatible if the previously registered 
 schema, `S0` can read events defined by `S1`  - that is, consumers can read 
 events tagged with the latest schema version using the previous version as 
 long as consumers follow the robustness principle described in the guideline's
   [API Design Principles](../DesignPrinciples.md).
 
-- 'compatible': This means changes are fully compatible. A new schema, `S1`, 
+- `compatible`: This means changes are fully compatible. A new schema, `S1`, 
 is fully compatible when every event published since the first schema version 
-will validate against to the new schema. When in compatible mode, it's allowed 
-to add new optional properties and definitions to an existing schema, but no other
-  changes are allowed. 
+will validate against the latest schema. In compatible mode, only the addition
+of new optional properties and definitions to an existing schema is allowed.
+Other changes are forbidden.
 
-The compatibility levels interact with revision numbers in the schema
-`"version"` field, which follows semantic versioning (MAJOR.MINOR.PATCH):
+The compatibility mode interact with revision numbers in the schema
+`version` field, which follows semantic versioning (MAJOR.MINOR.PATCH):
 
-   - Changing a `"compatible"` level type can lead to a PATCH or MINOR version
-     revision. MAJOR breaking changes are not allowed.
+   - Changing an event type with compatibility mode `compatible` can lead to
+     a PATCH or MINOR version revision. MAJOR breaking changes are not allowed.
    
-   - Changing a `"forward"` level event type can lead to a PATCH or MINOR
-     version revision. MAJOR breaking changes are not allowed.
+   - Changing an event type with compatibility mode `forward` can lead to a
+     PATCH or MINOR version revision. MAJOR breaking changes are not allowed.
    
-   - Changing a `"none"` level event type can lead to PATCH, MINOR or MAJOR
-     level changes.
+   - Changing an event type with compatibility mode `none` can lead to PATCH,
+     MINOR or MAJOR level changes.
 
-For examples of changes:
+The following examples illustrate this relations:
 
-- Changes to the event type's `"title"` or `"description"` are considered PATCH
+- Changes to the event type's `title` or `description` are considered PATCH
   level.
 
 - Adding new optional fields to an event type's schema is considered a MINOR
@@ -164,9 +164,8 @@ EventType:
       name:
         description: |
           Name of this EventType.  Note: the name can encode the
-          owner/responsible for this EventType and ideally should follow the
-          common pattern 'functional-component'.'business event or entity' that
-          makes it easy to read and understand.
+          owner/responsible for this EventType and ideally should follow a
+          naming pattern that makes it easy to read and understand.
         type: string
         pattern: '[a-zA-Z][-0-9a-zA-Z_]*(\.[a-zA-Z][-0-9a-zA-Z_]*)*'
         example: order.order_cancelled, business_partner.contract
@@ -184,11 +183,12 @@ EventType:
           - general
       compatibility_mode:
         description: |
-          The compatibility modes are:
-            - "compatible"
-            - "forward"
-            - "none"
+          The compatibility mode to evolve the schema.
         type: string
+        x-extensible-enum:
+          - compatible
+          - forward
+          - none
         default: forward
       schema:
         description: The most recent payload schema for this EventType. 
@@ -237,8 +237,8 @@ how events are partitioned in the stream.
 
 ## {{ book.must }} Ensure Events conform to a well-known Event Category
 
-An _event category_ describes a generic class of event. The guidelines define
-two such categories:
+An _event category_ describes a generic class of event types. The guidelines
+define two such categories:
 
 - General Event: a general purpose category.
 
@@ -278,7 +278,7 @@ at the top-level of the document, with the `metadata` field being reserved for
 standard information (the contents of `metadata` are described further down in 
 this section).
 
-In the example fragment below, the reserved metadata field is shown with fields
+In the example fragment below, the reserved `metadata` field is shown with fields
 "a" and "b" being defined as part of the custom schema:
 
 <pre style="font-size: .85em">
@@ -317,7 +317,7 @@ Object:
      description: |
         Represents a change to an entity. The required fields are those expected
         to be sent by the producer, other fields may be added by intermediaries
-        such as a publish/subcribe broker. An instance of an event based on the
+        such as a publish/subscribe broker. An instance of an event based on the
         event type conforms to both the DataChangeEvent's definition and the
         custom schema definition.      
     required:
@@ -352,10 +352,10 @@ Object:
 ```
 
 The Data Change Event Category is structurally different to the General Event Category. It defines
-a field called `"data"` for placing the custom payload information, as well as
+a field called `data` for placing the custom payload information, as well as
 specific information related to data changes in the `data_type`. In the example
-fragment below, the fields `"a"` and `"b"` are part of the custom payload housed
-inside the `"data"` field:
+fragment below, the fields `a` and `b` are part of the custom payload housed
+inside the `data` field:
 
 <pre style="font-size: .85em">
   {
@@ -444,7 +444,7 @@ _metadata_. The metadata structure is shown below as an Open API Schema Object:
         example: '0'
 ```
 
-Please note than intermediaries acting between the producer of an event and its ulimate consumers, may perform operations like validation of events and enrichment of an event's `"metadata"`. For example brokers such as Nakadi, can validate and enrich events with arbitrary additional fields that are not specified here and may set default or other values, if some of the specified fields are not supplied. How such systems work is outside the scope of these guidelines but producers and consumers working with such systems should be look into their documentation for additional information.
+Please note than intermediaries acting between the producer of an event and its ultimate consumers, may perform operations like validation of events and enrichment of an event's `metadata`. For example brokers such as Nakadi, can validate and enrich events with arbitrary additional fields that are not specified here and may set default or other values, if some of the specified fields are not supplied. How such systems work is outside the scope of these guidelines but producers and consumers working with such systems should be look into their documentation for additional information.
 
 ## {{ book.must }} Ensure that Events define useful business resources
  
@@ -458,7 +458,7 @@ Similar to API permission scopes, there will be Event Type permissions passed vi
 
  - Sensitive data, such as (e-mail addresses, phone numbers, etc) are subject to strict access and data protection controls. 
  
- - Event type owners **must not** publish sensitive information unless it's mandatory or neccessary to do so. For example, events sometimes need to provide personal data, such as delivery addresses in shipment orders  (as do other APIs), and this is fine.
+ - Event type owners **must not** publish sensitive information unless it's mandatory or necessary to do so. For example, events sometimes need to provide personal data, such as delivery addresses in shipment orders  (as do other APIs), and this is fine.
 
 ## {{ book.must }} Use the General Event Category to signal steps and arrival points in business processes
 
@@ -469,7 +469,7 @@ All your events of a single business process will conform to the following rules
 
 - Business events must contain a specific identifier field (a business process id or "bp-id") similar to flow-id to allow for efficient aggregation of all events in a business process execution.
 
-- Business events must contain a means to correctly order events in a business process execution. In distributed settings where monotically increasing values (such as a high precision timestamp that is assured to move forwards) cannot be obtained, the `parent_eids` data structure allows causal relationships to be declared between events.
+- Business events must contain a means to correctly order events in a business process execution. In distributed settings where monotonically increasing values (such as a high precision timestamp that is assured to move forwards) cannot be obtained, the `parent_eids` data structure allows causal relationships to be declared between events.
 
 - Business events should only contain information that is new to the business process execution at the specific step/arrival point.
 
@@ -490,7 +490,7 @@ event types must be based on the Data Change Event category.
 
 ## {{ book.should }} Provide a means for explicit event ordering
 
-Some common error cases may require event consumers to reconstruct event streams or replay events from a position within the stream. Events *should* therefore contain a way to restore their partial order of occurence.
+Some common error cases may require event consumers to reconstruct event streams or replay events from a position within the stream. Events *should* therefore contain a way to restore their partial order of occurrence.
 
 This can be done - among other ways -  by adding
 - a strictly monotonically increasing entity version (e.g. as created by a database) to allow for partial ordering of all events for an entity
