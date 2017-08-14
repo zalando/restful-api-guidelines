@@ -137,14 +137,14 @@ GET /order/123?embed=(items) HTTP/1.1
 }
 ```
 
-## {{ book.must }} Not Implement Client-Side Caching If Not Supported by the API Provider
+## {{ book.should }} Not Implement Caching
 
-API consumers must not implement client-side caching.
-By default, the API producers don't support this.
-Client-side caching is only allowed if the support is explicitly specified by the API producer.
+While RESTful design suggests to support caching, our guidelines requires APIs to protect endpoints by SSL and [OAuth authorization](security/Security.html#must-secure-endpoints-with-oauth-2.0).
+As consequence, caching is non-trivial and has to take many aspects into account, e.g. general cacheability of response information, invalidation parameters, authentication, multiple instances of consumers.
+Thus, using transport layer caching is difficult, in best case inefficient, and in worst case impossible.
 
-If an API producer wants to allow client-side caching, he must specify the support in the API definition explicitly.
-In this case, the producer must also set the `Vary` headers ([RFC-7234](https://tools.ietf.org/html/rfc7234#section-4.1)).
+As result API providers should always set the `Cache-Control: no-cache` header.
 
-Zalando's [proprietary headers](http://zalando.github.io/restful-api-guidelines/headers/ProprietaryHeaders.html) can affect the query results.
-Existing caching solutions and libraries are not aware of the semantics and expected implications to the caching.
+**Note:** as this is a technical information that is attached to each response by service frameworks, so there is no need to document this header in the API specification.
+
+**Warning:** if an API is intended to support caching, it should take care to explicitly specify this ability by defining the caching boundaries, e.g. by giving dynamically hints using the `Vary` and `Cache-Control:` headers ([RFC-7234](https://tools.ietf.org/html/rfc7234#section-4.1)).
