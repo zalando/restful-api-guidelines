@@ -145,6 +145,6 @@ Thus, using transport layer caching is difficult, in best case inefficient, and 
 
 As result API providers should always set the `Cache-Control: no-cache` header.
 
-**Note:** as this is a technical information that is attached to each response by service frameworks, so there is no need to document this header in the API specification.
+**Note:** as this is a technical information that is attached to each response by service frameworks, there is no need to document this header in the API specification.
 
 **Warning:** if an API is intended to support caching, it should take care to explicitly specify this ability by defining the caching boundaries, e.g. by giving dynamically hints using the `Vary` and `Cache-Control:` headers ([RFC-7234](https://tools.ietf.org/html/rfc7234#section-4.1)).
