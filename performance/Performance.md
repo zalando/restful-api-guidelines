@@ -136,3 +136,15 @@ GET /order/123?embed=(items) HTTP/1.1
   }
 }
 ```
+
+## {{ book.should }} Not Implement Caching
+
+While RESTful design suggests to support caching, our guidelines requires APIs to protect endpoints by SSL and [OAuth authorization](security/Security.html#must-secure-endpoints-with-oauth-2.0).
+As consequence, caching is non-trivial and has to take many aspects into account, e.g. general cacheability of response information, invalidation parameters, authentication, multiple instances of consumers.
+Thus, using transparent HTTP caches is difficult, in best case inefficient, and in worst case impossible.
+
+As result API providers should always set the `Cache-Control: no-cache` header.
+
+**Note:** as this is a technical information that is attached to each response by service frameworks, there is no need to document this header in the API specification.
+
+**Warning:** if an API is intended to support caching, it should take care to explicitly specify this ability by defining the caching boundaries, e.g. by giving dynamically hints using the `Vary` and `Cache-Control:` headers ([RFC-7234](https://tools.ietf.org/html/rfc7234#section-4.1)).
