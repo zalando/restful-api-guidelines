@@ -141,7 +141,7 @@ GET /order/123?embed=(items) HTTP/1.1
 
 While RESTful design suggests to support caching, our guidelines requires APIs to protect endpoints by SSL and [OAuth authorization](security/Security.html#must-secure-endpoints-with-oauth-2.0).
 As consequence, caching is non-trivial and has to take many aspects into account, e.g. general cacheability of response information, invalidation parameters, authentication, multiple instances of consumers.
-Thus, using transport layer caching is difficult, in best case inefficient, and in worst case impossible.
+Thus, using transparent HTTP caches is difficult, in best case inefficient, and in worst case impossible.
 
 As result API providers should always set the `Cache-Control: no-cache` header.
 
