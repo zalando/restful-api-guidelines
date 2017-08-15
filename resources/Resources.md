@@ -90,7 +90,7 @@ This deficit is addressed by [ULID](https://github.com/alizain/ulid) (Universall
 You may favour ULID instead of UUID, for instance, for pagination use cases ordered along creation time. 
 
 
-## {{ book.could }} Consider Using (Non-) Nested URLs
+## {{ book.may }} Consider Using (Non-) Nested URLs
 
 If a sub-resource is only accessible via its parent resource and may not exists without parent resource, consider using a nested URL structure, for instance:
 

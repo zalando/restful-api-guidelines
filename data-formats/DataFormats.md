@@ -1,16 +1,21 @@
 # Data Formats
 
-## {{ book.must }} Use JSON as the Body Payload
+## {{ book.must }} Use JSON to Encode Structured Data
 
-JSON-encode the body payload. The JSON payload must follow [RFC-7159](https://tools.ietf.org/html/rfc7159) by having
+Use JSON-encoded body payload for transferring structured data. 
+The JSON payload must follow [RFC-7159](https://tools.ietf.org/html/rfc7159) by having
 (if possible) a serialized object as the top-level structure, since it would allow for future extension.
 This also applies for collection resources where one naturally would assume an array. See the
 [pagination](../pagination/Pagination.md#could-use-pagination-links-where-applicable) section for an example.
 
-## {{ book.could }} Use other Media Types than JSON
+## {{ book.may }} Use non JSON Media Types for Binary Data or Alternative Content Representations
 
-If for given use case JSON does not make sense, for instance when providing attachments in form of PDFs, you should
-use another, more sufficient media type. But only do this if you can not transfer the information in JSON.
+Other media types may be used in following cases:
+* Transferring binary data or data whose structure is not relevant. This is the case if payload structure
+is not interpreted and consumed by clients as is. Example of such use case is downloading images
+in formats JPG, PNG, GIF.
+* In addition to JSON version alternative data representations (e.g. in formats PDF, DOC, XML)
+may be made available through content negotiation.
 
 ## {{ book.must }} Use Standard Date and Time Formats
 
@@ -20,7 +25,7 @@ Read more about date and time format in [Json Guideline](../json-guidelines/Json
 ###HTTP headers
 Http headers including the proprietary headers. Use the [HTTP date format defined in RFC 7231](http://tools.ietf.org/html/rfc7231#section-7.1.1.1).
 
-## {{ book.could }} Use Standards for Country, Language and Currency Codes
+## {{ book.may }} Use Standards for Country, Language and Currency Codes
 
 Use the following standard formats for country, language and currency codes:
 
@@ -34,10 +39,46 @@ Use the following standard formats for country, language and currency codes:
 
 * [ISO 4217 currency codes](https://en.wikipedia.org/wiki/ISO_4217)
 
+## {{ book.must }} Define Format for Type Number and Integer
+
+Whenever an API defines a property of type `number` or `integer`, the precision must be defined by the format as follows to prevent clients from guessing the precision incorrectly, and thereby changing the value unintentionally:
+
+| type    | format  | specified value range                                 |
+|---------|---------|-------------------------------------------------------|
+| integer | int32   | integer between -2<sup>31</sup> and 2<sup>31</sup>-1  |
+| integer | int64   | integer between -2<sup>63</sup> and 2<sup>63</sup>-1  |
+| integer | bigint  | arbitrarily large signed integer number               |
+| number  | float   | IEEE 754-2008/ISO 60559:2011 binary64 decimal number  |
+| number  | double  | IEEE 754-2008/ISO 60559:2011 binary128 decimal number |
+| number  | decimal | arbitrarily precise signed decimal number             |
+
+The precision must be translated by clients and servers into the most specific language types. E.g. for the following definitions the most specific language types in Java will translate to `BigDecimal` for `Money.amount` and `int` or `Integer` for the `OrderList.page_size`:
+
+```yaml
+Money:
+  type: object
+  properties:
+    amount:
+      type: number
+      description: Amount expressed as a decimal number of major currency units
+      format: decimal
+      example: 99.95
+   ...
+
+OrderList:
+  type: object
+  properties:
+    page_size:
+      type: integer
+      description: Number of orders in list
+      format: int32
+      example: 42
+```
+
 ## {{ book.should }} Prefer standard Media type name `application/json`
 
 Previously, this guideline allowed the use of custom media types like `application/x.zalando.article+json`.
 This usage is not recommended anymore and should be avoided, except where it is necessary for cases
-of [media type versioning](../compatibility/Compatibility.md#must-use-media-type-versioning). Instead, the standard media type name `application/json` (or [`application/problem+json` for HTTP error details](http://zalando.github.io/restful-api-guidelines/common-data-objects/CommonDataObjects.html#must-use-problem-json)) should be used for JSON-formatted data.
+of [media type versioning](../compatibility/Compatibility.md#must-use-media-type-versioning). Instead, the standard media type name `application/json` (or [`application/problem+json` for HTTP error details](http://zalando.github.io/restful-api-guidelines/common-data-types/CommonDataTypes.html#must-use-problem-json)) should be used for JSON-formatted data.
 
 Custom media types with subtypes beginning with `x` bring no advantage compared to the standard media type for JSON, and make automated processing more difficult. They are also [discouraged by RFC 6838](https://tools.ietf.org/html/rfc6838#section-3.4).

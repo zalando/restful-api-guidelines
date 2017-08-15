@@ -16,18 +16,40 @@ GET requests are used to read a single resource or query set of resources.
 **Note:** GET requests on collection resources should provide a sufficient filter mechanism as well
 as [pagination](../pagination/Pagination.md).
 
+### GET with Body
+
+APIs sometimes face the problem, that they have to provide extensive structured request information
+with GET, that may even conflicts with the size limits of clients, load-balancers, and servers. As
+we require APIs to be standard conform (body in GET must be ignored on server side), API designers
+have to check the following two options:
+
+1. GET with URL encoded query parameters: when it is possible to encode the request information in
+   query parameters, respecting the usual size limits of clients, gateways, and servers, this should
+   be the first choice. The request information can either be provided distributed to multiple query
+   parameters or a single structured URL encoded string.
+2. POST with body content: when a GET with URL encoded query parameters is not possible, a POST with
+   body content must be used. In this case the endpoint must be documented with  the hint `GET with
+   body` to transport the GET semantic of this call.
+
+**Note:** It is no option to encode the lengthy structured request information in header parameters.
+From a conceptual point of view, the semantic of an operation should always be expressed by resource
+name and query parameters, i.e. what goes into the URL. Request headers are reserved for general
+context information, e.g. FlowIDs. In addition, size limits on query parameters and headers are not
+reliable and depend on clients, gateways, server, and actual settings. Thus, switching to headers
+does not solve the original problem.
+
 ### PUT
 
-PUT requests are used to create or update single resources or an entire collection resources. The
+PUT requests are used to create or update **entire** resources - single or collection resources. The
 semantic is best described as »*please put the enclosed representation at the resource mentioned by
-the URL*«.
+the URL, replacing any existing resource.*«.
 
 - PUT requests are usually applied to single resources, and not to collection resources, as this
   would imply replacing the entire collection
 - PUT requests are usually robust against non-existence of resources by implicitly creating before
   updating
-- on successful PUT requests, the server will replace the entire resource addressed by the URL with
-  the representation passed in the payload
+- on successful PUT requests, the server will **replace the entire resource** addressed by the URL
+  with the representation passed in the payload (subsequent reads will deliver the same payload)
 - successful PUT requests will usually generate 200 or 204 (if the resource was updated - with or
   without actual content returned), and 201 (if the resource was created)
 
@@ -160,7 +182,17 @@ Method implementations must fulfill the following basic properties:
 Please see also [Best Practices \[internal link\]](https://goo.gl/vhwh8a) for further hints on how to support the
 different HTTP methods on resources.
 
-## {{ book.must }} Use Meaningful HTTP Status Codes
+## {{ book.must }} Use Specific HTTP Status Codes
+
+This guideline groups the following rules for HTTP status codes usage:
+
+* You must not invent new HTTP status codes; only use standardized HTTP status codes and consistent with its intended semantics. 
+* You should use the most specific HTTP status code for your concrete resource request processing status or error situation. 
+* You should provide good documentation in the API definition when using HTTP status codes that are less commonly used and not listed below.  
+
+There are ~60 different HTTP status codes with specific semantics defined in the HTTP standards (mainly [RFC7231](https://tools.ietf.org/html/rfc7231#section-6) and [RFC-6585](https://tools.ietf.org/html/rfc6585)) - and there are upcoming new ones, e.g. [draft legally-restricted-status](https://tools.ietf.org/html/draft-tbray-http-legally-restricted-status-05) (see overview on all error codes on [Wikipedia](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes) or via https://httpstatuses.com/<error_code>). And there are unofficial ones, e.g. used by specific web servers like Nginx.  
+
+Our list of most commonly used and best understood HTTP status codes: 
 
 ### Success Codes
 
@@ -207,11 +239,10 @@ different HTTP methods on resources.
 | 501 | Not Implemented -  server cannot fulfill the request (usually implies future availability, e.g. new feature). | All |
 | 503 | Service Unavailable - server is (temporarily) not available (e.g. due to overload) -- client retry may be senseful. | All |
 
-All error codes can be found in [RFC7231](https://tools.ietf.org/html/rfc7231#section-6) and [Wikipedia](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes) or via https://httpstatuses.com/<error_code>.
 
 ## {{ book.must }} Provide Error Documentation
 
-APIs should define the functional, business view and abstract from implementation aspects. Errors become a key element providing context and visibility into how to use an API. The error object should be extended by an application-specific error identifier if and only if the HTTP status code is not specific enough to convey the domain-specific error semantic. For this reason, we use a standardized error return object definition — see [*Use Common Error Return Objects*](../common-data-objects/CommonDataObjects.md#must-use-common-error-return-objects).
+APIs should define the functional, business view and abstract from implementation aspects. Errors become a key element providing context and visibility into how to use an API. The error object should be extended by an application-specific error identifier if and only if the HTTP status code is not specific enough to convey the domain-specific error semantic. For this reason, we use a standardized error return object definition — see [*Use Common Error Return Objects*](../common-data-types/CommonDataTypes.html#must-use-common-error-return-objects).
 
 The OpenAPI specification shall include definitions for error descriptions that will be returned; they are part of the interface definition and provide important information for service clients to handle exceptional situations and support troubleshooting. You should also think about a troubleshooting board — it is part of the associated online API documentation, provides information and handling guidance on application-specific errors and is referenced via links of the API definition. This can reduce service support tasks and contribute to service client and provider performance.
 
@@ -232,7 +263,7 @@ Service providers should differentiate between technical and functional errors. 
 
 Even though they might not be documented - they may very much occur in production, so clients should be prepared for unexpected response codes, and in case of doubt handle them like they would handle the corresponding x00 code. Adding new response codes (specially error responses) should be considered a compatible API evolution.
 
-Functional errors on the other hand, that convey domain-specific semantics, must be documented and are strongly encouraged to be expressed with [*Problem types*](../common-data-objects/CommonDataObjects.md#must-use-common-error-return-objects).
+Functional errors on the other hand, that convey domain-specific semantics, must be documented and are strongly encouraged to be expressed with [*Problem types*](../common-data-types/CommonDataTypes.html#must-use-common-error-return-objects).
 
 ## {{ book.must }} Use 207 for Batch or Bulk Requests
 
@@ -261,3 +292,18 @@ The 'X-RateLimit' headers are:
 - `X-RateLimit-Reset`: The relative time in seconds when the rate limit window will be reset.
 
 The reason to allow both approaches is that APIs can have different needs. Retry-After is often sufficient for general load handling and request throttling scenarios and notably, does not strictly require the concept of a calling entity such as a tenant or named account. In turn this allows resource owners to minimise the amount of state they have to carry with respect to client requests. The 'X-RateLimit' headers are suitable for scenarios where clients are associated with pre-existing account or tenancy structures. 'X-RateLimit' headers are generally returned on every request and not just on a 429, which implies the service implementing the API is carrying sufficient state to track the number of requests made within a given window for each named entity.
+
+## {{ book.should }} Explicitly define the Collection Format of Query Parameters
+
+There are different ways of supplying a set of values as a query parameter.
+One particular type should be selected and stated explicitly in the API definition. 
+The OpenAPI property `[collectionFormat](http://swagger.io/specification/)` is used to specify the format of the query parameter.
+
+Only the `csv` or `multi` formats should be used for multi-value query parameters as described below.
+
+| Collection Format 	| Description			| Example						|
+|-----------------------|-------------------------------|-------------------------------------------------------|
+| `csv`			| Comma separated values	| `?parameter=value1,value2,value3`			|
+| `multi`		| Multiple parameter instances	| `?parameter=value1&parameter=value2&parameter=value3`	|
+
+When choosing the collection format, take into account the tool support, the escaping of special characters and the maximal URL length.

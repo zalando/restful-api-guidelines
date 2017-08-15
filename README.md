@@ -1,4 +1,4 @@
-#Developing Restful APIs: A Comprehensive Set of Guidelines by Zalando
+# Developing Restful APIs: A Comprehensive Set of Guidelines by Zalando
 
 [![Build Status](https://travis-ci.org/zalando/restful-api-guidelines.svg?branch=master)](https://travis-ci.org/zalando/restful-api-guidelines)
 Latest published version: **[HTML](http://zalando.github.io/restful-api-guidelines)**
@@ -15,6 +15,7 @@ E-Book Support
 -----
 
 You can easily generate PDF, ePub, Mobi files out of our guidelines. Please refer to this [explanation](https://toolchain.gitbook.com/ebook.html) - you have to install Callibre.
+You have to use node version 5.1.1 to build the guidelines.
 CAUTION: you need to add version 2.6.7 identifier to every build command:
 
   ```bash
@@ -45,7 +46,7 @@ After a short Introduction, these guidelines include chapters on the following t
 - [Pagination](http://zalando.github.io/restful-api-guidelines/pagination/Pagination.html)
 - [Hypermedia](http://zalando.github.io/restful-api-guidelines/hyper-media/Hypermedia.html)
 - [Data Formats](http://zalando.github.io/restful-api-guidelines/data-formats/DataFormats.html)
-- [Common Data Objects](http://zalando.github.io/restful-api-guidelines/common-data-objects/CommonDataObjects.html)
+- [Common Data Objects](http://zalando.github.io/restful-api-guidelines/common-data-types/CommonDataTypes.html)
 - [Common Headers](http://zalando.github.io/restful-api-guidelines/headers/CommonHeaders.html)
 - [Proprietary Headers](http://zalando.github.io/restful-api-guidelines/headers/ProprietaryHeaders.html)
 - [API Operation](http://zalando.github.io/restful-api-guidelines/api-operation/ApiOperation.html)
