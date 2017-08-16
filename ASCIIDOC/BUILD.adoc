@@ -1,35 +1,44 @@
-[[build]]
-Build
------
+= Build
 
-[[requirements]]
-Requirements
-~~~~~~~~~~~~
+== Requirements
 
-You have to use node version 5.1.1 until we upgrade to current Gitbook
-version.
+* http://asciidoctor.org/docs/install-toolchain/[Install Asciidoctor toolchain]
+* Install gems for PDF generation
+  * `gem install --pre asciidoctor-pdf`
+  * `gem install coderay pygments.rb`
 
-[[install-all-dependencies]]
-Install all dependencies
-~~~~~~~~~~~~~~~~~~~~~~~~
+== Generate Custom CSS
 
-....
-npm install
-....
+1. http://asciidoctor.org/docs/user-manual/#stylesheet-factory[Clone and install]
+dependencies for the `asciidoctor-stylesheet-factory`
 
-[[build-static-page]]
-Build static page
-~~~~~~~~~~~~~~~~~
+1. Copy Zalando SASS file to the stylesheet factory's directory
+[source,bash]
+----
+cp -r sass/* ${asciidoctor-stylesheet-factory}/sass
+----
 
-....
-make build
-open _book/index.html
-....
+1. Generate CSS
+[source,bash]
+----
+//TODO
+----
 
-[[publish-github-page]]
-Publish github page
-~~~~~~~~~~~~~~~~~~~
+1. Copy generated CSS to project's root directory
+[source,bash]
+----
+cp ${asciidoctor-stylesheet-factory}/stylesheets/zalando.css restful-api-guidelines-asciidoc/zalando.css
+----
 
-....
-make publish
-....
+== Generate HTML
+[source,bash]
+----
+cp -r assets docs/ #copies assets to the build directory
+asciidoctor -D docs index.adoc #generates HTML page
+----
+
+== Generate PDF
+[source,bash]
+----
+asciidoctor-pdf -D docs index.adoc
+----

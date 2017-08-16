@@ -1,14 +1,10 @@
-[[developing-restful-apis-a-comprehensive-set-of-guidelines-by-zalando]]
-Developing Restful APIs: A Comprehensive Set of Guidelines by Zalando
----------------------------------------------------------------------
+= Developing Restful APIs: A Comprehensive Set of Guidelines by Zalando
 
 https://travis-ci.org/zalando/restful-api-guidelines[image:https://travis-ci.org/zalando/restful-api-guidelines.svg?branch=master[Build
-Status]] Latest published version:
+Status] Latest published version:
 *http://zalando.github.io/restful-api-guidelines[HTML]*
 
-[[purpose]]
-Purpose
-~~~~~~~
+== Purpose
 
 Great RESTful APIs look like they were designed by a single team. This
 promotes API adoption, reduces friction, and enables clients to use them
@@ -19,9 +15,7 @@ We have shared it with you to inspire additional discussion and
 refinement within and among your teams, and contribute our learnings and
 suggestions to the tech community at large.
 
-[[usage]]
-Usage
-~~~~~
+== Usage
 
 Feel free to use these guidelines as a guidance for your own
 development. Note that we encourage our own teams to use them in order
@@ -29,71 +23,13 @@ to challenge their APIs. As such, you should consider this to be a
 living, evolving document. We will revise and update based on our
 learnings and experiences.
 
-[[e-book-support]]
-E-Book Support
-~~~~~~~~~~~~~~
+== E-Book Support
 
-You can easily generate PDF, ePub, Mobi files out of our guidelines.
+You can easily generate PDF, EPUB3, KF8/MOBI files out of our guidelines.
 Please refer to this
-https://toolchain.gitbook.com/ebook.html[explanation] - you have to
-install Callibre. You have to use node version 5.1.1 to build the
-guidelines. CAUTION: you need to add version 2.6.7 identifier to every
-build command:
+http://asciidoctor.org/docs/convert-asciidoc-to-epub/[explanation].
 
-```bash $ npm install
-
-# Generate a PDF file $ ./node_modules/.bin/gitbook -v 2.6.7 pdf ./
-./api-guidelines.pdf
-
-# Generate an ePub file $ ./node_modules/.bin/gitbook -v 2.6.7 epub ./
-./api-guidelines.epub
-
-# Generate a Mobi file $ ./node_modules/.bin/gitbook -v 2.6.7 mobi ./
-./api-guidelines.mobi ```
-
-[[table-of-contents]]
-Table of Contents
-~~~~~~~~~~~~~~~~~
-
-After a short Introduction, these guidelines include chapters on the
-following topics: -
-http://zalando.github.io/restful-api-guidelines/design-principles/DesignPrinciples.html[Design
-Principles] -
-http://zalando.github.io/restful-api-guidelines/general-guidelines/GeneralGuidelines.html[General
-Guidelines] -
-http://zalando.github.io/restful-api-guidelines/security/Security.html[Security]
--
-http://zalando.github.io/restful-api-guidelines/compatibility/Compatibility.html[Compatibility]
--
-http://zalando.github.io/restful-api-guidelines/json-guidelines/JsonGuidelines.html[JSON
-Guidelines] -
-http://zalando.github.io/restful-api-guidelines/naming/Naming.html[Naming]
--
-http://zalando.github.io/restful-api-guidelines/resources/Resources.html[Resources]
-- http://zalando.github.io/restful-api-guidelines/http/Http.html[HTTP] -
-http://zalando.github.io/restful-api-guidelines/performance/Performance.html[Performance]
--
-http://zalando.github.io/restful-api-guidelines/pagination/Pagination.html[Pagination]
--
-http://zalando.github.io/restful-api-guidelines/hyper-media/Hypermedia.html[Hypermedia]
--
-http://zalando.github.io/restful-api-guidelines/data-formats/DataFormats.html[Data
-Formats] -
-http://zalando.github.io/restful-api-guidelines/common-data-types/CommonDataTypes.html[Common
-Data Objects] -
-http://zalando.github.io/restful-api-guidelines/headers/CommonHeaders.html[Common
-Headers] -
-http://zalando.github.io/restful-api-guidelines/headers/ProprietaryHeaders.html[Proprietary
-Headers] -
-http://zalando.github.io/restful-api-guidelines/api-operation/ApiOperation.html[API
-Operation] -
-http://zalando.github.io/restful-api-guidelines/events/events.html[Events]
--
-http://zalando.github.io/restful-api-guidelines/tooling/Tooling.html[Tooling]
-
-[[license]]
-License
-~~~~~~~
+== License
 
 We have published these guidelines under the CC-BY (Creative commons
 Attribution 4.0) license. Please see link:LICENSE[LICENSE file].
