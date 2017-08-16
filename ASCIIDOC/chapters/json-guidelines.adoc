@@ -1,6 +1,5 @@
 [[json-guidelines]]
-JSON Guidelines
----------------
+= JSON Guidelines
 
 These guidelines provides recommendations for defining JSON data at
 Zalando. JSON here refers to
@@ -11,13 +10,10 @@ clarifies some specific cases to allow Zalando JSON data to have an
 idiomatic form across teams and services.
 
 [[book.must-use-consistent-property-names]]
-\{\{ book.must }} Use Consistent Property Names
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {MUST} Use Consistent Property Names
 
 [[book.must-property-names-must-be-snake_case-and-never-camelcase.]]
-\{\{ book.must }} Property names must be snake_case (and never
-camelCase).
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== {MUST} Property names must be snake_case (and never camelCase).
 
 No established industry standard exists, but many popular Internet
 companies prefer snake_case: e.g. GitHub, Stack Exchange, Twitter.
@@ -26,8 +22,7 @@ essential to establish a consistent look and feel such that JSON looks
 as if it came from the same hand.
 
 [[book.must-property-names-must-be-an-ascii-subset]]
-\{\{ book.must }} Property names must be an ASCII subset
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== {MUST} Property names must be an ASCII subset
 
 Property names are restricted to ASCII encoded strings. The first
 character must be a letter, an underscore or a dollar sign, and
@@ -35,19 +30,16 @@ subsequent characters can be a letter, an underscore, a dollar sign, or
 a number.
 
 [[book.should-array-names-should-be-pluralized]]
-\{\{ book.should }} Array names should be pluralized
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== {SHOULD} Array names should be pluralized
 
 To indicate they contain multiple values prefer to pluralize array
 names. This implies that object names should in turn be singular.
 
 [[book.must-use-consistent-property-values]]
-\{\{ book.must }} Use Consistent Property Values
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {MUST} Use Consistent Property Values
 
 [[book.must-boolean-property-values-must-not-be-null]]
-\{\{ book.must }} Boolean property values must not be null
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== {MUST} Boolean property values must not be null
 
 Schema based JSON properties that are by design booleans must not be
 presented as nulls. A boolean is essentially a closed enumeration of two
@@ -58,8 +50,7 @@ false can be replaced with terms_and_conditions with values yes, no and
 unknown.
 
 [[book.should-null-values-should-have-their-fields-removed]]
-\{\{ book.should }} Null values should have their fields removed
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== {SHOULD} Null values should have their fields removed
 
 Swagger/OpenAPI, which is in common use, doesn't support null field
 values (it does allow omitting that field completely if it is not marked
@@ -70,22 +61,19 @@ https://tools.ietf.org/html/rfc7386[RFC 7382]) using null to indicate
 property deletion.
 
 [[book.should-empty-array-values-should-not-be-null]]
-\{\{ book.should }} Empty array values should not be null
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== {SHOULD} Empty array values should not be null
 
 Empty array values can unambiguously be represented as the the empty
 list, `[]`.
 
 [[book.should-enumerations-should-be-represented-as-strings]]
-\{\{ book.should }} Enumerations should be represented as Strings
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== {SHOULD} Enumerations should be represented as Strings
 
 Strings are a reasonable target for values that are by design
 enumerations.
 
 [[book.should-date-property-values-should-conform-to-rfc-3399]]
-\{\{ book.should }} Date property values should conform to RFC 3399
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== {SHOULD} Date property values should conform to RFC 3399
 
 Use the date and time formats defined by
 http://tools.ietf.org/html/rfc3339#section-5.6[RFC 3339]:
@@ -122,8 +110,7 @@ timestamps, but this can introduce interpretation issues with precision
 requiring more effort to parse, avoid this ambiguity.
 
 [[book.may-time-durations-and-intervals-could-conform-to-iso-8601]]
-\{\{ book.may }} Time durations and intervals could conform to ISO 8601
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== {MAY} Time durations and intervals could conform to ISO 8601
 
 Schema based JSON properties that are by design durations and intervals
 could be strings formatted as recommended by ISO 8601
@@ -131,9 +118,7 @@ could be strings formatted as recommended by ISO 8601
 contains a grammar] for durations).
 
 [[book.may-standards-could-be-used-for-language-country-and-currency]]
-\{\{ book.may }} Standards could be used for Language, Country and
-Currency
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== {MAY} Standards could be used for Language, Country and Currency
 
 * http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2[ISO 3166-1-alpha2
 country]

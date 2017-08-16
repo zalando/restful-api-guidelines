@@ -1,12 +1,10 @@
 [[common-data-types]]
-Common Data Types
------------------
+= Common Data Types
 
 Definitions of data objects that are good candidates for wider usage:
 
 [[book.should-use-a-common-money-object]]
-\{\{ book.should }} Use a Common Money Object
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {SHOULD} Use a Common Money Object
 
 Use the following common money structure:
 
@@ -60,16 +58,13 @@ standard OpenAPI format, but should help us to avoid parsing numbers as
 float / doubles.
 
 [[book.must-use-common-field-names-and-semantics]]
-\{\{ book.must }} Use common field names and semantics
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {MUST} Use common field names and semantics
 
 There exist a variety of field types that are required in multiple
 places. To achieve consistency across all API implementations, you must
 use common field names and semantics whenever applicable.
 
-[[generic-fields]]
-Generic Fields
-^^^^^^^^^^^^^^
+=== Generic Fields
 
 There are some data fields that come up again and again in API data:
 
@@ -129,9 +124,7 @@ understanding of Zalando's resources. There is very little utility for
 API consumers in having different names or value types for these fields
 across APIs.
 
-[[address-fields]]
-Address Fields
-^^^^^^^^^^^^^^
+=== Address Fields
 
 Address structures play a role in different functional and use-case
 contexts, including country variances. All attributes that relate to
@@ -228,8 +221,7 @@ into a single type when modeling an address label vs distinct addressee
 and address types when modeling users and their addresses).
 
 [[book.must-follow-hypertext-control-conventions]]
-\{\{ book.must }} Follow Hypertext Control Conventions
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {MUST} Follow Hypertext Control Conventions
 
 APIs that provide hypertext controls (links) to interconnect API
 resources must follow the conventions for naming and modeling of
@@ -237,8 +229,7 @@ hypertext controls as defined in section
 link:../hyper-media/Hypermedia.html[Hypermedia].
 
 [[book.must-use-problem-json]]
-\{\{ book.must }} Use Problem JSON
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {MUST} Use Problem JSON
 
 http://tools.ietf.org/html/rfc7807[RFC 7807] defines the media type
 `application/problem+json`. Operations should return that (together with
@@ -273,8 +264,7 @@ responses:
 ----
 
 [[book.must-do-not-expose-stack-traces]]
-\{\{ book.must }} Do not expose Stack Traces
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {MUST} Do not expose Stack Traces
 
 Stack traces contain implementation details that are not part of an API,
 and on which clients should never rely. Moreover, stack traces can leak

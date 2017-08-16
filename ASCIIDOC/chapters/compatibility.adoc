@@ -1,10 +1,8 @@
 [[compatibility]]
-Compatibility
--------------
+= Compatibility
 
 [[book.must-dont-break-backward-compatibility]]
-\{\{ book.must }} Don’t Break Backward Compatibility
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {MUST} Don’t Break Backward Compatibility
 
 Change APIs, but keep all consumers running. Consumers usually have
 independent release lifecycles, focus on stability, and avoid changes
@@ -29,8 +27,7 @@ implementations update their generation process to a new version of the
 API definition, it has to be expected that code changes are necessary.
 
 [[book.should-prefer-compatible-extensions]]
-\{\{ book.should }} Prefer Compatible Extensions
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {SHOULD} Prefer Compatible Extensions
 
 API designers should apply the following rules to evolve RESTful APIs
 for services in a backward-compatible way:
@@ -58,9 +55,7 @@ clients must be agnostic to new values.
 (https://en.wikipedia.org/wiki/HTTP_301[301 Moved Permanently]).
 
 [[book.must-prepare-clients-to-not-crash-on-compatible-api-extensions]]
-\{\{ book.must }} Prepare Clients To Not Crash On Compatible API
-Extensions
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {MUST} Prepare Clients To Not Crash On Compatible API Extensions
 
 Service clients should apply the robustness principle:
 
@@ -89,8 +84,7 @@ https://tools.ietf.org/html/rfc7231#section-6[RFC7231 Section 6]).
 https://en.wikipedia.org/wiki/HTTP_301[301 Moved Permanently].
 
 [[book.should-design-apis-conservatively]]
-\{\{ book.should }} Design APIs Conservatively
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {SHOULD} Design APIs Conservatively
 
 Designers of service provider APIs should be conservative and accurate
 in what they accept from clients:
@@ -134,9 +128,7 @@ anymore" description or can be removed from the API definition as long
 as the server ignores this specific parameter.
 
 [[book.must-always-return-json-objects-as-top-level-data-structures-to-support-extensibility]]
-\{\{ book.must }} Always Return JSON Objects As Top-Level Data
-Structures To Support Extensibility
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {MUST} Always Return JSON Objects As Top-Level Data Structures To Support Extensibility
 
 In a response body, you must always return a JSON objects (and not e.g.
 an array) as a top level data structure to support future extensibility.
@@ -145,9 +137,7 @@ allows you to easily extend your response and e.g. add pagination later,
 without breaking backwards compatibility.
 
 [[book.must-treat-open-api-definitions-as-open-for-extension-by-default]]
-\{\{ book.must }} Treat Open API Definitions As Open For Extension By
-Default
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {MUST} Treat Open API Definitions As Open For Extension By Default
 
 The Open API 2.0 specification is not very specific on default
 extensibility of objects, and redefines JSON-Schema keywords related to
@@ -179,9 +169,7 @@ not exclude the use of `additionalProperties` with a schema as a value,
 which might be appropriate in some circumstances.
 
 [[book.should-used-open-ended-list-of-values-x-extensible-enum-instead-of-enumerations]]
-\{\{ book.should }} Used Open-Ended List of Values (x-extensible-enum)
-Instead of Enumerations
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {SHOULD} Used Open-Ended List of Values (x-extensible-enum) Instead of Enumerations
 
 Enumerations are per definition closed sets of values, that are assumed
 to be complete and not intended for extension. This closed principle of
@@ -210,8 +198,7 @@ deliver_methods:
 ignored by most tools.
 
 [[book.should-avoid-versioning]]
-\{\{ book.should }} Avoid Versioning
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {SHOULD} Avoid Versioning
 
 When changing your RESTful APIs, do so in a compatible way and avoid
 generating additional API versions. Multiple versions can significantly
@@ -234,8 +221,7 @@ As we discourage versioning by all means because of the manifold
 disadvantages, we suggest to only use the first two approaches.
 
 [[book.must-use-media-type-versioning]]
-\{\{ book.must }} Use Media Type Versioning
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {MUST} Use Media Type Versioning
 
 When API versioning is unavoidable, you have to design your
 multi-version RESTful APIs using media type versioning (instead of URI
@@ -285,8 +271,7 @@ Until an incompatible change is necessary, it is recommended to stay
 with the standard `application/json` media type.
 
 [[book.must-do-not-use-uri-versioning]]
-\{\{ book.must }} Do Not Use URI Versioning
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {MUST} Do Not Use URI Versioning
 
 With URI versioning a (major) version number is included in the path,
 e.g. /v1/customers. The consumer has to wait until the provider has been
@@ -299,8 +284,7 @@ versioning, and go instead with media type versioning and content
 negotiation (see above).
 
 [[book.should-provide-version-information-in-openapi-documentation]]
-\{\{ book.should }} Provide Version Information in OpenAPI Documentation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{SHOULD} Provide Version Information in OpenAPI Documentation
 
 Only the documentation, not the API itself, needs version information.
 

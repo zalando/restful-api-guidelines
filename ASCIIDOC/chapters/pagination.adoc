@@ -1,10 +1,8 @@
 [[pagination]]
-Pagination
-----------
+= Pagination
 
 [[book.must-support-pagination]]
-\{\{ book.must }} Support Pagination
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {MUST} Support Pagination
 
 Access to lists of data items must support pagination for best client
 side batch processing and iteration experience. This holds true for all
@@ -28,9 +26,7 @@ next/previous page links. This favours cursor-based over offset-based
 pagination.
 
 [[book.should-prefer-cursor-based-pagination-avoid-offset-based-pagination]]
-\{\{ book.should }} Prefer Cursor-Based Pagination, Avoid Offset-Based
-Pagination
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {SHOULD} Prefer Cursor-Based Pagination, Avoid Offset-Based Pagination
 
 Cursor-based pagination is usually better and more efficient when
 compared to offset-based pagination. Especially when it comes to
@@ -68,8 +64,7 @@ Further reading:
 in PostgreSQL]
 
 [[book.may-use-pagination-links-where-applicable]]
-\{\{ book.may }} Use Pagination Links Where Applicable
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {MAY} Use Pagination Links Where Applicable
 
 * API implementing
 link:../hyper-media/Hypermedia.html#may-use-rest-maturity-level-3--hateoas[HATEOS]

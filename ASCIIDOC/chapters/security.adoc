@@ -1,10 +1,8 @@
 [[security]]
-Security
---------
+= Security
 
 [[book.must-secure-endpoints-with-oauth-2.0]]
-\{\{ book.must }} Secure Endpoints with OAuth 2.0
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {MUST} Secure Endpoints with OAuth 2.0
 
 Every API endpoint needs to be secured using OAuth 2.0. Please refer to
 the
@@ -36,8 +34,7 @@ and cannot be ommited. API endpoints should always set `flow: password`
 and ignore this information.
 
 [[book.must-define-and-assign-access-rights-scopes]]
-\{\{ book.must }} Define and Assign Access Rights (Scopes)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {MUST} Define and Assign Access Rights (Scopes)
 
 Every API needs to define access rights, called scopes here, and every
 endpoint needs to have at least one scope assigned. Scopes are defined

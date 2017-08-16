@@ -1,14 +1,12 @@
 [[common-headers]]
-Common Headers
---------------
+= Common Headers
 
 This section describes a handful of headers, which we found raised the
 most questions in our daily usage, or which are useful in particular
 circumstances but not widely known.
 
 [[book.must-use-content-headers-correctly]]
-\{\{ book.must }} Use Content Headers Correctly
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {MUST} Use Content Headers Correctly
 
 Content or entity headers are headers with a `Content-` prefix. They
 describe the content of the body of the message and they can be used in
@@ -36,8 +34,7 @@ requested resource representation is delivered with the body.
 indicates the media type of the body content.
 
 [[book.may-use-content-location-header]]
-\{\{ book.may }} Use Content-Location Header
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {MAY} Use Content-Location Header
 
 The Content-Location header is _optional_ and can be used in successful
 write operations (PUT, POST or PATCH) or read operations (GET, HEAD) to
@@ -74,9 +71,7 @@ Content-Location: /products/123/images?format=raw
 ----
 
 [[book.should-use-location-header-instead-of-content-location-header]]
-\{\{ book.should }} Use Location Header instead of Content-Location
-Header
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {SHOULD} Use Location Header instead of Content-Location Header
 
 As the correct usage of Content-Location with respect to semantics and
 caching is difficult, we _discourage_ the use of Content-Location. In
@@ -90,9 +85,7 @@ https://tools.ietf.org/html/rfc7231#section-3.1.4.2[3.1.4.2
 Content-Location]
 
 [[book.may-use-the-prefer-header-to-indicate-processing-preferences]]
-\{\{ book.may }} Use the Prefer header to indicate processing
-preferences
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {MAY} Use the Prefer header to indicate processing preferences
 
 The `Prefer` header defined in
 https://tools.ietf.org/html/rfc7240[RFC7240] allows clients to request
@@ -126,9 +119,7 @@ in https://tools.ietf.org/html/rfc7240[RFC7240] to indicate whether the
 preference was applied.
 
 [[book.may-consider-using-etag-together-with-if-none-match-header]]
-\{\{ book.may }} Consider using ETag together with If-(None-)Match
-header
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {MAY} Consider using ETag together with If-(None-)Match header
 
 When creating or updating resources it may be necessary to expose
 conflicts and to prevent the lost update problem. This can be best

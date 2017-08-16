@@ -1,10 +1,8 @@
 [[performance]]
-Performance
------------
+= Performance
 
 [[book.should-reduce-bandwidth-needs-and-improve-responsiveness]]
-\{\{ book.should }} Reduce Bandwidth Needs and Improve Responsiveness
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {SHOULD} Reduce Bandwidth Needs and Improve Responsiveness
 
 APIs should support techniques for reducing bandwidth based on client
 needs. This holds for APIs that (might) have high payloads and/or are
@@ -31,8 +29,7 @@ Headers_]
 Each of these items is described in greater detail below.
 
 [[book.should-use-gzip-compression]]
-\{\{ book.should }} Use gzip Compression
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {SHOULD} Use gzip Compression
 
 Compress the payload of your API’s responses with gzip, unless there’s a
 good reason not to — for example, you are serving so many requests that
@@ -48,8 +45,7 @@ http://tools.ietf.org/html/rfc7231#section-5.3.4[RFC 7231 Section
 Content-Encoding header.
 
 [[book.should-support-filtering-of-resource-fields]]
-\{\{ book.should }} Support Filtering of Resource Fields
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {SHOULD} Support Filtering of Resource Fields
 
 Depending on your use case and payload size, you can significantly
 reduce network bandwidth need by supporting filtering of returned entity
@@ -58,9 +54,7 @@ receive via the fields query parameter — example see
 https://cloud.google.com/appengine/docs/python/taskqueue/rest/performance#partial-response[Google
 AppEngine API's partial response]:
 
-[[unfiltered]]
-Unfiltered
-^^^^^^^^^^
+=== Unfiltered
 
 [source,http]
 ----
@@ -83,9 +77,7 @@ Content-Type: application/json
 }
 ----
 
-[[filtered]]
-Filtered
-^^^^^^^^
+=== Filtered
 
 [source,http]
 ----
@@ -139,8 +131,7 @@ a given parameter will return different parts of the specified result
 schema. Explain this in English in the parameter description.
 
 [[book.should-allow-optional-embedding-of-sub-resources]]
-\{\{ book.should }} Allow Optional Embedding of Sub-Resources
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {SHOULD} Allow Optional Embedding of Sub-Resources
 
 Embedding related resources (also know as _Resource expansion_) is a
 great way to reduce the number of requests. In cases where clients know

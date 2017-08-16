@@ -1,17 +1,13 @@
 [[http]]
-HTTP
-----
+= HTTP
 
 [[book.must-use-http-methods-correctly]]
-\{\{ book.must }} Use HTTP Methods Correctly
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {MUST} Use HTTP Methods Correctly
 
 Be compliant with the standardized HTTP method semantics summarized as
 follows:
 
-[[get]]
-GET
-^^^
+=== GET
 
 GET requests are used to read a single resource or query set of
 resources.
@@ -26,9 +22,7 @@ listing is empty) or 404 (if the list is missing)
 filter mechanism as well as
 link:../pagination/Pagination.md[pagination].
 
-[[get-with-body]]
-GET with Body
-^^^^^^^^^^^^^
+=== GET with Body
 
 APIs sometimes face the problem, that they have to provide extensive
 structured request information with GET, that may even conflicts with
@@ -55,9 +49,7 @@ size limits on query parameters and headers are not reliable and depend
 on clients, gateways, server, and actual settings. Thus, switching to
 headers does not solve the original problem.
 
-[[put]]
-PUT
-^^^
+=== PUT
 
 PUT requests are used to create or update *entire* resources - single or
 collection resources. The semantic is best described as »_please put the
@@ -89,9 +81,7 @@ link:../headers/CommonHeaders.md#could-consider-using-etag-together-with-ifnonem
 and `If-(None-)Match`] headers should be considered to signal the server
 stricter demands to expose conflicts and prevent lost updates.
 
-[[post]]
-POST
-^^^^
+=== POST
 
 POST requests are idiomatically used to create single resources on a
 collection resource endpoint, but other semantics on single resources
@@ -122,9 +112,7 @@ result in multiple resource instances. Anyhow, if external URIs are
 present that can be used to identify duplicate requests, it is best
 practice to implement POST in an idempotent way.
 
-[[patch]]
-PATCH
-^^^^^
+=== PATCH
 
 PATCH request are only used for partial update of single resources, i.e.
 where only a specific subset of resource fields should be replaced. The
@@ -178,9 +166,7 @@ link:../headers/CommonHeaders.md#could-consider-using-etag-together-with-ifnonem
 and `If-Match`] headers should be considered to signal the server
 stricter demands to expose conflicts and prevent lost updates.
 
-[[delete]]
-DELETE
-^^^^^^
+=== DELETE
 
 DELETE request are used to delete resources. The semantic is best
 described as »_please delete the resource identified by the URL_«.
@@ -192,9 +178,7 @@ resource is returned) or 204 (if no content is returned)
 * failed DELETE request will usually generate 404 (if the resource
 cannot be found) or 410 (if the resource was already deleted before)
 
-[[head]]
-HEAD
-^^^^
+=== HEAD
 
 HEAD requests are used retrieve to header information of single
 resources and resource collections.
@@ -202,9 +186,7 @@ resources and resource collections.
 * HEAD has exactly the same semantics as GET, but returns headers only,
 no body.
 
-[[options]]
-OPTIONS
-^^^^^^^
+=== OPTIONS
 
 OPTIONS are used to inspect the available operations (HTTP methods) of a
 given endpoint.
@@ -217,8 +199,7 @@ templates
 self-describe the full functionality of a resource.
 
 [[book.must-fulfill-safeness-and-idempotency-properties]]
-\{\{book.must}} Fulfill Safeness and Idempotency Properties
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {MUST} Fulfill Safeness and Idempotency Properties
 
 An operation can be...
 
@@ -246,8 +227,7 @@ for further hints on how to support the different HTTP methods on
 resources.
 
 [[book.must-use-specific-http-status-codes]]
-\{\{ book.must }} Use Specific HTTP Status Codes
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {MUST} Use Specific HTTP Status Codes
 
 This guideline groups the following rules for HTTP status codes usage:
 
@@ -258,7 +238,7 @@ resource request processing status or error situation.
 * You should provide good documentation in the API definition when using
 HTTP status codes that are less commonly used and not listed below.
 
-There are ~60 different HTTP status codes with specific semantics
+There are \~60 different HTTP status codes with specific semantics
 defined in the HTTP standards (mainly
 https://tools.ietf.org/html/rfc7231#section-6[RFC7231] and
 https://tools.ietf.org/html/rfc6585[RFC-6585]) - and there are upcoming
@@ -271,9 +251,7 @@ by specific web servers like Nginx.
 
 Our list of most commonly used and best understood HTTP status codes:
 
-[[success-codes]]
-Success Codes
-^^^^^^^^^^^^^
+=== Success Codes
 
 [width="12%",cols="34%,33%,33%",options="header",]
 |=======================================================================
@@ -297,9 +275,7 @@ link:../http/Http.md#must-use-207-for-batch-or-bulk-requests["Use 207
 for Batch or Bulk Requests"]. |POST
 |=======================================================================
 
-[[redirection-codes]]
-Redirection Codes
-^^^^^^^^^^^^^^^^^
+=== Redirection Codes
 
 [width="12%",cols="34%,33%,33%",options="header",]
 |=======================================================================
@@ -315,9 +291,7 @@ version passed via request headers If-Modified-Since or If-None-Match.
 |GET
 |=======================================================================
 
-[[client-side-error-codes]]
-Client Side Error Codes
-^^^^^^^^^^^^^^^^^^^^^^^
+=== Client Side Error Codes
 
 [width="12%",cols="34%,33%,33%",options="header",]
 |=======================================================================
@@ -366,9 +340,7 @@ link:../http/Http.md#must-use-429-with-headers-for-rate-limits["Use 429
 with Headers for Rate Limits"]. |All
 |=======================================================================
 
-[[server-side-error-codes]]
-Server Side Error Codes:
-^^^^^^^^^^^^^^^^^^^^^^^^
+=== Server Side Error Codes:
 
 [width="12%",cols="34%,33%,33%",options="header",]
 |=======================================================================
@@ -385,8 +357,7 @@ due to overload) -- client retry may be senseful. |All
 |=======================================================================
 
 [[book.must-provide-error-documentation]]
-\{\{ book.must }} Provide Error Documentation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {MUST} Provide Error Documentation
 
 APIs should define the functional, business view and abstract from
 implementation aspects. Errors become a key element providing context
@@ -433,8 +404,7 @@ link:../common-data-types/CommonDataTypes.html#must-use-common-error-return-obje
 types_].
 
 [[book.must-use-207-for-batch-or-bulk-requests]]
-\{\{ book.must }} Use 207 for Batch or Bulk Requests
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {MUST} Use 207 for Batch or Bulk Requests
 
 Some APIs are required to provide either _batch_ or _bulk_ requests
 using POST for performance reasons, i.e. for communication and
@@ -464,8 +434,7 @@ resources created or updated together in one request. With respect to
 response processing this distinction normally does not matter.
 
 [[book.must-use-429-with-headers-for-rate-limits]]
-\{\{ book.must }} Use 429 with Headers for Rate Limits
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {MUST} Use 429 with Headers for Rate Limits
 
 APIs that wish to manage the request rate of clients must use the
 http://tools.ietf.org/html/rfc6585['429 Too Many Requests'] response
@@ -507,9 +476,7 @@ service implementing the API is carrying sufficient state to track the
 number of requests made within a given window for each named entity.
 
 [[book.should-explicitly-define-the-collection-format-of-query-parameters]]
-\{\{ book.should }} Explicitly define the Collection Format of Query
-Parameters
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {SHOULD} Explicitly define the Collection Format of Query Parameters
 
 There are different ways of supplying a set of values as a query
 parameter. One particular type should be selected and stated explicitly

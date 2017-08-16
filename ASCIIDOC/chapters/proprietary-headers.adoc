@@ -1,6 +1,5 @@
 [[proprietary-headers]]
-Proprietary Headers
--------------------
+= Proprietary Headers
 
 This section shares definitions of proprietary headers that should be
 named consistently because they address overarching service-related
@@ -10,8 +9,7 @@ explicitly visible. Use the parameter definitions of the resource HTTP
 methods.
 
 [[book.must-use-only-the-specified-proprietary-zalando-headers]]
-\{\{ book.must }} Use Only the Specified Proprietary Zalando Headers
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {MUST} Use Only the Specified Proprietary Zalando Headers
 
 As a general rule, proprietary HTTP headers should be avoided. Still
 they can be useful in cases where context needs to be passed through
@@ -106,8 +104,7 @@ hop-by-hop `X-RateLimit-` headers which can be used as defined in
 link:../http/Http.md#must-use-429-with-headers-for-rate-limits[HTTP/Must-Use-429-with-Headers-For-Rate-Limits].
 
 [[book.must-propagate-proprietary-headers]]
-\{\{ book.must }} Propagate Proprietary Headers
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {MUST} Propagate Proprietary Headers
 
 All Zalando's proprietary headers are end-to-end headers.
 

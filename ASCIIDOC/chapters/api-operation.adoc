@@ -1,10 +1,8 @@
 [[api-operation]]
-API Operation
--------------
+= API Operation
 
 [[book.must-provide-online-access-to-openapi-reference-definition]]
-\{\{ book.must }} Provide Online Access to OpenAPI Reference Definition
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {MUST} Provide Online Access to OpenAPI Reference Definition
 
 All service applications must support access to the OpenAPI Reference
 Definitions of their external APIs — it is optional for internal APIs —
@@ -62,8 +60,7 @@ Further reading:
 your Spring Boot service crawlable via API Discovery]
 
 [[book.should-monitor-api-usage]]
-\{\{ book.should }} Monitor API Usage
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {SHOULD} Monitor API Usage
 
 Owners of APIs used in production should monitor API service to get
 information about its using clients. This information, for instance, is

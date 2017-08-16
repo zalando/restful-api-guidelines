@@ -1,10 +1,8 @@
 [[resources]]
-Resources
----------
+= Resources
 
 [[book.must-avoid-actions-think-about-resources]]
-\{\{ book.must }} Avoid Actions — Think About Resources
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {MUST} Avoid Actions — Think About Resources
 
 REST is all about your resources, so consider the domain entities that
 take part in web service interaction, and aim to model your API around
@@ -23,8 +21,7 @@ The added benefit is that you already have a service for browsing and
 filtering article locks.
 
 [[book.should-model-complete-business-processes]]
-\{\{book.should}} Model complete business processes
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {SHOULD} Model complete business processes
 
 An API should contain the complete business processes containing all
 resources representing the process. This enables clients to understand
@@ -38,8 +35,7 @@ around databases, which normally tends to shift business logic to the
 clients.
 
 [[book.should-define-useful-resources]]
-\{\{ book.should }} Define _useful_ resources
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {SHOULD} Define _useful_ resources
 
 As a rule of thumb resources should be defined to cover 90% of all its
 client's use cases. A _useful_ resource should contain as much
@@ -49,8 +45,7 @@ more/less information by supporting filtering and
 link:../hyper-media/Hypermedia.md#should-allow-embedding-of-complex-subresources[embedding].
 
 [[book.must-keep-urls-verb-free]]
-\{\{ book.must }} Keep URLs Verb-Free
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {MUST} Keep URLs Verb-Free
 
 The API describes resources, so the only place where actions should
 appear is in the HTTP methods. In URLs, use only nouns. Instead of
@@ -60,8 +55,7 @@ the url, think of sending a message to cancel an order to the
 _cancellations_ letter box on the server side.
 
 [[book.must-use-domain-specific-resource-names]]
-\{\{ book.must }} Use Domain-Specific Resource Names
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {MUST} Use Domain-Specific Resource Names
 
 API resources represent elements of the application’s domain model.
 Using domain-specific nomenclature for resource names helps developers
@@ -72,8 +66,7 @@ definition. For example, “sales-order-items” is superior to
 represents. Along these lines, “items” is too general.
 
 [[book.must-identify-resources-and-sub-resources-via-path-segments]]
-\{\{ book.must }} Identify resources and Sub-Resources via Path Segments
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {MUST} Identify resources and Sub-Resources via Path Segments
 
 Some API resources may contain or reference sub-resources. Embedded
 sub-resources, which are not top-level resources, are parts of a
@@ -105,8 +98,7 @@ Examples:
 ....
 
 [[book.should-only-use-uuids-if-necessary]]
-\{\{ book.should }} Only Use UUIDs If Necessary
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {SHOULD} Only Use UUIDs If Necessary
 
 Generating IDs can be a scaling problem in high frequency and near real
 time use cases. UUIDs solve this problem, as they can be generated
@@ -151,8 +143,7 @@ UUID, for instance, for pagination use cases ordered along creation
 time.
 
 [[book.may-consider-using-non--nested-urls]]
-\{\{ book.may }} Consider Using (Non-) Nested URLs
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {MAY} Consider Using (Non-) Nested URLs
 
 If a sub-resource is only accessible via its parent resource and may not
 exists without parent resource, consider using a nested URL structure,
@@ -174,8 +165,7 @@ directly, for instance:
 ....
 
 [[book.should-limit-number-of-resources]]
-\{\{ book.should }} Limit number of Resources
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {SHOULD} Limit number of Resources
 
 To keep maintenance and service evolution manageable, we should follow
 "functional segmentation" and "separation of concern" design principles
@@ -191,8 +181,7 @@ Nevertheless one API should hold all necessary resources to model
 complete business processes helping clients to understand these flows.
 
 [[book.should-limit-number-of-sub-resource-levels]]
-\{\{ book.should }} Limit number of Sub-Resource Levels
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {SHOULD} Limit number of Sub-Resource Levels
 
 There are main resources (with root url paths) and sub-resources (or
 “nested” resources with non-root urls paths). Use sub-resources if their

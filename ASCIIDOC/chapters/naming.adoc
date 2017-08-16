@@ -1,11 +1,8 @@
 [[api-naming]]
-API Naming
-----------
+= API Naming
 
 [[book.must-use-lowercase-separate-words-with-hyphens-for-path-segments]]
-\{\{ book.must }} Use lowercase separate words with hyphens for Path
-Segments
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {MUST} Use lowercase separate words with hyphens for Path Segments
 
 Example:
 
@@ -18,8 +15,7 @@ parameters. For example `{shipment_order_id}` would be ok as a path
 parameter.
 
 [[book.must-use-snake_case-never-camelcase-for-query-parameters]]
-\{\{ book.must }} Use snake_case (never camelCase) for Query Parameters
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {MUST} Use snake_case (never camelCase) for Query Parameters
 
 Examples:
 
@@ -28,12 +24,10 @@ customer_number, order_id, billing_address
 ....
 
 [[book.must-use-hyphenated-http-headers]]
-\{\{ book.must }} Use Hyphenated HTTP Headers
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {MUST} Use Hyphenated HTTP Headers
 
 [[book.should-prefer-hyphenated-pascal-case-for-http-header-fields]]
-\{\{ book.should }} Prefer Hyphenated-Pascal-Case for HTTP header Fields
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {SHOULD} Prefer Hyphenated-Pascal-Case for HTTP header Fields
 
 This is for consistency in your documentation (most other headers follow
 this convention). Avoid camelCase (without hyphens). Exceptions are
@@ -52,23 +46,20 @@ See also: http://tools.ietf.org/html/rfc7230#page-22[HTTP Headers are
 case-insensitive (RFC 7230)].
 
 [[book.may-use-standardized-headers]]
-\{\{ book.may }} Use Standardized Headers
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {MAY} Use Standardized Headers
 
 Use http://en.wikipedia.org/wiki/List_of_HTTP_header_fields[this list]
 and mention its support in your OpenAPI definition.
 
 [[book.must-pluralize-resource-names]]
-\{\{ book.must }} Pluralize Resource Names
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {MUST} Pluralize Resource Names
 
 Usually, a collection of resource instances is provided (at least API
 should be ready here). The special case of a resource singleton is a
 collection with cardinality 1.
 
 [[book.may-use-api-as-first-path-segment]]
-\{\{ book.may }} Use /api as first Path Segment
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {MAY} Use /api as first Path Segment
 
 In most cases, all resources provided by a service are part of the
 public API, and therefore should be made available under the root “/”
@@ -77,15 +68,13 @@ base path. If the service should also support non-public, internal APIs
 as base path to clearly separate public and non-public API resources.
 
 [[book.must-avoid-trailing-slashes]]
-\{\{ book.must }} Avoid Trailing Slashes
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {MUST} Avoid Trailing Slashes
 
 The trailing slash must not have specific semantics. Resource paths must
 deliver the same results whether they have the trailing slash or not.
 
 [[book.may-use-conventional-query-strings]]
-\{\{ book.may }} Use Conventional Query Strings
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {MAY} Use Conventional Query Strings
 
 If you provide query support for sorting, pagination, filtering
 functions or other actions, use the following standardized naming

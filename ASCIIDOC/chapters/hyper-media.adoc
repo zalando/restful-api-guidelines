@@ -1,10 +1,8 @@
 [[hypermedia]]
-Hypermedia
-----------
+= Hypermedia
 
 [[book.must-use-rest-maturity-level-2]]
-\{\{ book.must }} Use REST Maturity Level 2
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {MUST} Use REST Maturity Level 2
 
 We strive for a good implementation of
 http://martinfowler.com/articles/richardsonMaturityModel.html#level2[REST
@@ -23,8 +21,7 @@ Although this is not HATEOAS, it should not prevent you from designing
 proper link relationships in your APIs as stated in rules below.
 
 [[book.may-use-rest-maturity-level-3---hateoas]]
-\{\{ book.may }} Use REST Maturity Level 3 - HATEOAS
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {MAY} Use REST Maturity Level 3 - HATEOAS
 
 We do not generally recommend to implement
 http://martinfowler.com/articles/richardsonMaturityModel.html#level3[REST
@@ -68,8 +65,7 @@ https://techwiki.zalando.net/display/GUL/API+Guild[API Guild [internal
 link]].
 
 [[book.must-use-common-hypertext-controls]]
-\{\{ book.must }} Use Common Hypertext Controls
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {MUST} Use Common Hypertext Controls
 
 When embedding links to other resources into representations you must
 use the common hypertext control object. It contains at least one
@@ -138,9 +134,7 @@ of meta-data and data creates more harm than value to the
 understandability and usability of an API.
 
 [[book.should-use-simple-hypertext-controls-for-pagination-and-self-references]]
-\{\{ book.should }} Use Simple Hypertext Controls for Pagination and
-Self-References
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {SHOULD} Use Simple Hypertext Controls for Pagination and Self-References
 
 Hypertext controls for pagination inside collections and self-references
 should use a simple URI value in combination with their corresponding
@@ -152,8 +146,7 @@ See link:../pagination/Pagination.html[Pagination] for information how
 to best represent paginateable collections.
 
 [[book.must-not-use-link-headers-with-json-entities]]
-\{\{ book.must }} Not Use Link Headers with JSON entities
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {MUST} Not Use Link Headers with JSON entities
 
 We don't allow the use of the
 http://tools.ietf.org/html/rfc5988#section-5[`Link` Header defined by

@@ -1,10 +1,8 @@
 [[data-formats]]
-Data Formats
-------------
+= Data Formats
 
 [[book.must-use-json-to-encode-structured-data]]
-\{\{ book.must }} Use JSON to Encode Structured Data
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {MUST} Use JSON to Encode Structured Data
 
 Use JSON-encoded body payload for transferring structured data. The JSON
 payload must follow https://tools.ietf.org/html/rfc7159[RFC-7159] by
@@ -15,9 +13,7 @@ link:../pagination/Pagination.md#could-use-pagination-links-where-applicable[pag
 section for an example.
 
 [[book.may-use-non-json-media-types-for-binary-data-or-alternative-content-representations]]
-\{\{ book.may }} Use non JSON Media Types for Binary Data or Alternative
-Content Representations
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {MAY} Use non JSON Media Types for Binary Data or Alternative Content Representations
 
 Other media types may be used in following cases: * Transferring binary
 data or data whose structure is not relevant. This is the case if
@@ -28,28 +24,22 @@ formats PDF, DOC, XML) may be made available through content
 negotiation.
 
 [[book.must-use-standard-date-and-time-formats]]
-\{\{ book.must }} Use Standard Date and Time Formats
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {MUST} Use Standard Date and Time Formats
 
-[[json-payload]]
-JSON Payload
-^^^^^^^^^^^^
+=== JSON Payload
 
 Read more about date and time format in
 link:../json-guidelines/JsonGuidelines.md#date-property-values-should-conform-to-rfc-3399[Json
 Guideline].
 
-[[http-headers]]
-HTTP headers
-^^^^^^^^^^^^
+=== HTTP headers
 
 Http headers including the proprietary headers. Use the
 http://tools.ietf.org/html/rfc7231#section-7.1.1.1[HTTP date format
 defined in RFC 7231].
 
 [[book.may-use-standards-for-country-language-and-currency-codes]]
-\{\{ book.may }} Use Standards for Country, Language and Currency Codes
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {MAY} Use Standards for Country, Language and Currency Codes
 
 Use the following standard formats for country, language and currency
 codes:
@@ -64,8 +54,7 @@ language variants
 * https://en.wikipedia.org/wiki/ISO_4217[ISO 4217 currency codes]
 
 [[book.must-define-format-for-type-number-and-integer]]
-\{\{ book.must }} Define Format for Type Number and Integer
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {MUST} Define Format for Type Number and Integer
 
 Whenever an API defines a property of type `number` or `integer`, the
 precision must be defined by the format as follows to prevent clients
@@ -111,8 +100,7 @@ OrderList:
 ----
 
 [[book.should-prefer-standard-media-type-name-applicationjson]]
-\{\{ book.should }} Prefer standard Media type name `application/json`
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== {SHOULD} Prefer standard Media type name `application/json`
 
 Previously, this guideline allowed the use of custom media types like
 `application/x.zalando.article+json`. This usage is not recommended
