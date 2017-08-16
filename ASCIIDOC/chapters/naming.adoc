@@ -84,19 +84,16 @@ conventions:
 should have an entity specific alias, like sku
 * `limit` — to restrict the number of entries. See Pagination section
 below. Hint: You can use size as an alternate query string.
-* `cursor` — key-based page start. See Pagination section below.
-* `offset` — numeric offset page start. See Pagination section below.
+* `cursor` — key-based page start. See <<pagination>> section below.
+* `offset` — numeric offset page start. See <<pagination>> section below.
 Hint: In combination with limit, you can use page as an alternative to
 offset.
 * `sort` — comma-separated list of fields to sort. To indicate sorting
 direction, fields my prefixed with + (ascending) or - (descending,
 default), e.g. /sales-orders?sort=+id
 * `fields` — to retrieve a subset of fields. See
-link:../performance/Performance.md#should-support-filtering-of-resource-fields[_Support
-Filtering of Resource Fields_] below.
+<<156,_Support Filtering of Resource Fields_>> below.
 * `embed` — to expand embedded entities (ie.: inside of an article
 entity, expand silhouette code into the silhouette object). Implementing
-“expand” correctly is difficult, so do it with care. See
-link:../hyper-media/Hypermedia.md#should-allow-embedding-of-complex-subresources[_Embedding
-resources_] for more details.
+“expand” correctly is difficult, so do it with care.
 

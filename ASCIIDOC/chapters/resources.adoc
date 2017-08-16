@@ -42,8 +42,7 @@ As a rule of thumb resources should be defined to cover 90% of all its
 client's use cases. A _useful_ resource should contain as much
 information as necessary, but as little as possible. A great way to
 support the last 10% is to allow clients to specify their needs for
-more/less information by supporting filtering and
-link:../hyper-media/Hypermedia.md#should-allow-embedding-of-complex-subresources[embedding].
+more/less information by supporting filtering and <<157,embedding>>.
 
 [#140]
 == {MUST} Keep URLs Verb-Free
@@ -75,13 +74,13 @@ higher-level resource and cannot be used outside of its scope.
 Sub-resources should be referenced by their name and identifier in the
 path segments.
 
-Composite identifiers must not contain “/” as a separator. In order to
+Composite identifiers must not contain `/` as a separator. In order to
 improve the consumer experience, you should aim for intuitively
 understandable URLs, where each sub-path is a valid reference to a
 resource or a set of resources. For example, if
-“/customers/12ev123bv12v/addresses/DE_100100101” is a valid path of your
-API, then “/customers/12ev123bv12v/addresses”, “/customers/12ev123bv12v”
-and “/customers” must be valid as well in principle.
+`/customers/12ev123bv12v/addresses/DE_100100101` is a valid path of your
+API, then `/customers/12ev123bv12v/addresses`, `/customers/12ev123bv12v`
+and `/customers` must be valid as well in principle.
 
 Basic URL structure:
 

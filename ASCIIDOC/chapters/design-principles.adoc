@@ -32,10 +32,8 @@ implementation optimizations at the expense of unnecessary client side
 obligations and have a high attention on API quality and client
 developer experience.
 
-API as a Product is closely related to our
-link:../general-guidelines/GeneralGuidelines.md#Must-Follow-API-First-Principle[API
-First principle] (see next chapter) which is more focussed on how we
-engineer high quality APIs.
+API as a Product is closely related to our <<100,API First principle>>
+(see next chapter) which is more focused on how we engineer high quality APIs.
 
 [[api-design-principles]]
 == API Design Principles
@@ -88,8 +86,8 @@ Styles and the Design of Network-Based Software Architectures]
 _Footnote:_ Per definition of R.Fielding REST APIs have to support
 HATEOAS (maturity level 3). Our guidelines do not strongly advocate for
 full REST compliance, but limited hypermedia usage, e.g. for pagination
-(see link:../hyper-media/Hypermedia.md#Hypermedia[Hypermedia Section]
-below). However, we still use the term "RESTful API", due to the absence
+(see <<hypermedia>> below).
+However, we still use the term "RESTful API", due to the absence
 of an alternative established term and to keep it like the very majority
 of web service industry that also use the term for their REST
 approximations — in fact, in today's industry full HATEOAS compliant

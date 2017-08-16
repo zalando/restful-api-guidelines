@@ -46,8 +46,7 @@ can be reduced when used as output parameters.
 * Enum ranges cannot not be extended when used for output parameters —
 clients may not be prepared to handle it. However, enum ranges can be
 extended when used for input parameters.
-* Use
-link:#should-used-openended-list-of-values-xextensibleenum-instead-of-enumerations[`x-extensible-enum`],
+* Use <<112,`x-extensible-enum`>>,
 if range is used for output parameters and likely to be extended with
 growing functionality. It defines an open list of explicit values and
 clients must be agnostic to new values.
@@ -72,8 +71,7 @@ service providers:
 http://martinfowler.com/bliki/TolerantReader.html["TolerantReader"]
 post), i.e. ignore new fields but do not eliminate them from payload if
 needed for subsequent PUT requests.
-* Be prepared that
-link:#should-used-openended-list-of-values-xextensibleenum-instead-of-enumerations[`x-extensible-enum`]
+* Be prepared that <<112,`x-extensible-enum`>>
 return parameter may deliver new values; either be agnostic or provide
 default behavior for unknown values.
 * Be prepared to handle HTTP status codes not explicitly specified in

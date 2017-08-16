@@ -8,9 +8,8 @@ Use JSON-encoded body payload for transferring structured data. The JSON
 payload must follow https://tools.ietf.org/html/rfc7159[RFC-7159] by
 having (if possible) a serialized object as the top-level structure,
 since it would allow for future extension. This also applies for
-collection resources where one naturally would assume an array. See the
-link:../pagination/Pagination.md#could-use-pagination-links-where-applicable[pagination]
-section for an example.
+collection resources where one naturally would assume an array. See <<160>> for
+an example.
 
 [#167]
 == {MAY} Use non JSON Media Types for Binary Data or Alternative Content Representations
@@ -28,9 +27,7 @@ negotiation.
 
 === JSON Payload
 
-Read more about date and time format in
-link:../json-guidelines/JsonGuidelines.md#date-property-values-should-conform-to-rfc-3399[Json
-Guideline].
+Read more about date and time format in <<125>>.
 
 === HTTP headers
 
@@ -105,11 +102,8 @@ OrderList:
 Previously, this guideline allowed the use of custom media types like
 `application/x.zalando.article+json`. This usage is not recommended
 anymore and should be avoided, except where it is necessary for cases of
-link:../compatibility/Compatibility.md#must-use-media-type-versioning[media
-type versioning]. Instead, the standard media type name
-`application/json` (or
-http://zalando.github.io/restful-api-guidelines/common-data-types/CommonDataTypes.html#must-use-problem-json[`application/problem+json`
-for HTTP error details]) should be used for JSON-formatted data.
+<<114,media type versioning>>. Instead, the standard media type name
+`application/json` (or <<175>>).
 
 Custom media types with subtypes beginning with `x` bring no advantage
 compared to the standard media type for JSON, and make automated

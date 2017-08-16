@@ -81,8 +81,7 @@ needed by an experienced API client developer to use this API.
 
 The OpenAPI API specification file should be subject of version control
 together with source code management. Services also have to support an
-link:../api-operation/ApiOperation.md#must-Provide-Online-Access-to-OpenAPI-Reference-Definition[endpoint
-to access the API Reference definition] for their external API(s).
+<<191,endpoint to access the API Reference definition>> for their external API(s).
 
 Furthermore you should make use of
 https://github.com/zalando-incubator/zally[Zally], our own API linter

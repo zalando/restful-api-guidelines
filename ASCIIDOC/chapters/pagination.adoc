@@ -66,11 +66,8 @@ in PostgreSQL]
 [#160]
 == {MAY} Use Pagination Links Where Applicable
 
-* API implementing
-link:../hyper-media/Hypermedia.html#may-use-rest-maturity-level-3--hateoas[HATEOS]
-may use
-link:../hyper-media/Hypermedia.html#should-pagination-and-self-references[simplified
-hypertext controls] for pagination within collections.
+* API implementing <<162,HATEOS>> may use <<164,simplified hypertext controls>>
+for pagination within collections.
 
 Those collections should then have an `items` attribute holding the
 items of the current page. The collection may contain additional

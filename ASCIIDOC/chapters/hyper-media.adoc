@@ -8,14 +8,12 @@ We strive for a good implementation of
 http://martinfowler.com/articles/richardsonMaturityModel.html#level2[REST
 Maturity Level 2] as it enables us to build resource-oriented APIs that
 make full use of HTTP verbs and status codes. You can see this expressed
-by many rules throughout these guidelines, e.g.: -
-link:../resources/Resources.md#must-avoid-actions-—-think-about-resources[Avoid
-Actions — Think About Resources] -
-link:../resources/Resources.md#must-keep-urls-verbfree[Keep URLs
-Verb-Free] - link:../http/Http.md#must-use-http-methods-correctly[Use
-HTTP Methods Correctly] -
-link:../http/Http.md#must-use-meaningful-http-status-codes[Use
-Meaningful HTTP Status Codes]
+by many rules throughout these guidelines, e.g.:
+
+* <<137>>
+* <<140>>
+* <<147>>
+* <<149>>
 
 Although this is not HATEOAS, it should not prevent you from designing
 proper link relationships in your APIs as stated in rules below.
@@ -35,9 +33,8 @@ also
 https://www.infoq.com/news/2014/03/rest-at-odds-with-web-apis%20for%20detailed%20discussion[RESTistential
 Crisis over Hypermedia APIs],
 https://jeffknupp.com/blog/2014/06/03/why-i-hate-hateoas/[Why I Hate
-HATEOAS] and others): - We follow the
-link:../general-guidelines/GeneralGuidelines.md#must-follow-api-first-principle[API
-First principle] with APIs explicitly defined outside the code with
+HATEOAS] and others): - We follow the <<100,API First principle>>
+with APIs explicitly defined outside the code with
 standard specification language. HATEOAS does not really add value for
 SOA client engineers in terms of API self-descriptiveness: a client
 engineer finds necessary links and usage description (depending on
@@ -142,8 +139,7 @@ http://www.iana.org/assignments/link-relations/link-relations.xml[link
 relations] (`next`, `prev`, `first`, `last`, `self`) instead of the
 extensible common hypertext control
 
-See link:../pagination/Pagination.html[Pagination] for information how
-to best represent paginateable collections.
+See <<pagination>> for information how to best represent paginateable collections.
 
 [#165]
 == {MUST} Not Use Link Headers with JSON entities

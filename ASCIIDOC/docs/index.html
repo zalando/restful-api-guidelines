@@ -1617,10 +1617,8 @@ obligations and have a high attention on API quality and client
 developer experience.</p>
 </div>
 <div class="paragraph">
-<p>API as a Product is closely related to our
-<a href="../general-guidelines/GeneralGuidelines.md#Must-Follow-API-First-Principle">API
-First principle</a> (see next chapter) which is more focussed on how we
-engineer high quality APIs.</p>
+<p>API as a Product is closely related to our <a href="#100">API First principle</a>
+(see next chapter) which is more focused on how we engineer high quality APIs.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1705,8 +1703,8 @@ Styles and the Design of Network-Based Software Architectures</a></p>
 <p><em>Footnote:</em> Per definition of R.Fielding REST APIs have to support
 HATEOAS (maturity level 3). Our guidelines do not strongly advocate for
 full REST compliance, but limited hypermedia usage, e.g. for pagination
-(see <a href="../hyper-media/Hypermedia.md#Hypermedia">Hypermedia Section</a>
-below). However, we still use the term "RESTful API", due to the absence
+(see <a href="#hypermedia">Hypermedia</a> below).
+However, we still use the term "RESTful API", due to the absence
 of an alternative established term and to keep it like the very majority
 of web service industry that also use the term for their REST
 approximations — in fact, in today&#8217;s industry full HATEOAS compliant
@@ -1830,8 +1828,7 @@ needed by an experienced API client developer to use this API.</p>
 <div class="paragraph">
 <p>The OpenAPI API specification file should be subject of version control
 together with source code management. Services also have to support an
-<a href="../api-operation/ApiOperation.md#must-Provide-Online-Access-to-OpenAPI-Reference-Definition">endpoint
-to access the API Reference definition</a> for their external API(s).</p>
+<a href="#191">endpoint to access the API Reference definition</a> for their external API(s).</p>
 </div>
 <div class="paragraph">
 <p>Furthermore you should make use of
@@ -2112,8 +2109,7 @@ clients may not be prepared to handle it. However, enum ranges can be
 extended when used for input parameters.</p>
 </li>
 <li>
-<p>Use
-<a href="#should-used-openended-list-of-values-xextensibleenum-instead-of-enumerations"><code>x-extensible-enum</code></a>,
+<p>Use <a href="#112"><code>x-extensible-enum</code></a>,
 if range is used for output parameters and likely to be extended with
 growing functionality. It defines an open list of explicit values and
 clients must be agnostic to new values.</p>
@@ -2156,8 +2152,7 @@ post), i.e. ignore new fields but do not eliminate them from payload if
 needed for subsequent PUT requests.</p>
 </li>
 <li>
-<p>Be prepared that
-<a href="#should-used-openended-list-of-values-xextensibleenum-instead-of-enumerations"><code>x-extensible-enum</code></a>
+<p>Be prepared that <a href="#112"><code>x-extensible-enum</code></a>
 return parameter may deliver new values; either be agnostic or provide
 default behavior for unknown values.</p>
 </li>
@@ -2781,10 +2776,10 @@ should have an entity specific alias, like sku</p>
 below. Hint: You can use size as an alternate query string.</p>
 </li>
 <li>
-<p><code>cursor</code> — key-based page start. See Pagination section below.</p>
+<p><code>cursor</code> — key-based page start. See <a href="#pagination">Pagination</a> section below.</p>
 </li>
 <li>
-<p><code>offset</code> — numeric offset page start. See Pagination section below.
+<p><code>offset</code> — numeric offset page start. See <a href="#pagination">Pagination</a> section below.
 Hint: In combination with limit, you can use page as an alternative to
 offset.</p>
 </li>
@@ -2795,15 +2790,12 @@ default), e.g. /sales-orders?sort=+id</p>
 </li>
 <li>
 <p><code>fields</code> — to retrieve a subset of fields. See
-<a href="../performance/Performance.md#should-support-filtering-of-resource-fields"><em>Support
-Filtering of Resource Fields</em></a> below.</p>
+<a href="#156"><em>Support Filtering of Resource Fields</em></a> below.</p>
 </li>
 <li>
 <p><code>embed</code> — to expand embedded entities (ie.: inside of an article
 entity, expand silhouette code into the silhouette object). Implementing
-“expand” correctly is difficult, so do it with care. See
-<a href="../hyper-media/Hypermedia.md#should-allow-embedding-of-complex-subresources"><em>Embedding
-resources</em></a> for more details.</p>
+“expand” correctly is difficult, so do it with care.</p>
 </li>
 </ul>
 </div>
@@ -2859,8 +2851,7 @@ clients.</p>
 client&#8217;s use cases. A <em>useful</em> resource should contain as much
 information as necessary, but as little as possible. A great way to
 support the last 10% is to allow clients to specify their needs for
-more/less information by supporting filtering and
-<a href="../hyper-media/Hypermedia.md#should-allow-embedding-of-complex-subresources">embedding</a>.</p>
+more/less information by supporting filtering and <a href="#157">embedding</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -2896,13 +2887,13 @@ Sub-resources should be referenced by their name and identifier in the
 path segments.</p>
 </div>
 <div class="paragraph">
-<p>Composite identifiers must not contain “/” as a separator. In order to
+<p>Composite identifiers must not contain <code>/</code> as a separator. In order to
 improve the consumer experience, you should aim for intuitively
 understandable URLs, where each sub-path is a valid reference to a
 resource or a set of resources. For example, if
-“/customers/12ev123bv12v/addresses/DE_100100101” is a valid path of your
-API, then “/customers/12ev123bv12v/addresses”, “/customers/12ev123bv12v”
-and “/customers” must be valid as well in principle.</p>
+<code>/customers/12ev123bv12v/addresses/DE_100100101</code> is a valid path of your
+API, then <code>/customers/12ev123bv12v/addresses</code>, <code>/customers/12ev123bv12v</code>
+and <code>/customers</code> must be valid as well in principle.</p>
 </div>
 <div class="paragraph">
 <p>Basic URL structure:</p>
@@ -3083,8 +3074,7 @@ listing is empty) or 404 (if the list is missing)</p>
 </div>
 <div class="paragraph">
 <p><strong>Note:</strong> GET requests on collection resources should provide a sufficient
-filter mechanism as well as
-<a href="../pagination/Pagination.md">pagination</a>.</p>
+filter mechanism as well as <a href="#pagination">Pagination</a>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -3165,9 +3155,7 @@ preferred.</p>
 </div>
 <div class="paragraph">
 <p>To prevent unnoticed concurrent updates when using PUT, the combination
-of
-<a href="../headers/CommonHeaders.md#could-consider-using-etag-together-with-ifnonematch-header"><code>ETag</code>
-and <code>If-(None-)Match</code></a> headers should be considered to signal the server
+of <a href="#181"><code>ETag</code> and <code>If-(None-)Match</code></a> headers should be considered to signal the server
 stricter demands to expose conflicts and prevent lost updates.</p>
 </div>
 </div>
@@ -3253,9 +3241,8 @@ resources have been updated</p>
 <div class="paragraph">
 <p><strong>Note:</strong> since implementing PATCH correctly is a bit tricky, we strongly
 suggest to choose one and only one of the following patterns per
-endpoint, unless forced by a
-<a href="../compatibility/Compatibility#compatibility">backwards compatible
-change</a>. In preference order:</p>
+endpoint, unless forced by a <a href="#106">backwards compatible change</a>.
+In preference order:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -3288,14 +3275,12 @@ quickly turns out to be too limited, especially when trying to update
 single objects in large collections (as part of the resource). In this
 cases <a href="http://tools.ietf.org/html/rfc6902">JSON Patch</a> can shown its full
 power while still showing readable patch requests
-(<a href="http://erosb.github.io/post/json-patch-vs-merge-patch">see also</a>).</p>
+(see also <a href="http://erosb.github.io/post/json-patch-vs-merge-patch">JSON patch vs. merge</a>).</p>
 </div>
 <div class="paragraph">
 <p>To prevent unnoticed concurrent updates when using PATCH, the
-combination of
-<a href="../headers/CommonHeaders.md#could-consider-using-etag-together-with-ifnonematch-header"><code>ETag</code>
-and <code>If-Match</code></a> headers should be considered to signal the server
-stricter demands to expose conflicts and prevent lost updates.</p>
+combination of <a href="#181"><code>ETag`and `If-Match</code></a> headers should be considered to
+signal the server stricter demands to expose conflicts and prevent lost updates.</p>
 </div>
 </div>
 <div class="sect3">
@@ -3496,8 +3481,7 @@ by specific web servers like Nginx.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Created - Returned on successful entity creation. You are free to
 return either an empty response or the created resource in conjunction
 with the Location header. (More details found in the
-<a href="../headers/CommonHeaders.md">Common Headers section</a>.) <em>Always</em> set
-the Location header.</p></td>
+<a href="#common-headers">Common Headers</a>.) <em>Always</em> set the Location header.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">POST, PUT</p></td>
 </tr>
 <tr>
@@ -3515,8 +3499,7 @@ asynchronously.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">207</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Multi-Status - The response body contains multiple status
 informations for different parts of a batch/bulk request. See
-<a href="../http/Http.md#must-use-207-for-batch-or-bulk-requests">"Use 207
-for Batch or Bulk Requests"</a>.</p></td>
+<a href="#151"><span style="color:#bf0000"><strong>MUST</strong></span> Use 207 for Batch or Bulk Requests</a>.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">POST</p></td>
 </tr>
 </tbody>
@@ -3654,9 +3637,7 @@ avoided).</p></td>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">429</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Too many requests - the client does not consider rate limiting and
-sent too many requests. See
-<a href="../http/Http.md#must-use-429-with-headers-for-rate-limits">"Use 429
-with Headers for Rate Limits"</a>.</p></td>
+sent too many requests. See <a href="#152"><span style="color:#bf0000"><strong>MUST</strong></span> Use 429 with Headers for Rate Limits</a>.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">All</p></td>
 </tr>
 </tbody>
@@ -3709,9 +3690,7 @@ and visibility into how to use an API. The error object should be
 extended by an application-specific error identifier if and only if the
 HTTP status code is not specific enough to convey the domain-specific
 error semantic. For this reason, we use a standardized error return
-object definition — see
-<a href="../common-data-types/CommonDataTypes.html#must-use-common-error-return-objects"><em>Use
-Common Error Return Objects</em></a>.</p>
+object definition — see &lt;&lt;175&gt;.</p>
 </div>
 <div class="paragraph">
 <p>The OpenAPI specification shall include definitions for error
@@ -3747,9 +3726,7 @@ responses) should be considered a compatible API evolution.</p>
 <div class="paragraph">
 <p>Functional errors on the other hand, that convey domain-specific
 semantics, must be documented and are strongly encouraged to be
-expressed with
-<a href="../common-data-types/CommonDataTypes.html#must-use-common-error-return-objects"><em>Problem
-types</em></a>.</p>
+expressed with <a href="#175"><span style="color:#bf0000"><strong>MUST</strong></span> Use Problem JSON</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -3861,7 +3838,7 @@ number of requests made within a given window for each named entity.</p>
 <p>There are different ways of supplying a set of values as a query
 parameter. One particular type should be selected and stated explicitly
 in the API definition. The OpenAPI property
-<code>[collectionFormat](<a href="http://swagger.io/specification/" class="bare">http://swagger.io/specification/</a>)</code> is used to
+<a href="http://swagger.io/specification/"><code>collectionFormat</code></a> is used to
 specify the format of the query parameter.</p>
 </div>
 <div class="paragraph">
@@ -3924,19 +3901,14 @@ app clients with (often) less bandwidth connectivity. (Zalando is a
 </li>
 <li>
 <p>querying field filters to retrieve a subset of resource attributes
-(see
-<a href="../performance/Performance.md#should-support-filtering-of-resource-fields"><em>Support
-Filtering of Resource Fields</em></a> below)</p>
+(see <a href="#156"><span style="color:#bfbf00"><strong>SHOULD</strong></span> Support Filtering of Resource Fields</a> below)</p>
 </li>
 <li>
-<p>paginate lists of data items (see
-<a href="../pagination/Pagination.md"><em>Pagination</em></a> below)</p>
+<p>paginate lists of data items (see <a href="#pagination">Pagination</a> below)</p>
 </li>
 <li>
 <p><code>ETag</code> and <code>If-(None-)Match</code> headers to avoid re-fetching of unchanged
-resources (see
-<a href="../headers/CommonHeaders.md#could-consider-using-etag-together-with-ifnonematch-header"><em>Common
-Headers</em></a></p>
+resources (see <a href="#181"><span style="color:#006000"><strong>MAY</strong></span> Consider using ETag together with If-(None-)Match header</a></p>
 </li>
 <li>
 <p>pagination for incremental access of larger (result) lists</p>
@@ -4069,9 +4041,7 @@ server, e.g. a database join, or done in a generic way, e.g. an HTTP
 proxy that transparently embeds resources, is up to the implementation.</p>
 </div>
 <div class="paragraph">
-<p>See
-<a href="../naming/Naming.md#could-use-conventional-query-strings"><em>Conventional
-Query Parameters</em></a> for naming, e.g. "embed" for steering of embedded
+<p>See <a href="#136"><span style="color:#006000"><strong>MAY</strong></span> Use Conventional Query Strings</a> for naming, e.g. "embed" for steering of embedded
 resource expansion. Please use the
 <a href="https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form">BNF</a> grammar, as
 already defined above for filtering, when it comes to an embedding query
@@ -4238,11 +4208,8 @@ in PostgreSQL</a></p>
 <div class="ulist">
 <ul>
 <li>
-<p>API implementing
-<a href="../hyper-media/Hypermedia.html#may-use-rest-maturity-level-3&#8212;&#8203;hateoas">HATEOS</a>
-may use
-<a href="../hyper-media/Hypermedia.html#should-pagination-and-self-references">simplified
-hypertext controls</a> for pagination within collections.</p>
+<p>API implementing <a href="#162">HATEOS</a> may use <a href="#164">simplified hypertext controls</a>
+for pagination within collections.</p>
 </li>
 </ul>
 </div>
@@ -4312,14 +4279,23 @@ to an article&#8217;s <code>authors</code> like that:</p>
 <a href="http://martinfowler.com/articles/richardsonMaturityModel.html#level2">REST
 Maturity Level 2</a> as it enables us to build resource-oriented APIs that
 make full use of HTTP verbs and status codes. You can see this expressed
-by many rules throughout these guidelines, e.g.: -
-<a href="../resources/Resources.md#must-avoid-actions-—-think-about-resources">Avoid
-Actions — Think About Resources</a> -
-<a href="../resources/Resources.md#must-keep-urls-verbfree">Keep URLs
-Verb-Free</a> - <a href="../http/Http.md#must-use-http-methods-correctly">Use
-HTTP Methods Correctly</a> -
-<a href="../http/Http.md#must-use-meaningful-http-status-codes">Use
-Meaningful HTTP Status Codes</a></p>
+by many rules throughout these guidelines, e.g.:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#137"><span style="color:#bf0000"><strong>MUST</strong></span> Avoid Actions — Think About Resources</a></p>
+</li>
+<li>
+<p><a href="#140"><span style="color:#bf0000"><strong>MUST</strong></span> Keep URLs Verb-Free</a></p>
+</li>
+<li>
+<p><a href="#147"><span style="color:#bf0000"><strong>MUST</strong></span> Use HTTP Methods Correctly</a></p>
+</li>
+<li>
+<p><a href="#149"><span style="color:#bf0000"><strong>MUST</strong></span> Use Specific HTTP Status Codes</a></p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>Although this is not HATEOAS, it should not prevent you from designing
@@ -4342,9 +4318,8 @@ also
 <a href="https://www.infoq.com/news/2014/03/rest-at-odds-with-web-apis%20for%20detailed%20discussion">RESTistential
 Crisis over Hypermedia APIs</a>,
 <a href="https://jeffknupp.com/blog/2014/06/03/why-i-hate-hateoas/">Why I Hate
-HATEOAS</a> and others): - We follow the
-<a href="../general-guidelines/GeneralGuidelines.md#must-follow-api-first-principle">API
-First principle</a> with APIs explicitly defined outside the code with
+HATEOAS</a> and others): - We follow the <a href="#100">API First principle</a>
+with APIs explicitly defined outside the code with
 standard specification language. HATEOAS does not really add value for
 SOA client engineers in terms of API self-descriptiveness: a client
 engineer finds necessary links and usage description (depending on
@@ -4464,8 +4439,7 @@ relations</a> (<code>next</code>, <code>prev</code>, <code>first</code>, <code>l
 extensible common hypertext control</p>
 </div>
 <div class="paragraph">
-<p>See <a href="../pagination/Pagination.html">Pagination</a> for information how
-to best represent paginateable collections.</p>
+<p>See <a href="#pagination">Pagination</a> for information how to best represent paginateable collections.</p>
 </div>
 </div>
 <div class="sect2">
@@ -4489,9 +4463,8 @@ embedded in JSON payloads to the uncommon link header syntax.</p>
 payload must follow <a href="https://tools.ietf.org/html/rfc7159">RFC-7159</a> by
 having (if possible) a serialized object as the top-level structure,
 since it would allow for future extension. This also applies for
-collection resources where one naturally would assume an array. See the
-<a href="../pagination/Pagination.md#could-use-pagination-links-where-applicable">pagination</a>
-section for an example.</p>
+collection resources where one naturally would assume an array. See <a href="#160"><span style="color:#006000"><strong>MAY</strong></span> Use Pagination Links Where Applicable</a> for
+an example.</p>
 </div>
 </div>
 <div class="sect2">
@@ -4511,9 +4484,7 @@ negotiation.</p>
 <div class="sect3">
 <h4 id="_json_payload"><a class="link" href="#_json_payload">13.3.1. JSON Payload</a></h4>
 <div class="paragraph">
-<p>Read more about date and time format in
-<a href="../json-guidelines/JsonGuidelines.md#date-property-values-should-conform-to-rfc-3399">Json
-Guideline</a>.</p>
+<p>Read more about date and time format in <a href="#125"><span style="color:#bfbf00"><strong>SHOULD</strong></span> Date property values should conform to RFC 3399</a>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -4651,11 +4622,8 @@ OrderList:
 <p>Previously, this guideline allowed the use of custom media types like
 <code>application/x.zalando.article+json</code>. This usage is not recommended
 anymore and should be avoided, except where it is necessary for cases of
-<a href="../compatibility/Compatibility.md#must-use-media-type-versioning">media
-type versioning</a>. Instead, the standard media type name
-<code>application/json</code> (or
-<a href="http://zalando.github.io/restful-api-guidelines/common-data-types/CommonDataTypes.html#must-use-problem-json"><code>application/problem+json</code>
-for HTTP error details</a>) should be used for JSON-formatted data.</p>
+<a href="#114">media type versioning</a>. Instead, the standard media type name
+<code>application/json</code> (or <a href="#175"><span style="color:#bf0000"><strong>MUST</strong></span> Use Problem JSON</a>).</p>
 </div>
 <div class="paragraph">
 <p>Custom media types with subtypes beginning with <code>x</code> bring no advantage
@@ -4935,8 +4903,7 @@ and address types when modeling users and their addresses).</p>
 <div class="paragraph">
 <p>APIs that provide hypertext controls (links) to interconnect API
 resources must follow the conventions for naming and modeling of
-hypertext controls as defined in section
-<a href="../hyper-media/Hypermedia.html">Hypermedia</a>.</p>
+hypertext controls as defined in section <a href="#hypermedia">Hypermedia</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -5027,8 +4994,7 @@ language(s).</p>
 <li>
 <p><a href="https://tools.ietf.org/html/rfc7231#section-3.1.4.2"><code>Content-Location</code></a>
 indicates where the body can be found otherwise
-(<a href="../headers/CommonHeaders.md#could-use-contentlocation-header">see
-below for more details</a>).</p>
+(<a href="#178"><span style="color:#006000"><strong>MAY</strong></span> Use Content-Location Header</a> for more details]).</p>
 </li>
 <li>
 <p><a href="https://tools.ietf.org/html/rfc7233#section-4.2"><code>Content-Range</code></a> is
@@ -5375,8 +5341,7 @@ sales channel, country</p></td>
 </table>
 <div class="paragraph">
 <p><strong>Exception:</strong> The only exception to this guideline are the conventional
-hop-by-hop <code>X-RateLimit-</code> headers which can be used as defined in
-<a href="../http/Http.md#must-use-429-with-headers-for-rate-limits">HTTP/Must-Use-429-with-Headers-For-Rate-Limits</a>.</p>
+hop-by-hop <code>X-RateLimit-</code> headers which can be used as defined in <a href="#152"><span style="color:#bf0000"><strong>MUST</strong></span> Use 429 with Headers for Rate Limits</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -5466,9 +5431,7 @@ clients should use instead and when the API will be shut down in the
 <div class="paragraph">
 <p>Owners of APIs used in production must monitor usage of deprecated APIs
 until the API can be shut down in order to align deprecation and avoid
-uncontrolled breaking effects. See also the
-<a href="../api-operation/ApiOperation.md">general rule on API usage
-monitoring</a></p>
+uncontrolled breaking effects. See also the <a href="#192"><span style="color:#bfbf00"><strong>SHOULD</strong></span> Monitor API Usage</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -5649,8 +5612,7 @@ publish/subscribe broker for event producers and consumers.</p>
 in standing to a service’s REST API. Services publishing data for
 integration must treat their events as a first class design concern,
 just as they would an API. For example this means approaching events
-with the "API first" principle in mind <a href="../Introduction.md">as
-described in the Introduction</a>.</p>
+with the "API first" principle in mind as described in the <a href="#introduction">Introduction</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -5802,8 +5764,7 @@ properties are accepted unless declared in the schema.</p>
 registered schema, <code>S0</code> can read events defined by <code>S1</code> - that is,
 consumers can read events tagged with the latest schema version using
 the previous version as long as consumers follow the robustness
-principle described in the guideline&#8217;s <a href="../DesignPrinciples.md">API
-Design Principles</a>.</p>
+principle described in the guideline&#8217;s <a href="#api-design-principles">API Design Principles</a>.</p>
 </li>
 <li>
 <p><code>compatible</code>: This means changes are fully compatible. A new schema,
@@ -6030,10 +5991,7 @@ Other than that, the JSON structures are identical.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>See
-<a href="../events/event.md#must-use-the-general-event-category-to-signal-steps-and-arrival-points-in-business-processes">"Use
-Business Events to signal steps and arrival points in business
-processes"</a> for more guidance on how to use the category.</p>
+<p>See <a href="#200"><span style="color:#bf0000"><strong>MUST</strong></span> Use the General Event Category to signal steps and arrival points in business processes</a> for more guidance on how to use the category.</p>
 </div>
 <div class="paragraph">
 <p><strong>The Data Change Event Category.</strong></p>
@@ -6097,16 +6055,13 @@ Change Event Category:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="../events/event.md#should-ensure-that-data-change-events-match-api-representations">"Ensure
-that Data Change Events match API representations."</a></p>
+<p><a href="#204"><span style="color:#bfbf00"><strong>SHOULD</strong></span> Ensure that Data Change Events match API representations</a></p>
 </li>
 <li>
-<p><a href="../events/event.md#must-use-data-change-events-to-signal-mutations">"Use
-Data Change Events to signal mutations."</a>)</p>
+<p><a href="#201"><span style="color:#bf0000"><strong>MUST</strong></span> Use Data Change Events to signal mutations</a></p>
 </li>
 <li>
-<p><a href="../events/event.md#should-use-the-hash-partition-strategy-for-data-change-events">"Use
-the hash partition strategy for Data Change Events."</a>)</p>
+<p><a href="#203"><span style="color:#bfbf00"><strong>SHOULD</strong></span> Use the hash partition strategy for Data Change Events</a></p>
 </li>
 </ul>
 </div>
@@ -6198,9 +6153,7 @@ additional information.</p>
 <p>Events are intended to be used by other services including business
 process/data analytics and monitoring. They should be based around the
 resources and business processes you have defined for your service
-domain and adhere to its natural lifecycle (see also "Should: Define
-useful resources" in the
-<a href="../general-guidelines/GeneralGuidelines.md">General Guidelines</a>).</p>
+domain and adhere to its natural lifecycle (see also <a href="#139"><span style="color:#bfbf00"><strong>SHOULD</strong></span> Define <em>useful</em> resources</a>).</p>
 </div>
 <div class="paragraph">
 <p>As there is a cost in creating an explosion of event types and topics,
@@ -6290,9 +6243,7 @@ category.</p>
 all related events for the entity.</p>
 </li>
 <li>
-<p>Change events should
-<a href="#should-provide-a-means-of-event-ordering">contain a means of
-ordering</a> events for a given entity.</p>
+<p>Change events <a href="#202"><span style="color:#bfbf00"><strong>SHOULD</strong></span> Provide a means for explicit event ordering</a>.</p>
 </li>
 <li>
 <p>Change events must be published reliably by the service.</p>
@@ -6433,8 +6384,8 @@ of event.</p>
 general.</p>
 </div>
 <div class="paragraph">
-<p>Everything expressed in the <a href="../Introduction.md">Introduction to
-these Guidelines</a> is applicable to event data interchange between
+<p>Everything expressed in the <a href="#introduction">Introduction</a> to
+these Guidelines is applicable to event data interchange between
 services. This is because our events, just like our APIs, represent a
 commitment to express what our systems do and designing high-quality,
 useful events allows us to develop new and interesting products and
@@ -6448,24 +6399,24 @@ search request or as a paginated feed, and it will be common to base
 events on the models created for the service’s REST API.</p>
 </div>
 <div class="paragraph">
-<p>The following existing guideline sections are applicable to events -</p>
+<p>The following existing guideline sections are applicable to events:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="../general-guidelines/GeneralGuidelines.md">General Guidelines</a></p>
+<p><a href="#general-guidelines">General Guidelines</a></p>
 </li>
 <li>
-<p><a href="../naming/Naming.md">Naming</a></p>
+<p><a href="#api-naming">API Naming</a></p>
 </li>
 <li>
-<p><a href="../data-formats/DataFormats.md">Data Formats</a></p>
+<p><a href="#data-formats">Data Formats</a></p>
 </li>
 <li>
-<p><a href="../common-data-types/CommonDataTypes.md">Common Data Objects</a></p>
+<p><a href="#common-data-types">Common Data Types</a></p>
 </li>
 <li>
-<p><a href="../hyper-media/Hypermedia.md">Hypermedia</a> -</p>
+<p><a href="#hypermedia">Hypermedia</a></p>
 </li>
 </ul>
 </div>
@@ -6475,8 +6426,7 @@ events on the models created for the service’s REST API.</p>
 <div class="paragraph">
 <p>Changes to events must be based around making additive and backward
 compatible changes. This follows the guideline, "Must: Don’t Break
-Backward Compatibility" from the
-<a href="../compatibility/Compatibility.md">Compatibility guidelines</a>.</p>
+Backward Compatibility" from the <a href="#compatibility">Compatibility</a> guidelines.</p>
 </div>
 <div class="paragraph">
 <p>In the context of events, compatibility issues are complicated by the
@@ -6533,9 +6483,8 @@ known as a tuple).</p>
 field (also known as a co-occurrence constraint).</p>
 </li>
 <li>
-<p>Adding a value to an enumeration (note that
-<a href="../compatibility/Compatibility.md#should-used-openended-list-of-values-xextensibleenum-instead-of-enumerations"><code>x-extensible-enum</code></a>
-is not available in JSON Schema).</p>
+<p>Adding a value to an enumeration (note that <a href="#112"><code>x-extensible-enum</code></a>
+is not available in JSON Schema)</p>
 </li>
 </ul>
 </div>
@@ -6591,9 +6540,7 @@ are prevented by not using <code>additionalProperties</code>.</p>
 </div>
 <div class="paragraph">
 <p>See also "Treat Open API Definitions As Open For Extension By Default"<br>
-in the
-<a href="../compatibility/Compatibility.md#must-treat-open-api-definitions-as-open-for-extension-by-default">Compatibility</a>
-section for further guidelines on the use of <code>additionalProperties</code>.</p>
+in the <a href="#compatibility">Compatibility</a> section for further guidelines on the use of <code>additionalProperties</code>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -6621,8 +6568,7 @@ generate a UUID value.</p>
 <div class="sect2">
 <h3 id="211"><a class="link" href="#211">19.19. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Design for idempotent out-of-order processing</a></h3>
 <div class="paragraph">
-<p>Events that are designed for
-<a href="#must-use-unique-event-identifiers">idempotent</a> out-of-order
+<p>Events that are designed for <a href="#210">idempotent</a> out-of-order
 processing allow for extremely resilient systems: If processing an event
 fails, consumers and producers can skip/delay/retry it without stopping
 the world or corrupting the processing result.</p>
@@ -6643,8 +6589,7 @@ processing can be supported by sending the following information:</p>
 <p>the process/resource/entity identifier,</p>
 </li>
 <li>
-<p>a <a href="#should-provide-a-means-of-event-ordering">monotonically
-increasing ordering key</a> and</p>
+<p>a <a href="#202">monotonically increasing ordering key</a> and</p>
 </li>
 <li>
 <p>the process/resource state after the change.</p>
@@ -6904,7 +6849,7 @@ The latter changes are additionally labeled with "Rule Change" here.</p>
 <p><code>2017-03-30:</code> Added rule that APIs should be modelled around business processes</p>
 </li>
 <li>
-<p><code>2017-02-28:</code> Extended information about how to reference sub-resources and the usage of composite identifiers in the <a href="../resources/Resources.md#-bookmust&#8212;&#8203;identify-resources-and-sub-resources-via-path-segments">Resources</a>
+<p><code>2017-02-28:</code> Extended information about how to reference sub-resources and the usage of composite identifiers in the <a href="#142"><span style="color:#bf0000"><strong>MUST</strong></span> Identify resources and Sub-Resources via Path Segments</a>
 part.</p>
 </li>
 <li>
@@ -6914,9 +6859,7 @@ part.</p>
 <p><code>2017-02-02:</code> Added guideline for batch and bulk request</p>
 </li>
 <li>
-<p><code>2017-02-01:</code> Discouraged use of <a href="../headers/CommonHeaders.md#could-use-contentlocation-header">Content-Location</a>
-header by requiring to use <a href="../headers/CommonHeaders.md#should-use-location-header-instead-of-contentlocation-header">Location
-header</a>.</p>
+<p><code>2017-02-01:</code> <a href="#179"><span style="color:#bfbf00"><strong>SHOULD</strong></span> Use Location Header instead of Content-Location Header</a></p>
 </li>
 <li>
 <p><code>2017-01-18:</code> Removed "Avoid Javascript Keywords" rule</p>
@@ -6931,10 +6874,10 @@ header</a>.</p>
 <p><code>2016-12-06:</code> New guideline: "Should Only Use UUIDs If Necessary"</p>
 </li>
 <li>
-<p><code>2016-12-04:</code> Changed OAuth flow example from implicit to password in <a href="../security/Security.md">Security section</a>.</p>
+<p><code>2016-12-04:</code> Changed OAuth flow example from implicit to password in <a href="#security">Security</a>.</p>
 </li>
 <li>
-<p><code>2016-10-13:</code> <a href="../data-formats/DataFormats.md#should-prefer-standard-media-type-name-applicationjson">Officially deprecated using custom media types instead of application/json</a>.</p>
+<p><code>2016-10-13:</code> <a href="#171"><span style="color:#bfbf00"><strong>SHOULD</strong></span> Prefer standard Media type name <code>application/json</code></a></p>
 </li>
 <li>
 <p><code>2016-10-10:</code> Introduced the changelog. From now on all rule changes on API guidelines will be recorded here.</p>

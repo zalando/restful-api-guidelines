@@ -25,8 +25,7 @@ indicates that the body is meant for people literate in some human
 language(s).
 * https://tools.ietf.org/html/rfc7231#section-3.1.4.2[`Content-Location`]
 indicates where the body can be found otherwise
-(link:../headers/CommonHeaders.md#could-use-contentlocation-header[see
-below for more details]).
+(<<178>> for more details]).
 * https://tools.ietf.org/html/rfc7233#section-4.2[`Content-Range`] is
 used in responses to range requests to indicate which part of the
 requested resource representation is delivered with the body.

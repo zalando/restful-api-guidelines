@@ -19,8 +19,7 @@ listing is empty) or 404 (if the list is missing)
 * GET requests must NOT have request body payload
 
 *Note:* GET requests on collection resources should provide a sufficient
-filter mechanism as well as
-link:../pagination/Pagination.md[pagination].
+filter mechanism as well as <<pagination>>.
 
 === GET with Body
 
@@ -76,9 +75,7 @@ allowed as resource IDs. If URIs are not available POST should be
 preferred.
 
 To prevent unnoticed concurrent updates when using PUT, the combination
-of
-link:../headers/CommonHeaders.md#could-consider-using-etag-together-with-ifnonematch-header[`ETag`
-and `If-(None-)Match`] headers should be considered to signal the server
+of <<181,`ETag` and `If-(None-)Match`>> headers should be considered to signal the server
 stricter demands to expose conflicts and prevent lost updates.
 
 === POST
@@ -135,9 +132,8 @@ resources have been updated
 
 *Note:* since implementing PATCH correctly is a bit tricky, we strongly
 suggest to choose one and only one of the following patterns per
-endpoint, unless forced by a
-link:../compatibility/Compatibility#compatibility[backwards compatible
-change]. In preference order:
+endpoint, unless forced by a <<106,backwards compatible change>>.
+In preference order:
 
 1.  use PUT with complete objects to update a resource as long as
 feasible (i.e. do not use PATCH at all).
@@ -158,13 +154,11 @@ quickly turns out to be too limited, especially when trying to update
 single objects in large collections (as part of the resource). In this
 cases http://tools.ietf.org/html/rfc6902[JSON Patch] can shown its full
 power while still showing readable patch requests
-(http://erosb.github.io/post/json-patch-vs-merge-patch[see also]).
+(see also http://erosb.github.io/post/json-patch-vs-merge-patch[JSON patch vs. merge]).
 
 To prevent unnoticed concurrent updates when using PATCH, the
-combination of
-link:../headers/CommonHeaders.md#could-consider-using-etag-together-with-ifnonematch-header[`ETag`
-and `If-Match`] headers should be considered to signal the server
-stricter demands to expose conflicts and prevent lost updates.
+combination of <<181,`ETag`and `If-Match`>> headers should be considered to
+signal the server stricter demands to expose conflicts and prevent lost updates.
 
 === DELETE
 
@@ -261,8 +255,7 @@ Our list of most commonly used and best understood HTTP status codes:
 |201 |Created - Returned on successful entity creation. You are free to
 return either an empty response or the created resource in conjunction
 with the Location header. (More details found in the
-link:../headers/CommonHeaders.md[Common Headers section].) _Always_ set
-the Location header. |POST, PUT
+<<common-headers>>.) _Always_ set the Location header. |POST, PUT
 
 |202 |Accepted - The request was successful and will be processed
 asynchronously. |POST, PUT, DELETE, PATCH
@@ -271,8 +264,7 @@ asynchronously. |POST, PUT, DELETE, PATCH
 
 |207 |Multi-Status - The response body contains multiple status
 informations for different parts of a batch/bulk request. See
-link:../http/Http.md#must-use-207-for-batch-or-bulk-requests["Use 207
-for Batch or Bulk Requests"]. |POST
+<<151>>. |POST
 |=======================================================================
 
 === Redirection Codes
@@ -335,9 +327,7 @@ conditional (e.g. to make sure that the “lost update problem” is
 avoided). |All
 
 |429 |Too many requests - the client does not consider rate limiting and
-sent too many requests. See
-link:../http/Http.md#must-use-429-with-headers-for-rate-limits["Use 429
-with Headers for Rate Limits"]. |All
+sent too many requests. See <<152>>. |All
 |=======================================================================
 
 === Server Side Error Codes:
@@ -365,9 +355,7 @@ and visibility into how to use an API. The error object should be
 extended by an application-specific error identifier if and only if the
 HTTP status code is not specific enough to convey the domain-specific
 error semantic. For this reason, we use a standardized error return
-object definition — see
-link:../common-data-types/CommonDataTypes.html#must-use-common-error-return-objects[_Use
-Common Error Return Objects_].
+object definition — see <<175>.
 
 The OpenAPI specification shall include definitions for error
 descriptions that will be returned; they are part of the interface
@@ -399,9 +387,7 @@ responses) should be considered a compatible API evolution.
 
 Functional errors on the other hand, that convey domain-specific
 semantics, must be documented and are strongly encouraged to be
-expressed with
-link:../common-data-types/CommonDataTypes.html#must-use-common-error-return-objects[_Problem
-types_].
+expressed with <<175>>.
 
 [#151]
 == {MUST} Use 207 for Batch or Bulk Requests
@@ -481,7 +467,7 @@ number of requests made within a given window for each named entity.
 There are different ways of supplying a set of values as a query
 parameter. One particular type should be selected and stated explicitly
 in the API definition. The OpenAPI property
-`[collectionFormat](http://swagger.io/specification/)` is used to
+http://swagger.io/specification/[`collectionFormat`] is used to
 specify the format of the query parameter.
 
 Only the `csv` or `multi` formats should be used for multi-value query

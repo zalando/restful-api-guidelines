@@ -15,15 +15,10 @@ Common techniques include:
 
 * gzip compression
 * querying field filters to retrieve a subset of resource attributes
-(see
-link:../performance/Performance.md#should-support-filtering-of-resource-fields[_Support
-Filtering of Resource Fields_] below)
-* paginate lists of data items (see
-link:../pagination/Pagination.md[_Pagination_] below)
+(see <<156>> below)
+* paginate lists of data items (see <<pagination>> below)
 * `ETag` and `If-(None-)Match` headers to avoid re-fetching of unchanged
-resources (see
-link:../headers/CommonHeaders.md#could-consider-using-etag-together-with-ifnonematch-header[_Common
-Headers_]
+resources (see <<181>>
 * pagination for incremental access of larger (result) lists
 
 Each of these items is described in greater detail below.
@@ -140,9 +135,7 @@ server to prefetch that data eagerly. Whether this is optimized on the
 server, e.g. a database join, or done in a generic way, e.g. an HTTP
 proxy that transparently embeds resources, is up to the implementation.
 
-See
-link:../naming/Naming.md#could-use-conventional-query-strings[_Conventional
-Query Parameters_] for naming, e.g. "embed" for steering of embedded
+See <<136>> for naming, e.g. "embed" for steering of embedded
 resource expansion. Please use the
 https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form[BNF] grammar, as
 already defined above for filtering, when it comes to an embedding query

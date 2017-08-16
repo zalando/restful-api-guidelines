@@ -227,8 +227,7 @@ and address types when modeling users and their addresses).
 
 APIs that provide hypertext controls (links) to interconnect API
 resources must follow the conventions for naming and modeling of
-hypertext controls as defined in section
-link:../hyper-media/Hypermedia.html[Hypermedia].
+hypertext controls as defined in section <<hypermedia>>.
 
 [#175]
 == {MUST} Use Problem JSON

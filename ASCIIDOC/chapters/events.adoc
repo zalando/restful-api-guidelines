@@ -39,8 +39,7 @@ Events are part of a service’s interface to the outside world equivalent
 in standing to a service’s REST API. Services publishing data for
 integration must treat their events as a first class design concern,
 just as they would an API. For example this means approaching events
-with the "API first" principle in mind link:../Introduction.md[as
-described in the Introduction].
+with the "API first" principle in mind as described in the <<introduction>>.
 
 [#194]
 == {MUST} Make Events available for review
@@ -132,8 +131,7 @@ properties are accepted unless declared in the schema.
 registered schema, `S0` can read events defined by `S1` - that is,
 consumers can read events tagged with the latest schema version using
 the previous version as long as consumers follow the robustness
-principle described in the guideline's link:../DesignPrinciples.md[API
-Design Principles].
+principle described in the guideline's <<api-design-principles>>.
 * `compatible`: This means changes are fully compatible. A new schema,
 `S1`, is fully compatible when every event published since the first
 schema version will validate against the latest schema. In compatible
@@ -309,10 +307,7 @@ defining events that drive a business process.
 Category and uses the keyword "business" for event type registration.
 Other than that, the JSON structures are identical.
 
-See
-link:../events/event.md#must-use-the-general-event-category-to-signal-steps-and-arrival-points-in-business-processes["Use
-Business Events to signal steps and arrival points in business
-processes"] for more guidance on how to use the category.
+See <<200>> for more guidance on how to use the category.
 
 *The Data Change Event Category.*
 
@@ -369,12 +364,9 @@ field:
 See the following guidelines for more guidance on how to use the Data
 Change Event Category:
 
-* link:../events/event.md#should-ensure-that-data-change-events-match-api-representations["Ensure
-that Data Change Events match API representations."]
-* link:../events/event.md#must-use-data-change-events-to-signal-mutations["Use
-Data Change Events to signal mutations."])
-* link:../events/event.md#should-use-the-hash-partition-strategy-for-data-change-events["Use
-the hash partition strategy for Data Change Events."])
+* <<204>>
+* <<201>>
+* <<203>>
 
 *Event Metadata.*
 
@@ -460,9 +452,7 @@ additional information.
 Events are intended to be used by other services including business
 process/data analytics and monitoring. They should be based around the
 resources and business processes you have defined for your service
-domain and adhere to its natural lifecycle (see also "Should: Define
-useful resources" in the
-link:../general-guidelines/GeneralGuidelines.md[General Guidelines]).
+domain and adhere to its natural lifecycle (see also <<139>>).
 
 As there is a cost in creating an explosion of event types and topics,
 prefer to define event types that are abstract/generic enough to be
@@ -521,9 +511,7 @@ category.
 
 * Change events must identify the changed entity to allow aggregation of
 all related events for the entity.
-* Change events should
-link:#should-provide-a-means-of-event-ordering[contain a means of
-ordering] events for a given entity.
+* Change events <<202>>.
 * Change events must be published reliably by the service.
 
 [#202]
@@ -635,8 +623,8 @@ of event.
 Events must be consistent with other API data and the API Guidelines in
 general.
 
-Everything expressed in the link:../Introduction.md[Introduction to
-these Guidelines] is applicable to event data interchange between
+Everything expressed in the <<introduction>> to
+these Guidelines is applicable to event data interchange between
 services. This is because our events, just like our APIs, represent a
 commitment to express what our systems do and designing high-quality,
 useful events allows us to develop new and interesting products and
@@ -648,21 +636,20 @@ why they could not be made available using a REST API, for example via a
 search request or as a paginated feed, and it will be common to base
 events on the models created for the service’s REST API.
 
-The following existing guideline sections are applicable to events -
+The following existing guideline sections are applicable to events:
 
-* link:../general-guidelines/GeneralGuidelines.md[General Guidelines]
-* link:../naming/Naming.md[Naming]
-* link:../data-formats/DataFormats.md[Data Formats]
-* link:../common-data-types/CommonDataTypes.md[Common Data Objects]
-* link:../hyper-media/Hypermedia.md[Hypermedia] -
+* <<general-guidelines>>
+* <<api-naming>>
+* <<data-formats>>
+* <<common-data-types>>
+* <<hypermedia>>
 
 [#208]
 == {MUST} Maintain backwards compatibility for Events
 
 Changes to events must be based around making additive and backward
 compatible changes. This follows the guideline, "Must: Don’t Break
-Backward Compatibility" from the
-link:../compatibility/Compatibility.md[Compatibility guidelines].
+Backward Compatibility" from the <<compatibility>> guidelines.
 
 In the context of events, compatibility issues are complicated by the
 fact that producers and consumers of events are highly asynchronous and
@@ -690,9 +677,8 @@ consumers -
 known as a tuple).
 * Adding a new optional field to redefine the meaning of an existing
 field (also known as a co-occurrence constraint).
-* Adding a value to an enumeration (note that
-link:../compatibility/Compatibility.md#should-used-openended-list-of-values-xextensibleenum-instead-of-enumerations[`x-extensible-enum`]
-is not available in JSON Schema).
+* Adding a value to an enumeration (note that <<112,`x-extensible-enum`>>
+is not available in JSON Schema)
 
 [#209]
 == {SHOULD} Avoid `additionalProperties` in event type definitions
@@ -734,9 +720,7 @@ emitted, or, is changing the type of an undefined field. Both of these
 are prevented by not using `additionalProperties`.
 
 See also "Treat Open API Definitions As Open For Extension By Default" +
-in the
-link:../compatibility/Compatibility.md#must-treat-open-api-definitions-as-open-for-extension-by-default[Compatibility]
-section for further guidelines on the use of `additionalProperties`.
+in the <<compatibility>> section for further guidelines on the use of `additionalProperties`.
 
 [#210]
 == {MUST} Use unique Event identifiers
@@ -760,8 +744,7 @@ generate a UUID value.
 [#211]
 == {SHOULD} Design for idempotent out-of-order processing
 
-Events that are designed for
-link:#must-use-unique-event-identifiers[idempotent] out-of-order
+Events that are designed for <<210,idempotent>> out-of-order
 processing allow for extremely resilient systems: If processing an event
 fails, consumers and producers can skip/delay/retry it without stopping
 the world or corrupting the processing result.
@@ -775,8 +758,7 @@ As common example similar to data change events, idempotent out-of-order
 processing can be supported by sending the following information:
 
 * the process/resource/entity identifier,
-* a link:#should-provide-a-means-of-event-ordering[monotonically
-increasing ordering key] and
+* a <<202,monotonically increasing ordering key>> and
 * the process/resource state after the change.
 
 A receiver that is interested in the current state can then ignore
