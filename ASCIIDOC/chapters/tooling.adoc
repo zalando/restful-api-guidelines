@@ -4,7 +4,7 @@
 This is not a part of the actual guidelines, but might be helpful for following them.
 Using a tool mentioned here doesn't automatically ensure you follow the guidelines.
 
-[[api-first-integrations]]
+[[tooling-api-first-integrations]]
 == API First Integrations
 
 The following frameworks were specifically designed to support the API First workflow with OpenAPI YAML files (sorted alphabetically):
@@ -21,7 +21,7 @@ files inside IntelliJ IDEA]
 The Swagger/OpenAPI homepage lists more
 http://swagger.io/open-source-integrations/[Community-Driven Language Integrations], but most of them do not fit our API First approach.
 
-[[support-libraries]]
+[[tooling-support-libraries]]
 == Support Libraries
 
 These utility libraries support you in implementing various parts of our RESTful API guidelines (sorted alphabetically):

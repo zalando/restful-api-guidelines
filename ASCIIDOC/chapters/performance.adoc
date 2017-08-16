@@ -1,7 +1,7 @@
 [[performance]]
 = Performance
 
-[[book.should-reduce-bandwidth-needs-and-improve-responsiveness]]
+[#154]
 == {SHOULD} Reduce Bandwidth Needs and Improve Responsiveness
 
 APIs should support techniques for reducing bandwidth based on client
@@ -28,7 +28,7 @@ Headers_]
 
 Each of these items is described in greater detail below.
 
-[[book.should-use-gzip-compression]]
+[#155]
 == {SHOULD} Use gzip Compression
 
 Compress the payload of your API’s responses with gzip, unless there’s a
@@ -44,7 +44,7 @@ http://tools.ietf.org/html/rfc7231#section-5.3.4[RFC 7231 Section
 5.3.4]. The server should indicate used gzip compression via the
 Content-Encoding header.
 
-[[book.should-support-filtering-of-resource-fields]]
+[#156]
 == {SHOULD} Support Filtering of Resource Fields
 
 Depending on your use case and payload size, you can significantly
@@ -130,7 +130,7 @@ Hint: OpenAPI doesn't allow you to formally specify whether depending on
 a given parameter will return different parts of the specified result
 schema. Explain this in English in the parameter description.
 
-[[book.should-allow-optional-embedding-of-sub-resources]]
+[#157]
 == {SHOULD} Allow Optional Embedding of Sub-Resources
 
 Embedding related resources (also know as _Resource expansion_) is a

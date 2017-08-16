@@ -1,7 +1,7 @@
 [[resources]]
 = Resources
 
-[[book.must-avoid-actions-think-about-resources]]
+[#137]
 == {MUST} Avoid Actions — Think About Resources
 
 REST is all about your resources, so consider the domain entities that
@@ -20,7 +20,7 @@ PUT /article-locks/{article-id}
 The added benefit is that you already have a service for browsing and
 filtering article locks.
 
-[[book.should-model-complete-business-processes]]
+[#138]
 == {SHOULD} Model complete business processes
 
 An API should contain the complete business processes containing all
@@ -34,7 +34,7 @@ In addition, it prevents services from being designed as thin wrappers
 around databases, which normally tends to shift business logic to the
 clients.
 
-[[book.should-define-useful-resources]]
+[#139]
 == {SHOULD} Define _useful_ resources
 
 As a rule of thumb resources should be defined to cover 90% of all its
@@ -44,7 +44,7 @@ support the last 10% is to allow clients to specify their needs for
 more/less information by supporting filtering and
 link:../hyper-media/Hypermedia.md#should-allow-embedding-of-complex-subresources[embedding].
 
-[[book.must-keep-urls-verb-free]]
+[#140]
 == {MUST} Keep URLs Verb-Free
 
 The API describes resources, so the only place where actions should
@@ -54,7 +54,7 @@ message in a letter box: e.g., instead of having the verb _cancel_ in
 the url, think of sending a message to cancel an order to the
 _cancellations_ letter box on the server side.
 
-[[book.must-use-domain-specific-resource-names]]
+[#141]
 == {MUST} Use Domain-Specific Resource Names
 
 API resources represent elements of the application’s domain model.
@@ -65,7 +65,7 @@ definition. For example, “sales-order-items” is superior to
 “order-items” in that it clearly indicates which business object it
 represents. Along these lines, “items” is too general.
 
-[[book.must-identify-resources-and-sub-resources-via-path-segments]]
+[#142]
 == {MUST} Identify resources and Sub-Resources via Path Segments
 
 Some API resources may contain or reference sub-resources. Embedded
@@ -97,7 +97,7 @@ Examples:
 /customers/12ev123bv12v/addresses/DE_100100101
 ....
 
-[[book.should-only-use-uuids-if-necessary]]
+[#143]
 == {SHOULD} Only Use UUIDs If Necessary
 
 Generating IDs can be a scaling problem in high frequency and near real
@@ -142,7 +142,7 @@ Lexicographically Sortable Identifier). You may favour ULID instead of
 UUID, for instance, for pagination use cases ordered along creation
 time.
 
-[[book.may-consider-using-non--nested-urls]]
+[#144]
 == {MAY} Consider Using (Non-) Nested URLs
 
 If a sub-resource is only accessible via its parent resource and may not
@@ -164,7 +164,7 @@ directly, for instance:
 /sales-orders/5273gh3k525a
 ....
 
-[[book.should-limit-number-of-resources]]
+[#145]
 == {SHOULD} Limit number of Resources
 
 To keep maintenance and service evolution manageable, we should follow
@@ -180,7 +180,7 @@ APIs.
 Nevertheless one API should hold all necessary resources to model
 complete business processes helping clients to understand these flows.
 
-[[book.should-limit-number-of-sub-resource-levels]]
+[#146]
 == {SHOULD} Limit number of Sub-Resource Levels
 
 There are main resources (with root url paths) and sub-resources (or

@@ -1,7 +1,7 @@
 [[data-formats]]
 = Data Formats
 
-[[book.must-use-json-to-encode-structured-data]]
+[#166]
 == {MUST} Use JSON to Encode Structured Data
 
 Use JSON-encoded body payload for transferring structured data. The JSON
@@ -12,7 +12,7 @@ collection resources where one naturally would assume an array. See the
 link:../pagination/Pagination.md#could-use-pagination-links-where-applicable[pagination]
 section for an example.
 
-[[book.may-use-non-json-media-types-for-binary-data-or-alternative-content-representations]]
+[#167]
 == {MAY} Use non JSON Media Types for Binary Data or Alternative Content Representations
 
 Other media types may be used in following cases: * Transferring binary
@@ -23,7 +23,7 @@ Example of such use case is downloading images in formats JPG, PNG, GIF.
 formats PDF, DOC, XML) may be made available through content
 negotiation.
 
-[[book.must-use-standard-date-and-time-formats]]
+[#168]
 == {MUST} Use Standard Date and Time Formats
 
 === JSON Payload
@@ -38,7 +38,7 @@ Http headers including the proprietary headers. Use the
 http://tools.ietf.org/html/rfc7231#section-7.1.1.1[HTTP date format
 defined in RFC 7231].
 
-[[book.may-use-standards-for-country-language-and-currency-codes]]
+[#169]
 == {MAY} Use Standards for Country, Language and Currency Codes
 
 Use the following standard formats for country, language and currency
@@ -53,7 +53,7 @@ language code]
 language variants
 * https://en.wikipedia.org/wiki/ISO_4217[ISO 4217 currency codes]
 
-[[book.must-define-format-for-type-number-and-integer]]
+[#170]
 == {MUST} Define Format for Type Number and Integer
 
 Whenever an API defines a property of type `number` or `integer`, the
@@ -99,7 +99,7 @@ OrderList:
       example: 42
 ----
 
-[[book.should-prefer-standard-media-type-name-applicationjson]]
+[#171]
 == {SHOULD} Prefer standard Media type name `application/json`
 
 Previously, this guideline allowed the use of custom media types like

@@ -6,7 +6,7 @@ I.e. this may be necessary if a field is no longer supported in the
 result or a whole business functionality behind an endpoint has to be
 shut down. There are many other reasons as well.
 
-[[book.must-obtain-approval-of-clients]]
+[#184]
 == {MUST} Obtain Approval of Clients
 
 Before shutting down an API (or version of an API) the producer must
@@ -15,7 +15,7 @@ endpoint. Producers should help consumers to migrate to a potential new
 endpoint (i.e. by providing a migration manual). After all clients are
 migrated, the producer may shut down the deprecated API.
 
-[[book.must-external-partners-must-agree-on-deprecation-timespan]]
+[#185]
 == {MUST} External Partners Must Agree on Deprecation Timespan
 
 If the API is consumed by any external partner, the producer must define
@@ -23,7 +23,7 @@ a reasonable timespan that the API will be maintained after the producer
 has announced deprecation. The external partner (client) must agree to
 this minimum after-deprecation-lifespan before he starts using the API.
 
-[[book.must-reflect-deprecation-in-api-definition]]
+[#186]
 == {MUST} Reflect Deprecation in API Definition
 
 API deprecation must be part of the OpenAPI definition. If a method on a
@@ -39,7 +39,7 @@ If `deprecated` is set to `true`, the producer must describe what
 clients should use instead and when the API will be shut down in the
 `description` section of the API definition.
 
-[[book.must-monitor-usage-of-deprecated-apis]]
+[#187]
 == {MUST} Monitor Usage of Deprecated APIs
 
 Owners of APIs used in production must monitor usage of deprecated APIs
@@ -48,7 +48,7 @@ uncontrolled breaking effects. See also the
 link:../api-operation/ApiOperation.md[general rule on API usage
 monitoring]
 
-[[book.should-add-a-warning-header-to-responses]]
+[#188]
 == {SHOULD} Add a Warning Header to Responses
 
 During deprecation phase, the producer should add a `Warning` header
@@ -61,13 +61,13 @@ documentation describing why the API is no longer supported in the
 current form and what clients should do about it. Adding the `Warning`
 header is not sufficient to gain client consent to shut down an API.
 
-[[book.should-add-monitoring-for-warning-header]]
+[#189]
 == {SHOULD} Add Monitoring for Warning Header
 
 Clients should monitor the `Warning` header in HTTP responses to see if
 an API will be deprecated in future.
 
-[[book.must-not-start-using-deprecated-apis]]
+[#190]
 == {MUST} Not Start Using Deprecated APIs
 
 Clients must not start using deprecated parts of an API.

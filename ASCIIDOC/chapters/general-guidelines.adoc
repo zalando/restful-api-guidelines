@@ -4,7 +4,7 @@
 The titles are marked with the corresponding labels: {MUST},
 {SHOULD}, {MAY}.
 
-[[book.must-follow-api-first-principle]]
+[#100]
 == {MUST} Follow API First Principle
 
 As mentioned in the introduction, API First is one of our
@@ -64,7 +64,7 @@ comprehensive with focus to the next evolution step and have a certain
 quality (including API Guideline compliance), already confirmed via team
 internal reviews.
 
-[[book.must-provide-api-reference-definition-using-openapi]]
+[#101]
 == {MUST} Provide API Reference Definition using OpenAPI
 
 We use the http://swagger.io/specification/[OpenAPI specification] (aka
@@ -91,7 +91,7 @@ information in the Github repository itself and in
 https://pages.github.bus.zalan.do/ApiGuild/ApiReviewProcedure/[API
 review procedures [internal link]].
 
-[[book.should-provide-user-manual-documentation]]
+[#102]
 == {SHOULD} Provide User Manual Documentation
 
 In addition to the API as OpenAPI Reference Definition, it’s good
@@ -111,5 +111,5 @@ on specific team web servers, or as a Google doc. And don't forget to
 include a link to this user manual into your OpenAPI definition using
 the “externalDocs” property.
 
-[[book.must-write-apis-in-u.s.-english]]
+[#103]
 == {MUST} Write APIs in U.S. English

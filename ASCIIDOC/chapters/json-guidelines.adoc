@@ -9,11 +9,11 @@ media type and custom JSON media types defined for APIs. The guidelines
 clarifies some specific cases to allow Zalando JSON data to have an
 idiomatic form across teams and services.
 
-[[book.must-use-consistent-property-names]]
+[#116]
 == {MUST} Use Consistent Property Names
 
-[[book.must-property-names-must-be-snake_case-and-never-camelcase.]]
-== {MUST} Property names must be snake_case (and never camelCase).
+[#117]
+== {MUST} Property names must be snake_case (and never camelCase)
 
 No established industry standard exists, but many popular Internet
 companies prefer snake_case: e.g. GitHub, Stack Exchange, Twitter.
@@ -21,7 +21,7 @@ Others, like Google and Amazon, use both - but not only camelCase. It’s
 essential to establish a consistent look and feel such that JSON looks
 as if it came from the same hand.
 
-[[book.must-property-names-must-be-an-ascii-subset]]
+[#118]
 == {MUST} Property names must be an ASCII subset
 
 Property names are restricted to ASCII encoded strings. The first
@@ -29,16 +29,16 @@ character must be a letter, an underscore or a dollar sign, and
 subsequent characters can be a letter, an underscore, a dollar sign, or
 a number.
 
-[[book.should-array-names-should-be-pluralized]]
+[#119]
 == {SHOULD} Array names should be pluralized
 
 To indicate they contain multiple values prefer to pluralize array
 names. This implies that object names should in turn be singular.
 
-[[book.must-use-consistent-property-values]]
+[#120]
 == {MUST} Use Consistent Property Values
 
-[[book.must-boolean-property-values-must-not-be-null]]
+[#121]
 == {MUST} Boolean property values must not be null
 
 Schema based JSON properties that are by design booleans must not be
@@ -49,7 +49,7 @@ or statuses - for example accepted_terms_and_conditions with true or
 false can be replaced with terms_and_conditions with values yes, no and
 unknown.
 
-[[book.should-null-values-should-have-their-fields-removed]]
+[#122]
 == {SHOULD} Null values should have their fields removed
 
 Swagger/OpenAPI, which is in common use, doesn't support null field
@@ -60,19 +60,19 @@ may be a meaningful value - for example, JSON Merge Patch
 https://tools.ietf.org/html/rfc7386[RFC 7382]) using null to indicate
 property deletion.
 
-[[book.should-empty-array-values-should-not-be-null]]
+[#123]
 == {SHOULD} Empty array values should not be null
 
 Empty array values can unambiguously be represented as the the empty
 list, `[]`.
 
-[[book.should-enumerations-should-be-represented-as-strings]]
+[#124]
 == {SHOULD} Enumerations should be represented as Strings
 
 Strings are a reasonable target for values that are by design
 enumerations.
 
-[[book.should-date-property-values-should-conform-to-rfc-3399]]
+[#125]
 == {SHOULD} Date property values should conform to RFC 3399
 
 Use the date and time formats defined by
@@ -109,7 +109,7 @@ timestamps, but this can introduce interpretation issues with precision
 1460062925000 or 1460062925.000. Date strings, though more verbose and
 requiring more effort to parse, avoid this ambiguity.
 
-[[book.may-time-durations-and-intervals-could-conform-to-iso-8601]]
+[#126]
 == {MAY} Time durations and intervals could conform to ISO 8601
 
 Schema based JSON properties that are by design durations and intervals
@@ -117,7 +117,7 @@ could be strings formatted as recommended by ISO 8601
 (https://tools.ietf.org/html/rfc3339#appendix-A[Appendix A of RFC 3399
 contains a grammar] for durations).
 
-[[book.may-standards-could-be-used-for-language-country-and-currency]]
+[#127]
 == {MAY} Standards could be used for Language, Country and Currency
 
 * http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2[ISO 3166-1-alpha2 country]

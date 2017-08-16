@@ -1,7 +1,7 @@
 [[api-operation]]
 = API Operation
 
-[[book.must-provide-online-access-to-openapi-reference-definition]]
+[#191]
 == {MUST} Provide Online Access to OpenAPI Reference Definition
 
 All service applications must support access to the OpenAPI Reference
@@ -59,7 +59,7 @@ Further reading:
 * https://github.com/zalando-stups/twintip-spring-web[Library to make
 your Spring Boot service crawlable via API Discovery]
 
-[[book.should-monitor-api-usage]]
+[#192]
 == {SHOULD} Monitor API Usage
 
 Owners of APIs used in production should monitor API service to get

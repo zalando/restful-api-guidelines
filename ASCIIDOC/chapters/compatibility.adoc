@@ -1,7 +1,7 @@
 [[compatibility]]
 = Compatibility
 
-[[book.must-dont-break-backward-compatibility]]
+[#106]
 == {MUST} Don’t Break Backward Compatibility
 
 Change APIs, but keep all consumers running. Consumers usually have
@@ -26,7 +26,7 @@ an API definition is not covered by these rules. If client
 implementations update their generation process to a new version of the
 API definition, it has to be expected that code changes are necessary.
 
-[[book.should-prefer-compatible-extensions]]
+[#107]
 == {SHOULD} Prefer Compatible Extensions
 
 API designers should apply the following rules to evolve RESTful APIs
@@ -54,7 +54,7 @@ clients must be agnostic to new values.
 * Support redirection in case an URL has to change
 (https://en.wikipedia.org/wiki/HTTP_301[301 Moved Permanently]).
 
-[[book.must-prepare-clients-to-not-crash-on-compatible-api-extensions]]
+[#108]
 == {MUST} Prepare Clients To Not Crash On Compatible API Extensions
 
 Service clients should apply the robustness principle:
@@ -83,7 +83,7 @@ https://tools.ietf.org/html/rfc7231#section-6[RFC7231 Section 6]).
 * Follow the redirect when the server returns HTTP status
 https://en.wikipedia.org/wiki/HTTP_301[301 Moved Permanently].
 
-[[book.should-design-apis-conservatively]]
+[#109]
 == {SHOULD} Design APIs Conservatively
 
 Designers of service provider APIs should be conservative and accurate
@@ -127,7 +127,7 @@ anymore, it either can stay in the API definition with "not used
 anymore" description or can be removed from the API definition as long
 as the server ignores this specific parameter.
 
-[[book.must-always-return-json-objects-as-top-level-data-structures-to-support-extensibility]]
+[#110]
 == {MUST} Always Return JSON Objects As Top-Level Data Structures To Support Extensibility
 
 In a response body, you must always return a JSON objects (and not e.g.
@@ -136,7 +136,7 @@ JSON objects support compatible extension by additional attributes. This
 allows you to easily extend your response and e.g. add pagination later,
 without breaking backwards compatibility.
 
-[[book.must-treat-open-api-definitions-as-open-for-extension-by-default]]
+[#111]
 == {MUST} Treat Open API Definitions As Open For Extension By Default
 
 The Open API 2.0 specification is not very specific on default
@@ -168,7 +168,7 @@ Note that this guideline concentrates on default extensibility and does
 not exclude the use of `additionalProperties` with a schema as a value,
 which might be appropriate in some circumstances.
 
-[[book.should-used-open-ended-list-of-values-x-extensible-enum-instead-of-enumerations]]
+[#112]
 == {SHOULD} Used Open-Ended List of Values (x-extensible-enum) Instead of Enumerations
 
 Enumerations are per definition closed sets of values, that are assumed
@@ -197,7 +197,7 @@ deliver_methods:
 *Note:* `x-extensible-enum` is not JSON Schema conform but will be
 ignored by most tools.
 
-[[book.should-avoid-versioning]]
+[#113]
 == {SHOULD} Avoid Versioning
 
 When changing your RESTful APIs, do so in a compatible way and avoid
@@ -220,7 +220,7 @@ same microservice
 As we discourage versioning by all means because of the manifold
 disadvantages, we suggest to only use the first two approaches.
 
-[[book.must-use-media-type-versioning]]
+[#114]
 == {MUST} Use Media Type Versioning
 
 When API versioning is unavoidable, you have to design your
@@ -270,7 +270,7 @@ previous content-type).
 Until an incompatible change is necessary, it is recommended to stay
 with the standard `application/json` media type.
 
-[[book.must-do-not-use-uri-versioning]]
+[#115]
 == {MUST} Do Not Use URI Versioning
 
 With URI versioning a (major) version number is included in the path,
@@ -317,11 +317,9 @@ that are still under review; for example:
 ....
 version 1.4.0  -- current version
 version 1.4.1  -- first draft and call for review of API extensions compatible with 1.4.0
-version 1.4.2  -- second draft and call for review of API extensions that are still compatible
-                   with 1.4.0 but possibly incompatible with 1.4.1
+version 1.4.2  -- second draft and call for review of API extensions that are still compatible with 1.4.0 but possibly incompatible with 1.4.1
 version 1.5.0  -- approved version for implementation and release
-version 1.5.1  -- first draft for next review and API change cycle;
-                   compatible with 1.4.0 and 1.5.0
+version 1.5.1  -- first draft for next review and API change cycle; compatible with 1.4.0 and 1.5.0
 ....
 
 Hint: This versioning scheme differs in the less strict DRAFT aspect
