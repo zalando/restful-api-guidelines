@@ -99,3 +99,4 @@ entity, expand silhouette code into the silhouette object). Implementing
 “expand” correctly is difficult, so do it with care. See
 link:../hyper-media/Hypermedia.md#should-allow-embedding-of-complex-subresources[_Embedding
 resources_] for more details.
+

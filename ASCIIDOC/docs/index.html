@@ -1292,152 +1292,164 @@ b.conum * { color: inherit !important; }
 <li><a href="#book.should-date-property-values-should-conform-to-rfc-3399">6.10. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Date property values should conform to RFC 3399</a></li>
 <li><a href="#book.may-time-durations-and-intervals-could-conform-to-iso-8601">6.11. <span style="color:#006000"><strong>MAY</strong></span> Time durations and intervals could conform to ISO 8601</a></li>
 <li><a href="#book.may-standards-could-be-used-for-language-country-and-currency">6.12. <span style="color:#006000"><strong>MAY</strong></span> Standards could be used for Language, Country and Currency</a></li>
-<li><a href="#book.must-use-lowercase-separate-words-with-hyphens-for-path-segments">6.13. <span style="color:#bf0000"><strong>MUST</strong></span> Use lowercase separate words with hyphens for Path Segments</a></li>
-<li><a href="#book.must-use-snake_case-never-camelcase-for-query-parameters">6.14. <span style="color:#bf0000"><strong>MUST</strong></span> Use snake_case (never camelCase) for Query Parameters</a></li>
-<li><a href="#book.must-use-hyphenated-http-headers">6.15. <span style="color:#bf0000"><strong>MUST</strong></span> Use Hyphenated HTTP Headers</a></li>
-<li><a href="#book.should-prefer-hyphenated-pascal-case-for-http-header-fields">6.16. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Prefer Hyphenated-Pascal-Case for HTTP header Fields</a></li>
-<li><a href="#book.may-use-standardized-headers">6.17. <span style="color:#006000"><strong>MAY</strong></span> Use Standardized Headers</a></li>
-<li><a href="#book.must-pluralize-resource-names">6.18. <span style="color:#bf0000"><strong>MUST</strong></span> Pluralize Resource Names</a></li>
-<li><a href="#book.may-use-api-as-first-path-segment">6.19. <span style="color:#006000"><strong>MAY</strong></span> Use /api as first Path Segment</a></li>
-<li><a href="#book.must-avoid-trailing-slashes">6.20. <span style="color:#bf0000"><strong>MUST</strong></span> Avoid Trailing Slashes</a></li>
-<li><a href="#book.may-use-conventional-query-strings">6.21. <span style="color:#006000"><strong>MAY</strong></span> Use Conventional Query Strings</a></li>
-<li><a href="#book.must-avoid-actions-think-about-resources">6.22. <span style="color:#bf0000"><strong>MUST</strong></span> Avoid Actions — Think About Resources</a></li>
-<li><a href="#book.should-model-complete-business-processes">6.23. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Model complete business processes</a></li>
-<li><a href="#book.should-define-useful-resources">6.24. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Define <em>useful</em> resources</a></li>
-<li><a href="#book.must-keep-urls-verb-free">6.25. <span style="color:#bf0000"><strong>MUST</strong></span> Keep URLs Verb-Free</a></li>
-<li><a href="#book.must-use-domain-specific-resource-names">6.26. <span style="color:#bf0000"><strong>MUST</strong></span> Use Domain-Specific Resource Names</a></li>
-<li><a href="#book.must-identify-resources-and-sub-resources-via-path-segments">6.27. <span style="color:#bf0000"><strong>MUST</strong></span> Identify resources and Sub-Resources via Path Segments</a></li>
-<li><a href="#book.should-only-use-uuids-if-necessary">6.28. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Only Use UUIDs If Necessary</a></li>
-<li><a href="#book.may-consider-using-non--nested-urls">6.29. <span style="color:#006000"><strong>MAY</strong></span> Consider Using (Non-) Nested URLs</a></li>
-<li><a href="#book.should-limit-number-of-resources">6.30. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Limit number of Resources</a></li>
-<li><a href="#book.should-limit-number-of-sub-resource-levels">6.31. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Limit number of Sub-Resource Levels</a></li>
 </ul>
 </li>
-<li><a href="#http">7. HTTP</a>
+<li><a href="#api-naming">7. API Naming</a>
 <ul class="sectlevel2">
-<li><a href="#book.must-use-http-methods-correctly">7.1. <span style="color:#bf0000"><strong>MUST</strong></span> Use HTTP Methods Correctly</a></li>
-<li><a href="#book.must-fulfill-safeness-and-idempotency-properties">7.2. <span style="color:#bf0000"><strong>MUST</strong></span> Fulfill Safeness and Idempotency Properties</a></li>
-<li><a href="#book.must-use-specific-http-status-codes">7.3. <span style="color:#bf0000"><strong>MUST</strong></span> Use Specific HTTP Status Codes</a></li>
-<li><a href="#book.must-provide-error-documentation">7.4. <span style="color:#bf0000"><strong>MUST</strong></span> Provide Error Documentation</a></li>
-<li><a href="#book.must-use-207-for-batch-or-bulk-requests">7.5. <span style="color:#bf0000"><strong>MUST</strong></span> Use 207 for Batch or Bulk Requests</a></li>
-<li><a href="#book.must-use-429-with-headers-for-rate-limits">7.6. <span style="color:#bf0000"><strong>MUST</strong></span> Use 429 with Headers for Rate Limits</a></li>
-<li><a href="#book.should-explicitly-define-the-collection-format-of-query-parameters">7.7. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Explicitly define the Collection Format of Query Parameters</a></li>
+<li><a href="#book.must-use-lowercase-separate-words-with-hyphens-for-path-segments">7.1. <span style="color:#bf0000"><strong>MUST</strong></span> Use lowercase separate words with hyphens for Path Segments</a></li>
+<li><a href="#book.must-use-snake_case-never-camelcase-for-query-parameters">7.2. <span style="color:#bf0000"><strong>MUST</strong></span> Use snake_case (never camelCase) for Query Parameters</a></li>
+<li><a href="#book.must-use-hyphenated-http-headers">7.3. <span style="color:#bf0000"><strong>MUST</strong></span> Use Hyphenated HTTP Headers</a></li>
+<li><a href="#book.should-prefer-hyphenated-pascal-case-for-http-header-fields">7.4. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Prefer Hyphenated-Pascal-Case for HTTP header Fields</a></li>
+<li><a href="#book.may-use-standardized-headers">7.5. <span style="color:#006000"><strong>MAY</strong></span> Use Standardized Headers</a></li>
+<li><a href="#book.must-pluralize-resource-names">7.6. <span style="color:#bf0000"><strong>MUST</strong></span> Pluralize Resource Names</a></li>
+<li><a href="#book.may-use-api-as-first-path-segment">7.7. <span style="color:#006000"><strong>MAY</strong></span> Use /api as first Path Segment</a></li>
+<li><a href="#book.must-avoid-trailing-slashes">7.8. <span style="color:#bf0000"><strong>MUST</strong></span> Avoid Trailing Slashes</a></li>
+<li><a href="#book.may-use-conventional-query-strings">7.9. <span style="color:#006000"><strong>MAY</strong></span> Use Conventional Query Strings</a></li>
 </ul>
 </li>
-<li><a href="#performance">8. Performance</a>
+<li><a href="#resources">8. Resources</a>
 <ul class="sectlevel2">
-<li><a href="#book.should-reduce-bandwidth-needs-and-improve-responsiveness">8.1. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Reduce Bandwidth Needs and Improve Responsiveness</a></li>
-<li><a href="#book.should-use-gzip-compression">8.2. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Use gzip Compression</a></li>
-<li><a href="#book.should-support-filtering-of-resource-fields">8.3. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Support Filtering of Resource Fields</a></li>
-<li><a href="#book.should-allow-optional-embedding-of-sub-resources">8.4. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Allow Optional Embedding of Sub-Resources</a></li>
+<li><a href="#book.must-avoid-actions-think-about-resources">8.1. <span style="color:#bf0000"><strong>MUST</strong></span> Avoid Actions — Think About Resources</a></li>
+<li><a href="#book.should-model-complete-business-processes">8.2. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Model complete business processes</a></li>
+<li><a href="#book.should-define-useful-resources">8.3. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Define <em>useful</em> resources</a></li>
+<li><a href="#book.must-keep-urls-verb-free">8.4. <span style="color:#bf0000"><strong>MUST</strong></span> Keep URLs Verb-Free</a></li>
+<li><a href="#book.must-use-domain-specific-resource-names">8.5. <span style="color:#bf0000"><strong>MUST</strong></span> Use Domain-Specific Resource Names</a></li>
+<li><a href="#book.must-identify-resources-and-sub-resources-via-path-segments">8.6. <span style="color:#bf0000"><strong>MUST</strong></span> Identify resources and Sub-Resources via Path Segments</a></li>
+<li><a href="#book.should-only-use-uuids-if-necessary">8.7. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Only Use UUIDs If Necessary</a></li>
+<li><a href="#book.may-consider-using-non--nested-urls">8.8. <span style="color:#006000"><strong>MAY</strong></span> Consider Using (Non-) Nested URLs</a></li>
+<li><a href="#book.should-limit-number-of-resources">8.9. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Limit number of Resources</a></li>
+<li><a href="#book.should-limit-number-of-sub-resource-levels">8.10. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Limit number of Sub-Resource Levels</a></li>
 </ul>
 </li>
-<li><a href="#pagination">9. Pagination</a>
+<li><a href="#http">9. HTTP</a>
 <ul class="sectlevel2">
-<li><a href="#book.must-support-pagination">9.1. <span style="color:#bf0000"><strong>MUST</strong></span> Support Pagination</a></li>
-<li><a href="#book.should-prefer-cursor-based-pagination-avoid-offset-based-pagination">9.2. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Prefer Cursor-Based Pagination, Avoid Offset-Based Pagination</a></li>
-<li><a href="#book.may-use-pagination-links-where-applicable">9.3. <span style="color:#006000"><strong>MAY</strong></span> Use Pagination Links Where Applicable</a></li>
+<li><a href="#book.must-use-http-methods-correctly">9.1. <span style="color:#bf0000"><strong>MUST</strong></span> Use HTTP Methods Correctly</a></li>
+<li><a href="#book.must-fulfill-safeness-and-idempotency-properties">9.2. <span style="color:#bf0000"><strong>MUST</strong></span> Fulfill Safeness and Idempotency Properties</a></li>
+<li><a href="#book.must-use-specific-http-status-codes">9.3. <span style="color:#bf0000"><strong>MUST</strong></span> Use Specific HTTP Status Codes</a></li>
+<li><a href="#book.must-provide-error-documentation">9.4. <span style="color:#bf0000"><strong>MUST</strong></span> Provide Error Documentation</a></li>
+<li><a href="#book.must-use-207-for-batch-or-bulk-requests">9.5. <span style="color:#bf0000"><strong>MUST</strong></span> Use 207 for Batch or Bulk Requests</a></li>
+<li><a href="#book.must-use-429-with-headers-for-rate-limits">9.6. <span style="color:#bf0000"><strong>MUST</strong></span> Use 429 with Headers for Rate Limits</a></li>
+<li><a href="#book.should-explicitly-define-the-collection-format-of-query-parameters">9.7. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Explicitly define the Collection Format of Query Parameters</a></li>
 </ul>
 </li>
-<li><a href="#hypermedia">10. Hypermedia</a>
+<li><a href="#performance">10. Performance</a>
 <ul class="sectlevel2">
-<li><a href="#book.must-use-rest-maturity-level-2">10.1. <span style="color:#bf0000"><strong>MUST</strong></span> Use REST Maturity Level 2</a></li>
-<li><a href="#book.may-use-rest-maturity-level-3---hateoas">10.2. <span style="color:#006000"><strong>MAY</strong></span> Use REST Maturity Level 3 - HATEOAS</a></li>
-<li><a href="#book.must-use-common-hypertext-controls">10.3. <span style="color:#bf0000"><strong>MUST</strong></span> Use Common Hypertext Controls</a></li>
-<li><a href="#book.should-use-simple-hypertext-controls-for-pagination-and-self-references">10.4. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Use Simple Hypertext Controls for Pagination and Self-References</a></li>
-<li><a href="#book.must-not-use-link-headers-with-json-entities">10.5. <span style="color:#bf0000"><strong>MUST</strong></span> Not Use Link Headers with JSON entities</a></li>
+<li><a href="#book.should-reduce-bandwidth-needs-and-improve-responsiveness">10.1. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Reduce Bandwidth Needs and Improve Responsiveness</a></li>
+<li><a href="#book.should-use-gzip-compression">10.2. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Use gzip Compression</a></li>
+<li><a href="#book.should-support-filtering-of-resource-fields">10.3. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Support Filtering of Resource Fields</a></li>
+<li><a href="#book.should-allow-optional-embedding-of-sub-resources">10.4. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Allow Optional Embedding of Sub-Resources</a></li>
 </ul>
 </li>
-<li><a href="#data-formats">11. Data Formats</a>
+<li><a href="#pagination">11. Pagination</a>
 <ul class="sectlevel2">
-<li><a href="#book.must-use-json-to-encode-structured-data">11.1. <span style="color:#bf0000"><strong>MUST</strong></span> Use JSON to Encode Structured Data</a></li>
-<li><a href="#book.may-use-non-json-media-types-for-binary-data-or-alternative-content-representations">11.2. <span style="color:#006000"><strong>MAY</strong></span> Use non JSON Media Types for Binary Data or Alternative Content Representations</a></li>
-<li><a href="#book.must-use-standard-date-and-time-formats">11.3. <span style="color:#bf0000"><strong>MUST</strong></span> Use Standard Date and Time Formats</a></li>
-<li><a href="#book.may-use-standards-for-country-language-and-currency-codes">11.4. <span style="color:#006000"><strong>MAY</strong></span> Use Standards for Country, Language and Currency Codes</a></li>
-<li><a href="#book.must-define-format-for-type-number-and-integer">11.5. <span style="color:#bf0000"><strong>MUST</strong></span> Define Format for Type Number and Integer</a></li>
-<li><a href="#book.should-prefer-standard-media-type-name-applicationjson">11.6. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Prefer standard Media type name <code>application/json</code></a></li>
+<li><a href="#book.must-support-pagination">11.1. <span style="color:#bf0000"><strong>MUST</strong></span> Support Pagination</a></li>
+<li><a href="#book.should-prefer-cursor-based-pagination-avoid-offset-based-pagination">11.2. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Prefer Cursor-Based Pagination, Avoid Offset-Based Pagination</a></li>
+<li><a href="#book.may-use-pagination-links-where-applicable">11.3. <span style="color:#006000"><strong>MAY</strong></span> Use Pagination Links Where Applicable</a></li>
 </ul>
 </li>
-<li><a href="#common-data-types">12. Common Data Types</a>
+<li><a href="#hypermedia">12. Hypermedia</a>
 <ul class="sectlevel2">
-<li><a href="#book.should-use-a-common-money-object">12.1. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Use a Common Money Object</a></li>
-<li><a href="#book.must-use-common-field-names-and-semantics">12.2. <span style="color:#bf0000"><strong>MUST</strong></span> Use common field names and semantics</a></li>
-<li><a href="#book.must-follow-hypertext-control-conventions">12.3. <span style="color:#bf0000"><strong>MUST</strong></span> Follow Hypertext Control Conventions</a></li>
-<li><a href="#book.must-use-problem-json">12.4. <span style="color:#bf0000"><strong>MUST</strong></span> Use Problem JSON</a></li>
-<li><a href="#book.must-do-not-expose-stack-traces">12.5. <span style="color:#bf0000"><strong>MUST</strong></span> Do not expose Stack Traces</a></li>
+<li><a href="#book.must-use-rest-maturity-level-2">12.1. <span style="color:#bf0000"><strong>MUST</strong></span> Use REST Maturity Level 2</a></li>
+<li><a href="#book.may-use-rest-maturity-level-3---hateoas">12.2. <span style="color:#006000"><strong>MAY</strong></span> Use REST Maturity Level 3 - HATEOAS</a></li>
+<li><a href="#book.must-use-common-hypertext-controls">12.3. <span style="color:#bf0000"><strong>MUST</strong></span> Use Common Hypertext Controls</a></li>
+<li><a href="#book.should-use-simple-hypertext-controls-for-pagination-and-self-references">12.4. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Use Simple Hypertext Controls for Pagination and Self-References</a></li>
+<li><a href="#book.must-not-use-link-headers-with-json-entities">12.5. <span style="color:#bf0000"><strong>MUST</strong></span> Not Use Link Headers with JSON entities</a></li>
 </ul>
 </li>
-<li><a href="#common-headers">13. Common Headers</a>
+<li><a href="#data-formats">13. Data Formats</a>
 <ul class="sectlevel2">
-<li><a href="#book.must-use-content-headers-correctly">13.1. <span style="color:#bf0000"><strong>MUST</strong></span> Use Content Headers Correctly</a></li>
-<li><a href="#book.may-use-content-location-header">13.2. <span style="color:#006000"><strong>MAY</strong></span> Use Content-Location Header</a></li>
-<li><a href="#book.should-use-location-header-instead-of-content-location-header">13.3. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Use Location Header instead of Content-Location Header</a></li>
-<li><a href="#book.may-use-the-prefer-header-to-indicate-processing-preferences">13.4. <span style="color:#006000"><strong>MAY</strong></span> Use the Prefer header to indicate processing preferences</a></li>
-<li><a href="#book.may-consider-using-etag-together-with-if-none-match-header">13.5. <span style="color:#006000"><strong>MAY</strong></span> Consider using ETag together with If-(None-)Match header</a></li>
+<li><a href="#book.must-use-json-to-encode-structured-data">13.1. <span style="color:#bf0000"><strong>MUST</strong></span> Use JSON to Encode Structured Data</a></li>
+<li><a href="#book.may-use-non-json-media-types-for-binary-data-or-alternative-content-representations">13.2. <span style="color:#006000"><strong>MAY</strong></span> Use non JSON Media Types for Binary Data or Alternative Content Representations</a></li>
+<li><a href="#book.must-use-standard-date-and-time-formats">13.3. <span style="color:#bf0000"><strong>MUST</strong></span> Use Standard Date and Time Formats</a></li>
+<li><a href="#book.may-use-standards-for-country-language-and-currency-codes">13.4. <span style="color:#006000"><strong>MAY</strong></span> Use Standards for Country, Language and Currency Codes</a></li>
+<li><a href="#book.must-define-format-for-type-number-and-integer">13.5. <span style="color:#bf0000"><strong>MUST</strong></span> Define Format for Type Number and Integer</a></li>
+<li><a href="#book.should-prefer-standard-media-type-name-applicationjson">13.6. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Prefer standard Media type name <code>application/json</code></a></li>
 </ul>
 </li>
-<li><a href="#proprietary-headers">14. Proprietary Headers</a>
+<li><a href="#common-data-types">14. Common Data Types</a>
 <ul class="sectlevel2">
-<li><a href="#book.must-use-only-the-specified-proprietary-zalando-headers">14.1. <span style="color:#bf0000"><strong>MUST</strong></span> Use Only the Specified Proprietary Zalando Headers</a></li>
-<li><a href="#book.must-propagate-proprietary-headers">14.2. <span style="color:#bf0000"><strong>MUST</strong></span> Propagate Proprietary Headers</a></li>
+<li><a href="#book.should-use-a-common-money-object">14.1. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Use a Common Money Object</a></li>
+<li><a href="#book.must-use-common-field-names-and-semantics">14.2. <span style="color:#bf0000"><strong>MUST</strong></span> Use common field names and semantics</a></li>
+<li><a href="#book.must-follow-hypertext-control-conventions">14.3. <span style="color:#bf0000"><strong>MUST</strong></span> Follow Hypertext Control Conventions</a></li>
+<li><a href="#book.must-use-problem-json">14.4. <span style="color:#bf0000"><strong>MUST</strong></span> Use Problem JSON</a></li>
+<li><a href="#book.must-do-not-expose-stack-traces">14.5. <span style="color:#bf0000"><strong>MUST</strong></span> Do not expose Stack Traces</a></li>
 </ul>
 </li>
-<li><a href="#deprecation">15. Deprecation</a>
+<li><a href="#common-headers">15. Common Headers</a>
 <ul class="sectlevel2">
-<li><a href="#book.must-obtain-approval-of-clients">15.1. <span style="color:#bf0000"><strong>MUST</strong></span> Obtain Approval of Clients</a></li>
-<li><a href="#book.must-external-partners-must-agree-on-deprecation-timespan">15.2. <span style="color:#bf0000"><strong>MUST</strong></span> External Partners Must Agree on Deprecation Timespan</a></li>
-<li><a href="#book.must-reflect-deprecation-in-api-definition">15.3. <span style="color:#bf0000"><strong>MUST</strong></span> Reflect Deprecation in API Definition</a></li>
-<li><a href="#book.must-monitor-usage-of-deprecated-apis">15.4. <span style="color:#bf0000"><strong>MUST</strong></span> Monitor Usage of Deprecated APIs</a></li>
-<li><a href="#book.should-add-a-warning-header-to-responses">15.5. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Add a Warning Header to Responses</a></li>
-<li><a href="#book.should-add-monitoring-for-warning-header">15.6. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Add Monitoring for Warning Header</a></li>
-<li><a href="#book.must-not-start-using-deprecated-apis">15.7. <span style="color:#bf0000"><strong>MUST</strong></span> Not Start Using Deprecated APIs</a></li>
+<li><a href="#book.must-use-content-headers-correctly">15.1. <span style="color:#bf0000"><strong>MUST</strong></span> Use Content Headers Correctly</a></li>
+<li><a href="#book.may-use-content-location-header">15.2. <span style="color:#006000"><strong>MAY</strong></span> Use Content-Location Header</a></li>
+<li><a href="#book.should-use-location-header-instead-of-content-location-header">15.3. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Use Location Header instead of Content-Location Header</a></li>
+<li><a href="#book.may-use-the-prefer-header-to-indicate-processing-preferences">15.4. <span style="color:#006000"><strong>MAY</strong></span> Use the Prefer header to indicate processing preferences</a></li>
+<li><a href="#book.may-consider-using-etag-together-with-if-none-match-header">15.5. <span style="color:#006000"><strong>MAY</strong></span> Consider using ETag together with If-(None-)Match header</a></li>
 </ul>
 </li>
-<li><a href="#api-operation">16. API Operation</a>
+<li><a href="#proprietary-headers">16. Proprietary Headers</a>
 <ul class="sectlevel2">
-<li><a href="#book.must-provide-online-access-to-openapi-reference-definition">16.1. <span style="color:#bf0000"><strong>MUST</strong></span> Provide Online Access to OpenAPI Reference Definition</a></li>
-<li><a href="#book.should-monitor-api-usage">16.2. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Monitor API Usage</a></li>
+<li><a href="#book.must-use-only-the-specified-proprietary-zalando-headers">16.1. <span style="color:#bf0000"><strong>MUST</strong></span> Use Only the Specified Proprietary Zalando Headers</a></li>
+<li><a href="#book.must-propagate-proprietary-headers">16.2. <span style="color:#bf0000"><strong>MUST</strong></span> Propagate Proprietary Headers</a></li>
 </ul>
 </li>
-<li><a href="#events">17. Events</a>
+<li><a href="#deprecation">17. Deprecation</a>
 <ul class="sectlevel2">
-<li><a href="#book.must-treat-events-as-part-of-the-service-interface">17.1. <span style="color:#bf0000"><strong>MUST</strong></span> Treat Events as part of the service interface</a></li>
-<li><a href="#book.must-make-events-available-for-review">17.2. <span style="color:#bf0000"><strong>MUST</strong></span> Make Events available for review</a></li>
-<li><a href="#book.must-ensure-event-type-schemas-conform-to-open-apis-schema-object">17.3. <span style="color:#bf0000"><strong>MUST</strong></span> Ensure Event Type schemas conform to Open API&#8217;s Schema Object</a></li>
-<li><a href="#book.must-ensure-that-events-are-registered-as-event-types">17.4. <span style="color:#bf0000"><strong>MUST</strong></span> Ensure that Events are registered as Event Types</a></li>
-<li><a href="#book.must-ensure-events-conform-to-a-well-known-event-category">17.5. <span style="color:#bf0000"><strong>MUST</strong></span> Ensure Events conform to a well-known Event Category</a></li>
-<li><a href="#book.must-ensure-that-events-define-useful-business-resources">17.6. <span style="color:#bf0000"><strong>MUST</strong></span> Ensure that Events define useful business resources</a></li>
-<li><a href="#book.must-events-must-not-provide-sensitive-customer-personal-data.">17.7. <span style="color:#bf0000"><strong>MUST</strong></span> Events must not provide sensitive customer personal data.</a></li>
-<li><a href="#book.must-use-the-general-event-category-to-signal-steps-and-arrival-points-in-business-processes">17.8. <span style="color:#bf0000"><strong>MUST</strong></span> Use the General Event Category to signal steps and</a></li>
-<li><a href="#book.must-use-data-change-events-to-signal-mutations">17.9. <span style="color:#bf0000"><strong>MUST</strong></span> Use Data Change Events to signal mutations</a></li>
-<li><a href="#book.should-provide-a-means-for-explicit-event-ordering">17.10. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Provide a means for explicit event ordering</a></li>
-<li><a href="#book.should-use-the-hash-partition-strategy-for-data-change-events">17.11. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Use the hash partition strategy for Data Change Events</a></li>
-<li><a href="#book.should-ensure-that-data-change-events-match-api-representations">17.12. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Ensure that Data Change Events match API representations</a></li>
-<li><a href="#book.must-permissions-on-events-must-correspond-to-api-permissions">17.13. <span style="color:#bf0000"><strong>MUST</strong></span> Permissions on events must correspond to API permissions</a></li>
-<li><a href="#book.must-indicate-ownership-of-event-types">17.14. <span style="color:#bf0000"><strong>MUST</strong></span> Indicate ownership of Event Types</a></li>
-<li><a href="#book.must-define-event-payloads-in-accordance-with-the-overall-guidelines">17.15. <span style="color:#bf0000"><strong>MUST</strong></span> Define Event Payloads in accordance with the overall Guidelines</a></li>
-<li><a href="#book.must-maintain-backwards-compatibility-for-events">17.16. <span style="color:#bf0000"><strong>MUST</strong></span> Maintain backwards compatibility for Events</a></li>
-<li><a href="#book.should-avoid-additionalproperties-in-event-type-definitions">17.17. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Avoid <code>additionalProperties</code> in event type definitions</a></li>
-<li><a href="#book.must-use-unique-event-identifiers">17.18. <span style="color:#bf0000"><strong>MUST</strong></span> Use unique Event identifiers</a></li>
-<li><a href="#book.should-design-for-idempotent-out-of-order-processing">17.19. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Design for idempotent out-of-order processing</a></li>
-<li><a href="#book.must-follow-conventions-for-event-type-names">17.20. <span style="color:#bf0000"><strong>MUST</strong></span> Follow conventions for Event Type names</a></li>
-<li><a href="#book.must-prepare-for-duplicate-events">17.21. <span style="color:#bf0000"><strong>MUST</strong></span> Prepare for duplicate Events</a></li>
+<li><a href="#book.must-obtain-approval-of-clients">17.1. <span style="color:#bf0000"><strong>MUST</strong></span> Obtain Approval of Clients</a></li>
+<li><a href="#book.must-external-partners-must-agree-on-deprecation-timespan">17.2. <span style="color:#bf0000"><strong>MUST</strong></span> External Partners Must Agree on Deprecation Timespan</a></li>
+<li><a href="#book.must-reflect-deprecation-in-api-definition">17.3. <span style="color:#bf0000"><strong>MUST</strong></span> Reflect Deprecation in API Definition</a></li>
+<li><a href="#book.must-monitor-usage-of-deprecated-apis">17.4. <span style="color:#bf0000"><strong>MUST</strong></span> Monitor Usage of Deprecated APIs</a></li>
+<li><a href="#book.should-add-a-warning-header-to-responses">17.5. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Add a Warning Header to Responses</a></li>
+<li><a href="#book.should-add-monitoring-for-warning-header">17.6. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Add Monitoring for Warning Header</a></li>
+<li><a href="#book.must-not-start-using-deprecated-apis">17.7. <span style="color:#bf0000"><strong>MUST</strong></span> Not Start Using Deprecated APIs</a></li>
 </ul>
 </li>
-<li><a href="#references">18. Appendix: References</a>
+<li><a href="#api-operation">18. API Operation</a>
 <ul class="sectlevel2">
-<li><a href="#references-open-api-specification">18.1. OpenAPI Specification</a></li>
-<li><a href="#references-publications-specifications-and-standards">18.2. Publications, specifications and standards</a></li>
-<li><a href="#references-dissertations">18.3. Dissertations</a></li>
-<li><a href="#references-books">18.4. Books</a></li>
-<li><a href="#references-blogs">18.5. Blogs</a></li>
+<li><a href="#book.must-provide-online-access-to-openapi-reference-definition">18.1. <span style="color:#bf0000"><strong>MUST</strong></span> Provide Online Access to OpenAPI Reference Definition</a></li>
+<li><a href="#book.should-monitor-api-usage">18.2. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Monitor API Usage</a></li>
 </ul>
 </li>
-<li><a href="#appendix-tooling">19. Appendix: Tooling</a>
+<li><a href="#events">19. Events</a>
 <ul class="sectlevel2">
-<li><a href="#api-first-integrations">19.1. API First Integrations</a></li>
-<li><a href="#support-libraries">19.2. Support Libraries</a></li>
-<li><a href="#rule-changes">19.3. Rule Changes</a></li>
+<li><a href="#book.must-treat-events-as-part-of-the-service-interface">19.1. <span style="color:#bf0000"><strong>MUST</strong></span> Treat Events as part of the service interface</a></li>
+<li><a href="#book.must-make-events-available-for-review">19.2. <span style="color:#bf0000"><strong>MUST</strong></span> Make Events available for review</a></li>
+<li><a href="#book.must-ensure-event-type-schemas-conform-to-open-apis-schema-object">19.3. <span style="color:#bf0000"><strong>MUST</strong></span> Ensure Event Type schemas conform to Open API&#8217;s Schema Object</a></li>
+<li><a href="#book.must-ensure-that-events-are-registered-as-event-types">19.4. <span style="color:#bf0000"><strong>MUST</strong></span> Ensure that Events are registered as Event Types</a></li>
+<li><a href="#book.must-ensure-events-conform-to-a-well-known-event-category">19.5. <span style="color:#bf0000"><strong>MUST</strong></span> Ensure Events conform to a well-known Event Category</a></li>
+<li><a href="#book.must-ensure-that-events-define-useful-business-resources">19.6. <span style="color:#bf0000"><strong>MUST</strong></span> Ensure that Events define useful business resources</a></li>
+<li><a href="#book.must-events-must-not-provide-sensitive-customer-personal-data.">19.7. <span style="color:#bf0000"><strong>MUST</strong></span> Events must not provide sensitive customer personal data.</a></li>
+<li><a href="#book.must-use-the-general-event-category-to-signal-steps-and-arrival-points-in-business-processes">19.8. <span style="color:#bf0000"><strong>MUST</strong></span> Use the General Event Category to signal steps and</a></li>
+<li><a href="#book.must-use-data-change-events-to-signal-mutations">19.9. <span style="color:#bf0000"><strong>MUST</strong></span> Use Data Change Events to signal mutations</a></li>
+<li><a href="#book.should-provide-a-means-for-explicit-event-ordering">19.10. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Provide a means for explicit event ordering</a></li>
+<li><a href="#book.should-use-the-hash-partition-strategy-for-data-change-events">19.11. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Use the hash partition strategy for Data Change Events</a></li>
+<li><a href="#book.should-ensure-that-data-change-events-match-api-representations">19.12. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Ensure that Data Change Events match API representations</a></li>
+<li><a href="#book.must-permissions-on-events-must-correspond-to-api-permissions">19.13. <span style="color:#bf0000"><strong>MUST</strong></span> Permissions on events must correspond to API permissions</a></li>
+<li><a href="#book.must-indicate-ownership-of-event-types">19.14. <span style="color:#bf0000"><strong>MUST</strong></span> Indicate ownership of Event Types</a></li>
+<li><a href="#book.must-define-event-payloads-in-accordance-with-the-overall-guidelines">19.15. <span style="color:#bf0000"><strong>MUST</strong></span> Define Event Payloads in accordance with the overall Guidelines</a></li>
+<li><a href="#book.must-maintain-backwards-compatibility-for-events">19.16. <span style="color:#bf0000"><strong>MUST</strong></span> Maintain backwards compatibility for Events</a></li>
+<li><a href="#book.should-avoid-additionalproperties-in-event-type-definitions">19.17. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Avoid <code>additionalProperties</code> in event type definitions</a></li>
+<li><a href="#book.must-use-unique-event-identifiers">19.18. <span style="color:#bf0000"><strong>MUST</strong></span> Use unique Event identifiers</a></li>
+<li><a href="#book.should-design-for-idempotent-out-of-order-processing">19.19. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Design for idempotent out-of-order processing</a></li>
+<li><a href="#book.must-follow-conventions-for-event-type-names">19.20. <span style="color:#bf0000"><strong>MUST</strong></span> Follow conventions for Event Type names</a></li>
+<li><a href="#book.must-prepare-for-duplicate-events">19.21. <span style="color:#bf0000"><strong>MUST</strong></span> Prepare for duplicate Events</a></li>
+</ul>
+</li>
+<li><a href="#references">20. Appendix: References</a>
+<ul class="sectlevel2">
+<li><a href="#references-open-api-specification">20.1. OpenAPI Specification</a></li>
+<li><a href="#references-publications-specifications-and-standards">20.2. Publications, specifications and standards</a></li>
+<li><a href="#references-dissertations">20.3. Dissertations</a></li>
+<li><a href="#references-books">20.4. Books</a></li>
+<li><a href="#references-blogs">20.5. Blogs</a></li>
+</ul>
+</li>
+<li><a href="#appendix-tooling">21. Appendix: Tooling</a>
+<ul class="sectlevel2">
+<li><a href="#api-first-integrations">21.1. API First Integrations</a></li>
+<li><a href="#support-libraries">21.2. Support Libraries</a></li>
+</ul>
+</li>
+<li><a href="#appendix-changelog">22. Appendix: Changelog</a>
+<ul class="sectlevel2">
+<li><a href="#rule-changes">22.1. Rule Changes</a></li>
 </ul>
 </li>
 </ul>
@@ -2645,29 +2657,30 @@ contains a grammar</a> for durations).</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1-alpha2
-country</a></p>
+<p><a href="http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1-alpha2 country</a></p>
 </li>
 <li>
 <p>(It&#8217;s "GB", not "UK", even though "UK" has seen some use at Zalando)</p>
 </li>
 <li>
-<p><a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">ISO 639-1
-language code</a></p>
+<p><a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">ISO 639-1 language code</a></p>
 </li>
 <li>
-<p><a href="https://tools.ietf.org/html/bcp47">BCP-47</a> (based on ISO 639-1) for
-language variants</p>
+<p><a href="https://tools.ietf.org/html/bcp47">BCP-47</a> (based on ISO 639-1) for language variants</p>
 </li>
 <li>
-<p><a href="http://en.wikipedia.org/wiki/ISO_4217">ISO 4217 currency codes</a>
-= API Naming</p>
+<p><a href="http://en.wikipedia.org/wiki/ISO_4217">ISO 4217 currency codes</a></p>
 </li>
 </ul>
 </div>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="api-naming"><a class="link" href="#api-naming">7. API Naming</a></h2>
+<div class="sectionbody">
 <div class="sect2">
-<h3 id="book.must-use-lowercase-separate-words-with-hyphens-for-path-segments"><a class="link" href="#book.must-use-lowercase-separate-words-with-hyphens-for-path-segments">6.13. <span style="color:#bf0000"><strong>MUST</strong></span> Use lowercase separate words with hyphens for Path Segments</a></h3>
+<h3 id="book.must-use-lowercase-separate-words-with-hyphens-for-path-segments"><a class="link" href="#book.must-use-lowercase-separate-words-with-hyphens-for-path-segments">7.1. <span style="color:#bf0000"><strong>MUST</strong></span> Use lowercase separate words with hyphens for Path Segments</a></h3>
 <div class="paragraph">
 <p>Example:</p>
 </div>
@@ -2683,7 +2696,7 @@ parameter.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.must-use-snake_case-never-camelcase-for-query-parameters"><a class="link" href="#book.must-use-snake_case-never-camelcase-for-query-parameters">6.14. <span style="color:#bf0000"><strong>MUST</strong></span> Use snake_case (never camelCase) for Query Parameters</a></h3>
+<h3 id="book.must-use-snake_case-never-camelcase-for-query-parameters"><a class="link" href="#book.must-use-snake_case-never-camelcase-for-query-parameters">7.2. <span style="color:#bf0000"><strong>MUST</strong></span> Use snake_case (never camelCase) for Query Parameters</a></h3>
 <div class="paragraph">
 <p>Examples:</p>
 </div>
@@ -2694,11 +2707,11 @@ parameter.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.must-use-hyphenated-http-headers"><a class="link" href="#book.must-use-hyphenated-http-headers">6.15. <span style="color:#bf0000"><strong>MUST</strong></span> Use Hyphenated HTTP Headers</a></h3>
+<h3 id="book.must-use-hyphenated-http-headers"><a class="link" href="#book.must-use-hyphenated-http-headers">7.3. <span style="color:#bf0000"><strong>MUST</strong></span> Use Hyphenated HTTP Headers</a></h3>
 
 </div>
 <div class="sect2">
-<h3 id="book.should-prefer-hyphenated-pascal-case-for-http-header-fields"><a class="link" href="#book.should-prefer-hyphenated-pascal-case-for-http-header-fields">6.16. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Prefer Hyphenated-Pascal-Case for HTTP header Fields</a></h3>
+<h3 id="book.should-prefer-hyphenated-pascal-case-for-http-header-fields"><a class="link" href="#book.should-prefer-hyphenated-pascal-case-for-http-header-fields">7.4. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Prefer Hyphenated-Pascal-Case for HTTP header Fields</a></h3>
 <div class="paragraph">
 <p>This is for consistency in your documentation (most other headers follow
 this convention). Avoid camelCase (without hyphens). Exceptions are
@@ -2721,14 +2734,14 @@ case-insensitive (RFC 7230)</a>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.may-use-standardized-headers"><a class="link" href="#book.may-use-standardized-headers">6.17. <span style="color:#006000"><strong>MAY</strong></span> Use Standardized Headers</a></h3>
+<h3 id="book.may-use-standardized-headers"><a class="link" href="#book.may-use-standardized-headers">7.5. <span style="color:#006000"><strong>MAY</strong></span> Use Standardized Headers</a></h3>
 <div class="paragraph">
 <p>Use <a href="http://en.wikipedia.org/wiki/List_of_HTTP_header_fields">this list</a>
 and mention its support in your OpenAPI definition.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.must-pluralize-resource-names"><a class="link" href="#book.must-pluralize-resource-names">6.18. <span style="color:#bf0000"><strong>MUST</strong></span> Pluralize Resource Names</a></h3>
+<h3 id="book.must-pluralize-resource-names"><a class="link" href="#book.must-pluralize-resource-names">7.6. <span style="color:#bf0000"><strong>MUST</strong></span> Pluralize Resource Names</a></h3>
 <div class="paragraph">
 <p>Usually, a collection of resource instances is provided (at least API
 should be ready here). The special case of a resource singleton is a
@@ -2736,7 +2749,7 @@ collection with cardinality 1.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.may-use-api-as-first-path-segment"><a class="link" href="#book.may-use-api-as-first-path-segment">6.19. <span style="color:#006000"><strong>MAY</strong></span> Use /api as first Path Segment</a></h3>
+<h3 id="book.may-use-api-as-first-path-segment"><a class="link" href="#book.may-use-api-as-first-path-segment">7.7. <span style="color:#006000"><strong>MAY</strong></span> Use /api as first Path Segment</a></h3>
 <div class="paragraph">
 <p>In most cases, all resources provided by a service are part of the
 public API, and therefore should be made available under the root “/”
@@ -2746,14 +2759,14 @@ as base path to clearly separate public and non-public API resources.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.must-avoid-trailing-slashes"><a class="link" href="#book.must-avoid-trailing-slashes">6.20. <span style="color:#bf0000"><strong>MUST</strong></span> Avoid Trailing Slashes</a></h3>
+<h3 id="book.must-avoid-trailing-slashes"><a class="link" href="#book.must-avoid-trailing-slashes">7.8. <span style="color:#bf0000"><strong>MUST</strong></span> Avoid Trailing Slashes</a></h3>
 <div class="paragraph">
 <p>The trailing slash must not have specific semantics. Resource paths must
 deliver the same results whether they have the trailing slash or not.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.may-use-conventional-query-strings"><a class="link" href="#book.may-use-conventional-query-strings">6.21. <span style="color:#006000"><strong>MAY</strong></span> Use Conventional Query Strings</a></h3>
+<h3 id="book.may-use-conventional-query-strings"><a class="link" href="#book.may-use-conventional-query-strings">7.9. <span style="color:#006000"><strong>MAY</strong></span> Use Conventional Query Strings</a></h3>
 <div class="paragraph">
 <p>If you provide query support for sorting, pagination, filtering
 functions or other actions, use the following standardized naming
@@ -2793,15 +2806,17 @@ entity, expand silhouette code into the silhouette object). Implementing
 “expand” correctly is difficult, so do it with care. See
 <a href="../hyper-media/Hypermedia.md#should-allow-embedding-of-complex-subresources"><em>Embedding
 resources</em></a> for more details.</p>
-<div id="resources" class="paragraph">
-<p>= Resources</p>
-</div>
 </li>
 </ul>
 </div>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="resources"><a class="link" href="#resources">8. Resources</a></h2>
+<div class="sectionbody">
 <div class="sect2">
-<h3 id="book.must-avoid-actions-think-about-resources"><a class="link" href="#book.must-avoid-actions-think-about-resources">6.22. <span style="color:#bf0000"><strong>MUST</strong></span> Avoid Actions — Think About Resources</a></h3>
+<h3 id="book.must-avoid-actions-think-about-resources"><a class="link" href="#book.must-avoid-actions-think-about-resources">8.1. <span style="color:#bf0000"><strong>MUST</strong></span> Avoid Actions — Think About Resources</a></h3>
 <div class="paragraph">
 <p>REST is all about your resources, so consider the domain entities that
 take part in web service interaction, and aim to model your API around
@@ -2824,7 +2839,7 @@ filtering article locks.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.should-model-complete-business-processes"><a class="link" href="#book.should-model-complete-business-processes">6.23. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Model complete business processes</a></h3>
+<h3 id="book.should-model-complete-business-processes"><a class="link" href="#book.should-model-complete-business-processes">8.2. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Model complete business processes</a></h3>
 <div class="paragraph">
 <p>An API should contain the complete business processes containing all
 resources representing the process. This enables clients to understand
@@ -2840,7 +2855,7 @@ clients.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.should-define-useful-resources"><a class="link" href="#book.should-define-useful-resources">6.24. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Define <em>useful</em> resources</a></h3>
+<h3 id="book.should-define-useful-resources"><a class="link" href="#book.should-define-useful-resources">8.3. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Define <em>useful</em> resources</a></h3>
 <div class="paragraph">
 <p>As a rule of thumb resources should be defined to cover 90% of all its
 client&#8217;s use cases. A <em>useful</em> resource should contain as much
@@ -2851,7 +2866,7 @@ more/less information by supporting filtering and
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.must-keep-urls-verb-free"><a class="link" href="#book.must-keep-urls-verb-free">6.25. <span style="color:#bf0000"><strong>MUST</strong></span> Keep URLs Verb-Free</a></h3>
+<h3 id="book.must-keep-urls-verb-free"><a class="link" href="#book.must-keep-urls-verb-free">8.4. <span style="color:#bf0000"><strong>MUST</strong></span> Keep URLs Verb-Free</a></h3>
 <div class="paragraph">
 <p>The API describes resources, so the only place where actions should
 appear is in the HTTP methods. In URLs, use only nouns. Instead of
@@ -2862,7 +2877,7 @@ the url, think of sending a message to cancel an order to the
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.must-use-domain-specific-resource-names"><a class="link" href="#book.must-use-domain-specific-resource-names">6.26. <span style="color:#bf0000"><strong>MUST</strong></span> Use Domain-Specific Resource Names</a></h3>
+<h3 id="book.must-use-domain-specific-resource-names"><a class="link" href="#book.must-use-domain-specific-resource-names">8.5. <span style="color:#bf0000"><strong>MUST</strong></span> Use Domain-Specific Resource Names</a></h3>
 <div class="paragraph">
 <p>API resources represent elements of the application’s domain model.
 Using domain-specific nomenclature for resource names helps developers
@@ -2874,7 +2889,7 @@ represents. Along these lines, “items” is too general.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.must-identify-resources-and-sub-resources-via-path-segments"><a class="link" href="#book.must-identify-resources-and-sub-resources-via-path-segments">6.27. <span style="color:#bf0000"><strong>MUST</strong></span> Identify resources and Sub-Resources via Path Segments</a></h3>
+<h3 id="book.must-identify-resources-and-sub-resources-via-path-segments"><a class="link" href="#book.must-identify-resources-and-sub-resources-via-path-segments">8.6. <span style="color:#bf0000"><strong>MUST</strong></span> Identify resources and Sub-Resources via Path Segments</a></h3>
 <div class="paragraph">
 <p>Some API resources may contain or reference sub-resources. Embedded
 sub-resources, which are not top-level resources, are parts of a
@@ -2912,7 +2927,7 @@ and “/customers” must be valid as well in principle.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.should-only-use-uuids-if-necessary"><a class="link" href="#book.should-only-use-uuids-if-necessary">6.28. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Only Use UUIDs If Necessary</a></h3>
+<h3 id="book.should-only-use-uuids-if-necessary"><a class="link" href="#book.should-only-use-uuids-if-necessary">8.7. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Only Use UUIDs If Necessary</a></h3>
 <div class="paragraph">
 <p>Generating IDs can be a scaling problem in high frequency and near real
 time use cases. UUIDs solve this problem, as they can be generated
@@ -2981,7 +2996,7 @@ time.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.may-consider-using-non--nested-urls"><a class="link" href="#book.may-consider-using-non--nested-urls">6.29. <span style="color:#006000"><strong>MAY</strong></span> Consider Using (Non-) Nested URLs</a></h3>
+<h3 id="book.may-consider-using-non--nested-urls"><a class="link" href="#book.may-consider-using-non--nested-urls">8.8. <span style="color:#006000"><strong>MAY</strong></span> Consider Using (Non-) Nested URLs</a></h3>
 <div class="paragraph">
 <p>If a sub-resource is only accessible via its parent resource and may not
 exists without parent resource, consider using a nested URL structure,
@@ -3007,7 +3022,7 @@ directly, for instance:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.should-limit-number-of-resources"><a class="link" href="#book.should-limit-number-of-resources">6.30. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Limit number of Resources</a></h3>
+<h3 id="book.should-limit-number-of-resources"><a class="link" href="#book.should-limit-number-of-resources">8.9. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Limit number of Resources</a></h3>
 <div class="paragraph">
 <p>To keep maintenance and service evolution manageable, we should follow
 "functional segmentation" and "separation of concern" design principles
@@ -3025,7 +3040,7 @@ complete business processes helping clients to understand these flows.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.should-limit-number-of-sub-resource-levels"><a class="link" href="#book.should-limit-number-of-sub-resource-levels">6.31. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Limit number of Sub-Resource Levels</a></h3>
+<h3 id="book.should-limit-number-of-sub-resource-levels"><a class="link" href="#book.should-limit-number-of-sub-resource-levels">8.10. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Limit number of Sub-Resource Levels</a></h3>
 <div class="paragraph">
 <p>There are main resources (with root url paths) and sub-resources (or
 “nested” resources with non-root urls paths). Use sub-resources if their
@@ -3039,16 +3054,16 @@ do not support URLs of more than 2000 characters)</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="http"><a class="link" href="#http">7. HTTP</a></h2>
+<h2 id="http"><a class="link" href="#http">9. HTTP</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="book.must-use-http-methods-correctly"><a class="link" href="#book.must-use-http-methods-correctly">7.1. <span style="color:#bf0000"><strong>MUST</strong></span> Use HTTP Methods Correctly</a></h3>
+<h3 id="book.must-use-http-methods-correctly"><a class="link" href="#book.must-use-http-methods-correctly">9.1. <span style="color:#bf0000"><strong>MUST</strong></span> Use HTTP Methods Correctly</a></h3>
 <div class="paragraph">
 <p>Be compliant with the standardized HTTP method semantics summarized as
 follows:</p>
 </div>
 <div class="sect3">
-<h4 id="_get"><a class="link" href="#_get">7.1.1. GET</a></h4>
+<h4 id="_get"><a class="link" href="#_get">9.1.1. GET</a></h4>
 <div class="paragraph">
 <p>GET requests are used to read a single resource or query set of
 resources.</p>
@@ -3075,7 +3090,7 @@ filter mechanism as well as
 </div>
 </div>
 <div class="sect3">
-<h4 id="_get_with_body"><a class="link" href="#_get_with_body">7.1.2. GET with Body</a></h4>
+<h4 id="_get_with_body"><a class="link" href="#_get_with_body">9.1.2. GET with Body</a></h4>
 <div class="paragraph">
 <p>APIs sometimes face the problem, that they have to provide extensive
 structured request information with GET, that may even conflicts with
@@ -3112,7 +3127,7 @@ headers does not solve the original problem.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_put"><a class="link" href="#_put">7.1.3. PUT</a></h4>
+<h4 id="_put"><a class="link" href="#_put">9.1.3. PUT</a></h4>
 <div class="paragraph">
 <p>PUT requests are used to create or update <strong>entire</strong> resources - single or
 collection resources. The semantic is best described as »<em>please put the
@@ -3159,7 +3174,7 @@ stricter demands to expose conflicts and prevent lost updates.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_post"><a class="link" href="#_post">7.1.4. POST</a></h4>
+<h4 id="_post"><a class="link" href="#_post">9.1.4. POST</a></h4>
 <div class="paragraph">
 <p>POST requests are idiomatically used to create single resources on a
 collection resource endpoint, but other semantics on single resources
@@ -3203,7 +3218,7 @@ practice to implement POST in an idempotent way.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_patch"><a class="link" href="#_patch">7.1.5. PATCH</a></h4>
+<h4 id="_patch"><a class="link" href="#_patch">9.1.5. PATCH</a></h4>
 <div class="paragraph">
 <p>PATCH request are only used for partial update of single resources, i.e.
 where only a specific subset of resource fields should be replaced. The
@@ -3286,7 +3301,7 @@ stricter demands to expose conflicts and prevent lost updates.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_delete"><a class="link" href="#_delete">7.1.6. DELETE</a></h4>
+<h4 id="_delete"><a class="link" href="#_delete">9.1.6. DELETE</a></h4>
 <div class="paragraph">
 <p>DELETE request are used to delete resources. The semantic is best
 described as »<em>please delete the resource identified by the URL</em>«.</p>
@@ -3309,7 +3324,7 @@ cannot be found) or 410 (if the resource was already deleted before)</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_head"><a class="link" href="#_head">7.1.7. HEAD</a></h4>
+<h4 id="_head"><a class="link" href="#_head">9.1.7. HEAD</a></h4>
 <div class="paragraph">
 <p>HEAD requests are used retrieve to header information of single
 resources and resource collections.</p>
@@ -3324,7 +3339,7 @@ no body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_options"><a class="link" href="#_options">7.1.8. OPTIONS</a></h4>
+<h4 id="_options"><a class="link" href="#_options">9.1.8. OPTIONS</a></h4>
 <div class="paragraph">
 <p>OPTIONS are used to inspect the available operations (HTTP methods) of a
 given endpoint.</p>
@@ -3345,7 +3360,7 @@ self-describe the full functionality of a resource.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.must-fulfill-safeness-and-idempotency-properties"><a class="link" href="#book.must-fulfill-safeness-and-idempotency-properties">7.2. <span style="color:#bf0000"><strong>MUST</strong></span> Fulfill Safeness and Idempotency Properties</a></h3>
+<h3 id="book.must-fulfill-safeness-and-idempotency-properties"><a class="link" href="#book.must-fulfill-safeness-and-idempotency-properties">9.2. <span style="color:#bf0000"><strong>MUST</strong></span> Fulfill Safeness and Idempotency Properties</a></h3>
 <div class="paragraph">
 <p>An operation can be&#8230;&#8203;</p>
 </div>
@@ -3422,7 +3437,7 @@ resources.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.must-use-specific-http-status-codes"><a class="link" href="#book.must-use-specific-http-status-codes">7.3. <span style="color:#bf0000"><strong>MUST</strong></span> Use Specific HTTP Status Codes</a></h3>
+<h3 id="book.must-use-specific-http-status-codes"><a class="link" href="#book.must-use-specific-http-status-codes">9.3. <span style="color:#bf0000"><strong>MUST</strong></span> Use Specific HTTP Status Codes</a></h3>
 <div class="paragraph">
 <p>This guideline groups the following rules for HTTP status codes usage:</p>
 </div>
@@ -3458,7 +3473,7 @@ by specific web servers like Nginx.</p>
 <p>Our list of most commonly used and best understood HTTP status codes:</p>
 </div>
 <div class="sect3">
-<h4 id="_success_codes"><a class="link" href="#_success_codes">7.3.1. Success Codes</a></h4>
+<h4 id="_success_codes"><a class="link" href="#_success_codes">9.3.1. Success Codes</a></h4>
 <table class="tableblock frame-all grid-all" style="width: 12%;">
 <colgroup>
 <col style="width: 34%;">
@@ -3510,7 +3525,7 @@ for Batch or Bulk Requests"</a>.</p></td>
 </table>
 </div>
 <div class="sect3">
-<h4 id="_redirection_codes"><a class="link" href="#_redirection_codes">7.3.2. Redirection Codes</a></h4>
+<h4 id="_redirection_codes"><a class="link" href="#_redirection_codes">9.3.2. Redirection Codes</a></h4>
 <table class="tableblock frame-all grid-all" style="width: 12%;">
 <colgroup>
 <col style="width: 34%;">
@@ -3547,7 +3562,7 @@ version passed via request headers If-Modified-Since or If-None-Match.</p></td>
 </table>
 </div>
 <div class="sect3">
-<h4 id="_client_side_error_codes"><a class="link" href="#_client_side_error_codes">7.3.3. Client Side Error Codes</a></h4>
+<h4 id="_client_side_error_codes"><a class="link" href="#_client_side_error_codes">9.3.3. Client Side Error Codes</a></h4>
 <table class="tableblock frame-all grid-all" style="width: 12%;">
 <colgroup>
 <col style="width: 34%;">
@@ -3650,7 +3665,7 @@ with Headers for Rate Limits"</a>.</p></td>
 </table>
 </div>
 <div class="sect3">
-<h4 id="_server_side_error_codes"><a class="link" href="#_server_side_error_codes">7.3.4. Server Side Error Codes:</a></h4>
+<h4 id="_server_side_error_codes"><a class="link" href="#_server_side_error_codes">9.3.4. Server Side Error Codes:</a></h4>
 <table class="tableblock frame-all grid-all" style="width: 12%;">
 <colgroup>
 <col style="width: 34%;">
@@ -3688,7 +3703,7 @@ due to overload)&#8201;&#8212;&#8201;client retry may be senseful.</p></td>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.must-provide-error-documentation"><a class="link" href="#book.must-provide-error-documentation">7.4. <span style="color:#bf0000"><strong>MUST</strong></span> Provide Error Documentation</a></h3>
+<h3 id="book.must-provide-error-documentation"><a class="link" href="#book.must-provide-error-documentation">9.4. <span style="color:#bf0000"><strong>MUST</strong></span> Provide Error Documentation</a></h3>
 <div class="paragraph">
 <p>APIs should define the functional, business view and abstract from
 implementation aspects. Errors become a key element providing context
@@ -3740,7 +3755,7 @@ types</em></a>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.must-use-207-for-batch-or-bulk-requests"><a class="link" href="#book.must-use-207-for-batch-or-bulk-requests">7.5. <span style="color:#bf0000"><strong>MUST</strong></span> Use 207 for Batch or Bulk Requests</a></h3>
+<h3 id="book.must-use-207-for-batch-or-bulk-requests"><a class="link" href="#book.must-use-207-for-batch-or-bulk-requests">9.5. <span style="color:#bf0000"><strong>MUST</strong></span> Use 207 for Batch or Bulk Requests</a></h3>
 <div class="paragraph">
 <p>Some APIs are required to provide either <em>batch</em> or <em>bulk</em> requests
 using POST for performance reasons, i.e. for communication and
@@ -3782,7 +3797,7 @@ response processing this distinction normally does not matter.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.must-use-429-with-headers-for-rate-limits"><a class="link" href="#book.must-use-429-with-headers-for-rate-limits">7.6. <span style="color:#bf0000"><strong>MUST</strong></span> Use 429 with Headers for Rate Limits</a></h3>
+<h3 id="book.must-use-429-with-headers-for-rate-limits"><a class="link" href="#book.must-use-429-with-headers-for-rate-limits">9.6. <span style="color:#bf0000"><strong>MUST</strong></span> Use 429 with Headers for Rate Limits</a></h3>
 <div class="paragraph">
 <p>APIs that wish to manage the request rate of clients must use the
 <a href="http://tools.ietf.org/html/rfc6585">'429 Too Many Requests'</a> response
@@ -3843,7 +3858,7 @@ number of requests made within a given window for each named entity.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.should-explicitly-define-the-collection-format-of-query-parameters"><a class="link" href="#book.should-explicitly-define-the-collection-format-of-query-parameters">7.7. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Explicitly define the Collection Format of Query Parameters</a></h3>
+<h3 id="book.should-explicitly-define-the-collection-format-of-query-parameters"><a class="link" href="#book.should-explicitly-define-the-collection-format-of-query-parameters">9.7. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Explicitly define the Collection Format of Query Parameters</a></h3>
 <div class="paragraph">
 <p>There are different ways of supplying a set of values as a query
 parameter. One particular type should be selected and stated explicitly
@@ -3889,10 +3904,10 @@ the escaping of special characters and the maximal URL length.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="performance"><a class="link" href="#performance">8. Performance</a></h2>
+<h2 id="performance"><a class="link" href="#performance">10. Performance</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="book.should-reduce-bandwidth-needs-and-improve-responsiveness"><a class="link" href="#book.should-reduce-bandwidth-needs-and-improve-responsiveness">8.1. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Reduce Bandwidth Needs and Improve Responsiveness</a></h3>
+<h3 id="book.should-reduce-bandwidth-needs-and-improve-responsiveness"><a class="link" href="#book.should-reduce-bandwidth-needs-and-improve-responsiveness">10.1. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Reduce Bandwidth Needs and Improve Responsiveness</a></h3>
 <div class="paragraph">
 <p>APIs should support techniques for reducing bandwidth based on client
 needs. This holds for APIs that (might) have high payloads and/or are
@@ -3935,7 +3950,7 @@ Headers</em></a></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.should-use-gzip-compression"><a class="link" href="#book.should-use-gzip-compression">8.2. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Use gzip Compression</a></h3>
+<h3 id="book.should-use-gzip-compression"><a class="link" href="#book.should-use-gzip-compression">10.2. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Use gzip Compression</a></h3>
 <div class="paragraph">
 <p>Compress the payload of your API’s responses with gzip, unless there’s a
 good reason not to — for example, you are serving so many requests that
@@ -3953,7 +3968,7 @@ Content-Encoding header.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.should-support-filtering-of-resource-fields"><a class="link" href="#book.should-support-filtering-of-resource-fields">8.3. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Support Filtering of Resource Fields</a></h3>
+<h3 id="book.should-support-filtering-of-resource-fields"><a class="link" href="#book.should-support-filtering-of-resource-fields">10.3. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Support Filtering of Resource Fields</a></h3>
 <div class="paragraph">
 <p>Depending on your use case and payload size, you can significantly
 reduce network bandwidth need by supporting filtering of returned entity
@@ -3963,7 +3978,7 @@ receive via the fields query parameter — example see
 AppEngine API&#8217;s partial response</a>:</p>
 </div>
 <div class="sect3">
-<h4 id="_unfiltered"><a class="link" href="#_unfiltered">8.3.1. Unfiltered</a></h4>
+<h4 id="_unfiltered"><a class="link" href="#_unfiltered">10.3.1. Unfiltered</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-http" data-lang="http">GET http://api.example.org/resources/123 HTTP/1.1
@@ -3987,7 +4002,7 @@ Content-Type: application/json
 </div>
 </div>
 <div class="sect3">
-<h4 id="_filtered"><a class="link" href="#_filtered">8.3.2. Filtered</a></h4>
+<h4 id="_filtered"><a class="link" href="#_filtered">10.3.2. Filtered</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-http" data-lang="http">GET http://api.example.org/resources/123?fields=(name,partner(name)) HTTP/1.1
@@ -4046,7 +4061,7 @@ schema. Explain this in English in the parameter description.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.should-allow-optional-embedding-of-sub-resources"><a class="link" href="#book.should-allow-optional-embedding-of-sub-resources">8.4. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Allow Optional Embedding of Sub-Resources</a></h3>
+<h3 id="book.should-allow-optional-embedding-of-sub-resources"><a class="link" href="#book.should-allow-optional-embedding-of-sub-resources">10.4. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Allow Optional Embedding of Sub-Resources</a></h3>
 <div class="paragraph">
 <p>Embedding related resources (also know as <em>Resource expansion</em>) is a
 great way to reduce the number of requests. In cases where clients know
@@ -4093,10 +4108,10 @@ resource has its order items as sub-resource (/order/{orderId}/items):</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="pagination"><a class="link" href="#pagination">9. Pagination</a></h2>
+<h2 id="pagination"><a class="link" href="#pagination">11. Pagination</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="book.must-support-pagination"><a class="link" href="#book.must-support-pagination">9.1. <span style="color:#bf0000"><strong>MUST</strong></span> Support Pagination</a></h3>
+<h3 id="book.must-support-pagination"><a class="link" href="#book.must-support-pagination">11.1. <span style="color:#bf0000"><strong>MUST</strong></span> Support Pagination</a></h3>
 <div class="paragraph">
 <p>Access to lists of data items must support pagination for best client
 side batch processing and iteration experience. This holds true for all
@@ -4130,7 +4145,7 @@ pagination.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.should-prefer-cursor-based-pagination-avoid-offset-based-pagination"><a class="link" href="#book.should-prefer-cursor-based-pagination-avoid-offset-based-pagination">9.2. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Prefer Cursor-Based Pagination, Avoid Offset-Based Pagination</a></h3>
+<h3 id="book.should-prefer-cursor-based-pagination-avoid-offset-based-pagination"><a class="link" href="#book.should-prefer-cursor-based-pagination-avoid-offset-based-pagination">11.2. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Prefer Cursor-Based Pagination, Avoid Offset-Based Pagination</a></h3>
 <div class="paragraph">
 <p>Cursor-based pagination is usually better and more efficient when
 compared to offset-based pagination. Especially when it comes to
@@ -4221,7 +4236,7 @@ in PostgreSQL</a></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.may-use-pagination-links-where-applicable"><a class="link" href="#book.may-use-pagination-links-where-applicable">9.3. <span style="color:#006000"><strong>MAY</strong></span> Use Pagination Links Where Applicable</a></h3>
+<h3 id="book.may-use-pagination-links-where-applicable"><a class="link" href="#book.may-use-pagination-links-where-applicable">11.3. <span style="color:#006000"><strong>MAY</strong></span> Use Pagination Links Where Applicable</a></h3>
 <div class="ulist">
 <ul>
 <li>
@@ -4290,10 +4305,10 @@ to an article&#8217;s <code>authors</code> like that:</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="hypermedia"><a class="link" href="#hypermedia">10. Hypermedia</a></h2>
+<h2 id="hypermedia"><a class="link" href="#hypermedia">12. Hypermedia</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="book.must-use-rest-maturity-level-2"><a class="link" href="#book.must-use-rest-maturity-level-2">10.1. <span style="color:#bf0000"><strong>MUST</strong></span> Use REST Maturity Level 2</a></h3>
+<h3 id="book.must-use-rest-maturity-level-2"><a class="link" href="#book.must-use-rest-maturity-level-2">12.1. <span style="color:#bf0000"><strong>MUST</strong></span> Use REST Maturity Level 2</a></h3>
 <div class="paragraph">
 <p>We strive for a good implementation of
 <a href="http://martinfowler.com/articles/richardsonMaturityModel.html#level2">REST
@@ -4314,7 +4329,7 @@ proper link relationships in your APIs as stated in rules below.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.may-use-rest-maturity-level-3---hateoas"><a class="link" href="#book.may-use-rest-maturity-level-3---hateoas">10.2. <span style="color:#006000"><strong>MAY</strong></span> Use REST Maturity Level 3 - HATEOAS</a></h3>
+<h3 id="book.may-use-rest-maturity-level-3---hateoas"><a class="link" href="#book.may-use-rest-maturity-level-3---hateoas">12.2. <span style="color:#006000"><strong>MAY</strong></span> Use REST Maturity Level 3 - HATEOAS</a></h3>
 <div class="paragraph">
 <p>We do not generally recommend to implement
 <a href="http://martinfowler.com/articles/richardsonMaturityModel.html#level3">REST
@@ -4361,7 +4376,7 @@ link</a>].</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.must-use-common-hypertext-controls"><a class="link" href="#book.must-use-common-hypertext-controls">10.3. <span style="color:#bf0000"><strong>MUST</strong></span> Use Common Hypertext Controls</a></h3>
+<h3 id="book.must-use-common-hypertext-controls"><a class="link" href="#book.must-use-common-hypertext-controls">12.3. <span style="color:#bf0000"><strong>MUST</strong></span> Use Common Hypertext Controls</a></h3>
 <div class="paragraph">
 <p>When embedding links to other resources into representations you must
 use the common hypertext control object. It contains at least one
@@ -4442,7 +4457,7 @@ understandability and usability of an API.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.should-use-simple-hypertext-controls-for-pagination-and-self-references"><a class="link" href="#book.should-use-simple-hypertext-controls-for-pagination-and-self-references">10.4. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Use Simple Hypertext Controls for Pagination and Self-References</a></h3>
+<h3 id="book.should-use-simple-hypertext-controls-for-pagination-and-self-references"><a class="link" href="#book.should-use-simple-hypertext-controls-for-pagination-and-self-references">12.4. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Use Simple Hypertext Controls for Pagination and Self-References</a></h3>
 <div class="paragraph">
 <p>Hypertext controls for pagination inside collections and self-references
 should use a simple URI value in combination with their corresponding
@@ -4456,7 +4471,7 @@ to best represent paginateable collections.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.must-not-use-link-headers-with-json-entities"><a class="link" href="#book.must-not-use-link-headers-with-json-entities">10.5. <span style="color:#bf0000"><strong>MUST</strong></span> Not Use Link Headers with JSON entities</a></h3>
+<h3 id="book.must-not-use-link-headers-with-json-entities"><a class="link" href="#book.must-not-use-link-headers-with-json-entities">12.5. <span style="color:#bf0000"><strong>MUST</strong></span> Not Use Link Headers with JSON entities</a></h3>
 <div class="paragraph">
 <p>We don&#8217;t allow the use of the
 <a href="http://tools.ietf.org/html/rfc5988#section-5"><code>Link</code> Header defined by
@@ -4467,10 +4482,10 @@ embedded in JSON payloads to the uncommon link header syntax.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="data-formats"><a class="link" href="#data-formats">11. Data Formats</a></h2>
+<h2 id="data-formats"><a class="link" href="#data-formats">13. Data Formats</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="book.must-use-json-to-encode-structured-data"><a class="link" href="#book.must-use-json-to-encode-structured-data">11.1. <span style="color:#bf0000"><strong>MUST</strong></span> Use JSON to Encode Structured Data</a></h3>
+<h3 id="book.must-use-json-to-encode-structured-data"><a class="link" href="#book.must-use-json-to-encode-structured-data">13.1. <span style="color:#bf0000"><strong>MUST</strong></span> Use JSON to Encode Structured Data</a></h3>
 <div class="paragraph">
 <p>Use JSON-encoded body payload for transferring structured data. The JSON
 payload must follow <a href="https://tools.ietf.org/html/rfc7159">RFC-7159</a> by
@@ -4482,7 +4497,7 @@ section for an example.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.may-use-non-json-media-types-for-binary-data-or-alternative-content-representations"><a class="link" href="#book.may-use-non-json-media-types-for-binary-data-or-alternative-content-representations">11.2. <span style="color:#006000"><strong>MAY</strong></span> Use non JSON Media Types for Binary Data or Alternative Content Representations</a></h3>
+<h3 id="book.may-use-non-json-media-types-for-binary-data-or-alternative-content-representations"><a class="link" href="#book.may-use-non-json-media-types-for-binary-data-or-alternative-content-representations">13.2. <span style="color:#006000"><strong>MAY</strong></span> Use non JSON Media Types for Binary Data or Alternative Content Representations</a></h3>
 <div class="paragraph">
 <p>Other media types may be used in following cases: * Transferring binary
 data or data whose structure is not relevant. This is the case if
@@ -4494,9 +4509,9 @@ negotiation.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.must-use-standard-date-and-time-formats"><a class="link" href="#book.must-use-standard-date-and-time-formats">11.3. <span style="color:#bf0000"><strong>MUST</strong></span> Use Standard Date and Time Formats</a></h3>
+<h3 id="book.must-use-standard-date-and-time-formats"><a class="link" href="#book.must-use-standard-date-and-time-formats">13.3. <span style="color:#bf0000"><strong>MUST</strong></span> Use Standard Date and Time Formats</a></h3>
 <div class="sect3">
-<h4 id="_json_payload"><a class="link" href="#_json_payload">11.3.1. JSON Payload</a></h4>
+<h4 id="_json_payload"><a class="link" href="#_json_payload">13.3.1. JSON Payload</a></h4>
 <div class="paragraph">
 <p>Read more about date and time format in
 <a href="../json-guidelines/JsonGuidelines.md#date-property-values-should-conform-to-rfc-3399">Json
@@ -4504,7 +4519,7 @@ Guideline</a>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_http_headers"><a class="link" href="#_http_headers">11.3.2. HTTP headers</a></h4>
+<h4 id="_http_headers"><a class="link" href="#_http_headers">13.3.2. HTTP headers</a></h4>
 <div class="paragraph">
 <p>Http headers including the proprietary headers. Use the
 <a href="http://tools.ietf.org/html/rfc7231#section-7.1.1.1">HTTP date format
@@ -4513,7 +4528,7 @@ defined in RFC 7231</a>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.may-use-standards-for-country-language-and-currency-codes"><a class="link" href="#book.may-use-standards-for-country-language-and-currency-codes">11.4. <span style="color:#006000"><strong>MAY</strong></span> Use Standards for Country, Language and Currency Codes</a></h3>
+<h3 id="book.may-use-standards-for-country-language-and-currency-codes"><a class="link" href="#book.may-use-standards-for-country-language-and-currency-codes">13.4. <span style="color:#006000"><strong>MAY</strong></span> Use Standards for Country, Language and Currency Codes</a></h3>
 <div class="paragraph">
 <p>Use the following standard formats for country, language and currency
 codes:</p>
@@ -4550,7 +4565,7 @@ language variants</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.must-define-format-for-type-number-and-integer"><a class="link" href="#book.must-define-format-for-type-number-and-integer">11.5. <span style="color:#bf0000"><strong>MUST</strong></span> Define Format for Type Number and Integer</a></h3>
+<h3 id="book.must-define-format-for-type-number-and-integer"><a class="link" href="#book.must-define-format-for-type-number-and-integer">13.5. <span style="color:#bf0000"><strong>MUST</strong></span> Define Format for Type Number and Integer</a></h3>
 <div class="paragraph">
 <p>Whenever an API defines a property of type <code>number</code> or <code>integer</code>, the
 precision must be defined by the format as follows to prevent clients
@@ -4633,7 +4648,7 @@ OrderList:
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.should-prefer-standard-media-type-name-applicationjson"><a class="link" href="#book.should-prefer-standard-media-type-name-applicationjson">11.6. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Prefer standard Media type name <code>application/json</code></a></h3>
+<h3 id="book.should-prefer-standard-media-type-name-applicationjson"><a class="link" href="#book.should-prefer-standard-media-type-name-applicationjson">13.6. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Prefer standard Media type name <code>application/json</code></a></h3>
 <div class="paragraph">
 <p>Previously, this guideline allowed the use of custom media types like
 <code>application/x.zalando.article+json</code>. This usage is not recommended
@@ -4655,13 +4670,13 @@ processing more difficult. They are also
 </div>
 </div>
 <div class="sect1">
-<h2 id="common-data-types"><a class="link" href="#common-data-types">12. Common Data Types</a></h2>
+<h2 id="common-data-types"><a class="link" href="#common-data-types">14. Common Data Types</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Definitions of data objects that are good candidates for wider usage:</p>
 </div>
 <div class="sect2">
-<h3 id="book.should-use-a-common-money-object"><a class="link" href="#book.should-use-a-common-money-object">12.1. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Use a Common Money Object</a></h3>
+<h3 id="book.should-use-a-common-money-object"><a class="link" href="#book.should-use-a-common-money-object">14.1. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Use a Common Money Object</a></h3>
 <div class="paragraph">
 <p>Use the following common money structure:</p>
 </div>
@@ -4733,14 +4748,14 @@ float / doubles.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.must-use-common-field-names-and-semantics"><a class="link" href="#book.must-use-common-field-names-and-semantics">12.2. <span style="color:#bf0000"><strong>MUST</strong></span> Use common field names and semantics</a></h3>
+<h3 id="book.must-use-common-field-names-and-semantics"><a class="link" href="#book.must-use-common-field-names-and-semantics">14.2. <span style="color:#bf0000"><strong>MUST</strong></span> Use common field names and semantics</a></h3>
 <div class="paragraph">
 <p>There exist a variety of field types that are required in multiple
 places. To achieve consistency across all API implementations, you must
 use common field names and semantics whenever applicable.</p>
 </div>
 <div class="sect3">
-<h4 id="_generic_fields"><a class="link" href="#_generic_fields">12.2.1. Generic Fields</a></h4>
+<h4 id="_generic_fields"><a class="link" href="#_generic_fields">14.2.1. Generic Fields</a></h4>
 <div class="paragraph">
 <p>There are some data fields that come up again and again in API data:</p>
 </div>
@@ -4817,7 +4832,7 @@ across APIs.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_address_fields"><a class="link" href="#_address_fields">12.2.2. Address Fields</a></h4>
+<h4 id="_address_fields"><a class="link" href="#_address_fields">14.2.2. Address Fields</a></h4>
 <div class="paragraph">
 <p>Address structures play a role in different functional and use-case
 contexts, including country variances. All attributes that relate to
@@ -4918,7 +4933,7 @@ and address types when modeling users and their addresses).</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.must-follow-hypertext-control-conventions"><a class="link" href="#book.must-follow-hypertext-control-conventions">12.3. <span style="color:#bf0000"><strong>MUST</strong></span> Follow Hypertext Control Conventions</a></h3>
+<h3 id="book.must-follow-hypertext-control-conventions"><a class="link" href="#book.must-follow-hypertext-control-conventions">14.3. <span style="color:#bf0000"><strong>MUST</strong></span> Follow Hypertext Control Conventions</a></h3>
 <div class="paragraph">
 <p>APIs that provide hypertext controls (links) to interconnect API
 resources must follow the conventions for naming and modeling of
@@ -4927,7 +4942,7 @@ hypertext controls as defined in section
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.must-use-problem-json"><a class="link" href="#book.must-use-problem-json">12.4. <span style="color:#bf0000"><strong>MUST</strong></span> Use Problem JSON</a></h3>
+<h3 id="book.must-use-problem-json"><a class="link" href="#book.must-use-problem-json">14.4. <span style="color:#bf0000"><strong>MUST</strong></span> Use Problem JSON</a></h3>
 <div class="paragraph">
 <p><a href="http://tools.ietf.org/html/rfc7807">RFC 7807</a> defines the media type
 <code>application/problem+json</code>. Operations should return that (together with
@@ -4965,7 +4980,7 @@ reference it by using:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.must-do-not-expose-stack-traces"><a class="link" href="#book.must-do-not-expose-stack-traces">12.5. <span style="color:#bf0000"><strong>MUST</strong></span> Do not expose Stack Traces</a></h3>
+<h3 id="book.must-do-not-expose-stack-traces"><a class="link" href="#book.must-do-not-expose-stack-traces">14.5. <span style="color:#bf0000"><strong>MUST</strong></span> Do not expose Stack Traces</a></h3>
 <div class="paragraph">
 <p>Stack traces contain implementation details that are not part of an API,
 and on which clients should never rely. Moreover, stack traces can leak
@@ -4976,7 +4991,7 @@ receive and may disclose insights about vulnerabilities to attackers.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="common-headers"><a class="link" href="#common-headers">13. Common Headers</a></h2>
+<h2 id="common-headers"><a class="link" href="#common-headers">15. Common Headers</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This section describes a handful of headers, which we found raised the
@@ -4984,7 +4999,7 @@ most questions in our daily usage, or which are useful in particular
 circumstances but not widely known.</p>
 </div>
 <div class="sect2">
-<h3 id="book.must-use-content-headers-correctly"><a class="link" href="#book.must-use-content-headers-correctly">13.1. <span style="color:#bf0000"><strong>MUST</strong></span> Use Content Headers Correctly</a></h3>
+<h3 id="book.must-use-content-headers-correctly"><a class="link" href="#book.must-use-content-headers-correctly">15.1. <span style="color:#bf0000"><strong>MUST</strong></span> Use Content Headers Correctly</a></h3>
 <div class="paragraph">
 <p>Content or entity headers are headers with a <code>Content-</code> prefix. They
 describe the content of the body of the message and they can be used in
@@ -5030,7 +5045,7 @@ indicates the media type of the body content.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.may-use-content-location-header"><a class="link" href="#book.may-use-content-location-header">13.2. <span style="color:#006000"><strong>MAY</strong></span> Use Content-Location Header</a></h3>
+<h3 id="book.may-use-content-location-header"><a class="link" href="#book.may-use-content-location-header">15.2. <span style="color:#006000"><strong>MAY</strong></span> Use Content-Location Header</a></h3>
 <div class="paragraph">
 <p>The Content-Location header is <em>optional</em> and can be used in successful
 write operations (PUT, POST or PATCH) or read operations (GET, HEAD) to
@@ -5079,7 +5094,7 @@ Content-Location: /products/123/images?format=raw</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.should-use-location-header-instead-of-content-location-header"><a class="link" href="#book.should-use-location-header-instead-of-content-location-header">13.3. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Use Location Header instead of Content-Location Header</a></h3>
+<h3 id="book.should-use-location-header-instead-of-content-location-header"><a class="link" href="#book.should-use-location-header-instead-of-content-location-header">15.3. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Use Location Header instead of Content-Location Header</a></h3>
 <div class="paragraph">
 <p>As the correct usage of Content-Location with respect to semantics and
 caching is difficult, we <em>discourage</em> the use of Content-Location. In
@@ -5095,7 +5110,7 @@ Content-Location</a></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.may-use-the-prefer-header-to-indicate-processing-preferences"><a class="link" href="#book.may-use-the-prefer-header-to-indicate-processing-preferences">13.4. <span style="color:#006000"><strong>MAY</strong></span> Use the Prefer header to indicate processing preferences</a></h3>
+<h3 id="book.may-use-the-prefer-header-to-indicate-processing-preferences"><a class="link" href="#book.may-use-the-prefer-header-to-indicate-processing-preferences">15.4. <span style="color:#006000"><strong>MAY</strong></span> Use the Prefer header to indicate processing preferences</a></h3>
 <div class="paragraph">
 <p>The <code>Prefer</code> header defined in
 <a href="https://tools.ietf.org/html/rfc7240">RFC7240</a> allows clients to request
@@ -5132,7 +5147,7 @@ preference was applied.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.may-consider-using-etag-together-with-if-none-match-header"><a class="link" href="#book.may-consider-using-etag-together-with-if-none-match-header">13.5. <span style="color:#006000"><strong>MAY</strong></span> Consider using ETag together with If-(None-)Match header</a></h3>
+<h3 id="book.may-consider-using-etag-together-with-if-none-match-header"><a class="link" href="#book.may-consider-using-etag-together-with-if-none-match-header">15.5. <span style="color:#006000"><strong>MAY</strong></span> Consider using ETag together with If-(None-)Match header</a></h3>
 <div class="paragraph">
 <p>When creating or updating resources it may be necessary to expose
 conflicts and to prevent the lost update problem. This can be best
@@ -5209,7 +5224,7 @@ follows in the API definition:</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="proprietary-headers"><a class="link" href="#proprietary-headers">14. Proprietary Headers</a></h2>
+<h2 id="proprietary-headers"><a class="link" href="#proprietary-headers">16. Proprietary Headers</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This section shares definitions of proprietary headers that should be
@@ -5220,7 +5235,7 @@ explicitly visible. Use the parameter definitions of the resource HTTP
 methods.</p>
 </div>
 <div class="sect2">
-<h3 id="book.must-use-only-the-specified-proprietary-zalando-headers"><a class="link" href="#book.must-use-only-the-specified-proprietary-zalando-headers">14.1. <span style="color:#bf0000"><strong>MUST</strong></span> Use Only the Specified Proprietary Zalando Headers</a></h3>
+<h3 id="book.must-use-only-the-specified-proprietary-zalando-headers"><a class="link" href="#book.must-use-only-the-specified-proprietary-zalando-headers">16.1. <span style="color:#bf0000"><strong>MUST</strong></span> Use Only the Specified Proprietary Zalando Headers</a></h3>
 <div class="paragraph">
 <p>As a general rule, proprietary HTTP headers should be avoided. Still
 they can be useful in cases where context needs to be passed through
@@ -5367,7 +5382,7 @@ hop-by-hop <code>X-RateLimit-</code> headers which can be used as defined in
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.must-propagate-proprietary-headers"><a class="link" href="#book.must-propagate-proprietary-headers">14.2. <span style="color:#bf0000"><strong>MUST</strong></span> Propagate Proprietary Headers</a></h3>
+<h3 id="book.must-propagate-proprietary-headers"><a class="link" href="#book.must-propagate-proprietary-headers">16.2. <span style="color:#bf0000"><strong>MUST</strong></span> Propagate Proprietary Headers</a></h3>
 <div class="paragraph">
 <p>All Zalando&#8217;s proprietary headers are end-to-end headers.</p>
 </div>
@@ -5403,7 +5418,7 @@ connection only.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="deprecation"><a class="link" href="#deprecation">15. Deprecation</a></h2>
+<h2 id="deprecation"><a class="link" href="#deprecation">17. Deprecation</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Sometimes it is necessary to phase out an API endpoint (or version).
@@ -5412,7 +5427,7 @@ result or a whole business functionality behind an endpoint has to be
 shut down. There are many other reasons as well.</p>
 </div>
 <div class="sect2">
-<h3 id="book.must-obtain-approval-of-clients"><a class="link" href="#book.must-obtain-approval-of-clients">15.1. <span style="color:#bf0000"><strong>MUST</strong></span> Obtain Approval of Clients</a></h3>
+<h3 id="book.must-obtain-approval-of-clients"><a class="link" href="#book.must-obtain-approval-of-clients">17.1. <span style="color:#bf0000"><strong>MUST</strong></span> Obtain Approval of Clients</a></h3>
 <div class="paragraph">
 <p>Before shutting down an API (or version of an API) the producer must
 make sure, that all clients have given their consent to shut down the
@@ -5422,7 +5437,7 @@ migrated, the producer may shut down the deprecated API.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.must-external-partners-must-agree-on-deprecation-timespan"><a class="link" href="#book.must-external-partners-must-agree-on-deprecation-timespan">15.2. <span style="color:#bf0000"><strong>MUST</strong></span> External Partners Must Agree on Deprecation Timespan</a></h3>
+<h3 id="book.must-external-partners-must-agree-on-deprecation-timespan"><a class="link" href="#book.must-external-partners-must-agree-on-deprecation-timespan">17.2. <span style="color:#bf0000"><strong>MUST</strong></span> External Partners Must Agree on Deprecation Timespan</a></h3>
 <div class="paragraph">
 <p>If the API is consumed by any external partner, the producer must define
 a reasonable timespan that the API will be maintained after the producer
@@ -5431,7 +5446,7 @@ this minimum after-deprecation-lifespan before he starts using the API.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.must-reflect-deprecation-in-api-definition"><a class="link" href="#book.must-reflect-deprecation-in-api-definition">15.3. <span style="color:#bf0000"><strong>MUST</strong></span> Reflect Deprecation in API Definition</a></h3>
+<h3 id="book.must-reflect-deprecation-in-api-definition"><a class="link" href="#book.must-reflect-deprecation-in-api-definition">17.3. <span style="color:#bf0000"><strong>MUST</strong></span> Reflect Deprecation in API Definition</a></h3>
 <div class="paragraph">
 <p>API deprecation must be part of the OpenAPI definition. If a method on a
 path, a whole path or even a whole API endpoint (multiple paths) should
@@ -5449,7 +5464,7 @@ clients should use instead and when the API will be shut down in the
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.must-monitor-usage-of-deprecated-apis"><a class="link" href="#book.must-monitor-usage-of-deprecated-apis">15.4. <span style="color:#bf0000"><strong>MUST</strong></span> Monitor Usage of Deprecated APIs</a></h3>
+<h3 id="book.must-monitor-usage-of-deprecated-apis"><a class="link" href="#book.must-monitor-usage-of-deprecated-apis">17.4. <span style="color:#bf0000"><strong>MUST</strong></span> Monitor Usage of Deprecated APIs</a></h3>
 <div class="paragraph">
 <p>Owners of APIs used in production must monitor usage of deprecated APIs
 until the API can be shut down in order to align deprecation and avoid
@@ -5459,7 +5474,7 @@ monitoring</a></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.should-add-a-warning-header-to-responses"><a class="link" href="#book.should-add-a-warning-header-to-responses">15.5. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Add a Warning Header to Responses</a></h3>
+<h3 id="book.should-add-a-warning-header-to-responses"><a class="link" href="#book.should-add-a-warning-header-to-responses">17.5. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Add a Warning Header to Responses</a></h3>
 <div class="paragraph">
 <p>During deprecation phase, the producer should add a <code>Warning</code> header
 (see <a href="https://tools.ietf.org/html/rfc7234#section-5.5">RFC 7234 - Warning
@@ -5473,14 +5488,14 @@ header is not sufficient to gain client consent to shut down an API.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.should-add-monitoring-for-warning-header"><a class="link" href="#book.should-add-monitoring-for-warning-header">15.6. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Add Monitoring for Warning Header</a></h3>
+<h3 id="book.should-add-monitoring-for-warning-header"><a class="link" href="#book.should-add-monitoring-for-warning-header">17.6. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Add Monitoring for Warning Header</a></h3>
 <div class="paragraph">
 <p>Clients should monitor the <code>Warning</code> header in HTTP responses to see if
 an API will be deprecated in future.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.must-not-start-using-deprecated-apis"><a class="link" href="#book.must-not-start-using-deprecated-apis">15.7. <span style="color:#bf0000"><strong>MUST</strong></span> Not Start Using Deprecated APIs</a></h3>
+<h3 id="book.must-not-start-using-deprecated-apis"><a class="link" href="#book.must-not-start-using-deprecated-apis">17.7. <span style="color:#bf0000"><strong>MUST</strong></span> Not Start Using Deprecated APIs</a></h3>
 <div class="paragraph">
 <p>Clients must not start using deprecated parts of an API.</p>
 </div>
@@ -5488,10 +5503,10 @@ an API will be deprecated in future.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="api-operation"><a class="link" href="#api-operation">16. API Operation</a></h2>
+<h2 id="api-operation"><a class="link" href="#api-operation">18. API Operation</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="book.must-provide-online-access-to-openapi-reference-definition"><a class="link" href="#book.must-provide-online-access-to-openapi-reference-definition">16.1. <span style="color:#bf0000"><strong>MUST</strong></span> Provide Online Access to OpenAPI Reference Definition</a></h3>
+<h3 id="book.must-provide-online-access-to-openapi-reference-definition"><a class="link" href="#book.must-provide-online-access-to-openapi-reference-definition">18.1. <span style="color:#bf0000"><strong>MUST</strong></span> Provide Online Access to OpenAPI Reference Definition</a></h3>
 <div class="paragraph">
 <p>All service applications must support access to the OpenAPI Reference
 Definitions of their external APIs — it is optional for internal APIs —
@@ -5572,7 +5587,7 @@ your Spring Boot service crawlable via API Discovery</a></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.should-monitor-api-usage"><a class="link" href="#book.should-monitor-api-usage">16.2. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Monitor API Usage</a></h3>
+<h3 id="book.should-monitor-api-usage"><a class="link" href="#book.should-monitor-api-usage">18.2. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Monitor API Usage</a></h3>
 <div class="paragraph">
 <p>Owners of APIs used in production should monitor API service to get
 information about its using clients. This information, for instance, is
@@ -5586,7 +5601,7 @@ of the client-id retrieved from the OAuth token.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="events"><a class="link" href="#events">17. Events</a></h2>
+<h2 id="events"><a class="link" href="#events">19. Events</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Zalando’s architecture centers around decoupled microservices and in
@@ -5626,7 +5641,7 @@ reference implementation of the event type registry, and as a validating
 publish/subscribe broker for event producers and consumers.</p>
 </div>
 <div class="sect2">
-<h3 id="book.must-treat-events-as-part-of-the-service-interface"><a class="link" href="#book.must-treat-events-as-part-of-the-service-interface">17.1. <span style="color:#bf0000"><strong>MUST</strong></span> Treat Events as part of the service interface</a></h3>
+<h3 id="book.must-treat-events-as-part-of-the-service-interface"><a class="link" href="#book.must-treat-events-as-part-of-the-service-interface">19.1. <span style="color:#bf0000"><strong>MUST</strong></span> Treat Events as part of the service interface</a></h3>
 <div class="paragraph">
 <p>Events are part of a service’s interface to the outside world equivalent
 in standing to a service’s REST API. Services publishing data for
@@ -5637,14 +5652,14 @@ described in the Introduction</a>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.must-make-events-available-for-review"><a class="link" href="#book.must-make-events-available-for-review">17.2. <span style="color:#bf0000"><strong>MUST</strong></span> Make Events available for review</a></h3>
+<h3 id="book.must-make-events-available-for-review"><a class="link" href="#book.must-make-events-available-for-review">19.2. <span style="color:#bf0000"><strong>MUST</strong></span> Make Events available for review</a></h3>
 <div class="paragraph">
 <p>Services publishing event data for use by others must make the event
 schema available for review.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.must-ensure-event-type-schemas-conform-to-open-apis-schema-object"><a class="link" href="#book.must-ensure-event-type-schemas-conform-to-open-apis-schema-object">17.3. <span style="color:#bf0000"><strong>MUST</strong></span> Ensure Event Type schemas conform to Open API&#8217;s Schema Object</a></h3>
+<h3 id="book.must-ensure-event-type-schemas-conform-to-open-apis-schema-object"><a class="link" href="#book.must-ensure-event-type-schemas-conform-to-open-apis-schema-object">19.3. <span style="color:#bf0000"><strong>MUST</strong></span> Ensure Event Type schemas conform to Open API&#8217;s Schema Object</a></h3>
 <div class="paragraph">
 <p>Event type schema are defined in accordance with the Open API Schema
 Object specification, which uses a subset of
@@ -5737,7 +5752,7 @@ events.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.must-ensure-that-events-are-registered-as-event-types"><a class="link" href="#book.must-ensure-that-events-are-registered-as-event-types">17.4. <span style="color:#bf0000"><strong>MUST</strong></span> Ensure that Events are registered as Event Types</a></h3>
+<h3 id="book.must-ensure-that-events-are-registered-as-event-types"><a class="link" href="#book.must-ensure-that-events-are-registered-as-event-types">19.4. <span style="color:#bf0000"><strong>MUST</strong></span> Ensure that Events are registered as Event Types</a></h3>
 <div class="paragraph">
 <p>In Zalando&#8217;s architecture, events are registered using a structure
 called an <em>Event Type</em>. The Event Type declares standard information as
@@ -5932,7 +5947,7 @@ stream.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.must-ensure-events-conform-to-a-well-known-event-category"><a class="link" href="#book.must-ensure-events-conform-to-a-well-known-event-category">17.5. <span style="color:#bf0000"><strong>MUST</strong></span> Ensure Events conform to a well-known Event Category</a></h3>
+<h3 id="book.must-ensure-events-conform-to-a-well-known-event-category"><a class="link" href="#book.must-ensure-events-conform-to-a-well-known-event-category">19.5. <span style="color:#bf0000"><strong>MUST</strong></span> Ensure Events conform to a well-known Event Category</a></h3>
 <div class="paragraph">
 <p>An <em>event category</em> describes a generic class of event types. The
 guidelines define two such categories:</p>
@@ -6176,7 +6191,7 @@ additional information.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.must-ensure-that-events-define-useful-business-resources"><a class="link" href="#book.must-ensure-that-events-define-useful-business-resources">17.6. <span style="color:#bf0000"><strong>MUST</strong></span> Ensure that Events define useful business resources</a></h3>
+<h3 id="book.must-ensure-that-events-define-useful-business-resources"><a class="link" href="#book.must-ensure-that-events-define-useful-business-resources">19.6. <span style="color:#bf0000"><strong>MUST</strong></span> Ensure that Events define useful business resources</a></h3>
 <div class="paragraph">
 <p>Events are intended to be used by other services including business
 process/data analytics and monitoring. They should be based around the
@@ -6193,7 +6208,7 @@ without a clear need.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.must-events-must-not-provide-sensitive-customer-personal-data."><a class="link" href="#book.must-events-must-not-provide-sensitive-customer-personal-data.">17.7. <span style="color:#bf0000"><strong>MUST</strong></span> Events must not provide sensitive customer personal data.</a></h3>
+<h3 id="book.must-events-must-not-provide-sensitive-customer-personal-data."><a class="link" href="#book.must-events-must-not-provide-sensitive-customer-personal-data.">19.7. <span style="color:#bf0000"><strong>MUST</strong></span> Events must not provide sensitive customer personal data.</a></h3>
 <div class="paragraph">
 <p>Similar to API permission scopes, there will be Event Type permissions
 passed via an OAuth token supported in near future. In the meantime,
@@ -6215,7 +6230,7 @@ do other APIs), and this is fine.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.must-use-the-general-event-category-to-signal-steps-and-arrival-points-in-business-processes"><a class="link" href="#book.must-use-the-general-event-category-to-signal-steps-and-arrival-points-in-business-processes">17.8. <span style="color:#bf0000"><strong>MUST</strong></span> Use the General Event Category to signal steps and</a></h3>
+<h3 id="book.must-use-the-general-event-category-to-signal-steps-and-arrival-points-in-business-processes"><a class="link" href="#book.must-use-the-general-event-category-to-signal-steps-and-arrival-points-in-business-processes">19.8. <span style="color:#bf0000"><strong>MUST</strong></span> Use the General Event Category to signal steps and</a></h3>
 <div class="paragraph">
 <p>arrival points in business processes</p>
 </div>
@@ -6263,7 +6278,7 @@ assessing each option and sticking to one for a given business process.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.must-use-data-change-events-to-signal-mutations"><a class="link" href="#book.must-use-data-change-events-to-signal-mutations">17.9. <span style="color:#bf0000"><strong>MUST</strong></span> Use Data Change Events to signal mutations</a></h3>
+<h3 id="book.must-use-data-change-events-to-signal-mutations"><a class="link" href="#book.must-use-data-change-events-to-signal-mutations">19.9. <span style="color:#bf0000"><strong>MUST</strong></span> Use Data Change Events to signal mutations</a></h3>
 <div class="paragraph">
 <p>When publishing events that represents created, updated, or deleted
 data, change event types must be based on the Data Change Event
@@ -6287,7 +6302,7 @@ ordering</a> events for a given entity.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.should-provide-a-means-for-explicit-event-ordering"><a class="link" href="#book.should-provide-a-means-for-explicit-event-ordering">17.10. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Provide a means for explicit event ordering</a></h3>
+<h3 id="book.should-provide-a-means-for-explicit-event-ordering"><a class="link" href="#book.should-provide-a-means-for-explicit-event-ordering">19.10. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Provide a means for explicit event ordering</a></h3>
 <div class="paragraph">
 <p>Some common error cases may require event consumers to reconstruct event
 streams or replay events from a position within the stream. Events
@@ -6318,7 +6333,7 @@ the scope of this guidance.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.should-use-the-hash-partition-strategy-for-data-change-events"><a class="link" href="#book.should-use-the-hash-partition-strategy-for-data-change-events">17.11. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Use the hash partition strategy for Data Change Events</a></h3>
+<h3 id="book.should-use-the-hash-partition-strategy-for-data-change-events"><a class="link" href="#book.should-use-the-hash-partition-strategy-for-data-change-events">19.11. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Use the hash partition strategy for Data Change Events</a></h3>
 <div class="paragraph">
 <p>The <code>hash</code> partition strategy allows a producer to define which fields
 in an event are used as input to compute a logical partition the event
@@ -6351,7 +6366,7 @@ reason".</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.should-ensure-that-data-change-events-match-api-representations"><a class="link" href="#book.should-ensure-that-data-change-events-match-api-representations">17.12. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Ensure that Data Change Events match API representations</a></h3>
+<h3 id="book.should-ensure-that-data-change-events-match-api-representations"><a class="link" href="#book.should-ensure-that-data-change-events-match-api-representations">19.12. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Ensure that Data Change Events match API representations</a></h3>
 <div class="paragraph">
 <p>A data change event&#8217;s representation of an entity should correspond to
 the REST API representation.</p>
@@ -6391,7 +6406,7 @@ stored as entity by the service.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.must-permissions-on-events-must-correspond-to-api-permissions"><a class="link" href="#book.must-permissions-on-events-must-correspond-to-api-permissions">17.13. <span style="color:#bf0000"><strong>MUST</strong></span> Permissions on events must correspond to API permissions</a></h3>
+<h3 id="book.must-permissions-on-events-must-correspond-to-api-permissions"><a class="link" href="#book.must-permissions-on-events-must-correspond-to-api-permissions">19.13. <span style="color:#bf0000"><strong>MUST</strong></span> Permissions on events must correspond to API permissions</a></h3>
 <div class="paragraph">
 <p>If a resource can be read synchronously via a REST API and read
 asynchronously via an event, the same read-permission must apply: We
@@ -6399,7 +6414,7 @@ want to protect access to data, not the way data is accessed.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.must-indicate-ownership-of-event-types"><a class="link" href="#book.must-indicate-ownership-of-event-types">17.14. <span style="color:#bf0000"><strong>MUST</strong></span> Indicate ownership of Event Types</a></h3>
+<h3 id="book.must-indicate-ownership-of-event-types"><a class="link" href="#book.must-indicate-ownership-of-event-types">19.14. <span style="color:#bf0000"><strong>MUST</strong></span> Indicate ownership of Event Types</a></h3>
 <div class="paragraph">
 <p>Event definitions must have clear ownership - this can be indicated via
 the <code>owning_application</code> field of the EventType.</p>
@@ -6413,7 +6428,7 @@ of event.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.must-define-event-payloads-in-accordance-with-the-overall-guidelines"><a class="link" href="#book.must-define-event-payloads-in-accordance-with-the-overall-guidelines">17.15. <span style="color:#bf0000"><strong>MUST</strong></span> Define Event Payloads in accordance with the overall Guidelines</a></h3>
+<h3 id="book.must-define-event-payloads-in-accordance-with-the-overall-guidelines"><a class="link" href="#book.must-define-event-payloads-in-accordance-with-the-overall-guidelines">19.15. <span style="color:#bf0000"><strong>MUST</strong></span> Define Event Payloads in accordance with the overall Guidelines</a></h3>
 <div class="paragraph">
 <p>Events must be consistent with other API data and the API Guidelines in
 general.</p>
@@ -6457,7 +6472,7 @@ events on the models created for the service’s REST API.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.must-maintain-backwards-compatibility-for-events"><a class="link" href="#book.must-maintain-backwards-compatibility-for-events">17.16. <span style="color:#bf0000"><strong>MUST</strong></span> Maintain backwards compatibility for Events</a></h3>
+<h3 id="book.must-maintain-backwards-compatibility-for-events"><a class="link" href="#book.must-maintain-backwards-compatibility-for-events">19.16. <span style="color:#bf0000"><strong>MUST</strong></span> Maintain backwards compatibility for Events</a></h3>
 <div class="paragraph">
 <p>Changes to events must be based around making additive and backward
 compatible changes. This follows the guideline, "Must: Don’t Break
@@ -6527,7 +6542,7 @@ is not available in JSON Schema).</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.should-avoid-additionalproperties-in-event-type-definitions"><a class="link" href="#book.should-avoid-additionalproperties-in-event-type-definitions">17.17. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Avoid <code>additionalProperties</code> in event type definitions</a></h3>
+<h3 id="book.should-avoid-additionalproperties-in-event-type-definitions"><a class="link" href="#book.should-avoid-additionalproperties-in-event-type-definitions">19.17. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Avoid <code>additionalProperties</code> in event type definitions</a></h3>
 <div class="paragraph">
 <p>Event type schema should avoid using <code>additionalProperties</code>
 declarations, in order to support schema evolution.</p>
@@ -6583,7 +6598,7 @@ section for further guidelines on the use of <code>additionalProperties</code>.<
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.must-use-unique-event-identifiers"><a class="link" href="#book.must-use-unique-event-identifiers">17.18. <span style="color:#bf0000"><strong>MUST</strong></span> Use unique Event identifiers</a></h3>
+<h3 id="book.must-use-unique-event-identifiers"><a class="link" href="#book.must-use-unique-event-identifiers">19.18. <span style="color:#bf0000"><strong>MUST</strong></span> Use unique Event identifiers</a></h3>
 <div class="paragraph">
 <p>The <code>eid</code> (event identifier) value of an event must be unique.</p>
 </div>
@@ -6605,7 +6620,7 @@ generate a UUID value.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.should-design-for-idempotent-out-of-order-processing"><a class="link" href="#book.should-design-for-idempotent-out-of-order-processing">17.19. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Design for idempotent out-of-order processing</a></h3>
+<h3 id="book.should-design-for-idempotent-out-of-order-processing"><a class="link" href="#book.should-design-for-idempotent-out-of-order-processing">19.19. <span style="color:#bfbf00"><strong>SHOULD</strong></span> Design for idempotent out-of-order processing</a></h3>
 <div class="paragraph">
 <p>Events that are designed for
 <a href="#must-use-unique-event-identifiers">idempotent</a> out-of-order
@@ -6645,7 +6660,7 @@ key to recreate a (partially) ordered sequence of events.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.must-follow-conventions-for-event-type-names"><a class="link" href="#book.must-follow-conventions-for-event-type-names">17.20. <span style="color:#bf0000"><strong>MUST</strong></span> Follow conventions for Event Type names</a></h3>
+<h3 id="book.must-follow-conventions-for-event-type-names"><a class="link" href="#book.must-follow-conventions-for-event-type-names">19.20. <span style="color:#bf0000"><strong>MUST</strong></span> Follow conventions for Event Type names</a></h3>
 <div class="paragraph">
 <p>Event types can follow these naming conventions (each convention has its
 own should, must or could conformance level) -</p>
@@ -6664,7 +6679,7 @@ underscores or periods as separators.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="book.must-prepare-for-duplicate-events"><a class="link" href="#book.must-prepare-for-duplicate-events">17.21. <span style="color:#bf0000"><strong>MUST</strong></span> Prepare for duplicate Events</a></h3>
+<h3 id="book.must-prepare-for-duplicate-events"><a class="link" href="#book.must-prepare-for-duplicate-events">19.21. <span style="color:#bf0000"><strong>MUST</strong></span> Prepare for duplicate Events</a></h3>
 <div class="paragraph">
 <p>Event consumers must be able to process duplicate events.</p>
 </div>
@@ -6686,13 +6701,13 @@ to confirm the processing.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="references"><a class="link" href="#references">18. Appendix: References</a></h2>
+<h2 id="references"><a class="link" href="#references">20. Appendix: References</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This section collects links to documents to which we refer, and base our guidelines on.</p>
 </div>
 <div class="sect2">
-<h3 id="references-open-api-specification"><a class="link" href="#references-open-api-specification">18.1. OpenAPI Specification</a></h3>
+<h3 id="references-open-api-specification"><a class="link" href="#references-open-api-specification">20.1. OpenAPI Specification</a></h3>
 <div class="ulist">
 <ul>
 <li>
@@ -6702,7 +6717,7 @@ to confirm the processing.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="references-publications-specifications-and-standards"><a class="link" href="#references-publications-specifications-and-standards">18.2. Publications, specifications and standards</a></h3>
+<h3 id="references-publications-specifications-and-standards"><a class="link" href="#references-publications-specifications-and-standards">20.2. Publications, specifications and standards</a></h3>
 <div class="ulist">
 <ul>
 <li>
@@ -6742,7 +6757,7 @@ to confirm the processing.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="references-dissertations"><a class="link" href="#references-dissertations">18.3. Dissertations</a></h3>
+<h3 id="references-dissertations"><a class="link" href="#references-dissertations">20.3. Dissertations</a></h3>
 <div class="ulist">
 <ul>
 <li>
@@ -6752,7 +6767,7 @@ to confirm the processing.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="references-books"><a class="link" href="#references-books">18.4. Books</a></h3>
+<h3 id="references-books"><a class="link" href="#references-books">20.4. Books</a></h3>
 <div class="ulist">
 <ul>
 <li>
@@ -6768,7 +6783,7 @@ to confirm the processing.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="references-blogs"><a class="link" href="#references-blogs">18.5. Blogs</a></h3>
+<h3 id="references-blogs"><a class="link" href="#references-blogs">20.5. Blogs</a></h3>
 <div class="ulist">
 <ul>
 <li>
@@ -6780,14 +6795,14 @@ to confirm the processing.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="appendix-tooling"><a class="link" href="#appendix-tooling">19. Appendix: Tooling</a></h2>
+<h2 id="appendix-tooling"><a class="link" href="#appendix-tooling">21. Appendix: Tooling</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This is not a part of the actual guidelines, but might be helpful for following them.
 Using a tool mentioned here doesn&#8217;t automatically ensure you follow the guidelines.</p>
 </div>
 <div class="sect2">
-<h3 id="api-first-integrations"><a class="link" href="#api-first-integrations">19.1. API First Integrations</a></h3>
+<h3 id="api-first-integrations"><a class="link" href="#api-first-integrations">21.1. API First Integrations</a></h3>
 <div class="paragraph">
 <p>The following frameworks were specifically designed to support the API First workflow with OpenAPI YAML files (sorted alphabetically):</p>
 </div>
@@ -6821,7 +6836,7 @@ files inside IntelliJ IDEA</a></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="support-libraries"><a class="link" href="#support-libraries">19.2. Support Libraries</a></h3>
+<h3 id="support-libraries"><a class="link" href="#support-libraries">21.2. Support Libraries</a></h3>
 <div class="paragraph">
 <p>These utility libraries support you in implementing various parts of our RESTful API guidelines (sorted alphabetically):</p>
 </div>
@@ -6846,11 +6861,16 @@ files inside IntelliJ IDEA</a></p>
 <p><a href="https://github.com/zalando-stups/twintip-crawler">TWINTIP: API definition crawler for the STUPS ecosystem</a></p>
 </li>
 <li>
-<p><a href="https://github.com/zalando/twintip-spring-web">TWINTIP Spring Integration: API discovery endpoint for Spring Web MVC</a>
-= Appendix: Changelog</p>
+<p><a href="https://github.com/zalando/twintip-spring-web">TWINTIP Spring Integration: API discovery endpoint for Spring Web MVC</a></p>
 </li>
 </ul>
 </div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="appendix-changelog"><a class="link" href="#appendix-changelog">22. Appendix: Changelog</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>This change log only contains major changes made after October 2016.</p>
 </div>
@@ -6862,9 +6882,8 @@ The latter changes are additionally labeled with "Rule Change" here.</p>
 <div class="paragraph">
 <p>To see a list of all changes, please have a look at the <a href="https://github.com/zalando/restful-api-guidelines/commits/master">commit list in Github</a>.</p>
 </div>
-</div>
 <div class="sect2">
-<h3 id="rule-changes"><a class="link" href="#rule-changes">19.3. Rule Changes</a></h3>
+<h3 id="rule-changes"><a class="link" href="#rule-changes">22.1. Rule Changes</a></h3>
 <div class="ulist">
 <ul>
 <li>
