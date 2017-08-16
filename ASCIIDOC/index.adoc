@@ -1,0 +1,18 @@
+:stylesheet: zalando.css
+:sectnums:
+:toc: left
+:toclevels: 2
+:leveloffset: +1
+:sectlinks:
+
+:MUST: pass:[<span style="color:#bf0000"><strong>MUST</strong></span>]
+:SHOULD: pass:[<span style="color:#bfbf00"><strong>SHOULD</strong></span>]
+:MAY: pass:[<span style="color:#006000"><strong>MAY</strong></span>]
+
+= Zalando RESTful API Guidelines
+
+image::assets/api-zalando-small.jpg[API Guild Logo]
+
+include::chapters/introduction.adoc[]
+include::chapters/design-principles.adoc[]
+include::chapters/general-guidelines.adoc[]
