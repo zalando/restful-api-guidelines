@@ -185,14 +185,15 @@ unthinkable future feature.
 To specify an open-ended list of values use the marker
 `x-extensible-enum` as follows:
 
-....
+[source,yaml]
+----
 deliver_methods:
   type: string
   x-extensible-enum:
     - parcel
     - letter
     - email
-....
+----
 
 *Note:* `x-extensible-enum` is not JSON Schema conform but will be
 ignored by most tools.
@@ -240,17 +241,19 @@ method semantics.
 
 In this example, a client wants only the new version of the response:
 
-....
+[source,http]
+----
 Accept: application/x.zalando.cart+json;version=2
-....
+----
 
 A server responding to this, as well as a client sending a request with
 content should use the Content-Type header, declaring that one is
 sending the new version:
 
-....
+[source,http]
+----
 Content-Type: application/x.zalando.cart+json;version=2
-....
+----
 
 Using header versioning should:
 
@@ -290,7 +293,8 @@ Only the documentation, not the API itself, needs version information.
 
 Example:
 
-....
+[source,json]
+----
 "swagger": "2.0",
 "info": {
   "title": "Parcel service API",
@@ -298,7 +302,7 @@ Example:
   "version": "1.0.0",
     <...>
 }
-....
+----
 
 During a (possibly) long-running API review phase you need different
 versions of the API description. These versions may include changes that

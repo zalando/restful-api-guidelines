@@ -8,7 +8,8 @@ Definitions of data objects that are good candidates for wider usage:
 
 Use the following common money structure:
 
-....
+[source,yaml]
+----
 Money:
   type: object
   properties:
@@ -25,7 +26,7 @@ Money:
   required:
     - amount
     - currency
-....
+----
 
 The decimal values for "amount" describe unit and subunit of the
 currency in a single value, where the digits before the decimal point
@@ -88,7 +89,8 @@ provided that otherwise requires examining the Open API file.
 
 Example JSON schema:
 
-....
+[source,json]
+----
 tree_node:
   type: object
   properties: 
@@ -115,8 +117,7 @@ tree_node:
     modified: '2017-04-12T23:20:50.52Z'
     type: 'LEAF'
     parent_node_id: '534321'
-    
-....
+----
 
 These properties are not always strictly necessary, but making them
 idiomatic allows API client developers to build up a common
@@ -131,7 +132,8 @@ contexts, including country variances. All attributes that relate to
 address information should follow the naming and semantics defined
 below.
 
-....
+[source,yaml]
+----
 addressee:
     description:
       a (natural or legal) person that gets addressed
@@ -213,7 +215,7 @@ address:
       - city
       - zip
       - country_code
-....
+----
 
 Grouping and cardinality of fields in specific data types may vary based
 on the specific use case (e.g. combining addressee and address fields
@@ -260,7 +262,6 @@ responses:
     description: Service Unavailable
     schema:
       $ref: 'https://zalando.github.io/problem/schema.yaml#/Problem'
-        
 ----
 
 [#176]

@@ -1464,7 +1464,7 @@ b.conum * { color: inherit !important; }
 </div>
 </div>
 <div class="paragraph">
-<p><span class="image"><img src="api-zalando-small.jpg" alt="APIGuild icon"></span></p>
+<p><a href="index.pdf">PDF Version</a></p>
 </div>
 </div>
 </div>
@@ -2317,14 +2317,14 @@ unthinkable future feature.</p>
 <p>To specify an open-ended list of values use the marker
 <code>x-extensible-enum</code> as follows:</p>
 </div>
-<div class="literalblock">
+<div class="listingblock">
 <div class="content">
-<pre>deliver_methods:
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">deliver_methods:
   type: string
   x-extensible-enum:
     - parcel
     - letter
-    - email</pre>
+    - email</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2389,9 +2389,9 @@ method semantics.</p>
 <div class="paragraph">
 <p>In this example, a client wants only the new version of the response:</p>
 </div>
-<div class="literalblock">
+<div class="listingblock">
 <div class="content">
-<pre>Accept: application/x.zalando.cart+json;version=2</pre>
+<pre class="highlight"><code class="language-http" data-lang="http">Accept: application/x.zalando.cart+json;version=2</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2399,9 +2399,9 @@ method semantics.</p>
 content should use the Content-Type header, declaring that one is
 sending the new version:</p>
 </div>
-<div class="literalblock">
+<div class="listingblock">
 <div class="content">
-<pre>Content-Type: application/x.zalando.cart+json;version=2</pre>
+<pre class="highlight"><code class="language-http" data-lang="http">Content-Type: application/x.zalando.cart+json;version=2</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2455,15 +2455,15 @@ negotiation (see above).</p>
 <div class="paragraph">
 <p>Example:</p>
 </div>
-<div class="literalblock">
+<div class="listingblock">
 <div class="content">
-<pre>"swagger": "2.0",
+<pre class="highlight"><code class="language-json" data-lang="json">"swagger": "2.0",
 "info": {
   "title": "Parcel service API",
   "description": "API for &lt;...&gt;",
   "version": "1.0.0",
     &lt;...&gt;
-}</pre>
+}</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2826,9 +2826,9 @@ of using a lock action.</p>
 <div class="paragraph">
 <p>Request:</p>
 </div>
-<div class="literalblock">
+<div class="listingblock">
 <div class="content">
-<pre>PUT /article-locks/{article-id}</pre>
+<pre class="highlight"><code class="language-http" data-lang="http">PUT /article-locks/{article-id}</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2907,20 +2907,20 @@ and “/customers” must be valid as well in principle.</p>
 <div class="paragraph">
 <p>Basic URL structure:</p>
 </div>
-<div class="literalblock">
+<div class="listingblock">
 <div class="content">
-<pre>/{resources}/[resource-id]/{sub-resources}/[sub-resource-id]
-/{resources}/[partial-id-1][separator][partial-id-2]</pre>
+<pre class="highlight"><code class="language-http" data-lang="http">/{resources}/[resource-id]/{sub-resources}/[sub-resource-id]
+/{resources}/[partial-id-1][separator][partial-id-2]</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
 </div>
-<div class="literalblock">
+<div class="listingblock">
 <div class="content">
-<pre>/carts/1681e6b88ec1/items
+<pre class="highlight"><code class="language-http" data-lang="http">/carts/1681e6b88ec1/items
 /carts/1681e6b88ec1/items/1
-/customers/12ev123bv12v/addresses/DE_100100101</pre>
+/customers/12ev123bv12v/addresses/DE_100100101</code></pre>
 </div>
 </div>
 </div>
@@ -3000,9 +3000,9 @@ time.</p>
 exists without parent resource, consider using a nested URL structure,
 for instance:</p>
 </div>
-<div class="literalblock">
+<div class="listingblock">
 <div class="content">
-<pre>/carts/1681e6b88ec1/cart-items/1</pre>
+<pre class="highlight"><code class="language-http" data-lang="http">/carts/1681e6b88ec1/cart-items/1</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3012,10 +3012,10 @@ customer is a collection for sales orders; however, sales orders have
 globally unique id and some services may choose to access the orders
 directly, for instance:</p>
 </div>
-<div class="literalblock">
+<div class="listingblock">
 <div class="content">
-<pre>/customers/1681e6b88ec1
-/sales-orders/5273gh3k525a</pre>
+<pre class="highlight"><code class="language-http" data-lang="http">/customers/1681e6b88ec1
+/sales-orders/5273gh3k525a</code></pre>
 </div>
 </div>
 </div>
@@ -4678,9 +4678,9 @@ processing more difficult. They are also
 <div class="paragraph">
 <p>Use the following common money structure:</p>
 </div>
-<div class="literalblock">
+<div class="listingblock">
 <div class="content">
-<pre>Money:
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">Money:
   type: object
   properties:
     amount:
@@ -4695,7 +4695,7 @@ processing more difficult. They are also
       example: EUR
   required:
     - amount
-    - currency</pre>
+    - currency</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -4791,9 +4791,9 @@ provided that otherwise requires examining the Open API file.</p>
 <div class="paragraph">
 <p>Example JSON schema:</p>
 </div>
-<div class="literalblock">
+<div class="listingblock">
 <div class="content">
-<pre>tree_node:
+<pre class="highlight"><code class="language-json" data-lang="json">tree_node:
   type: object
   properties:
     id:
@@ -4818,7 +4818,7 @@ provided that otherwise requires examining the Open API file.</p>
     created: '2017-04-12T23:20:50.52Z'
     modified: '2017-04-12T23:20:50.52Z'
     type: 'LEAF'
-    parent_node_id: '534321'</pre>
+    parent_node_id: '534321'</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -4837,9 +4837,9 @@ contexts, including country variances. All attributes that relate to
 address information should follow the naming and semantics defined
 below.</p>
 </div>
-<div class="literalblock">
+<div class="listingblock">
 <div class="content">
-<pre>addressee:
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">addressee:
     description:
       a (natural or legal) person that gets addressed
     type: object
@@ -4919,7 +4919,7 @@ address:
       - street
       - city
       - zip
-      - country_code</pre>
+      - country_code</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -5522,16 +5522,20 @@ via the following two API endpoints:</p>
 <code><a href="https://example.com/.well-known/schema-discovery" class="bare">https://example.com/.well-known/schema-discovery</a></code> that delivers a JSON
 discovery document of the following form (adapt the <code>schema_url</code> to
 point to the endpoint mentioned above):</p>
-<div class="literalblock">
+</li>
+</ul>
+</div>
+<div class="listingblock">
 <div class="content">
-<pre>{
+<pre class="highlight"><code class="language-json" data-lang="json">{
     "schema_url": "/swagger.json",
     "schema_type": "swagger-2.0",
     "ui_url": "/ui/"
-}</pre>
+}</code></pre>
 </div>
 </div>
-</li>
+<div class="ulist">
+<ul>
 <li>
 <p>whether these endpoints have to be secured by OAuth depends on context
 of your API and product management</p>
@@ -6943,7 +6947,7 @@ header</a>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-08-16 12:03:19 CEST
+Last updated 2017-08-16 15:27:52 CEST
 </div>
 </div>
 </body>

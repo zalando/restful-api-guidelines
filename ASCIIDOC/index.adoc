@@ -1,4 +1,4 @@
-:stylesheet: zalando.css
+:stylesheet: assets/zalando.css
 :sectnums:
 :toc: left
 :toclevels: 2
@@ -12,6 +12,8 @@
 = Zalando RESTful API Guidelines
 
 image::assets/api-zalando-small.jpg[API Guild Logo]
+
+link:index.pdf[PDF Version]
 
 include::chapters/introduction.adoc[]
 include::chapters/design-principles.adoc[]

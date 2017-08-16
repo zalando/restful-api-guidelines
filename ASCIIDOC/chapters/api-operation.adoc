@@ -15,14 +15,16 @@ via the following two API endpoints:
 `https://example.com/.well-known/schema-discovery` that delivers a JSON
 discovery document of the following form (adapt the `schema_url` to
 point to the endpoint mentioned above):
-+
-....
+
+[source,json]
+----
 {
     "schema_url": "/swagger.json",
     "schema_type": "swagger-2.0",
     "ui_url": "/ui/"
 }
-....
+----
+
 * whether these endpoints have to be secured by OAuth depends on context
 of your API and product management
 * if you secure these endpoint, only use `uid` scope

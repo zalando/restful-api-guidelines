@@ -13,9 +13,10 @@ of using a lock action.
 
 Request:
 
-....
+[source,http]
+----
 PUT /article-locks/{article-id}
-....
+----
 
 The added benefit is that you already have a service for browsing and
 filtering article locks.
@@ -84,18 +85,20 @@ and “/customers” must be valid as well in principle.
 
 Basic URL structure:
 
-....
+[source,http]
+----
 /{resources}/[resource-id]/{sub-resources}/[sub-resource-id]
 /{resources}/[partial-id-1][separator][partial-id-2]
-....
+----
 
 Examples:
 
-....
+[source,http]
+----
 /carts/1681e6b88ec1/items
 /carts/1681e6b88ec1/items/1
 /customers/12ev123bv12v/addresses/DE_100100101
-....
+----
 
 [#143]
 == {SHOULD} Only Use UUIDs If Necessary
@@ -149,9 +152,10 @@ If a sub-resource is only accessible via its parent resource and may not
 exists without parent resource, consider using a nested URL structure,
 for instance:
 
-....
+[source,http]
+----
 /carts/1681e6b88ec1/cart-items/1
-....
+----
 
 However, if the resource can be accessed directly via its unique id,
 then the API should expose it as a top-level resource. For example,
@@ -159,10 +163,11 @@ customer is a collection for sales orders; however, sales orders have
 globally unique id and some services may choose to access the orders
 directly, for instance:
 
-....
+[source,http]
+----
 /customers/1681e6b88ec1
 /sales-orders/5273gh3k525a
-....
+----
 
 [#145]
 == {SHOULD} Limit number of Resources
