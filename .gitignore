@@ -1,16 +1,2 @@
-.grunt/
-
-# idea
-/.idea
-
-# node
-node_modules
-
-# gitbook
-/_book
-/_site
-_book
-*.epub
-*.mobi
-*.pdf
-.project
+.sass-cache/
+output/
