@@ -26,4 +26,3 @@ dependencies of the `asciidoctor-stylesheet-factory`
 
 . Copy generated CSS file
 `cp ${asciidoctor-stylesheet-factory}/stylesheets/zalando.css ${guidelines-repository}/zalando.css`
-
