@@ -4,9 +4,9 @@
 :leveloffset: +1
 :sectlinks:
 
-:creator: {author}
+:creator: Zalando SE
 :producer: Asciidoctor
-:keywords: RESTful, API, Guidelines
+:keywords: Zalando, RESTful, API, Guidelines
 :copyright: CC-BY-SA 3.0
 
 :MUST: pass:[<span style="color:#bf0000"><strong>MUST</strong></span>]
@@ -18,7 +18,7 @@ Zalando SE
 
 image::assets/api-zalando-small.jpg[API Guild Logo]
 
-Other formats: link:index.pdf[PDF], link:index.epub[EPUB3]
+Other formats: link:zalando-restful-guidelines.pdf[PDF], link:zalando-restful-guidelines.epub[EPUB3]
 
 include::chapters/introduction.adoc[]
 include::chapters/design-principles.adoc[]

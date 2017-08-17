@@ -19,3 +19,12 @@ Each of the rules has an unique ID. Rule ID is immutable and durable. It
 doesn't change until the content of the rule changes significantly. The
 currently last Rule ID is stored in link:rule_id_counter[rule_id_counter] file.
 It has to be updated every time a new rule is added.
+
+In order to ensure the uniqueness of the IDs you can use
+link:./check_uniqueness_of_rule_ids.sh[this script]. Preferably, you add this script
+as a `pre-commit` hook to your local repository:
+
+[source,bash]
+----
+cp check_uniqueness_of_rule_ids.sh .git/hooks/pre-commit
+----

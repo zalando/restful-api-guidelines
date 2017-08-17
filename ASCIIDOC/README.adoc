@@ -1,7 +1,10 @@
 = Developing Restful APIs: A Comprehensive Set of Guidelines by Zalando
 
 https://travis-ci.org/zalando/restful-api-guidelines[image:https://travis-ci.org/zalando/restful-api-guidelines.svg?branch=master[Build Status]]
-Latest published version: http://zalando.github.io/restful-api-guidelines[*HTML*]
+Latest published version:
+http://zalando.github.io/restful-api-guidelines[*HTML*],
+http://zalando.github.io/restful-api-guidelines/zalando-restful-guidelines.pdf[*PDF*],
+http://zalando.github.io/restful-api-guidelines/zalando-restful-guidelines.epub[*EPUB3*]
 
 == Purpose
 
@@ -21,12 +24,6 @@ development. Note that we encourage our own teams to use them in order
 to challenge their APIs. As such, you should consider this to be a
 living, evolving document. We will revise and update based on our
 learnings and experiences.
-
-== E-Book Support
-
-You can easily generate PDF, EPUB3, KF8/MOBI files out of our guidelines.
-Please refer to this
-http://asciidoctor.org/docs/convert-asciidoc-to-epub/[explanation].
 
 == License
 
