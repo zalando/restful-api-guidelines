@@ -42,7 +42,7 @@ The following proprietary headers have been specified by this guideline
 for usage so far. Remember that HTTP header field names are not
 case-sensitive.
 
-[width="100%",cols="21%,9%,39%,31%",options="header",]
+[cols="15%,10%,60%,15%",options="header",]
 |=======================================================================
 |Header field name |Type |Description |Header field value example
 |X-Flow-ID |String |The flow id of the request, which is written into

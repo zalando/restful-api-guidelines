@@ -58,7 +58,7 @@ precision must be defined by the format as follows to prevent clients
 from guessing the precision incorrectly, and thereby changing the value
 unintentionally:
 
-[cols=",,",options="header",]
+[cols="15%,15%,70%",options="header",]
 |=====================================================================
 |type |format |specified value range
 |integer |int32 |integer between -231 and 231-1

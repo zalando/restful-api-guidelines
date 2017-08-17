@@ -247,7 +247,7 @@ Our list of most commonly used and best understood HTTP status codes:
 
 === Success Codes
 
-[width="12%",cols="34%,33%,33%",options="header",]
+[cols="10%,70%,20%",options="header",]
 |=======================================================================
 |Code |Meaning |Methods
 |200 |OK - this is the standard success response |All
@@ -269,7 +269,7 @@ informations for different parts of a batch/bulk request. See
 
 === Redirection Codes
 
-[width="12%",cols="34%,33%,33%",options="header",]
+[cols="10%,70%,20%",options="header",]
 |=======================================================================
 |Code |Meaning |Methods
 |301 |Moved Permanently - This and all future requests should be
@@ -285,7 +285,7 @@ version passed via request headers If-Modified-Since or If-None-Match.
 
 === Client Side Error Codes
 
-[width="12%",cols="34%,33%,33%",options="header",]
+[cols="10%,70%,20%",options="header",]
 |=======================================================================
 |Code |Meaning |Methods
 |400 |Bad request - generic / unknown error |All
@@ -332,7 +332,7 @@ sent too many requests. See <<152>>. |All
 
 === Server Side Error Codes:
 
-[width="12%",cols="34%,33%,33%",options="header",]
+[cols="10%,70%,20%",options="header",]
 |=======================================================================
 |Code |Meaning |Methods
 |500 |Internal Server Error - a generic error indication for an
@@ -473,7 +473,7 @@ specify the format of the query parameter.
 Only the `csv` or `multi` formats should be used for multi-value query
 parameters as described below.
 
-[width="100%",cols="22%,28%,50%",options="header",]
+[,cols="15%,25%,60%",options="header",]
 |=======================================================================
 |Collection Format |Description |Example
 |`csv` |Comma separated values |`?parameter=value1,value2,value3`
