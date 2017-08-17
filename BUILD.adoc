@@ -1,0 +1,38 @@
+= Build
+
+== Requirements
+
+* http://asciidoctor.org/docs/install-toolchain/[Install Asciidoctor toolchain]
+* Install gems for PDF and EPUB3 generation
+** `gem install --pre asciidoctor-pdf`
+** `gem install coderay pygments.rb`
+** `gem install --pre asciidoctor-epub3`
+
+== Generate Custom CSS
+
+1. http://asciidoctor.org/docs/user-manual/#stylesheet-factory[Clone and install]
+dependencies for the `asciidoctor-stylesheet-factory`
+
+1. Copy Zalando SASS file to the stylesheet factory's directory
+[source,bash]
+----
+cp -r sass/* ${asciidoctor-stylesheet-factory}/sass
+----
+
+1. Generate CSS
+[source,bash]
+----
+//TODO
+----
+
+1. Copy generated CSS to project's root directory
+[source,bash]
+----
+cp ${asciidoctor-stylesheet-factory}/stylesheets/zalando.css ${guidelines-repository}/zalando.css
+----
+
+== Build HTML site, PDF and EPUB3 locally
+[source,bash]
+----
+./build.sh
+----

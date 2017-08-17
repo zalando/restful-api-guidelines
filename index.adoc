@@ -1,0 +1,44 @@
+:stylesheet: assets/zalando.css
+:toc: left
+:toclevels: 2
+:leveloffset: +1
+:sectlinks:
+
+:creator: Zalando SE
+:producer: Asciidoctor
+:keywords: Zalando, RESTful, API, Guidelines
+:copyright: CC-BY-SA 3.0
+
+:MUST: pass:[<span style="color:#bf0000"><strong>MUST</strong></span>]
+:SHOULD: pass:[<span style="color:#bfbf00"><strong>SHOULD</strong></span>]
+:MAY: pass:[<span style="color:#006000"><strong>MAY</strong></span>]
+
+= Zalando RESTful API Guidelines
+Zalando SE
+
+image::assets/api-zalando-small.jpg[API Guild Logo]
+
+Other formats: link:zalando-restful-guidelines.pdf[PDF], link:zalando-restful-guidelines.epub[EPUB3]
+
+include::chapters/introduction.adoc[]
+include::chapters/design-principles.adoc[]
+include::chapters/general-guidelines.adoc[]
+include::chapters/security.adoc[]
+include::chapters/compatibility.adoc[]
+include::chapters/json-guidelines.adoc[]
+include::chapters/naming.adoc[]
+include::chapters/resources.adoc[]
+include::chapters/http.adoc[]
+include::chapters/performance.adoc[]
+include::chapters/pagination.adoc[]
+include::chapters/hyper-media.adoc[]
+include::chapters/data-formats.adoc[]
+include::chapters/common-data-types.adoc[]
+include::chapters/common-headers.adoc[]
+include::chapters/proprietary-headers.adoc[]
+include::chapters/deprecation.adoc[]
+include::chapters/api-operation.adoc[]
+include::chapters/events.adoc[]
+include::chapters/references.adoc[]
+include::chapters/tooling.adoc[]
+include::chapters/changelog.adoc[]
