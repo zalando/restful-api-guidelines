@@ -1,4 +1,4 @@
-:stylesheet: assets/zalando.css
+:stylesheet: zalando.css
 :toc: left
 :toclevels: 2
 :leveloffset: +1
