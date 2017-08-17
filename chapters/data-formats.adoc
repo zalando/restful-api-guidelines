@@ -11,7 +11,7 @@ since it would allow for future extension. This also applies for
 collection resources where one naturally would assume an array. See <<160>> for
 an example.
 
-[#167]
+[#166]
 == {MAY} Use non JSON Media Types for Binary Data or Alternative Content Representations
 
 Other media types may be used in following cases: * Transferring binary

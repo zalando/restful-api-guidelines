@@ -7,6 +7,7 @@ set -ex
 USER="ZalandoGhPages"
 EMAIL="no-reply@zalando.de"
 DEPLOY_MESSAGE="Deploy to GitHub Pages (auto)"
+GH_REF="github.com/zalando/restful-api-guidelines.git"
 
 if [[ "${TRAVIS}" -eq "true" && "${TRAVIS_SECURE_ENV_VARS}" -eq "true" && "${TRAVIS_PULL_REQUEST}" -eq "false" && "${TRAVIS_BRANCH}" -eq "master" ]]; then
     echo "Deploying to gh-pages branch"
