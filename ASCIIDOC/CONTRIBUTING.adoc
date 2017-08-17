@@ -1,4 +1,4 @@
-=Contributing
+= Contributing
 
 == Pull requests only
 
@@ -12,3 +12,10 @@ concluded and at least 2 reviewers gave their approvals.
 
 When your pull request does major changes, please also add an entry to
 the changelog.
+
+== Rule ID
+
+Each of the rules has an unique ID. Rule ID is immutable and durable. It
+doesn't change until the content of the rule changes significantly. The
+currently last Rule ID is stored in link:rule_id_counter[rule_id_counter] file.
+It has to be updated every time a new rule is added.
