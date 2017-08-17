@@ -1,5 +1,4 @@
 :stylesheet: assets/zalando.css
-:sectnums:
 :toc: left
 :toclevels: 2
 :leveloffset: +1
