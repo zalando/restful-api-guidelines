@@ -5,15 +5,21 @@
 :leveloffset: +1
 :sectlinks:
 
+:creator: {author}
+:producer: Asciidoctor
+:keywords: RESTful, API, Guidelines
+:copyright: CC-BY-SA 3.0
+
 :MUST: pass:[<span style="color:#bf0000"><strong>MUST</strong></span>]
 :SHOULD: pass:[<span style="color:#bfbf00"><strong>SHOULD</strong></span>]
 :MAY: pass:[<span style="color:#006000"><strong>MAY</strong></span>]
 
 = Zalando RESTful API Guidelines
+Zalando SE
 
 image::assets/api-zalando-small.jpg[API Guild Logo]
 
-link:index.pdf[PDF Version]
+Other formats: link:index.pdf[PDF], link:index.epub[EPUB3]
 
 include::chapters/introduction.adoc[]
 include::chapters/design-principles.adoc[]

@@ -5,6 +5,9 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.5">
+<meta name="keywords" content="RESTful, API, Guidelines">
+<meta name="author" content="Zalando SE">
+<meta name="copyright" content="CC-BY-SA 3.0">
 <title>Zalando RESTful API Guidelines</title>
 <style>
 /*! normalize.css v2.1.2 | MIT License | git.io/normalize */
@@ -1235,6 +1238,9 @@ b.conum * { color: inherit !important; }
 <body class="article toc2 toc-left">
 <div id="header">
 <h1>Zalando RESTful API Guidelines</h1>
+<div class="details">
+<span id="author" class="author">Zalando SE</span><br>
+</div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -1432,24 +1438,24 @@ b.conum * { color: inherit !important; }
 <li><a href="#213">19.21. <span style="color:#bf0000"><strong>MUST</strong></span> Prepare for duplicate Events</a></li>
 </ul>
 </li>
-<li><a href="#references">20. Appendix: References</a>
+<li><a href="#appendix-references">Appendix A: References</a>
 <ul class="sectlevel2">
-<li><a href="#references-open-api-specification">20.1. OpenAPI Specification</a></li>
-<li><a href="#references-publications-specifications-and-standards">20.2. Publications, specifications and standards</a></li>
-<li><a href="#references-dissertations">20.3. Dissertations</a></li>
-<li><a href="#references-books">20.4. Books</a></li>
-<li><a href="#references-blogs">20.5. Blogs</a></li>
+<li><a href="#references-open-api-specification">A.1. OpenAPI Specification</a></li>
+<li><a href="#references-publications-specifications-and-standards">A.2. Publications, specifications and standards</a></li>
+<li><a href="#references-dissertations">A.3. Dissertations</a></li>
+<li><a href="#references-books">A.4. Books</a></li>
+<li><a href="#references-blogs">A.5. Blogs</a></li>
 </ul>
 </li>
-<li><a href="#appendix-tooling">21. Appendix: Tooling</a>
+<li><a href="#appendix-tooling">Appendix B: Tooling</a>
 <ul class="sectlevel2">
-<li><a href="#tooling-api-first-integrations">21.1. API First Integrations</a></li>
-<li><a href="#tooling-support-libraries">21.2. Support Libraries</a></li>
+<li><a href="#tooling-api-first-integrations">B.1. API First Integrations</a></li>
+<li><a href="#tooling-support-libraries">B.2. Support Libraries</a></li>
 </ul>
 </li>
-<li><a href="#appendix-changelog">22. Appendix: Changelog</a>
+<li><a href="#appendix-changelog">20. Appendix: Changelog</a>
 <ul class="sectlevel2">
-<li><a href="#rule-changes">22.1. Rule Changes</a></li>
+<li><a href="#rule-changes">20.1. Rule Changes</a></li>
 </ul>
 </li>
 </ul>
@@ -1464,7 +1470,7 @@ b.conum * { color: inherit !important; }
 </div>
 </div>
 <div class="paragraph">
-<p><a href="index.pdf">PDF Version</a></p>
+<p>Other formats: <a href="index.pdf">PDF</a>, <a href="index.epub">EPUB3</a></p>
 </div>
 </div>
 </div>
@@ -1640,7 +1646,8 @@ for diverse client applications.</p>
 <p>We prefer REST-based APIs with JSON payloads</p>
 </li>
 <li>
-<p>We prefer systems to be truly RESTful</p>
+<p>We prefer systems to be truly RESTful
+<sup class="footnote" id="_footnote_fielding-restful">[<a id="_footnoteref_1" class="footnote" href="#_footnote_1" title="View footnote.">1</a>]</sup></p>
 </li>
 </ul>
 </div>
@@ -1698,17 +1705,6 @@ API Design</a></p>
 Styles and the Design of Network-Based Software Architectures</a></p>
 </li>
 </ul>
-</div>
-<div class="paragraph">
-<p><em>Footnote:</em> Per definition of R.Fielding REST APIs have to support
-HATEOAS (maturity level 3). Our guidelines do not strongly advocate for
-full REST compliance, but limited hypermedia usage, e.g. for pagination
-(see <a href="#hypermedia">Hypermedia</a> below).
-However, we still use the term "RESTful API", due to the absence
-of an alternative established term and to keep it like the very majority
-of web service industry that also use the term for their REST
-approximations — in fact, in today&#8217;s industry full HATEOAS compliant
-APIs are a very rare exception.</p>
 </div>
 </div>
 </div>
@@ -5347,7 +5343,8 @@ hop-by-hop <code>X-RateLimit-</code> headers which can be used as defined in <a 
 <div class="sect2">
 <h3 id="183"><a class="link" href="#183">16.2. <span style="color:#bf0000"><strong>MUST</strong></span> Propagate Proprietary Headers</a></h3>
 <div class="paragraph">
-<p>All Zalando&#8217;s proprietary headers are end-to-end headers.</p>
+<p>All Zalando&#8217;s proprietary headers are end-to-end headers.
+<sup class="footnote" id="_footnote_header-types">[<a id="_footnoteref_2" class="footnote" href="#_footnote_2" title="View footnote.">2</a>]</sup></p>
 </div>
 <div class="paragraph">
 <p>All headers specified above must be propagated to the services down the
@@ -5365,17 +5362,6 @@ information influences the recommendation results).</p>
 entity in a subsequent request. In such cases, the proprietary headers
 must still be propagated as headers with the subsequent request, despite
 the duplication of information.</p>
-</div>
-<div class="paragraph">
-<p><em>Footnote:</em></p>
-</div>
-<div class="paragraph">
-<p>HTTP/1.1 standard
-(<a href="https://tools.ietf.org/html/rfc7230#section-6.1">RFC-7230</a>) defines two
-types of headers: end-to-end and hop-by-hop headers. End-to-end headers
-must be transmitted to the ultimate recipient of a request or response.
-Hop-by-hop headers, on the contrary, are meaningful for a single
-connection only.</p>
 </div>
 </div>
 </div>
@@ -6645,13 +6631,13 @@ to confirm the processing.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="references"><a class="link" href="#references">20. Appendix: References</a></h2>
+<h2 id="appendix-references"><a class="link" href="#appendix-references">Appendix A: References</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This section collects links to documents to which we refer, and base our guidelines on.</p>
 </div>
 <div class="sect2">
-<h3 id="references-open-api-specification"><a class="link" href="#references-open-api-specification">20.1. OpenAPI Specification</a></h3>
+<h3 id="references-open-api-specification"><a class="link" href="#references-open-api-specification">A.1. OpenAPI Specification</a></h3>
 <div class="ulist">
 <ul>
 <li>
@@ -6661,7 +6647,7 @@ to confirm the processing.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="references-publications-specifications-and-standards"><a class="link" href="#references-publications-specifications-and-standards">20.2. Publications, specifications and standards</a></h3>
+<h3 id="references-publications-specifications-and-standards"><a class="link" href="#references-publications-specifications-and-standards">A.2. Publications, specifications and standards</a></h3>
 <div class="ulist">
 <ul>
 <li>
@@ -6701,7 +6687,7 @@ to confirm the processing.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="references-dissertations"><a class="link" href="#references-dissertations">20.3. Dissertations</a></h3>
+<h3 id="references-dissertations"><a class="link" href="#references-dissertations">A.3. Dissertations</a></h3>
 <div class="ulist">
 <ul>
 <li>
@@ -6711,7 +6697,7 @@ to confirm the processing.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="references-books"><a class="link" href="#references-books">20.4. Books</a></h3>
+<h3 id="references-books"><a class="link" href="#references-books">A.4. Books</a></h3>
 <div class="ulist">
 <ul>
 <li>
@@ -6727,7 +6713,7 @@ to confirm the processing.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="references-blogs"><a class="link" href="#references-blogs">20.5. Blogs</a></h3>
+<h3 id="references-blogs"><a class="link" href="#references-blogs">A.5. Blogs</a></h3>
 <div class="ulist">
 <ul>
 <li>
@@ -6739,14 +6725,14 @@ to confirm the processing.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="appendix-tooling"><a class="link" href="#appendix-tooling">21. Appendix: Tooling</a></h2>
+<h2 id="appendix-tooling"><a class="link" href="#appendix-tooling">Appendix B: Tooling</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This is not a part of the actual guidelines, but might be helpful for following them.
 Using a tool mentioned here doesn&#8217;t automatically ensure you follow the guidelines.</p>
 </div>
 <div class="sect2">
-<h3 id="tooling-api-first-integrations"><a class="link" href="#tooling-api-first-integrations">21.1. API First Integrations</a></h3>
+<h3 id="tooling-api-first-integrations"><a class="link" href="#tooling-api-first-integrations">B.1. API First Integrations</a></h3>
 <div class="paragraph">
 <p>The following frameworks were specifically designed to support the API First workflow with OpenAPI YAML files (sorted alphabetically):</p>
 </div>
@@ -6780,7 +6766,7 @@ files inside IntelliJ IDEA</a></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="tooling-support-libraries"><a class="link" href="#tooling-support-libraries">21.2. Support Libraries</a></h3>
+<h3 id="tooling-support-libraries"><a class="link" href="#tooling-support-libraries">B.2. Support Libraries</a></h3>
 <div class="paragraph">
 <p>These utility libraries support you in implementing various parts of our RESTful API guidelines (sorted alphabetically):</p>
 </div>
@@ -6813,7 +6799,7 @@ files inside IntelliJ IDEA</a></p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="appendix-changelog"><a class="link" href="#appendix-changelog">22. Appendix: Changelog</a></h2>
+<h2 id="appendix-changelog"><a class="link" href="#appendix-changelog">20. Appendix: Changelog</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This change log only contains major changes made after October 2016.</p>
@@ -6827,9 +6813,12 @@ The latter changes are additionally labeled with "Rule Change" here.</p>
 <p>To see a list of all changes, please have a look at the <a href="https://github.com/zalando/restful-api-guidelines/commits/master">commit list in Github</a>.</p>
 </div>
 <div class="sect2">
-<h3 id="rule-changes"><a class="link" href="#rule-changes">22.1. Rule Changes</a></h3>
+<h3 id="rule-changes"><a class="link" href="#rule-changes">20.1. Rule Changes</a></h3>
 <div class="ulist">
 <ul>
+<li>
+<p><code>2017-08-18:</code> Migration to Asciidoc</p>
+</li>
 <li>
 <p><code>2017-07-20:</code> Be more precise on client vs. server obligations for compatible API extensions.</p>
 </li>
@@ -6888,9 +6877,18 @@ part.</p>
 </div>
 </div>
 </div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnote_1">
+<a href="#_footnoteref_1">1</a>. Per definition of R.Fielding REST APIs have to support HATEOAS (maturity level 3). Our guidelines do not strongly advocate for full REST compliance, but limited hypermedia usage, e.g. for pagination (see <a href="#hypermedia">Hypermedia</a>). However, we still use the term "RESTful API", due to the absence of an alternative established term and to keep it like the very majority of web service industry that also use the term for their REST approximations — in fact, in today&#8217;s industry full HATEOAS compliant APIs are a very rare exception.
+</div>
+<div class="footnote" id="_footnote_2">
+<a href="#_footnoteref_2">2</a>. HTTP/1.1 standard (<a href="https://tools.ietf.org/html/rfc7230#section-6.1">RFC-7230</a>) defines two types of headers: end-to-end and hop-by-hop headers. End-to-end headers must be transmitted to the ultimate recipient of a request or response. Hop-by-hop headers, on the contrary, are meaningful for a single connection only.
+</div>
+</div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-08-16 15:27:52 CEST
+Last updated 2017-08-17 10:26:15 CEST
 </div>
 </div>
 </body>

@@ -106,6 +106,12 @@ hop-by-hop `X-RateLimit-` headers which can be used as defined in <<152>>.
 == {MUST} Propagate Proprietary Headers
 
 All Zalando's proprietary headers are end-to-end headers.
+footnoteref:[header-types, HTTP/1.1 standard
+(https://tools.ietf.org/html/rfc7230#section-6.1[RFC-7230]) defines two
+types of headers: end-to-end and hop-by-hop headers. End-to-end headers
+must be transmitted to the ultimate recipient of a request or response.
+Hop-by-hop headers, on the contrary, are meaningful for a single
+connection only.]
 
 All headers specified above must be propagated to the services down the
 call chain. The header names and values must remain unchanged.
@@ -120,12 +126,3 @@ Sometimes the value of a proprietary header will be used as part of the
 entity in a subsequent request. In such cases, the proprietary headers
 must still be propagated as headers with the subsequent request, despite
 the duplication of information.
-
-_Footnote:_
-
-HTTP/1.1 standard
-(https://tools.ietf.org/html/rfc7230#section-6.1[RFC-7230]) defines two
-types of headers: end-to-end and hop-by-hop headers. End-to-end headers
-must be transmitted to the ultimate recipient of a request or response.
-Hop-by-hop headers, on the contrary, are meaningful for a single
-connection only.

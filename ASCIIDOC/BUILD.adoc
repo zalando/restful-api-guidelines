@@ -6,6 +6,7 @@
 * Install gems for PDF generation
   * `gem install --pre asciidoctor-pdf`
   * `gem install coderay pygments.rb`
+  * `gem install --pre asciidoctor-epub3`
 
 == Generate Custom CSS
 
