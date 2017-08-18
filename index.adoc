@@ -1,4 +1,4 @@
-:stylesheet: assets/zalando.css
+:stylesheet: zalando.css
 :toc: left
 :toclevels: 2
 :leveloffset: +1
@@ -42,3 +42,17 @@ include::chapters/events.adoc[]
 include::chapters/references.adoc[]
 include::chapters/tooling.adoc[]
 include::chapters/changelog.adoc[]
+
+++++
+<script>
+var ruleIdRegEx = /(\d)+/;
+var h3headers = document.getElementsByTagName("h3");
+for (var i = 0; i < h3headers.length; i++) {
+    var header = h3headers[i];
+    if (header.id && header.id.match(ruleIdRegEx)) {
+        var a = header.getElementsByTagName("a")[0]
+        a.innerHTML = "#" + header.id + " " + a.innerHTML;
+    }
+}
+</script>
+++++

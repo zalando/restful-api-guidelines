@@ -1,6 +1,5 @@
 = Summary
 
-* link:TOC.md[Table of Contents]
 * link:chapters/design-principles.adoc[Design Principles]
 * link:chapters/chapters/general-guidelines.adoc[General Guidelines]
 * link:chapters/security.adoc[Security]
