@@ -45,6 +45,7 @@ include::chapters/changelog.adoc[]
 
 ++++
 <script>
+// Adds rule id as a postfix to all rule titles
 var ruleIdRegEx = /(\d)+/;
 var h3headers = document.getElementsByTagName("h3");
 for (var i = 0; i < h3headers.length; i++) {

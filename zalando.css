@@ -1226,3 +1226,5 @@ b.conum * { color: inherit !important; }
 .should-keyword { color: darkgoldenrod; }
 
 .may-keyword { color: green; }
+
+.sect1 { max-width: 768px; }
