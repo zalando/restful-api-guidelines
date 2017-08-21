@@ -57,3 +57,36 @@ for (var i = 0; i < h3headers.length; i++) {
 }
 </script>
 ++++
+
+++++
+<!-- Adds sidebar navigation -->
+<script>
+var header = document.getElementById('header');
+var nav = document.createElement('div');
+nav.id = 'toc';
+nav.classList.add('toc2');
+var title = document.createElement('div');
+title.id = 'toctitle';
+title.innerText = 'Table of Contents';
+nav.append(title);
+var ul = document.createElement('ul');
+ul.classList.add('sectlevel1');
+
+var link, li;
+var h2headers = document.getElementsByTagName('h2');
+for (var i = 0; i < h2headers.length; i++) {
+    var a = h2headers[i].getElementsByTagName("a")[0];
+    link = document.createElement('a');
+    link.innerHTML = a.innerHTML;
+    link.href = a.hash;
+    li = document.createElement('li');
+    li.append(link);
+    ul.append(li);
+}
+
+document.body.classList.add('toc2');
+document.body.classList.add('toc-left');
+nav.append(ul);
+header.prepend(nav);
+</script>
+++++
