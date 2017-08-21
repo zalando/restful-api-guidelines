@@ -1,6 +1,6 @@
 :stylesheet: zalando.css
-:toc: left
-:toclevels: 1
+:toc:
+:toclevels: 2
 :leveloffset: +1
 :sectlinks:
 
@@ -44,8 +44,8 @@ include::chapters/tooling.adoc[]
 include::chapters/changelog.adoc[]
 
 ++++
+<!-- Adds rule id as a postfix to all rule titles -->
 <script>
-// Adds rule id as a postfix to all rule titles
 var ruleIdRegEx = /(\d)+/;
 var h3headers = document.getElementsByTagName("h3");
 for (var i = 0; i < h3headers.length; i++) {
