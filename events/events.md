@@ -163,12 +163,13 @@ EventType:
     properties:
       name:
         description: |
-          Name of this EventType.  Note: the name can encode the
-          owner/responsible for this EventType and ideally should follow a
-          naming pattern that makes it easy to read and understand.
+          Name of this EventType. The name encodes the owner responsible for
+          this EventType should follow the common functional naming pattern
+          `<domain>.[<component>.]<eventname>` that makes it easy to
+          read and understand.
         type: string
-        pattern: '[a-zA-Z][-0-9a-zA-Z_]*(\.[a-zA-Z][-0-9a-zA-Z_]*)*'
-        example: order.order_cancelled, business_partner.contract
+        pattern: '[a-z][a-z0-9]*\.[a-z][a-z0-9-]*\.[a-z][a-z0-9-]*'
+        example: core.business-partner.contract, customs.tour.patch
       owning_application:
         description: |
           Name of the application (eg, as would be used in infrastructure
@@ -644,13 +645,27 @@ As common example similar to data change events, idempotent out-of-order process
 
 A receiver that is interested in the current state can then ignore events that are older than the last processed event of each resource. A receiver interested in the history of a resource can use the ordering key to recreate a (partially) ordered sequence of events.
 
-## {{ book.must }} Follow conventions for Event Type names
+## {{ book.must }} Event names must match Zalando naming schema
 
-Event types can follow these naming conventions (each convention has its own should, must or could conformance level) -
- 
- - Event type names must be url-safe. This is because the event type names may appear in URLs published by other systems and APIs.
+All event names must match the following naming schema:
 
- - Event type names should be lowercase words and numbers, using hyphens, underscores or periods as separators.
+```
+eventtype-name ::= <functional-domain>.[<functional-component>].<event-name>
+
+functional-domain ::= [a-z][a-z0-9]* ; name managed by central architecture team, defined together with you
+
+functional-component ::= [a-z][a-z0-9-]* ; name managed by central architecture team, defined together with you
+
+event-name ::= [a-z][a-z0-9-]* ; free identifer (functional name)
+```
+
+`Functional-domain` and `functional-component` are also used in hostnames of REST APIs,
+see [Zalando Hostname Schema](../naming/Naming.md). They must correspond to the functional name
+of the application producing the event and are defined with central architecture team support
+to provide global uniqueness and consistency with global architecture.
+
+**Note:** If an entity of a data change events is also expose as resource via the REST API,
+the event name should be the same as the resource name in the REST API.
 
 ## {{ book.must }} Prepare for duplicate Events
 
@@ -659,3 +674,5 @@ Event consumers must be able to process duplicate events.
 Most message brokers and data streaming systems offer “at-least-once” delivery. That is, one particular event is delivered to the consumers one or more times. Other circumstances can also cause duplicate events.
 
 For example, these situations occur if the publisher sends an event and doesn't receive the acknowledgment (e.g. due to a network issue). In this case, the publisher will try to send the same event again. This leads to two identical events in the event bus which have to be processed by the consumers. Similar conditions can appear on consumer side: an event has been processed successfully, but the consumer fails to confirm the processing.
+
+

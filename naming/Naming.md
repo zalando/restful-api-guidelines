@@ -1,5 +1,20 @@
 # API Naming
 
+## {{book.must}} Hostnames must match Zalando naming schema
+
+All Zalando APIs must run under subdomains beneath zalandoapis.com and must match the following naming schema:
+
+```
+api-hostname ::= <functional-domain>[-<functional-component>].zalandoapis.com
+
+functional-domain ::= [a-z][a-z0-9]* ; name managed by central architecture team, defined together with you
+
+functional-component ::= [a-z][a-z0-9-]* ; name managed by central architecture team, defined together with you
+```
+
+DNS for these subdomains are managed by the central architecture team. To apply for a hostname, please contact team-architecture - see [Developer Howto on New API Naming Schema](https://docs.google.com/a/zalando.de/presentation/d/1DyzRvxv_r1WJG3b3cgGBi5_9wkf84IN1W3lFUoxDE40/edit?usp=sharing) for details.
+
+
 ## {{ book.must }} Use lowercase separate words with hyphens for Path Segments
 
 Example:

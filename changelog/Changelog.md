@@ -8,11 +8,11 @@ To see a list of all changes, please have a look at the [commit list in Github](
 
 ## Rule Changes
 
+* `2017-08-15:` Added naming rules for hosts, permissions and events, old rule for event naming was removed
 * `2017-07-20:` Be more precise on client vs. server obligations for compatible API extensions.
 * `2017-06-06:` Made money object guideline clearer.
 * `2017-05-17:` Added guideline on query parameter collection format.
-* `2017-05-10:` Added the convention of using RFC2119 to describe guideline 
-levels, and replaced `book.could` with `book.may`.
+* `2017-05-10:` Added the convention of using RFC2119 to describe guideline levels, and replaced `book.could` with `book.may`.
 * `2017-03-30:` Added rule that permissions on resources in events must correspond to permissions on API resources
 * `2017-03-30:` Added rule that APIs should be modelled around business processes
 * `2017-02-28:` Extended information about how to reference sub-resources and the usage of composite identifiers in the [Resources](../resources/Resources.md#-bookmust--identify-resources-and-sub-resources-via-path-segments) part.
