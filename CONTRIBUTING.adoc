@@ -28,3 +28,5 @@ as a `pre-commit` hook to your local repository:
 ----
 cp check_uniqueness_of_rule_ids.sh .git/hooks/pre-commit
 ----
+
+To generate a new unique (unused) rule id simply run `./new_rule_id.sh`.
