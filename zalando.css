@@ -1220,3 +1220,9 @@ pre .conum[data-value] { position: relative; top: -0.125em; }
 b.conum * { color: inherit !important; }
 
 .conum:not([data-value]):empty { display: none; }
+
+.must-keyword { color: red; }
+
+.should-keyword { color: darkgoldenrod; }
+
+.may-keyword { color: green; }

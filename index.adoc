@@ -9,9 +9,9 @@
 :keywords: Zalando, RESTful, API, Guidelines
 :copyright: CC-BY-SA 3.0
 
-:MUST: pass:[<span style="color:#bf0000"><strong>MUST</strong></span>]
-:SHOULD: pass:[<span style="color:#bfbf00"><strong>SHOULD</strong></span>]
-:MAY: pass:[<span style="color:#006000"><strong>MAY</strong></span>]
+:MUST: pass:[<span class="must-keyword"><strong>Must:</strong></span>]
+:SHOULD: pass:[<span class="should-keyword"><strong>Should:</strong></span>]
+:MAY: pass:[<span class="may-keyword"><strong>May:</strong></span>]
 
 = Zalando RESTful API Guidelines
 Zalando SE

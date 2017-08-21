@@ -2,3 +2,15 @@
 @import "settings/zalando";
 @import "components/asciidoc";
 @import "components/awesome-icons";
+
+.must-keyword {
+  color: $must-color;
+}
+
+.should-keyword {
+  color: $should-color;
+}
+
+.may-keyword {
+  color: $may-color;
+}
