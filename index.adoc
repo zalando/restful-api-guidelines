@@ -1,6 +1,6 @@
 :stylesheet: zalando.css
 :toc: left
-:toclevels: 2
+:toclevels: 1
 :leveloffset: +1
 :sectlinks:
 
@@ -51,7 +51,7 @@ for (var i = 0; i < h3headers.length; i++) {
     var header = h3headers[i];
     if (header.id && header.id.match(ruleIdRegEx)) {
         var a = header.getElementsByTagName("a")[0]
-        a.innerHTML = "#" + header.id + " " + a.innerHTML;
+        a.innerHTML += " [" + header.id + "]";
     }
 }
 </script>
