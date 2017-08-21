@@ -1,7 +1,7 @@
 [[data-formats]]
 = Data Formats
 
-[#166]
+[#167]
 == {MUST} Use JSON to Encode Structured Data
 
 Use JSON-encoded body payload for transferring structured data. The JSON
@@ -11,7 +11,7 @@ since it would allow for future extension. This also applies for
 collection resources where one naturally would assume an array. See <<160>> for
 an example.
 
-[#167]
+[#168]
 == {MAY} Use non JSON Media Types for Binary Data or Alternative Content Representations
 
 Other media types may be used in following cases: * Transferring binary
@@ -22,7 +22,7 @@ Example of such use case is downloading images in formats JPG, PNG, GIF.
 formats PDF, DOC, XML) may be made available through content
 negotiation.
 
-[#168]
+[#169]
 == {MUST} Use Standard Date and Time Formats
 
 === JSON Payload
@@ -35,7 +35,7 @@ Http headers including the proprietary headers. Use the
 http://tools.ietf.org/html/rfc7231#section-7.1.1.1[HTTP date format
 defined in RFC 7231].
 
-[#169]
+[#170]
 == {MAY} Use Standards for Country, Language and Currency Codes
 
 Use the following standard formats for country, language and currency
@@ -50,7 +50,7 @@ language code]
 language variants
 * https://en.wikipedia.org/wiki/ISO_4217[ISO 4217 currency codes]
 
-[#170]
+[#171]
 == {MUST} Define Format for Type Number and Integer
 
 Whenever an API defines a property of type `number` or `integer`, the
@@ -96,7 +96,7 @@ OrderList:
       example: 42
 ----
 
-[#171]
+[#172]
 == {SHOULD} Prefer standard Media type name `application/json`
 
 Previously, this guideline allowed the use of custom media types like

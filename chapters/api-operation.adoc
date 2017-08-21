@@ -1,7 +1,7 @@
 [[api-operation]]
 = API Operation
 
-[#191]
+[#192]
 == {MUST} Provide Online Access to OpenAPI Reference Definition
 
 All service applications must support access to the OpenAPI Reference
@@ -61,7 +61,7 @@ Further reading:
 * https://github.com/zalando-stups/twintip-spring-web[Library to make
 your Spring Boot service crawlable via API Discovery]
 
-[#192]
+[#193]
 == {SHOULD} Monitor API Usage
 
 Owners of APIs used in production should monitor API service to get

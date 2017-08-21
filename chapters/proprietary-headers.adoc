@@ -8,7 +8,7 @@ therefore, the OpenAPI API specification is the right place to make this
 explicitly visible. Use the parameter definitions of the resource HTTP
 methods.
 
-[#182]
+[#183]
 == {MUST} Use Only the Specified Proprietary Zalando Headers
 
 As a general rule, proprietary HTTP headers should be avoided. Still
@@ -102,7 +102,7 @@ sales channel, country |16
 *Exception:* The only exception to this guideline are the conventional
 hop-by-hop `X-RateLimit-` headers which can be used as defined in <<152>>.
 
-[#183]
+[#184]
 == {MUST} Propagate Proprietary Headers
 
 All Zalando's proprietary headers are end-to-end headers.

@@ -5,7 +5,7 @@ This section describes a handful of headers, which we found raised the
 most questions in our daily usage, or which are useful in particular
 circumstances but not widely known.
 
-[#177]
+[#178]
 == {MUST} Use Content Headers Correctly
 
 Content or entity headers are headers with a `Content-` prefix. They
@@ -32,7 +32,7 @@ requested resource representation is delivered with the body.
 * https://tools.ietf.org/html/rfc7231#section-3.1.1.5[`Content-Type`]
 indicates the media type of the body content.
 
-[#178]
+[#179]
 == {MAY} Use Content-Location Header
 
 The Content-Location header is _optional_ and can be used in successful
@@ -69,7 +69,7 @@ Content-Type: image/png
 Content-Location: /products/123/images?format=raw
 ----
 
-[#179]
+[#180]
 == {SHOULD} Use Location Header instead of Content-Location Header
 
 As the correct usage of Content-Location with respect to semantics and
@@ -83,7 +83,7 @@ https://tools.ietf.org/html/rfc7231#section-7.1.2[7.1.2 Location],
 https://tools.ietf.org/html/rfc7231#section-3.1.4.2[3.1.4.2
 Content-Location]
 
-[#180]
+[#181]
 == {MAY} Use the Prefer header to indicate processing preferences
 
 The `Prefer` header defined in
@@ -117,7 +117,7 @@ Supporting APIs may return the `Preference-Applied` header also defined
 in https://tools.ietf.org/html/rfc7240[RFC7240] to indicate whether the
 preference was applied.
 
-[#181]
+[#182]
 == {MAY} Consider using ETag together with If-(None-)Match header
 
 When creating or updating resources it may be necessary to expose

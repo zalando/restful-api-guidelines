@@ -9,10 +9,10 @@ media type and custom JSON media types defined for APIs. The guidelines
 clarifies some specific cases to allow Zalando JSON data to have an
 idiomatic form across teams and services.
 
-[#116]
+[#117]
 == {MUST} Use Consistent Property Names
 
-[#117]
+[#118]
 == {MUST} Property names must be snake_case (and never camelCase)
 
 No established industry standard exists, but many popular Internet
@@ -21,7 +21,7 @@ Others, like Google and Amazon, use both - but not only camelCase. It’s
 essential to establish a consistent look and feel such that JSON looks
 as if it came from the same hand.
 
-[#118]
+[#119]
 == {MUST} Property names must be an ASCII subset
 
 Property names are restricted to ASCII encoded strings. The first
@@ -29,16 +29,16 @@ character must be a letter, an underscore or a dollar sign, and
 subsequent characters can be a letter, an underscore, a dollar sign, or
 a number.
 
-[#119]
+[#120]
 == {SHOULD} Array names should be pluralized
 
 To indicate they contain multiple values prefer to pluralize array
 names. This implies that object names should in turn be singular.
 
-[#120]
+[#121]
 == {MUST} Use Consistent Property Values
 
-[#121]
+[#122]
 == {MUST} Boolean property values must not be null
 
 Schema based JSON properties that are by design booleans must not be
@@ -49,7 +49,7 @@ or statuses - for example accepted_terms_and_conditions with true or
 false can be replaced with terms_and_conditions with values yes, no and
 unknown.
 
-[#122]
+[#123]
 == {SHOULD} Null values should have their fields removed
 
 Swagger/OpenAPI, which is in common use, doesn't support null field
@@ -60,19 +60,19 @@ may be a meaningful value - for example, JSON Merge Patch
 https://tools.ietf.org/html/rfc7386[RFC 7382]) using null to indicate
 property deletion.
 
-[#123]
+[#124]
 == {SHOULD} Empty array values should not be null
 
 Empty array values can unambiguously be represented as the the empty
 list, `[]`.
 
-[#124]
+[#125]
 == {SHOULD} Enumerations should be represented as Strings
 
 Strings are a reasonable target for values that are by design
 enumerations.
 
-[#125]
+[#126]
 == {SHOULD} Date property values should conform to RFC 3399
 
 Use the date and time formats defined by
@@ -109,7 +109,7 @@ timestamps, but this can introduce interpretation issues with precision
 1460062925000 or 1460062925.000. Date strings, though more verbose and
 requiring more effort to parse, avoid this ambiguity.
 
-[#126]
+[#127]
 == {MAY} Time durations and intervals could conform to ISO 8601
 
 Schema based JSON properties that are by design durations and intervals
@@ -117,7 +117,7 @@ could be strings formatted as recommended by ISO 8601
 (https://tools.ietf.org/html/rfc3339#appendix-A[Appendix A of RFC 3399
 contains a grammar] for durations).
 
-[#127]
+[#128]
 == {MAY} Standards could be used for Language, Country and Currency
 
 * http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2[ISO 3166-1-alpha2 country]

@@ -32,7 +32,7 @@ https://github.com/zalando/nakadi[Nakadi project], which acts as a
 reference implementation of the event type registry, and as a validating
 publish/subscribe broker for event producers and consumers.
 
-[#193]
+[#194]
 == {MUST} Treat Events as part of the service interface
 
 Events are part of a service’s interface to the outside world equivalent
@@ -41,13 +41,13 @@ integration must treat their events as a first class design concern,
 just as they would an API. For example this means approaching events
 with the "API first" principle in mind as described in the <<introduction>>.
 
-[#194]
+[#195]
 == {MUST} Make Events available for review
 
 Services publishing event data for use by others must make the event
 schema available for review.
 
-[#195]
+[#196]
 == {MUST} Ensure Event Type schemas conform to Open API's Schema Object
 
 Event type schema are defined in accordance with the Open API Schema
@@ -102,7 +102,7 @@ validation check, and fall back to must-ignore processing. A future
 version of the guidelines may define well known vendor extensions for
 events.
 
-[#196]
+[#197]
 == {MUST} Ensure that Events are registered as Event Types
 
 In Zalando's architecture, events are registered using a structure
@@ -249,7 +249,7 @@ declaration of validation and enrichment strategies for events, along
 with supplemental information, such as how events are partitioned in the
 stream.
 
-[#197]
+[#198]
 == {MUST} Ensure Events conform to a well-known Event Category
 
 An _event category_ describes a generic class of event types. The
@@ -446,7 +446,7 @@ is outside the scope of these guidelines but producers and consumers
 working with such systems should be look into their documentation for
 additional information.
 
-[#198]
+[#199]
 == {MUST} Ensure that Events define useful business resources
 
 Events are intended to be used by other services including business
@@ -459,7 +459,7 @@ prefer to define event types that are abstract/generic enough to be
 valuable for multiple use cases, and avoid publishing event types
 without a clear need.
 
-[#199]
+[#200]
 == {MUST} Events must not provide sensitive customer personal data
 
 Similar to API permission scopes, there will be Event Type permissions
@@ -473,7 +473,7 @@ mandatory or necessary to do so. For example, events sometimes need to
 provide personal data, such as delivery addresses in shipment orders (as
 do other APIs), and this is fine.
 
-[#200]
+[#201]
 == {MUST} Use the General Event Category to signal steps and arrival points in business processes
 
 When publishing events that represent steps in a business process, event
@@ -502,7 +502,7 @@ represent the specific steps with a state field, or whether to use
 multiple event types to represent each step. For now we suggest
 assessing each option and sticking to one for a given business process.
 
-[#201]
+[#202]
 == {MUST} Use Data Change Events to signal mutations
 
 When publishing events that represents created, updated, or deleted
@@ -514,7 +514,7 @@ all related events for the entity.
 * Change events <<202>>.
 * Change events must be published reliably by the service.
 
-[#202]
+[#203]
 == {SHOULD} Provide a means for explicit event ordering
 
 Some common error cases may require event consumers to reconstruct event
@@ -541,7 +541,7 @@ https://en.wikipedia.org/wiki/Logical_clock[logical clocks] and
 https://en.wikipedia.org/wiki/Vector_clock[vector clocks]) is outside
 the scope of this guidance.
 
-[#203]
+[#204]
 == {SHOULD} Use the hash partition strategy for Data Change Events
 
 The `hash` partition strategy allows a producer to define which fields
@@ -570,7 +570,7 @@ generally `hash` is the right option - that is while the guidelines here
 are a "should", they can be read as "must, unless you have a very good
 reason".
 
-[#204]
+[#205]
 == {SHOULD} Ensure that Data Change Events match API representations
 
 A data change event's representation of an entity should correspond to
@@ -598,14 +598,14 @@ representation than that defined for an API
 algorithm, or the generation of enriched data, and which might not be
 stored as entity by the service.
 
-[#205]
+[#206]
 == {MUST} Permissions on events must correspond to API permissions
 
 If a resource can be read synchronously via a REST API and read
 asynchronously via an event, the same read-permission must apply: We
 want to protect access to data, not the way data is accessed.
 
-[#206]
+[#207]
 == {MUST} Indicate ownership of Event Types
 
 Event definitions must have clear ownership - this can be indicated via
@@ -617,7 +617,7 @@ definitions are managed. However, the owner may also be a particular
 service from a set of multiple services that are producing the same kind
 of event.
 
-[#207]
+[#208]
 == {MUST} Define Event Payloads in accordance with the overall Guidelines
 
 Events must be consistent with other API data and the API Guidelines in
@@ -644,7 +644,7 @@ The following existing guideline sections are applicable to events:
 * <<common-data-types>>
 * <<hypermedia>>
 
-[#208]
+[#209]
 == {MUST} Maintain backwards compatibility for Events
 
 Changes to events must be based around making additive and backward
@@ -680,7 +680,7 @@ field (also known as a co-occurrence constraint).
 * Adding a value to an enumeration (note that <<112,`x-extensible-enum`>>
 is not available in JSON Schema)
 
-[#209]
+[#210]
 == {SHOULD} Avoid `additionalProperties` in event type definitions
 
 Event type schema should avoid using `additionalProperties`
@@ -722,7 +722,7 @@ are prevented by not using `additionalProperties`.
 See also "Treat Open API Definitions As Open For Extension By Default" +
 in the <<compatibility>> section for further guidelines on the use of `additionalProperties`.
 
-[#210]
+[#211]
 == {MUST} Use unique Event identifiers
 
 The `eid` (event identifier) value of an event must be unique.
@@ -741,7 +741,7 @@ ensure event identifiers do in fact distinctly identify events. A
 straightforward way to create a unique identifier for an event is to
 generate a UUID value.
 
-[#211]
+[#212]
 == {SHOULD} Design for idempotent out-of-order processing
 
 Events that are designed for <<210,idempotent>> out-of-order
@@ -766,7 +766,7 @@ events that are older than the last processed event of each resource. A
 receiver interested in the history of a resource can use the ordering
 key to recreate a (partially) ordered sequence of events.
 
-[#212]
+[#213]
 == {MUST} Follow conventions for Event Type names
 
 Event types can follow these naming conventions (each convention has its
@@ -777,7 +777,7 @@ names may appear in URLs published by other systems and APIs.
 * Event type names should be lowercase words and numbers, using hyphens,
 underscores or periods as separators.
 
-[#213]
+[#214]
 == {MUST} Prepare for duplicate Events
 
 Event consumers must be able to process duplicate events.

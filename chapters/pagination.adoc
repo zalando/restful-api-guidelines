@@ -1,7 +1,7 @@
 [[pagination]]
 = Pagination
 
-[#158]
+[#159]
 == {MUST} Support Pagination
 
 Access to lists of data items must support pagination for best client
@@ -25,7 +25,7 @@ jumping to a specific page is far less used than navigation via
 next/previous page links. This favours cursor-based over offset-based
 pagination.
 
-[#159]
+[#160]
 == {SHOULD} Prefer Cursor-Based Pagination, Avoid Offset-Based Pagination
 
 Cursor-based pagination is usually better and more efficient when
@@ -63,7 +63,7 @@ Further reading:
 * https://www.citusdata.com/blog/1872-joe-nelson/409-five-ways-paginate-postgres-basic-exotic[Paging
 in PostgreSQL]
 
-[#160]
+[#161]
 == {MAY} Use Pagination Links Where Applicable
 
 * API implementing <<162,HATEOS>> may use <<164,simplified hypertext controls>>
