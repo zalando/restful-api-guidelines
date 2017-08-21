@@ -694,6 +694,7 @@ b.conum * { color: inherit !important; }
 
 .literalblock pre, .listingblock pre { background: #eeeeee; }
 
+@media screen and (max-width: 768px) { #toc.toc2 { display: none; } }
 object, svg { display: inline-block; vertical-align: middle; }
 
 .center { margin-left: auto; margin-right: auto; }
