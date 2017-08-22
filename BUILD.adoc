@@ -1,13 +1,5 @@
 = Build
 
-== Requirements
-
-* http://asciidoctor.org/docs/install-toolchain/[Install Asciidoctor toolchain]
-* Install gems for PDF and EPUB3 generation
-** `gem install --pre asciidoctor-pdf`
-** `gem install coderay pygments.rb`
-** `gem install --pre asciidoctor-epub3`
-
 == Build HTML site, PDF and EPUB3 locally
 [source,bash]
 ----
