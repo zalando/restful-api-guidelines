@@ -11,10 +11,7 @@ GH_REPO="github.com/zalando/restful-api-guidelines.git"
 
 if [[ "${TRAVIS}" -eq "true" && "${TRAVIS_SECURE_ENV_VARS}" -eq "true" && "${TRAVIS_PULL_REQUEST}" -eq "false" && "${TRAVIS_BRANCH}" -eq "master" ]]; then
     echo "Deploying to gh-pages branch"
-    cp -r assets output/
     cd output
-    mv index.pdf zalando-restful-guidelines.pdf
-    mv index.epub zalando-restful-guidelines.epub
     git init
     git config user.name "${USER}"
     git config user.email "${EMAIL}"
