@@ -1228,4 +1228,8 @@ b.conum * { color: inherit !important; }
 
 .may-keyword { color: green; }
 
-.sect1 { max-width: 768px; }
+.sect1 { max-width: 45em; }
+
+code { font-size: .9em !important; }
+
+p > code { background-color: #f0f0f0; padding: .1em .4em .1em .4em !important; color: inherit; }

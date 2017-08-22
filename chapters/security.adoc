@@ -41,7 +41,8 @@ endpoint needs to have at least one scope assigned. Scopes are defined
 by name and description per API specification, as shown in the previous
 section. Please refer to the following rules when creating scope names:
 
-....
+[source,bnf]
+----
 <api-scope> ::= <api-standard-scope> |            -- should be sufficient for majority of use cases 
                 <api-resource-specific-scope> |   -- for special security access differentiation use cases 
                 <api-pseudo-scope>                -- used to explicitly indicate that access is not restricted
@@ -53,7 +54,7 @@ section. Please refer to the following rules when creating scope names:
 <application-id> ::= <as defined via STUPS>
 <access-type>    ::= read | write           -- might be extended in future
 <resource-id>    ::= <free identifier following application-id syntax>
-....
+----
 
 APIs should stick to standard scopes by default -- for the majority of
 use cases, restricting access to specific APIs (with read vs. write

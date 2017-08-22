@@ -93,7 +93,8 @@ As illustrated by this example, field filtering should be done via
 request parameter "fields" with value range defined by the following
 https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form[BNF] grammar.
 
-....
+[source,bnf]
+----
 <fields> ::= <negation> <fields_expression> | <fields_expression>
 
 <negation> ::= "!"
@@ -113,7 +114,7 @@ https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form[BNF] grammar.
 <LETTER> ::= "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z" | "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z"
 
 <DIGIT> ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
-....
+----
 
 A `fields_expression` as defined by the grammar describes the properties
 of an object, i.e. `(name)` returns only the `name` property of the root

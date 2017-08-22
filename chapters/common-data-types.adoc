@@ -148,13 +148,14 @@ addressee:
     properties:
       salutation:
         description: |
-          a salutation and/or title used for personal contacts to some addressee;
-          not to be confused with the gender information!
+          a salutation and/or title used for personal contacts to some
+          addressee; not to be confused with the gender information!
         type: string
         example: Mr
       first_name:
         description: |
-          given name(s) or first name(s) of a person; may also include the middle names.
+          given name(s) or first name(s) of a person; may also include the
+          middle names.
         type: string
         example: Hans Dieter
       last_name:
@@ -164,8 +165,9 @@ addressee:
         example: Mustermann
       business_name:
         description: |
-          company name of the business organization. Used when a business is the actual
-          addressee; for personal shipments to office addresses, use `care_of` instead.
+          company name of the business organization. Used when a business is
+          the actual addressee; for personal shipments to office addresses, use
+          `care_of` instead.
         type: string
         example: Consulting Services GmbH
     required:

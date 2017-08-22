@@ -1,4 +1,5 @@
 :stylesheet: zalando.css
+:source-highlighter: coderay
 :toc:
 :toclevels: 2
 :leveloffset: +1

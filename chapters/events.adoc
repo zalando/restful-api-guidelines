@@ -318,11 +318,11 @@ Schema Object:
 ----
   DataChangeEvent:
      description: |
-        Represents a change to an entity. The required fields are those expected
-        to be sent by the producer, other fields may be added by intermediaries
-        such as a publish/subscribe broker. An instance of an event based on the
-        event type conforms to both the DataChangeEvent's definition and the
-        custom schema definition.      
+        Represents a change to an entity. The required fields are those
+        expected to be sent by the producer, other fields may be added
+        by intermediaries such as a publish/subscribe broker. An instance
+        of an event based on the event type conforms to both the
+        DataChangeEvent's definition and the custom schema definition.
     required:
       - metadata
       - data_op
@@ -430,8 +430,8 @@ Schema Object:
         example: 'JAh6xH4OQhCJ9PutIV_RYw'
       partition:
         description: |
-          Indicates the partition assigned to this Event. Used for systems where
-          an event type's events can be sub-divided into partitions.          
+          Indicates the partition assigned to this Event. Used for systems
+          where an event type's events can be sub-divided into partitions.
         type: string
         example: '0'
 ----
