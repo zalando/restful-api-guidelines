@@ -3,7 +3,7 @@
 
 CONTENT_DIR=chapters
 
-duplicated_ids=`grep -r -h '^.*\[#[0-9]\{1,5\}.*$' ${CONTENT_DIR} | uniq -d`
+duplicated_ids=`grep -r -h '^.*\[#[0-9]\{1,5\}.*$' ${CONTENT_DIR} | sort |uniq -d`
 
 if [ -z "$duplicated_ids" ]; then
     exit 0
