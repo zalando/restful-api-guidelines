@@ -1,7 +1,7 @@
 [[http]]
 = HTTP
 
-[#147]
+[#148]
 == {MUST} Use HTTP Methods Correctly
 
 Be compliant with the standardized HTTP method semantics summarized as
@@ -192,7 +192,7 @@ templates
 *Note:* OPTIONS is rarely implemented, though it could be used to
 self-describe the full functionality of a resource.
 
-[#148]
+[#149]
 == {MUST} Fulfill Safeness and Idempotency Properties
 
 An operation can be...
@@ -220,7 +220,7 @@ Please see also https://goo.gl/vhwh8a[Best Practices [internal link]]
 for further hints on how to support the different HTTP methods on
 resources.
 
-[#149]
+[#150]
 == {MUST} Use Specific HTTP Status Codes
 
 This guideline groups the following rules for HTTP status codes usage:
@@ -346,7 +346,7 @@ implies future availability, e.g. new feature). |All
 due to overload) -- client retry may be senseful. |All
 |=======================================================================
 
-[#150]
+[#151]
 == {MUST} Provide Error Documentation
 
 APIs should define the functional, business view and abstract from
@@ -389,7 +389,7 @@ Functional errors on the other hand, that convey domain-specific
 semantics, must be documented and are strongly encouraged to be
 expressed with <<175>>.
 
-[#151]
+[#152]
 == {MUST} Use 207 for Batch or Bulk Requests
 
 Some APIs are required to provide either _batch_ or _bulk_ requests
@@ -419,7 +419,7 @@ independent processes, a _bulk_ defines a collection of independent
 resources created or updated together in one request. With respect to
 response processing this distinction normally does not matter.
 
-[#152]
+[#153]
 == {MUST} Use 429 with Headers for Rate Limits
 
 APIs that wish to manage the request rate of clients must use the
@@ -461,7 +461,7 @@ returned on every request and not just on a 429, which implies the
 service implementing the API is carrying sufficient state to track the
 number of requests made within a given window for each named entity.
 
-[#153]
+[#154]
 == {SHOULD} Explicitly define the Collection Format of Query Parameters
 
 There are different ways of supplying a set of values as a query
