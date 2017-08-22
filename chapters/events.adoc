@@ -278,8 +278,8 @@ API Schema Object definition:
       custom schema payload as the top level of the document, with the
       "metadata" field being required and reserved for standard metadata. An
       instance of an event based on the event type thus conforms to both the
-      EventMetadata definition and the custom schema definition. Previously this
-      category was called the Business Category
+      EventMetadata definition and the custom schema definition. Previously
+      this category was called the Business Category.
     required:
       - metadata
     properties:
