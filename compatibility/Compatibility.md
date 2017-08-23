@@ -106,7 +106,7 @@ the API definition as long as the server ignores this specific parameter.
 
 ## {{ book.must }} Always Return JSON Objects As Top-Level Data Structures To Support Extensibility
 
-In a response body, you must always return a JSON objects (and not e.g. an array) as a top level data structure to support future extensibility. JSON objects support compatible extension by additional attributes. This allows you to easily extend your response and e.g. add pagination later, without breaking backwards compatibility.
+In a response body, you must always return a JSON object (and not e.g. an array) as a top level data structure to support future extensibility. JSON objects support compatible extension by additional attributes. This allows you to easily extend your response and e.g. add pagination later, without breaking backwards compatibility.
 
 ## {{ book.must }} Treat Open API Definitions As Open For Extension By Default
 
