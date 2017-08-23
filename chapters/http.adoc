@@ -21,7 +21,7 @@ listing is empty) or 404 (if the list is missing)
 *Note:* GET requests on collection resources should provide a sufficient
 filter mechanism as well as <<pagination>>.
 
-=== GET with Body
+=== "GET with Body"
 
 APIs sometimes face the problem, that they have to provide extensive
 structured request information with GET, that may even conflicts with
@@ -371,13 +371,21 @@ Service providers should differentiate between technical and functional
 errors. In most cases it's not useful to document technical errors that
 are not in control of the service provider unless the status code convey
 application-specific semantics. The list of status code that can be
-omitted from API specifications includes but is not limited to: -
-`401 Unauthorized` - `403 Forbidden` - `404 Not Found` unless it has
-some additional semantics - `405 Method Not Allowed` -
-`406 Not Acceptable` - `408 Request Timeout` - `413 Payload Too Large` -
-`414 URI Too Long` - `415 Unsupported Media Type` -
-`500 Internal Server Error` - `502 Bad Gateway` -
-`503 Service Unavailable` - `504 Gateway Timeout`
+omitted from API specifications includes but is not limited to:
+
+* `401 Unauthorized`
+* `403 Forbidden`
+* `404 Not Found` unless it has some additional semantics
+* `405 Method Not Allowed`
+* `406 Not Acceptable`
+* `408 Request Timeout`
+* `413 Payload Too Large`
+* `414 URI Too Long`
+* `415 Unsupported Media Type`
+* `500 Internal Server Error`
+* `502 Bad Gateway`
+* `503 Service Unavailable`
+* `504 Gateway Timeout`
 
 Even though they might not be documented - they may very much occur in
 production, so clients should be prepared for unexpected response codes,

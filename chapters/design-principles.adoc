@@ -6,7 +6,7 @@
 
 As mentioned above, Zalando is transforming from an online shop into an
 expansive fashion platform comprising a rich set of products following a
-Software as a Platform (SaaS) model for our business partners. As a
+Software as a Platform (SaaP) model for our business partners. As a
 company we want to deliver products to our (internal and external)
 customers which can be consumed like a service.
 

@@ -14,9 +14,10 @@ an example.
 [#168]
 == {MAY} Use non JSON Media Types for Binary Data or Alternative Content Representations
 
-Other media types may be used in following cases: * Transferring binary
-data or data whose structure is not relevant. This is the case if
-payload structure is not interpreted and consumed by clients as is.
+Other media types may be used in following cases:
+
+* Transferring binary data or data whose structure is not relevant. This is
+the case if payload structure is not interpreted and consumed by clients as is.
 Example of such use case is downloading images in formats JPG, PNG, GIF.
 * In addition to JSON version alternative data representations (e.g. in
 formats PDF, DOC, XML) may be made available through content
@@ -31,7 +32,7 @@ Read more about date and time format in <<125>>.
 
 === HTTP headers
 
-Http headers including the proprietary headers. Use the
+Http headers including the proprietary headers use the
 http://tools.ietf.org/html/rfc7231#section-7.1.1.1[HTTP date format
 defined in RFC 7231].
 
@@ -61,8 +62,8 @@ unintentionally:
 [cols="15%,15%,70%",options="header",]
 |=====================================================================
 |type |format |specified value range
-|integer |int32 |integer between -231 and 231-1
-|integer |int64 |integer between -263 and 263-1
+|integer |int32 |integer between pass:[-2<sup>31</sup>] and pass:[2<sup>31</sup>]-1
+|integer |int64 |integer between pass:[-2<sup>63</sup>] and pass:[2<sup>63</sup>]-1
 |integer |bigint |arbitrarily large signed integer number
 |number |float |IEEE 754-2008/ISO 60559:2011 binary64 decimal number
 |number |double |IEEE 754-2008/ISO 60559:2011 binary128 decimal number

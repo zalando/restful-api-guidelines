@@ -59,7 +59,7 @@ clients must be agnostic to new values.
 Service clients should apply the robustness principle:
 
 * Be conservative with API requests and data passed as input, e.g. avoid
-to exploit definition eficits like passing megabytes for strings with
+to exploit definition deficits like passing megabytes for strings with
 unspecified maximum length.
 * Be tolerant in processing and reading data of API responses, more
 specifically...
@@ -128,7 +128,7 @@ as the server ignores this specific parameter.
 [#110]
 == {MUST} Always Return JSON Objects As Top-Level Data Structures To Support Extensibility
 
-In a response body, you must always return a JSON objects (and not e.g.
+In a response body, you must always return a JSON object (and not e.g.
 an array) as a top level data structure to support future extensibility.
 JSON objects support compatible extension by additional attributes. This
 allows you to easily extend your response and e.g. add pagination later,
