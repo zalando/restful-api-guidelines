@@ -63,7 +63,7 @@ property deletion.
 [#124]
 == {SHOULD} Empty array values should not be null
 
-Empty array values can unambiguously be represented as the the empty
+Empty array values can unambiguously be represented as the empty
 list, `[]`.
 
 [#125]

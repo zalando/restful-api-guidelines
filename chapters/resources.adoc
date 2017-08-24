@@ -158,7 +158,7 @@ for instance:
 
 However, if the resource can be accessed directly via its unique id,
 then the API should expose it as a top-level resource. For example,
-customer is a collection for sales orders; however, sales orders have
+customer has a collection for sales orders; however, sales orders have
 globally unique id and some services may choose to access the orders
 directly, for instance:
 

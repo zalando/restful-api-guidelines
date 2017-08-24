@@ -13,9 +13,9 @@ app clients with (often) less bandwidth connectivity. (Zalando is a
 
 Common techniques include:
 
-* gzip compression
+* <<156,gzip compression>>
 * querying field filters to retrieve a subset of resource attributes
-(see <<156>> below)
+(see <<157>> below)
 * paginate lists of data items (see <<pagination>> below)
 * `ETag` and `If-(None-)Match` headers to avoid re-fetching of unchanged
 resources (see <<181>>
