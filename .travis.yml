@@ -18,8 +18,8 @@ script:
   - docker run -v $TRAVIS_BUILD_DIR:/documents/ --name asciidoctor-epub3 asciidoctor/docker-asciidoctor asciidoctor-epub3 -D /documents/output index.adoc
   - cp -r assets output/
   - cp -r -n legacy/* output/
-  - mv output/index.pdf output/zalando-restful-guidelines.pdf
-  - mv output/index.epub output/zalando-restful-guidelines.epub
+  - mv output/index.pdf output/zalando-guidelines.pdf
+  - mv output/index.epub output/zalando-guidelines.epub
 
 after_error:
   - docker logs asciidoc-to-html

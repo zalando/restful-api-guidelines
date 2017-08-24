@@ -21,5 +21,5 @@ docker run -v ${SCRIPT_DIR}:/documents/ asciidoctor/docker-asciidoctor asciidoct
 cp -r assets ${BUILD_DIR}/
 cp -r -n legacy/* ${BUILD_DIR}/
 
-mv ${BUILD_DIR}/index.pdf ${BUILD_DIR}/zalando-restful-guidelines.pdf
-mv ${BUILD_DIR}/index.epub ${BUILD_DIR}/zalando-restful-guidelines.epub
+mv ${BUILD_DIR}/index.pdf ${BUILD_DIR}/zalando-guidelines.pdf
+mv ${BUILD_DIR}/index.epub ${BUILD_DIR}/zalando-guidelines.epub

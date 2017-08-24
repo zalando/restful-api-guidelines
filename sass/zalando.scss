@@ -19,6 +19,10 @@
   max-width: 45em;
 }
 
+#content #toc {
+  max-width: 45em;
+}
+
 code {
   font-size: .85em !important;
 }
@@ -32,4 +36,8 @@ p > code {
 
 .literalblock pre, .literalblock pre[class], .listingblock pre, .listingblock pre[class] {
   padding: .5em !important;
+}
+
+#toc a {
+  color: #364149;
 }
