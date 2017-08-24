@@ -4,7 +4,7 @@
 
 This section collects links to documents to which we refer, and base our guidelines on.
 
-[[open-api-specification]]
+[[openapi-specification]]
 == OpenAPI Specification
 
 * https://github.com/OAI/OpenAPI-Specification/[OpenAPI Specification]
