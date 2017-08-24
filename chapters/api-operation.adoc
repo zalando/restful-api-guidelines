@@ -19,9 +19,9 @@ point to the endpoint mentioned above):
 [source,json]
 ----
 {
-    "schema_url": "/swagger.json",
-    "schema_type": "swagger-2.0",
-    "ui_url": "/ui/"
+  "schema_url": "/swagger.json",
+  "schema_type": "swagger-2.0",
+  "ui_url": "/ui/"
 }
 ----
 

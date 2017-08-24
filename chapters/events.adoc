@@ -164,82 +164,82 @@ definition:
 [source,yaml]
 ----
 EventType:
-    description: | 
-      An event type defines the schema and its runtime properties. The required
-      fields are the minimum set the creator of an event type is expected to
-      supply.
-    required:
-      - name
-      - category
-      - owning_application
-      - schema    
-    properties:
-      name:
-        description: |
-          Name of this EventType.  Note: the name can encode the
-          owner/responsible for this EventType and ideally should follow a
-          naming pattern that makes it easy to read and understand.
-        type: string
-        pattern: '[a-zA-Z][-0-9a-zA-Z_]*(\.[a-zA-Z][-0-9a-zA-Z_]*)*'
-        example: order.order_cancelled, business_partner.contract
-      owning_application:
-        description: |
-          Name of the application (eg, as would be used in infrastructure
-          application or service registry) owning this `EventType`.
-        type: string
-        example: price-service
-      category:
-        description: Defines the category of this EventType. 
-        type: string
-        x-extensible-enum:
-          - data
-          - general
-      compatibility_mode:
-        description: |
-          The compatibility mode to evolve the schema.
-        type: string
-        x-extensible-enum:
-          - compatible
-          - forward
-          - none
-        default: forward
-      schema:
-        description: The most recent payload schema for this EventType. 
-        type: object
-        properties:
-          version:
-            description: Values are based on semantic versioning (eg "1.2.1"). 
-            type: string
-            default: '1.0.0'
-          created_at:
-            description: Creation timestamp of the schema. 
-            type: string
-            readOnly: true
-            format: date-time
-            example: '1996-12-19T16:39:57-08:00'
-          type:
-            description: | 
-               The schema language of schema definition. Currently only
-               json_schema (JSON Schema v04) syntax is defined, but in the
-               future there could be others.
-            type: string
-            x-extensible-enum:
-              - json_schema
-          schema:
-            description: | 
-                The schema as string in the syntax defined in the field type.
-            type: string
-        required:
-          - type
-          - schema
-      created_at:
-        description: When this event type was created.      
-        type: string
-        pattern: date-time
-      updated_at:
-        description: When this event type was last updated.      
-        type: string
-        pattern: date-time
+  description: |
+    An event type defines the schema and its runtime properties. The required
+    fields are the minimum set the creator of an event type is expected to
+    supply.
+  required:
+    - name
+    - category
+    - owning_application
+    - schema
+  properties:
+    name:
+      description: |
+        Name of this EventType.  Note: the name can encode the
+        owner/responsible for this EventType and ideally should follow a
+        naming pattern that makes it easy to read and understand.
+      type: string
+      pattern: '[a-zA-Z][-0-9a-zA-Z_]*(\.[a-zA-Z][-0-9a-zA-Z_]*)*'
+      example: order.order_cancelled, business_partner.contract
+    owning_application:
+      description: |
+        Name of the application (eg, as would be used in infrastructure
+        application or service registry) owning this `EventType`.
+      type: string
+      example: price-service
+    category:
+      description: Defines the category of this EventType.
+      type: string
+      x-extensible-enum:
+        - data
+        - general
+    compatibility_mode:
+      description: |
+        The compatibility mode to evolve the schema.
+      type: string
+      x-extensible-enum:
+        - compatible
+        - forward
+        - none
+      default: forward
+    schema:
+      description: The most recent payload schema for this EventType.
+      type: object
+      properties:
+        version:
+          description: Values are based on semantic versioning (eg "1.2.1").
+          type: string
+          default: '1.0.0'
+        created_at:
+          description: Creation timestamp of the schema.
+          type: string
+          readOnly: true
+          format: date-time
+          example: '1996-12-19T16:39:57-08:00'
+        type:
+          description: |
+             The schema language of schema definition. Currently only
+             json_schema (JSON Schema v04) syntax is defined, but in the
+             future there could be others.
+          type: string
+          x-extensible-enum:
+            - json_schema
+        schema:
+          description: |
+              The schema as string in the syntax defined in the field type.
+          type: string
+      required:
+        - type
+        - schema
+    created_at:
+      description: When this event type was created.
+      type: string
+      pattern: date-time
+    updated_at:
+      description: When this event type was last updated.
+      type: string
+      pattern: date-time
 ----
 
 APIs such as registries supporting event types, may extend the model,
@@ -272,19 +272,19 @@ API Schema Object definition:
 
 [source,yaml]
 ----
-  GeneralEvent:
-    description: |
-      A general kind of event. Event kinds based on this event define their
-      custom schema payload as the top level of the document, with the
-      "metadata" field being required and reserved for standard metadata. An
-      instance of an event based on the event type thus conforms to both the
-      EventMetadata definition and the custom schema definition. Previously
-      this category was called the Business Category.
-    required:
-      - metadata
-    properties:
-      metadata:
-          $ref: '#/definitions/EventMetadata'
+GeneralEvent:
+  description: |
+    A general kind of event. Event kinds based on this event define their
+    custom schema payload as the top level of the document, with the
+    "metadata" field being required and reserved for standard metadata. An
+    instance of an event based on the event type thus conforms to both the
+    EventMetadata definition and the custom schema definition. Previously
+    this category was called the Business Category.
+  required:
+    - metadata
+  properties:
+    metadata:
+        $ref: '#/definitions/EventMetadata'
 ----
 
 Event types based on the General Event Category define their custom
@@ -316,42 +316,42 @@ Schema Object:
 
 [source,yaml]
 ----
-  DataChangeEvent:
-     description: |
-        Represents a change to an entity. The required fields are those
-        expected to be sent by the producer, other fields may be added
-        by intermediaries such as a publish/subscribe broker. An instance
-        of an event based on the event type conforms to both the
-        DataChangeEvent's definition and the custom schema definition.
-    required:
-      - metadata
-      - data_op
-      - data_type
-      - data    
-    properties:
-      metadata:
-        description: The metadata for this event.
-        $ref: '#/definitions/EventMetadata'
-      data:
-        description: | 
-          Contains custom payload for the event type. The payload must conform
-          to a schema associated with the event type declared in the metadata
-          object's `event_type` field.                
-        type: object
-      data_type:     
-        description: name of the (business) data entity that has been mutated
-        type: string
-        example: 'sales_order.order'
-      data_op:
-        type: string
-        enum: ['C', 'U', 'D', 'S']
-        description: |
-          The type of operation executed on the entity:
+DataChangeEvent:
+  description: |
+    Represents a change to an entity. The required fields are those
+    expected to be sent by the producer, other fields may be added
+    by intermediaries such as a publish/subscribe broker. An instance
+    of an event based on the event type conforms to both the
+    DataChangeEvent's definition and the custom schema definition.
+  required:
+    - metadata
+    - data_op
+    - data_type
+    - data
+  properties:
+    metadata:
+      description: The metadata for this event.
+      $ref: '#/definitions/EventMetadata'
+    data:
+      description: |
+        Contains custom payload for the event type. The payload must conform
+        to a schema associated with the event type declared in the metadata
+        object's `event_type` field.
+      type: object
+    data_type:
+      description: name of the (business) data entity that has been mutated
+      type: string
+      example: 'sales_order.order'
+    data_op:
+      type: string
+      enum: ['C', 'U', 'D', 'S']
+      description: |
+        The type of operation executed on the entity:
 
-          - C: Creation of an entity
-          - U: An update to an entity.
-          - D: Deletion of an entity.
-          - S: A snapshot of an entity at a point in time.
+        - C: Creation of an entity
+        - U: An update to an entity.
+        - D: Deletion of an entity.
+        - S: A snapshot of an entity at a point in time.
 ----
 
 The Data Change Event Category is structurally different to the General
@@ -376,64 +376,64 @@ Schema Object:
 
 [source,yaml]
 ----
-  EventMetadata:
-    type: object
-    description: | 
-      Carries metadata for an Event along with common fields. The required
-      fields are those expected to be sent by the producer, other fields may be
-      added by intermediaries such as publish/subscribe broker.      
-    required:
-      - eid
-      - occurred_at      
-    properties:
-      eid:
-        description: Identifier of this event.
+EventMetadata:
+  type: object
+  description: |
+    Carries metadata for an Event along with common fields. The required
+    fields are those expected to be sent by the producer, other fields may be
+    added by intermediaries such as publish/subscribe broker.
+  required:
+    - eid
+    - occurred_at
+  properties:
+    eid:
+      description: Identifier of this event.
+      type: string
+      format: uuid
+      example: '105a76d8-db49-4144-ace7-e683e8f4ba46'
+    event_type:
+      description: The name of the EventType of this Event.
+      type: string
+      example: 'example.important-business-event'
+    occurred_at:
+      description: When the event was created according to the producer.
+      type: string
+      format: date-time
+      example: '1996-12-19T16:39:57-08:00'
+    received_at:
+      description: |
+        When the event was seen by an intermediary such as a broker.
+      type: string
+      readOnly: true
+      format: date-time
+      example: '1996-12-19T16:39:57-08:00'
+    version:
+      description: |
+        Version of the schema used for validating this event. This may be
+        enriched upon reception by intermediaries. This string uses semantic
+        versioning.
+      type: string
+      readOnly: true
+    parent_eids:
+      description: |
+        Event identifiers of the Event that caused the generation of
+        this Event. Set by the producer.
+      type: array
+      items:
         type: string
         format: uuid
-        example: '105a76d8-db49-4144-ace7-e683e8f4ba46'
-      event_type:
-        description: The name of the EventType of this Event. 
-        type: string
-        example: 'example.important-business-event'
-      occurred_at:
-        description: When the event was created according to the producer.
-        type: string
-        format: date-time
-        example: '1996-12-19T16:39:57-08:00'
-      received_at:      
-        description: |           
-          When the event was seen by an intermediary such as a broker.
-        type: string
-        readOnly: true
-        format: date-time
-        example: '1996-12-19T16:39:57-08:00'
-      version:
-        description: |    
-          Version of the schema used for validating this event. This may be
-          enriched upon reception by intermediaries. This string uses semantic
-          versioning.          
-        type: string
-        readOnly: true
-      parent_eids:
-        description: |
-          Event identifiers of the Event that caused the generation of 
-          this Event. Set by the producer.      
-        type: array
-        items:
-          type: string
-          format: uuid
-        example: '105a76d8-db49-4144-ace7-e683e8f4ba46'
-      flow_id:
-        description: | 
-          A flow-id for this event (corresponds to the X-Flow-Id HTTP header).          
-        type: string
-        example: 'JAh6xH4OQhCJ9PutIV_RYw'
-      partition:
-        description: |
-          Indicates the partition assigned to this Event. Used for systems
-          where an event type's events can be sub-divided into partitions.
-        type: string
-        example: '0'
+      example: '105a76d8-db49-4144-ace7-e683e8f4ba46'
+    flow_id:
+      description: |
+        A flow-id for this event (corresponds to the X-Flow-Id HTTP header).
+      type: string
+      example: 'JAh6xH4OQhCJ9PutIV_RYw'
+    partition:
+      description: |
+        Indicates the partition assigned to this Event. Used for systems
+        where an event type's events can be sub-divided into partitions.
+      type: string
+      example: '0'
 ----
 
 Please note than intermediaries acting between the producer of an event

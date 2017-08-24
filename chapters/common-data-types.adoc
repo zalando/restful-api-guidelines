@@ -135,88 +135,87 @@ below.
 [source,yaml]
 ----
 addressee:
-    description:
-      a (natural or legal) person that gets addressed
-    type: object
-    required:
-      - first_name
-      - last_name
-      - street
-      - city
-      - zip
-      - country_code
-    properties:
-      salutation:
-        description: |
-          a salutation and/or title used for personal contacts to some
-          addressee; not to be confused with the gender information!
-        type: string
-        example: Mr
-      first_name:
-        description: |
-          given name(s) or first name(s) of a person; may also include the
-          middle names.
-        type: string
-        example: Hans Dieter
-      last_name:
-        description: |
-          family name(s) or surname(s) of a person
-        type: string
-        example: Mustermann
-      business_name:
-        description: |
-          company name of the business organization. Used when a business is
-          the actual addressee; for personal shipments to office addresses, use
-          `care_of` instead.
-        type: string
-        example: Consulting Services GmbH
-    required:
-      - first_name
-      - last_name
+  description: a (natural or legal) person that gets addressed
+  type: object
+  required:
+    - first_name
+    - last_name
+    - street
+    - city
+    - zip
+    - country_code
+  properties:
+    salutation:
+      description: |
+        a salutation and/or title used for personal contacts to some
+        addressee; not to be confused with the gender information!
+      type: string
+      example: Mr
+    first_name:
+      description: |
+        given name(s) or first name(s) of a person; may also include the
+        middle names.
+      type: string
+      example: Hans Dieter
+    last_name:
+      description: |
+        family name(s) or surname(s) of a person
+      type: string
+      example: Mustermann
+    business_name:
+      description: |
+        company name of the business organization. Used when a business is
+        the actual addressee; for personal shipments to office addresses, use
+        `care_of` instead.
+      type: string
+      example: Consulting Services GmbH
+  required:
+    - first_name
+    - last_name
 
 address:
-    description:
-      an address of a location/destination
-    type: object
-    properties:
-      care_of:
-        description: |
-          (aka c/o) the person that resides at the address, if different from
-          addressee. E.g. used when sending a personal parcel to the 
-          office /someone else's home where the addressee resides temporarily
-        type: string
-        example: Consulting Services GmbH
-      street:
-        description: |
-          the full street address including house number and street name
-        type: string
-        example: Schönhauser Allee 103
-      additional:
-        description: |
-          further details like building name, suite, apartment number, etc.
-        type: string
-        example: 2. Hinterhof rechts
-      city:
-        description: |
-          name of the city / locality
-        type: string
-        example: Berlin
-      zip:
-        description: |
-          zip code or postal code
-        type: string
-        example: 14265
-      country_code:
-        description: |
-          the country code according to 
-          [iso-3166-1-alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
-        type: string
-        example: DE
-    required:
-      - street
-      - city
-      - zip
-      - country_code
+  description:
+    an address of a location/destination
+  type: object
+  properties:
+    care_of:
+      description: |
+        (aka c/o) the person that resides at the address, if different from
+        addressee. E.g. used when sending a personal parcel to the
+        office /someone else's home where the addressee resides temporarily
+      type: string
+      example: Consulting Services GmbH
+    street:
+      description: |
+        the full street address including house number and street name
+      type: string
+      example: Schönhauser Allee 103
+    additional:
+      description: |
+        further details like building name, suite, apartment number, etc.
+      type: string
+      example: 2. Hinterhof rechts
+    city:
+      description: |
+        name of the city / locality
+      type: string
+      example: Berlin
+    zip:
+      description: |
+        zip code or postal code
+      type: string
+      example: 14265
+    country_code:
+      description: |
+        the country code according to
+        [iso-3166-1-alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
+      type: string
+      example: DE
+  required:
+    - street
+    - city
+    - zip
+    - country_code
 ----
 
 Grouping and cardinality of fields in specific data types may vary based
