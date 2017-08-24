@@ -34,6 +34,13 @@ p > code {
   color: inherit;
 }
 
+a > code {
+  background-color: #f0f0f0;
+  padding: .1em .4em .1em .4em !important;
+  font-size: .9em !important;
+  color: black;
+}
+
 .literalblock pre, .literalblock pre[class], .listingblock pre, .listingblock pre[class] {
   padding: .5em !important;
 }
