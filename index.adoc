@@ -23,6 +23,8 @@ image::assets/api-zalando-small.jpg[API Guild Logo]
 
 Other formats: link:zalando-guidelines.pdf[PDF], link:zalando-guidelines.epub[EPUB3]
 
+pass:[<div id="table-of-contents"></div>]
+
 toc::[]
 
 include::chapters/introduction.adoc[]
@@ -79,7 +81,7 @@ ul.classList.add('sectlevel1');
 
 link = document.createElement('a');
 link.innerHTML = 'Overview';
-link.href = '#';
+link.href = '#table-of-contents';
 li = document.createElement('li');
 li.append(link);
 ul.append(li);
@@ -101,4 +103,6 @@ document.body.classList.add('toc-left');
 nav.append(ul);
 header.prepend(nav);
 </script>
+++++
+
 ++++
