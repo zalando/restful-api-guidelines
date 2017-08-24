@@ -4,12 +4,12 @@
 
 This section collects links to documents to which we refer, and base our guidelines on.
 
-[[references-open-api-specification]]
+[[open-api-specification]]
 == OpenAPI Specification
 
 * https://github.com/OAI/OpenAPI-Specification/[OpenAPI Specification]
 
-[[references-publications-specifications-and-standards]]
+[[publications-specifications-and-standards]]
 == Publications, specifications and standards
 
 * https://tools.ietf.org/html/rfc3339[RFC 3339: Date and Time on the Internet: Timestamps]
@@ -24,19 +24,19 @@ This section collects links to documents to which we refer, and base our guideli
 * https://en.wikipedia.org/wiki/ISO_4217[ISO 4217: Currency codes]
 * https://tools.ietf.org/html/bcp47[BCP 47: Tags for Identifying Languages]
 
-[[references-dissertations]]
+[[dissertations]]
 == Dissertations
 
 * http://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm[Roy Thomas Fielding - Architectural Styles and the Design of Network-Based Software Architectures]. This is the text which defines what REST is.
 
-[[references-books]]
+[[books]]
 == Books
 
 * http://www.amazon.de/REST-Practice-Hypermedia-Systems-Architecture/dp/0596805829[REST in Practice: Hypermedia and Systems Architecture]
 * https://leanpub.com/build-apis-you-wont-hate[Build APIs You Won't Hate]
 * http://www.infoq.com/minibooks/emag-web-api[InfoQ eBook - Web APIs: From Start to Finish]
 
-[[references-blogs]]
+[[blogs]]
 == Blogs
 
 * http://restful-api-design.readthedocs.org/en/latest/[Lessons-learned blog: Thoughts on RESTful API Design]

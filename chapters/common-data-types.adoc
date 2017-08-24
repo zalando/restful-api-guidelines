@@ -65,6 +65,7 @@ There exist a variety of field types that are required in multiple
 places. To achieve consistency across all API implementations, you must
 use common field names and semantics whenever applicable.
 
+[[generic-fields]]
 === Generic Fields
 
 There are some data fields that come up again and again in API data:
@@ -125,6 +126,7 @@ understanding of Zalando's resources. There is very little utility for
 API consumers in having different names or value types for these fields
 across APIs.
 
+[[address-fields]]
 === Address Fields
 
 Address structures play a role in different functional and use-case

@@ -26,10 +26,12 @@ negotiation.
 [#169]
 == {MUST} Use Standard Date and Time Formats
 
+[[json-payload]]
 === JSON Payload
 
 Read more about date and time format in <<125>>.
 
+[[http-headers]]
 === HTTP headers
 
 Http headers including the proprietary headers use the

@@ -49,6 +49,7 @@ receive via the fields query parameter — example see
 https://cloud.google.com/appengine/docs/python/taskqueue/rest/performance#partial-response[Google
 AppEngine API's partial response]:
 
+[[unfiltered]]
 === Unfiltered
 
 [source,http]
@@ -72,6 +73,7 @@ Content-Type: application/json
 }
 ----
 
+[[filtered]]
 === Filtered
 
 [source,http]

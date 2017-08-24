@@ -7,6 +7,7 @@
 Be compliant with the standardized HTTP method semantics summarized as
 follows:
 
+[[get]]
 === GET
 
 GET requests are used to read a single resource or query set of
@@ -21,6 +22,7 @@ listing is empty) or 404 (if the list is missing)
 *Note:* GET requests on collection resources should provide a sufficient
 filter mechanism as well as <<pagination>>.
 
+[[get-with-body]]
 === "GET with Body"
 
 APIs sometimes face the problem, that they have to provide extensive
@@ -48,6 +50,7 @@ size limits on query parameters and headers are not reliable and depend
 on clients, gateways, server, and actual settings. Thus, switching to
 headers does not solve the original problem.
 
+[[put]]
 === PUT
 
 PUT requests are used to create or update *entire* resources - single or
@@ -78,6 +81,7 @@ To prevent unnoticed concurrent updates when using PUT, the combination
 of <<181,`ETag` and `If-(None-)Match`>> headers should be considered to signal the server
 stricter demands to expose conflicts and prevent lost updates.
 
+[[post]]
 === POST
 
 POST requests are idiomatically used to create single resources on a
@@ -109,6 +113,7 @@ result in multiple resource instances. Anyhow, if external URIs are
 present that can be used to identify duplicate requests, it is best
 practice to implement POST in an idempotent way.
 
+[[patch]]
 === PATCH
 
 PATCH request are only used for partial update of single resources, i.e.
@@ -160,6 +165,7 @@ To prevent unnoticed concurrent updates when using PATCH, the
 combination of <<181,`ETag`and `If-Match`>> headers should be considered to
 signal the server stricter demands to expose conflicts and prevent lost updates.
 
+[#delete]
 === DELETE
 
 DELETE request are used to delete resources. The semantic is best
@@ -172,6 +178,7 @@ resource is returned) or 204 (if no content is returned)
 * failed DELETE request will usually generate 404 (if the resource
 cannot be found) or 410 (if the resource was already deleted before)
 
+[[head]]
 === HEAD
 
 HEAD requests are used retrieve to header information of single
@@ -180,6 +187,7 @@ resources and resource collections.
 * HEAD has exactly the same semantics as GET, but returns headers only,
 no body.
 
+[[options]]
 === OPTIONS
 
 OPTIONS are used to inspect the available operations (HTTP methods) of a
@@ -245,6 +253,7 @@ by specific web servers like Nginx.
 
 Our list of most commonly used and best understood HTTP status codes:
 
+[[success-codes]]
 === Success Codes
 
 [cols="10%,70%,20%",options="header",]
@@ -267,6 +276,7 @@ informations for different parts of a batch/bulk request. See
 <<151>>. |POST
 |=======================================================================
 
+[[redirection-codes]]
 === Redirection Codes
 
 [cols="10%,70%,20%",options="header",]
@@ -283,6 +293,7 @@ version passed via request headers If-Modified-Since or If-None-Match.
 |GET
 |=======================================================================
 
+[[client-side-error-codes]]
 === Client Side Error Codes
 
 [cols="10%,70%,20%",options="header",]
@@ -330,6 +341,7 @@ avoided). |All
 sent too many requests. See <<152>>. |All
 |=======================================================================
 
+[[server-side-error-codes]]
 === Server Side Error Codes:
 
 [cols="10%,70%,20%",options="header",]
