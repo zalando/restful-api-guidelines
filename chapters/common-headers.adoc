@@ -1,0 +1,189 @@
+[[common-headers]]
+= Common Headers
+
+This section describes a handful of headers, which we found raised the
+most questions in our daily usage, or which are useful in particular
+circumstances but not widely known.
+
+[#178]
+== {MUST} Use Content Headers Correctly
+
+Content or entity headers are headers with a `Content-` prefix. They
+describe the content of the body of the message and they can be used in
+both, HTTP requests and responses. Commonly used content headers include
+but are not limited to:
+
+* https://tools.ietf.org/html/rfc6266[`Content-Disposition`] can
+indicate that the representation is supposed to be saved as a file, and
+the proposed file name.
+* https://tools.ietf.org/html/rfc7231#section-3.1.2.2[`Content-Encoding`]
+indicates compression or encryption algorithms applied to the content.
+* https://tools.ietf.org/html/rfc7230#section-3.3.2[`Content-Length`]
+indicates the length of the content (in bytes).
+* https://tools.ietf.org/html/rfc7231#section-3.1.3.2[`Content-Language`]
+indicates that the body is meant for people literate in some human
+language(s).
+* https://tools.ietf.org/html/rfc7231#section-3.1.4.2[`Content-Location`]
+indicates where the body can be found otherwise
+(<<178>> for more details]).
+* https://tools.ietf.org/html/rfc7233#section-4.2[`Content-Range`] is
+used in responses to range requests to indicate which part of the
+requested resource representation is delivered with the body.
+* https://tools.ietf.org/html/rfc7231#section-3.1.1.5[`Content-Type`]
+indicates the media type of the body content.
+
+[#179]
+== {MAY} Use Content-Location Header
+
+The Content-Location header is _optional_ and can be used in successful
+write operations (PUT, POST or PATCH) or read operations (GET, HEAD) to
+guide caching and signal a receiver the actual location of the resource
+transmitted in the response body. This allows clients to identify the
+resource and to update their local copy when receiving a response with
+this header.
+
+The Content-Location header can be used to support the following use
+cases:
+
+* For reading operations GET and HEAD, a different location than the
+requested URI can be used to indicate that the returned resource is
+subject to content negotiations, and that the value provides a more
+specific identifier of the resource.
+* For writing operations PUT and PATCH, an identical location to the
+requested URI, can be used to explicitly indicate that the returned
+resource is the current representation of the newly created or updated
+resource.
+* For writing operations POST and DELETE, a content location can be used
+to indicate that the body contains a status report resource in response
+to the requested action, which is available at provided location.
+
+*Note*: When using the Content-Location header, the Content-Type header
+has to be set as well. For example:
+
+[source,http]
+----
+GET /products/123/images HTTP/1.1
+
+HTTP/1.1 200 OK
+Content-Type: image/png
+Content-Location: /products/123/images?format=raw
+----
+
+[#180]
+== {SHOULD} Use Location Header instead of Content-Location Header
+
+As the correct usage of Content-Location with respect to semantics and
+caching is difficult, we _discourage_ the use of Content-Location. In
+most cases it is sufficient to direct clients to the resource location
+by using the Location header instead without hitting the
+Content-Location specific ambiguities and complexities.
+
+More details in RFC 7231
+https://tools.ietf.org/html/rfc7231#section-7.1.2[7.1.2 Location],
+https://tools.ietf.org/html/rfc7231#section-3.1.4.2[3.1.4.2
+Content-Location]
+
+[#181]
+== {MAY} Use the Prefer header to indicate processing preferences
+
+The `Prefer` header defined in
+https://tools.ietf.org/html/rfc7240[RFC7240] allows clients to request
+processing behaviors from servers.
+https://tools.ietf.org/html/rfc7240[RFC7240] pre-defines a number of
+preferences and is extensible, to allow others to be defined. Support
+for the Prefer header is entirely optional and at the discretion of API
+designers, but as an existing Internet Standard, is recommended over
+defining proprietary "X-" headers for processing directives.
+
+The `Prefer` header can defined like this in an API definition:
+
+[source,yaml]
+----
+Prefer:
+  name: Prefer
+  description: |
+    The RFC7240 Prefer header indicates that particular server
+    behaviors are preferred by the client but are not required
+    for successful completion of the request.
+    # (indicate the preferences supported by the API)
+
+  in: header
+  type: string
+  required: false
+----
+
+Supporting APIs may return the `Preference-Applied` header also defined
+in https://tools.ietf.org/html/rfc7240[RFC7240] to indicate whether the
+preference was applied.
+
+[#182]
+== {MAY} Consider using ETag together with If-(None-)Match header
+
+When creating or updating resources it may be necessary to expose
+conflicts and to prevent the lost update problem. This can be best
+accomplished by using the
+https://tools.ietf.org/html/rfc7232#section-2.3[`ETag`] header together
+with the https://tools.ietf.org/html/rfc7232#section-3.1[`If-Match`] and
+https://tools.ietf.org/html/rfc7232#section-3.2[`If-None-Match`]. The
+contents of an `ETag: <entity-tag>` header is either (a) a hash of the
+response body, (b) a hash of the last modified field of the entity, or
+(c) a version number or identifier of the entity version.
+
+To expose conflicts between concurrent update operations via PUT, POST,
+or PATCH, the `If-Match: <entity-tag>` header can be used to force the
+server to check whether the version of the updated entity is conforming
+to the requested `<entity-tag>`. If no matching entity is found, the
+operation is supposed a to respond with status code 412 - precondition
+failed.
+
+Beside other use cases, the `If-None-Match:` header with parameter `*`
+can be used in a similar way to expose conflicts in resource creation.
+If any matching entity is found, the operation is supposed a to respond
+with status code 412 - precondition failed.
+
+The `ETag`, `If-Match`, and `If-None-Match` headers can be defined as
+follows in the API definition:
+
+[source,yaml]
+----
+Etag:
+  name: Etag
+  description: |
+    The RFC7232 ETag header field in a response provides the current entity-
+    tag for the selected resource. An entity-tag is an opaque identifier for
+    different versionsof a resource over time, regardless whether multiple
+    versions are valid at the same time. An entity-tag consists of an opaque
+    quoted string, possibly prefixed by a weakness indicator.
+
+  in: header
+  type: string
+  required: false
+  example: W/"xy", "5", "7da7a728-f910-11e6-942a-68f728c1ba70"
+
+IfMatch:
+  name: If-Match
+  description: |
+    The RFC7232 If-Match header field in a request requires the server to
+    only operate on the resource that matches at least one of the provided
+    entity-tags. This allows clients express a precondition that prevent
+    the method from being applied, if there have been any changes to the
+    resource.
+
+  in: header
+  type: string
+  required: false
+  example:  "5", "7da7a728-f910-11e6-942a-68f728c1ba70"
+
+IfNoneMatch:
+  name: If-None-Match
+  description: |
+    The RFC7232 If-None-Match header field in a request requires the server
+    to only operate on the resource if it does not match any of the provided
+    entity-tags. If the provided entity-tag is `*`, it is required that the
+    resource does not exist at all.
+
+  in: header
+  type: string
+  required: false
+  example: "7da7a728-f910-11e6-942a-68f728c1ba70", *
+----

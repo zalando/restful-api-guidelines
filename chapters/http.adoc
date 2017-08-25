@@ -1,0 +1,506 @@
+[[http]]
+= HTTP
+
+[#148]
+== {MUST} Use HTTP Methods Correctly
+
+Be compliant with the standardized HTTP method semantics summarized as
+follows:
+
+[[get]]
+=== GET
+
+GET requests are used to read a single resource or query set of
+resources.
+
+* GET requests for individual resources will usually generate a 404 if
+the resource does not exist
+* GET requests for collection resources may return either 200 (if the
+listing is empty) or 404 (if the list is missing)
+* GET requests must NOT have request body payload
+
+*Note:* GET requests on collection resources should provide a sufficient
+filter mechanism as well as <<pagination>>.
+
+[[get-with-body]]
+=== "GET with Body"
+
+APIs sometimes face the problem, that they have to provide extensive
+structured request information with GET, that may even conflicts with
+the size limits of clients, load-balancers, and servers. As we require
+APIs to be standard conform (body in GET must be ignored on server
+side), API designers have to check the following two options:
+
+1.  GET with URL encoded query parameters: when it is possible to encode
+the request information in query parameters, respecting the usual size
+limits of clients, gateways, and servers, this should be the first
+choice. The request information can either be provided distributed to
+multiple query parameters or a single structured URL encoded string.
+2.  POST with body content: when a GET with URL encoded query parameters
+is not possible, a POST with body content must be used. In this case the
+endpoint must be documented with the hint `GET with    body` to
+transport the GET semantic of this call.
+
+*Note:* It is no option to encode the lengthy structured request
+information in header parameters. From a conceptual point of view, the
+semantic of an operation should always be expressed by resource name and
+query parameters, i.e. what goes into the URL. Request headers are
+reserved for general context information, e.g. FlowIDs. In addition,
+size limits on query parameters and headers are not reliable and depend
+on clients, gateways, server, and actual settings. Thus, switching to
+headers does not solve the original problem.
+
+[[put]]
+=== PUT
+
+PUT requests are used to create or update *entire* resources - single or
+collection resources. The semantic is best described as »_please put the
+enclosed representation at the resource mentioned by the URL, replacing
+any existing resource._«.
+
+* PUT requests are usually applied to single resources, and not to
+collection resources, as this would imply replacing the entire
+collection
+* PUT requests are usually robust against non-existence of resources by
+implicitly creating before updating
+* on successful PUT requests, the server will *replace the entire
+resource* addressed by the URL with the representation passed in the
+payload (subsequent reads will deliver the same payload)
+* successful PUT requests will usually generate 200 or 204 (if the
+resource was updated - with or without actual content returned), and 201
+(if the resource was created)
+
+*Note:* Resource IDs with respect to PUT requests are maintained by the
+client and passed as a URL path segment. Putting the same resource twice
+is required to be idempotent and to result in the same single resource
+instance. If PUT is applied for creating a resource, only URIs should be
+allowed as resource IDs. If URIs are not available POST should be
+preferred.
+
+To prevent unnoticed concurrent updates when using PUT, the combination
+of <<181,`ETag` and `If-(None-)Match`>> headers should be considered to signal the server
+stricter demands to expose conflicts and prevent lost updates.
+
+[[post]]
+=== POST
+
+POST requests are idiomatically used to create single resources on a
+collection resource endpoint, but other semantics on single resources
+endpoint are equally possible. The semantic for collection endpoints is
+best described as »_please add the enclosed representation to the
+collection resource identified by the URL_«. The semantic for single
+resource endpoints is best described as »_please execute the given well
+specified request on the collection resource identified by the URL_«.
+
+* POST request should only be applied to collection resources, and
+normally not on single resource, as this has an undefined semantic
+* on successful POST requests, the server will create one or multiple
+new resources and provide their URI/URLs in the response
+* successful POST requests will usually generate 200 (if resources have
+been updated), 201 (if resources have been created), and 202 (if the
+request was accepted but has not been finished yet)
+
+*More generally:* POST should be used for scenarios that cannot be
+covered by the other methods sufficiently. For instance, GET with
+complex (e.g. SQL like structured) query that needs to be passed as
+request body payload because of the URL-length constraint. In such
+cases, make sure to document the fact that POST is used as a workaround.
+
+*Note:* Resource IDs with respect to POST requests are created and
+maintained by server and returned with response payload. Posting the
+same resource twice is by itself *not* required to be idempotent and may
+result in multiple resource instances. Anyhow, if external URIs are
+present that can be used to identify duplicate requests, it is best
+practice to implement POST in an idempotent way.
+
+[[patch]]
+=== PATCH
+
+PATCH request are only used for partial update of single resources, i.e.
+where only a specific subset of resource fields should be replaced. The
+semantic is best described as »_please change the resource identified by
+the URL according to my change request_«. The semantic of the change
+request is not defined in the HTTP standard and must be described in the
+API specification by using suitable media types.
+
+* PATCH requests are usually applied to single resources, and not on
+collection resources, as this would imply patching on the entire
+collection
+* PATCH requests are usually not robust against non-existence of
+resource instances
+* on successful PATCH requests, the server will update parts of the
+resource addressed by the URL as defined by the change request in the
+payload
+* successful PATCH requests will usually generate 200 or 204 (if
+resources have been updated
+* with or without updated content returned)
+
+*Note:* since implementing PATCH correctly is a bit tricky, we strongly
+suggest to choose one and only one of the following patterns per
+endpoint, unless forced by a <<106,backwards compatible change>>.
+In preference order:
+
+1.  use PUT with complete objects to update a resource as long as
+feasible (i.e. do not use PATCH at all).
+2.  use PATCH with partial objects to only update parts of a resource,
+when ever possible. (This is basically
+https://tools.ietf.org/html/rfc7396[JSON Merge Patch], a specialized
+media type `application/merge-patch+json` that is a partial resource
+representation.)
+3.  use PATCH with http://tools.ietf.org/html/rfc6902[JSON Patch], a
+specialized media type `application/json-patch+json` that includes
+instructions on how to change the resource.
+4.  use POST (with a proper description of what is happening) instead of
+PATCH if the request does not modify the resource in a way defined by
+the semantics of the media type.
+
+In practice https://tools.ietf.org/html/rfc7396[JSON Merge Patch]
+quickly turns out to be too limited, especially when trying to update
+single objects in large collections (as part of the resource). In this
+cases http://tools.ietf.org/html/rfc6902[JSON Patch] can shown its full
+power while still showing readable patch requests
+(see also http://erosb.github.io/post/json-patch-vs-merge-patch[JSON patch vs. merge]).
+
+To prevent unnoticed concurrent updates when using PATCH, the
+combination of <<181,`ETag`and `If-Match`>> headers should be considered to
+signal the server stricter demands to expose conflicts and prevent lost updates.
+
+[#delete]
+=== DELETE
+
+DELETE request are used to delete resources. The semantic is best
+described as »_please delete the resource identified by the URL_«.
+
+* DELETE requests are usually applied to single resources, not on
+collection resources, as this would imply deleting the entire collection
+* successful DELETE request will usually generate 200 (if the deleted
+resource is returned) or 204 (if no content is returned)
+* failed DELETE request will usually generate 404 (if the resource
+cannot be found) or 410 (if the resource was already deleted before)
+
+[[head]]
+=== HEAD
+
+HEAD requests are used retrieve to header information of single
+resources and resource collections.
+
+* HEAD has exactly the same semantics as GET, but returns headers only,
+no body.
+
+[[options]]
+=== OPTIONS
+
+OPTIONS are used to inspect the available operations (HTTP methods) of a
+given endpoint.
+
+* OPTIONS requests usually either return a comma separated list of
+methods (provided by an `Allow:`-Header) or as a structured list of link
+templates
+
+*Note:* OPTIONS is rarely implemented, though it could be used to
+self-describe the full functionality of a resource.
+
+[#149]
+== {MUST} Fulfill Safeness and Idempotency Properties
+
+An operation can be...
+
+* idempotent, i.e. operation will produce the same results if executed
+once or multiple times (note: this does not necessarily mean returning
+the same status code)
+* safe, i.e. must not have side effects such as state changes
+
+Method implementations must fulfill the following basic properties:
+
+[cols=",,",options="header",]
+|=============================
+|HTTP method |safe |idempotent
+|OPTIONS |Yes |Yes
+|HEAD |Yes |Yes
+|GET |Yes |Yes
+|PUT |No |Yes
+|POST |No |No
+|DELETE |No |Yes
+|PATCH |No |No
+|=============================
+
+Please see also https://goo.gl/vhwh8a[Best Practices [internal link]]
+for further hints on how to support the different HTTP methods on
+resources.
+
+[#150]
+== {MUST} Use Specific HTTP Status Codes
+
+This guideline groups the following rules for HTTP status codes usage:
+
+* You must not invent new HTTP status codes; only use standardized HTTP
+status codes and consistent with its intended semantics.
+* You should use the most specific HTTP status code for your concrete
+resource request processing status or error situation.
+* You should provide good documentation in the API definition when using
+HTTP status codes that are less commonly used and not listed below.
+
+There are \~60 different HTTP status codes with specific semantics
+defined in the HTTP standards (mainly
+https://tools.ietf.org/html/rfc7231#section-6[RFC7231] and
+https://tools.ietf.org/html/rfc6585[RFC-6585]) - and there are upcoming
+new ones, e.g.
+https://tools.ietf.org/html/draft-tbray-http-legally-restricted-status-05[draft
+legally-restricted-status] (see overview on all error codes on
+https://en.wikipedia.org/wiki/List_of_HTTP_status_codes[Wikipedia] or
+via https://httpstatuses.com/). And there are unofficial ones, e.g. used
+by specific web servers like Nginx.
+
+Our list of most commonly used and best understood HTTP status codes:
+
+[[success-codes]]
+=== Success Codes
+
+[cols="10%,70%,20%",options="header",]
+|=======================================================================
+|Code |Meaning |Methods
+|200 |OK - this is the standard success response |All
+
+|201 |Created - Returned on successful entity creation. You are free to
+return either an empty response or the created resource in conjunction
+with the Location header. (More details found in the
+<<common-headers>>.) _Always_ set the Location header. |POST, PUT
+
+|202 |Accepted - The request was successful and will be processed
+asynchronously. |POST, PUT, DELETE, PATCH
+
+|204 |No content - There is no response body |PUT, DELETE
+
+|207 |Multi-Status - The response body contains multiple status
+informations for different parts of a batch/bulk request. See
+<<151>>. |POST
+|=======================================================================
+
+[[redirection-codes]]
+=== Redirection Codes
+
+[cols="10%,70%,20%",options="header",]
+|=======================================================================
+|Code |Meaning |Methods
+|301 |Moved Permanently - This and all future requests should be
+directed to the given URI. |All
+
+|303 |See Other - The response to the request can be found under another
+URI using a GET method. |PATCH, POST, PUT, DELETE
+
+|304 |Not Modified - resource has not been modified since the date or
+version passed via request headers If-Modified-Since or If-None-Match.
+|GET
+|=======================================================================
+
+[[client-side-error-codes]]
+=== Client Side Error Codes
+
+[cols="10%,70%,20%",options="header",]
+|=======================================================================
+|Code |Meaning |Methods
+|400 |Bad request - generic / unknown error |All
+
+|401 |Unauthorized - the users must log in (this often means
+“Unauthenticated”) |All
+
+|403 |Forbidden - the user is not authorized to use this resource |All
+
+|404 |Not found - the resource is not found |All
+
+|405 |Method Not Allowed - the method is not supported, see OPTIONS |All
+
+|406 |Not Acceptable - resource can only generate content not acceptable
+according to the Accept headers sent in the request |All
+
+|408 |Request timeout - the server times out waiting for the resource
+|All
+
+|409 |Conflict - request cannot be completed due to conflict, e.g. when
+two clients try to create the same resource or if there are concurrent,
+conflicting updates |PUT, DELETE, PATCH
+
+|410 |Gone - resource does not exist any longer, e.g. when accessing a
+resource that has intentionally been deleted |All
+
+|412 |Precondition Failed - returned for conditional requests, e.g.
+If-Match if the condition failed. Used for optimistic locking. |PUT,
+DELETE, PATCH
+
+|415 |Unsupported Media Type - e.g. clients sends request body without
+content type |PUT, DELETE, PATCH
+
+|423 |Locked - Pessimistic locking, e.g. processing states |PUT, DELETE,
+PATCH
+
+|428 |Precondition Required - server requires the request to be
+conditional (e.g. to make sure that the “lost update problem” is
+avoided). |All
+
+|429 |Too many requests - the client does not consider rate limiting and
+sent too many requests. See <<152>>. |All
+|=======================================================================
+
+[[server-side-error-codes]]
+=== Server Side Error Codes:
+
+[cols="10%,70%,20%",options="header",]
+|=======================================================================
+|Code |Meaning |Methods
+|500 |Internal Server Error - a generic error indication for an
+unexpected server execution problem (here, client retry may be senseful)
+|All
+
+|501 |Not Implemented - server cannot fulfill the request (usually
+implies future availability, e.g. new feature). |All
+
+|503 |Service Unavailable - server is (temporarily) not available (e.g.
+due to overload) -- client retry may be senseful. |All
+|=======================================================================
+
+[#151]
+== {MUST} Provide Error Documentation
+
+APIs should define the functional, business view and abstract from
+implementation aspects. Errors become a key element providing context
+and visibility into how to use an API. The error object should be
+extended by an application-specific error identifier if and only if the
+HTTP status code is not specific enough to convey the domain-specific
+error semantic. For this reason, we use a standardized error return
+object definition — see <<175>.
+
+The OpenAPI specification shall include definitions for error
+descriptions that will be returned; they are part of the interface
+definition and provide important information for service clients to
+handle exceptional situations and support troubleshooting. You should
+also think about a troubleshooting board — it is part of the associated
+online API documentation, provides information and handling guidance on
+application-specific errors and is referenced via links of the API
+definition. This can reduce service support tasks and contribute to
+service client and provider performance.
+
+Service providers should differentiate between technical and functional
+errors. In most cases it's not useful to document technical errors that
+are not in control of the service provider unless the status code convey
+application-specific semantics. The list of status code that can be
+omitted from API specifications includes but is not limited to:
+
+* `401 Unauthorized`
+* `403 Forbidden`
+* `404 Not Found` unless it has some additional semantics
+* `405 Method Not Allowed`
+* `406 Not Acceptable`
+* `408 Request Timeout`
+* `413 Payload Too Large`
+* `414 URI Too Long`
+* `415 Unsupported Media Type`
+* `500 Internal Server Error`
+* `502 Bad Gateway`
+* `503 Service Unavailable`
+* `504 Gateway Timeout`
+
+Even though they might not be documented - they may very much occur in
+production, so clients should be prepared for unexpected response codes,
+and in case of doubt handle them like they would handle the
+corresponding x00 code. Adding new response codes (specially error
+responses) should be considered a compatible API evolution.
+
+Functional errors on the other hand, that convey domain-specific
+semantics, must be documented and are strongly encouraged to be
+expressed with <<175>>.
+
+[#152]
+== {MUST} Use 207 for Batch or Bulk Requests
+
+Some APIs are required to provide either _batch_ or _bulk_ requests
+using POST for performance reasons, i.e. for communication and
+processing efficiency. In this case services may be in need to signal
+multiple response codes for each part of an batch or bulk request. As
+HTTP does not provide proper guidance for handling batch/bulk requests
+and responses, we herewith define the following approach:
+
+* A batch or bulk request *always* has to respond with HTTP status code
+*207*, unless it encounters a generic or unexpected failure before
+looking at individual parts.
+* A batch or bulk response with status code 207 *always* returns a
+multi-status object containing sufficient status and/or monitoring
+information for each part of the batch or bulk request.
+* A batch or bulk request may result in a status code 400/500, only if
+the service encounters a failure before looking at individual parts or,
+if an unanticipated failure occurs.
+
+The before rules apply _even in the case_ that processing of all
+individual part _fail_ or each part is executed _asynchronously_! They
+are intended to allow clients to act on batch and bulk responses by
+inspecting the individual results in a consistent way.
+
+*Note*: while a _batch_ defines a collection of requests triggering
+independent processes, a _bulk_ defines a collection of independent
+resources created or updated together in one request. With respect to
+response processing this distinction normally does not matter.
+
+[#153]
+== {MUST} Use 429 with Headers for Rate Limits
+
+APIs that wish to manage the request rate of clients must use the
+http://tools.ietf.org/html/rfc6585['429 Too Many Requests'] response
+code if the client exceeded the request rate and therefore the request
+can't be fulfilled. Such responses must also contain header information
+providing further details to the client. There are two approaches a
+service can take for header information:
+
+* Return a
+https://tools.ietf.org/html/rfc7231#section-7.1.3['Retry-After'] header
+indicating how long the client ought to wait before making a follow-up
+request. The Retry-After header can contain a HTTP date value to retry
+after or the number of seconds to delay. Either is acceptable but APIs
+should prefer to use a delay in seconds.
+* Return a trio of 'X-RateLimit' headers. These headers (described
+below) allow a server to express a service level in the form of a number
+of allowing requests within a given window of time and when the window
+is reset.
+
+The 'X-RateLimit' headers are:
+
+* `X-RateLimit-Limit`: The maximum number of requests that the client is
+allowed to make in this window.
+* `X-RateLimit-Remaining`: The number of requests allowed in the current
+window.
+* `X-RateLimit-Reset`: The relative time in seconds when the rate limit
+window will be reset.
+
+The reason to allow both approaches is that APIs can have different
+needs. Retry-After is often sufficient for general load handling and
+request throttling scenarios and notably, does not strictly require the
+concept of a calling entity such as a tenant or named account. In turn
+this allows resource owners to minimise the amount of state they have to
+carry with respect to client requests. The 'X-RateLimit' headers are
+suitable for scenarios where clients are associated with pre-existing
+account or tenancy structures. 'X-RateLimit' headers are generally
+returned on every request and not just on a 429, which implies the
+service implementing the API is carrying sufficient state to track the
+number of requests made within a given window for each named entity.
+
+[#154]
+== {SHOULD} Explicitly define the Collection Format of Query Parameters
+
+There are different ways of supplying a set of values as a query
+parameter. One particular type should be selected and stated explicitly
+in the API definition. The OpenAPI property
+http://swagger.io/specification/[`collectionFormat`] is used to
+specify the format of the query parameter.
+
+Only the `csv` or `multi` formats should be used for multi-value query
+parameters as described below.
+
+[,cols="15%,25%,60%",options="header",]
+|=======================================================================
+|Collection Format |Description |Example
+|`csv` |Comma separated values |`?parameter=value1,value2,value3`
+
+|`multi` |Multiple parameter instances
+|`?parameter=value1&parameter=value2&parameter=value3`
+|=======================================================================
+
+When choosing the collection format, take into account the tool support,
+the escaping of special characters and the maximal URL length.

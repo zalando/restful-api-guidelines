@@ -1,0 +1,119 @@
+[[pagination]]
+= Pagination
+
+[#159]
+== {MUST} Support Pagination
+
+Access to lists of data items must support pagination for best client
+side batch processing and iteration experience. This holds true for all
+lists that are (potentially) larger than just a few hundred entries.
+
+There are two page iteration techniques:
+
+* http://developer.infoconnect.com/paging-results-limit-and-offset[Offset/Limit-based
+pagination]: numeric offset identifies the first page entry
+* https://dev.twitter.com/overview/api/cursoring[Cursor-based] — aka
+key-based — pagination: a unique key element identifies the first page
+entry (see also
+https://developers.facebook.com/docs/graph-api/using-graph-api/v2.4#paging[Facebook’s
+guide])
+
+The technical conception of pagination should also consider user
+experience related issues. As mentioned in this
+https://www.smashingmagazine.com/2016/03/pagination-infinite-scrolling-load-more-buttons/[article],
+jumping to a specific page is far less used than navigation via
+next/previous page links. This favours cursor-based over offset-based
+pagination.
+
+[#160]
+== {SHOULD} Prefer Cursor-Based Pagination, Avoid Offset-Based Pagination
+
+Cursor-based pagination is usually better and more efficient when
+compared to offset-based pagination. Especially when it comes to
+high-data volumes and / or storage in NoSQL databases.
+
+Before choosing cursor-based pagination, consider the following
+trade-offs:
+
+* Usability/framework support:
+** Offset / limit based pagination is more known than cursor-based
+pagination, so it has more framework support and is easier to use for
+API clients
+* Use case: Jump to a certain page
+** If jumping to a particular page in a range (e.g., 51 of 100) is
+really a required use case, cursor-based navigation is not feasible
+* Variability of data may lead to anomalies in result pages
+** Offset-based pagination may create duplicates or lead to missing
+entries if rows are inserted or deleted between two subsequent paging
+requests.
+** When using cursor-based pagination, paging cannot continue when the
+cursor entry has been deleted while fetching two pages
+* Performance considerations - efficient server-side processing using
+offset-based pagination is hardly feasible for:
+** Higher data list volumes, especially if they do not reside in the
+database’s main memory
+** Sharded or NoSQL databases
+* Cursor-based navigation may not work if you need the total count of
+results and / or backward iteration support
+
+Further reading:
+
+* https://dev.twitter.com/rest/public/timelines[Twitter]
+* http://use-the-index-luke.com/no-offset[Use the Index, Luke]
+* https://www.citusdata.com/blog/1872-joe-nelson/409-five-ways-paginate-postgres-basic-exotic[Paging
+in PostgreSQL]
+
+[#161]
+== {MAY} Use Pagination Links Where Applicable
+
+* API implementing <<162,HATEOS>> may use <<164,simplified hypertext controls>>
+for pagination within collections.
+
+Those collections should then have an `items` attribute holding the
+items of the current page. The collection may contain additional
+metadata about the collection or the current page (e.g. `index`,
+`page_size`) when necessary.
+
+You should avoid providing a total count in your API unless there's a
+clear need to do so. Very often, there are systems and performance
+implications to supporting full counts, especially as datasets grow and
+requests become complex queries or filters that drive full scans (e.g.,
+your database might need to look at all candidate items to count them).
+While this is an implementation detail relative to the API, it's
+important to consider your ability to support serving counts over the
+life of a service.
+
+If the collection consists of links to other resources, the collection
+name should use
+http://www.iana.org/assignments/link-relations/link-relations.xml[IANA
+registered link relations] as names whenever appropriate, but use plural
+form.
+
+E.g. a service for articles could represent the collection of hyperlinks
+to an article's `authors` like that:
+
+[source,json]
+----
+{
+  "self": "https://.../articles/xyz/authors/",
+  "index": 0,
+  "page_size": 5,
+  "items": [
+    {  
+      "href": "https://...",
+      "id": "123e4567-e89b-12d3-a456-426655440000",
+      "name": "Kent Beck"
+    },
+    {  
+      "href": "https://...",
+      "id": "987e2343-e89b-12d3-a456-426655440000",
+      "name": "Mike Beedle"
+    },
+    ...
+  ],
+  "first": "https://...",
+  "next": "https://...",
+  "prev": "https://...",
+  "last": "https://..."
+}
+----

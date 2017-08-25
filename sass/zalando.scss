@@ -1,0 +1,50 @@
+@import "foundation";
+@import "settings/zalando";
+@import "components/asciidoc";
+@import "components/awesome-icons";
+
+.must-keyword {
+  color: $must-color;
+}
+
+.should-keyword {
+  color: $should-color;
+}
+
+.may-keyword {
+  color: $may-color;
+}
+
+.sect1 {
+  max-width: 45em;
+}
+
+#content #toc {
+  max-width: 45em;
+}
+
+code {
+  font-size: .85em !important;
+}
+
+p > code {
+  background-color: #f0f0f0;
+  padding: .1em .4em .1em .4em !important;
+  font-size: .9em !important;
+  color: inherit;
+}
+
+a > code {
+  background-color: #f0f0f0;
+  padding: .1em .4em .1em .4em !important;
+  font-size: .9em !important;
+  color: black;
+}
+
+.literalblock pre, .literalblock pre[class], .listingblock pre, .listingblock pre[class] {
+  padding: .5em !important;
+}
+
+#toc a {
+  color: #364149;
+}

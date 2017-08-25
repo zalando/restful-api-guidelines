@@ -1,0 +1,33 @@
+= Developing Restful APIs: A Comprehensive Set of Guidelines by Zalando
+
+https://travis-ci.org/zalando/restful-api-guidelines[image:https://travis-ci.org/zalando/restful-api-guidelines.svg?branch=master[Build Status]]
+Latest published version:
+http://zalando.github.io/restful-api-guidelines/[*HTML*],
+http://zalando.github.io/restful-api-guidelines/zalando-restful-guidelines.pdf[*PDF*],
+http://zalando.github.io/restful-api-guidelines/zalando-restful-guidelines.epub[*EPUB3*]
+
+== Purpose
+
+Great RESTful APIs look like they were designed by a single team. This
+promotes API adoption, reduces friction, and enables clients to use them
+properly. To build APIs that meet this standard, and to answer many
+common questions encountered along the way of RESTful API development,
+the Zalando Tech team has created this comprehensive set of guidelines.
+We have shared it with you to inspire additional discussion and
+refinement within and among your teams, and contribute our learnings and
+suggestions to the tech community at large.
+
+== Usage
+
+Feel free to use these guidelines as a guidance for your own
+development. Note that we encourage our own teams to use them in order
+to challenge their APIs. As such, you should consider this to be a
+living, evolving document. We will revise and update based on our
+learnings and experiences.
+
+See link:BUILD.adoc[BUILD documentation] for technical details.
+
+== License
+
+We have published these guidelines under the CC-BY (Creative commons
+Attribution 4.0) license. Please see link:LICENSE[LICENSE file].

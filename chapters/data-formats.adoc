@@ -1,0 +1,115 @@
+[[data-formats]]
+= Data Formats
+
+[#167]
+== {MUST} Use JSON to Encode Structured Data
+
+Use JSON-encoded body payload for transferring structured data. The JSON
+payload must follow https://tools.ietf.org/html/rfc7159[RFC-7159] by
+having (if possible) a serialized object as the top-level structure,
+since it would allow for future extension. This also applies for
+collection resources where one naturally would assume an array. See <<160>> for
+an example.
+
+[#168]
+== {MAY} Use non JSON Media Types for Binary Data or Alternative Content Representations
+
+Other media types may be used in following cases:
+
+* Transferring binary data or data whose structure is not relevant. This is
+the case if payload structure is not interpreted and consumed by clients as is.
+Example of such use case is downloading images in formats JPG, PNG, GIF.
+* In addition to JSON version alternative data representations (e.g. in
+formats PDF, DOC, XML) may be made available through content
+negotiation.
+
+[#169]
+== {MUST} Use Standard Date and Time Formats
+
+[[json-payload]]
+=== JSON Payload
+
+Read more about date and time format in <<125>>.
+
+[[http-headers]]
+=== HTTP headers
+
+Http headers including the proprietary headers use the
+http://tools.ietf.org/html/rfc7231#section-7.1.1.1[HTTP date format
+defined in RFC 7231].
+
+[#170]
+== {MAY} Use Standards for Country, Language and Currency Codes
+
+Use the following standard formats for country, language and currency
+codes:
+
+* https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2[ISO 3166-1-alpha2
+country codes]
+** (It is “GB”, not “UK”, even though “UK” has seen some use at Zalando)
+* https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes[ISO 639-1
+language code]
+** https://tools.ietf.org/html/bcp47[BCP-47] (based on ISO 639-1) for
+language variants
+* https://en.wikipedia.org/wiki/ISO_4217[ISO 4217 currency codes]
+
+[#171]
+== {MUST} Define Format for Type Number and Integer
+
+Whenever an API defines a property of type `number` or `integer`, the
+precision must be defined by the format as follows to prevent clients
+from guessing the precision incorrectly, and thereby changing the value
+unintentionally:
+
+[cols="15%,15%,70%",options="header",]
+|=====================================================================
+|type |format |specified value range
+|integer |int32 |integer between pass:[-2<sup>31</sup>] and pass:[2<sup>31</sup>]-1
+|integer |int64 |integer between pass:[-2<sup>63</sup>] and pass:[2<sup>63</sup>]-1
+|integer |bigint |arbitrarily large signed integer number
+|number |float |IEEE 754-2008/ISO 60559:2011 binary64 decimal number
+|number |double |IEEE 754-2008/ISO 60559:2011 binary128 decimal number
+|number |decimal |arbitrarily precise signed decimal number
+|=====================================================================
+
+The precision must be translated by clients and servers into the most
+specific language types. E.g. for the following definitions the most
+specific language types in Java will translate to `BigDecimal` for
+`Money.amount` and `int` or `Integer` for the `OrderList.page_size`:
+
+[source,yaml]
+----
+Money:
+  type: object
+  properties:
+    amount:
+      type: number
+      description: Amount expressed as a decimal number of major currency units
+      format: decimal
+      example: 99.95
+   ...
+
+OrderList:
+  type: object
+  properties:
+    page_size:
+      type: integer
+      description: Number of orders in list
+      format: int32
+      example: 42
+----
+
+[#172]
+== {SHOULD} Prefer standard Media type name `application/json`
+
+Previously, this guideline allowed the use of custom media types like
+`application/x.zalando.article+json`. This usage is not recommended
+anymore and should be avoided, except where it is necessary for cases of
+<<114,media type versioning>>. Instead, the standard media type name
+`application/json` (or <<175>>).
+
+Custom media types with subtypes beginning with `x` bring no advantage
+compared to the standard media type for JSON, and make automated
+processing more difficult. They are also
+https://tools.ietf.org/html/rfc6838#section-3.4[discouraged by RFC
+6838].

@@ -1,0 +1,108 @@
+:stylesheet: zalando.css
+:source-highlighter: coderay
+:toc: macro
+:toclevels: 2
+:leveloffset: +1
+:sectlinks:
+:sectnums:
+:sectnumlevels: 1
+
+:creator: Zalando SE
+:producer: Asciidoctor
+:keywords: Zalando, Guidelines, RESTful, API, Events, Schema
+:copyright: CC-BY-SA 3.0
+
+:MUST: pass:[<span class="must-keyword"><strong>Must:</strong></span>]
+:SHOULD: pass:[<span class="should-keyword"><strong>Should:</strong></span>]
+:MAY: pass:[<span class="may-keyword"><strong>May:</strong></span>]
+
+= Zalando RESTful API and Event Scheme Guidelines
+Zalando SE
+
+image::assets/api-zalando-small.jpg[API Guild Logo]
+
+Other formats: link:zalando-guidelines.pdf[PDF], link:zalando-guidelines.epub[EPUB3]
+
+pass:[<div id="table-of-contents"></div>]
+
+toc::[]
+
+include::chapters/introduction.adoc[]
+include::chapters/design-principles.adoc[]
+include::chapters/general-guidelines.adoc[]
+include::chapters/security.adoc[]
+include::chapters/compatibility.adoc[]
+include::chapters/json-guidelines.adoc[]
+include::chapters/naming.adoc[]
+include::chapters/resources.adoc[]
+include::chapters/http.adoc[]
+include::chapters/performance.adoc[]
+include::chapters/pagination.adoc[]
+include::chapters/hyper-media.adoc[]
+include::chapters/data-formats.adoc[]
+include::chapters/common-data-types.adoc[]
+include::chapters/common-headers.adoc[]
+include::chapters/proprietary-headers.adoc[]
+include::chapters/deprecation.adoc[]
+include::chapters/api-operation.adoc[]
+include::chapters/events.adoc[]
+include::chapters/references.adoc[]
+include::chapters/tooling.adoc[]
+include::chapters/changelog.adoc[]
+
+++++
+<!-- Adds rule id as a postfix to all rule titles -->
+<script>
+var ruleIdRegEx = /(\d)+/;
+var h3headers = document.getElementsByTagName("h3");
+for (var i = 0; i < h3headers.length; i++) {
+    var header = h3headers[i];
+    if (header.id && header.id.match(ruleIdRegEx)) {
+        var a = header.getElementsByTagName("a")[0]
+        a.innerHTML += " [" + header.id + "]";
+    }
+}
+</script>
+++++
+
+++++
+<!-- Adds sidebar navigation -->
+<script>
+var header = document.getElementById('header');
+var nav = document.createElement('div');
+nav.id = 'toc';
+nav.classList.add('toc2');
+var title = document.createElement('div');
+title.id = 'toctitle';
+title.innerText = 'Table of Contents';
+nav.append(title);
+var ul = document.createElement('ul');
+ul.classList.add('sectlevel1');
+
+link = document.createElement('a');
+link.innerHTML = 'Overview';
+link.href = '#table-of-contents';
+li = document.createElement('li');
+li.append(link);
+ul.append(li);
+
+var link, li;
+var h2headers = document.getElementsByTagName('h2');
+for (var i = 0; i < h2headers.length; i++) {
+    var a = h2headers[i].getElementsByTagName("a")[0];
+    link = document.createElement('a');
+    link.innerHTML = a.innerHTML;
+    link.href = a.hash;
+    li = document.createElement('li');
+    li.append(link);
+    ul.append(li);
+}
+
+document.body.classList.add('toc2');
+document.body.classList.add('toc-left');
+nav.append(ul);
+header.prepend(nav);
+</script>
+++++
+
+++++

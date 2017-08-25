@@ -1,0 +1,11 @@
+$header-font-color: #404040;
+
+$must-color: red;
+$should-color: darkgoldenrod;
+$may-color: green;
+
+@media screen and (max-width: 768px) {
+  #toc.toc2 {
+    display: none;
+  }
+}

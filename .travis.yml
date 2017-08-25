@@ -1,17 +1,36 @@
-language: node_js
+sudo: required
 
-cache:
-  directories:
-    - node_modules
-
-node_js:
-  - "5.1"
-
-script:
-  - gitbook install -v 2.6.7
-  - gitbook build -v 2.6.7
-  - grunt deploy
+services:
+  - docker                  
 
 env:
   global:
   - secure: "lnrr6JHJiimLu5xLNxVNdZklfWVXuUAEFzzPRT84mMR/kqI1Z24A7CnkrdIPt58lacPkLEQL341lXc+4jn+//KjbtfX173gEfU/+EFM55CO0MPv8B8PDwg4K48j/7owiz2/6j9HZnhTfOejal6Aivd0QkAYq3Ukdtn9vUPL+TbLIm3Yac/s3+qHvFy5J6wmQsJuPPhOyHdvuIKPFJsbhFHb9aKupACg41nNsV9bqZVJG1ZX/SYc5Epm2xnhUAAivHF2WS0m+hLa3OWoGK0O0alfFjJ0kVCb32leo+FvhRg5oCYGRI5497JqpWJe1OIxH/oPr1CkwMxZ07NtfZkS1KkzQnetcj9/XsrWs3FRHv1VQIXrimeGkzQ20lsEXxXH5PPK1CGaL1xkBxLzR/yybdxaUGFrpjhfGxO1d/IH0D1m4q503ay2NVh6alNhr9TSu1DdrOV2CginIwlMHpPZqQ9TMOB71HsepfcGdkfH5pMcuvs77Byykl/c6YH8PjwrVUwG80NxatEPLuwET49jHpr3W03uYRRYk//HPG/NL0iR/UCGPBLQ1aQo0Qlimlpx58YQypAwpYjLhAg2K3PMo/r4LvXDLsTw6EjB/M8uBPYiFnB4CCK1Hm4pyAJRhtOnq9t1aDr/Sbh7VtrrZyM+Zasxx+kZ8r/6aW1i8Io6NzmU="
+
+before_install:            
+  - mkdir -p output
+  - docker pull asciidoctor/docker-asciidoctor
+
+script:
+  - ./check_uniqueness_of_rule_ids.sh > rule_id_uniqueness
+  - docker run -v $TRAVIS_BUILD_DIR:/documents/ --name asciidoc-to-html asciidoctor/docker-asciidoctor asciidoctor -D /documents/output index.adoc
+  - docker run -v $TRAVIS_BUILD_DIR:/documents/ --name asciidoc-to-pdf asciidoctor/docker-asciidoctor asciidoctor-pdf -D /documents/output index.adoc
+  - docker run -v $TRAVIS_BUILD_DIR:/documents/ --name asciidoctor-epub3 asciidoctor/docker-asciidoctor asciidoctor-epub3 -D /documents/output index.adoc
+  - cp -r assets output/
+  - cp -r -n legacy/* output/
+  - mv output/index.pdf output/zalando-guidelines.pdf
+  - mv output/index.epub output/zalando-guidelines.epub
+
+after_error:
+  - docker logs asciidoc-to-html
+  - docker logs asciidoc-to-pdf
+  - docker logs asciidoc-to-epub3
+  - cat rule_id_uniqueness
+
+after_failure:
+  - docker logs asciidoc-to-html
+  - docker logs asciidoc-to-pdf
+  - docker logs asciidoc-to-epub3
+  - cat rule_id_uniqueness
+
+after_success: ./travis_deploy.sh

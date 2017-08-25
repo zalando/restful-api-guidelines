@@ -1,0 +1,275 @@
+[[common-data-types]]
+= Common Data Types
+
+Definitions of data objects that are good candidates for wider usage:
+
+[#173]
+== {SHOULD} Use a Common Money Object
+
+Use the following common money structure:
+
+[source,yaml]
+----
+Money:
+  type: object
+  properties:
+    amount:
+      type: number
+      description: Amount expressed as a decimal number of major currency units
+      format: decimal
+      example: 99.95
+    currency:
+      type: string
+      description: 3 letter currency code as defined by ISO-4217
+      format: iso-4217
+      example: EUR
+  required:
+    - amount
+    - currency
+----
+
+The decimal values for "amount" describe unit and subunit of the
+currency in a single value, where the digits before the decimal point
+are for the major unit and the digits after the decimal point are for
+the minor unit. Note that some business cases (e.g. transactions in
+Bitcoin) call for a higher precision, so applications must be prepared
+to accept values with unlimited precision, unless explicitly stated
+otherwise in the API specification. Examples for correct representations
+(in EUR):
+
+* `42.20` or `42.2` = 42 Euros, 20 Cent
+* `0.23` = 23 Cent
+* `42.0` or `42` = 42 Euros
+* `1024.42` = 1024 Euros, 42 Cent
+* `1024.4225` = 1024 Euros, 42.25 Cent
+
+Make sure that you don’t convert the “amount” field to `float` /
+`double` types when implementing this interface in a specific language
+or when doing calculations. Otherwise, you might lose precision.
+Instead, use exact formats like Java’s
+https://docs.oracle.com/javase/8/docs/api/java/math/BigDecimal.html[`BigDecimal`].
+See http://stackoverflow.com/a/3730040/342852[Stack Overflow] for more
+info.
+
+Some JSON parsers (NodeJS’s, for example) convert numbers to floats by
+default. After discussing the
+https://docs.google.com/spreadsheets/d/12wTj-2w39f69XZGwRDrosNc1yWPwQpGgEs_DCt5ODaQ[pros
+and cons (internal link)], we’ve decided on "decimal" as our amount format. It
+is not a standard OpenAPI format, but should help us to avoid parsing numbers
+as float / doubles.
+
+[#174]
+== {MUST} Use common field names and semantics
+
+There exist a variety of field types that are required in multiple
+places. To achieve consistency across all API implementations, you must
+use common field names and semantics whenever applicable.
+
+[[generic-fields]]
+=== Generic Fields
+
+There are some data fields that come up again and again in API data:
+
+* `id`: the identity of the object. If used, IDs must opaque strings and
+not numbers. IDs are unique within some documented context, are stable
+and don't change for a given object once assigned, and are never
+recycled cross entities.
+* `xyz_id`: an attribute within one object holding the identifier of
+another object must use a name that corresponds to the type of the
+referenced object or the relationship to the referenced object followed
+by `_id` (e.g. `customer_id` not `customer_number`; `parent_node_id` for
+the reference to a parent node from a child node, even if both have the
+type `Node`)
+* `created`: when the object was created. If used, this must be a
+`date-time` construct.
+* `modified`: when the object was updated. If used, this must be a
+`date-time` construct.
+* `type`: the kind of thing this object is. If used, the type of this
+field should be a string. Types allow runtime information on the entity
+provided that otherwise requires examining the Open API file.
+
+Example JSON schema:
+
+[source,json]
+----
+tree_node:
+  type: object
+  properties: 
+    id:
+      description: the identifier of this node
+      type: string
+    created:
+      description: when got this node created
+      type: string
+      format: 'date-time'
+    modified:
+      description: when got this node last updated
+      type: string
+      format: 'date-time'
+    type:
+      type: string
+      enum: [ 'LEAF', 'NODE' ]
+    parent_node_id:
+      description: the identifier of the parent node of this node
+      type: string
+  example:
+    id: '123435'
+    created: '2017-04-12T23:20:50.52Z'
+    modified: '2017-04-12T23:20:50.52Z'
+    type: 'LEAF'
+    parent_node_id: '534321'
+----
+
+These properties are not always strictly necessary, but making them
+idiomatic allows API client developers to build up a common
+understanding of Zalando's resources. There is very little utility for
+API consumers in having different names or value types for these fields
+across APIs.
+
+[[address-fields]]
+=== Address Fields
+
+Address structures play a role in different functional and use-case
+contexts, including country variances. All attributes that relate to
+address information should follow the naming and semantics defined
+below.
+
+[source,yaml]
+----
+addressee:
+  description: a (natural or legal) person that gets addressed
+  type: object
+  required:
+    - first_name
+    - last_name
+    - street
+    - city
+    - zip
+    - country_code
+  properties:
+    salutation:
+      description: |
+        a salutation and/or title used for personal contacts to some
+        addressee; not to be confused with the gender information!
+      type: string
+      example: Mr
+    first_name:
+      description: |
+        given name(s) or first name(s) of a person; may also include the
+        middle names.
+      type: string
+      example: Hans Dieter
+    last_name:
+      description: |
+        family name(s) or surname(s) of a person
+      type: string
+      example: Mustermann
+    business_name:
+      description: |
+        company name of the business organization. Used when a business is
+        the actual addressee; for personal shipments to office addresses, use
+        `care_of` instead.
+      type: string
+      example: Consulting Services GmbH
+  required:
+    - first_name
+    - last_name
+
+address:
+  description:
+    an address of a location/destination
+  type: object
+  properties:
+    care_of:
+      description: |
+        (aka c/o) the person that resides at the address, if different from
+        addressee. E.g. used when sending a personal parcel to the
+        office /someone else's home where the addressee resides temporarily
+      type: string
+      example: Consulting Services GmbH
+    street:
+      description: |
+        the full street address including house number and street name
+      type: string
+      example: Schönhauser Allee 103
+    additional:
+      description: |
+        further details like building name, suite, apartment number, etc.
+      type: string
+      example: 2. Hinterhof rechts
+    city:
+      description: |
+        name of the city / locality
+      type: string
+      example: Berlin
+    zip:
+      description: |
+        zip code or postal code
+      type: string
+      example: 14265
+    country_code:
+      description: |
+        the country code according to
+        [iso-3166-1-alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
+      type: string
+      example: DE
+  required:
+    - street
+    - city
+    - zip
+    - country_code
+----
+
+Grouping and cardinality of fields in specific data types may vary based
+on the specific use case (e.g. combining addressee and address fields
+into a single type when modeling an address label vs distinct addressee
+and address types when modeling users and their addresses).
+
+[#175]
+== {MUST} Follow Hypertext Control Conventions
+
+APIs that provide hypertext controls (links) to interconnect API
+resources must follow the conventions for naming and modeling of
+hypertext controls as defined in section <<hypermedia>>.
+
+[#176]
+== {MUST} Use Problem JSON
+
+http://tools.ietf.org/html/rfc7807[RFC 7807] defines the media type
+`application/problem+json`. Operations should return that (together with
+a suitable status code) when any problem occurred during processing and
+you can give more details than the status code itself can supply,
+whether it be caused by the client or the server (i.e. both for 4xx or
+5xx errors).
+
+A previous version of this guideline (before the publication of that RFC
+and the registration of the media type) told to return
+`application/x.problem+json` in these cases (with the same contents).
+Servers for APIs defined before this change should pay attention to the
+`Accept` header sent by the client and set the `Content-Type` header of
+the problem response correspondingly. Clients of such APIs should accept
+both media types.
+
+APIs may define custom problems types with extension properties,
+according to their specific needs.
+
+The Open API schema definition can be found
+https://zalando.github.io/problem/schema.yaml[on github]. You can
+reference it by using:
+
+[source,yaml]
+----
+responses:
+  503:
+    description: Service Unavailable
+    schema:
+      $ref: 'https://zalando.github.io/problem/schema.yaml#/Problem'
+----
+
+[#177]
+== {MUST} Do not expose Stack Traces
+
+Stack traces contain implementation details that are not part of an API,
+and on which clients should never rely. Moreover, stack traces can leak
+sensitive information that partners and third parties are not allowed to
+receive and may disclose insights about vulnerabilities to attackers.

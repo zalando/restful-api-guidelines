@@ -1,0 +1,329 @@
+[[compatibility]]
+= Compatibility
+
+[#106]
+== {MUST} Don’t Break Backward Compatibility
+
+Change APIs, but keep all consumers running. Consumers usually have
+independent release lifecycles, focus on stability, and avoid changes
+that do not provide additional value. APIs are contracts between service
+providers and service consumers that cannot be broken via unilateral
+decisions.
+
+There are two techniques to change APIs without breaking them:
+
+* follow rules for compatible extensions
+* introduce new API versions and still support older versions
+
+We strongly encourage using compatible API extensions and discourage
+versioning. The below guideline rules for service providers and
+consumers enable us (having Postel’s Law in mind) to make compatible
+changes without versioning.
+
+*Hint:* Please note that the compatibility guarantees are for the "on
+the wire" format. Binary or source compatibility of code generated from
+an API definition is not covered by these rules. If client
+implementations update their generation process to a new version of the
+API definition, it has to be expected that code changes are necessary.
+
+[#107]
+== {SHOULD} Prefer Compatible Extensions
+
+API designers should apply the following rules to evolve RESTful APIs
+for services in a backward-compatible way:
+
+* Add only optional, never mandatory fields.
+* Never change the semantic of fields (e.g. changing the semantic from
+customer-number to customer-id, as both are different unique customer
+keys)
+* Input fields may have (complex) constraints being validated via
+server-side business logic. Never change the validation logic to be more
+restrictive and make sure that all constraints a clearly defined in
+description.
+* Enum ranges can be reduced when used as input parameters, only if the
+server is ready to accept and handle old range values too. Enum range
+can be reduced when used as output parameters.
+* Enum ranges cannot not be extended when used for output parameters —
+clients may not be prepared to handle it. However, enum ranges can be
+extended when used for input parameters.
+* Use <<112,`x-extensible-enum`>>,
+if range is used for output parameters and likely to be extended with
+growing functionality. It defines an open list of explicit values and
+clients must be agnostic to new values.
+* Support redirection in case an URL has to change
+(https://en.wikipedia.org/wiki/HTTP_301[301 Moved Permanently]).
+
+[#108]
+== {MUST} Prepare Clients To Not Crash On Compatible API Extensions
+
+Service clients should apply the robustness principle:
+
+* Be conservative with API requests and data passed as input, e.g. avoid
+to exploit definition deficits like passing megabytes for strings with
+unspecified maximum length.
+* Be tolerant in processing and reading data of API responses, more
+specifically...
+
+Service clients must be prepared for compatible API extensions of
+service providers:
+
+* Be tolerant with unknown fields in the payload (see also Fowler’s
+http://martinfowler.com/bliki/TolerantReader.html["TolerantReader"]
+post), i.e. ignore new fields but do not eliminate them from payload if
+needed for subsequent PUT requests.
+* Be prepared that <<112,`x-extensible-enum`>>
+return parameter may deliver new values; either be agnostic or provide
+default behavior for unknown values.
+* Be prepared to handle HTTP status codes not explicitly specified in
+endpoint definitions. Note also, that status codes are extensible.
+Default handling is how you would treat the corresponding x00 code (see
+https://tools.ietf.org/html/rfc7231#section-6[RFC7231 Section 6]).
+* Follow the redirect when the server returns HTTP status
+https://en.wikipedia.org/wiki/HTTP_301[301 Moved Permanently].
+
+[#109]
+== {SHOULD} Design APIs Conservatively
+
+Designers of service provider APIs should be conservative and accurate
+in what they accept from clients:
+
+* Unknown input fields in payload or URL should not be ignored; servers
+should provide error feedback to clients via an HTTP 400 response code.
+* Be accurate in defining input data constraints (like formats, ranges,
+lengths etc.) — and check constraints and return dedicated error
+information in case of violations.
+* Prefer being more specific and restrictive (if compliant to functional
+requirements), e.g. by defining length range of strings. It may simplify
+implementation while providing freedom for further evolution as
+compatible extensions.
+
+Not ignoring unknown input fields is a specific deviation from Postel's
+Law (e.g. see also +
+https://cacm.acm.org/magazines/2011/8/114933-the-robustness-principle-reconsidered/fulltext[The
+Robustness Principle Reconsidered]) and a strong recommendation. Servers
+might want to take different approach but should be aware of the
+following problems and be explicit in what is supported:
+
+* Ignoring unknown input fields is actually not an option for PUT, since
+it becomes asymmetric with subsequent GET response and HTTP is clear
+about the PUT "replace" semantics and default roundtrip expectations
+(see https://tools.ietf.org/html/rfc7231#section-4.3.4[RFC7231 Section
+4.3.4]). Note, accepting (i.e. not ignoring) unknown input fields and
+returning it in subsequent GET responses is a different situation and
+compliant to PUT semantics.
+* Certain client errors cannot be recognized by servers, e.g. attribute
+name typing errors will be ignored without server error feedback. The
+server cannot differentiate between the client intentionally providing
+an additional field versus the client sending a mistakenly named field,
+when the client's actual intent was to provide an optional input field.
+* Future extensions of the input data structure might be in conflict
+with already ignored fields and, hence, will not be compatible, i.e.
+break clients that already use this field but with different type.
+
+In specific situations, where a (known) input field is not needed
+anymore, it either can stay in the API definition with "not used
+anymore" description or can be removed from the API definition as long
+as the server ignores this specific parameter.
+
+[#110]
+== {MUST} Always Return JSON Objects As Top-Level Data Structures To Support Extensibility
+
+In a response body, you must always return a JSON object (and not e.g.
+an array) as a top level data structure to support future extensibility.
+JSON objects support compatible extension by additional attributes. This
+allows you to easily extend your response and e.g. add pagination later,
+without breaking backwards compatibility.
+
+[#111]
+== {MUST} Treat Open API Definitions As Open For Extension By Default
+
+The Open API 2.0 specification is not very specific on default
+extensibility of objects, and redefines JSON-Schema keywords related to
+extensibility, like `additionalProperties`. Following our overall
+compatibility guidelines, Open API object definitions are considered
+open for extension by default as per
+http://json-schema.org/latest/json-schema-validation.html#rfc.section.5.18[Section
+5.18 "additionalProperties"] of JSON-Schema.
+
+When it comes to Open API 2.0, this means an `additionalProperties`
+declaration is not required to make an object definition extensible:
+
+* API clients consuming data must not assume that objects are closed for
+extension in the absence of an `additionalProperties` declaration and
+must ignore fields sent by the server they cannot process. This allows
+API servers to evolve their data formats.
+* For API servers receiving unxpected data, the situation is slightly
+different. Instead of ignoring fields, servers _may_ reject requests
+whose entities contain undefined fields in order to signal to clients
+that those fields would not be stored on behalf of the client. API
+designers must document clearly how unexpected fields are handled for
+PUT, POST and PATCH requests.
+
+API formats must not declare `additionalProperties` to be false, as this
+prevents objects being extended in the future.
+
+Note that this guideline concentrates on default extensibility and does
+not exclude the use of `additionalProperties` with a schema as a value,
+which might be appropriate in some circumstances.
+
+[#112]
+== {SHOULD} Used Open-Ended List of Values (x-extensible-enum) Instead of Enumerations
+
+Enumerations are per definition closed sets of values, that are assumed
+to be complete and not intended for extension. This closed principle of
+enumerations imposes compatibility issues when an enumeration must be
+extended. To avoid these issues, we strongly recommend to use an
+open-ended list of values instead of an enumeration unless:
+
+1.  the API has full control of the enumeration values, i.e. the list of
+values does not depend on any external tool or interface, and
+2.  the list of value is complete with respect to any thinkable and
+unthinkable future feature.
+
+To specify an open-ended list of values use the marker
+`x-extensible-enum` as follows:
+
+[source,yaml]
+----
+deliver_methods:
+  type: string
+  x-extensible-enum:
+    - parcel
+    - letter
+    - email
+----
+
+*Note:* `x-extensible-enum` is not JSON Schema conform but will be
+ignored by most tools.
+
+[#113]
+== {SHOULD} Avoid Versioning
+
+When changing your RESTful APIs, do so in a compatible way and avoid
+generating additional API versions. Multiple versions can significantly
+complicate understanding, testing, maintaining, evolving, operating and
+releasing our systems
+(http://martinfowler.com/articles/enterpriseREST.html[supplementary
+reading]).
+
+If changing an API can’t be done in a compatible way, then proceed in
+one of these three ways:
+
+* create a new resource (variant) in addition to the old resource
+variant
+* create a new service endpoint — i.e. a new application with a new API
+(with a new domain name)
+* create a new API version supported in parallel with the old API by the
+same microservice
+
+As we discourage versioning by all means because of the manifold
+disadvantages, we suggest to only use the first two approaches.
+
+[#114]
+== {MUST} Use Media Type Versioning
+
+When API versioning is unavoidable, you have to design your
+multi-version RESTful APIs using media type versioning (instead of URI
+versioning, see below). Media type versioning is less tightly coupled
+since it supports content negotiation and hence reduces complexity of
+release management.
+
+Media type versioning: Here, version information and media type are
+provided together via the HTTP Content-Type header — e.g.
+application/x.zalando.cart+json;version=2. For incompatible changes, a
+new media type version for the resource is created. To generate the new
+representation version, consumer and producer can do content negotiation
+using the HTTP Content-Type and Accept headers. Note: This versioning
+only applies to the request and response content schema, not to URI or
+method semantics.
+
+In this example, a client wants only the new version of the response:
+
+[source,http]
+----
+Accept: application/x.zalando.cart+json;version=2
+----
+
+A server responding to this, as well as a client sending a request with
+content should use the Content-Type header, declaring that one is
+sending the new version:
+
+[source,http]
+----
+Content-Type: application/x.zalando.cart+json;version=2
+----
+
+Using header versioning should:
+
+* include versions in request and response headers to increase
+visibility
+* include Content-Type in the Vary header to enable proxy caches to
+differ between versions
+
+Hint: https://github.com/OAI/OpenAPI-Specification/issues/146[OpenAPI
+currently doesn’t support content negotiation], though
+https://github.com/OAI/OpenAPI-Specification/issues/146#issuecomment-117288707[a
+comment in this issue] mentions a workaround (using a fragment
+identifier that gets stripped off). Another way would be to document
+just the new version, but let the server accept the old one (with the
+previous content-type).
+
+Until an incompatible change is necessary, it is recommended to stay
+with the standard `application/json` media type.
+
+[#115]
+== {MUST} Do Not Use URI Versioning
+
+With URI versioning a (major) version number is included in the path,
+e.g. /v1/customers. The consumer has to wait until the provider has been
+released and deployed. If the consumer also supports hypermedia links —
+even in their APIs — to drive workflows (HATEOAS), this quickly becomes
+complex. So does coordinating version upgrades — especially with
+hyperlinked service dependencies — when using URL versioning. To avoid
+this tighter coupling and complexer release management we do not use URI
+versioning, and go instead with media type versioning and content
+negotiation (see above).
+
+[#116]
+== {SHOULD} Provide Version Information in OpenAPI Documentation
+
+Only the documentation, not the API itself, needs version information.
+
+Example:
+
+[source,json]
+----
+"swagger": "2.0",
+"info": {
+  "title": "Parcel service API",
+  "description": "API for <...>",
+  "version": "1.0.0",
+    <...>
+}
+----
+
+During a (possibly) long-running API review phase you need different
+versions of the API description. These versions may include changes that
+are incompatible with earlier draft versions. So we apply the following
+version schema MAJOR.MINOR.DRAFT that increments the...
+
+* MAJOR version, when you make incompatible API changes
+* MINOR version, when you add functionality in a backwards-compatible
+manner
+* DRAFT version, when you make changes during the review phase that are
+not related to production releases
+
+We recommend using the DRAFT version only for unreleased API definitions
+that are still under review; for example:
+
+....
+version 1.4.0  -- current version
+version 1.4.1  -- first draft and call for review of API extensions compatible with 1.4.0
+version 1.4.2  -- second draft and call for review of API extensions that are still compatible with 1.4.0 but possibly incompatible with 1.4.1
+version 1.5.0  -- approved version for implementation and release
+version 1.5.1  -- first draft for next review and API change cycle; compatible with 1.4.0 and 1.5.0
+....
+
+Hint: This versioning scheme differs in the less strict DRAFT aspect
+from http://semver.org[semantic version information] used for released
+APIs and service applications.
