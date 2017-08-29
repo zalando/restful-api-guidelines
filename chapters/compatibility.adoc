@@ -230,7 +230,7 @@ release management.
 
 Media type versioning: Here, version information and media type are
 provided together via the HTTP Content-Type header — e.g.
-application/x.zalando.cart+json;version=2. For incompatible changes, a
+application/vnd.uk.gov.hmcts.idam.user.v2+json. For incompatible changes, a
 new media type version for the resource is created. To generate the new
 representation version, consumer and producer can do content negotiation
 using the HTTP Content-Type and Accept headers. Note: This versioning
@@ -241,7 +241,7 @@ In this example, a client wants only the new version of the response:
 
 [source,http]
 ----
-Accept: application/x.zalando.cart+json;version=2
+Accept: application/vnd.uk.gov.hmcts.idam.user.v2+json
 ----
 
 A server responding to this, as well as a client sending a request with
@@ -250,7 +250,7 @@ sending the new version:
 
 [source,http]
 ----
-Content-Type: application/x.zalando.cart+json;version=2
+Content-Type: application/vnd.uk.gov.hmcts.idam.user.v2+json
 ----
 
 Using header versioning should:
