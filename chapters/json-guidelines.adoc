@@ -22,7 +22,7 @@ essential to establish a consistent look and feel such that JSON looks
 as if it came from the same hand.
 
 [#119]
-== {MUST} Property names must match `^[a-zA-Z_$][a-zA-Z_$0-9]$`
+== {MUST} Property names must match `^[a-zA-Z_$][a-zA-Z_$0-9]*$`
 
 Property names are restricted to ASCII encoded strings. The first
 character must be a letter, an underscore or a dollar sign, and
