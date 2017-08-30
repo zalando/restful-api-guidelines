@@ -3,8 +3,8 @@
 https://travis-ci.org/zalando/restful-api-guidelines[image:https://travis-ci.org/zalando/restful-api-guidelines.svg?branch=master[Build Status]]
 Latest published version:
 http://zalando.github.io/restful-api-guidelines/[*HTML*],
-http://zalando.github.io/restful-api-guidelines/zalando-restful-guidelines.pdf[*PDF*],
-http://zalando.github.io/restful-api-guidelines/zalando-restful-guidelines.epub[*EPUB3*]
+http://zalando.github.io/restful-api-guidelines/zalando-guidelines.pdf[*PDF*],
+http://zalando.github.io/restful-api-guidelines/zalando-guidelines.epub[*EPUB3*]
 
 == Purpose
 
