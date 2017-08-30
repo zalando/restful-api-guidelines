@@ -57,11 +57,6 @@ spaces, NULL). If a legacy subsystem can only work with flow IDs of a
 specific format, it needs to define this in its API, or make its own
 ones. |GKY7oDhpSiKY_gAAAABZ_A
 
-|X-UID |String |Generic user id of OpenId account that owns the passed
-(OAuth2) access token. E.g. additionally provided by OpenIG proxy after
-access token validation -- may save additional token validation round
-trips. |w435-dker-jdh357
-
 |X-Tenant-ID |String |The tenant id for future platform multitenancy
 support. _Should not be used unless new platform multitenancy is truly
 supported. But should be used by New Platform Prototyping services._
