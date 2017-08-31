@@ -9,7 +9,7 @@ EMAIL="no-reply@zalando.de"
 DEPLOY_MESSAGE="Deploy to GitHub Pages (auto)"
 GH_REPO="github.com/zalando/restful-api-guidelines.git"
 
-if [[ "${TRAVIS}" -eq "true" && "${TRAVIS_SECURE_ENV_VARS}" -eq "true" && "${TRAVIS_PULL_REQUEST}" -eq "false" && "${TRAVIS_BRANCH}" -eq "master" ]]; then
+if [[ "${TRAVIS}" = "true" && "${TRAVIS_SECURE_ENV_VARS}" = "true" && "${TRAVIS_PULL_REQUEST}" = "false" && "${TRAVIS_BRANCH}" = "master" ]]; then
     echo "Deploying to gh-pages branch"
     cd output
     git init
