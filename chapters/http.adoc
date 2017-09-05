@@ -367,7 +367,7 @@ and visibility into how to use an API. The error object should be
 extended by an application-specific error identifier if and only if the
 HTTP status code is not specific enough to convey the domain-specific
 error semantic. For this reason, we use a standardized error return
-object definition — see <<175>.
+object definition — see <<175>>.
 
 The OpenAPI specification shall include definitions for error
 descriptions that will be returned; they are part of the interface
