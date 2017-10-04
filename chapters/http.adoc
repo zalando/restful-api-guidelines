@@ -237,10 +237,10 @@ This guideline groups the following rules for HTTP status codes usage:
 status codes and consistent with its intended semantics.
 * You should use the most specific HTTP status code for your concrete
 resource request processing status or error situation.
-* You should provide good documentation in the API definition when using
-HTTP status codes that are less commonly used and not listed below.
+* When using HTTP status codes that are less commonly used and not listed 
+below, you must provide good documentation in the API definition.
 
-There are \~60 different HTTP status codes with specific semantics
+There are ~60 different HTTP status codes with specific semantics
 defined in the HTTP standards (mainly
 https://tools.ietf.org/html/rfc7231#section-6[RFC7231] and
 https://tools.ietf.org/html/rfc6585[RFC-6585]) - and there are upcoming
@@ -251,7 +251,7 @@ https://en.wikipedia.org/wiki/List_of_HTTP_status_codes[Wikipedia] or
 via https://httpstatuses.com/). And there are unofficial ones, e.g. used
 by specific web servers like Nginx.
 
-Our list of most commonly used and best understood HTTP status codes:
+List of most commonly used and best understood HTTP status codes:
 
 [[success-codes]]
 === Success Codes
