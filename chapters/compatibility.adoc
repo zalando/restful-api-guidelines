@@ -217,12 +217,12 @@ variant
 same microservice
 
 As we discourage versioning by all means because of the manifold
-disadvantages, we suggest to only use the first two approaches.
+disadvantages, we strongly recommend to only use the first two approaches.
 
 [#114]
 == {MUST} Use Media Type Versioning
 
-When API versioning is unavoidable, you have to design your
+However, when API versioning is unavoidable, you have to design your
 multi-version RESTful APIs using media type versioning (instead of URI
 versioning, see below). Media type versioning is less tightly coupled
 since it supports content negotiation and hence reduces complexity of
@@ -260,6 +260,9 @@ visibility
 * include Content-Type in the Vary header to enable proxy caches to
 differ between versions
 
+Hint: Until an incompatible change is necessary, it is recommended to stay
+with the standard `application/json` media type.
+
 Hint: https://github.com/OAI/OpenAPI-Specification/issues/146[OpenAPI
 currently doesn’t support content negotiation], though
 https://github.com/OAI/OpenAPI-Specification/issues/146#issuecomment-117288707[a
@@ -268,8 +271,9 @@ identifier that gets stripped off). Another way would be to document
 just the new version, but let the server accept the old one (with the
 previous content-type).
 
-Until an incompatible change is necessary, it is recommended to stay
-with the standard `application/json` media type.
+Further reading: 
+https://blog.apisyouwonthate.com/api-versioning-has-no-right-way-f3c75457c0b7[API Versioning Has No "Right Way"] 
+provides an overview on different versioning approaches to handle breaking changes without being opinionated. 
 
 [#115]
 == {MUST} Do Not Use URI Versioning
