@@ -5,10 +5,9 @@ Sometimes it is necessary to phase out an API endpoint (or version), for instanc
 if a field is no longer supported in the result or a whole business functionality 
 behind an endpoint has to be shut down. There are many other reasons as well. 
 As long as these endpoints are still used by consumers these are breaking 
-changes and not allowed. Deprecation rules of play have to be applied, 
-as to make sure that alignment about imposed consumer changes has taken place 
-and deprecated endpoints are not used by actively maintained consumers before 
-API changes become effective. 
+changes and not allowed. Deprecation rules have to be applied to make sure that 
+necessary consumer changes are aligned and deprecated endpoints are not used
+before API changes are deployed. 
 
 [#185]
 == {MUST} Obtain Approval of Clients
