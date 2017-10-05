@@ -4,7 +4,7 @@
 Sometimes it is necessary to phase out an API endpoint (or version), for instance, 
 if a field is no longer supported in the result or a whole business functionality 
 behind an endpoint has to be shut down. There are many other reasons as well. 
-Of course, as long as these endpoints are still used by consumers these are breaking 
+As long as these endpoints are still used by consumers these are breaking 
 changes and not allowed. Deprecation rules of play have to be applied, 
 as to make sure that alignment about imposed consumer changes has taken place 
 and deprecated endpoints are not used by actively maintained consumers before 
