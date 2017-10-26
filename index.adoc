@@ -4,7 +4,6 @@
 :toclevels: 2
 :leveloffset: +1
 :sectlinks:
-:sectnums:
 :sectnumlevels: 1
 
 :creator: Zalando SE
@@ -23,9 +22,9 @@ image::assets/api-zalando-small.jpg[API Guild Logo]
 
 Other formats: link:zalando-guidelines.pdf[PDF], link:zalando-guidelines.epub[EPUB3]
 
-pass:[<div id="table-of-contents"></div>]
-
 toc::[]
+
+:sectnums:
 
 include::chapters/introduction.adoc[]
 include::chapters/design-principles.adoc[]
@@ -63,9 +62,18 @@ for (var i = 0; i < h3headers.length; i++) {
     }
 }
 </script>
-++++
 
-++++
+<!-- Add table of contents anchor and remove document title -->
+<script>
+var toc = document.getElementById('toc');
+var div = document.createElement('div');
+div.id = 'table-of-contents';
+toc.parentNode.replaceChild(div, toc);
+div.appendChild(toc);
+var ul = toc.childNodes[3];
+ul.removeChild(ul.childNodes[1]);
+</script>
+
 <!-- Adds sidebar navigation -->
 <script>
 var header = document.getElementById('header');
@@ -74,13 +82,19 @@ nav.id = 'toc';
 nav.classList.add('toc2');
 var title = document.createElement('div');
 title.id = 'toctitle';
-title.innerText = 'Table of Contents';
+
+var link = document.createElement('a');
+link.innerText = 'API Guidelines';
+link.href = '#';
+
+title.append(link);
 nav.append(title);
+
 var ul = document.createElement('ul');
 ul.classList.add('sectlevel1');
 
-link = document.createElement('a');
-link.innerHTML = 'Overview';
+var link = document.createElement('a');
+link.innerHTML = 'Table of Contents';
 link.href = '#table-of-contents';
 li = document.createElement('li');
 li.append(link);
@@ -88,14 +102,16 @@ ul.append(li);
 
 var link, li;
 var h2headers = document.getElementsByTagName('h2');
-for (var i = 0; i < h2headers.length; i++) {
+for (var i = 1; i < h2headers.length; i++) {
     var a = h2headers[i].getElementsByTagName("a")[0];
-    link = document.createElement('a');
-    link.innerHTML = a.innerHTML;
-    link.href = a.hash;
-    li = document.createElement('li');
-    li.append(link);
-    ul.append(li);
+    if (a !== undefined) {
+        link = document.createElement('a');
+        link.innerHTML = a.innerHTML;
+        link.href = a.hash;
+        li = document.createElement('li');
+        li.append(link);
+        ul.append(li);
+    }
 }
 
 document.body.classList.add('toc2');
