@@ -331,3 +331,54 @@ version 1.5.1  -- first draft for next review and API change cycle; compatible w
 Hint: This versioning scheme differs in the less strict DRAFT aspect
 from http://semver.org[semantic version information] used for released
 APIs and service applications.
+
+[#215]
+== {SHOULD} Provide API Identifiers to Support API Histories
+
+Each API should be identified by an explicit, owner assigned, globally unique,
+and immutable API identifier, that allows to reveal the history and evolution
+of an API as a sequence of API specifications.
+
+The API identifier is provided in the `info`-block of the Open API specification
+and must conform to the following specification:
+
+[source,yaml]
+----
+/info/x-api-id:
+  type: string
+  format: urn
+  pattern: ^[a-z0-9][a-z0-9-:.]{6,64}[a-z0-9]$
+  description: |
+    Globally unique and immutable ID required to identify the API. The API
+    identifier allows to reveal the history and evolution of an API as a 
+    sequence of API specifications. It enables validation tools to detect
+    incompatible changes and incorrect semantic versions.
+----
+
+It is responsibility of the API owner to ensure that the application of the
+API identifier together with the semantic API <<116,version>> reflect the
+expected API history. 
+
+While it is nice to use human readable API identifiers based on self-managed
+URNs, it is recommend to stick to UUIDs to relief API designers from any urge
+of changing the API identifier while evolving the API. Example:
+
+[source,yaml]
+----
+swagger: 2.0,
+info:
+  x-api-id: d0184f38-b98d-11e7-9c56-68f728c1ba70
+  title: Parcel service API
+  description: API for <...>
+  version: 1.0.0
+  <...>
+----
+
+If no API identifier is provided, a virtual API identifier is assigned to
+the API by mapping the API title (#/info/title) to a reduced, readable string
+using the restricted character set `[a-z0-9:.-]`.footnoteref:[virtual-api-id,
+The used algorithm maps all uppercase letters to lowercases, all characters
+in `[^a-z0-9.-\]` to “-”, all occurrences of multiple “-” to a single “-”, and
+finally deletes all leading and trailing “-”.] As a consequence, the API title
+should not be changed until an API identifier has been assigned to an API to
+preserve the API history.
