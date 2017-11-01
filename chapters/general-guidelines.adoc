@@ -8,7 +8,7 @@ The titles are marked with the corresponding labels: {MUST},
 == {MUST} Follow API First Principle
 
 As mentioned in the introduction, API First is one of our
-https://github.com/zalando-incubator/zalando-tech-principles[engineering
+https://github.com/hjacobs/zalando-tech-principles[engineering
 and architecture principles]. In a nutshell API First requires two
 aspects:
 
