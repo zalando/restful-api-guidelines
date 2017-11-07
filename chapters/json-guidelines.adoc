@@ -9,8 +9,8 @@ media type and custom JSON media types defined for APIs. The guidelines
 clarifies some specific cases to allow Zalando JSON data to have an
 idiomatic form across teams and services.
 
-[#117]
-== {MUST} Use Consistent Property Names
+The first some of the following guidelines are about property names,
+the later ones about values.
 
 [#118]
 == {MUST} Property names must be snake_case (and never camelCase)
@@ -35,9 +35,6 @@ characters can be a letter, an underscore, or a number.
 
 To indicate they contain multiple values prefer to pluralize array
 names. This implies that object names should in turn be singular.
-
-[#121]
-== {MUST} Use Consistent Property Values
 
 [#122]
 == {MUST} Boolean property values must not be null
