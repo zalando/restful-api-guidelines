@@ -27,6 +27,57 @@ Others, like Google and Amazon, use both - but not only camelCase. It’s
 essential to establish a consistent look and feel such that JSON looks
 as if it came from the same hand.
 
+[#216]
+==  Define maps using `additionalProperties`, without restriction on key format.
+
+A "map" here is a mapping from string keys to some other type.
+In JSON this is represented as an object, the key-value pairs being represented
+by property names and property values.
+In OpenAPI schema (as well as in JSON schema) they should be represented using
+additionalProperties with a schema for the value type. Such an object should normally
+have no other defined properties.
+
+The map keys don't count as property names in the sense of #118[rule #118], and can
+follow whatever format is natural for their domain. Please document this in the description
+of the map object's schema.
+
+Here is an example for such a map definition (the `translations` property):
+
+```yaml
+definitions:
+  Message:
+    description:
+      A message together with translations in several languages.
+    type: object
+    properties:
+      message_key:
+        type: string
+        description: The message key.
+      translations:
+        description:
+          The translations of this message into several languages.
+          The keys are usual locale identifiers (ISO-639- language codes,
+          together with an optional ISO-3166 country-code, separated by `_`).
+        type: object
+        additionalProperties:
+          type: string
+          description:
+            the translation of this message into the language identified by the key.
+```
+
+An actual JSON object described by this might then look like this:
+```json
+{ "message_key": "hello_world",
+  "translations": {
+    "de": "Hallo Welt!",
+    "en": "Hello World!",
+    "eo": "Saluton mondo!",
+    "cz": "Ahoj Světe!",
+    "el": "Γεια σου κόσμε!"
+  }
+}
+```
+
 [#120]
 == {SHOULD} Array names should be pluralized
 
