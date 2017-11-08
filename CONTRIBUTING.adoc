@@ -13,14 +13,12 @@ concluded and at least 2 reviewers gave their approvals.
 When your pull request does major changes, please also add an entry to
 the changelog.
 
-== Rule ID
+== Rule Id
 
-Each of the rules has an unique ID. Rule ID is immutable and durable. It
-doesn't change until the content of the rule changes significantly. The
-currently last Rule ID is stored in link:rule_id_counter[rule_id_counter] file.
-It has to be updated every time a new rule is added.
+Each of the rules has an unique Id. Rule Id is immutable and durable. It
+doesn't change until the content of the rule changes significantly.
 
-In order to ensure the uniqueness of the IDs you can use
+In order to ensure the uniqueness of the Ids you can use
 link:./check_uniqueness_of_rule_ids.sh[this script]. Preferably, you add this script
 as a `pre-commit` hook to your local repository:
 
@@ -29,4 +27,4 @@ as a `pre-commit` hook to your local repository:
 cp check_uniqueness_of_rule_ids.sh .git/hooks/pre-commit
 ----
 
-To generate a new unique (unused) rule id simply run `./new_rule_id.sh`.
+To generate a new unique (unused) Rule Id simply run `./new_rule_id.sh`.
