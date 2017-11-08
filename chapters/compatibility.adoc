@@ -374,11 +374,4 @@ info:
   <...>
 ----
 
-If no API identifier is provided, a virtual API identifier is assigned to
-the API by mapping the API title (#/info/title) to a reduced, readable string
-using the restricted character set `[a-z0-9:.-]`.footnoteref:[virtual-api-id,
-The used algorithm maps all uppercase letters to lowercases, all characters
-in `[^a-z0-9.-\]` to “-”, all occurrences of multiple “-” to a single “-”, and
-finally deletes all leading and trailing “-”.] As a consequence, the API title
-should not be changed until an API identifier has been assigned to an API to
-preserve the API history.
+For more information see https://docs.google.com/document/d/1lRXcTZbZMnFeTVCaazitSWxSdKXGWkOUn99Gr-huNXg[API Identifiers to Support API Histories].
