@@ -28,7 +28,7 @@ essential to establish a consistent look and feel such that JSON looks
 as if it came from the same hand.
 
 [#216]
-==  Define maps using `additionalProperties`, without restriction on key format.
+== {SHOULD} Define maps using `additionalProperties`, without restriction on key format.
 
 A "map" here is a mapping from string keys to some other type.
 In JSON this is represented as an object, the key-value pairs being represented
@@ -56,8 +56,7 @@ definitions:
       translations:
         description:
           The translations of this message into several languages.
-          The keys are usual locale identifiers (ISO-639- language codes,
-          together with an optional ISO-3166 country-code, separated by `_`).
+          The keys are https://tools.ietf.org/html/bcp47[BCP-47 language tags].
         type: object
         additionalProperties:
           type: string
@@ -67,13 +66,13 @@ definitions:
 
 An actual JSON object described by this might then look like this:
 ```json
-{ "message_key": "hello_world",
+{ "message_key": "color",
   "translations": {
-    "de": "Hallo Welt!",
-    "en": "Hello World!",
-    "eo": "Saluton mondo!",
-    "cz": "Ahoj Světe!",
-    "el": "Γεια σου κόσμε!"
+    "de": "Farbe",
+    "en-US": "color",
+    "en-GB": "colour",
+    "eo": "koloro",
+    "nl": "kleur"
   }
 }
 ```
