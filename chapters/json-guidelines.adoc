@@ -9,20 +9,11 @@ media type and custom JSON media types defined for APIs. The guidelines
 clarifies some specific cases to allow Zalando JSON data to have an
 idiomatic form across teams and services.
 
-[#117]
-== {MUST} Use Consistent Property Names
+The first some of the following guidelines are about property names,
+the later ones about values.
 
 [#118]
-== {MUST} Property names must be snake_case (and never camelCase)
-
-No established industry standard exists, but many popular Internet
-companies prefer snake_case: e.g. GitHub, Stack Exchange, Twitter.
-Others, like Google and Amazon, use both - but not only camelCase. It’s
-essential to establish a consistent look and feel such that JSON looks
-as if it came from the same hand.
-
-[#119]
-== {MUST} Property names must match `^[a-z_][a-z_0-9]*$`
+== {MUST} Property names must be ASCII snake_case (and never camelCase): `^[a-z_][a-z_0-9]*$`
 
 Property names are restricted to ASCII strings. The first
 character must be a letter, or an underscore, and subsequent
@@ -30,14 +21,67 @@ characters can be a letter, an underscore, or a number.
 
 (It is recommended to use `_` at the start of property names only for keywords like `_links`.)
 
+Rationale: No established industry standard exists, but many popular Internet
+companies prefer snake_case: e.g. GitHub, Stack Exchange, Twitter.
+Others, like Google and Amazon, use both - but not only camelCase. It’s
+essential to establish a consistent look and feel such that JSON looks
+as if it came from the same hand.
+
+[#216]
+== {SHOULD} Define maps using `additionalProperties`, without restriction on key format.
+
+A "map" here is a mapping from string keys to some other type.
+In JSON this is represented as an object, the key-value pairs being represented
+by property names and property values.
+In OpenAPI schema (as well as in JSON schema) they should be represented using
+additionalProperties with a schema for the value type. Such an object should normally
+have no other defined properties.
+
+The map keys don't count as property names in the sense of #118[rule #118], and can
+follow whatever format is natural for their domain. Please document this in the description
+of the map object's schema.
+
+Here is an example for such a map definition (the `translations` property):
+
+```yaml
+definitions:
+  Message:
+    description:
+      A message together with translations in several languages.
+    type: object
+    properties:
+      message_key:
+        type: string
+        description: The message key.
+      translations:
+        description:
+          The translations of this message into several languages.
+          The keys are https://tools.ietf.org/html/bcp47[BCP-47 language tags].
+        type: object
+        additionalProperties:
+          type: string
+          description:
+            the translation of this message into the language identified by the key.
+```
+
+An actual JSON object described by this might then look like this:
+```json
+{ "message_key": "color",
+  "translations": {
+    "de": "Farbe",
+    "en-US": "color",
+    "en-GB": "colour",
+    "eo": "koloro",
+    "nl": "kleur"
+  }
+}
+```
+
 [#120]
 == {SHOULD} Array names should be pluralized
 
 To indicate they contain multiple values prefer to pluralize array
 names. This implies that object names should in turn be singular.
-
-[#121]
-== {MUST} Use Consistent Property Values
 
 [#122]
 == {MUST} Boolean property values must not be null
