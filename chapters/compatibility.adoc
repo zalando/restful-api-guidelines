@@ -291,7 +291,7 @@ negotiation (see above).
 [#116]
 == {MUST} Use Semantic Versioning
 
-OpenAPI allows to specify the an API specification version in
+OpenAPI allows to specify the API specification version in
 `#/info/version`. To share a common semantic of version information we
 expect API designers to comply to http://semver.org/spec/v2.0.0.html[
 Semantic Versioning 2.0] rules `1` to `8` and `11` restricted to the
