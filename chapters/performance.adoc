@@ -167,3 +167,26 @@ GET /order/123?embed=(items) HTTP/1.1
   }
 }
 ----
+
+[217]
+== {MUST} Document Caching, if Supported
+
+If an API is intended to support caching, it must take care to specify
+this ability by defining the caching boundaries i.e. time-to-live and
+cache constraints, by providing the `Cache-Control` and `Vary` headers
+(Please read https://tools.ietf.org/html/rfc7234[RFC-7234] carefully).
+
+Caching has to take many aspects into account, e.g. general cacheability
+of response information, our guideline to protect endpoints using SSL
+and #104[OAuth authorization], resource update and invalidation rules,
+existence of multiple consumer instances. As a consequence, caching is
+in best case complex, in worst case inefficient. Thus, client side and
+transparent HTTP caching should be avoided for RESTful APIs unless
+proven to known better.
+
+As default, API providers should set the `Cache-Control: no-cache`
+header.
+
+**Note:** as this is a technical standard information, that is attached
+to each response by most service frameworks automatically, there is no
+need to document this header in the API specification.
