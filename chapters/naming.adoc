@@ -48,11 +48,8 @@ Original-Message-ID
 See also: http://tools.ietf.org/html/rfc7230#page-22[HTTP Headers are
 case-insensitive (RFC 7230)].
 
-[#133]
-== {MAY} Use Standardized Headers
-
-Use http://en.wikipedia.org/wiki/List_of_HTTP_header_fields[this list]
-and mention its support in your OpenAPI definition.
+See <<common-headers>> and <<proprietary-headers>> sections for more guidance
+on HTTP headers.
 
 [#134]
 == {MUST} Pluralize Resource Names

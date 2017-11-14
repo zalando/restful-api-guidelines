@@ -32,6 +32,12 @@ requested resource representation is delivered with the body.
 * https://tools.ietf.org/html/rfc7231#section-3.1.1.5[`Content-Type`]
 indicates the media type of the body content.
 
+[#133]
+== {MAY} Use Standardized Headers
+
+Use http://en.wikipedia.org/wiki/List_of_HTTP_header_fields[this list]
+and mention its support in your OpenAPI definition.
+
 [#179]
 == {MAY} Use Content-Location Header
 
