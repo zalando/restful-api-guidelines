@@ -25,9 +25,6 @@ Examples:
 customer_number, order_id, billing_address
 ----
 
-[#131]
-== {MUST} Use Hyphenated HTTP Headers
-
 [#132]
 == {SHOULD} Prefer Hyphenated-Pascal-Case for HTTP header Fields
 
