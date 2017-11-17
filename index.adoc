@@ -47,6 +47,7 @@ include::chapters/api-operation.adoc[]
 include::chapters/events.adoc[]
 include::chapters/references.adoc[]
 include::chapters/tooling.adoc[]
+include::chapters/best-practices.adoc[]
 include::chapters/changelog.adoc[]
 
 ++++
