@@ -178,11 +178,11 @@ cache constraints, by providing the `Cache-Control` and `Vary` headers
 
 Caching has to take many aspects into account, e.g. general cacheability
 of response information, our guideline to protect endpoints using SSL
-and #104[OAuth authorization], resource update and invalidation rules,
+and <<104,OAuth authorization>>, resource update and invalidation rules,
 existence of multiple consumer instances. As a consequence, caching is
 in best case complex, in worst case inefficient. Thus, client side and
-transparent HTTP caching should be avoided for RESTful APIs unless
-proven to known better.
+transparent HTTP caching should be avoided for RESTful APIs unless the
+API designer has proven to known better.
 
 As default, API providers should set the `Cache-Control: no-cache`
 header.
