@@ -6,17 +6,15 @@ The best practices presented in this section are not part of the actual guidelin
 == Optimistic Locking in RESTful APIs
 
 === Introduction
-A RESTful API usually includes some kind of search endpoint, which will then return a list of result entities. 
-Additional endpoints may also allow for updates to a single entity. 
-
 Optimistic locking might be used to avoid concurrent writes on the same entity, which might cause data loss. 
 A client always has to retrieve a copy of an entity first and specifically update this one. 
 If another version has been created in the meantime, the update should fail. 
 In order to make this work, the client has to provide some kind of version reference, which is checked by the service, before the update is executed.
 
-There are several ways to implement optimistic locking in RESTful APIs which are presented here.
+A RESTful API usually includes some kind of search endpoint, which will then return a list of result entities.  
+There are several ways to implement optimistic locking in combination with search endpoints which, depending on the approach chosen, might lead to performing additional requests to get the current version of the entity that should be updated.
 
-==== ETag with If-Match header
+==== ETag header with If-Match header
 An ETag can only be obtained by performing a GET request on the single entity resource before the update, i.e. when using a search endpoint an additional request is necessary.
  
 Example:
@@ -160,4 +158,5 @@ or if there was an update since the GET and the entities last modified is later 
 ===== Cons
 * If a client communicates with two different instances and there clocks are not perfectly in sync, the locking could potentially fail
 
-we suggest to either use the _Last-Modified / If-Unmodified-Since_ approach or _ETags in result entities_.
+==== Conclusion
+We suggest to either use the _Last-Modified / If-Unmodified-Since_ approach or _ETags in result entities_.
