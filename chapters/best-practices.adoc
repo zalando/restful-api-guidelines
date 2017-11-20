@@ -1,6 +1,7 @@
 [[appendix-best-practices]]
 [appendix]
 = Best Practices
+The best practices presented in this section are not part of the actual guidelines, but should provide guidance for common challenges we face when implementing RESTful APIs. 
 
 == Optimistic Locking in RESTful APIs
 
