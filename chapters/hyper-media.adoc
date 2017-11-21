@@ -63,7 +63,7 @@ experience and present your findings in the
 https://techwiki.zalando.net/display/GUL/API+Guild[API Guild [internal
 link]].
 
-[#215]
+[#217]
 == {MUST} Use full, absolute URI
 
 Links to other resource must always use full, absolute URI.
