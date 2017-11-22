@@ -205,9 +205,9 @@ self-describe the full functionality of a resource.
 
 An operation can be...
 
-* idempotent, i.e. operation will produce the same results if executed
+* idempotent, i.e. operation will have the same effect on the server's state if executed
 once or multiple times (note: this does not necessarily mean returning
-the same status code)
+the same response or status code)
 * safe, i.e. must not have side effects such as state changes
 
 Method implementations must fulfill the following basic properties:
