@@ -60,8 +60,7 @@ ones. |GKY7oDhpSiKY_gAAAABZ_A
 |X-Tenant-ID |String | Identifies the tenant initiated the request
 to the multi tenant Zalando Platform. The X-Tenant-ID must be set 
 according to the Business Partner ID extracted from the OAuth token when 
-a request from a Business Partner hits the Zalando Platform and must be 
-passed on in subsequent calls inside the Platform. 
+a request from a Business Partner hits the Zalando Platform. 
 |9f8b3ca3-4be5-436c-a847-9cd55460c495
 
 |X-Sales-Channel |String |Sales channels are owned by retailers and
