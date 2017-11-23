@@ -57,12 +57,11 @@ spaces, NULL). If a legacy subsystem can only work with flow IDs of a
 specific format, it needs to define this in its API, or make its own
 ones. |GKY7oDhpSiKY_gAAAABZ_A
 
-|X-Tenant-ID |String |The tenant id for future platform multitenancy
-support. _Should not be used unless new platform multitenancy is truly
-supported. But should be used by New Platform Prototyping services._
-Must be validated for external retailer, supplier, etc. tenant users via
-OAuth2; details in clarification. Currently only used by New Platform
-Prototyping services. |9f8b3ca3-4be5-436c-a847-9cd55460c495
+|X-Tenant-ID |String | Identifies the tenant initiated the request
+to the multi tenant Zalando Platform. The X-Tenant-ID must be set 
+according to the Business Partner ID extracted from the OAuth token when 
+a request from a Business Partner hits the Zalando Platform. 
+|9f8b3ca3-4be5-436c-a847-9cd55460c495
 
 |X-Sales-Channel |String |Sales channels are owned by retailers and
 represent a specific consumer segment being addressed with a specific
