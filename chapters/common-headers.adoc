@@ -193,3 +193,5 @@ IfNoneMatch:
   required: false
   example: "7da7a728-f910-11e6-942a-68f728c1ba70", *
 ----
+
+Please also see the section <<optimistic-locking>> for a discussion about alternative approaches.
