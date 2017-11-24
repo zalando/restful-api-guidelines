@@ -13,6 +13,7 @@ To see a list of all changes, please have a look at the https://github.com/zalan
 [[rule-changes]]
 == Rule Changes
 
+* `2017-11-24:` Added best practices section including discussion about optiistic locking approaches.
 * `2017-11-22:` Updated description of X-Tenant-ID header field
 * `2017-08-22:` Migration to Asciidoc
 * `2017-07-20:` Be more precise on client vs. server obligations for compatible API extensions.
