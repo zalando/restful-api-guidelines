@@ -13,7 +13,7 @@ To see a list of all changes, please have a look at the https://github.com/zalan
 [[rule-changes]]
 == Rule Changes
 
-* `2017-11-24:` Added best practices section including discussion about optiistic locking approaches.
+* `2017-11-24:` Added best practices section including discussion about optimistic locking approaches.
 * `2017-08-22:` Migration to Asciidoc
 * `2017-07-20:` Be more precise on client vs. server obligations for compatible API extensions.
 * `2017-06-06:` Made money object guideline clearer.
