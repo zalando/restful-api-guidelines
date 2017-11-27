@@ -120,7 +120,7 @@ Event Types allow easier discovery of event information and ensure that
 information is well-structured, consistent, and can be validated.
 
 Event type owners must pay attention to the choice of compatibility
-mode. The mode provides a means to evolve thee schema. The range of
+mode. The mode provides a means to evolve the schema. The range of
 modes are designed to be flexible enough so that producers can evolve
 schemas while not inadvertently breaking existing consumers:
 
@@ -443,7 +443,7 @@ as Nakadi, can validate and enrich events with arbitrary additional
 fields that are not specified here and may set default or other values,
 if some of the specified fields are not supplied. How such systems work
 is outside the scope of these guidelines but producers and consumers
-working with such systems should be look into their documentation for
+working with such systems should look into their documentation for
 additional information.
 
 [#199]

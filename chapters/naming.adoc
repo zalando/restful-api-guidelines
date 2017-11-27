@@ -86,7 +86,7 @@ below. Hint: You can use size as an alternate query string.
 Hint: In combination with limit, you can use page as an alternative to
 offset.
 * `sort` — comma-separated list of fields to sort. To indicate sorting
-direction, fields my prefixed with + (ascending) or - (descending,
+direction, fields may be prefixed with + (ascending) or - (descending,
 default), e.g. /sales-orders?sort=+id
 * `fields` — to retrieve a subset of fields. See
 <<156,_Support Filtering of Resource Fields_>> below.

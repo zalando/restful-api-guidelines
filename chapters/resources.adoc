@@ -123,7 +123,7 @@ volume
 * may be in conflict with additional backward compatibility support of
 legacy ids
 
-UUIDs should be avoided were not needed for large scale id generation.
+UUIDs should be avoided when not needed for large scale id generation.
 Instead, for instance, server side support with id generation can be
 preferred (POST on id resource, followed by idempotent PUT on entity
 resource). Usage of UUIDs is especially discouraged as primary keys of
