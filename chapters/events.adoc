@@ -42,13 +42,13 @@ just as they would an API. For example this means approaching events
 with the "API first" principle in mind as described in the <<introduction>>.
 
 [#195]
-== {MUST} Make Events available for review
+== {MUST} Make Event schema available for review
 
 Services publishing event data for use by others must make the event
 schema available for review.
 
 [#196]
-== {MUST} Ensure Event Type schemas conform to Open API's Schema Object
+== {MUST} Ensure Event schema conforms to Open API's Schema Object
 
 To align event definitions with API resource definitions, we use
 Schema Object from Open API to define events. This is particularly
@@ -59,8 +59,8 @@ http://json-schema.org/[JSON Schema Draft 4]. For your convenience,
 we highlight some important differences below; please refer to the
 https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#schemaObject[Schema Object specification] for details.
 
-Open API _removes_ some JSON Schema keywords; the following properties
-must not be used in event schemas.
+Schema Object _removes_ some JSON Schema keywords; the following properties
+*must not* be used in event schemas:
 
 * `additionalItems`
 * `contains`
@@ -71,14 +71,14 @@ must not be used in event schemas.
 * `not`
 * `oneOf`
 
-Open API _redefines_ some keywords:
+Schema Object _redefines_ some keywords:
 
 * `additionalProperties`: For event types that declare compatibility
 guarantees, there are recommended constraints around the use of this
 field. See the guideline "Avoid `additionalProperties` in event type
 definitions" for details.
 
-Open API _extends_ JSON Schema with some keywords:
+Schema Object _extends_ JSON Schema with some keywords:
 
 * `readOnly`: events are logically immutable, so `readOnly` can be
 considered redundant, but harmless.
