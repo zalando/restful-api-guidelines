@@ -16,7 +16,7 @@ Please see <<put, the section about usage of the PUT method>> for a more detaile
 A RESTful API usually includes some kind of search endpoint, which will then return a list of result entities.  
 There are several ways to implement optimistic locking in combination with search endpoints which, depending on the approach chosen, might lead to performing additional requests to get the current version of the entity that should be updated.
 
-==== ETag header with If-Match header
+=== ETag header with If-Match header
 An ETag can only be obtained by performing a GET request on the single entity resource before the update, i.e. when using a search endpoint an additional request is necessary.
  
 Example:
@@ -47,13 +47,13 @@ or if there was an update since the GET and the entity's etag has changed:
 > HTTP/1.1 412 Precondition failed
 ----
 
-===== Pros
+==== Pros
 * RESTful solution
 
-===== Cons
+==== Cons
 * Many additional requests are necessary to build a meaningful front-end
 
-===== ETags in result entities
+=== ETags in result entities
 The ETag for every entity is returned as an additional property of that entity.
 In a response containing multiple entities, every entity will then have a distinct ETag that can be used in subsequent PUT requests.
 
@@ -79,13 +79,13 @@ or if there was an update since the GET and the entity's etag has changed:
 > HTTP/1.1 412 Precondition failed
 ----
 
-===== Pros
+==== Pros
 * Perfect optimistic locking
 
-===== Cons
+==== Cons
 * Information that only belongs in the HTTP header is part of the business objects
 
-==== Version numbers
+=== Version numbers
 The entities contain a property with a version number. 
 When a PUT request is made, the version number has to be included in the payload and the server will check that the version in the database is not higher.
 
@@ -111,13 +111,13 @@ or if there was an update since the GET and the version number in the database i
 > HTTP/1.1 409 Conflict
 ----
 
-===== Pros
+==== Pros
 * Perfect optimistic locking
 
-===== Cons
+==== Cons
 * Functionality that belongs into the HTTP header becomes part of the business object
 
-==== Last-Modified / If-Unmodified-Since
+=== Last-Modified / If-Unmodified-Since
 In HTTP 1.0 there was no ETag and the mechanism used for optimistic locking was based on a date. 
 This is still part of the HTTP protocol and can be used.
 Every response contains a Last-Modified header with a HTTP date.
@@ -151,14 +151,14 @@ or if there was an update since the GET and the entities last modified is later 
 > HTTP/1.1 412 Precondition failed
 ----
 
-===== Pros
+==== Pros
 * Well established approach that has been working for a long time
 * No interference with the business objects; the locking is done via HTTP headers only
 * Very easy to implement
 * No additional request needed when updating an entity of a search endpoint result 
 
-===== Cons
+==== Cons
 * If a client communicates with two different instances and there clocks are not perfectly in sync, the locking could potentially fail
 
-==== Conclusion
+=== Conclusion
 We suggest to either use the _Last-Modified / If-Unmodified-Since_ approach or _ETags in result entities_.
