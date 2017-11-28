@@ -184,9 +184,8 @@ in best case complex, in worst case inefficient. Thus, client side and
 transparent HTTP caching should be avoided for RESTful APIs unless the
 API designer has proven to know better.
 
-As default, API providers should set the `Cache-Control: no-cache`
-header.
+As default, API providers should set the `Cache-Control: no-cache` header.
 
-**Note:** as this is a technical standard information, that is attached
-to each response by most service frameworks automatically, there is no
-need to document this header in the API specification.
+**Note:** There is no need to document this default setting, that is
+attached to each response automatically by most frameworks. However, any
+use deviating from this default must be sufficiently documented.
