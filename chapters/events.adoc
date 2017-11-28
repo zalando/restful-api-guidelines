@@ -758,7 +758,7 @@ As common example similar to data change events, idempotent out-of-order
 processing can be supported by sending the following information:
 
 * the process/resource/entity identifier,
-* a <<202,monotonically increasing ordering key>> and
+* a <<203,monotonically increasing ordering key>> and
 * the process/resource state after the change.
 
 A receiver that is interested in the current state can then ignore
