@@ -70,7 +70,7 @@ use common field names and semantics whenever applicable.
 
 There are some data fields that come up again and again in API data:
 
-* `id`: the identity of the object. If used, IDs must opaque strings and
+* `id`: the identity of the object. If used, IDs must be opaque strings and
 not numbers. IDs are unique within some documented context, are stable
 and don't change for a given object once assigned, and are never
 recycled cross entities.

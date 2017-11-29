@@ -34,7 +34,7 @@ be specified in the OpenAPI definition as they are generic and provide
 no API specific information.
 
 We distinguish between internal and external APIs of an application
-which is owned by a specific team and often implemented via small set of
+which is owned by a specific team and often implemented via a small set of
 services. An external API is used by clients outside the team - usually
 another application owned by a different team or even an external
 business partner user of our platform. An internal API is only used
