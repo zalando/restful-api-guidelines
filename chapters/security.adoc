@@ -16,7 +16,7 @@ securityDefinitions:
   oauth2:
     type: oauth2
     flow: application
-    tokenUrl: https://sandbox.identity.zalando.com/oauth2/token
+    tokenUrl: https://identity.zalando.com/oauth2/token
     scopes:
       fulfillment-order-service.read: Access right needed to read from the fulfillment order service.
       fulfillment-order-service.write: Access right needed to write to the fulfillment order service.      
