@@ -38,7 +38,7 @@ customer-number to customer-id, as both are different unique customer
 keys)
 * Input fields may have (complex) constraints being validated via
 server-side business logic. Never change the validation logic to be more
-restrictive and make sure that all constraints a clearly defined in
+restrictive and make sure that all constraints are clearly defined in
 description.
 * Enum ranges can be reduced when used as input parameters, only if the
 server is ready to accept and handle old range values too. Enum range

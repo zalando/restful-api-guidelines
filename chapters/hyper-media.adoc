@@ -42,7 +42,7 @@ engineer finds necessary links and usage description (depending on
 resource state) in the API reference definition anyway.
 * Generic HATEOAS clients which need no prior knowledge about APIs and explore
 API capabilities based on hypermedia information provided, is a theoretical
-concept that we haven't seen working in practise and does not fit to our
+concept that we haven't seen working in practice and does not fit to our
 SOA set-up. The OpenAPI description format (and tooling based on
 OpenAPI) doesn't provide sufficient support for HATEOAS either.
 * In practice relevant HATEOAS approximations (e.g. following specifications
@@ -121,7 +121,7 @@ one.
 E.g. a service providing "Person" resources could model a person who is
 married with some other person with a hypertext control that contains
 attributes which describe the other person (`id`, `name`) but also the
-relationship "spouse" between between the two persons (`since`):
+relationship "spouse" between the two persons (`since`):
 
 [source,json]
 ----

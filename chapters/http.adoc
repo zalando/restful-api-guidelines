@@ -144,7 +144,7 @@ In preference order:
 1.  use PUT with complete objects to update a resource as long as
 feasible (i.e. do not use PATCH at all).
 2.  use PATCH with partial objects to only update parts of a resource,
-when ever possible. (This is basically
+whenever possible. (This is basically
 https://tools.ietf.org/html/rfc7396[JSON Merge Patch], a specialized
 media type `application/merge-patch+json` that is a partial resource
 representation.)
@@ -182,7 +182,7 @@ cannot be found) or 410 (if the resource was already deleted before)
 [[head]]
 === HEAD
 
-HEAD requests are used retrieve to header information of single
+HEAD requests are used to retrieve the header information of single
 resources and resource collections.
 
 * HEAD has exactly the same semantics as GET, but returns headers only,
@@ -349,14 +349,14 @@ sent too many requests. See <<152>>. |All
 |=======================================================================
 |Code |Meaning |Methods
 |500 |Internal Server Error - a generic error indication for an
-unexpected server execution problem (here, client retry may be senseful)
+unexpected server execution problem (here, client retry may be sensible)
 |All
 
 |501 |Not Implemented - server cannot fulfill the request (usually
 implies future availability, e.g. new feature). |All
 
 |503 |Service Unavailable - server is (temporarily) not available (e.g.
-due to overload) -- client retry may be senseful. |All
+due to overload) -- client retry may be sensible. |All
 |=======================================================================
 
 [#151]
