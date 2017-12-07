@@ -79,7 +79,8 @@ preferred.
 
 To prevent unnoticed concurrent updates when using PUT, the combination
 of <<181,`ETag` and `If-(None-)Match`>> headers should be considered to signal the server
-stricter demands to expose conflicts and prevent lost updates.
+stricter demands to expose conflicts and prevent lost updates. The section <<optimistic-locking>> also describes some 
+alternatives to this approach. 
 
 [[post]]
 === POST
