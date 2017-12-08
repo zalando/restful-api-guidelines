@@ -68,7 +68,7 @@ represent a specific consumer segment being addressed with a specific
 product assortment that is offered via CFA retailer catalogs to
 consumers (see
 https://pages.github.bus.zalan.do/core-platform/docs/glossary/glossary.html[platform
-glossary [internal link]]) |101
+glossary [internal link]]) |52b96501-0f8d-43e7-82aa-8a96fab134d7
 
 |X-Frontend-Type |String |Consumer facing applications (CFAs) provide
 business experience to their customers via different frontend
