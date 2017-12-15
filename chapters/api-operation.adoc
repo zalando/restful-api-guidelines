@@ -2,37 +2,15 @@
 = API Operation
 
 [#192]
-== {MUST} Publish OpenAPI Specification in Docker Artifacts
+== {MUST} Publish OpenAPI Specification
 
 All service applications must publish OpenAPI specifications of their
 external APIs. This is optional for internal APIs.
 
-Publishing of APIs is done via Docker images as follows:
-
-If the service provides one or more APIs::
-Copy all API specifications into the `/zalando-apis` directory of the
-Docker image of the service:
-
-[source]
-----
-COPY my-api-1.yaml ... my-api-n.yaml /zalando-apis/
-----
-
-If the service does not provide any APIs::
-Put an empty `no-apis` file into the `/zalando-apis` directory of the
-Docker image of the service:
-
-[source]
-----
-RUN mkdir /zalando-apis && touch /zalando-apis/no-apis
-----
-
-Please note that in the later case a shell has to be installed in the docker
-container. Alternatively, you can create empty `no-apis` file locally and make
-use of Docker `COPY` command in the Dockerfile.
-
-We prefer the Docker image publishing method over the past (now legacy)
-`.well-known/schema-discovery` service endpoint-based discovery process. However,
+OpenAPI specifications are published via deployment artifacts by the API owner,
+as described in the internal https://docs.google.com/a/zalando.de/document/d/1WBpRHp1DAtz7Pfjt0QwPuZNR1e70APRqUlCCby3JiOM/edit?usp=sharing[narrative].
+We prefer the deployment artifact-based method over the past (now legacy)
+`.well-known/schema-discovery` service endpoint-based publishing process. However,
 we currently support this way for backward compatibility reasons.
 
 We distinguish between internal and external APIs of an application which is
@@ -45,10 +23,8 @@ instance, for operational or implementation internal purposes.
 Background: In our dynamic and complex service infrastructure, it is important
 to provide API client developers a central place with online access to the API
 specifications of all running applications. As a part of the infrastructure,
-the API discovery process is used to detect API specifications. It scans all
-published Docker images and correlates API-related information with running
-applications on AWS and Kubernetes clusters. The findings are published in the
-API Portal - the universal hub for all Zalando APIs.
+the API publishing process is used to detect API specifications.
+The findings are published in the API Portal - the universal hub for all Zalando APIs.
 
 [#193]
 == {SHOULD} Monitor API Usage
