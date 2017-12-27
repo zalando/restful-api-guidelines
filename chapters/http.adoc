@@ -505,3 +505,4 @@ parameters as described below.
 
 When choosing the collection format, take into account the tool support,
 the escaping of special characters and the maximal URL length.
+

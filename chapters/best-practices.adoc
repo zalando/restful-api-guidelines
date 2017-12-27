@@ -162,3 +162,4 @@ or if there was an update since the GET and the entities last modified is later 
 
 === Conclusion
 We suggest to either use the _Last-Modified / If-Unmodified-Since_ approach or _ETags in result entities_.
+

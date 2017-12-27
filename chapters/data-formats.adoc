@@ -113,3 +113,4 @@ compared to the standard media type for JSON, and make automated
 processing more difficult. They are also
 https://tools.ietf.org/html/rfc6838#section-3.4[discouraged by RFC
 6838].
+
