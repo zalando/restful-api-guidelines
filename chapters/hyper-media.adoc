@@ -10,10 +10,10 @@ Maturity Level 2] as it enables us to build resource-oriented APIs that
 make full use of HTTP verbs and status codes. You can see this expressed
 by many rules throughout these guidelines, e.g.:
 
-* <<137>>
-* <<140>>
-* <<147>>
-* <<149>>
+* <<138>>
+* <<141>>
+* <<148>>
+* <<150>>
 
 Although this is not HATEOAS, it should not prevent you from designing
 proper link relationships in your APIs as stated in rules below.

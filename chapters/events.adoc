@@ -307,7 +307,7 @@ defining events that drive a business process.
 Category and uses the keyword "business" for event type registration.
 Other than that, the JSON structures are identical.
 
-See <<200>> for more guidance on how to use the category.
+See <<201>> for more guidance on how to use the category.
 
 *The Data Change Event Category.*
 
@@ -364,9 +364,9 @@ field:
 See the following guidelines for more guidance on how to use the Data
 Change Event Category:
 
+* <<205>>
+* <<202>>
 * <<204>>
-* <<201>>
-* <<203>>
 
 *Event Metadata.*
 
@@ -452,7 +452,7 @@ additional information.
 Events are intended to be used by other services including business
 process/data analytics and monitoring. They should be based around the
 resources and business processes you have defined for your service
-domain and adhere to its natural lifecycle (see also <<139>>).
+domain and adhere to its natural lifecycle (see also <<139>> and <<140>>).
 
 As there is a cost in creating an explosion of event types and topics,
 prefer to define event types that are abstract/generic enough to be
@@ -511,7 +511,7 @@ category.
 
 * Change events must identify the changed entity to allow aggregation of
 all related events for the entity.
-* Change events <<202>>.
+* Change events <<203>>.
 * Change events must be published reliably by the service.
 
 [#203]
@@ -744,7 +744,7 @@ generate a UUID value.
 [#212]
 == {SHOULD} Design for idempotent out-of-order processing
 
-Events that are designed for <<210,idempotent>> out-of-order
+Events that are designed for <<149,idempotent>> out-of-order
 processing allow for extremely resilient systems: If processing an event
 fails, consumers and producers can skip/delay/retry it without stopping
 the world or corrupting the processing result.

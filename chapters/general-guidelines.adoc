@@ -84,8 +84,7 @@ tooling to support the upcoming OpenAPI 3.0.
 
 The API specification files should be subject to version control using
 a source code management system - best together with the implementing
-sources. Services have to support an <<192,endpoint to access the API
-specification>> for their external API(s).
+sources. The API specifications of the external APIs <<192, must be published>>.
 
 The https://github.com/zalando/zally[Zalando API Linter Zally]
 should be used to design APIs compliant with this API guideline. Please
