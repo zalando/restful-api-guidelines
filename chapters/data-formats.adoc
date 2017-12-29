@@ -8,7 +8,7 @@ Use JSON-encoded body payload for transferring structured data. The JSON
 payload must follow https://tools.ietf.org/html/rfc7159[RFC-7159] by
 having (if possible) a serialized object as the top-level structure,
 since it would allow for future extension. This also applies for
-collection resources where one naturally would assume an array. See <<160>> for
+collection resources where one naturally would assume an array. See <<161>> for
 an example.
 
 [#168]
@@ -29,7 +29,7 @@ negotiation.
 [[json-payload]]
 === JSON Payload
 
-Read more about date and time format in <<125>>.
+Read more about date and time format in <<126>>.
 
 [[http-headers]]
 === HTTP headers
@@ -106,7 +106,7 @@ Previously, this guideline allowed the use of custom media types like
 `application/x.zalando.article+json`. This usage is not recommended
 anymore and should be avoided, except where it is necessary for cases of
 <<114,media type versioning>>. Instead, the standard media type name
-`application/json` (or <<175>>).
+`application/json` (or <<176>>).
 
 Custom media types with subtypes beginning with `x` bring no advantage
 compared to the standard media type for JSON, and make automated

@@ -94,7 +94,7 @@ sales channel, country |16
 |=======================================================================
 
 *Exception:* The only exception to this guideline are the conventional
-hop-by-hop `X-RateLimit-` headers which can be used as defined in <<152>>.
+hop-by-hop `X-RateLimit-` headers which can be used as defined in <<153>>.
 
 [#184]
 == {MUST} Propagate Proprietary Headers

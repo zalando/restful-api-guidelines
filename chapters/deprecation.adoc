@@ -47,7 +47,7 @@ clients should use instead and when the API will be shut down in the
 
 Owners of APIs used in production must monitor usage of deprecated APIs
 until the API can be shut down in order to align deprecation and avoid
-uncontrolled breaking effects. See also the <<192>>.
+uncontrolled breaking effects. See also the <<193>>.
 
 [#189]
 == {SHOULD} Add a Warning Header to Responses
