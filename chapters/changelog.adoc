@@ -35,3 +35,4 @@ part.
 * `2016-12-04:` Changed OAuth flow example from implicit to password in <<security>>.
 * `2016-10-13:` <<171>>
 * `2016-10-10:` Introduced the changelog. From now on all rule changes on API guidelines will be recorded here.
+

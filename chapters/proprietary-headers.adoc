@@ -120,3 +120,4 @@ Sometimes the value of a proprietary header will be used as part of the
 entity in a subsequent request. In such cases, the proprietary headers
 must still be propagated as headers with the subsequent request, despite
 the duplication of information.
+

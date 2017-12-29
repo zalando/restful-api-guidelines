@@ -93,3 +93,5 @@ default), e.g. /sales-orders?sort=+id
 * `embed` — to expand embedded entities (ie.: inside of an article
 entity, expand silhouette code into the silhouette object). Implementing
 “expand” correctly is difficult, so do it with care.
+
+

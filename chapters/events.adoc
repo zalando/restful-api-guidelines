@@ -793,3 +793,4 @@ leads to two identical events in the event bus which have to be
 processed by the consumers. Similar conditions can appear on consumer
 side: an event has been processed successfully, but the consumer fails
 to confirm the processing.
+
