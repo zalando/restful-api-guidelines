@@ -34,6 +34,7 @@ https://www.infoq.com/news/2014/03/rest-at-odds-with-web-apis%20for%20detailed%2
 Crisis over Hypermedia APIs],
 https://jeffknupp.com/blog/2014/06/03/why-i-hate-hateoas/[Why I Hate
 HATEOAS] and others):
+
 * We follow the <<100,API First principle>>
 with APIs explicitly defined outside the code with
 standard specification language. HATEOAS does not really add value for
