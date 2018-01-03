@@ -270,7 +270,7 @@ with the Location header. (More details found in the
 |202 |Accepted - The request was successful and will be processed
 asynchronously. |POST, PUT, DELETE, PATCH
 
-|204 |No content - There is no response body |PUT, DELETE
+|204 |No content - There is no response body |PUT, DELETE, PATCH
 
 |207 |Multi-Status - The response body contains multiple status
 informations for different parts of a batch/bulk request. See
