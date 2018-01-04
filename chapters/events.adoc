@@ -179,9 +179,13 @@ EventType:
         Name of this EventType.  Note: the name can encode the
         owner/responsible for this EventType and ideally should follow a
         naming pattern that makes it easy to read and understand.
+		Name of this EventType. The name encodes the owner responsible for
+		this EventType should follow the common functional naming pattern
+		`<domain>.[<component>.]<eventname>` that makes it easy to
+		read and understand.
       type: string
-      pattern: '[a-zA-Z][-0-9a-zA-Z_]*(\.[a-zA-Z][-0-9a-zA-Z_]*)*'
-      example: order.order_cancelled, business_partner.contract
+      pattern: '[a-z][a-z0-9]*\.[a-z][a-z0-9-]*\.[a-z][a-z0-9-]*'
+      example: transactions.order.order-cancelled, customer.personal-data.email-changed
     owning_application:
       description: |
         Name of the application (eg, as would be used in infrastructure
@@ -767,16 +771,30 @@ receiver interested in the history of a resource can use the ordering
 key to recreate a (partially) ordered sequence of events.
 
 [#213]
-== {MUST} Follow conventions for Event Type names
+== {MUST} Event names must match Zalando naming schema
 
-Event types can follow these naming conventions (each convention has its
-own should, must or could conformance level) -
 
-* Event type names must be url-safe. This is because the event type
-names may appear in URLs published by other systems and APIs.
-* Event type names should be lowercase words and numbers, using hyphens,
-underscores or periods as separators.
+All event names must match the following naming schema:
 
+[source,bnf]
+----
+eventtype-name ::= <functional-domain>.[<functional-component>].<event-name>
+
+functional-domain ::= [a-z][a-z0-9]* ; name managed by central architecture team
+
+functional-component ::= [a-z][a-z0-9-]* ; functional name of the component sending the event
+
+event-name ::= [a-z][a-z0-9-]* ; free identifer (functional name)
+----
+
+`functional-domain` and `functional-component` are also used in hostnames of REST APIs,
+see <<218>>. They must correspond to the functional name
+of the application producing the event and are currated by central architecture team support
+to provide global uniqueness and consistency with global architecture.
+
+*Note:* If an entity of a data change events is also expose as resource via the REST API,
+the event name should be the same as the resource name in the REST API.
+ 
 [#214]
 == {MUST} Prepare for duplicate Events
 
