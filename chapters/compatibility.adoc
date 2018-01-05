@@ -16,11 +16,20 @@ There are two techniques to change APIs without breaking them:
 * introduce new API versions and still support older versions
 
 We strongly encourage using compatible API extensions and discourage
-versioning. The below guideline rules for service providers and
-consumers enable us (having Postel’s Law in mind) to make compatible
-changes without versioning.
+versioning (see rules <<113,113>>,<<114,114>> below). 
+The following guidelines for service providers (<<107,rule 107>>) and
+consumers (<<108,rule 108>>) enable us (having Postel’s Law in mind) 
+to make compatible changes without versioning.
 
-*Hint:* Please note that the compatibility guarantees are for the "on
+*Hint:* Note, there is a difference between incompatible and braking changes:
+Incompatible changes are changes that are not covered by the compatibility 
+rules below; they potentially break API consumers. 
+Braking changes are changes that really brake running API consumers when deployed into operation.
+Typically, incompatible changes are braking changes when deployed into (uncontrolled) operation environment. 
+However, in specific controlled situations with no API consumers using the affected API aspect, 
+incompatible changes are not braking changes (see also <<deprecation, Deprecation>> guidelines). 
+
+*Hint:* Please note that the compatibility guarantees are for the "on 
 the wire" format. Binary or source compatibility of code generated from
 an API definition is not covered by these rules. If client
 implementations update their generation process to a new version of the
@@ -353,7 +362,7 @@ and must conform to the following specification:
 ----
 
 It is responsibility of the API owner to ensure that the application of the
-API identifier together with the semantic API <<116,version>> reflect the
+API identifier together with the <<116,semantic API version>> reflect the
 expected API history. 
 
 While it is nice to use human readable API identifiers based on self-managed
