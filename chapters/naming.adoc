@@ -89,7 +89,9 @@ offset.
 direction, fields may be prefixed with + (ascending) or - (descending,
 default), e.g. /sales-orders?sort=+id
 * `fields` — to retrieve a subset of fields. See
-<<156,_Support Filtering of Resource Fields_>> below.
+<<157,_Support Filtering of Resource Fields_>> below.
 * `embed` — to expand embedded entities (ie.: inside of an article
 entity, expand silhouette code into the silhouette object). Implementing
 “expand” correctly is difficult, so do it with care.
+
+

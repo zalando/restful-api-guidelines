@@ -116,3 +116,4 @@ paths:
 
 Hint: you need not explicitly define the "Authorization" header; it is a
 standard header so to say implicitly defined via the security section.
+

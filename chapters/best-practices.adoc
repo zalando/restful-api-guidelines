@@ -158,7 +158,8 @@ or if there was an update since the GET and the entities last modified is later 
 * No additional request needed when updating an entity of a search endpoint result 
 
 ==== Cons
-* If a client communicates with two different instances and there clocks are not perfectly in sync, the locking could potentially fail
+* If a client communicates with two different instances and their clocks are not perfectly in sync, the locking could potentially fail
 
 === Conclusion
 We suggest to either use the _Last-Modified / If-Unmodified-Since_ approach or _ETags in result entities_.
+
