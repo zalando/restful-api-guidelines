@@ -1,6 +1,7 @@
-[[metadata]]
+[[meta-information]]
 = Meta Information
 
+[#218]
 == {MUST} Contain API Meta Information
 API specifications must contain the following OpenAPI meta information
 to allow for API management:
