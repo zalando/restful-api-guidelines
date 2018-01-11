@@ -118,7 +118,7 @@ Strings are a reasonable target for values that are by design
 enumerations.
 
 [#126]
-== {SHOULD} Date property values should conform to RFC 3399
+== {SHOULD} Date property values should conform to RFC 3339
 
 Use the date and time formats defined by
 http://tools.ietf.org/html/rfc3339#section-5.6[RFC 3339]:
@@ -159,7 +159,7 @@ requiring more effort to parse, avoid this ambiguity.
 
 Schema based JSON properties that are by design durations and intervals
 could be strings formatted as recommended by ISO 8601
-(https://tools.ietf.org/html/rfc3339#appendix-A[Appendix A of RFC 3399
+(https://tools.ietf.org/html/rfc3339#appendix-A[Appendix A of RFC 3339
 contains a grammar] for durations).
 
 [#128]
