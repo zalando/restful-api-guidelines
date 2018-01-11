@@ -21,13 +21,13 @@ The following guidelines for service providers (<<107,rule 107>>) and
 consumers (<<108,rule 108>>) enable us (having Postel’s Law in mind) 
 to make compatible changes without versioning.
 
-*Hint:* Note, there is a difference between incompatible and braking changes:
-Incompatible changes are changes that are not covered by the compatibility 
-rules below; they potentially break API consumers. 
-Braking changes are changes that really brake running API consumers when deployed into operation.
-Typically, incompatible changes are braking changes when deployed into (uncontrolled) operation environment. 
-However, in specific controlled situations with no API consumers using the affected API aspect, 
-incompatible changes are not braking changes (see also <<deprecation, Deprecation>> guidelines). 
+*Note:* There is a difference between incompatible and breaking changes. 
+Incompatible changes are changes that are not covered by the compatibility rules below. 
+Breaking changes are incompatible changes deployed into operation, and thereby breaking running API consumers. 
+Usually, incompatible changes are breaking changes when deployed into operation. 
+However, in specific controlled situations it is possible to deploy incompatible changes 
+in a non-breaking way, if no API consumer is using the affected API aspects 
+(see also <<deprecation, Deprecation>> guidelines).
 
 *Hint:* Please note that the compatibility guarantees are for the "on 
 the wire" format. Binary or source compatibility of code generated from
