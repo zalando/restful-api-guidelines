@@ -58,11 +58,16 @@ Example:
 ----
 
 [#215]
-== {SHOULD} Provide API Identifiers to Support API Histories
+== {SHOULD} Provide API Identifiers
 
 Each API should be identified by an explicit, owner assigned, globally unique,
-and immutable API identifier, that allows to reveal the history and evolution
+and immutable API identifier. APIs evolve and every API aspect may change, 
+but the API identifier not. Based on the API identifier, we can track the 
+API life cycle and manage the history and evolution
 of an API as a sequence of API specifications.
+For instance, we can provide our API Linter https://github.com/zalando/zally[API Linter Zally]
+with capability to check compatibility and correct semantic versioning 
+of an API update draft against API running in production.
 
 The API identifier is provided in the `info`-block of the Open API
 specification and must conform to the following specification:
@@ -75,9 +80,8 @@ specification and must conform to the following specification:
   pattern: ^[a-z0-9][a-z0-9-:.]{6,62}[a-z0-9]$
   description: |
     Globally unique and immutable ID required to identify the API. The API
-    identifier allows to reveal the history and evolution of an API as a 
-    sequence of API specifications. It enables validation tools to detect
-    incompatible changes and incorrect semantic versions.
+    identifier allows to track the history and evolution of an API as a 
+    sequence of API specifications.
 ----
 
 It is responsibility of the API owner to ensure that the application of the
