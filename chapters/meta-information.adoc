@@ -61,8 +61,8 @@ Example:
 == {SHOULD} Provide API Identifiers
 
 Each API should be identified by an explicit, owner assigned, globally unique,
-and immutable API identifier. APIs evolve and every API aspect may change, 
-but the API identifier not. Based on the API identifier, we can track the 
+and immutable API identifier. APIs evolve and every API aspect may change,
+except the API identifier. Based on the API identifier, we can track the 
 API life cycle and manage the history and evolution
 of an API as a sequence of API specifications.
 For instance, we can provide our API Linter https://github.com/zalando/zally[API Linter Zally]
