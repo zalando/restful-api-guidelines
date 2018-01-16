@@ -73,9 +73,9 @@ groups with clear organisational and legal boundaries:
   The API consumers with this audience are restricted to applications of the
   same https://docs.google.com/document/d/1ZSfVkdX_Dwpz22Xl-CFXgxe1u1eY_IfTNdFNMmnGi8c[
   functional component (internal link)].
-  All applications of a functional component are owned by specific dedicated
-  owner and engineering team. Typical examples are APIs being used by internal
-  helper and worker services or that support service operation.
+  All services of a functional component are owned by specific dedicated owner
+  and engineering team. Typical examples are APIs being used by internal helper
+  and worker services or that support service operation.
 *business-unit-internal*::
   The API consumers with this audience are restricted to applications of a
   specific product portfolio owned by the same business unit.
