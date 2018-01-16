@@ -50,10 +50,10 @@ are free to decide whether they increment it or not.
 
 Example:
 
-[source,json]
+[source,yaml]
 ----
 swagger: '2.0'
-info: {
+info:
   title: Parcel Service API
   description: API for <...>
   version: 1.3.7
@@ -70,24 +70,24 @@ well as permission granting. We differentiate the following API audience
 groups with clear organisational and legal boundaries: 
 
 *component-internal*::
-  The API consumers in this audience are restricted to applications of the
+  The API consumers with this audience are restricted to applications of the
   same https://docs.google.com/document/d/1ZSfVkdX_Dwpz22Xl-CFXgxe1u1eY_IfTNdFNMmnGi8c[
   functional component [internal link]]
   All applications of a functional component are owned by specific dedicated
   owner and engineering team. Typical examples are APIs being used by internal
   helper and worker services or that support service operation.
 *business-unit-internal*::
-  The API consumers in this audience include all applications of a specific
+  The API consumers with this audience include all applications of a specific
   product portfolio owned by the same business unit.
 *company-internal*::
-  The API consumers in this audience include all applications owned by the
+  The API consumers with this audience include all applications owned by the
   business units of the same the company (e.g. Zalando company with Zalando
   SE, Zalando Payments SE & Co. KG. etc.)
 *external-partner*::
-  The API consumers in this audience include all applications of business
+  The API consumers with this audience include all applications of business
   partners of the company owning the API.
 *external-public*::
-  APIs in this audience can be accessed by anyone with Internet access.
+  APIs with this audience can be accessed by anyone with Internet access.
 
 The API audience is provided as API meta information in the `info`-block of
 the Open API specification and must conform to the following specification:
@@ -129,7 +129,7 @@ specifications along the target audience — even if this creates redundancies
 
 For details and more information on audience groups see the
 https://docs.google.com/document/d/1ff9b6oIa6dyQRyaj36-jmFdtCjWlngnGMsligR4RMIY[
-API Audience narrative].
+API Audience narrative (internal link)].
 
 [#215]
 == {SHOULD} Provide API Identifiers
