@@ -72,22 +72,25 @@ groups with clear organisational and legal boundaries:
 *component-internal*::
   The API consumers with this audience are restricted to applications of the
   same https://docs.google.com/document/d/1ZSfVkdX_Dwpz22Xl-CFXgxe1u1eY_IfTNdFNMmnGi8c[
-  functional component [internal link]]
+  functional component (internal link)].
   All applications of a functional component are owned by specific dedicated
   owner and engineering team. Typical examples are APIs being used by internal
   helper and worker services or that support service operation.
 *business-unit-internal*::
-  The API consumers with this audience include all applications of a specific
-  product portfolio owned by the same business unit.
+  The API consumers with this audience are restricted to applications of a
+  specific product portfolio owned by the same business unit.
 *company-internal*::
-  The API consumers with this audience include all applications owned by the
-  business units of the same the company (e.g. Zalando company with Zalando
-  SE, Zalando Payments SE & Co. KG. etc.)
+  The API consumers with this audience are restricted to applications owned
+  by the business units of the same the company (e.g. Zalando company with
+  Zalando SE, Zalando Payments SE & Co. KG. etc.)
 *external-partner*::
-  The API consumers with this audience include all applications of business
-  partners of the company owning the API.
+  The API consumers with this audience are restricted to applications of
+  business partners of the company owning the API and the company itself.
 *external-public*::
   APIs with this audience can be accessed by anyone with Internet access.
+
+*Note:* a smaller audience group is intentionally included in the wider group
+and thus does not need to be declared additionally.
 
 The API audience is provided as API meta information in the `info`-block of
 the Open API specification and must conform to the following specification:
@@ -108,6 +111,13 @@ the Open API specification and must conform to the following specification:
     changeability, and permission granting.
 ----
 
+*Note:* Exactly *one audience* per API specification is allowed. For this
+reason a smaller audience group is intentionally included in the wider group
+and thus does not need to be declared additionally. If parts of your API have
+a different target audience, we recommend to split API specifications along
+the target audience — even if this creates redundancies
+(https://docs.google.com/document/d/1ff9b6oIa6dyQRyaj36-jmFdtCjWlngnGMsligR4RMIY/edit#heading=h.401bmun50mlj[rationale]).
+
 Example:
 
 [source,yaml]
@@ -121,15 +131,9 @@ info:
   <...>
 ----
 
-*Note:* Exactly *one audience* per API specification is allowed. (1) The
-smaller audience group is intentionally included in the wider group and thus
-does not need to be declared additionally. (2) We promote to split API
-specifications along the target audience — even if this creates redundancies
-(https://docs.google.com/document/d/1ff9b6oIa6dyQRyaj36-jmFdtCjWlngnGMsligR4RMIY/edit#heading=h.401bmun50mlj[rational]).
-
 For details and more information on audience groups see the
 https://docs.google.com/document/d/1ff9b6oIa6dyQRyaj36-jmFdtCjWlngnGMsligR4RMIY[
-API Audience narrative (internal link)].
+API Audience narrative].
 
 [#215]
 == {SHOULD} Provide API Identifiers

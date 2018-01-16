@@ -5,22 +5,15 @@
 == {MUST} Publish OpenAPI Specification
 
 All service applications must publish OpenAPI specifications of their external
-APIs. While this is optional for internal APIs, we still recommend to do so as
-well to profit from the API management infrastructure.
+APIs. While this is optional for internal APIs, i.e. APIs marked with the
+*component-internal* <<219, API audience>> group, we still recommend to do so
+to profit from the API management infrastructure.
 
 OpenAPI specifications are published via deployment artifacts by the API owner,
 as described in the internal https://docs.google.com/a/zalando.de/document/d/1WBpRHp1DAtz7Pfjt0QwPuZNR1e70APRqUlCCby3JiOM/edit?usp=sharing[narrative].
 We prefer the deployment artifact-based method over the past (now legacy)
 `.well-known/schema-discovery` service endpoint-based publishing process. However,
 we currently support this way for backward compatibility reasons.
-
-We distinguish between internal and external APIs of an application which is
-owned by a specific team and often implemented via small set of services. An
-external API is used by clients outside the team - usually another application
-owned by a different team or even an external business partner. An internal
-API is only used within the application and only by the owning team, for
-instance, for operational or implementation internal purposes. Internal APIs
-are <<219,marked with the target audience>> *component-internal*.
 
 Background: In our dynamic and complex service infrastructure, it is important
 to provide API client developers a central place with online access to the API
