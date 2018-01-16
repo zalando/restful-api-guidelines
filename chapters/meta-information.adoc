@@ -12,7 +12,11 @@ to allow for API management:
 - `#/info/description` containing a proper description of the API
 - `#/info/contact/{name,url,email}` containing the responsible team
 
-Following OpenAPI extension properties should be provided in addition:
+Following OpenAPI extension properties *must* be provided in addition:
+
+- `#/info/x-audience` intended target audience of the API (<<219, see rule 219>>)
+
+Following OpenAPI extension properties *should* be provided in addition:
 
 - `#/info/x-id` unique identifier of the API (<<215, see rule 215>>)
 
@@ -23,8 +27,8 @@ Following OpenAPI extension properties should be provided in addition:
 OpenAPI allows to specify the API specification version in
 `#/info/version`. To share a common semantic of version information we
 expect API designers to comply to http://semver.org/spec/v2.0.0.html[
-Semantic Versioning 2.0] rules `1` to `8` and `11` restricted to the
-format <MAJOR>.<MINOR>.<PATCH> for versions as follows:
+Semantic Versioning 2.0] rules `1` to `8` and `11` restricted to the format
+<MAJOR>.<MINOR>.<PATCH> for versions as follows:
 
 * Increment the **MAJOR** version when you make incompatible API changes
 after having aligned this changes with consumers,
@@ -48,17 +52,87 @@ Example:
 
 [source,json]
 ----
-"swagger": "2.0",
-"info": {
-  "title": "Parcel service API",
-  "description": "API for <...>",
-  "version": "1.3.7",
-    <...>
-}
+swagger: '2.0'
+info: {
+  title: Parcel Service API
+  description: API for <...>
+  version: 1.3.7
+  <...>
 ----
 
+[#219]
+== {MUST} Provide API Audience
+
+Each API must be classified with respect to the intended target *audience*
+supposed to consume the API, to facilitate differentiated standards on APIs
+for discoverability, changeability, quality of design and documentation, as
+well as permission granting. We differentiate the following API audience
+groups with clear organisational and legal boundaries: 
+
+*component-internal*::
+  The API consumers in this audience are restricted to applications of the
+  same https://docs.google.com/document/d/1ZSfVkdX_Dwpz22Xl-CFXgxe1u1eY_IfTNdFNMmnGi8c[
+  functional component [internal link]]
+  All applications of a functional component are owned by specific dedicated
+  owner and engineering team. Typical examples are APIs being used by internal
+  helper and worker services or that support service operation.
+*business-unit-internal*::
+  The API consumers in this audience include all applications of a specific
+  product portfolio owned by the same business unit.
+*company-internal*::
+  The API consumers in this audience include all applications owned by the
+  business units of the same the company (e.g. Zalando company with Zalando
+  SE, Zalando Payments SE & Co. KG. etc.)
+*external-partner*::
+  The API consumers in this audience include all applications of business
+  partners of the company owning the API.
+*external-public*::
+  APIs in this audience can be accessed by anyone with Internet access.
+
+The API audience is provided as API meta information in the `info`-block of
+the Open API specification and must conform to the following specification:
+
+[source,yaml]
+----
+#/info/x-audience:
+  type: string
+  x-extensible-enum:
+    - component-internal
+    - business-unit-internal
+    - company-internal
+    - external-partner
+    - external-public
+  description: |
+    Intended target audience of the API. Relevant for standards around
+    quality of design and documentation, reviews, discoverability,
+    changeability, and permission granting.
+----
+
+Example:
+
+[source,yaml]
+----
+swagger: '2.0'
+info:
+  x-audience: company-internal
+  title: Parcel Helper Service API
+  description: API for <...>
+  version: 1.2.4
+  <...>
+----
+
+*Note:* Exactly *one audience* per API specification is allowed. (1) The
+smaller audience group is intentionally included in the wider group and thus
+does not need to be declared additionally. (2) We promote to split API
+specifications along the target audience — even if this creates redundancies
+(https://docs.google.com/document/d/1ff9b6oIa6dyQRyaj36-jmFdtCjWlngnGMsligR4RMIY/edit#heading=h.401bmun50mlj[rational]).
+
+For details and more information on audience groups see the
+https://docs.google.com/document/d/1ff9b6oIa6dyQRyaj36-jmFdtCjWlngnGMsligR4RMIY[
+API Audience narrative].
+
 [#215]
-== {SHOULD} Provide API Identifiers to Support API Histories
+== {SHOULD} Provide API Identifiers
 
 Each API should be identified by an explicit, owner assigned, globally unique,
 and immutable API identifier, that allows to reveal the history and evolution
@@ -90,14 +164,13 @@ of changing the API identifier while evolving the API. Example:
 
 [source,yaml]
 ----
-swagger: 2.0,
+swagger: '2.0'
 info:
   x-api-id: d0184f38-b98d-11e7-9c56-68f728c1ba70
   title: Parcel Service API
   description: API for <...>
-  version: 1.0.0
+  version: 1.5.8
   <...>
 ----
 
-For more information see https://docs.google.com/document/d/1lRXcTZbZMnFeTVCaazitSWxSdKXGWkOUn99Gr-huNXg[API Identifiers to Support
-API Histories].
+For more information see https://docs.google.com/document/d/1lRXcTZbZMnFeTVCaazitSWxSdKXGWkOUn99Gr-huNXg[API Identifier narrative].
