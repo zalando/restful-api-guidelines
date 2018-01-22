@@ -319,7 +319,7 @@ according to the Accept headers sent in the request |All
 
 |409 |Conflict - request cannot be completed due to conflict, e.g. when
 two clients try to create the same resource or if there are concurrent,
-conflicting updates |PUT, DELETE, PATCH
+conflicting updates |POST, PUT, DELETE, PATCH
 
 |410 |Gone - resource does not exist any longer, e.g. when accessing a
 resource that has intentionally been deleted |All
@@ -329,7 +329,7 @@ If-Match if the condition failed. Used for optimistic locking. |PUT,
 DELETE, PATCH
 
 |415 |Unsupported Media Type - e.g. clients sends request body without
-content type |PUT, DELETE, PATCH
+content type |POST, PUT, DELETE, PATCH
 
 |423 |Locked - Pessimistic locking, e.g. processing states |PUT, DELETE,
 PATCH
