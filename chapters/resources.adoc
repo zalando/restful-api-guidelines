@@ -169,14 +169,35 @@ directly, for instance:
 ----
 
 [#146]
-== {SHOULD} Limit number of Resources
+== {SHOULD} Limit number of Resource families
 
 To keep maintenance and service evolution manageable, we should follow
 "functional segmentation" and "separation of concern" design principles
 and do not mix different business functionalities in same API
-definition. In this sense the number of resources exposed via API should
-be limited - our experience is that a typical range of resources for a
-well-designed API is between 4 and 8. There may be exceptions with more
+definition. In practice this means that the number of resource families
+exposed via an API should be limited, where a resource family is defined
+as a set of highly related resources such as a collection, it's members
+and their direct subresources. Collections of related sub-resources 
+constitute a separate family for the purpose of limiting.
+
+For example, the resources here would be counted as three resource
+families, one for customers, one for the addressess, and one for the
+customers' related addresses:
+* /resources
+
+[source,http]
+----
+/customers
+/customers/{id}
+/customers/{id}/some-customer-action
+/customers/{id}/addresses
+/customers/{id}/addresses/{addr}
+/addresses
+/addresses/{addr}
+----
+
+Given this definition, our experience is well defined APIs involve no 
+more than 4 to 8 resource families. There may be exceptions with more
 complex business domains that require more resources, but you should
 first check if you can split them into separate subdomains with distinct
 APIs.
