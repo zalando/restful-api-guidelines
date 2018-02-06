@@ -189,7 +189,7 @@ customers' related addresses:
 ----
 /customers
 /customers/{id}
-/customers/{id}/some-customer-action
+/customers/{id}/preferences
 /customers/{id}/addresses
 /customers/{id}/addresses/{addr}
 /addresses
