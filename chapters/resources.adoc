@@ -176,12 +176,12 @@ To keep maintenance and service evolution manageable, we should follow
 and do not mix different business functionalities in same API
 definition. In practice this means that the number of resource families
 exposed via an API should be limited, where a resource family is defined
-as a set of highly related resources such as a collection, it's members
+as a set of highly related resources such as a collection, its members
 and their direct subresources. Collections of related sub-resources 
 constitute a separate family for the purpose of limiting.
 
 For example, the resources here would be counted as three resource
-families, one for customers, one for the addressess, and one for the
+families, one for customers, one for the addresses, and one for the
 customers' related addresses:
 * /resources
 
