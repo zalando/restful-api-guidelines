@@ -169,24 +169,24 @@ directly, for instance:
 ----
 
 [#146]
-== {SHOULD} Limit number of Resource families
+== {SHOULD} Limit number of Resource types
 
 To keep maintenance and service evolution manageable, we should follow
 "functional segmentation" and "separation of concern" design principles
 and do not mix different business functionalities in same API
-definition. In practice this means that the number of resource families
-exposed via an API should be limited, where a resource family is defined
-as a set of highly related resources such as a collection, its members
-and their direct subresources. Collections of related sub-resources 
-constitute a separate family for the purpose of limiting.
+definition. In practice this means that the number of resource types
+exposed via an API should be limited. In this context a resource type is
+defined as a set of highly related resources such as a collection, its
+members and any direct sub-resources.
 
 For example, the resources below would be counted as three resource
-families, one for customers, one for the addresses, and one for the
-customers' related addresses. We consider `/customers/{id}/preferences`
-part of the `/customers` family because it has a one-to-one relation to
-the customer without an additional identifier. We consider `/addresses`
-and `/customers/{id}/addresses` as separate resource families because 
-there's no reliable way to be sure they are the same.
+types, one for customers, one for the addresses, and one for the
+customers' related addresses. We consider `/addresses` and
+`/customers/{id}/addresses` as separate resource families because
+there's no reliable way to be sure they are the same. We consider
+`/customers/{id}/preferences` part of the `/customers` resource type
+because it has a one-to-one relation to the customer without an
+additional identifier.
 
 [source,http]
 ----
