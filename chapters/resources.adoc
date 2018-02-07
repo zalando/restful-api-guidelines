@@ -181,12 +181,7 @@ members and any direct sub-resources.
 
 For example, the resources below would be counted as three resource
 types, one for customers, one for the addresses, and one for the
-customers' related addresses. We consider `/addresses` and
-`/customers/{id}/addresses` as separate resource families because
-there's no reliable way to be sure they are the same. We consider
-`/customers/{id}/preferences` part of the `/customers` resource type
-because it has a one-to-one relation to the customer without an
-additional identifier.
+customers' related addresses:
 
 [source,http]
 ----
@@ -199,8 +194,20 @@ additional identifier.
 /addresses/{addr}
 ----
 
-Given this definition, our experience is well defined APIs involve no 
-more than 4 to 8 resource families. There may be exceptions with more
+Note that:
+
+* We consider `/customers/{id}/preferences` part of the `/customers`
+resource type because it has a one-to-one relation to the customer
+without an additional identifier.
+* We consider `/customers` and `/customers/{id}/addresses` as separate
+resource types because `/customers/{id}/addresses/{addr}` also exists
+with an additional identifier for the address.
+* We consider `/addresses` and `/customers/{id}/addresses` as separate
+resource types because there's no reliable way to be sure they are the
+same.
+
+Given this definition, our experience is that well defined APIs involve
+no more than 4 to 8 resource types. There may be exceptions with more
 complex business domains that require more resources, but you should
 first check if you can split them into separate subdomains with distinct
 APIs.
