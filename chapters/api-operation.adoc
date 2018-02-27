@@ -9,14 +9,14 @@ APIs. While this is optional for internal APIs, i.e. APIs marked with the
 *component-internal* <<219, API audience>> group, we still recommend to do so
 to profit from the API management infrastructure.
 
-An API is published by copying its **self-contained OpenAPI specification**
-as single **YAML file** into the reserved **/zalando-apis** directory of the
-**deployment artifact** used to deploy the provisioning service
-(https://docs.google.com/a/zalando.de/document/d/1WBpRHp1DAtz7Pfjt0QwPuZNR1e70APRqUlCCby3JiOM[see
-internal narrative for more details]). We prefer this deployment artifact-based
-method over the past (now legacy) `.well-known/schema-discovery` service
-endpoint-based publishing process, that we only support for backward
-compatibility reasons.
+An API is published by copying its **OpenAPI specification** into the reserved
+**/zalando-apis** directory of the **deployment artifact** used to deploy the
+provisioning service. The directory must only contain **self-contained YAML**
+**files** that each describe one API (see 
+https://docs.google.com/a/zalando.de/document/d/1WBpRHp1DAtz7Pfjt0QwPuZNR1e70APRqUlCCby3JiOM[internal narrative]
+for more details). We prefer this deployment artifact-based method over the
+past (now legacy) `.well-known/schema-discovery` service endpoint-based
+publishing process, that we only support for backward compatibility reasons.
 
 Background: In our dynamic and complex service infrastructure, it is important
 to provide API client developers a central place with online access to the API
