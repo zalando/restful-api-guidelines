@@ -77,7 +77,8 @@ tooling to support the upcoming OpenAPI 3.0.0.
 
 The API specification files should be subject to version control using
 a source code management system - best together with the implementing
-sources. The API specifications of the external APIs <<192, must be published>>.
+sources. The API specifications of component external APIs <<192, must
+be published>> and <<219, marked with the intended target audience>>.
 
 The https://github.com/zalando/zally[Zalando API Linter Zally]
 should be used to design APIs compliant with this API guideline. Please
