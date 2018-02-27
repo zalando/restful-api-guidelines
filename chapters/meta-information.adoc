@@ -1,0 +1,107 @@
+[[meta-information]]
+= Meta Information
+
+[#218]
+== {MUST} Contain API Meta Information
+API specifications must contain the following OpenAPI meta information
+to allow for API management:
+
+- `#/info/title` as (unique) identifying name of the API
+- `#/info/version` to distinguish API specifications versions following
+  <<116, semantic rules>>
+- `#/info/description` containing a proper description of the API
+- `#/info/contact/{name,url,email}` containing the responsible team
+
+Following OpenAPI extension properties should be provided in addition:
+
+- `#/info/x-id` unique identifier of the API (<<215, see rule 215>>)
+
+
+[#116]
+== {MUST} Use Semantic Versioning
+
+OpenAPI allows to specify the API specification version in
+`#/info/version`. To share a common semantic of version information we
+expect API designers to comply to http://semver.org/spec/v2.0.0.html[
+Semantic Versioning 2.0] rules `1` to `8` and `11` restricted to the
+format <MAJOR>.<MINOR>.<PATCH> for versions as follows:
+
+* Increment the **MAJOR** version when you make incompatible API changes
+after having aligned this changes with consumers,
+* Increment the **MINOR** version when you add new functionality in a
+backwards-compatible manner, and
+* Optionally increment the **PATCH** version when you make
+backwards-compatible bug fixes or editorial changes not affecting the
+functionality.
+
+*Additional Notes:*
+
+* *Pre-release* versions (http://semver.org#spec-item-9[rule 9]) and
+*build metadata* (http://semver.org#spec-item-10[rule 10]) must not
+be used in API version information.
+* While patch versions are useful for fixing typos etc, API designers
+are free to decide whether they increment it or not.
+* API designers should consider to use API version `0.y.z`
+(http://semver.org/#spec-item-4[rule 4]) for initial API design.
+
+Example:
+
+[source,json]
+----
+"swagger": "2.0",
+"info": {
+  "title": "Parcel service API",
+  "description": "API for <...>",
+  "version": "1.3.7",
+    <...>
+}
+----
+
+[#215]
+== {SHOULD} Provide API Identifiers
+
+Each API should be identified by an explicit, owner assigned, globally unique,
+and immutable API identifier. APIs evolve and every API aspect may change,
+except the API identifier. Based on the API identifier, we can track the 
+API life cycle and manage the history and evolution
+of an API as a sequence of API specifications.
+For instance, we can provide our https://github.com/zalando/zally[API Linter Zally]
+with the capability to check compatibility and correct semantic versioning 
+of an API update draft against an API running in production.
+
+The API identifier is provided in the `info`-block of the Open API
+specification and must conform to the following specification:
+
+[source,yaml]
+----
+/info/x-api-id:
+  type: string
+  format: urn
+  pattern: ^[a-z0-9][a-z0-9-:.]{6,62}[a-z0-9]$
+  description: |
+    Globally unique and immutable ID required to identify the API. The API
+    identifier allows to track the history and evolution of an API as a 
+    sequence of API specifications.
+----
+
+It is responsibility of the API owner to ensure that the application of the
+API identifier together with the semantic API <<116,version>> reflect the
+expected API history. 
+
+While it is nice to use human readable API identifiers based on self-managed
+URNs, it is recommend to stick to UUIDs to relief API designers from any urge
+of changing the API identifier while evolving the API. Example:
+
+[source,yaml]
+----
+swagger: 2.0,
+info:
+  x-api-id: d0184f38-b98d-11e7-9c56-68f728c1ba70
+  title: Parcel Service API
+  description: API for <...>
+  version: 1.0.0
+  <...>
+----
+
+For more information see https://docs.google.com/document/d/1lRXcTZbZMnFeTVCaazitSWxSdKXGWkOUn99Gr-huNXg[API Identifiers to Support
+API Histories].
