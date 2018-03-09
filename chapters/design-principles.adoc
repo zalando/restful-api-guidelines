@@ -23,9 +23,9 @@ make them irresistible for client engineers
 * Make use of customer feedback and provide service level support
 
 Embracing API as a Product facilitates a service ecosystem which can 
-be easier evolved, and used to experiment quickly with new business 
+be evolved more easily, and used to experiment quickly with new business 
 ideas by recombining core capabilities. It makes the difference between 
-ordinary system integration business and agile, innovative product service 
+ordinary enterprise integration business and agile, innovative product service 
 business built on a platform of APIs.
 
 Based on your concrete customer use cases, you should carefully check
