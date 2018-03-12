@@ -22,14 +22,18 @@ make them irresistible for client engineers
 * Actively improve and maintain API consistency over the long term
 * Make use of customer feedback and provide service level support
 
-RESTful API as a Product makes the difference between enterprise
-integration business and agile, innovative product service business
-built on a platform of APIs.
+Embracing 'API as a Product' facilitates a service ecosystem which can 
+be evolved more easily, and used to experiment quickly with new business 
+ideas by recombining core capabilities. 
+It makes the difference between agile, innovative product service 
+business built on a platform of APIs and ordinary enterprise integration business
+where APIs are provided as "appendix" of existing products to support system integration
+and optimised for local server-side realization. 
 
-Based on your concrete customer use cases, you should carefully check
-the trade-offs of API design variants and avoid short-term server side
+Understand the concrete use cases of your customers and carefully check 
+the trade-offs of your API design variants with a product mindset. Avoid short-term 
 implementation optimizations at the expense of unnecessary client side
-obligations and have a high attention on API quality and client
+obligations, and have a high attention on API quality and client
 developer experience.
 
 API as a Product is closely related to our <<100,API First principle>>
