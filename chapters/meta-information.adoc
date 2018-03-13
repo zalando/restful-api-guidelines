@@ -18,7 +18,7 @@ Following OpenAPI extension properties *must* be provided in addition:
 
 Following OpenAPI extension properties *should* be provided in addition:
 
-- `#/info/x-id` unique identifier of the API (<<215, see rule 215>>)
+- `#/info/x-api-id` unique identifier of the API (<<215, see rule 215>>)
 
 
 [#116]
