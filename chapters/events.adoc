@@ -45,22 +45,25 @@ with the "API first" principle in mind as described in the <<introduction>>.
 == {MUST} Make Event schema available for review
 
 Services publishing event data for use by others must make the event
-schema available for review.
+schema as well as the event type definition available for review.
 
 [#196]
-== {MUST} Ensure Event schema conforms to Open API's Schema Object
+== {MUST} Ensure Event schema conforms to Open API Schema Object
 
-To align event definitions with API resource definitions, we use
-Schema Object from Open API to define events. This is particularly
-useful for events that represent data changes about resources.
+To align the event schema specifications to API specifications, we use
+the Schema Object as defined by the Open API Specifications to define event
+schemas. This is particularly useful for events that represent data changes
+about resources also used in other APIs.
 
-Schema Object is an "extended subset" of
-http://json-schema.org/[JSON Schema Draft 4]. For your convenience,
-we highlight some important differences below; please refer to the
-https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#schemaObject[Schema Object specification] for details.
+The https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#schemaObject[Open
+API Schema Object] is an **extended subset** of
+http://json-schema.org/[JSON Schema Draft 4]. For convenience,
+we highlight some important differences below. Please refer to the
+https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#schemaObject[Open
+API Schema Object specification] for details.
 
-Schema Object _removes_ some JSON Schema keywords; the following properties
-*must not* be used in event schemas:
+As the Open API Schema Object specification _removes_ some JSON Schema
+keywords, the following properties *must not* be used in event schemas:
 
 * `additionalItems`
 * `contains`
@@ -71,14 +74,14 @@ Schema Object _removes_ some JSON Schema keywords; the following properties
 * `not`
 * `oneOf`
 
-Schema Object _redefines_ some keywords:
+On the other side Schema Object _redefines_ some JSON Schema keywords:
 
 * `additionalProperties`: For event types that declare compatibility
 guarantees, there are recommended constraints around the use of this
 field. See the guideline "Avoid `additionalProperties` in event type
 definitions" for details.
 
-Schema Object _extends_ JSON Schema with some keywords:
+Finally, the Schema Object _extends_ JSON Schema with some keywords:
 
 * `readOnly`: events are logically immutable, so `readOnly` can be
 considered redundant, but harmless.
