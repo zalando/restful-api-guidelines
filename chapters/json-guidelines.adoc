@@ -37,7 +37,7 @@ In OpenAPI schema (as well as in JSON schema) they should be represented using
 additionalProperties with a schema for the value type. Such an object should normally
 have no other defined properties.
 
-The map keys don't count as property names in the sense of #118[rule #118], and can
+The map keys don't count as property names in the sense of <<118,rule 118>>, and can
 follow whatever format is natural for their domain. Please document this in the description
 of the map object's schema.
 
