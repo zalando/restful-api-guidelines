@@ -380,7 +380,7 @@ error return object specification that must be used — see <<176>>.
 especially if they are not under control of the service provider. Thus unless
 a response code conveys application-specific functional semantics or is used
 in a none standard way that requires additional explanation, multiple error
-response specifications can combined using the following pattern:
+response specifications can be combined using the following pattern:
 
 [source,yaml]
 ----
