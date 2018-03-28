@@ -78,8 +78,7 @@ On the other side Schema Object _redefines_ some JSON Schema keywords:
 
 * `additionalProperties`: For event types that declare compatibility
 guarantees, there are recommended constraints around the use of this
-field. See the guideline "Avoid `additionalProperties` in event type
-definitions" for details.
+field. See the guideline <<210>> for details.
 
 Finally, the Schema Object _extends_ JSON Schema with some keywords:
 
