@@ -229,12 +229,20 @@ EventType:
           description: |
               The schema as string in the syntax defined in the field type.
           type: string
-        ordering_key_field:
+        ordering_key_fields:
+          type: array
           description:
             indicates by which of the fields in the schema the events can be ordered.
-            This is a JsonPath-like expression, which is applied on the whole event
-            object, including metadata and data fields.
-          type: string
+            In most cases, this would have just a single item (the path of the field
+            by which this is to be ordered), but can have multiple items, in which case
+            those are considered as a compound key, with lexicographic ordering (first
+            item is most significant).
+          items:
+            type: string
+            description:
+              Indicates a single ordering field. This is a JsonPointer, which is applied
+              onto the whole event object, including the contained metadata and data (in
+              case of a data change event) objects.
       required:
         - type
         - schema
@@ -535,8 +543,9 @@ This can be done – among other ways – by adding
    events for an entity, or
  * a strictly monotonically increasing message counter.
 
-In the event type definition, the `ordering_key` property should be
-used to indicate which field contains the ordering key, if any.
+In the event type definition, the `ordering_key_fields` property
+should be used to indicate which field(s) contains the ordering
+key, if any.
 
 System timestamps are not necessarily a good choice, since exact
 synchronization of clocks in distributed systems is difficult, two
