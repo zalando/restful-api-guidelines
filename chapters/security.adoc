@@ -22,10 +22,10 @@ securityDefinitions:
       fulfillment-order-service.write: Access right needed to write to the fulfillment order service.      
 ----
 
-The example defines OAuth2 with client credentials flow as security standard used
-for authentication when accessing endpoints; additionally, there are two
-API access rights defined via the scopes section for later endpoint
-authorization usage - please see next section.
+The example defines OAuth2 with client credentials flow as security standard
+used for authentication when accessing endpoints; additionally, there are two
+API access rights (permissions) defined via the scopes section for later
+endpoint authorization usage (see <<105, next section>>).
 
 It makes little sense specifying the flow to retrieve OAuth tokens in
 the `securityDefinitions` section, as API endpoints should not care, how
@@ -36,28 +36,11 @@ and ignore this information.
 [#105]
 == {MUST} Define and Assign Access Rights (Permissions)
 
-Every API needs to define access permissions to it's resources. Every endpoint needs to have 
-at least one permission assigned. Permissions are defined by name and described per API 
-specification, as shown in the previous section.
+APIs are must define access permissions to protect their resources. Therefore,
+at least one permission must be assigned to each endpoint. Permissions are
+defined as shown in the <<104, previous section>>.
 The naming schema for permissions correspond to the naming schema for hostnames. Please 
 refer to the following rules when creating permissions:
-
-[source,bnf]
-----
-permission ::= <name-space>::<permission-name>
-
-name-space ::= z ; fix prefix for all permissions created by Zalando business partners
-
-permission-name ::= <functional-domain>[.<functional-component>].[<resource>].<access-type>
-
-functional-domain ::= [a-z][a-z0-9]* ; name managed by central architecture team
-
-functional-component ::= [a-z][a-z0-9-]* ; functional name of the component hosting the resource, the permission protects
-
-resource ::= [a-z][a-z0-9-]* ; free identifier - resource name
-
-access-type ::= read || write ; might be extended in future
-----
 
 The functional-domain and functional-component must be equal to the domain and 
 component of the API hostname this permissions are protecting.
@@ -116,3 +99,26 @@ paths:
 Hint: you need not explicitly define the "Authorization" header; it is a
 standard header so to say implicitly defined via the security section.
 
+[#222]
+== {MUST-SHOULD} Use functional naming schema for permission names
+
+Permission names in APIs are recommended to conform to the functional naming
+schema (see <<220>> for details and registration of functional names) as
+follows:
+
+[source,bnf]
+----
+permission ::= <name-space>::<permission-name>
+
+name-space ::= z ; fix prefix for all permissions created by Zalando business partners
+
+permission-name ::= <functional-domain>[.<functional-component>].[<resource>].<access-type>
+
+functional-domain ::= [a-z][a-z0-9]* ; name managed by central architecture team
+
+functional-component ::= [a-z][a-z0-9-]* ; functional name of the component hosting the resource, the permission protects
+
+resource ::= [a-z][a-z0-9-]* ; free identifier - resource name
+
+access-type ::= read || write ; might be extended in future
+----
