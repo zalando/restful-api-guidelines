@@ -42,35 +42,28 @@ just as they would an API. For example this means approaching events
 with the "API first" principle in mind as described in the <<introduction>>.
 
 [#195]
-== {MUST} Make Events available for review
+== {MUST} Make Event schema available for review
 
 Services publishing event data for use by others must make the event
-schema available for review.
+schema as well as the event type definition available for review.
 
 [#196]
-== {MUST} Ensure Event Type schemas conform to Open API's Schema Object
+== {MUST} Ensure Event schema conforms to Open API Schema Object
 
-Event type schema are defined in accordance with the Open API Schema
-Object specification, which uses a subset of
-http://json-schema.org/[JSON Schema Draft 4], and also adds other
-features. This allows events to properly align with API resource
-representations (it's particulary useful for events that represent data
-changes about resources). The guideline exists since declaring event
-type schema using JSON-Schema syntax is common practice (because Open
-API doesn't yet allow standalone object definitions).
+To align the event schema specifications to API specifications, we use
+the Schema Object as defined by the Open API Specifications to define event
+schemas. This is particularly useful for events that represent data changes
+about resources also used in other APIs.
 
-In the rest of this section we'll call out some of the more notable
-differences between Open API and JSON-Schema. Please note this is not a
-complete list - in general it's recommended to familiarise yourself with
-Open API's Schema Object (the details are available from the
-https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#schemaObject["Schema
-Object" section of that specification]).
+The https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#schemaObject[Open
+API Schema Object] is an **extended subset** of
+http://json-schema.org/[JSON Schema Draft 4]. For convenience,
+we highlight some important differences below. Please refer to the
+https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#schemaObject[Open
+API Schema Object specification] for details.
 
-Open API _removes_ some JSON-Schema keywords. These must not be used in
-event type schemas. The list of Open API object keywords can be seen
-https://github.com/OAI/OpenAPI-Specification/blob/master/schemas/v2.0/schema.json#L935-L1063[here],
-but for convenience the list of non-available keywords relative to
-JSON-Schema are:
+As the Open API Schema Object specification _removes_ some JSON Schema
+keywords, the following properties *must not* be used in event schemas:
 
 * `additionalItems`
 * `contains`
@@ -81,19 +74,17 @@ JSON-Schema are:
 * `not`
 * `oneOf`
 
-Open API _redefines_ some keywords:
+On the other side Schema Object _redefines_ some JSON Schema keywords:
 
 * `additionalProperties`: For event types that declare compatibility
 guarantees, there are recommended constraints around the use of this
-field. See the guideline "Avoid `additionalProperties` in event type
-definitions" for details.
+field. See the guideline <<210>> for details.
 
-Open API _extends_ JSON-Schema with some keywords:
+Finally, the Schema Object _extends_ JSON Schema with some keywords:
 
 * `readOnly`: events are logically immutable, so `readOnly` can be
 considered redundant, but harmless.
-* `discriminator`: discriminators exist to support polymorphism and act
-as an alternative to `oneOf`.
+* `discriminator`: to support polymorphism, as an alternative to `oneOf`.
 * `^x-`: patterned objects in the form of
 https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#vendorExtensions[vendor
 extensions] can be used in event type schema, but it might be the case
