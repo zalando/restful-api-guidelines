@@ -229,30 +229,35 @@ Please see also https://goo.gl/vhwh8a[Best Practices [internal link]]
 for further hints on how to support the different HTTP methods on
 resources.
 
+[#220]
+== {MUST} Use Standard HTTP Status Codes
+
+You must only use standardized HTTP status codes and consistently with 
+its intended semantics; you must not invent new HTTP status codes.
+
+RFC standards define ~60 different HTTP status codes with specific semantics 
+(mainly https://tools.ietf.org/html/rfc7231#section-6[RFC7231] and
+https://tools.ietf.org/html/rfc6585[RFC-6585]) — and there are upcoming
+new ones, e.g.
+https://tools.ietf.org/html/draft-tbray-http-legally-restricted-status-05[draft
+legally-restricted-status]. (See overview on all error codes on
+https://en.wikipedia.org/wiki/List_of_HTTP_status_codes[Wikipedia] or
+via https://httpstatuses.com/.) And there are unofficial ones, e.g. used
+by specific web servers like Nginx.
+
+
 [#150]
 == {MUST} Use Specific HTTP Status Codes
 
-This guideline groups the following rules for HTTP status codes usage:
+You must use the most specific HTTP status code when returning information 
+about your concrete resource request processing status or error situations.
 
-* You must not invent new HTTP status codes; only use standardized HTTP
-status codes and consistent with its intended semantics.
-* You should use the most specific HTTP status code for your concrete
-resource request processing status or error situation.
-* When using HTTP status codes that are less commonly used and not listed 
-below, you must provide good documentation in the API definition.
+The most commonly used and best understood HTTP status codes are listed below. 
+You may use HTTP status codes outside this range, but in this case you must provide 
+clear documentation in the API definition. As long as you stay in the range, you 
+should not document the HTTP status codes to avoid risk of inconsistencies and 
+bad readability due to overload with common sense information. 
 
-There are ~60 different HTTP status codes with specific semantics
-defined in the HTTP standards (mainly
-https://tools.ietf.org/html/rfc7231#section-6[RFC7231] and
-https://tools.ietf.org/html/rfc6585[RFC-6585]) - and there are upcoming
-new ones, e.g.
-https://tools.ietf.org/html/draft-tbray-http-legally-restricted-status-05[draft
-legally-restricted-status] (see overview on all error codes on
-https://en.wikipedia.org/wiki/List_of_HTTP_status_codes[Wikipedia] or
-via https://httpstatuses.com/). And there are unofficial ones, e.g. used
-by specific web servers like Nginx.
-
-List of most commonly used and best understood HTTP status codes:
 
 [[success-codes]]
 === Success Codes
