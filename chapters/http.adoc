@@ -306,7 +306,7 @@ version passed via request headers If-Modified-Since or If-None-Match.
 [cols="10%,70%,20%",options="header",]
 |=======================================================================
 |Code |Meaning |Methods
-|400 |Bad request - generic / unknown error |All
+|400 |Bad request - generic / unknown error. Should also be delivered in case of input payload fails business logic validation |All
 
 |401 |Unauthorized - the users must log in (this often means
 “Unauthenticated”) |All
