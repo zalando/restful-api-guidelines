@@ -252,7 +252,7 @@ by specific web servers like Nginx.
 You must use the most specific HTTP status code when returning information 
 about your request processing status or error situations.
 
-Below we listed the most commonly used and best understood standard HTTP status codes (consistent with RFC standard). 
+Below we listed the most commonly used and best understood HTTP status codes (consistent with RFC standard). 
 
 You may use HTTP status codes not listed here, but in this case you must provide 
 clear documentation in the API definition. As long as there is no need to use codes not listed here, you 
