@@ -233,7 +233,7 @@ resources.
 == {MUST} Use Standard HTTP Status Codes
 
 You must only use standardized HTTP status codes and consistently with 
-its intended semantics; you must not invent new HTTP status codes.
+their intended semantics. You must not invent new HTTP status codes.
 
 RFC standards define ~60 different HTTP status codes with specific semantics 
 (mainly https://tools.ietf.org/html/rfc7231#section-6[RFC7231] and
@@ -250,13 +250,14 @@ by specific web servers like Nginx.
 == {MUST} Use Specific HTTP Status Codes
 
 You must use the most specific HTTP status code when returning information 
-about your concrete resource request processing status or error situations.
+about your request processing status or error situations.
 
-The most commonly used and best understood HTTP status codes are listed below. 
-You may use HTTP status codes outside this range, but in this case you must provide 
-clear documentation in the API definition. As long as you stay in the range, you 
-should not document the HTTP status codes to avoid risk of inconsistencies and 
-bad readability due to overload with common sense information. 
+Below we listed the most commonly used and best understood standard HTTP status codes (consistent with RFC standard). 
+
+You may use HTTP status codes not listed here, but in this case you must provide 
+clear documentation in the API definition. As long as there is no need to use codes not listed here, you 
+should not document the HTTP status codes to avoid risk of inconsistent definitions and 
+reduced readability due to overload with common sense information. 
 
 
 [[success-codes]]
@@ -397,29 +398,6 @@ response specifications can be combined using the following pattern:
 
 **Note:** It is best practice to explicitly specify all successful status codes.
 This prevents any conflict with the above pattern.
-
-The list of status code that in general can be omitted from API specifications
-includes but is not limited to:
-
-* `401 Unauthorized`
-* `403 Forbidden`
-* `404 Not Found` unless it has some additional semantics
-* `405 Method Not Allowed`
-* `406 Not Acceptable`
-* `408 Request Timeout`
-* `413 Payload Too Large`
-* `414 URI Too Long`
-* `415 Unsupported Media Type`
-* `500 Internal Server Error`
-* `502 Bad Gateway`
-* `503 Service Unavailable`
-* `504 Gateway Timeout`
-
-**Note:** Even though all status code may be documented explicitly, clients
-must always be prepared for responses with unexpected status codes. In case
-of doubt they should handle them like they would handle the corresponding
-x00 code. Adding new response codes (specially error responses) should be
-considered a compatible API evolution.
 
 API designers should also think about a troubleshooting board as part of the
 associated online API documentation. It provides information and handling
