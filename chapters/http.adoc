@@ -240,14 +240,14 @@ RFC standards define ~60 different HTTP status codes with specific semantics
 https://tools.ietf.org/html/rfc6585[RFC-6585]) — and there are upcoming
 new ones, e.g.
 https://tools.ietf.org/html/draft-tbray-http-legally-restricted-status-05[draft
-legally-restricted-status]. (See overview on all error codes on
+legally-restricted-status]. See overview on all error codes on
 https://en.wikipedia.org/wiki/List_of_HTTP_status_codes[Wikipedia] or
-via https://httpstatuses.com/.) And there are unofficial ones, e.g. used
-by specific web servers like Nginx.
+via https://httpstatuses.com/) also inculding 'unofficial codes', e.g. used
+by popular web servers like Nginx.
 
 
 [#150]
-== {MUST} Use Specific HTTP Status Codes
+== {MUST} Use Most Specific HTTP Status Codes
 
 You must use the most specific HTTP status code when returning information 
 about your request processing status or error situations.
@@ -306,7 +306,8 @@ version passed via request headers If-Modified-Since or If-None-Match.
 [cols="10%,70%,20%",options="header",]
 |=======================================================================
 |Code |Meaning |Methods
-|400 |Bad request - generic / unknown error. Should also be delivered in case of input payload fails business logic validation |All
+|400 |Bad request - generic / unknown error. 
+Should also be delivered in case of input payload fails business logic validation. |All
 
 |401 |Unauthorized - the users must log in (this often means
 “Unauthenticated”) |All
