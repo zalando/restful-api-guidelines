@@ -7,6 +7,8 @@ The titles are marked with the corresponding labels: {MUST},
 [#100]
 == {MUST} Follow API First Principle
 
+You must follow the <<api-first, API First Principle>>, more specifically: 
+
 * You must define APIs outside the code first <<101, using OpenAPI as specification language>>
 * You must call for early review feedback from peers and client developers, 
 and apply our https://github.bus.zalan.do/ApiGuild/ApiReviewProcedure[lightweight API
