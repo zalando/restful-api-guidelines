@@ -11,6 +11,12 @@ The titles are marked with the corresponding labels: {MUST},
 * You must call for early review feedback from peers and client developers, 
 and apply our https://github.bus.zalan.do/ApiGuild/ApiReviewProcedure[lightweight API
 review process [internal link]] for all <<219, component external APIs>> 
+* You must provide API specifications with <<218, Metadata>>, 
+and <<192, publish it>> (at least, in case of <<219, component external APIs>>)
+in order to be discoverable for the group via our https://apis.zalando.net/[API Portal [internal link]].
+* You must design your APIs consistently with this guidelines; 
+you should use our https://zally.zalando.net/[API Linter Service [internal link]] 
+for automated rule checks. 
 
 
 [#101]
@@ -21,13 +27,6 @@ Swagger specification) as standard to define API specifications files.
 API designers have to provide the API specification files using *YAML*
 to improve readability. Please, use *OpenAPI 2.0* for now, until we 
 have updated all our tooling to support new OpenAPI 3.0 version. 
-
-The API specifications must be provided with <<218, Metadata>> 
-and <<219, component external APIs>> (at least) <<192, must be published>>
-as to be discoverable by the group via our https://apis.zalando.net/[API Portal [internal link]].
-
-The https://github.com/zalando/zally[Zalando API Linter Zally]
-should be used to design APIs compliant with this API guideline. 
 
 The API specification files should be subject to version control using
 a source code management system - best together with the implementing sources. 
