@@ -127,9 +127,8 @@ of a contract between service provider and client users
 * infrastructure tooling for API discovery, API GUIs, API documents,
 automated quality checks
 
-An element of API First are also this API Guidelines and a
-https://github.bus.zalan.do/ApiGuild/ApiReviewProcedure[lightweight API
-review process [internal link]] as to get early review feedback from
+Elements of API First are also this API Guidelines and a standardized 
+API review process as to get early review feedback from
 peers and client developers. Peer review is important for us to get high
 quality APIs, to enable architectural and design alignment and to
 supported development of client applications decoupled from service
@@ -154,4 +153,3 @@ feedback — as early as possible, but not before the API changes are
 comprehensive with focus to the next evolution step and have a certain
 quality (including API Guideline compliance), already confirmed via team
 internal reviews.
-
