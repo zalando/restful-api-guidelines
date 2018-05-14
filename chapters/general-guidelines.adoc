@@ -10,15 +10,11 @@ The titles are marked with the corresponding labels: {MUST},
 You must follow the <<api-first, API First Principle>>, more specifically: 
 
 * You must define APIs outside the code first <<101, using OpenAPI as specification language>>
+* You must design your APIs consistently with this guidelines; 
+use our https://zally.zalando.net/[API Linter Service [internal link]] for automated rule checks. 
 * You must call for early review feedback from peers and client developers, 
 and apply our https://github.bus.zalan.do/ApiGuild/ApiReviewProcedure[lightweight API
 review process [internal link]] for all <<219, component external APIs>> 
-* You must provide API specifications with <<218, Metadata>>, 
-and <<192, publish it>> (at least, in case of <<219, component external APIs>>)
-in order to be discoverable for the group via our https://apis.zalando.net/[API Portal [internal link]].
-* You must design your APIs consistently with this guidelines; 
-you should use our https://zally.zalando.net/[API Linter Service [internal link]] 
-for automated rule checks. 
 
 
 [#101]
@@ -32,6 +28,10 @@ have updated all our tooling to support new OpenAPI 3.0 version.
 
 The API specification files should be subject to version control using
 a source code management system - best together with the implementing sources. 
+
+You <<192, must / should publish>> the component <<219, external / internal>> API specification
+with the deployment of the implementing service, and, hence, make it discoverable 
+for the group via our https://apis.zalando.net/[API Portal [internal link]].
 
 
 [#102]
@@ -48,10 +48,9 @@ manual typically describes the following API aspects:
 * architecture context and major dependencies - including figures and
 sequence flows
 
-The user manual must be published online, e.g. via GHE pages, on specific
-team web servers, or as a Google doc. Please do not forget to include a
-link to the API user manual into the API specification using the
-`#/externalDocs/url` property.
+The user manual must be published online, e.g. via our documentation hosting platform service, 
+GHE pages, or specific team web servers. Please do not forget to include a link to the 
+API user manual into the API specification using the `#/externalDocs/url` property.
 
 [#103]
 == {MUST} Write APIs in U.S. English
