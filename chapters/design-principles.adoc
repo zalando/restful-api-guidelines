@@ -103,7 +103,7 @@ https://github.com/zalando/engineering-principles[engineering
 and architecture principles]. In a nutshell API First requires two
 aspects:
 
-* define APIs outside the code first using a standard specification
+* define APIs first, before coding its implementation, using a standard specification
 language
 * get early review feedback from peers and client developers
 
