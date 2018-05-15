@@ -9,7 +9,7 @@ The titles are marked with the corresponding labels: {MUST},
 
 You must follow the <<api-first, API First Principle>>, more specifically: 
 
-* You must define APIs outside the code first <<101, using OpenAPI as specification language>>
+* You must define APIs first, before coding its implementation, <<101, using OpenAPI as specification language>>
 * You must design your APIs consistently with this guidelines; 
 use our https://zally.zalando.net/[API Linter Service [internal link]] for automated rule checks. 
 * You must call for early review feedback from peers and client developers, 
