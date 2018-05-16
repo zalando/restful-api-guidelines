@@ -1,0 +1,255 @@
+[[http-requests]]
+= HTTP Requests
+
+[#148]
+== {MUST} Use HTTP Methods Correctly
+
+Be compliant with the standardized HTTP method semantics summarized as
+follows:
+
+[[get]]
+=== GET
+
+GET requests are used to read a single resource or query set of
+resources.
+
+* GET requests for individual resources will usually generate a 404 if
+the resource does not exist
+* GET requests for collection resources may return either 200 (if the
+listing is empty) or 404 (if the list is missing)
+* GET requests must NOT have request body payload
+
+*Note:* GET requests on collection resources should provide a sufficient
+filter mechanism as well as <<pagination>>.
+
+[[get-with-body]]
+=== "GET with Body"
+
+APIs sometimes face the problem, that they have to provide extensive
+structured request information with GET, that may even conflicts with
+the size limits of clients, load-balancers, and servers. As we require
+APIs to be standard conform (body in GET must be ignored on server
+side), API designers have to check the following two options:
+
+1.  GET with URL encoded query parameters: when it is possible to encode
+the request information in query parameters, respecting the usual size
+limits of clients, gateways, and servers, this should be the first
+choice. The request information can either be provided distributed to
+multiple query parameters or a single structured URL encoded string.
+2.  POST with body content: when a GET with URL encoded query parameters
+is not possible, a POST with body content must be used. In this case the
+endpoint must be documented with the hint `GET with    body` to
+transport the GET semantic of this call.
+
+*Note:* It is no option to encode the lengthy structured request
+information in header parameters. From a conceptual point of view, the
+semantic of an operation should always be expressed by resource name and
+query parameters, i.e. what goes into the URL. Request headers are
+reserved for general context information, e.g. FlowIDs. In addition,
+size limits on query parameters and headers are not reliable and depend
+on clients, gateways, server, and actual settings. Thus, switching to
+headers does not solve the original problem.
+
+[[put]]
+=== PUT
+
+PUT requests are used to create or update *entire* resources - single or
+collection resources. The semantic is best described as »_please put the
+enclosed representation at the resource mentioned by the URL, replacing
+any existing resource._«.
+
+* PUT requests are usually applied to single resources, and not to
+collection resources, as this would imply replacing the entire
+collection
+* PUT requests are usually robust against non-existence of resources by
+implicitly creating before updating
+* on successful PUT requests, the server will *replace the entire
+resource* addressed by the URL with the representation passed in the
+payload (subsequent reads will deliver the same payload)
+* successful PUT requests will usually generate 200 or 204 (if the
+resource was updated - with or without actual content returned), and 201
+(if the resource was created)
+
+*Note:* Resource IDs with respect to PUT requests are maintained by the
+client and passed as a URL path segment. Putting the same resource twice
+is required to be idempotent and to result in the same single resource
+instance. If PUT is applied for creating a resource, only URIs should be
+allowed as resource IDs. If URIs are not available POST should be
+preferred.
+
+To prevent unnoticed concurrent updates when using PUT, the combination
+of <<182,`ETag` and `If-(None-)Match`>> headers should be considered to signal the server
+stricter demands to expose conflicts and prevent lost updates. The section <<optimistic-locking>> also describes some 
+alternatives to this approach. 
+
+[[post]]
+=== POST
+
+POST requests are idiomatically used to create single resources on a
+collection resource endpoint, but other semantics on single resources
+endpoint are equally possible. The semantic for collection endpoints is
+best described as »_please add the enclosed representation to the
+collection resource identified by the URL_«. The semantic for single
+resource endpoints is best described as »_please execute the given well
+specified request on the collection resource identified by the URL_«.
+
+* POST request should only be applied to collection resources, and
+normally not on single resource, as this has an undefined semantic
+* on successful POST requests, the server will create one or multiple
+new resources and provide their URI/URLs in the response
+* successful POST requests will usually generate 200 (if resources have
+been updated), 201 (if resources have been created), and 202 (if the
+request was accepted but has not been finished yet)
+
+*More generally:* POST should be used for scenarios that cannot be
+covered by the other methods sufficiently. For instance, GET with
+complex (e.g. SQL like structured) query that needs to be passed as
+request body payload because of the URL-length constraint. In such
+cases, make sure to document the fact that POST is used as a workaround.
+
+*Note:* Resource IDs with respect to POST requests are created and
+maintained by server and returned with response payload. Posting the
+same resource twice is by itself *not* required to be idempotent and may
+result in multiple resource instances. Anyhow, if external URIs are
+present that can be used to identify duplicate requests, it is best
+practice to implement POST in an idempotent way.
+
+[[patch]]
+=== PATCH
+
+PATCH request are only used for partial update of single resources, i.e.
+where only a specific subset of resource fields should be replaced. The
+semantic is best described as »_please change the resource identified by
+the URL according to my change request_«. The semantic of the change
+request is not defined in the HTTP standard and must be described in the
+API specification by using suitable media types.
+
+* PATCH requests are usually applied to single resources, and not on
+collection resources, as this would imply patching on the entire
+collection
+* PATCH requests are usually not robust against non-existence of
+resource instances
+* on successful PATCH requests, the server will update parts of the
+resource addressed by the URL as defined by the change request in the
+payload
+* successful PATCH requests will usually generate 200 or 204 (if
+resources have been updated
+* with or without updated content returned)
+
+*Note:* since implementing PATCH correctly is a bit tricky, we strongly
+suggest to choose one and only one of the following patterns per
+endpoint, unless forced by a <<106,backwards compatible change>>.
+In preference order:
+
+1.  use PUT with complete objects to update a resource as long as
+feasible (i.e. do not use PATCH at all).
+2.  use PATCH with partial objects to only update parts of a resource,
+whenever possible. (This is basically
+https://tools.ietf.org/html/rfc7396[JSON Merge Patch], a specialized
+media type `application/merge-patch+json` that is a partial resource
+representation.)
+3.  use PATCH with http://tools.ietf.org/html/rfc6902[JSON Patch], a
+specialized media type `application/json-patch+json` that includes
+instructions on how to change the resource.
+4.  use POST (with a proper description of what is happening) instead of
+PATCH if the request does not modify the resource in a way defined by
+the semantics of the media type.
+
+In practice https://tools.ietf.org/html/rfc7396[JSON Merge Patch]
+quickly turns out to be too limited, especially when trying to update
+single objects in large collections (as part of the resource). In this
+cases http://tools.ietf.org/html/rfc6902[JSON Patch] can shown its full
+power while still showing readable patch requests
+(see also http://erosb.github.io/post/json-patch-vs-merge-patch[JSON patch vs. merge]).
+
+To prevent unnoticed concurrent updates when using PATCH, the
+combination of <<182,`ETag`and `If-Match`>> headers should be considered to
+signal the server stricter demands to expose conflicts and prevent lost updates.
+
+[#delete]
+=== DELETE
+
+DELETE request are used to delete resources. The semantic is best
+described as »_please delete the resource identified by the URL_«.
+
+* DELETE requests are usually applied to single resources, not on
+collection resources, as this would imply deleting the entire collection
+* successful DELETE request will usually generate 200 (if the deleted
+resource is returned) or 204 (if no content is returned)
+* failed DELETE request will usually generate 404 (if the resource
+cannot be found) or 410 (if the resource was already deleted before)
+
+[[head]]
+=== HEAD
+
+HEAD requests are used to retrieve the header information of single
+resources and resource collections.
+
+* HEAD has exactly the same semantics as GET, but returns headers only,
+no body.
+
+[[options]]
+=== OPTIONS
+
+OPTIONS are used to inspect the available operations (HTTP methods) of a
+given endpoint.
+
+* OPTIONS requests usually either return a comma separated list of
+methods (provided by an `Allow:`-Header) or as a structured list of link
+templates
+
+*Note:* OPTIONS is rarely implemented, though it could be used to
+self-describe the full functionality of a resource.
+
+[#149]
+== {MUST} Fulfill Safeness and Idempotency Properties
+
+An operation can be...
+
+* idempotent, i.e. operation will have the same effect on the server's state if executed
+once or multiple times (note: this does not necessarily mean returning
+the same response or status code)
+* safe, i.e. must not have side effects such as state changes
+
+Method implementations must fulfill the following basic properties:
+
+[cols=",,",options="header",]
+|=============================
+|HTTP method |safe |idempotent
+|OPTIONS |Yes |Yes
+|HEAD |Yes |Yes
+|GET |Yes |Yes
+|PUT |No |Yes
+|POST |No |No
+|DELETE |No |Yes
+|PATCH |No |No
+|=============================
+
+Please see also https://goo.gl/vhwh8a[Best Practices [internal link]]
+for further hints on how to support the different HTTP methods on
+resources.
+
+[#154]
+== {SHOULD} Explicitly define the Collection Format of Query Parameters
+
+There are different ways of supplying a set of values as a query
+parameter. One particular type should be selected and stated explicitly
+in the API definition. The OpenAPI property
+http://swagger.io/specification/[`collectionFormat`] is used to
+specify the format of the query parameter.
+
+Only the `csv` or `multi` formats should be used for multi-value query
+parameters as described below.
+
+[,cols="15%,25%,60%",options="header",]
+|=======================================================================
+|Collection Format |Description |Example
+|`csv` |Comma separated values |`?parameter=value1,value2,value3`
+
+|`multi` |Multiple parameter instances
+|`?parameter=value1&parameter=value2&parameter=value3`
+|=======================================================================
+
+When choosing the collection format, take into account the tool support,
+the escaping of special characters and the maximal URL length.
+
