@@ -6,8 +6,8 @@
 
 set -ex
 
-USER="ZalandoGhPages"
-EMAIL="no-reply@zalando.de"
+USER="maxim-tschumak"
+EMAIL="maxim.tschumak@gmail.com"
 DEPLOY_MESSAGE="auto-deployment to the gh-branch"
 GH_REPO="github.com/zalando/restful-api-guidelines.git"
 GH_REPO_URL="https://api.github.com/repos/zalando/restful-api-guidelines"
