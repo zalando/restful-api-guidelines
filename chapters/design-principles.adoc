@@ -1,6 +1,60 @@
 [[principles]]
 = Principles
 
+[[api-design-principles]]
+== API Design Principles
+
+Comparing SOA web service interfacing style of SOAP vs. REST, the former
+tend to be centered around operations that are usually use-case specific
+and specialized. In contrast, REST is centered around business (data)
+entities exposed as resources that are identified via URIs and can be
+manipulated via standardized CRUD-like methods using different
+representations, and hypermedia. RESTful APIs
+tend to be less use-case specific and comes with less rigid client /
+server coupling and are more suitable for an ecosystem of (core) services 
+providing a platform of APIs to build diverse new business services. 
+We apply the RESTful web service principles to all kind of application 
+(micro-) service components, independently from whether they provide 
+functionality via the internet or intranet. 
+
+* We prefer REST-based APIs with JSON payloads
+* We prefer systems to be truly RESTful
+footnoteref:[fielding-restful,Per definition of R.Fielding REST APIs have to support
+HATEOAS (maturity level 3). Our guidelines do not strongly advocate for
+full REST compliance, but limited hypermedia usage, e.g. for pagination
+(see <<hypermedia>>).
+However, we still use the term "RESTful API", due to the absence
+of an alternative established term and to keep it like the very majority
+of web service industry that also use the term for their REST
+approximations — in fact, in today's industry full HATEOAS compliant
+APIs are a very rare exception.]
+
+An important principle for API design and usage is Postel's
+Law, aka http://en.wikipedia.org/wiki/Robustness_principle[The
+Robustness Principle] (see also https://tools.ietf.org/html/rfc1122[RFC 1122]):
+
+* Be liberal in what you accept, be conservative in what you send
+
+_Readings:_ Some interesting reads on the RESTful API design style and service architecture:
+
+* Book:
+https://www.amazon.de/Irresistible-APIs-Designing-that-developers/dp/1617292559[Irresistable
+APIs: Designing web APIs that developers will love]
+* Book:
+http://www.amazon.de/REST-Practice-Hypermedia-Systems-Architecture/dp/0596805829[REST
+in Practice: Hypermedia and Systems Architecture]
+* Book: https://leanpub.com/build-apis-you-wont-hate[Build APIs You
+Won't Hate]
+* InfoQ eBook: http://www.infoq.com/minibooks/emag-web-api[Web APIs:
+From Start to Finish]
+* Lessons-learned blog:
+http://restful-api-design.readthedocs.org/en/latest/[Thoughts on RESTful
+API Design]
+* Fielding Dissertation:
+http://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm[Architectural
+Styles and the Design of Network-Based Software Architectures]
+
+
 [[api-as-a-product]]
 == API as a Product
 
@@ -39,61 +93,63 @@ developer experience.
 API as a Product is closely related to our <<100,API First principle>>
 (see next chapter) which is more focused on how we engineer high quality APIs.
 
-[[api-design-principles]]
-== API Design Principles
-
-Comparing SOA web service interfacing style of SOAP vs. REST, the former
-tend to be centered around operations that are usually use-case specific
-and specialized. In contrast, REST is centered around business (data)
-entities exposed as resources that are identified via URIs and can be
-manipulated via standardized CRUD-like methods using different
-representations, self-descriptive messages and hypermedia. RESTful APIs
-tend to be less use-case specific and comes with less rigid client /
-server coupling and are more suitable as a platform interface being open
-for diverse client applications.
-
-* We prefer REST-based APIs with JSON payloads
-* We prefer systems to be truly RESTful
-footnoteref:[fielding-restful,Per definition of R.Fielding REST APIs have to support
-HATEOAS (maturity level 3). Our guidelines do not strongly advocate for
-full REST compliance, but limited hypermedia usage, e.g. for pagination
-(see <<hypermedia>>).
-However, we still use the term "RESTful API", due to the absence
-of an alternative established term and to keep it like the very majority
-of web service industry that also use the term for their REST
-approximations — in fact, in today's industry full HATEOAS compliant
-APIs are a very rare exception.]
-
-We apply the RESTful web service principles to all kind of application
-components, whether they provide functionality via the Internet or via
-the intranet as larger application elements. We strive to build
-interoperating distributed systems that different teams can evolve in
-parallel.
-
-An important principle for (RESTful) API design and usage is Postel's
-Law, aka http://en.wikipedia.org/wiki/Robustness_principle[the
-Robustness Principle] (RFC 1122):
-
-* Be liberal in what you accept, be conservative in what you send
-
-_Readings:_ Read the following to gain additional insight on the RESTful
-service architecture paradigm and general RESTful API design style:
-
-* Book:
-https://www.amazon.de/Irresistible-APIs-Designing-that-developers/dp/1617292559[Irresistable
-APIs: Designing web APIs that developers will love]
-* Book:
-http://www.amazon.de/REST-Practice-Hypermedia-Systems-Architecture/dp/0596805829[REST
-in Practice: Hypermedia and Systems Architecture]
-* Book: https://leanpub.com/build-apis-you-wont-hate[Build APIs You
-Won't Hate]
-* InfoQ eBook: http://www.infoq.com/minibooks/emag-web-api[Web APIs:
-From Start to Finish]
-* Lessons-learned blog:
-http://restful-api-design.readthedocs.org/en/latest/[Thoughts on RESTful
-API Design]
-* Fielding Dissertation:
-http://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm[Architectural
-Styles and the Design of Network-Based Software Architectures]
 
 
+[[api-first]]
+== API First 
+
+API First is one of our
+https://github.com/zalando/engineering-principles[engineering
+and architecture principles]. In a nutshell API First requires two
+aspects:
+
+* define APIs first, before coding its implementation, using a standard specification
+language
+* get early review feedback from peers and client developers
+
+By defining APIs outside the code, we want to facilitate early review
+feedback and also a development discipline that focus service interface
+design on...
+
+* profound understanding of the domain and required functionality
+* generalized business entities / resources, i.e. avoidance of use case
+specific APIs
+* clear separation of WHAT vs. HOW concerns, i.e. abstraction from
+implementation aspects — APIs should be stable even if we replace
+complete service implementation including its underlying technology
+stack
+
+Moreover, API definitions with standardized specification format also
+facilitate...
+
+* single source of truth for the API specification; it is a crucial part
+of a contract between service provider and client users
+* infrastructure tooling for API discovery, API GUIs, API documents,
+automated quality checks
+
+Elements of API First are also this API Guidelines and a standardized 
+API review process as to get early review feedback from
+peers and client developers. Peer review is important for us to get high
+quality APIs, to enable architectural and design alignment and to
+supported development of client applications decoupled from service
+provider engineering life cycle.
+
+It is important to learn, that API First is *not in conflict with the
+agile development principles* that we love. Service applications should
+evolve incrementally — and so its APIs. Of course, our API specification
+will and should evolve iteratively in different cycles; however, each
+starting with draft status and _early_ team and peer review feedback.
+API may change and profit from implementation concerns and automated
+testing feedback. API evolution during development life cycle may
+include breaking changes for not yet productive features and as long as
+we have aligned the changes with the clients. Hence, API First does
+_not_ mean that you must have 100% domain and requirement understanding
+and can never produce code before you have defined the complete API and
+get it confirmed by peer review. On the other hand, API First obviously
+is in conflict with the bad practice of publishing API definition and
+asking for peer review after the service integration or even the service
+productive operation has started. It is crucial to request and get early
+feedback — as early as possible, but not before the API changes are
+comprehensive with focus to the next evolution step and have a certain
+quality (including API Guideline compliance), already confirmed via team
+internal reviews.
