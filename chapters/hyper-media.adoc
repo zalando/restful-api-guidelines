@@ -30,10 +30,10 @@ SaaS platform.
 
 Our major concerns regarding the promised advantages of HATEOAS (see
 also
-https://www.infoq.com/news/2014/03/rest-at-odds-with-web-apis%20for%20detailed%20discussion[RESTistential
+https://www.infoq.com/news/2014/03/rest-at-odds-with-web-apis[RESTistential
 Crisis over Hypermedia APIs],
 https://jeffknupp.com/blog/2014/06/03/why-i-hate-hateoas/[Why I Hate
-HATEOAS] and others):
+HATEOAS] and others for a detailed discussion):
 
 * We follow the <<100,API First principle>>
 with APIs explicitly defined outside the code with
