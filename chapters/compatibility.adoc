@@ -171,9 +171,8 @@ PUT, POST and PATCH requests.
 API formats must not declare `additionalProperties` to be false, as this
 prevents objects being extended in the future.
 
-Note that this guideline concentrates on default extensibility and does
-not exclude the use of `additionalProperties` with a schema as a value,
-which might be appropriate in some circumstances.
+Note that this guideline concentrates on default extensibility for "normal objects"
+and does not exclude the <<#216, use of `additionalProperties` for maps>>.
 
 [#112]
 == {SHOULD} Used Open-Ended List of Values (x-extensible-enum) Instead of Enumerations
