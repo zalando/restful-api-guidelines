@@ -7,62 +7,15 @@ The titles are marked with the corresponding labels: {MUST},
 [#100]
 == {MUST} Follow API First Principle
 
-As mentioned in the introduction, API First is one of our
-https://github.com/zalando/engineering-principles[engineering
-and architecture principles]. In a nutshell API First requires two
-aspects:
+You must follow the <<api-first, API First Principle>>, more specifically: 
 
-* define APIs outside the code first using a standard specification
-language
-* get early review feedback from peers and client developers
+* You must define APIs first, before coding its implementation, <<101, using OpenAPI as specification language>>
+* You must design your APIs consistently with this guidelines; 
+use our https://zally.zalando.net/[API Linter Service [internal link]] for automated rule checks. 
+* You must call for early review feedback from peers and client developers, 
+and apply our https://github.bus.zalan.do/ApiGuild/ApiReviewProcedure[lightweight API
+review process [internal link]] for all <<219, component external APIs>> 
 
-By defining APIs outside the code, we want to facilitate early review
-feedback and also a development discipline that focus service interface
-design on...
-
-* profound understanding of the domain and required functionality
-* generalized business entities / resources, i.e. avoidance of use case
-specific APIs
-* clear separation of WHAT vs. HOW concerns, i.e. abstraction from
-implementation aspects — APIs should be stable even if we replace
-complete service implementation including its underlying technology
-stack
-
-Moreover, API definitions with standardized specification format also
-facilitate...
-
-* single source of truth for the API specification; it is a crucial part
-of a contract between service provider and client users
-* infrastructure tooling for API discovery, API GUIs, API documents,
-automated quality checks
-
-An element of API First are also this API Guidelines and a
-https://github.bus.zalan.do/ApiGuild/ApiReviewProcedure[lightweight API
-review process [internal link]] as to get early review feedback from
-peers and client developers. Peer review is important for us to get high
-quality APIs, to enable architectural and design alignment and to
-supported development of client applications decoupled from service
-provider engineering life cycle.
-
-It is important to learn, that API First is *not in conflict with the
-agile development principles* that we love. Service applications should
-evolve incrementally — and so its APIs. Of course, our API specification
-will and should evolve iteratively in different cycles; however, each
-starting with draft status and _early_ team and peer review feedback.
-API may change and profit from implementation concerns and automated
-testing feedback. API evolution during development life cycle may
-include breaking changes for not yet productive features and as long as
-we have aligned the changes with the clients. Hence, API First does
-_not_ mean that you must have 100% domain and requirement understanding
-and can never produce code before you have defined the complete API and
-get it confirmed by peer review. On the other hand, API First obviously
-is in conflict with the bad practice of publishing API definition and
-asking for peer review after the service integration or even the service
-productive operation has started. It is crucial to request and get early
-feedback — as early as possible, but not before the API changes are
-comprehensive with focus to the next evolution step and have a certain
-quality (including API Guideline compliance), already confirmed via team
-internal reviews.
 
 [#101]
 == {MUST} Provide API Specification using OpenAPI
@@ -70,21 +23,15 @@ internal reviews.
 We use the http://swagger.io/specification/[OpenAPI specification] (aka
 Swagger specification) as standard to define API specifications files.
 API designers have to provide the API specification files using *YAML*
-to improve readability.
-
-Please stick to OpenAPI 2.0 for now, until we succeed to update all our
-tooling to support the upcoming OpenAPI 3.0.0.
+to improve readability. Please, use *OpenAPI 2.0* for now, until we 
+have updated all our tooling to support new OpenAPI 3.0 version. 
 
 The API specification files should be subject to version control using
-a source code management system - best together with the implementing
-sources. The API specifications of component external APIs <<192, must
-be published>> and <<219, marked with the intended target audience>>.
+a source code management system - best together with the implementing sources. 
 
-The https://github.com/zalando/zally[Zalando API Linter Zally]
-should be used to design APIs compliant with this API guideline. Please
-have also a look to the
-https://pages.github.bus.zalan.do/ApiGuild/ApiReviewProcedure/[API review
-procedures [internal link]].
+You <<192, must / should publish>> the component <<219, external / internal>> API specification
+with the deployment of the implementing service, and, hence, make it discoverable 
+for the group via our https://apis.zalando.net/[API Portal [internal link]].
 
 
 [#102]
@@ -101,10 +48,9 @@ manual typically describes the following API aspects:
 * architecture context and major dependencies - including figures and
 sequence flows
 
-The user manual must be published online, e.g. via GHE pages, on specific
-team web servers, or as a Google doc. Please do not forget to include a
-link to the API user manual into the API specification using the
-`#/externalDocs/url` property.
+The user manual must be published online, e.g. via our documentation hosting platform service, 
+GHE pages, or specific team web servers. Please do not forget to include a link to the 
+API user manual into the API specification using the `#/externalDocs/url` property.
 
 [#103]
 == {MUST} Write APIs in U.S. English

@@ -37,7 +37,8 @@ include::chapters/deprecation.adoc[]
 include::chapters/json-guidelines.adoc[]
 include::chapters/naming.adoc[]
 include::chapters/resources.adoc[]
-include::chapters/http.adoc[]
+include::chapters/http-requests.adoc[]
+include::chapters/http-status-codes-and-errors.adoc[]
 include::chapters/performance.adoc[]
 include::chapters/pagination.adoc[]
 include::chapters/hyper-media.adoc[]
@@ -122,6 +123,4 @@ document.body.classList.add('toc-left');
 nav.append(ul);
 header.prepend(nav);
 </script>
-++++
-
 ++++

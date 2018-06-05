@@ -123,14 +123,15 @@ in https://tools.ietf.org/html/rfc7240[RFC7240] to indicate whether the
 preference was applied.
 
 [#182]
-== {MAY} Consider using ETag together with If-(None-)Match header
+== {MAY} Consider Using ETag Together With If-Match/If-None-Match Header
 
 When creating or updating resources it may be necessary to expose
-conflicts and to prevent the lost update problem. This can be best
-accomplished by using the
+conflicts and to prevent the 'lost update' or 'initially created' problem. 
+Following https://tools.ietf.org/html/rfc7232[RFC 7232 "HTTP: Conditional Requests"]
+this can be best accomplished by using the
 https://tools.ietf.org/html/rfc7232#section-2.3[`ETag`] header together
-with the https://tools.ietf.org/html/rfc7232#section-3.1[`If-Match`] and
-https://tools.ietf.org/html/rfc7232#section-3.2[`If-None-Match`]. The
+with the https://tools.ietf.org/html/rfc7232#section-3.1[`If-Match`] or
+https://tools.ietf.org/html/rfc7232#section-3.2[`If-None-Match`] conditional header. The
 contents of an `ETag: <entity-tag>` header is either (a) a hash of the
 response body, (b) a hash of the last modified field of the entity, or
 (c) a version number or identifier of the entity version.
