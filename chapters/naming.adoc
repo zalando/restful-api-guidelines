@@ -47,6 +47,7 @@ Hostnames in APIs are recommended to conform to the functional naming (see
 <functional-domain>    ::= [a-z][a-z0-9]*   -- domain managed by architecture team
 <functional-component> ::= [a-z][a-z0-9-]*  -- functional name of owning component
 
+-- legacy format for internal components only:
 <organizational-hostname> ::= <application>.<organization-unit>.zalan.do
 <organizational-unit>  ::= [a-z][a-z0-9-]*  -- organizational unit, e.g. team identifier
 <application>          ::= [a-z][a-z0-9-]*  -- application identifier
@@ -55,7 +56,7 @@ Hostnames in APIs are recommended to conform to the functional naming (see
 
 **Note:** The `functional-domain` and `functional-component` must correspond to
 the functional name of the providing application. The organizational schema
-is only allow for internal APIs (see <<223>>).
+is only allowed for internal APIs (see <<223>>).
 
 [#129]
 == {MUST} Use lowercase separate words with hyphens for Path Segments

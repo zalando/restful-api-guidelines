@@ -46,21 +46,21 @@ The naming schema for permissions correspond to the naming schema for <<224,
 hostnames>> and <<213, event names>>. Please refer to <<225>> for designing
 permission names.
 
-APIs should stick to standard permissions by default to avoid governance
-complexity of too many fine grained permissions. For the majority of use cases,
-restricting access to specific API endpoints using read and write is sufficient
-for controlling access for client types like merchant or retailer business
-partners, customers or operational staff. However, in some situations, where the
-API serves different types of resources for different owners, resource specific
-scopes may make sense.
+APIs should stick to component specific permissions without resource extension
+to avoid governance complexity of too many fine grained permissions. For the
+majority of use cases, restricting access to specific API endpoints using read
+and write is sufficient for controlling access for client types like merchant
+or retailer business partners, customers or operational staff. However, in
+some situations, where the API serves different types of resources for
+different owners, resource specific scopes may make sense.
 
 Some examples for standard and resource-specific permissions:
 
 [cols="25%,20%,15%,40%",options="header",]
 |=======================================================================
 |Application ID |Resource ID |Access Type |Example
-|`sales-order` |`sales_order` |`read` |`sales-order.sales_order.read`
-|`sales-order` |`shipment_order` |`read`|`sales-order.shipment_order.read`
+|`order-management` |`sales_order` |`read` |`order-management.sales_order.read`
+|`order-management` |`shipment_order` |`read`|`order-management.shipment_order.read`
 |`fulfillment-order` | |`write` |`fulfillment-order.write`
 |`business-partner-service` | |`read` |`business-partner-service.read`
 |=======================================================================
@@ -77,7 +77,7 @@ Some examples for standard and resource-specific permissions:
 |=======================================================================
 | Application | Resource | Access Type | Example
 | business-partner-service | | - | read | z::business-partner-service.read
-| sales-order | shipment_order | write | z::sales-order.shipment_order.write
+| order-management | sales_order | write | z::order-management.sales_order.write
 |=======================================================================
 -->
 
@@ -138,11 +138,10 @@ as follows:
 
 <resource>            ::= [a-z][a-z0-9-]*  -- free resource identifier
 <application>         ::= [a-z][a-z0-9-]*  -- application identifier
-<access-type>         ::= read || write    -- might be extended in future
+<access-type>         ::= read | write    -- might be extended in future
 -----
 
-This pattern is compatible to the before definition supported by our
-systems.
+This pattern is compatible with the previous definition.
 
 ////
 == {MUST} Use functional naming schema for permission names

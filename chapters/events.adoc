@@ -167,16 +167,15 @@ EventType:
   properties:
     name:
       description: |
-        Name of this EventType.  Note: the name can encode the
-        owner/responsible for this EventType and ideally should follow a
-        naming pattern that makes it easy to read and understand.
-		Name of this EventType. The name encodes the owner responsible for
-		this EventType should follow the common functional naming pattern
-		`<domain>.[<component>.]<eventname>` that makes it easy to
-		read and understand.
+        Name of this EventType. The name encodes the owner responsible for
+        this EventType should follow the common functional naming pattern
+        `<functional-domain>.[<functional-component>.]<event>` that makes it
+        easy to read and understand.
       type: string
       pattern: '[a-z][a-z0-9]*\.[a-z][a-z0-9-]*\.[a-z][a-z0-9-]*'
-      example: transactions.order.order-cancelled, customer.personal-data.email-changed
+      example: |
+        transactions.order.order-cancelled
+        customer.personal-data.email-changed
     owning_application:
       description: |
         Name of the application (eg, as would be used in infrastructure
@@ -775,7 +774,8 @@ Event names in APIs are recommended to conform to the functional naming (see
 <functional-domain>     ::= [a-z][a-z0-9]*  -- domain managed by architecture team
 <functional-component>  ::= [a-z][a-z0-9-]* -- functional name of owning component
 
-<organizational-event-name> ::= <organization-unit>.<application>.<event-identifier>
+-- legacy format for internal event names only:
+<organizational-event-name> ::= <organization-unit>.<application>.<event>
 <organizational-unit>   ::= [a-z][a-z0-9-]* -- organizational unit, e.g. team identifier
 <application>           ::= [a-z][a-z0-9-]* -- application identifier
 
