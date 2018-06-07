@@ -28,13 +28,13 @@ essential to establish a consistent look and feel such that JSON looks
 as if it came from the same hand.
 
 [#216]
-== {SHOULD} Define maps using `additionalProperties`, without restriction on key format.
+== {SHOULD} Define Maps Using `additionalProperties`
 
 A "map" here is a mapping from string keys to some other type.
 In JSON this is represented as an object, the key-value pairs being represented
 by property names and property values.
 In OpenAPI schema (as well as in JSON schema) they should be represented using
-additionalProperties with a schema for the value type. Such an object should normally
+additionalProperties with a schema defining the value type. Such an object should normally
 have no other defined properties.
 
 The map keys don't count as property names in the sense of <<118,rule 118>>, and can
