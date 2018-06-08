@@ -34,7 +34,7 @@ be omitted. API endpoints should always set `flow: application` and ignore
 this information.
 
 [#105]
-== {MUST} Define and Assign Permissions
+== {MUST} Define and Assign Permissions (Scopes)
 
 APIs must define permissions to protect their resources. Thus, at least one
 permission must be assigned to each endpoint. Permissions are defined as shown
@@ -121,10 +121,10 @@ standard header so to say implicitly defined via the security section.
 
 
 [#225]
-== {MUST} Follow Naming Rules for Permissions (Scopes)
+== {MUST} Follow Naming Convention for Permissions (Scopes)
 
 As long as the <<223,functional naming>> is not supported for permissions,
-permission names in APIs must conform to the following naming standard:
+permission names in APIs must conform to the following naming pattern:
 
 [source,bnf]
 -----
@@ -145,11 +145,7 @@ This pattern is compatible with the previous definition.
 
 ////
 //Prepared change for functional permission names:
-== {MUST} Use Functional Naming for Permissions (Scopes)
-
-Permission names in APIs are recommended to conform to the functional naming
-schema (see <<223>> for details and `<functional-name>` definition). They must
-conform to the following pattern:
+Permission names in APIs must conform to the following pattern:
 
 [source,bnf]
 -----
@@ -165,7 +161,9 @@ conform to the following pattern:
 <access-mode>         ::= read || write    -- might be extended in future
 -----
 
-The following alternative pattern is allowed for <<223, internal>> permissions only:
+Permission names are recommended to conform to the functional naming schema
+(see <<223>> for details and `<functional-name>` definition). The following
+alternative pattern is *only* allowed for <<223, internal>> permissions:
 
 [source,bnf]
 -----

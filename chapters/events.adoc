@@ -167,9 +167,9 @@ EventType:
   properties:
     name:
       description: |
-        Name of this EventType. The name must follow common naming pattern to
-        preserve global uniqueness and readability by following the functional
-        naming pattern `<functional-name>.<event-name>`.
+        Name of this EventType. The name must follow the functional naming
+        pattern `<functional-name>.<event-name>` to preserve global
+        uniqueness and readability.
       type: string
       pattern: '[a-z][a-z0-9-]*\.[a-z][a-z0-9-]*'
       example: |
@@ -760,11 +760,9 @@ receiver interested in the history of a resource can use the ordering
 key to recreate a (partially) ordered sequence of events.
 
 [#213]
-== {MUST} Use Functional Naming for Event Type Names
+== {MUST} Follow Naming Convention for Event Type Names
 
-Event type names are recommended to conform to the functional naming schema
-(see <<223>> for details and `<functional-name>` definition). They must conform
-to the following pattern:
+Event type names must conform to the following pattern:
 
 [source,bnf]
 ----
@@ -775,8 +773,9 @@ to the following pattern:
 <event-name>            ::= [a-z][a-z0-9-]* -- free event name (functional name)
 ----
 
-The following alternative pattern is allowed for <<223, internal>> event type
-names only:
+Event type names are recommended to conform to the functional naming schema
+(see <<223>> for details and `<functional-name>` definition). The following
+alternative pattern is *only* allowed for <<223, internal>> event type names:
 
 [source,bnf]
 ----
@@ -785,9 +784,8 @@ names only:
 <application-id>   ::= [a-z][a-z0-9-]* -- application identifier
 ----
 
-**Note:** If an entity of a data change event is also expose as resource via a
-RESTful API, the event type name should be the same as the resource name in
-the API.
+**Note:** consistent naming should be used whenever the same entity is exposed
+by a data change event and a RESTful API.
 
 [#214]
 == {MUST} Prepare for duplicate Events
