@@ -2,30 +2,46 @@
 = API Naming
 
 [#223]
-== {MUST-SHOULD} Use functional naming schema
+== {MUST-SHOULD} Use Functional Naming Schema
 
-To allow for stable APIs in the case of technical and organizational changes,
-<<224, hostnames>> and <<213, event names>> in APIs are strongly recommended to
-follow the
-https://docs.google.com/document/d/1ZSfVkdX_Dwpz22Xl-CFXgxe1u1eY_IfTNdFNMmnGi8c[functional
-naming schema (internal link)]. The recommendation level follows the intended
-<<219, audience>> of the API as follows:
+Functional naming is a powerful, yet easy way to align global resources as
+_host_, _permission_, and _event names_ within an the application landscape. It
+helps to preserve uniqueness of names while giving readers meaningful context
+information about the addressed component. Besides, the most important aspect
+is, that it allows to keep APIs stable in the case of technical and
+organizational changes (see narrative
+https://docs.google.com/document/d/1ZSfVkdX_Dwpz22Xl-CFXgxe1u1eY_IfTNdFNMmnGi8c[Functional
+Naming of Service APIs (internal link)] for details).
 
-|====================================
-| *Audience*               | *Level*
-| *component-internal*     | should
-| *business-unit-internal* | should
-| *company-internal*       | must
-| *external-partner*       | must
-| *external-public*        | must
-|====================================
+To make use of this advantages for APIs with a larger <<219, audience>> we
+strongly recommended to follow the functional naming schema for <<224,
+hostnames>>, <<215, permission names>>, and <<213, event names>> in APIs as
+follows:
 
-To conduct the functional naming schema, you have to assign your application a
-unique functional name that is build of a unique `functional-component` name
-within the matching `functional-domain`. The uniqueness of the functional name
-and its consistency with global architecture is ensured by
+[cols="25%,75%,options="header"]
+|================================================================
+| *Functional Naming* | *Audience*
+| *must*   | external-public, external-partner, company-internal
+| *should* | component-internal, business-unit-internal
+|================================================================
+
+To conduct the functional naming schema, a unique `functional-name` is assigned
+to each functional component. It is build of domain name of the functional group
+the component is belonging to and a unique a short identifier for functional
+component itself:
+
+[source,bnf]
+----
+<functional-name>       ::= <functional-domain>-<functional-component>
+<functional-domain>     ::= [a-z][a-z0-9]*  -- managed functional group of components
+<functional-component>  ::= [a-z][a-z0-9-]* -- name of owning functional component
+----
+
+The list of domains is curated by team architecture to foster consistent
+grouping of components within the company application landscape. The
+uniqueness of the `functional-name` is ensured by
 https://github.bus.zalan.do/team-architecture/functional-component-registry[registering
-(internal link)] functional components.
+(internal link)] all functional component.
 
 Please see the following rules for detailed functional naming patterns:
 
@@ -34,29 +50,27 @@ Please see the following rules for detailed functional naming patterns:
 * <<213>>
 
 [#224]
-== {MUST} Use functional naming schema for hostnames
+== {MUST} Use Functional Naming for Hostnames
 
 Hostnames in APIs are recommended to conform to the functional naming (see
 <<223>> for details and registration) as follows:
 
 [source,bnf]
-----
-<hostname>             ::= <functional-hostname> | <organizational-hostname>
+-----
+<hostname>             ::= <functional-hostname> | <application-hostname>
 
-<functional-hostname>  ::= <functional-domain>[-<functional-component>].zalandoapis.com
-<functional-domain>    ::= [a-z][a-z0-9]*   -- domain managed by architecture team
-<functional-component> ::= [a-z][a-z0-9-]*  -- functional name of owning component
+<functional-hostname>  ::= <functional-name>.zalandoapis.com
+-----
 
--- legacy format for internal components only:
-<organizational-hostname> ::= <application>.<organization-unit>.zalan.do
-<organizational-unit>  ::= [a-z][a-z0-9-]*  -- organizational unit, e.g. team identifier
-<application>          ::= [a-z][a-z0-9-]*  -- application identifier
+The following application specific hostname schema is allowed for <<223,
+internal>> APIs only:
 
-----
-
-**Note:** The `functional-domain` and `functional-component` must correspond to
-the functional name of the providing application. The organizational schema
-is only allowed for internal APIs (see <<223>>).
+[source,bnf]
+-----
+<application-hostname> ::= <application-id>.<organization-unit>.zalan.do
+<application-id>       ::= [a-z][a-z0-9-]*  -- application identifier
+<organization-id>      ::= [a-z][a-z0-9-]*  -- organization unit identifier, e.g. team identifier
+-----
 
 [#129]
 == {MUST} Use lowercase separate words with hyphens for Path Segments

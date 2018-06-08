@@ -167,12 +167,11 @@ EventType:
   properties:
     name:
       description: |
-        Name of this EventType. The name encodes the owner responsible for
-        this EventType should follow the common functional naming pattern
-        `<functional-domain>.[<functional-component>.]<event>` that makes it
-        easy to read and understand.
+        Name of this EventType. The name must follow common naming pattern to
+        preserve global uniqueness and readability by following the functional
+        naming pattern `<functional-name>.<event-name>`.
       type: string
-      pattern: '[a-z][a-z0-9]*\.[a-z][a-z0-9-]*\.[a-z][a-z0-9-]*'
+      pattern: '[a-z][a-z0-9-]*\.[a-z][a-z0-9-]*'
       example: |
         transactions.order.order-cancelled
         customer.personal-data.email-changed
@@ -761,33 +760,34 @@ receiver interested in the history of a resource can use the ordering
 key to recreate a (partially) ordered sequence of events.
 
 [#213]
-== {MUST} Use functional naming schema for event names
+== {MUST} Use Functional Naming for Event Type Names
 
-Event names in APIs are recommended to conform to the functional naming (see
-<<223>> for details and registration) as follows:
+Event type names are recommended to conform to the functional naming schema
+(see <<223>> for details and `<functional-name>` definition). They must conform
+to the following pattern:
 
 [source,bnf]
 ----
-<event-name>            ::= <functional-event-name> | <organizational-event-name>
+<event-type-name>       ::= <functional-event-name> | <application-event-name>
 
-<functional-event-name> ::= <functional-domain>.[<functional-component>].<event>
-<functional-domain>     ::= [a-z][a-z0-9]*  -- domain managed by architecture team
-<functional-component>  ::= [a-z][a-z0-9-]* -- functional name of owning component
+<functional-event-name> ::= <functional-name>.<event-name>
 
--- legacy format for internal event names only:
-<organizational-event-name> ::= <organization-unit>.<application>.<event>
-<organizational-unit>   ::= [a-z][a-z0-9-]* -- organizational unit, e.g. team identifier
-<application>           ::= [a-z][a-z0-9-]* -- application identifier
-
-<event>                 ::= [a-z][a-z0-9-]* -- free event identifier (functional name)
+<event-name>            ::= [a-z][a-z0-9-]* -- free event name (functional name)
 ----
 
-**Note:** The `functional-domain` and `functional-component` must correspond to
-the functional name of the owning application. The organizational schema is
-only allow for internal event names (see <<223>>).
+The following alternative pattern is allowed for <<223, internal>> event type
+names only:
+
+[source,bnf]
+----
+<application-event-name> ::= [<organization-id>.]<application-id>.<event-name>
+<organization-id>  ::= [a-z][a-z0-9-]* -- organization identifier, e.g. team identifier
+<application-id>   ::= [a-z][a-z0-9-]* -- application identifier
+----
 
 **Note:** If an entity of a data change event is also expose as resource via a
-RESTful API, the event name should be the same as the resource name in the API.
+RESTful API, the event type name should be the same as the resource name in
+the API.
 
 [#214]
 == {MUST} Prepare for duplicate Events
