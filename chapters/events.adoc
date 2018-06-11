@@ -167,12 +167,14 @@ EventType:
   properties:
     name:
       description: |
-        Name of this EventType.  Note: the name can encode the
-        owner/responsible for this EventType and ideally should follow a
-        naming pattern that makes it easy to read and understand.
+        Name of this EventType. The name must follow the functional naming
+        pattern `<functional-name>.<event-name>` to preserve global
+        uniqueness and readability.
       type: string
-      pattern: '[a-zA-Z][-0-9a-zA-Z_]*(\.[a-zA-Z][-0-9a-zA-Z_]*)*'
-      example: order.order_cancelled, business_partner.contract
+      pattern: '[a-z][a-z0-9-]*\.[a-z][a-z0-9-]*'
+      example: |
+        transactions.order.order-cancelled
+        customer.personal-data.email-changed
     owning_application:
       description: |
         Name of the application (eg, as would be used in infrastructure
@@ -758,15 +760,33 @@ receiver interested in the history of a resource can use the ordering
 key to recreate a (partially) ordered sequence of events.
 
 [#213]
-== {MUST} Follow conventions for Event Type names
+== {MUST} Follow Naming Convention for Event Type Names
 
-Event types can follow these naming conventions (each convention has its
-own should, must or could conformance level) -
+Event type names must, respectively should conform to the functional naming
+depending on the <<219, audience>> as follows (see <<223>> for details and
+`<functional-name>` definition):
 
-* Event type names must be url-safe. This is because the event type
-names may appear in URLs published by other systems and APIs.
-* Event type names should be lowercase words and numbers, using hyphens,
-underscores or periods as separators.
+[source,bnf]
+----
+<event-type-name>       ::= <functional-event-name> | <application-event-name>
+
+<functional-event-name> ::= <functional-name>.<event-name>
+
+<event-name>            ::= [a-z][a-z0-9-]* -- free event name (functional name)
+----
+
+The following application specific legacy convention is *only* allowed for
+<<223, internal>> event type names:
+
+[source,bnf]
+----
+<application-event-name> ::= [<organization-id>.]<application-id>.<event-name>
+<organization-id>  ::= [a-z][a-z0-9-]* -- organization identifier, e.g. team identifier
+<application-id>   ::= [a-z][a-z0-9-]* -- application identifier
+----
+
+**Note:** consistent naming should be used whenever the same entity is exposed
+by a data change event and a RESTful API.
 
 [#214]
 == {MUST} Prepare for duplicate Events

@@ -11,9 +11,10 @@
 :keywords: Zalando, Guidelines, RESTful, API, Events, Schema
 :copyright: CC-BY-SA 3.0
 
-:MUST: pass:[<span class="must-keyword"><strong>Must:</strong></span>]
-:SHOULD: pass:[<span class="should-keyword"><strong>Should:</strong></span>]
-:MAY: pass:[<span class="may-keyword"><strong>May:</strong></span>]
+:MUST: pass:[<span class="must-keyword"><strong>Must</strong></span>:]
+:SHOULD: pass:[<span class="should-keyword"><strong>Should</strong></span>:]
+:MAY: pass:[<span class="may-keyword"><strong>May</strong></span>:]
+:MUST-SHOULD: pass:[<span class="must-keyword"><strong>Must</strong></span>/<span class="should-keyword"><strong>Should</strong></span>:]
 
 = Zalando RESTful API and Event Scheme Guidelines
 Zalando SE
@@ -122,6 +123,4 @@ document.body.classList.add('toc-left');
 nav.append(ul);
 header.prepend(nav);
 </script>
-++++
-
 ++++

@@ -22,85 +22,87 @@ securityDefinitions:
       fulfillment-order-service.write: Access right needed to write to the fulfillment order service.      
 ----
 
-The example defines OAuth2 with client credentials flow as security standard used
-for authentication when accessing endpoints; additionally, there are two
-API access rights defined via the scopes section for later endpoint
-authorization usage - please see next section.
+The example defines OAuth2 with client credentials flow as security standard
+used for authentication when accessing endpoints. Additionally, there are two
+API access rights (permissions) defined via the scopes section for later
+endpoint authorization usage (see <<105, next section>>).
 
-It makes little sense specifying the flow to retrieve OAuth tokens in
-the `securityDefinitions` section, as API endpoints should not care, how
-OAuth tokens were created. Unfortunately the `flow` field is mandatory
-and cannot be omitted. API endpoints should always set `flow: application`
-and ignore this information.
+It makes little sense specifying the flow to retrieve OAuth tokens in the
+`securityDefinitions` section, as API endpoints should not care, how OAuth
+tokens were created. Unfortunately the `flow` field is mandatory and cannot
+be omitted. API endpoints should always set `flow: application` and ignore
+this information.
 
 [#105]
-== {MUST} Define and Assign Access Rights (Scopes)
+== {MUST} Define and Assign Permissions (Scopes)
 
-Every API needs to define access rights, called scopes here, and every
-endpoint needs to have at least one scope assigned. Scopes are defined
-by name and description per API specification, as shown in the previous
-section. Please refer to the following rules when creating scope names:
+APIs must define permissions to protect their resources. Thus, at least one
+permission must be assigned to each endpoint. Permissions are defined as shown
+in the <<104, previous section>>.
 
-[source,bnf]
-----
-<api-scope> ::= <api-standard-scope> |            -- should be sufficient for majority of use cases 
-                <api-resource-specific-scope> |   -- for special security access differentiation use cases 
-                <api-pseudo-scope>                -- used to explicitly indicate that access is not restricted
-                
-<api-standard-scope>          ::= <application-id>.<access-type> 
-<api-resource-specific-scope> ::= <application-id>.<resource-id>.<access-type>
-<api-pseudo-scope>            ::= uid
+The naming schema for permissions corresponds to the naming schema for <<224,
+hostnames>> and <<213, event type names>>. Please refer to <<225>> for
+designing permission names.
 
-<application-id> ::= <as defined via STUPS>
-<access-type>    ::= read | write           -- might be extended in future
-<resource-id>    ::= <free identifier following application-id syntax>
-----
+APIs should stick to component specific permissions without resource extension
+to avoid governance complexity of too many fine grained permissions. For the
+majority of use cases, restricting access to specific API endpoints using read
+and write is sufficient for controlling access for client types like merchant
+or retailer business partners, customers or operational staff. However, in
+some situations, where the API serves different types of resources for
+different owners, resource specific scopes may make sense.
 
-APIs should stick to standard scopes by default -- for the majority of
-use cases, restricting access to specific APIs (with read vs. write
-differentiation) is sufficient for controlling access for client types
-like merchant or retailer business partners, customers or operational
-staff. We want to avoid too many, fine grained scopes increasing
-governance complexity without real value add. In some situations, where
-the API serves different types of resources for different owners,
-resource specific scopes may make sense.
+Some examples for standard and resource-specific permissions:
 
-Some examples for standard and resource-specific scopes:
-
-[cols="25%,20%,20%,35%",options="header",]
+[cols="25%,20%,15%,40%",options="header",]
 |=======================================================================
-|Application ID |Resource ID |Access Type |Example
-|`fulfillment-order` | |`read` |`fulfillment-order.read`
-
-|`fulfillment-order` | |`write` |`fulfillment-order.write`
-
-|`sales-order` |`sales_order` |`read` |`sales-order.sales_order.read`
-
-|`sales-order` |`shipment_order` |`read`
-|`sales-order.shipment_order.read`
+| Application ID | Resource ID | Access Type | Example
+| `order-management` | `sales_order` | `read` | `order-management.sales_order.read`
+| `order-management` | `shipment_order` | `read` | `order-management.shipment_order.read`
+| `fulfillment-order` | | `write` | `fulfillment-order.write`
+| `business-partner-service` | |`read` | `business-partner-service.read`
 |=======================================================================
 
-After scopes names are defined and the scope is declared in the security
-definition at the top of an API specification, it should be assigned to
-each API operation by specifying a
-https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#securityRequirementObject[`security`
+////
+//Prepared change for functional permission names:
+
+[cols="15%,15%,15%,15%,40%",options="header",]
+|=======================================================================
+| Domain | Component | Resource | Access Type | Example
+| finance | exchange-rate | - | write | z::finance.exchange-rate.write 
+| transactions | order | - | read | z::transactions.order.read
+| customer | address | shipment-address | read  | z::customer.address.shipment-address.read
+|=======================================================================
+[cols="30%,15%,15%,40%",options="header",]
+|=======================================================================
+| Application | Resource | Access Type | Example
+| business-partner-service | | - | read | z::business-partner-service.read
+| order-management | sales_order | write | z::order-management.sales_order.write
+|=======================================================================
+
+////
+
+After permission names are defined and the permission is declared in the 
+security definition at the top of an API specification, it should be assigned 
+to each API operation by specifying a
+https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#securityRequirementObject[security
 requirement] like this:
 
 [source,yaml]
 ----
 paths:
-  /sales-orders/{order-number}:
+ /business-partners/{partner-id}:
     get:
-      summary: Retrieves a sales order
+      summary: Retrieves information about a business partner
       security:
         - oauth2:
-          - sales-order-service.sales_order.read
+          - business-partner.read
 ----
 
-In very rare cases a whole API or some selected endpoints may not
-require specific access control. However, to make this explicit you
-should assign the `uid` pseudo access right scope in this case. It is
-the user id and always available as OAuth2 default scope.
+In very rare cases a whole API or some selected endpoints may not require
+specific access control. However, to make this explicit you should assign the
+`uid` pseudo permission in this case. It is the user id and always available
+as OAuth2 default scope.
 
 [source,yaml]
 ----
@@ -108,7 +110,7 @@ paths:
   /public-information:
     get:
       summary: Provides public information about ... 
-               Accessible by any user; no access rights needed. 
+               Accessible by any user; no permissions needed.
       security:
         - oauth2:
           - uid
@@ -117,3 +119,60 @@ paths:
 Hint: you need not explicitly define the "Authorization" header; it is a
 standard header so to say implicitly defined via the security section.
 
+
+[#225]
+== {MUST} Follow Naming Convention for Permissions (Scopes)
+
+As long as the <<223,functional naming>> is not supported for permissions,
+permission names in APIs must conform to the following naming pattern:
+
+[source,bnf]
+-----
+<permission> ::= <standard-permission> |  -- should be sufficient for majority of use cases
+                 <resource-permission> |  -- for special security access differentiation use cases
+                 <pseudo-permission>      -- used to explicitly indicate that access is not restricted
+
+<standard-permission> ::= <application-id>.<access-mode>
+<resource-permission> ::= <application-id>.<resource-name>.<access-mode>
+<pseudo-permission>   ::= uid
+
+<application-id>      ::= [a-z][a-z0-9-]*  -- application identifier
+<resource-name>       ::= [a-z][a-z0-9-]*  -- free resource identifier
+<access-mode>         ::= read | write    -- might be extended in future
+-----
+
+This pattern is compatible with the previous definition.
+
+////
+//Prepared change for functional permission names:
+Permission names in APIs must, respectively should conform to the functional
+naming depending on the <<219, audience>> as follows (see <<223>> for details
+and `<functional-name>` definition):
+
+[source,bnf]
+-----
+<permission> ::= <functional-permission> |
+                 <standard-permission> |  -- standard permission without functional naming
+                 <resource-permission> |  -- resource permission without functional naming
+                 <pseudo-permission>      -- used to indicate unrestricted access
+
+<functional-permission> ::= z::<functional-name>[.<resource-name>].<access-mode>
+<pseudo-permission>     ::= uid
+
+<resource-name>       ::= [a-z][a-z0-9-]*  -- free resource identifier
+<access-mode>         ::= read || write    -- might be extended in future
+-----
+
+The following application specific legacy convention is *only* allowed for
+permissions names of <<223, internal>> APIs:
+
+[source,bnf]
+-----
+<standard-permission> ::= <application-id>.<access-mode>
+<resource-permission> ::= <application-id>.<resource-name>.<access-mode>
+
+<application-id>      ::= [a-z][a-z0-9-]*  -- application identifier
+
+-----
+
+////
