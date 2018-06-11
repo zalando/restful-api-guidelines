@@ -52,7 +52,9 @@ Please see the following rules for detailed functional naming patterns:
 [#224]
 == {MUST} Follow Naming Convention for Hostnames
 
-Hostnames in APIs must conform to the following pattern:
+Hostnames in APIs must, respectively should conform to the functional naming
+depending on the <<219, audience>> as follows (see <<223>> for details and
+`<functional-name>` definition):
 
 [source,bnf]
 -----
@@ -61,10 +63,8 @@ Hostnames in APIs must conform to the following pattern:
 <functional-hostname>  ::= <functional-name>.zalandoapis.com
 -----
 
-Hostnames are recommended to conform to the functional naming schema (see
-<<223>> for details and `<functional-name>` definition). The following
-application specific hostname pattern is *only* allowed for <<223,
-internal>> APIs:
+The following application specific legacy convention is *only* allowed for
+hostnames of <<223, internal>> APIs:
 
 [source,bnf]
 -----

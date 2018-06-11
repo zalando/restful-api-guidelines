@@ -762,7 +762,9 @@ key to recreate a (partially) ordered sequence of events.
 [#213]
 == {MUST} Follow Naming Convention for Event Type Names
 
-Event type names must conform to the following pattern:
+Event type names must, respectively should conform to the functional naming
+depending on the <<219, audience>> as follows (see <<223>> for details and
+`<functional-name>` definition):
 
 [source,bnf]
 ----
@@ -773,9 +775,8 @@ Event type names must conform to the following pattern:
 <event-name>            ::= [a-z][a-z0-9-]* -- free event name (functional name)
 ----
 
-Event type names are recommended to conform to the functional naming schema
-(see <<223>> for details and `<functional-name>` definition). The following
-alternative pattern is *only* allowed for <<223, internal>> event type names:
+The following application specific legacy convention is *only* allowed for
+<<223, internal>> event type names:
 
 [source,bnf]
 ----
