@@ -26,9 +26,9 @@ follows:
 |================================================================
 
 To conduct the functional naming schema, a unique `functional-name` is assigned
-to each functional component. It is build of domain name of the functional group
-the component is belonging to and a unique a short identifier for functional
-component itself:
+to each functional component. It is built of the domain name of the functional
+group the component is belonging to and a unique a short identifier for the
+functional component itself:
 
 [source,bnf]
 ----
