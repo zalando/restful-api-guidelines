@@ -6,7 +6,7 @@
 API specifications must contain the following OpenAPI meta information
 to allow for API management:
 
-- `#/info/title` as (unique) identifying name of the API
+- `#/info/title` as (unique) identifying, functional descriptive name of the API
 - `#/info/version` to distinguish API specifications versions following
   <<116, semantic rules>>
 - `#/info/description` containing a proper description of the API
