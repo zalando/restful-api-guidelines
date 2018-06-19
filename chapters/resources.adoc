@@ -105,7 +105,7 @@ Examples:
 Generating IDs can be a scaling problem in high frequency and near real
 time use cases. UUIDs solve this problem, as they can be generated
 without collisions in a distributed, non-coordinated way and without
-additional server roundtrips.
+additional server round trips.
 
 However, they also come with some disadvantages:
 
@@ -129,6 +129,10 @@ preferred (POST on id resource, followed by idempotent PUT on entity
 resource). Usage of UUIDs is especially discouraged as primary keys of
 master and configuration data, like brand-ids or attribute-ids which
 have low id volume but widespread steering functionality.
+
+Please be aware that sequential, strictly monotonically increasing
+numeric identifiers may reveal critical, confidential business
+information, like order volume, to non-privileged clients.
 
 In any case, we should always use string rather than number type for
 identifiers. This gives us more flexibility to evolve the identifier
