@@ -133,8 +133,7 @@ resource instances
 resource addressed by the URL as defined by the change request in the
 payload
 * successful PATCH requests will usually generate 200 or 204 (if
-resources have been updated
-* with or without updated content returned)
+resources have been updated with or without updated content returned)
 
 *Note:* since implementing PATCH correctly is a bit tricky, we strongly
 suggest to choose one and only one of the following patterns per
