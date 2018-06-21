@@ -281,12 +281,14 @@ GeneralEvent:
 ----
 
 Event types based on the General Event Category define their custom
-schema payload at the top-level of the document, with the `metadata`
-field being reserved for standard information (the contents of
-`metadata` are described further down in this section).
+schema payload at the top-level of the document, with the
+link:#event-metadata[`metadata`] field being reserved for standard
+information (the contents of link:#event-metadata[`metadata`] are
+described further down in this section).
 
-In the example fragment below, the reserved `metadata` field is shown
-with fields "a" and "b" being defined as part of the custom schema:
+In the example fragment below, the reserved link:#event-metadata[`metadata`]
+field is shown with fields "a" and "b" being defined as part of the custom
+schema:
 
 Note:
 
@@ -361,6 +363,7 @@ Change Event Category:
 * <<202>>
 * <<204>>
 
+[#event-metadata]
 *Event Metadata.*
 
 The General and Data Change event categories share a common structure
@@ -431,13 +434,13 @@ EventMetadata:
 
 Please note than intermediaries acting between the producer of an event
 and its ultimate consumers, may perform operations like validation of
-events and enrichment of an event's `metadata`. For example brokers such
-as Nakadi, can validate and enrich events with arbitrary additional
-fields that are not specified here and may set default or other values,
-if some of the specified fields are not supplied. How such systems work
-is outside the scope of these guidelines but producers and consumers
-working with such systems should look into their documentation for
-additional information.
+events and enrichment of an event's link:#event-metadata[`metadata`]. For
+example brokers such as Nakadi, can validate and enrich events with
+arbitrary additional fields that are not specified here and may set default
+or other values, if some of the specified fields are not supplied. How
+such systems work is outside the scope of these guidelines but producers
+and consumers working with such systems should look into their documentation
+for additional information.
 
 [#199]
 == {MUST} Ensure that Events define useful business resources
@@ -720,13 +723,13 @@ on the use of `additionalProperties`.
 
 The `eid` (event identifier) value of an event must be unique.
 
-The `eid` property is part of the standard metadata for an event and
-gives the event an identifier. Producing clients must generate this
-value when sending an event and it must be guaranteed to be unique from
-the perspective of the owning application. In particular events within a
-given event type's stream must have unique identifiers. This allows
-consumers to process the `eid` to assert the event is unique and use it
-as an idempotency check.
+The `eid` property is part of the standard link:#event-metadata[metadata]
+for an event and gives the event an identifier. Producing clients must
+generate this value when sending an event and it must be guaranteed to
+be unique from the perspective of the owning application. In particular
+events within a given event type's stream must have unique identifiers.
+This allows consumers to process the `eid` to assert the event is unique
+and use it as an idempotency check.
 
 Note that uniqueness checking of the `eid` might be not enforced by
 systems consuming events and it is the responsibility of the producer to
