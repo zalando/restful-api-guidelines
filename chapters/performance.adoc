@@ -92,7 +92,7 @@ Content-Type: application/json
 ----
 
 As illustrated by this example, field filtering should be done via
-request parameter "fields" with value range defined by the following
+request parameter “fields” with value range defined by the following
 https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form[BNF] grammar.
 
 [source,bnf]
@@ -138,7 +138,7 @@ server to prefetch that data eagerly. Whether this is optimized on the
 server, e.g. a database join, or done in a generic way, e.g. an HTTP
 proxy that transparently embeds resources, is up to the implementation.
 
-See <<137>> for naming, e.g. "embed" for steering of embedded
+See <<137>> for naming, e.g. “embed” for steering of embedded
 resource expansion. Please use the
 https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form[BNF] grammar, as
 already defined above for filtering, when it comes to an embedding query

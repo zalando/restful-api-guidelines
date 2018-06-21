@@ -55,9 +55,9 @@ uncontrolled breaking effects. See also the <<193>>.
 During deprecation phase, the producer should add a `Warning` header
 (see https://tools.ietf.org/html/rfc7234#section-5.5[RFC 7234 - Warning
 header]) field. When adding the `Warning` header, the `warn-code` must
-be `299` and the `warn-text` should be in form of _"The
+be `299` and the `warn-text` should be in form of _“The
 path/operation/parameter/... \{name} is deprecated and will be removed
-by \{date}. Please see \{link} for details."_ with a link to a
+by \{date}. Please see \{link} for details.”_ with a link to a
 documentation describing why the API is no longer supported in the
 current form and what clients should do about it. Adding the `Warning`
 header is not sufficient to gain client consent to shut down an API.

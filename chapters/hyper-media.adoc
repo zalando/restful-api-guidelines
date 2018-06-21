@@ -119,10 +119,10 @@ attributes, to give additional information related to the linked
 resource or the relationship between the source resource and the linked
 one.
 
-E.g. a service providing "Person" resources could model a person who is
+E.g. a service providing “Person” resources could model a person who is
 married with some other person with a hypertext control that contains
 attributes which describe the other person (`id`, `name`) but also the
-relationship "spouse" between the two persons (`since`):
+relationship “spouse” between the two persons (`since`):
 
 [source,json]
 ----

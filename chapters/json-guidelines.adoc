@@ -30,7 +30,7 @@ as if it came from the same hand.
 [#216]
 == {SHOULD} Define Maps Using `additionalProperties`
 
-A "map" here is a mapping from string keys to some other type.
+A “map” here is a mapping from string keys to some other type.
 In JSON this is represented as an object, the key-value pairs being represented
 by property names and property values.
 In OpenAPI schema (as well as in JSON schema) they should be represented using
@@ -123,16 +123,16 @@ enumerations.
 Use the date and time formats defined by
 http://tools.ietf.org/html/rfc3339#section-5.6[RFC 3339]:
 
-* for "date" use strings matching
+* for “date” use strings matching
 `date-fullyear "-" date-month "-" date-mday`, for example: `2015-05-28`
-* for "date-time" use strings matching `full-date "T" full-time`, for
+* for “date-time” use strings matching `full-date "T" full-time`, for
 example `2015-05-28T14:07:17Z`
 
 Note that the
 https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types[OpenAPI
-format] "date-time" corresponds to "date-time" in the RFC) and
-`2015-05-28` for a date (note that the OpenAPI format "date" corresponds
-to "full-date" in the RFC). Both are specific profiles, a subset of the
+format] “date-time” corresponds to “date-time” in the RFC) and
+`2015-05-28` for a date (note that the OpenAPI format “date” corresponds
+to “full-date” in the RFC). Both are specific profiles, a subset of the
 international standard http://en.wikipedia.org/wiki/ISO_8601[ISO 8601].
 
 A zone offset may be used (both, in request and responses) -- this is
@@ -166,7 +166,7 @@ contains a grammar] for durations).
 == {MAY} Standards could be used for Language, Country and Currency
 
 * http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2[ISO 3166-1-alpha2 country]
-* (It's "GB", not "UK", even though "UK" has seen some use at Zalando)
+* (It's “GB”, not “UK”, even though “UK” has seen some use at Zalando)
 * https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes[ISO 639-1 language code]
 * https://tools.ietf.org/html/bcp47[BCP-47] (based on ISO 639-1) for language variants
 * http://en.wikipedia.org/wiki/ISO_4217[ISO 4217 currency codes]
