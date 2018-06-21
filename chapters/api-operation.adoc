@@ -12,9 +12,7 @@ to profit from the API management infrastructure.
 An API is published by copying its **OpenAPI specification** into the reserved
 **/zalando-apis** directory of the **deployment artifact** used to deploy the
 provisioning service. The directory must only contain **self-contained YAML**
-**files** that each describe one API (see 
-https://docs.google.com/a/zalando.de/document/d/1WBpRHp1DAtz7Pfjt0QwPuZNR1e70APRqUlCCby3JiOM[internal narrative]
-for more details). We prefer this deployment artifact-based method over the
+**files** that each describe one API. We prefer this deployment artifact-based method over the
 past (now legacy) `.well-known/schema-discovery` service endpoint-based
 publishing process, that we only support for backward compatibility reasons.
 

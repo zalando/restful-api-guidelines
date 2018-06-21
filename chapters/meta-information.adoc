@@ -117,8 +117,7 @@ groups with clear organisational and legal boundaries:
 *component-internal*::
   The API consumers with this audience are restricted to applications of the
   same *functional component* which typically represents a specific *product* 
-  with clear functional scope and ownership 
-  (see https://docs.google.com/document/d/1ZSfVkdX_Dwpz22Xl-CFXgxe1u1eY_IfTNdFNMmnGi8c/edit#heading=h.wwteqf6ovyh[details (internal link)]).
+  with clear functional scope and ownership.
   All services of a functional component / product are owned by a specific dedicated owner
   and engineering team(s). Typical examples of component-internal APIs are APIs 
   being used by internal helper and worker services or that support service operation.

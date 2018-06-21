@@ -9,9 +9,7 @@ _host_, _permission_, and _event names_ within an the application landscape. It
 helps to preserve uniqueness of names while giving readers meaningful context
 information about the addressed component. Besides, the most important aspect
 is, that it allows to keep APIs stable in the case of technical and
-organizational changes (see narrative
-https://docs.google.com/document/d/1ZSfVkdX_Dwpz22Xl-CFXgxe1u1eY_IfTNdFNMmnGi8c[Functional
-Naming of Service APIs (internal link)] for details).
+organizational changes (Zalando for example maintains an internal naming convention).
 
 To make use of this advantages for APIs with a larger <<219, audience>> we
 strongly recommended to follow the functional naming schema for <<224,
