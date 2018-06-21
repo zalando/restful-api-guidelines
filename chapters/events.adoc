@@ -765,9 +765,8 @@ key to recreate a (partially) ordered sequence of events.
 [#213]
 == {MUST} Follow Naming Convention for Event Type Names
 
-Event type names must, respectively should conform to the functional naming
-depending on the <<219, audience>> as follows (see <<223>> for details and
-`<functional-name>` definition):
+Event type names must (or should, see <<223>> for details and definition)
+conform to the functional naming depending on the <<219, audience>> as follows:
 
 [source,bnf]
 ----
