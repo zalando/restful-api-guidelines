@@ -114,7 +114,8 @@ for discoverability, changeability, quality of design and documentation, as
 well as permission granting. We differentiate the following API audience
 groups with clear organisational and legal boundaries: 
 
-*component-internal* (aka team/product internal)::
+*component-internal*::
+  This is often referred to as *team internal* or *product internal*.
   The API consumers with this audience are restricted to applications of the
   same *functional component* which typically represents a specific *product* 
   with clear functional scope and ownership.
