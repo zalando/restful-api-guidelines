@@ -32,9 +32,9 @@ Ideally, all Zalando APIs will look like the same author created them.
 [[conventions-used-in-these-guidelines]]
 == Conventions Used in These Guidelines
 
-The requirement level keywords “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”,
-“SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and
-“OPTIONAL” used in this document (case insensitive) are to be
+The requirement level keywords "MUST", "MUST NOT", "REQUIRED", "SHALL",
+"SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and
+"OPTIONAL" used in this document (case insensitive) are to be
 interpreted as described in https://www.ietf.org/rfc/rfc2119.txt[RFC
 2119].
 

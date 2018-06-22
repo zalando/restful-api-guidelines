@@ -39,7 +39,7 @@ Events are part of a service’s interface to the outside world equivalent
 in standing to a service’s REST API. Services publishing data for
 integration must treat their events as a first class design concern,
 just as they would an API. For example this means approaching events
-with the “API first” principle in mind as described in the <<introduction>>.
+with the "API first" principle in mind as described in the <<introduction>>.
 
 [#195]
 == {MUST} Make Event schema available for review
@@ -201,7 +201,7 @@ EventType:
       type: object
       properties:
         version:
-          description: Values are based on semantic versioning (eg “1.2.1”).
+          description: Values are based on semantic versioning (eg "1.2.1").
           type: string
           default: '1.0.0'
         created_at:
@@ -269,7 +269,7 @@ GeneralEvent:
   description: |
     A general kind of event. Event kinds based on this event define their
     custom schema payload as the top level of the document, with the
-    “metadata” field being required and reserved for standard metadata. An
+    "metadata" field being required and reserved for standard metadata. An
     instance of an event based on the event type thus conforms to both the
     EventMetadata definition and the custom schema definition. Previously
     this category was called the Business Category.
@@ -287,7 +287,7 @@ information (the contents of <<event-metadata,metadata>> are
 described further down in this section).
 
 In the example fragment below, the reserved <<event-metadata,metadata>>
-field is shown with fields “a” and “b” being defined as part of the custom
+field is shown with fields "a" and "b" being defined as part of the custom
 schema:
 
 Note:
@@ -299,7 +299,7 @@ has been generalized to reflect how teams are using it.
 * The General Event is still useful and recommended for the purpose of
 defining events that drive a business process.
 * The Nakadi broker still refers to the General Category as the Business
-Category and uses the keyword “business” for event type registration.
+Category and uses the keyword "business" for event type registration.
 Other than that, the JSON structures are identical.
 
 See <<201>> for more guidance on how to use the category.
@@ -479,7 +479,7 @@ All your events of a single business process will conform to the
 following rules:
 
 * Business events must contain a specific identifier field (a business
-process id or “bp-id”) similar to flow-id to allow for efficient
+process id or "bp-id") similar to flow-id to allow for efficient
 aggregation of all events in a business process execution.
 * Business events must contain a means to correctly order events in a
 business process execution. In distributed settings where monotonically
@@ -563,8 +563,8 @@ consumed effectively by clients.
 There may be exceptional cases where data change events could have their
 partition strategy set to be the producer defined or random options, but
 generally `hash` is the right option - that is while the guidelines here
-are a “should”, they can be read as “must, unless you have a very good
-reason”.
+are a "should", they can be read as "must, unless you have a very good
+reason".
 
 [#205]
 == {SHOULD} Ensure that Data Change Events match API representations
@@ -644,8 +644,8 @@ The following existing guideline sections are applicable to events:
 == {MUST} Maintain backwards compatibility for Events
 
 Changes to events must be based around making additive and backward
-compatible changes. This follows the guideline, “Must: Don’t Break
-Backward Compatibility” from the <<compatibility>> guidelines.
+compatible changes. This follows the guideline, "Must: Don’t Break
+Backward Compatibility" from the <<compatibility>> guidelines.
 
 In the context of events, compatibility issues are complicated by the
 fact that producers and consumers of events are highly asynchronous and

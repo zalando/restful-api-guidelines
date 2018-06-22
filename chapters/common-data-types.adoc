@@ -28,7 +28,7 @@ Money:
     - currency
 ----
 
-The decimal values for “amount” describe unit and subunit of the
+The decimal values for "amount" describe unit and subunit of the
 currency in a single value, where the digits before the decimal point
 are for the major unit and the digits after the decimal point are for
 the minor unit. Note that some business cases (e.g. transactions in
@@ -52,7 +52,7 @@ See http://stackoverflow.com/a/3730040/342852[Stack Overflow] for more
 info.
 
 Some JSON parsers (NodeJS’s, for example) convert numbers to floats by
-default. After discussing the pros and cons we’ve decided on “decimal” as our amount format. It
+default. After discussing the pros and cons we’ve decided on "decimal" as our amount format. It
 is not a standard OpenAPI format, but should help us to avoid parsing numbers
 as float / doubles.
 

@@ -99,7 +99,7 @@ https://tools.ietf.org/html/rfc7240[RFC7240] pre-defines a number of
 preferences and is extensible, to allow others to be defined. Support
 for the Prefer header is entirely optional and at the discretion of API
 designers, but as an existing Internet Standard, is recommended over
-defining proprietary “X-” headers for processing directives.
+defining proprietary "X-" headers for processing directives.
 
 The `Prefer` header can defined like this in an API definition:
 
@@ -127,7 +127,7 @@ preference was applied.
 
 When creating or updating resources it may be necessary to expose
 conflicts and to prevent the 'lost update' or 'initially created' problem. 
-Following https://tools.ietf.org/html/rfc7232[RFC 7232 “HTTP: Conditional Requests”]
+Following https://tools.ietf.org/html/rfc7232[RFC 7232 "HTTP: Conditional Requests"]
 this can be best accomplished by using the
 https://tools.ietf.org/html/rfc7232#section-2.3[`ETag`] header together
 with the https://tools.ietf.org/html/rfc7232#section-3.1[`If-Match`] or

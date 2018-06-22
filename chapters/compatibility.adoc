@@ -29,8 +29,8 @@ However, in specific controlled situations it is possible to deploy incompatible
 in a non-breaking way, if no API consumer is using the affected API aspects 
 (see also <<deprecation, Deprecation>> guidelines).
 
-*Hint:* Please note that the compatibility guarantees are for the “on 
-the wire” format. Binary or source compatibility of code generated from
+*Hint:* Please note that the compatibility guarantees are for the "on 
+the wire" format. Binary or source compatibility of code generated from
 an API definition is not covered by these rules. If client
 implementations update their generation process to a new version of the
 API definition, it has to be expected that code changes are necessary.
@@ -77,7 +77,7 @@ Service clients must be prepared for compatible API extensions of
 service providers:
 
 * Be tolerant with unknown fields in the payload (see also Fowler’s
-http://martinfowler.com/bliki/TolerantReader.html[“TolerantReader”]
+http://martinfowler.com/bliki/TolerantReader.html["TolerantReader"]
 post), i.e. ignore new fields but do not eliminate them from payload if
 needed for subsequent PUT requests.
 * Be prepared that <<112,`x-extensible-enum`>>
@@ -115,7 +115,7 @@ following problems and be explicit in what is supported:
 
 * Ignoring unknown input fields is actually not an option for PUT, since
 it becomes asymmetric with subsequent GET response and HTTP is clear
-about the PUT “replace” semantics and default roundtrip expectations
+about the PUT "replace" semantics and default roundtrip expectations
 (see https://tools.ietf.org/html/rfc7231#section-4.3.4[RFC7231 Section
 4.3.4]). Note, accepting (i.e. not ignoring) unknown input fields and
 returning it in subsequent GET responses is a different situation and
@@ -130,8 +130,8 @@ with already ignored fields and, hence, will not be compatible, i.e.
 break clients that already use this field but with different type.
 
 In specific situations, where a (known) input field is not needed
-anymore, it either can stay in the API definition with “not used
-anymore” description or can be removed from the API definition as long
+anymore, it either can stay in the API definition with "not used
+anymore" description or can be removed from the API definition as long
 as the server ignores this specific parameter.
 
 [#110]
@@ -152,7 +152,7 @@ extensibility, like `additionalProperties`. Following our overall
 compatibility guidelines, Open API object definitions are considered
 open for extension by default as per
 http://json-schema.org/latest/json-schema-validation.html#rfc.section.5.18[Section
-5.18 “additionalProperties”] of JSON-Schema.
+5.18 "additionalProperties"] of JSON-Schema.
 
 When it comes to Open API 2.0, this means an `additionalProperties`
 declaration is not required to make an object definition extensible:
@@ -281,7 +281,7 @@ just the new version, but let the server accept the old one (with the
 previous content-type).
 
 Further reading: 
-https://blog.apisyouwonthate.com/api-versioning-has-no-right-way-f3c75457c0b7[API Versioning Has No “Right Way”] 
+https://blog.apisyouwonthate.com/api-versioning-has-no-right-way-f3c75457c0b7[API Versioning Has No "Right Way"] 
 provides an overview on different versioning approaches to handle breaking changes without being opinionated. 
 
 [#115]
