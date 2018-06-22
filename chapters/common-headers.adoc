@@ -56,7 +56,7 @@ requested URI can be used to indicate that the returned resource is
 subject to content negotiations, and that the value provides a more
 specific identifier of the resource.
 * For writing operations PUT and PATCH, an identical location to the
-requested URI, can be used to explicitly indicate that the returned
+requested URI can be used to explicitly indicate that the returned
 resource is the current representation of the newly created or updated
 resource.
 * For writing operations POST and DELETE, a content location can be used

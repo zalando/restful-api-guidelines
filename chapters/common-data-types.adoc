@@ -137,13 +137,6 @@ below.
 addressee:
   description: a (natural or legal) person that gets addressed
   type: object
-  required:
-    - first_name
-    - last_name
-    - street
-    - city
-    - zip
-    - country_code
   properties:
     salutation:
       description: |

@@ -117,7 +117,7 @@ practice to implement POST in an idempotent way.
 [[patch]]
 === PATCH
 
-PATCH request are only used for partial update of single resources, i.e.
+PATCH requests are only used for partial update of single resources, i.e.
 where only a specific subset of resource fields should be replaced. The
 semantic is best described as “_please change the resource identified by
 the URL according to my change request_”. The semantic of the change
@@ -133,8 +133,7 @@ resource instances
 resource addressed by the URL as defined by the change request in the
 payload
 * successful PATCH requests will usually generate 200 or 204 (if
-resources have been updated
-* with or without updated content returned)
+resources have been updated with or without updated content returned)
 
 *Note:* since implementing PATCH correctly is a bit tricky, we strongly
 suggest to choose one and only one of the following patterns per
@@ -169,14 +168,14 @@ signal the server stricter demands to expose conflicts and prevent lost updates.
 [#delete]
 === DELETE
 
-DELETE request are used to delete resources. The semantic is best
+DELETE requests are used to delete resources. The semantic is best
 described as “_please delete the resource identified by the URL_”.
 
 * DELETE requests are usually applied to single resources, not on
 collection resources, as this would imply deleting the entire collection
-* successful DELETE request will usually generate 200 (if the deleted
+* successful DELETE requests will usually generate 200 (if the deleted
 resource is returned) or 204 (if no content is returned)
-* failed DELETE request will usually generate 404 (if the resource
+* failed DELETE requests will usually generate 404 (if the resource
 cannot be found) or 410 (if the resource was already deleted before)
 
 [[head]]
