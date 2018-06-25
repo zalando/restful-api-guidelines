@@ -42,35 +42,28 @@ just as they would an API. For example this means approaching events
 with the "API first" principle in mind as described in the <<introduction>>.
 
 [#195]
-== {MUST} Make Events available for review
+== {MUST} Make Event schema available for review
 
 Services publishing event data for use by others must make the event
-schema available for review.
+schema as well as the event type definition available for review.
 
 [#196]
-== {MUST} Ensure Event Type schemas conform to Open API's Schema Object
+== {MUST} Ensure Event schema conforms to Open API Schema Object
 
-Event type schema are defined in accordance with the Open API Schema
-Object specification, which uses a subset of
-http://json-schema.org/[JSON Schema Draft 4], and also adds other
-features. This allows events to properly align with API resource
-representations (it's particulary useful for events that represent data
-changes about resources). The guideline exists since declaring event
-type schema using JSON-Schema syntax is common practice (because Open
-API doesn't yet allow standalone object definitions).
+To align the event schema specifications to API specifications, we use
+the Schema Object as defined by the Open API Specifications to define event
+schemas. This is particularly useful for events that represent data changes
+about resources also used in other APIs.
 
-In the rest of this section we'll call out some of the more notable
-differences between Open API and JSON-Schema. Please note this is not a
-complete list - in general it's recommended to familiarise yourself with
-Open API's Schema Object (the details are available from the
-https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#schemaObject["Schema
-Object" section of that specification]).
+The https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#schemaObject[Open
+API Schema Object] is an **extended subset** of
+http://json-schema.org/[JSON Schema Draft 4]. For convenience,
+we highlight some important differences below. Please refer to the
+https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#schemaObject[Open
+API Schema Object specification] for details.
 
-Open API _removes_ some JSON-Schema keywords. These must not be used in
-event type schemas. The list of Open API object keywords can be seen
-https://github.com/OAI/OpenAPI-Specification/blob/master/schemas/v2.0/schema.json#L935-L1063[here],
-but for convenience the list of non-available keywords relative to
-JSON-Schema are:
+As the Open API Schema Object specification _removes_ some JSON Schema
+keywords, the following properties *must not* be used in event schemas:
 
 * `additionalItems`
 * `contains`
@@ -81,19 +74,17 @@ JSON-Schema are:
 * `not`
 * `oneOf`
 
-Open API _redefines_ some keywords:
+On the other side Schema Object _redefines_ some JSON Schema keywords:
 
 * `additionalProperties`: For event types that declare compatibility
 guarantees, there are recommended constraints around the use of this
-field. See the guideline "Avoid `additionalProperties` in event type
-definitions" for details.
+field. See the guideline <<210>> for details.
 
-Open API _extends_ JSON-Schema with some keywords:
+Finally, the Schema Object _extends_ JSON Schema with some keywords:
 
 * `readOnly`: events are logically immutable, so `readOnly` can be
 considered redundant, but harmless.
-* `discriminator`: discriminators exist to support polymorphism and act
-as an alternative to `oneOf`.
+* `discriminator`: to support polymorphism, as an alternative to `oneOf`.
 * `^x-`: patterned objects in the form of
 https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#vendorExtensions[vendor
 extensions] can be used in event type schema, but it might be the case
@@ -176,12 +167,14 @@ EventType:
   properties:
     name:
       description: |
-        Name of this EventType.  Note: the name can encode the
-        owner/responsible for this EventType and ideally should follow a
-        naming pattern that makes it easy to read and understand.
+        Name of this EventType. The name must follow the functional naming
+        pattern `<functional-name>.<event-name>` to preserve global
+        uniqueness and readability.
       type: string
-      pattern: '[a-zA-Z][-0-9a-zA-Z_]*(\.[a-zA-Z][-0-9a-zA-Z_]*)*'
-      example: order.order_cancelled, business_partner.contract
+      pattern: '[a-z][a-z0-9-]*\.[a-z][a-z0-9-]*'
+      example: |
+        transactions.order.order-cancelled
+        customer.personal-data.email-changed
     owning_application:
       description: |
         Name of the application (eg, as would be used in infrastructure
@@ -302,12 +295,14 @@ GeneralEvent:
 ----
 
 Event types based on the General Event Category define their custom
-schema payload at the top-level of the document, with the `metadata`
-field being reserved for standard information (the contents of
-`metadata` are described further down in this section).
+schema payload at the top-level of the document, with the
+<<event-metadata,metadata>> field being reserved for standard
+information (the contents of <<event-metadata,metadata>> are
+described further down in this section).
 
-In the example fragment below, the reserved `metadata` field is shown
-with fields "a" and "b" being defined as part of the custom schema:
+In the example fragment below, the reserved <<event-metadata,metadata>>
+field is shown with fields "a" and "b" being defined as part of the custom
+schema:
 
 Note:
 
@@ -382,6 +377,7 @@ Change Event Category:
 * <<202>>
 * <<204>>
 
+[#event-metadata]
 *Event Metadata.*
 
 The General and Data Change event categories share a common structure
@@ -452,13 +448,13 @@ EventMetadata:
 
 Please note than intermediaries acting between the producer of an event
 and its ultimate consumers, may perform operations like validation of
-events and enrichment of an event's `metadata`. For example brokers such
-as Nakadi, can validate and enrich events with arbitrary additional
-fields that are not specified here and may set default or other values,
-if some of the specified fields are not supplied. How such systems work
-is outside the scope of these guidelines but producers and consumers
-working with such systems should look into their documentation for
-additional information.
+events and enrichment of an event's <<event-metadata,metadata>>. For
+example brokers such as Nakadi, can validate and enrich events with
+arbitrary additional fields that are not specified here and may set default
+or other values, if some of the specified fields are not supplied. How
+such systems work is outside the scope of these guidelines but producers
+and consumers working with such systems should look into their documentation
+for additional information.
 
 [#199]
 == {MUST} Ensure that Events define useful business resources
@@ -739,21 +735,21 @@ defines a field to be of a different type that was already being
 emitted, or, is changing the type of an undefined field. Both of these
 are prevented by not using `additionalProperties`.
 
-See also "Treat Open API Definitions As Open For Extension By Default" +
-in the <<compatibility>> section for further guidelines on the use of `additionalProperties`.
+See also rule <<111>> in the <<compatibility>> section for further guidelines 
+on the use of `additionalProperties`.
 
 [#211]
 == {MUST} Use unique Event identifiers
 
 The `eid` (event identifier) value of an event must be unique.
 
-The `eid` property is part of the standard metadata for an event and
-gives the event an identifier. Producing clients must generate this
-value when sending an event and it must be guaranteed to be unique from
-the perspective of the owning application. In particular events within a
-given event type's stream must have unique identifiers. This allows
-consumers to process the `eid` to assert the event is unique and use it
-as an idempotency check.
+The `eid` property is part of the standard <<event-metadata,metadata>>
+for an event and gives the event an identifier. Producing clients must
+generate this value when sending an event and it must be guaranteed to
+be unique from the perspective of the owning application. In particular
+events within a given event type's stream must have unique identifiers.
+This allows consumers to process the `eid` to assert the event is unique
+and use it as an idempotency check.
 
 Note that uniqueness checking of the `eid` might be not enforced by
 systems consuming events and it is the responsibility of the producer to
@@ -787,22 +783,39 @@ receiver interested in the history of a resource can use the ordering
 key to recreate a (partially) ordered sequence of events.
 
 [#213]
-== {MUST} Follow conventions for Event Type names
+== {MUST} Follow Naming Convention for Event Type Names
 
-Event types can follow these naming conventions (each convention has its
-own should, must or could conformance level) -
+Event type names must (or should, see <<223>> for details and definition)
+conform to the functional naming depending on the <<219, audience>> as follows:
 
-* Event type names must be url-safe. This is because the event type
-names may appear in URLs published by other systems and APIs.
-* Event type names should be lowercase words and numbers, using hyphens,
-underscores or periods as separators.
+[source,bnf]
+----
+<event-type-name>       ::= <functional-event-name> | <application-event-name>
+
+<functional-event-name> ::= <functional-name>.<event-name>
+
+<event-name>            ::= [a-z][a-z0-9-]* -- free event name (functional name)
+----
+
+The following application specific legacy convention is *only* allowed for
+<<223, internal>> event type names:
+
+[source,bnf]
+----
+<application-event-name> ::= [<organization-id>.]<application-id>.<event-name>
+<organization-id>  ::= [a-z][a-z0-9-]* -- organization identifier, e.g. team identifier
+<application-id>   ::= [a-z][a-z0-9-]* -- application identifier
+----
+
+**Note:** consistent naming should be used whenever the same entity is exposed
+by a data change event and a RESTful API.
 
 [#214]
 == {MUST} Prepare for duplicate Events
 
 Event consumers must be able to process duplicate events.
 
-Most message brokers and data streaming systems offer “at-least-once”
+Most message brokers and data streaming systems offer "at-least-once"
 delivery. That is, one particular event is delivered to the consumers
 one or more times. Other circumstances can also cause duplicate events.
 

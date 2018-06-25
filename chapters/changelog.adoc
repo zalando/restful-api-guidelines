@@ -13,6 +13,7 @@ To see a list of all changes, please have a look at the https://github.com/zalan
 [[rule-changes]]
 == Rule Changes
 
+* `2018-06-11:` Introduced new naming guidelines for host, permission, and event names.
 * `2018-01-10:` Moved meta information related aspects into new chapter <<meta-information>>.
 * `2018-01-09:` Changed publication requirements for API specifications (<<192>>).
 * `2017-12-07:` Added best practices section including discussion about optimistic locking approaches.

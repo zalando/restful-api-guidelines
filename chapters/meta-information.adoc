@@ -6,7 +6,7 @@
 API specifications must contain the following OpenAPI meta information
 to allow for API management:
 
-- `#/info/title` as (unique) identifying name of the API
+- `#/info/title` as (unique) identifying, functional descriptive name of the API
 - `#/info/version` to distinguish API specifications versions following
   <<116, semantic rules>>
 - `#/info/description` containing a proper description of the API
@@ -14,11 +14,8 @@ to allow for API management:
 
 Following OpenAPI extension properties *must* be provided in addition:
 
+- `#/info/x-api-id` unique identifier of the API (<<215, see rule 215>>)
 - `#/info/x-audience` intended target audience of the API (<<219, see rule 219>>)
-
-Following OpenAPI extension properties *should* be provided in addition:
-
-- `#/info/x-id` unique identifier of the API (<<215, see rule 215>>)
 
 
 [#116]
@@ -60,6 +57,54 @@ info:
   <...>
 ----
 
+[#215]
+== {MUST} Provide API Identifiers
+
+Each API must be identified by an explicit, owner assigned, globally unique,
+and immutable API identifier. While APIs evolve, every API aspect may change
+except the API identifier. Based on the API identifier, we can track the API
+life cycle and manage the history and evolution of an API as a sequence of
+API specifications. For instance, we can support to check compatibility and
+correct semantic versioning of an API update against previous API versions
+using the https://github.com/zalando/zally[API Linter Zally]
+
+The API identifier is provided in the `info`-block of the Open API
+specification and must conform to the following specification:
+
+[source,yaml]
+----
+/info/x-api-id:
+  type: string
+  format: urn
+  pattern: ^[a-z0-9][a-z0-9-:.]{6,62}[a-z0-9]$
+  description: |
+    Globally unique and immutable ID required to identify the API. The API
+    identifier allows to track the history and evolution of an API as a 
+    sequence of API specifications.
+----
+
+It is responsibility of the API owner to ensure that the application of the
+API identifier together with the semantic API <<116,version>> reflect the
+expected API history.
+
+While it is nice to use human readable API identifiers based on self-managed
+URNs, it is recommend to stick to UUIDs to relief API designers from any urge
+of changing the API identifier while evolving the API. Example:
+
+[source,yaml]
+----
+swagger: '2.0'
+info:
+  x-api-id: d0184f38-b98d-11e7-9c56-68f728c1ba70
+  title: Parcel Service API
+  description: API for <...>
+  version: 1.5.8
+  <...>
+----
+
+For more information see https://docs.google.com/document/d/1lRXcTZbZMnFeTVCaazitSWxSdKXGWkOUn99Gr-huNXg[API Identifier narrative].
+
+
 [#219]
 == {MUST} Provide API Audience
 
@@ -70,12 +115,13 @@ well as permission granting. We differentiate the following API audience
 groups with clear organisational and legal boundaries: 
 
 *component-internal*::
+  This is often referred to as a _team internal API_ or a _product internal API_.
   The API consumers with this audience are restricted to applications of the
-  same https://docs.google.com/document/d/1ZSfVkdX_Dwpz22Xl-CFXgxe1u1eY_IfTNdFNMmnGi8c[
-  functional component (internal link)].
-  All services of a functional component are owned by specific dedicated owner
-  and engineering team. Typical examples are APIs being used by internal helper
-  and worker services or that support service operation.
+  same *functional component* which typically represents a specific *product* 
+  with clear functional scope and ownership.
+  All services of a functional component / product are owned by a specific dedicated owner
+  and engineering team(s). Typical examples of component-internal APIs are APIs 
+  being used by internal helper and worker services or that support service operation.
 *business-unit-internal*::
   The API consumers with this audience are restricted to applications of a
   specific product portfolio owned by the same business unit.
@@ -134,51 +180,3 @@ info:
 For details and more information on audience groups see the
 https://docs.google.com/document/d/1ff9b6oIa6dyQRyaj36-jmFdtCjWlngnGMsligR4RMIY[
 API Audience narrative].
-
-[#215]
-== {SHOULD} Provide API Identifiers
-
-Each API should be identified by an explicit, owner assigned, globally unique,
-and immutable API identifier. APIs evolve and every API aspect may change,
-except the API identifier. Based on the API identifier, we can track the 
-API life cycle and manage the history and evolution
-of an API as a sequence of API specifications.
-For instance, we can provide our https://github.com/zalando/zally[API Linter Zally]
-with the capability to check compatibility and correct semantic versioning 
-of an API update draft against an API running in production.
-
-The API identifier is provided in the `info`-block of the Open API
-specification and must conform to the following specification:
-
-[source,yaml]
-----
-/info/x-api-id:
-  type: string
-  format: urn
-  pattern: ^[a-z0-9][a-z0-9-:.]{6,62}[a-z0-9]$
-  description: |
-    Globally unique and immutable ID required to identify the API. The API
-    identifier allows to track the history and evolution of an API as a 
-    sequence of API specifications.
-----
-
-It is responsibility of the API owner to ensure that the application of the
-API identifier together with the semantic API <<116,version>> reflect the
-expected API history. 
-
-While it is nice to use human readable API identifiers based on self-managed
-URNs, it is recommend to stick to UUIDs to relief API designers from any urge
-of changing the API identifier while evolving the API. Example:
-
-[source,yaml]
-----
-swagger: '2.0'
-info:
-  x-api-id: d0184f38-b98d-11e7-9c56-68f728c1ba70
-  title: Parcel Service API
-  description: API for <...>
-  version: 1.5.8
-  <...>
-----
-
-For more information see https://docs.google.com/document/d/1lRXcTZbZMnFeTVCaazitSWxSdKXGWkOUn99Gr-huNXg[API Identifier narrative].

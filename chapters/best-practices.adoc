@@ -18,17 +18,19 @@ There are several ways to implement optimistic locking in combination with searc
 
 === ETag header with If-Match header
 An ETag can only be obtained by performing a GET request on the single entity resource before the update, i.e. when using a search endpoint an additional request is necessary.
- 
+
 Example:
 [source]
 ----
 < GET /orders
   
 > HTTP/1.1 200 OK
-> [
->   { code: "O0000042"},
->   { code: "O0000043"}
-> ]
+> {
+>   "items": [
+>     { code: "O0000042"},
+>     { code: "O0000043"}
+>   ]
+> }
   
 < GET /orders/BO0000042
   
@@ -63,10 +65,12 @@ Example:
 < GET /orders
   
 > HTTP/1.1 200 OK
-> [
->   { code: "O0000042", etag: "osjnfkjbnkq3jlnksjnvkjlsbf", ... },
->   { code: "O0000043", etag: "kjshdfknjqlöwjdsljdnfkjbkn", ... }
-> ]
+> {
+>   "items": [
+>     { code: "O0000042", etag: "osjnfkjbnkq3jlnksjnvkjlsbf", ... },
+>     { code: "O0000043", etag: "kjshdfknjqlöwjdsljdnfkjbkn", ... }
+>   ]
+> }
   
 < PUT /orders/O0000042
 < If-Match: osjnfkjbnkq3jlnksjnvkjlsbf
@@ -95,10 +99,12 @@ Example:
 < GET /orders
   
 > HTTP/1.1 200 OK
-> [
->   { code: "O0000042", version: 1, ... },
->   { code: "O0000043", version: 42, ... }
-> ]
+> {
+>   "items": [
+>     { code: "O0000042", version: 1, ... },
+>     { code: "O0000043", version: 42, ... }
+>   ]
+> }
   
 < PUT /orders/O0000042
 < { code: "O0000042", version: 1, ... }
@@ -135,10 +141,12 @@ Example:
   
 > HTTP/1.1 200 OK
 > Last-Modified: Wed, 22 Jul 2009 19:15:56 GMT
-> [
->   { code: "O0000042", ... },
->   { code: "O0000043", ... }
-> ]
+> {
+>   "items": [
+>     { code: "O0000042", ... },
+>     { code: "O0000043", ... }
+>   ]
+> }
   
 < PUT /block/O0000042
 < If-Unmodified-Since: Wed, 22 Jul 2009 19:15:56 GMT

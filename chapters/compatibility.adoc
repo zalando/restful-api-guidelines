@@ -173,7 +173,7 @@ prevents objects being extended in the future.
 
 Note that this guideline concentrates on default extensibility and does
 not exclude the use of `additionalProperties` with a schema as a value,
-which might be appropriate in some circumstances.
+which might be appropriate in some circumstances, e.g. see <<216>>. 
 
 [#112]
 == {SHOULD} Used Open-Ended List of Values (x-extensible-enum) Instead of Enumerations

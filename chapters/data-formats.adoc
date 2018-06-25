@@ -23,6 +23,21 @@ Example of such use case is downloading images in formats JPG, PNG, GIF.
 formats PDF, DOC, XML) may be made available through content
 negotiation.
 
+[#172]
+== {SHOULD} Prefer standard Media type name `application/json`
+
+Previously, this guideline allowed the use of custom media types like 
+`application/x.zalando.article+json`. This usage is not recommended
+anymore and should be avoided, except where it is necessary for cases of
+<<114,media type versioning>>. Instead, just use the standard media type name
+`application/json` (or `application/problem+json` for <<176>>).
+
+Custom media types beginning with `x` bring no advantage
+compared to the standard media type for JSON, and make automated
+processing more difficult. They are also
+https://tools.ietf.org/html/rfc6838#section-3.4[discouraged by RFC
+6838].
+
 [#169]
 == {MUST} Use Standard Date and Time Formats
 
@@ -46,7 +61,7 @@ codes:
 
 * https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2[ISO 3166-1-alpha2
 country codes]
-** (It is “GB”, not “UK”, even though “UK” has seen some use at Zalando)
+** (It is "GB", not "UK", even though "UK" has seen some use at Zalando)
 * https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes[ISO 639-1
 language code]
 ** https://tools.ietf.org/html/bcp47[BCP-47] (based on ISO 639-1) for
@@ -98,19 +113,3 @@ OrderList:
       format: int32
       example: 42
 ----
-
-[#172]
-== {SHOULD} Prefer standard Media type name `application/json`
-
-Previously, this guideline allowed the use of custom media types like
-`application/x.zalando.article+json`. This usage is not recommended
-anymore and should be avoided, except where it is necessary for cases of
-<<114,media type versioning>>. Instead, the standard media type name
-`application/json` (or <<176>>).
-
-Custom media types with subtypes beginning with `x` bring no advantage
-compared to the standard media type for JSON, and make automated
-processing more difficult. They are also
-https://tools.ietf.org/html/rfc6838#section-3.4[discouraged by RFC
-6838].
-

@@ -11,9 +11,10 @@
 :keywords: Zalando, Guidelines, RESTful, API, Events, Schema
 :copyright: CC-BY-SA 3.0
 
-:MUST: pass:[<span class="must-keyword"><strong>Must:</strong></span>]
-:SHOULD: pass:[<span class="should-keyword"><strong>Should:</strong></span>]
-:MAY: pass:[<span class="may-keyword"><strong>May:</strong></span>]
+:MUST: pass:[<span class="must-keyword"><strong>Must</strong></span>:]
+:SHOULD: pass:[<span class="should-keyword"><strong>Should</strong></span>:]
+:MAY: pass:[<span class="may-keyword"><strong>May</strong></span>:]
+:MUST-SHOULD: pass:[<span class="must-keyword"><strong>Must</strong></span>/<span class="should-keyword"><strong>Should</strong></span>:]
 
 = Zalando RESTful API and Event Scheme Guidelines
 Zalando SE
@@ -36,7 +37,8 @@ include::chapters/deprecation.adoc[]
 include::chapters/json-guidelines.adoc[]
 include::chapters/naming.adoc[]
 include::chapters/resources.adoc[]
-include::chapters/http.adoc[]
+include::chapters/http-requests.adoc[]
+include::chapters/http-status-codes-and-errors.adoc[]
 include::chapters/performance.adoc[]
 include::chapters/pagination.adoc[]
 include::chapters/hyper-media.adoc[]
@@ -121,6 +123,4 @@ document.body.classList.add('toc-left');
 nav.append(ul);
 header.prepend(nav);
 </script>
-++++
-
 ++++

@@ -8,7 +8,7 @@ set -ex
 
 USER="ZalandoGhPages"
 EMAIL="no-reply@zalando.de"
-DEPLOY_MESSAGE="Deploy to GitHub Pages (auto)"
+DEPLOY_MESSAGE="auto-deployment to the gh-branch"
 GH_REPO="github.com/zalando/restful-api-guidelines.git"
 GH_REPO_URL="https://api.github.com/repos/zalando/restful-api-guidelines"
 GH_REPO_LINK="https://github.com/zalando/restful-api-guidelines"

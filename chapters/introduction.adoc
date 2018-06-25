@@ -12,7 +12,7 @@ transforms Zalando from an online shop into an expansive fashion
 platform. Our strategy emphasizes developing lots of public APIs for our
 external business partners to use via third-party applications.
 
-With this in mind, we’ve adopted “API First” as one of our key
+With this in mind, we’ve adopted "API First" as one of our key
 engineering principles. Microservices development begins with API
 definition outside the code and ideally involves ample peer-review
 feedback to achieve high-quality APIs. API First encompasses a set of
@@ -41,8 +41,8 @@ interpreted as described in https://www.ietf.org/rfc/rfc2119.txt[RFC
 [[zalando-specific-information]]
 == Zalando specific information
 
-The purpose of our “RESTful API guidelines” is to define standards to
-successfully establish “consistent API look and feel” quality. The
+The purpose of our "RESTful API guidelines" is to define standards to
+successfully establish "consistent API look and feel" quality. The
 https://confluence.zalando.net/display/GUL/API+Guild[API Guild [internal
 link]] drafted and owns this document. Teams are responsible to fulfill
 these guidelines during API development and are encouraged to contribute
