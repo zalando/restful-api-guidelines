@@ -43,7 +43,7 @@ otherwise in the API specification. Examples for correct representations
 * `1024.42` = 1024 Euros, 42 Cent
 * `1024.4225` = 1024 Euros, 42.25 Cent
 
-Make sure that you don’t convert the “amount” field to `float` /
+Make sure that you don’t convert the "amount" field to `float` /
 `double` types when implementing this interface in a specific language
 or when doing calculations. Otherwise, you might lose precision.
 Instead, use exact formats like Java’s

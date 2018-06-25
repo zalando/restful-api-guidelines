@@ -61,9 +61,9 @@ API resources represent elements of the application’s domain model.
 Using domain-specific nomenclature for resource names helps developers
 to understand the functionality and basic semantics of your resources.
 It also reduces the need for further documentation outside the API
-definition. For example, “sales-order-items” is superior to
-“order-items” in that it clearly indicates which business object it
-represents. Along these lines, “items” is too general.
+definition. For example, "sales-order-items" is superior to
+"order-items" in that it clearly indicates which business object it
+represents. Along these lines, "items" is too general.
 
 [#143]
 == {MUST} Identify resources and Sub-Resources via Path Segments
@@ -223,7 +223,7 @@ complete business processes helping clients to understand these flows.
 == {SHOULD} Limit number of Sub-Resource Levels
 
 There are main resources (with root url paths) and sub-resources (or
-“nested” resources with non-root urls paths). Use sub-resources if their
+"nested" resources with non-root urls paths). Use sub-resources if their
 life cycle is (loosely) coupled to the main resource, i.e. the main
 resource works as collection resource of the subresource entities. You
 should use <= 3 sub-resource (nesting) levels -- more levels increase
