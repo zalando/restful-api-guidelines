@@ -222,23 +222,23 @@ EventType:
           description: |
               The schema as string in the syntax defined in the field type.
           type: string
-        ordering_key_fields:
-          type: array
-          description:
-            indicates by which of the fields in the schema the events can be ordered.
-            In most cases, this would have just a single item (the path of the field
-            by which this is to be ordered), but can have multiple items, in which case
-            those are considered as a compound key, with lexicographic ordering (first
-            item is most significant).
-          items:
-            type: string
-            description:
-              Indicates a single ordering field. This is a JsonPointer, which is applied
-              onto the whole event object, including the contained metadata and data (in
-              case of a data change event) objects.
       required:
         - type
         - schema
+    ordering_key_fields:
+      type: array
+      description:
+        indicates by which of the fields in the schema the events can be ordered.
+        In most cases, this would have just a single item (the path of the field
+        by which this is to be ordered), but can have multiple items, in which case
+        those are considered as a compound key, with lexicographic ordering (first
+        item is most significant).
+      items:
+        type: string
+        description:
+          Indicates a single ordering field. This is a JsonPointer, which is applied
+          onto the whole event object, including the contained metadata and data (in
+          case of a data change event) objects.
     created_at:
       description: When this event type was created.
       type: string
