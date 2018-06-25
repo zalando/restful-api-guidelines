@@ -795,7 +795,7 @@ by a data change event and a RESTful API.
 
 Event consumers must be able to process duplicate events.
 
-Most message brokers and data streaming systems offer “at-least-once”
+Most message brokers and data streaming systems offer "at-least-once"
 delivery. That is, one particular event is delivered to the consumers
 one or more times. Other circumstances can also cause duplicate events.
 

@@ -100,7 +100,7 @@ customer_number, order_id, billing_address
 
 This is for consistency in your documentation (most other headers follow
 this convention). Avoid camelCase (without hyphens). Exceptions are
-common abbreviations like “ID.”
+common abbreviations like "ID."
 
 Examples:
 
@@ -129,9 +129,9 @@ collection with cardinality 1.
 == {MAY} Use /api as first Path Segment
 
 In most cases, all resources provided by a service are part of the
-public API, and therefore should be made available under the root “/”
+public API, and therefore should be made available under the root "/"
 base path. If the service should also support non-public, internal APIs
-— for specific operational support functions, for example — add “/api”
+— for specific operational support functions, for example — add "/api"
 as base path to clearly separate public and non-public API resources.
 
 [#136]
@@ -162,6 +162,6 @@ default), e.g. /sales-orders?sort=+id
 <<157,_Support Filtering of Resource Fields_>> below.
 * `embed` — to expand embedded entities (ie.: inside of an article
 entity, expand silhouette code into the silhouette object). Implementing
-“expand” correctly is difficult, so do it with care.
+"expand" correctly is difficult, so do it with care.
 
 

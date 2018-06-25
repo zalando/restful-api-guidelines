@@ -54,9 +54,9 @@ headers does not solve the original problem.
 === PUT
 
 PUT requests are used to create or update *entire* resources - single or
-collection resources. The semantic is best described as »_please put the
+collection resources. The semantic is best described as "_please put the
 enclosed representation at the resource mentioned by the URL, replacing
-any existing resource._«.
+any existing resource._".
 
 * PUT requests are usually applied to single resources, and not to
 collection resources, as this would imply replacing the entire
@@ -88,10 +88,10 @@ alternatives to this approach.
 POST requests are idiomatically used to create single resources on a
 collection resource endpoint, but other semantics on single resources
 endpoint are equally possible. The semantic for collection endpoints is
-best described as »_please add the enclosed representation to the
-collection resource identified by the URL_«. The semantic for single
-resource endpoints is best described as »_please execute the given well
-specified request on the collection resource identified by the URL_«.
+best described as "_please add the enclosed representation to the
+collection resource identified by the URL_". The semantic for single
+resource endpoints is best described as "_please execute the given well
+specified request on the collection resource identified by the URL_".
 
 * POST request should only be applied to collection resources, and
 normally not on single resource, as this has an undefined semantic
@@ -119,8 +119,8 @@ practice to implement POST in an idempotent way.
 
 PATCH requests are only used for partial update of single resources, i.e.
 where only a specific subset of resource fields should be replaced. The
-semantic is best described as »_please change the resource identified by
-the URL according to my change request_«. The semantic of the change
+semantic is best described as "_please change the resource identified by
+the URL according to my change request_". The semantic of the change
 request is not defined in the HTTP standard and must be described in the
 API specification by using suitable media types.
 
@@ -169,7 +169,7 @@ signal the server stricter demands to expose conflicts and prevent lost updates.
 === DELETE
 
 DELETE requests are used to delete resources. The semantic is best
-described as »_please delete the resource identified by the URL_«.
+described as "_please delete the resource identified by the URL_".
 
 * DELETE requests are usually applied to single resources, not on
 collection resources, as this would imply deleting the entire collection

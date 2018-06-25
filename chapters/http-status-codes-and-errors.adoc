@@ -112,7 +112,7 @@ version passed via request headers If-Modified-Since or If-None-Match.
 Should also be delivered in case of input payload fails business logic validation. |All
 
 |401 |Unauthorized - the users must log in (this often means
-“Unauthenticated”) |All
+"Unauthenticated") |All
 
 |403 |Forbidden - the user is not authorized to use this resource |All
 
@@ -144,7 +144,7 @@ content type |POST, PUT, DELETE, PATCH
 PATCH
 
 |428 |Precondition Required - server requires the request to be
-conditional (e.g. to make sure that the “lost update problem” is
+conditional (e.g. to make sure that the "lost update problem" is
 avoided). |All
 
 |429 |Too many requests - the client does not consider rate limiting and

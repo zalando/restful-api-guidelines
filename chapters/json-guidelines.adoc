@@ -4,7 +4,7 @@
 These guidelines provides recommendations for defining JSON data at
 Zalando. JSON here refers to
 http://www.rfc-editor.org/rfc/rfc7159.txt[RFC 7159] (which updates
-https://www.ietf.org/rfc/rfc4627.txt[RFC 4627]), the “application/json”
+https://www.ietf.org/rfc/rfc4627.txt[RFC 4627]), the "application/json"
 media type and custom JSON media types defined for APIs. The guidelines
 clarifies some specific cases to allow Zalando JSON data to have an
 idiomatic form across teams and services.
