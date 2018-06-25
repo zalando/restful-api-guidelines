@@ -238,7 +238,8 @@ EventType:
         description:
           Indicates a single ordering field. This is a JsonPointer, which is applied
           onto the whole event object, including the contained metadata and data (in
-          case of a data change event) objects.
+          case of a data change event) objects. It must point to a field of type
+          string or number/integer (as for those the ordering is obvious).
     created_at:
       description: When this event type was created.
       type: string
@@ -549,6 +550,10 @@ events may occur in the same microsecond and system clocks may jump
 backward or forward to compensate drifts or leap-seconds. If you use
 system timestamps to indicate event ordering, you must carefully ensure
 that your designated event order is not messed up by these effects.
+
+Also, if using timestamps, the producer *must* make sure that they
+are formatted for all events in the UTC time zone, to allow for a
+simple string-based comparison.
 
 *Note* that basing events on data structures that can be converged upon
 in a distributed setting (such as
