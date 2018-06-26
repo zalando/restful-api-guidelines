@@ -9,15 +9,15 @@ APIs should define the functional, business view and abstract from
 implementation aspects. Success and error responses are a vital part to
 define how an API is used correctly.
 
-Therefore, you must define **all** success and service specific error responses in your API specification.
-Both are part of the interface definition and
-provide important information for service clients to handle standard as well
-as exceptional situations. 
+Therefore, you must define **all** success and service specific error
+responses in your API specification. Both are part of the interface definition
+and provide important information for service clients to handle standard as
+well as exceptional situations. 
 
 
 **Hint:** In most cases it is not useful to document all technical errors,
-especially if they are not under control of the service provider. 
-Thus unless a response code conveys application-specific functional semantics or is used
+especially if they are not under control of the service provider. Thus unless
+a response code conveys application-specific functional semantics or is used
 in a none standard way that requires additional explanation, multiple error
 response specifications can be combined using the following pattern:
 
@@ -31,8 +31,8 @@ responses:
       $ref: 'https://zalando.github.io/problem/schema.yaml#/Problem'
 ----
 
-API designers should also think about a **troubleshooting board** as part of the
-associated online API documentation. It provides information and handling
+API designers should also think about a **troubleshooting board** as part of
+the associated online API documentation. It provides information and handling
 guidance on application-specific errors and is referenced via links from the
 API specification. This can reduce service support tasks and contribute to
 service client and provider performance.
@@ -41,8 +41,8 @@ service client and provider performance.
 [#150]
 == {MUST} Use Standard HTTP Status Codes
 
-You must only use standardized HTTP status codes and consistently with 
-their intended semantics. You must not invent new HTTP status codes.
+You must only use standardized HTTP status codes consistently with their
+intended semantics. You must not invent new HTTP status codes.
 
 RFC standards define ~60 different HTTP status codes with specific semantics 
 (mainly https://tools.ietf.org/html/rfc7231#section-6[RFC7231] and
@@ -54,13 +54,16 @@ https://en.wikipedia.org/wiki/List_of_HTTP_status_codes[Wikipedia] or
 via https://httpstatuses.com/) also inculding 'unofficial codes', e.g. used
 by popular web servers like Nginx.
 
-Below we listed the most commonly used and best understood HTTP status codes 
-(consistent with RFC standard). You may use HTTP status codes not listed here, 
-but in this case you must provide clear documentation in the API definition. 
-As long as there is no need to use codes not listed here, you 
-should not describe HTTP status codes to avoid risk of inconsistent definitions and 
-reduced readability due to overload with common sense information. 
+Below we list the most commonly used and best understood HTTP status codes
+consistent with their semantic in the RFCs. APIs should only use these to
+prevent misconceptions that arise from less commonly used HTTP status codes.
 
+As long as your HTTP status code usage is well covered by the here defined
+semantic, you should not describe it to avoid an overload with common sense
+information and the risk of inconsistent definitions. Only if the HTTP status
+codes not in this list below or the usage requires additional information
+aside the well defined semantic, the API specification must provide an clear
+description of the HTTP status code in the response.
 
 [[success-codes]]
 === Success Codes
