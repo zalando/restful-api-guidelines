@@ -54,14 +54,14 @@ https://en.wikipedia.org/wiki/List_of_HTTP_status_codes[Wikipedia] or
 via https://httpstatuses.com/) also inculding 'unofficial codes', e.g. used
 by popular web servers like Nginx.
 
-Below we list the most commonly used and best understood HTTP status codes
+Below we list the most commonly used and best understood HTTP status codes,
 consistent with their semantic in the RFCs. APIs should only use these to
 prevent misconceptions that arise from less commonly used HTTP status codes.
 
-As long as your HTTP status code usage is well covered by the here defined
-semantic, you should not describe it to avoid an overload with common sense
+As long as your HTTP status code usage is well covered by the semantic defined
+here, you should not describe it to avoid an overload with common sense
 information and the risk of inconsistent definitions. Only if the HTTP status
-codes not in this list below or the usage requires additional information
+codes is not in the list below or its usage requires additional information
 aside the well defined semantic, the API specification must provide an clear
 description of the HTTP status code in the response.
 
