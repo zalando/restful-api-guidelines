@@ -66,7 +66,7 @@ except the API identifier. Based on the API identifier, we can track the API
 life cycle and manage the history and evolution of an API as a sequence of
 API specifications. For instance, we can support to check compatibility and
 correct semantic versioning of an API update against previous API versions
-using the https://github.com/zalando/zally[API Linter Zally]
+using the https://github.com/zalando/zally[API Linter Zally].
 
 The API identifier is provided in the `info`-block of the Open API
 specification and must conform to the following specification:
@@ -83,6 +83,10 @@ specification and must conform to the following specification:
     sequence of API specifications.
 ----
 
+*Note*: The API identifier must be applied consistently to all created API
+specification versions describing the same API. This explicitly covers all
+applications and deployments as well as compatible and incompatible changes
+of the API that are noticeable addressing the same purpose and consumer group.
 It is responsibility of the API owner to ensure that the application of the
 API identifier together with the semantic API <<116,version>> reflect the
 expected API history.
