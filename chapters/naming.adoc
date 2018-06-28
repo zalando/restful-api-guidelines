@@ -20,8 +20,8 @@ follows:
 |=========================================================
 | *Functional Naming* | *Audience*
 | *must*   | external-public, external-partner
-| *should* | company-internal
-| *may*    | component-internal, business-unit-internal
+| *should* | company-internal, business-unit-internal
+| *may*    | component-internal
 |=========================================================
 
 To conduct the functional naming schema, a unique `functional-name` is assigned
