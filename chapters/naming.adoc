@@ -17,11 +17,12 @@ hostnames>>, <<215, permission names>>, and <<213, event names>> in APIs as
 follows:
 
 [cols="25%,75%,options="header"]
-|================================================================
+|=========================================================
 | *Functional Naming* | *Audience*
-| *must*   | external-public, external-partner, company-internal
-| *should* | component-internal, business-unit-internal
-|================================================================
+| *must*   | external-public, external-partner
+| *should* | company-internal, business-unit-internal
+| *may*    | component-internal
+|=========================================================
 
 To conduct the functional naming schema, a unique `functional-name` is assigned
 to each functional component. It is built of the domain name of the functional
@@ -35,11 +36,12 @@ functional component itself:
 <functional-component>  ::= [a-z][a-z0-9-]* -- name of owning functional component
 ----
 
-*Internal Hint:* The list of domains is curated by the architecture team to
-foster consistent grouping of components within the company. The uniqueness of
-the `functional-name` is ensured by
-https://github.bus.zalan.do/team-architecture/functional-component-registry[registering
-(internal link)] all functional components.
+*Internal Hint*:  Use the simple 
+https://github.bus.zalan.do/team-architecture/functional-component-registry[functional
+name registry (internal link)] to register your functional name before using
+it. The registry is a centralized infrastructure service to ensure uniqueness
+of your functional names (and available domains) and to support hostname DNS
+resolution.
 
 Please see the following rules for detailed functional naming patterns:
 
