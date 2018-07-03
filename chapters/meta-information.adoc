@@ -61,7 +61,7 @@ info:
 == {MUST} Provide API Identifiers
 
 Each API specification must be provisioned with a globally unique and immutable API identifier. 
-The API identifier is defined in the `info`-block of the Open API
+The API identifier is defined in the `info`-block of the OpenAPI
 specification and must conform to the following definition:
 
 [source,yaml]
@@ -76,7 +76,7 @@ specification and must conform to the following definition:
     as a sequence of versions.
 ----
 
-API specifications will evolve and every aspect of an OpenAPI specification 
+API specifications will evolve and any aspect of an OpenAPI specification 
 may get changed by API owners. We require API identifiers because we want 
 to support API clients and providers with API lifecycle management features, 
 like change trackability and history or automated backward compatibility checks.  
