@@ -176,16 +176,16 @@ EventType:
       example: |
         transactions.order.order-cancelled
         customer.personal-data.email-changed
-  audience:
-        type: string
-        x-extensible-enum:
-          - component-internal
-          - business-unit-internal
-          - company-internal
-          - external-partner
-          - external-public
-        description: |
-          Intended target audience of the event type, analogue to <<219,REST API audience definition>>.
+    audience:
+      type: string
+      x-extensible-enum:
+        - component-internal
+        - business-unit-internal
+        - company-internal
+        - external-partner
+        - external-public
+      description: |
+        Intended target audience of the event type, analogue to <<219,REST API audience definition>>.
     owning_application:
       description: |
         Name of the application (eg, as would be used in infrastructure
