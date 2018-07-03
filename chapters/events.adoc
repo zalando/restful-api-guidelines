@@ -185,7 +185,7 @@ EventType:
           - external-partner
           - external-public
         description: |
-          Intended target audience of the event type -- see <<219>>
+          Intended target audience of the event type, analogue to <<219,REST API audience definition>>.
     owning_application:
       description: |
         Name of the application (eg, as would be used in infrastructure
