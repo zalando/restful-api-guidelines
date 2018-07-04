@@ -190,11 +190,11 @@ no body.
 [[options]]
 === OPTIONS
 
-OPTIONS are used to inspect the available operations (HTTP methods) of a
+OPTIONS requests are used to inspect the available operations (HTTP methods) of a
 given endpoint.
 
-* OPTIONS requests usually either return a comma separated list of
-methods (provided by an `Allow:`-Header) or as a structured list of link
+* OPTIONS responses usually either return a comma separated list of
+methods in the `Allow` header or as a structured list of link
 templates
 
 *Note:* OPTIONS is rarely implemented, though it could be used to
