@@ -143,6 +143,10 @@ JSON objects support compatible extension by additional attributes. This
 allows you to easily extend your response and e.g. add pagination later,
 without breaking backwards compatibility.
 
+Maps, see <<216, rule 216>>, even though technically objects are also
+forbidden as top level data structures, since they don't support compatible,
+future extensions.
+
 [#111]
 == {MUST} Treat Open API Definitions As Open For Extension By Default
 
