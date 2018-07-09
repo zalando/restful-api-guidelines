@@ -185,7 +185,8 @@ EventType:
         - external-partner
         - external-public
       description: |
-        Intended target audience of the event type, analogue to <<219,REST API audience definition>>.
+        Intended target audience of the event type, analogue to audience definition for REST APIs 
+        in rule #219 -- see https://opensource.zalando.com/restful-api-guidelines/#219
     owning_application:
       description: |
         Name of the application (eg, as would be used in infrastructure
