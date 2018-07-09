@@ -82,8 +82,8 @@ to support API clients and providers with API lifecycle management features,
 like change trackability and history or automated backward compatibility checks.  
 The immutable API identifier allows the identification of all API specification 
 versions of an API evolution. And by using  <<116, API semantic version information>> 
-or <<192, API publishing date>> as order criteria you get the "version history" 
-or "publication history" as a sequence of API specifications. 
+or <<192, API publishing date>> as order criteria you get the *version* 
+or *publication history* as a sequence of API specifications. 
 
 *Note*: While it is nice to use human readable API identifiers based on self-managed
 URNs, it is recommend to stick to UUIDs to relief API designers from any urge
