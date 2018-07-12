@@ -77,11 +77,11 @@ specification and must conform to the following definition:
 ----
 
 API specifications will evolve and any aspect of an OpenAPI specification 
-may get changed by API owners. We require API identifiers because we want 
+may change. We require API identifiers because we want 
 to support API clients and providers with API lifecycle management features, 
 like change trackability and history or automated backward compatibility checks.  
 The immutable API identifier allows the identification of all API specification 
-versions of an API evolution. And by using  <<116, API semantic version information>> 
+versions of an API evolution. By using  <<116, API semantic version information>> 
 or <<192, API publishing date>> as order criteria you get the *version* 
 or *publication history* as a sequence of API specifications. 
 
