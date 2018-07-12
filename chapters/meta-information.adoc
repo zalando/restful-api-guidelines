@@ -60,16 +60,9 @@ info:
 [#215]
 == {MUST} Provide API Identifiers
 
-Each API must be identified by an explicit, owner assigned, globally unique,
-and immutable API identifier. While APIs evolve, every API aspect may change
-except the API identifier. Based on the API identifier, we can track the API
-life cycle and manage the history and evolution of an API as a sequence of
-API specifications. For instance, we can support to check compatibility and
-correct semantic versioning of an API update against previous API versions
-using the https://github.com/zalando/zally[API Linter Zally].
-
-The API identifier is provided in the `info`-block of the Open API
-specification and must conform to the following specification:
+Each API specification must be provisioned with a globally unique and immutable API identifier. 
+The API identifier is defined in the `info`-block of the OpenAPI
+specification and must conform to the following definition:
 
 [source,yaml]
 ----
@@ -78,20 +71,21 @@ specification and must conform to the following specification:
   format: urn
   pattern: ^[a-z0-9][a-z0-9-:.]{6,62}[a-z0-9]$
   description: |
-    Globally unique and immutable ID required to identify the API. The API
-    identifier allows to track the history and evolution of an API as a 
-    sequence of API specifications.
+    Mandatory globally unique and immutable API identifier. The API
+    id allows to track the evolution and history of an API specification 
+    as a sequence of versions.
 ----
 
-*Note*: The API identifier must be applied consistently to all created API
-specification versions describing the same API. This explicitly covers all
-applications and deployments as well as compatible and incompatible changes
-of the API that are noticeable addressing the same purpose and consumer group.
-It is responsibility of the API owner to ensure that the application of the
-API identifier together with the semantic API <<116,version>> reflect the
-expected API history.
+API specifications will evolve and any aspect of an OpenAPI specification 
+may change. We require API identifiers because we want 
+to support API clients and providers with API lifecycle management features, 
+like change trackability and history or automated backward compatibility checks.  
+The immutable API identifier allows the identification of all API specification 
+versions of an API evolution. By using  <<116, API semantic version information>> 
+or <<192, API publishing date>> as order criteria you get the *version* 
+or *publication history* as a sequence of API specifications. 
 
-While it is nice to use human readable API identifiers based on self-managed
+*Note*: While it is nice to use human readable API identifiers based on self-managed
 URNs, it is recommend to stick to UUIDs to relief API designers from any urge
 of changing the API identifier while evolving the API. Example:
 
@@ -105,8 +99,6 @@ info:
   version: 1.5.8
   <...>
 ----
-
-For more information see https://docs.google.com/document/d/1lRXcTZbZMnFeTVCaazitSWxSdKXGWkOUn99Gr-huNXg[API Identifier narrative].
 
 
 [#219]
