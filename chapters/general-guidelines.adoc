@@ -13,8 +13,9 @@ You must follow the <<api-first, API First Principle>>, more specifically:
 * You must design your APIs consistently with this guidelines; 
 use our https://zally.zalando.net/[API Linter Service [internal link]] for automated rule checks. 
 * You must call for early review feedback from peers and client developers, 
-and apply our https://github.bus.zalan.do/ApiGuild/ApiReviewProcedure[lightweight API
-review process [internal link]] for all <<219, component external APIs>> 
+and apply https://github.bus.zalan.do/ApiGuild/ApiReviewProcedure[our lightweight API
+review process [internal link]] for all component external APIs, i.e. 
+all apis with `x-api-audience =/= component-internal` (see <<219, API Audience>>). 
 
 
 [#101]
