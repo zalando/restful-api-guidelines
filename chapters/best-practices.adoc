@@ -59,10 +59,6 @@ or if there was an update since the GET and the entity's etag has changed:
 The ETag for every entity is returned as an additional property of that entity.
 In a response containing multiple entities, every entity will then have a distinct ETag that can be used in subsequent PUT requests.
 
-The content of every entity object in such a response should be kept to a minimum (ID and ETag) so
-those object are not confused for full image of the object (which can be access through a ID specific
-query).
-
 In this solution, the `etag` property should be `readonly` and never be expected in the PUT request
 payload.
 
@@ -136,7 +132,9 @@ or if there was an update since the GET and the version number in the database i
 * Functionality that belongs into the HTTP header becomes part of the business object
 * Violates the <<put,PUT>> guidelines (_what you PUT is what you GET_) since the version number
   in the PUT payload will be changed immediately server-side for the next version number and
-  the next GET will return the new version.
+  the next GET will return the new version
+* Unsure of the verb to use between PUT and its update semantics and POST and its "requiring server
+  side computation and/or enrichment" semantics
 
 === Version numbers -- In a header
 The entities contain a property with a version number. 
@@ -184,6 +182,8 @@ given in the request body:
 ==== Cons
 * Functionality that belongs into the HTTP header becomes part of the business object
 * Could be considered a misuse of the `If-Match` header
+* Unsure of the verb to use between PUT and its update semantics and POST and its "requiring server
+  side computation and/or enrichment" semantics
 
 === Last-Modified / If-Unmodified-Since
 In HTTP 1.0 there was no ETag and the mechanism used for optimistic locking was based on a date. 
