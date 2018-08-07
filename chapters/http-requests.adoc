@@ -253,12 +253,12 @@ When choosing the collection format, take into account the tool support,
 the escaping of special characters and the maximal URL length.
 
 [#226]
-== {MUST} Document any implicit filtering
+== {MUST} Document Implicit Filtering
 
 Implicit filtering should be avoided as much as possible. However, in some
 cases (usually for legal reasons), some endpoints should not be listing all
-resources they have, but only those on which the current user has access to
-(or some other context specific condition).
+resources they have, but only those on which the current consumer has access
+to (or some other context specific condition).
 
 Implicit filtering could be done on:
 
@@ -275,34 +275,29 @@ service and performs a `GET /business-partners`, it must, for legal reasons, not
 any other business partner that is not owned or contractually managed by her/his company.
 It should never see that we are doing business also with company _Bar_.
 
-[source]
+Response as seen from a consumer working at `FOO`:
+
+[source,json]
 ----
-# An employee from `FOO` queries.
+{
+    "items": [
+        { "name": "Foo Performance" },
+        { "name": "Foo Sport" },
+        { "name": "Foo Signature" }
+    ]
+}
+----
 
-< GET /business-partners
-< Authorization: Bearer A-TOKEN-FROM-A-FOO-EMPLOYEE
+Response as seen from a consumer working at `BAR`:
 
-> HTTP/1.1 200 OK
-> {
->     "items": [
->         { "name": "Foo Performance" },
->         { "name": "Foo Sport" },
->         { "name": "Foo Signature" }
->     ]
-> }
-
-# An employee from `BAR` queries.
-
-< GET /business-partners
-< Authorization: Bearer A-TOKEN-FROM-A-BAR-EMPLOYEE
-
-> HTTP/1.1 200 OK
-> {
->     "items": [
->         { "name": "Bar Classics" },
->         { "name": "Bar pour Elle" }
->     ]
-> }
+[source,json]
+----
+{
+    "items": [
+        { "name": "Bar Classics" },
+        { "name": "Bar pour Elle" }
+    ]
+}
 ----
 
 The API Specification should then specify something like this:
@@ -313,6 +308,5 @@ The API Specification should then specify something like this:
     get:
       description: >-
         Get the list of registered business partner.
-
-        Note that only the business partner to which you have access to are returned.
+        Only the business partners to which you have access to are returned.
 ----
