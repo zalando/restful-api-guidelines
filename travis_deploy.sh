@@ -41,7 +41,7 @@ create_zally_issue () {
     done
 
     if [ "$content_changed" = true ]; then
-        local title="Check Guidelines Update"
+        local title=$(curl -s ${GH_REPO_URL}/pulls/${pr_number} | jq -r '.title' | sed s/\"/\'/g)
         local body="Please check if the PR ${GH_REPO_LINK}/pull/${pr_number} introduces changes which are relevant to the Zally project."
         curl -X POST \
             -H 'Content-Type: application/json' \

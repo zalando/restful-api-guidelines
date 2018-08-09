@@ -7,7 +7,7 @@
 Every API endpoint needs to be secured using OAuth 2.0. Please refer to
 the
 https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#security-definitions-object[official
-OpenAPI spec] on how to specify security definitions in you API
+OpenAPI spec] on how to specify security definitions in your API
 specification or take a look at the following example.
 
 [source,yaml]

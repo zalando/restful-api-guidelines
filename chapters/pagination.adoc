@@ -10,7 +10,7 @@ lists that are (potentially) larger than just a few hundred entries.
 
 There are two page iteration techniques:
 
-* http://developer.infoconnect.com/paging-results-limit-and-offset[Offset/Limit-based
+* https://developer.infoconnect.com/paging-results[Offset/Limit-based
 pagination]: numeric offset identifies the first page entry
 * https://dev.twitter.com/overview/api/cursoring[Cursor-based] — aka
 key-based — pagination: a unique key element identifies the first page
