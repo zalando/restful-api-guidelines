@@ -252,3 +252,61 @@ parameters as described below.
 When choosing the collection format, take into account the tool support,
 the escaping of special characters and the maximal URL length.
 
+[#226]
+== {MUST} Document Implicit Filtering
+
+Sometimes certain collection resources or queries will not list all the 
+possible elements they have, but only those for which the current client 
+is authorized to access.
+
+Implicit filtering could be done on:
+
+* the list of resources being return on a parent `GET` request
+* the fields returned for the resource's detail
+
+In such cases, the implicit filtering must be in the API Specification (in its description).
+
+Consider <<227,caching considerations>> when implicitely filtering.
+
+Example:
+
+If an employee of the company _Foo_ accesses one of our business-to-business
+service and performs a `GET /business-partners`, it must, for legal reasons, not display
+any other business partner that is not owned or contractually managed by her/his company.
+It should never see that we are doing business also with company _Bar_.
+
+Response as seen from a consumer working at `FOO`:
+
+[source,json]
+----
+{
+    "items": [
+        { "name": "Foo Performance" },
+        { "name": "Foo Sport" },
+        { "name": "Foo Signature" }
+    ]
+}
+----
+
+Response as seen from a consumer working at `BAR`:
+
+[source,json]
+----
+{
+    "items": [
+        { "name": "Bar Classics" },
+        { "name": "Bar pour Elle" }
+    ]
+}
+----
+
+The API Specification should then specify something like this:
+
+[source,yaml]
+----
+  /business-partner:
+    get:
+      description: >-
+        Get the list of registered business partner.
+        Only the business partners to which you have access to are returned.
+----
