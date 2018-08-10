@@ -27,8 +27,8 @@ Example:
 > HTTP/1.1 200 OK
 > {
 >   "items": [
->     { "code": "O0000042" },
->     { "code": "O0000043" }
+>     { "id": "O0000042" },
+>     { "id": "O0000043" }
 >   ]
 > }
   
@@ -36,11 +36,11 @@ Example:
   
 > HTTP/1.1 200 OK
 > ETag: osjnfkjbnkq3jlnksjnvkjlsbf
-> { "code": "BO0000042", ... }
+> { "id": "BO0000042", ... }
   
 < PUT /orders/O0000042
 < If-Match: osjnfkjbnkq3jlnksjnvkjlsbf
-< { "code": "O0000042", ... }
+< { "id": "O0000042", ... }
   
 > HTTP/1.1 204 No Content
   
@@ -70,14 +70,14 @@ Example:
 > HTTP/1.1 200 OK
 > {
 >   "items": [
->     { "code": "O0000042", "etag": "osjnfkjbnkq3jlnksjnvkjlsbf", "foo": 42, "bar": true },
->     { "code": "O0000043", "etag": "kjshdfknjqlowjdsljdnfkjbkn", "foo": 24, "bar": false }
+>     { "id": "O0000042", "etag": "osjnfkjbnkq3jlnksjnvkjlsbf", "foo": 42, "bar": true },
+>     { "id": "O0000043", "etag": "kjshdfknjqlowjdsljdnfkjbkn", "foo": 24, "bar": false }
 >   ]
 > }
 
 < PUT /orders/O0000042
 < If-Match: osjnfkjbnkq3jlnksjnvkjlsbf
-< { "code": "O0000042", "foo": 43, "bar": true }
+< { "id": "O0000042", "foo": 43, "bar": true }
   
 > HTTP/1.1 204 No Content
   
@@ -110,13 +110,13 @@ Example:
 > HTTP/1.1 200 OK
 > {
 >   "items": [
->     { "code": "O0000042", "version": 1,  "foo": 42, "bar": true },
->     { "code": "O0000043", "version": 42, "foo": 24, "bar": false }
+>     { "id": "O0000042", "version": 1,  "foo": 42, "bar": true },
+>     { "id": "O0000043", "version": 42, "foo": 24, "bar": false }
 >   ]
 > }
   
 < PUT /orders/O0000042
-< { "code": "O0000042", "version": 1, "foo": 43, "bar": true }
+< { "id": "O0000042", "version": 1, "foo": 43, "bar": true }
    
 > HTTP/1.1 204 No Content
   
@@ -159,14 +159,14 @@ Example:
 > HTTP/1.1 200 OK
 > {
 >   "items": [
->     { "code": "O0000042", "version": 1,  "foo": 42, "bar": true },
->     { "code": "O0000043", "version": 42, "foo": 24, "bar": false }
+>     { "id": "O0000042", "version": 1,  "foo": 42, "bar": true },
+>     { "id": "O0000043", "version": 42, "foo": 24, "bar": false }
 >   ]
 > }
   
 < PUT /orders/O0000042
 < If-Match: 1
-< { "code": "O0000042", "foo": 43, "bar": true }
+< { "id": "O0000042", "foo": 43, "bar": true }
    
 > HTTP/1.1 204 No Content
   
@@ -205,14 +205,14 @@ Example:
 > Last-Modified: Wed, 22 Jul 2009 19:15:56 GMT
 > {
 >   "items": [
->     { "code": "O0000042", ... },
->     { "code": "O0000043", ... }
+>     { "id": "O0000042", ... },
+>     { "id": "O0000043", ... }
 >   ]
 > }
   
 < PUT /block/O0000042
 < If-Unmodified-Since: Wed, 22 Jul 2009 19:15:56 GMT
-< { "code": "O0000042", ... }
+< { "id": "O0000042", ... }
   
 > HTTP/1.1 204 No Content
   
