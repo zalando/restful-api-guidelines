@@ -168,7 +168,7 @@ GET /order/123?embed=(items) HTTP/1.1
 }
 ----
 
-[217]
+[#227]
 == {MUST} Document Caching, if Supported
 
 If an API is intended to support caching, it must take care to specify
