@@ -255,18 +255,18 @@ the escaping of special characters and the maximal URL length.
 [#226]
 == {MUST} Document Implicit Filtering
 
-Implicit filtering should be avoided as much as possible. However, in some
-cases (usually for legal reasons), some endpoints should not be listing all
-resources they have, but only those on which the current consumer has access
-to (or some other context specific condition).
+Sometimes certain collection resources or queries will not list all the 
+possible elements they have, but only those for which the current client 
+is authorized to access.
 
 Implicit filtering could be done on:
 
 * the list of resources being return on a parent `GET` request
 * the fields returned for the resource's detail
 
-In such cases, the implicit filtering must absolutely be documented clearly
-and transparently in the API Specification (in its description).
+In such cases, the implicit filtering must be in the API Specification (in its description).
+
+Consider <<227,caching considerations>> when implicitely filtering.
 
 Example:
 
@@ -304,7 +304,7 @@ The API Specification should then specify something like this:
 
 [source,yaml]
 ----
-  /busines-partner:
+  /business-partner:
     get:
       description: >-
         Get the list of registered business partner.
