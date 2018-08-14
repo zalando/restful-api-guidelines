@@ -8,7 +8,7 @@ before_install:
   - docker pull asciidoctor/docker-asciidoctor
 
 script:
-  - ./check_uniqueness_of_rule_ids.sh > rule_id_uniqueness
+  - ./check_rule_ids.sh > check_rule_ids_result
   - docker run -v $TRAVIS_BUILD_DIR:/documents/ --name asciidoc-to-html asciidoctor/docker-asciidoctor asciidoctor -D /documents/output index.adoc
   - docker run -v $TRAVIS_BUILD_DIR:/documents/ --name asciidoc-to-pdf asciidoctor/docker-asciidoctor asciidoctor-pdf -D /documents/output index.adoc
   - docker run -v $TRAVIS_BUILD_DIR:/documents/ --name asciidoctor-epub3 asciidoctor/docker-asciidoctor asciidoctor-epub3 -D /documents/output index.adoc
@@ -21,12 +21,12 @@ after_error:
   - docker logs asciidoc-to-html
   - docker logs asciidoc-to-pdf
   - docker logs asciidoc-to-epub3
-  - cat rule_id_uniqueness
+  - cat check_rule_ids_result
 
 after_failure:
   - docker logs asciidoc-to-html
   - docker logs asciidoc-to-pdf
   - docker logs asciidoc-to-epub3
-  - cat rule_id_uniqueness
+  - cat check_rule_ids_result
 
 after_success: ./travis_deploy.sh
