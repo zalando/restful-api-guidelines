@@ -12,7 +12,7 @@ rm -rf ${BUILD_DIR}
 mkdir ${BUILD_DIR}
 docker pull asciidoctor/docker-asciidoctor
 
-./check_uniqueness_of_rule_ids.sh
+./check_rule_ids.sh
 
 docker run -v ${SCRIPT_DIR}:/documents/ asciidoctor/docker-asciidoctor asciidoctor -D /documents/output index.adoc
 docker run -v ${SCRIPT_DIR}:/documents/ asciidoctor/docker-asciidoctor asciidoctor-pdf -D /documents/output index.adoc
