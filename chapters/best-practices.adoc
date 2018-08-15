@@ -99,8 +99,9 @@ When a PUT request is made, the version number has to be included in the payload
 In this solution, the `version` property is not `readonly` since it is provided at PUT time as part of
 the payload.
 
-The verb for updating here could be POST instead of PUT, since the server has to compute the received
-value before saving it (incrementing the version number).
+Since the server has to computer the received value and operate on it before persistance (incrementing
+the version number), it could be considered to offer a POST on the specific resource ID (ex: `POST /orders/O0000042`)
+instead of the usual PUT.
 
 Example:
 [source]
@@ -115,7 +116,7 @@ Example:
 >   ]
 > }
   
-< PUT /orders/O0000042
+< POST /orders/O0000042
 < { "id": "O0000042", "version": 1, "foo": 43, "bar": true }
    
 > HTTP/1.1 204 No Content
