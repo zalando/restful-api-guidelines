@@ -132,7 +132,7 @@ or if there was an update since the GET and the version number in the database i
 
 ==== Cons
 * Functionality that belongs into the HTTP header becomes part of the business object
-* Using POST instead of PUT for an "update" logic (not a problem in itself, but may feel unusual for the consumer)
+* Using POST instead of PUT for an update logic (not a problem in itself, but may feel unusual for the consumer)
 
 === Last-Modified / If-Unmodified-Since
 In HTTP 1.0 there was no ETag and the mechanism used for optimistic locking was based on a date. 
