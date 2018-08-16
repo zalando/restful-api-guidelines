@@ -93,15 +93,16 @@ or if there was an update since the GET and the entity's etag has changed:
 * Information that only belongs in the HTTP header is part of the business objects
 
 === Version numbers
-The entities contain a property with a version number. 
-When a PUT request is made, the version number has to be included in the payload and the server will check that the version in the database is not higher.
+The entities contain a property with a version number. When an update is performed, this version
+number is given back to the service as part of the payload. The service performs a check on that
+version number to make sure it was not incremented since the consumer got the resource and performs
+the update, incrementing the version number.
 
-In this solution, the `version` property is not `readonly` since it is provided at PUT time as part of
+Since this operation implies a modification of the resource by the service, a POST operation on the
+exact resource (ex: `POST /orders/O0000042`) should be used instead of a PUT (see <<put,PUT>>'s semantic).
+
+In this solution, the `version` property is not `readonly` since it is provided at POST time as part of
 the payload.
-
-Since the server has to computer the received value and operate on it before persistance (incrementing
-the version number), it could be considered to offer a POST on the specific resource ID (ex: `POST /orders/O0000042`)
-instead of the usual PUT.
 
 Example:
 [source]
@@ -131,11 +132,7 @@ or if there was an update since the GET and the version number in the database i
 
 ==== Cons
 * Functionality that belongs into the HTTP header becomes part of the business object
-* Violates the <<put,PUT>> guidelines (_what you PUT is what you GET_) since the version number
-  in the PUT payload will be changed immediately server-side for the next version number and
-  the next GET will return the new version
-* Unsure of the verb to use between PUT and its update semantics and POST and its "requiring server
-  side computation and/or enrichment" semantics
+* Using POST instead of PUT for an "update" logic (not a problem in itself, but may feel unusual for the consumer)
 
 === Last-Modified / If-Unmodified-Since
 In HTTP 1.0 there was no ETag and the mechanism used for optimistic locking was based on a date. 
