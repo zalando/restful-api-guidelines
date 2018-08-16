@@ -11,13 +11,12 @@ follows:
 [[get]]
 === GET
 
-GET requests are used to *read* either a single resource or a set of resources
-on a list endpoint.
+GET requests are used to *read* either a single resource or a set of resources.
 
 * GET requests for individual resources will usually generate a 404 if the
 resource does not exist
-* GET requests for collection resources may return either 200 (if the listing
-is empty) or 404 (if the list is missing)
+* GET requests for collection resources may return either 200 (if the
+collection is empty) or 404 (if the collection is missing)
 * GET requests must NOT have a request body payload
 
 *Note:* GET requests on collection resources should provide sufficient
@@ -96,8 +95,6 @@ POST requests are idiomatically used to *create* single resources on a
 collection resource endpoint, but other semantics on single resources endpoint
 are equally possible. The semantic for collection endpoints is best described
 as _"please add the enclosed representation to the collection resource
-identified by the URL"_. The semantic for single resource endpoints is best
-described as _"please execute the given well specified request on the resource
 identified by the URL"_.
 
 * on a successful POST request, the server will create one or multiple new
@@ -106,9 +103,13 @@ resources and provide their URI/URLs in the response
 updated), 201 (if resources have been created), and 202 (if the request was
 accepted but has not been finished yet)
 
-*More generally:* POST should be used for scenarios that cannot be covered by
-the other methods sufficiently. In such cases, make sure to document the fact
-that POST is used as a workaround (see <<get-with-body>>).
+The semantic for single resource endpoints is best described as _"please
+execute the given well specified request on the resource identified by the
+URL"_.
+
+*Generally:* POST should be used for scenarios that cannot be covered by the
+other methods sufficiently. In such cases, make sure to document the fact that
+POST is used as a workaround (see <<get-with-body>>). 
 
 *Note:* Resource IDs with respect to POST requests are created and maintained
 by server and returned with response payload.
@@ -121,6 +122,7 @@ the server. Here, a _foreign key_ is a natural partner resource ID, e.g. the
 shopping cart ID is a _foreign key_ candidate for an order, while an
 _idempotency key_ is an artificial request key that is preserved when
 re-sending the POST request.
+
 
 [[patch]]
 === PATCH
@@ -200,7 +202,7 @@ and resource collections.
 body.
 
 *Hint:* This is particular useful to efficiently lookup whether large resources
-or list resources have been updated in conjunction with the
+or collection resources have been updated in conjunction with the
 https://tools.ietf.org/html/rfc7232#section-2.3[`ETag`-header].
 
 [[options]]
@@ -277,7 +279,7 @@ is authorized to access.
 
 Implicit filtering could be done on:
 
-* the list of resources being return on a parent `GET` request
+* the collection of resources being return on a parent `GET` request
 * the fields returned for the resource's detail
 
 In such cases, the implicit filtering must be in the API Specification (in its description).
