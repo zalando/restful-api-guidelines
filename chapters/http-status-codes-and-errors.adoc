@@ -168,10 +168,11 @@ unexpected server execution problem (here, client retry may be sensible)
 implies future availability, e.g. new feature). |All
 
 |503 |Service Unavailable - service is (temporarily) not available (e.g.
-due to overload) -- client retry may be sensible. If possible, the
-service should indicate by setting the
-https://tools.ietf.org/html/rfc7231#section-7.1.3['Retry-After'] how
-long the client should wait befor retry. |All
+if a required component or downstream service is not available) -- client
+retry may be sensible. If possible, the service should indicate how long
+the client should wait by setting the
+https://tools.ietf.org/html/rfc7231#section-7.1.3['Retry-After']
+header. |All
 |=======================================================================
 
 [#220]
