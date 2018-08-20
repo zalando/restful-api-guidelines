@@ -55,6 +55,7 @@ or if there was an update since the GET and the entity's etag has changed:
 ==== Cons
 * Many additional requests are necessary to build a meaningful front-end
 
+[[etag-in-result-entities]]
 === ETags in result entities
 The ETag for every entity is returned as an additional property of that entity.
 In a response containing multiple entities, every entity will then have a distinct ETag that can be used in subsequent PUT requests.
