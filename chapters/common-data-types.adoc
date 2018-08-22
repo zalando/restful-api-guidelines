@@ -85,6 +85,8 @@ type `Node`)
 * `type`: the kind of thing this object is. If used, the type of this
 field should be a string. Types allow runtime information on the entity
 provided that otherwise requires examining the Open API file.
+* `etag`: the <<182, ETag>> of an <<158, embedded sub-resource>>.
+It may be used to carry the ETag for subsequent PUT calls (see <<etag-in-result-entities>>).
 
 Example JSON schema:
 
