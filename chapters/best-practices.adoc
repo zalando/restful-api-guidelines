@@ -44,7 +44,7 @@ Example:
   
 > HTTP/1.1 204 No Content
   
-or if there was an update since the GET and the entity's etag has changed:
+or if there was an update since the GET and the entity's ETag has changed:
  
 > HTTP/1.1 412 Precondition failed
 ----
@@ -82,7 +82,7 @@ Example:
   
 > HTTP/1.1 204 No Content
   
-or if there was an update since the GET and the entity's etag has changed:
+or if there was an update since the GET and the entity's ETag has changed:
   
 > HTTP/1.1 412 Precondition failed
 ----

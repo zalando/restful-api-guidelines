@@ -153,8 +153,8 @@ follows in the API definition:
 
 [source,yaml]
 ----
-Etag:
-  name: Etag
+ETag:
+  name: ETag
   description: |
     The RFC7232 ETag header field in a response provides the current entity-
     tag for the selected resource. An entity-tag is an opaque identifier for
