@@ -11,7 +11,7 @@ follows:
 [[get]]
 === GET
 
-GET requests are used to *read* either a single resource or a set of resources.
+GET requests are used to *read* either a single or a collection resource.
 
 * GET requests for individual resources will usually generate a 404 if the
 resource does not exist
