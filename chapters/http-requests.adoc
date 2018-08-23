@@ -229,12 +229,12 @@ for further hints on how to support the different HTTP methods on
 resources.
 
 [#154]
-== {SHOULD} Define Collection Format of Query Parameters
+== {SHOULD} Define Collection Format of Query Parameters and Headers
 
-Sometimes, query parameters allow to provide a list of values, either by
-providing a comma-separated list (`csv`) or by repeating the parameter
-multiple times with different values (`multi`). The API specification
-should explicitly define one type as follows:
+Sometimes, query parameters and headers allow to provide a list of values,
+either by providing a comma-separated list (`csv`) or by repeating the
+parameter multiple times with different values (`multi`). The API
+specification should explicitly define one type as follows:
 
 [,cols="20%,20%,25%,35%",options="header",]
 |=======================================================================
