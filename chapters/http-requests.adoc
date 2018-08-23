@@ -247,24 +247,18 @@ for further hints on how to support the different HTTP methods on
 resources.
 
 [#154]
-== {SHOULD} Explicitly define the Collection Format of Query Parameters
+== {SHOULD} Define Collection Format of Query Parameters and Headers
 
-There are different ways of supplying a set of values as a query
-parameter. One particular type should be selected and stated explicitly
-in the API definition. The OpenAPI property
-http://swagger.io/specification/[`collectionFormat`] is used to
-specify the format of the query parameter.
+Sometimes, query parameters and headers allow to provide a list of values,
+either by providing a comma-separated list (`csv`) or by repeating the
+parameter multiple times with different values (`multi`). The API
+specification should explicitly define one type as follows:
 
-Only the `csv` or `multi` formats should be used for multi-value query
-parameters as described below.
-
-[,cols="15%,25%,60%",options="header",]
+[,cols="20%,20%,25%,35%",options="header",]
 |=======================================================================
-|Collection Format |Description |Example
-|`csv` |Comma separated values |`?parameter=value1,value2,value3`
-
-|`multi` |Multiple parameter instances
-|`?parameter=value1&parameter=value2&parameter=value3`
+|Description |OpenAPI 3.0 |OpenAPI 2.0 |Example
+|Comma separated values |`style: form, explode: false` |`collectionFormat: csv` |`?param=value1,value2`
+|Multiple parameters |`style: form, explode: true` |`collectionFormat: multi` |`?param=value1&param=value2`
 |=======================================================================
 
 When choosing the collection format, take into account the tool support,
