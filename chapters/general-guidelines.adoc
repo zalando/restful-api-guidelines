@@ -23,7 +23,7 @@ all apis with `x-api-audience =/= component-internal` (see <<219, API Audience>>
 
 We use the http://swagger.io/specification/[OpenAPI specification] (aka
 Swagger specification) as standard to define API specifications files.
-API designers have to provide the API specification files using *YAML*
+API designers have to provide the API specification files using *JSON*
 to improve readability. Please, use *OpenAPI 2.0* for now, until we 
 have updated all our tooling to support new OpenAPI 3.0 version. 
 
