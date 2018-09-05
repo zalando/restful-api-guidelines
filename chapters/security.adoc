@@ -2,36 +2,14 @@
 = Security
 
 [#104]
-== {MUST} Secure Endpoints with OAuth 2.0
+== {MUST} Secure Endpoints with JWT
 
-Every API endpoint needs to be secured using OAuth 2.0. Please refer to
-the
-https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#security-definitions-object[official
-OpenAPI spec] on how to specify security definitions in your API
-specification or take a look at the following example.
+Every API endpoint needs to be secured using JWT. The token is sent in the HTTP Authorization Header with the preceding word Bearer.
 
-[source,yaml]
+[source,http]
 ----
-securityDefinitions:
-  oauth2:
-    type: oauth2
-    flow: application
-    tokenUrl: https://identity.zalando.com/oauth2/token
-    scopes:
-      fulfillment-order-service.read: Access right needed to read from the fulfillment order service.
-      fulfillment-order-service.write: Access right needed to write to the fulfillment order service.      
+   Authorization: Bearer <JWT>
 ----
-
-The example defines OAuth2 with client credentials flow as security standard
-used for authentication when accessing endpoints. Additionally, there are two
-API access rights (permissions) defined via the scopes section for later
-endpoint authorization usage (see <<105, next section>>).
-
-It makes little sense specifying the flow to retrieve OAuth tokens in the
-`securityDefinitions` section, as API endpoints should not care, how OAuth
-tokens were created. Unfortunately the `flow` field is mandatory and cannot
-be omitted. API endpoints should always set `flow: application` and ignore
-this information.
 
 [#105]
 == {MUST} Define and Assign Permissions (Scopes)
