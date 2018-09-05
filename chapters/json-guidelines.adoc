@@ -13,11 +13,11 @@ The first some of the following guidelines are about property names,
 the later ones about values.
 
 [#118]
-== {MUST} Property names must be ASCII snake_case (and never camelCase): `^[a-z_][a-z_0-9]*$`
+== {MUST} Property names must be ASCII lowerCamelCase): `^[a-z][a-zA-Z0-9]*$`
 
 Property names are restricted to ASCII strings. The first
 character must be a letter, or an underscore, and subsequent
-characters can be a letter, an underscore, or a number.
+characters can be a letter, or a number.
 
 (It is recommended to use `_` at the start of property names only for keywords like `_links`.)
 
