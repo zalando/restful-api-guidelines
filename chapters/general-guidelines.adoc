@@ -49,9 +49,10 @@ manual typically describes the following API aspects:
 * architecture context and major dependencies - including figures and
 sequence flows
 
-The user manual must be published online, e.g. via our documentation hosting platform service, 
-GHE pages, or specific team web servers. Please do not forget to include a link to the 
+The user manual must be published online, e.g. via our documentation hosting platform service, or specific team web servers. Please do not forget to include a link to the 
 API user manual into the API specification using the `#/externalDocs/url` property.
+
+The manual is generated to build/generated-resources/main/src/index.html
 
 [#103]
 == {MUST} Write APIs in U.S. English
