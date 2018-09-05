@@ -16,7 +16,7 @@
 :MAY: pass:[<span class="may-keyword"><strong>May</strong></span>:]
 :MUST-SHOULD: pass:[<span class="must-keyword"><strong>Must</strong></span>/<span class="should-keyword"><strong>Should</strong></span>:]
 
-= Zalando RESTful API and Event Scheme Guidelines
+= 10m RESTful API Guidelines based on Zalando RESTful API and Event Scheme Guidelines
 Zalando SE
 
 image::assets/api-zalando-small.jpg[API Guild Logo]
