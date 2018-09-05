@@ -74,27 +74,27 @@ hostnames of <<223, internal>> APIs:
 -----
 
 [#129]
-== {MUST} Use lowercase separate words with hyphens for Path Segments
+== {MUST} Use lowercase separate words for Path Segments
 
 Example:
 
 [source,http]
 ----
-/shipment-orders/{shipment-order-id}
+/croporder/{cropOrderId}
 ----
 
 This applies to concrete path segments and not the names of path
-parameters. For example `{shipment_order_id}` would be ok as a path
+parameters. For example `{cropOrderId}` would be ok as a path
 parameter.
 
 [#130]
-== {MUST} Use snake_case (never camelCase) for Query Parameters
+== {MUST} Use lowerCamelCase for Query Parameters
 
 Examples:
 
 [source]
 ----
-customer_number, order_id, billing_address
+toolIdentifier, fieldId
 ----
 
 [#132]
