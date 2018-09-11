@@ -97,7 +97,7 @@ unknown.
 [#123]
 == {SHOULD} Null values should have their fields removed
 
-Swagger/OpenAPI, which is in common use, doesn't support null field
+OpenAPI, which is in common use, doesn't support null field
 values (it does allow omitting that field completely if it is not marked
 as required). However that doesn't prevent clients and servers sending
 and receiving those fields with null values. Also, in some cases null
