@@ -49,7 +49,7 @@ Example:
 
 [source,yaml]
 ----
-swagger: '2.0'
+openapi: 3.0.1
 info:
   title: Parcel Service API
   description: API for <...>
@@ -91,7 +91,7 @@ of changing the API identifier while evolving the API. Example:
 
 [source,yaml]
 ----
-swagger: '2.0'
+openapi: 3.0.1
 info:
   x-api-id: d0184f38-b98d-11e7-9c56-68f728c1ba70
   title: Parcel Service API
@@ -164,7 +164,7 @@ Example:
 
 [source,yaml]
 ----
-swagger: '2.0'
+openapi: 3.0.1
 info:
   x-audience: company-internal
   title: Parcel Helper Service API

@@ -44,24 +44,25 @@ of the map object's schema.
 Here is an example for such a map definition (the `translations` property):
 
 ```yaml
-definitions:
-  Message:
-    description:
-      A message together with translations in several languages.
-    type: object
-    properties:
-      message_key:
-        type: string
-        description: The message key.
-      translations:
-        description:
-          The translations of this message into several languages.
-          The keys are https://tools.ietf.org/html/bcp47[BCP-47 language tags].
-        type: object
-        additionalProperties:
+components:
+  schemas:
+    Message:
+      description:
+        A message together with translations in several languages.
+      type: object
+      properties:
+        message_key:
           type: string
+          description: The message key.
+        translations:
           description:
-            the translation of this message into the language identified by the key.
+            The translations of this message into several languages.
+            The keys are https://tools.ietf.org/html/bcp47[BCP-47 language tags].
+          type: object
+          additionalProperties:
+            type: string
+            description:
+              the translation of this message into the language identified by the key.
 ```
 
 An actual JSON object described by this might then look like this:
@@ -97,7 +98,7 @@ unknown.
 [#123]
 == {SHOULD} Null values should have their fields removed
 
-Swagger/OpenAPI, which is in common use, doesn't support null field
+OpenAPI, which is in common use, doesn't support null field
 values (it does allow omitting that field completely if it is not marked
 as required). However that doesn't prevent clients and servers sending
 and receiving those fields with null values. Also, in some cases null

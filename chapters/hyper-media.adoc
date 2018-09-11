@@ -101,7 +101,8 @@ HttpLink:
       description: Any URI that is using http or https protocol
       type: string
       format: uri
-  required: [ "href" ]
+  required:
+    - href
 ----
 
 The name of an attribute holding such a `HttpLink` object specifies the
