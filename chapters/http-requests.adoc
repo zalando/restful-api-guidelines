@@ -242,10 +242,6 @@ Method implementations must fulfill the following basic properties:
 |PATCH |No |No
 |=============================
 
-Please see also https://goo.gl/vhwh8a[Best Practices [internal link]]
-for further hints on how to support the different HTTP methods on
-resources.
-
 [#154]
 == {SHOULD} Define Collection Format of Query Parameters and Headers
 
