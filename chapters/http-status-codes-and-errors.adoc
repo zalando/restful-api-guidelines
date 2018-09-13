@@ -27,8 +27,10 @@ responses:
   ...
   default:
     description: error occurred - see status code and problem object for more information.
-    schema:
-      $ref: 'https://zalando.github.io/problem/schema.yaml#/Problem'
+    content:
+      "application/problem+json":
+        schema:
+          $ref: 'https://zalando.github.io/problem/schema.yaml#/Problem'
 ----
 
 API designers should also think about a **troubleshooting board** as part of
@@ -275,8 +277,10 @@ reference it by using:
 responses:
   503:
     description: Service Unavailable
-    schema:
-      $ref: 'https://zalando.github.io/problem/schema.yaml#/Problem'
+    content:
+      "application/problem+json":
+        schema:
+          $ref: 'https://zalando.github.io/problem/schema.yaml#/Problem'
 ----
 
 You may define custom problem types as extension of the Problem JSON object 

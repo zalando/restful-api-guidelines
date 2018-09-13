@@ -312,6 +312,7 @@ The API Specification should then specify something like this:
 
 [source,yaml]
 ----
+paths:
   /business-partner:
     get:
       description: >-

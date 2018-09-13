@@ -12,14 +12,16 @@ specification or take a look at the following example.
 
 [source,yaml]
 ----
-securityDefinitions:
-  oauth2:
-    type: oauth2
-    flow: application
-    tokenUrl: https://identity.zalando.com/oauth2/token
-    scopes:
-      fulfillment-order-service.read: Access right needed to read from the fulfillment order service.
-      fulfillment-order-service.write: Access right needed to write to the fulfillment order service.      
+components:
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://identity.zalando.com/oauth2/token
+          scopes:
+            fulfillment-order-service.read: Access right needed to read from the fulfillment order service.
+            fulfillment-order-service.write: Access right needed to write to the fulfillment order service.
 ----
 
 The example defines OAuth2 with client credentials flow as security standard
@@ -28,9 +30,9 @@ API access rights (permissions) defined via the scopes section for later
 endpoint authorization usage (see <<105, next section>>).
 
 It makes little sense specifying the flow to retrieve OAuth tokens in the
-`securityDefinitions` section, as API endpoints should not care, how OAuth
+`securitySchemes` section, as API endpoints should not care, how OAuth
 tokens were created. Unfortunately the `flow` field is mandatory and cannot
-be omitted. API endpoints should always set `flow: application` and ignore
+be omitted. API endpoints should always set `flow: clientCredentials` and ignore
 this information.
 
 [#105]
