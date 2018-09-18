@@ -21,5 +21,12 @@ docker run -v ${SCRIPT_DIR}:/documents/ asciidoctor/docker-asciidoctor asciidoct
 cp -r assets ${BUILD_DIR}/
 cp -r -n legacy/* ${BUILD_DIR}/
 
+grep -Pzoh "(?s)\[(#[0-9]+)\]\n[=]+\s+.*?\n" chapters/* | \
+	sed '$!N;s/\n/ /' | tr -d "[]{}\000"| sed '/^\s*$/d' | \
+	sort | perl -pi -e 'chomp if eof' | \
+	jq -Rs '{rules: split("\n") }' | \
+	jq '{rules: .rules | map(. | {id: split(" == ")[0], title: split(" == ")[1]})}' \
+	> ${BUILD_DIR}/rules
+
 mv ${BUILD_DIR}/index.pdf ${BUILD_DIR}/zalando-guidelines.pdf
 mv ${BUILD_DIR}/index.epub ${BUILD_DIR}/zalando-guidelines.epub
