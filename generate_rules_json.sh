@@ -1,13 +1,26 @@
 #!/usr/bin/env bash
 # This script generates a JSON with information about the guideline rules.
 
-set -x
-
 build_dir=${1:-output}
 
-grep -Pzoh "(?s)\[(#[0-9]+)\]\n[=]+\s+.*?\n" chapters/* | \
-        sed '$!N;s/\n/ /' | tr -d "[]{}\000" | sed '/^\s*$/d' | \
-        sort | perl -p -e 'chomp if eof' | \
-        jq -Rs '{rules: split("\n") }' | \
-        jq '{rules: .rules | map(. | {id: split(" == ")[0], title: split(" == ")[1]})}' \
-        > ${build_dir}/rules
+cat chapters/*.adoc | \
+	awk '
+	BEGIN {	printf "{\"rules\": [";	}
+	($1 ~ /\[#[0-9]+\]/) {
+		if (_state == 2) {
+			printf ","
+		}
+		gsub("[\]\[]+","")
+		printf "{\"id\":\"" $1 "\"";
+		_state=1;
+		next;
+	}
+	(_state == 1) {
+		gsub("[= ]+\{","")
+		gsub("\}","")
+		printf ", \"title\": \"" $0 "\"}";
+		_state=2;
+		next;
+	}
+	END { printf "]}" }' | \
+	jq . > ${build_dir}/rules
