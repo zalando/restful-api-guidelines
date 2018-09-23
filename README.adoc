@@ -1,9 +1,15 @@
-= Developing Restful APIs: A Comprehensive Set of Guidelines by Zalando
+= Developing Restful APIs: A Comprehensive Set of Guidelines by 10M
 
 Latest published version:
 https://nifty10m.github.io/restful-api-guidelines/[*HTML*],
 
 == Purpose
+The original Zalando guidelines are a great starting point for developing
+RESTful API. We at 10M found out we are a different company and have to
+handle some points differently. So we forked the Zalando Repo and changed
+some points to fit our requirements.
+
+== Purpose of the original guidelines
 
 Great RESTful APIs look like they were designed by a single team. This
 promotes API adoption, reduces friction, and enables clients to use them
