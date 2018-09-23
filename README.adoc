@@ -1,10 +1,7 @@
 = Developing Restful APIs: A Comprehensive Set of Guidelines by Zalando
 
-https://travis-ci.org/zalando/restful-api-guidelines[image:https://travis-ci.org/zalando/restful-api-guidelines.svg?branch=master[Build Status]]
 Latest published version:
-http://zalando.github.io/restful-api-guidelines/[*HTML*],
-http://zalando.github.io/restful-api-guidelines/zalando-guidelines.pdf[*PDF*],
-http://zalando.github.io/restful-api-guidelines/zalando-guidelines.epub[*EPUB3*]
+https://nifty10m.github.io/restful-api-guidelines/[*HTML*],
 
 == Purpose
 

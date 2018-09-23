@@ -1,6 +1,6 @@
 = Build
 
-== Build HTML site, PDF and EPUB3 locally
+== Build HTML site :xlocally
 [source,bash]
 ----
 ./build.sh
@@ -15,4 +15,4 @@ This script clones the factory repository, installs the dependencies and generat
 [source,bash]
 ----
 ./build_css.sh
-----
+--
