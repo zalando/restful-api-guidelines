@@ -1371,7 +1371,6 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#introduction">1. Introduction</a>
 <ul class="sectlevel2">
 <li><a href="#conventions-used-in-these-guidelines">Conventions Used in These Guidelines</a></li>
-<li><a href="#zalando-specific-information">Zalando specific information</a></li>
 </ul>
 </li>
 <li><a href="#principles">2. Principles</a>
@@ -1400,8 +1399,6 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#security">5. Security</a>
 <ul class="sectlevel2">
 <li><a href="#104"><span class="must-keyword"><strong>Must</strong></span>: Secure Endpoints with JWT</a></li>
-<li><a href="#105"><span class="must-keyword"><strong>Must</strong></span>: Define and Assign Permissions (Scopes)</a></li>
-<li><a href="#225"><span class="must-keyword"><strong>Must</strong></span>: Follow Naming Convention for Permissions (Scopes)</a></li>
 </ul>
 </li>
 <li><a href="#compatibility">6. Compatibility</a>
@@ -1446,7 +1443,6 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#api-naming">9. API Naming</a>
 <ul class="sectlevel2">
 <li><a href="#223"><span class="must-keyword"><strong>Must</strong></span>/<span class="should-keyword"><strong>Should</strong></span>: Use Functional Naming Schema</a></li>
-<li><a href="#224"><span class="must-keyword"><strong>Must</strong></span>: Follow Naming Convention for Hostnames</a></li>
 <li><a href="#129"><span class="must-keyword"><strong>Must</strong></span>: Use lowercase separate words for Path Segments</a></li>
 <li><a href="#130"><span class="must-keyword"><strong>Must</strong></span>: Use lowerCamelCase for Query Parameters</a></li>
 <li><a href="#132"><span class="should-keyword"><strong>Should</strong></span>: Prefer Hyphenated-Pascal-Case for HTTP header Fields</a></li>
@@ -1580,16 +1576,13 @@ table.CodeRay td.code>pre{padding:0}
 <h2 id="introduction"><a class="link" href="#introduction">1. Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Zalando’s software architecture centers around decoupled microservices
-that provide functionality via RESTful APIs with a JSON payload. Small
-engineering teams own, deploy and operate these microservices in their
+<p>10M is not a microservice company. But developing client/server
+archictures with independent frontend and backend teams require
+stable API architectures. Out estabilished standard for public APIs
+that provide functionality via RESTful APIs with a JSON payload. Our
+engineering teams own, deploy and operate these services in their
 AWS (team) accounts. Our APIs most purely express what our systems do,
-and are therefore highly valuable business assets. Designing
-high-quality, long-lasting APIs has become even more critical for us
-since we started developing our new open platform strategy, which
-transforms Zalando from an online shop into an expansive fashion
-platform. Our strategy emphasizes developing lots of public APIs for our
-external business partners to use via third-party applications.</p>
+and are therefore highly valuable business assets.</p>
 </div>
 <div class="paragraph">
 <p>With this in mind, we’ve adopted "API First" as one of our key
@@ -1623,7 +1616,7 @@ ensure that our APIs:</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>Ideally, all Zalando APIs will look like the same author created them.</p>
+<p>Ideally, all our APIs will look like the same author created them.</p>
 </div>
 <div class="sect2">
 <h3 id="conventions-used-in-these-guidelines"><a class="link" href="#conventions-used-in-these-guidelines">Conventions Used in These Guidelines</a></h3>
@@ -1633,21 +1626,6 @@ ensure that our APIs:</p>
 "OPTIONAL" used in this document (case insensitive) are to be
 interpreted as described in <a href="https://www.ietf.org/rfc/rfc2119.txt">RFC
 2119</a>.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="zalando-specific-information"><a class="link" href="#zalando-specific-information">Zalando specific information</a></h3>
-<div class="paragraph">
-<p>The purpose of our "RESTful API guidelines" is to define standards to
-successfully establish "consistent API look and feel" quality. The
-<a href="https://confluence.zalando.net/display/GUL/API+Guild">API Guild [internal
-link</a>] drafted and owns this document. Teams are responsible to fulfill
-these guidelines during API development and are encouraged to contribute
-to guideline evolution via pull requests.</p>
-</div>
-<div class="paragraph">
-<p>These guidelines will, to some extent, remain work in progress as our
-work evolves, but teams can confidently follow and trust them.</p>
 </div>
 <div class="paragraph">
 <p>In case guidelines are changing, following rules apply:</p>
@@ -1755,14 +1733,13 @@ Styles and the Design of Network-Based Software Architectures</a></p>
 <div class="sect2">
 <h3 id="api-as-a-product"><a class="link" href="#api-as-a-product">API as a Product</a></h3>
 <div class="paragraph">
-<p>As mentioned above, Zalando is transforming from an online shop into an
-expansive fashion platform comprising a rich set of products following a
-Software as a Platform (SaaP) model for our business partners. As a
-company we want to deliver products to our (internal and external)
-customers which can be consumed like a service.</p>
+<p>10M is no a product company, so we are not selling our APIs.
+But as our customers are changing their architecture to change into a
+software driven company APIs are getting more important for a wider
+scope.</p>
 </div>
 <div class="paragraph">
-<p>Platform products provide their functionality via (public) APIs; hence,
+<p>Our projects provide their functionality via (public) APIs; hence,
 the design of our APIs should be based on the API as a Product
 principle:</p>
 </div>
@@ -1811,10 +1788,7 @@ developer experience.</p>
 <div class="sect2">
 <h3 id="api-first"><a class="link" href="#api-first">API First</a></h3>
 <div class="paragraph">
-<p>API First is one of our
-<a href="https://github.com/zalando/engineering-principles">engineering
-and architecture principles</a>. In a nutshell API First requires two
-aspects:</p>
+<p>API First requires two aspects:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1933,17 +1907,12 @@ all apis with <code>x-api-audience =/= component-internal</code> (see <a href="#
 <p>We use the <a href="http://swagger.io/specification/">OpenAPI specification</a> (aka
 Swagger specification) as standard to define API specifications files.
 API designers have to provide the API specification files using <strong>JSON</strong>
-to improve readability. Please, use <strong>OpenAPI 2.0</strong> for now, until we
-have updated all our tooling to support new OpenAPI 3.0 version.</p>
+to improve readability. Please, use <strong>OpenAPI 3.0</strong> even if there might
+be still missing tooling support which is in beta.</p>
 </div>
 <div class="paragraph">
 <p>The API specification files should be subject to version control using
 a source code management system - best together with the implementing sources.</p>
-</div>
-<div class="paragraph">
-<p>You <a href="#192">must / should publish</a> the component <a href="#219">external / internal</a> API specification
-with the deployment of the implementing service, and, hence, make it discoverable
-for the group via our <a href="https://apis.zalando.net/">API Portal [internal link</a>].</p>
 </div>
 </div>
 <div class="sect2">
@@ -2240,137 +2209,6 @@ API Audience narrative</a>.</p>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="http">   Authorization: Bearer &lt;JWT&gt;</code></pre>
 </div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="105"><a class="link" href="#105"><span class="must-keyword"><strong>Must</strong></span>: Define and Assign Permissions (Scopes)</a></h3>
-<div class="paragraph">
-<p>APIs must define permissions to protect their resources. Thus, at least one
-permission must be assigned to each endpoint. Permissions are defined as shown
-in the <a href="#104">previous section</a>.</p>
-</div>
-<div class="paragraph">
-<p>The naming schema for permissions corresponds to the naming schema for <a href="#224">hostnames</a> and <a href="#213">event type names</a>. Please refer to <a href="#225"><span class="must-keyword"><strong>Must</strong></span>: Follow Naming Convention for Permissions (Scopes)</a> for
-designing permission names.</p>
-</div>
-<div class="paragraph">
-<p>APIs should stick to component specific permissions without resource extension
-to avoid governance complexity of too many fine grained permissions. For the
-majority of use cases, restricting access to specific API endpoints using read
-and write is sufficient for controlling access for client types like merchant
-or retailer business partners, customers or operational staff. However, in
-some situations, where the API serves different types of resources for
-different owners, resource specific scopes may make sense.</p>
-</div>
-<div class="paragraph">
-<p>Some examples for standard and resource-specific permissions:</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 20%;">
-<col style="width: 15%;">
-<col style="width: 40%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Application ID</th>
-<th class="tableblock halign-left valign-top">Resource ID</th>
-<th class="tableblock halign-left valign-top">Access Type</th>
-<th class="tableblock halign-left valign-top">Example</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>order-management</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sales_order</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>read</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>order-management.sales_order.read</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>order-management</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>shipment_order</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>read</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>order-management.shipment_order.read</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>fulfillment-order</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>write</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>fulfillment-order.write</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>business-partner-service</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>read</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>business-partner-service.read</code></p></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph">
-<p>After permission names are defined and the permission is declared in the
-security definition at the top of an API specification, it should be assigned
-to each API operation by specifying a
-<a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#securityRequirementObject">security
-requirement</a> like this:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="yaml"><span class="key">paths</span>:
- <span class="error">/business-partners/{partner-id}</span>:
-    <span class="key">get</span>:
-      <span class="key">summary</span>: <span class="string"><span class="content">Retrieves information about a business partner</span></span>
-      <span class="key">security</span>:
-        - <span class="string"><span class="content">oauth2:</span></span>
-          - <span class="string"><span class="content">business-partner.read</span></span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>In very rare cases a whole API or some selected endpoints may not require
-specific access control. However, to make this explicit you should assign the
-<code>uid</code> pseudo permission in this case. It is the user id and always available
-as OAuth2 default scope.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="yaml"><span class="key">paths</span>:
-  <span class="key">/public-information</span>:
-    <span class="key">get</span>:
-      <span class="key">summary</span>: <span class="string"><span class="content">Provides public information about ...</span><span class="content">
-               Accessible by any user; no permissions needed.</span></span>
-      <span class="key">security</span>:
-        - <span class="string"><span class="content">oauth2:</span></span>
-          - <span class="string"><span class="content">uid</span></span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Hint: you need not explicitly define the "Authorization" header; it is a
-standard header so to say implicitly defined via the security section.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="225"><a class="link" href="#225"><span class="must-keyword"><strong>Must</strong></span>: Follow Naming Convention for Permissions (Scopes)</a></h3>
-<div class="paragraph">
-<p>As long as the <a href="#223">functional naming</a> is not supported for permissions,
-permission names in APIs must conform to the following naming pattern:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="bnf">&lt;permission&gt; ::= &lt;standard-permission&gt; |  -- should be sufficient for majority of use cases
-                 &lt;resource-permission&gt; |  -- for special security access differentiation use cases
-                 &lt;pseudo-permission&gt;      -- used to explicitly indicate that access is not restricted
-
-&lt;standard-permission&gt; ::= &lt;application-id&gt;.&lt;access-mode&gt;
-&lt;resource-permission&gt; ::= &lt;application-id&gt;.&lt;resource-name&gt;.&lt;access-mode&gt;
-&lt;pseudo-permission&gt;   ::= uid
-
-&lt;application-id&gt;      ::= [a-z][a-z0-9-]*  -- application identifier
-&lt;resource-name&gt;       ::= [a-z][a-z0-9-]*  -- free resource identifier
-&lt;access-mode&gt;         ::= read | write    -- might be extended in future</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>This pattern is compatible with the previous definition.</p>
 </div>
 </div>
 </div>
@@ -3175,38 +3013,12 @@ resolution.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="#224"><span class="must-keyword"><strong>Must</strong></span>: Follow Naming Convention for Hostnames</a></p>
+<p><a href="#224">[224]</a></p>
 </li>
 <li>
 <p><a href="#213">[213]</a></p>
 </li>
 </ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="224"><a class="link" href="#224"><span class="must-keyword"><strong>Must</strong></span>: Follow Naming Convention for Hostnames</a></h3>
-<div class="paragraph">
-<p>Hostnames in APIs must, respectively should conform to the functional naming
-depending on the <a href="#219">audience</a> as follows (see <a href="#223"><span class="must-keyword"><strong>Must</strong></span>/<span class="should-keyword"><strong>Should</strong></span>: Use Functional Naming Schema</a> for details and
-<code>&lt;functional-name&gt;</code> definition):</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="bnf">&lt;hostname&gt;             ::= &lt;functional-hostname&gt; | &lt;application-hostname&gt;
-
-&lt;functional-hostname&gt;  ::= &lt;functional-name&gt;.zalandoapis.com</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The following application specific legacy convention is <strong>only</strong> allowed for
-hostnames of <a href="#223">internal</a> APIs:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="bnf">&lt;application-hostname&gt; ::= &lt;application-id&gt;.&lt;organization-unit&gt;.zalan.do
-&lt;application-id&gt;       ::= [a-z][a-z0-9-]*  -- application identifier
-&lt;organization-id&gt;      ::= [a-z][a-z0-9-]*  -- organization unit identifier, e.g. team identifier</code></pre>
-</div>
 </div>
 </div>
 <div class="sect2">
@@ -3216,7 +3028,7 @@ hostnames of <a href="#223">internal</a> APIs:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="http">/croporder/{cropOrderId}</code></pre>
+<pre class="CodeRay highlight"><code data-lang="http">/crop-order/{cropOrderId}</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3259,7 +3071,7 @@ Original-Message-ID</code></pre>
 case-insensitive (RFC 7230)</a>.</p>
 </div>
 <div class="paragraph">
-<p>See <a href="#common-headers">Common Headers</a> and <a href="#proprietary-headers">[proprietary-headers]</a> sections for more guidance
+<p>See <a href="#common-headers">Common Headers</a> sections for more guidance
 on HTTP headers.</p>
 </div>
 </div>
@@ -6373,12 +6185,15 @@ Major changes are changes that come with additional obligations, or even change 
 The latter changes are additionally labeled with "Rule Change" here.</p>
 </div>
 <div class="paragraph">
-<p>To see a list of all changes, please have a look at the <a href="https://github.com/zalando/restful-api-guidelines/commits/master">commit list in Github</a>.</p>
+<p>To see a list of all changes, please have a look at the <a href="https://github.com/nifty10m/restful-api-guidelines/commits/master">commit list in Github</a>.</p>
 </div>
 <div class="sect2">
 <h3 id="rule-changes"><a class="link" href="#rule-changes">Rule Changes</a></h3>
 <div class="ulist">
 <ul>
+<li>
+<p><code>2018-09-01:</code> Forked the Zalando API to create a separate version for 10M GmbH</p>
+</li>
 <li>
 <p><code>2018-06-11:</code> Introduced new naming guidelines for host, permission, and event names.</p>
 </li>

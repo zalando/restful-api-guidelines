@@ -49,30 +49,6 @@ Please see the following rules for detailed functional naming patterns:
 // * <<225>>
 * <<213>>
 
-[#224]
-== {MUST} Follow Naming Convention for Hostnames
-
-Hostnames in APIs must, respectively should conform to the functional naming
-depending on the <<219, audience>> as follows (see <<223>> for details and
-`<functional-name>` definition):
-
-[source,bnf]
------
-<hostname>             ::= <functional-hostname> | <application-hostname>
-
-<functional-hostname>  ::= <functional-name>.zalandoapis.com
------
-
-The following application specific legacy convention is *only* allowed for
-hostnames of <<223, internal>> APIs:
-
-[source,bnf]
------
-<application-hostname> ::= <application-id>.<organization-unit>.zalan.do
-<application-id>       ::= [a-z][a-z0-9-]*  -- application identifier
-<organization-id>      ::= [a-z][a-z0-9-]*  -- organization unit identifier, e.g. team identifier
------
-
 [#129]
 == {MUST} Use lowercase separate words for Path Segments
 
@@ -80,7 +56,7 @@ Example:
 
 [source,http]
 ----
-/croporder/{cropOrderId}
+/crop-order/{cropOrderId}
 ----
 
 This applies to concrete path segments and not the names of path
@@ -117,7 +93,7 @@ Original-Message-ID
 See also: http://tools.ietf.org/html/rfc7230#page-22[HTTP Headers are
 case-insensitive (RFC 7230)].
 
-See <<common-headers>> and <<proprietary-headers>> sections for more guidance
+See <<common-headers>> sections for more guidance
 on HTTP headers.
 
 [#134]

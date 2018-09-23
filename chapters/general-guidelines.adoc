@@ -24,16 +24,11 @@ all apis with `x-api-audience =/= component-internal` (see <<219, API Audience>>
 We use the http://swagger.io/specification/[OpenAPI specification] (aka
 Swagger specification) as standard to define API specifications files.
 API designers have to provide the API specification files using *JSON*
-to improve readability. Please, use *OpenAPI 2.0* for now, until we 
-have updated all our tooling to support new OpenAPI 3.0 version. 
+to improve readability. Please, use *OpenAPI 3.0* even if there might
+be still missing tooling support which is in beta.
 
 The API specification files should be subject to version control using
 a source code management system - best together with the implementing sources. 
-
-You <<192, must / should publish>> the component <<219, external / internal>> API specification
-with the deployment of the implementing service, and, hence, make it discoverable 
-for the group via our https://apis.zalando.net/[API Portal [internal link]].
-
 
 [#102]
 == {SHOULD} Provide API User Manual

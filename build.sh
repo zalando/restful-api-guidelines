@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Script to build Zalando RESTful Guidelines (static HTML, PDF)
+# Script to build RESTful Guidelines (static HTML, PDF)
 
 set -ex
 

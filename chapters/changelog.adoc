@@ -8,11 +8,12 @@ Non-major changes are editorial-only changes or minor changes of existing guidel
 Major changes are changes that come with additional obligations, or even change an existing guideline obligation.
 The latter changes are additionally labeled with "Rule Change" here.
 
-To see a list of all changes, please have a look at the https://github.com/zalando/restful-api-guidelines/commits/master[commit list in Github].
+To see a list of all changes, please have a look at the https://github.com/nifty10m/restful-api-guidelines/commits/master[commit list in Github].
 
 [[rule-changes]]
 == Rule Changes
 
+* `2018-09-01:` Forked the Zalando API to create a separate version for 10M GmbH
 * `2018-06-11:` Introduced new naming guidelines for host, permission, and event names.
 * `2018-01-10:` Moved meta information related aspects into new chapter <<meta-information>>.
 * `2018-01-09:` Changed publication requirements for API specifications (<<192>>).
