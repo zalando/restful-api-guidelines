@@ -12,7 +12,7 @@ to allow for API management:
 - `#/info/description` containing a proper description of the API
 - `#/info/contact/{name,url,email}` containing the responsible team
 
-Following OpenAPI extension properties *must* be provided in addition:
+Following OpenAPI extension properties *may* be provided in addition:
 
 - `#/info/x-api-id` unique identifier of the API (<<215, see rule 215>>)
 - `#/info/x-audience` intended target audience of the API (<<219, see rule 219>>)
@@ -123,8 +123,8 @@ groups with clear organisational and legal boundaries:
   specific product portfolio owned by the same business unit.
 *company-internal*::
   The API consumers with this audience are restricted to applications owned
-  by the business units of the same the company (e.g. Zalando company with
-  Zalando SE, Zalando Payments SE & Co. KG. etc.)
+  by the business units of the same the company (e.g. the API is not published
+  by the customer as part of a service platform. etc.)
 *external-partner*::
   The API consumers with this audience are restricted to applications of
   business partners of the company owning the API and the company itself.
@@ -172,7 +172,3 @@ info:
   version: 1.2.4
   <...>
 ----
-
-For details and more information on audience groups see the
-https://docs.google.com/document/d/1ff9b6oIa6dyQRyaj36-jmFdtCjWlngnGMsligR4RMIY[
-API Audience narrative].

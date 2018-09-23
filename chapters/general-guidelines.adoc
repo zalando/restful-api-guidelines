@@ -50,5 +50,9 @@ API user manual into the API specification using the `#/externalDocs/url` proper
 The manual is generated to build/generated-resources/main/src/index.html
 
 [#103]
-== {MUST} Write APIs in U.S. English
+== {MUST} Write APIs in U.S. English with SI unit system
+
+APIs must be written in plain english but must follow the metric system. All
+units must use a unit based on the
+https://en.wikipedia.org/wiki/International_System_of_Units[SI Unit System] if applyable.
 

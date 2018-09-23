@@ -2,11 +2,11 @@
 = JSON Guidelines
 
 These guidelines provides recommendations for defining JSON data at
-Zalando. JSON here refers to
+10M. JSON here refers to
 http://www.rfc-editor.org/rfc/rfc7159.txt[RFC 7159] (which updates
 https://www.ietf.org/rfc/rfc4627.txt[RFC 4627]), the "application/json"
 media type and custom JSON media types defined for APIs. The guidelines
-clarifies some specific cases to allow Zalando JSON data to have an
+clarifies some specific cases to allow 10M JSON data to have an
 idiomatic form across teams and services.
 
 The first some of the following guidelines are about property names,
@@ -66,7 +66,7 @@ definitions:
 
 An actual JSON object described by this might then look like this:
 ```json
-{ "message_key": "color",
+{ "messageKey": "color",
   "translations": {
     "de": "Farbe",
     "en-US": "color",

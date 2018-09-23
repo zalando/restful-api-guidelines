@@ -150,7 +150,7 @@ future extensions.
 [#111]
 == {MUST} Treat Open API Definitions As Open For Extension By Default
 
-The Open API 2.0 specification is not very specific on default
+The Open API specification is not very specific on default
 extensibility of objects, and redefines JSON-Schema keywords related to
 extensibility, like `additionalProperties`. Following our overall
 compatibility guidelines, Open API object definitions are considered

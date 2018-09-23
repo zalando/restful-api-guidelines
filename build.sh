@@ -17,5 +17,4 @@ docker pull asciidoctor/docker-asciidoctor
 docker run -v ${SCRIPT_DIR}:/documents/ asciidoctor/docker-asciidoctor asciidoctor -D /documents/docs index.adoc
 
 cp -r assets ${BUILD_DIR}/
-cp -r -n legacy/* ${BUILD_DIR}/
 
