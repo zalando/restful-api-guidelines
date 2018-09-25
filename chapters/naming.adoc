@@ -143,27 +143,23 @@ The trailing slash must not have specific semantics. Resource paths must
 deliver the same results whether they have the trailing slash or not.
 
 [#137]
-== {MAY} Use Conventional Query Strings
+== {MUST} Stick to Conventional Query Parameters
 
-If you provide query support for sorting, pagination, filtering
-functions or other actions, use the following standardized naming
-conventions:
+If you provide query support for searching, sorting, filtering, and
+paginating, you must stick to the following naming conventions:
 
 * `q` — default query parameter (e.g. used by browser tab completion);
 should have an entity specific alias, like sku
-* `limit` — to restrict the number of entries. See Pagination section
-below. Hint: You can use size as an alternate query string.
+* `sort` — comma-separated list of fields to sort. To indicate sorting
+direction, fields may be prefixed with + (ascending) or - (descending,
+default), e.g. /sales-orders?sort=+id
+* `fields` — to retrieve a subset of fields. See <<157>> below.
+* `embed` — to expand embedded entities (ie.: inside of an article
+entity, expand silhouette code into the silhouette object). Implementing
+"expand" correctly is difficult, so do it with care. See <<158>> below.
 * `cursor` — key-based page start. See <<pagination>> section below.
 * `offset` — numeric offset page start. See <<pagination>> section below.
 Hint: In combination with limit, you can use page as an alternative to
 offset.
-* `sort` — comma-separated list of fields to sort. To indicate sorting
-direction, fields may be prefixed with + (ascending) or - (descending,
-default), e.g. /sales-orders?sort=+id
-* `fields` — to retrieve a subset of fields. See
-<<157,_Support Filtering of Resource Fields_>> below.
-* `embed` — to expand embedded entities (ie.: inside of an article
-entity, expand silhouette code into the silhouette object). Implementing
-"expand" correctly is difficult, so do it with care.
-
-
+* `limit` — to restrict the number of entries. See <<pagination>> section
+below.
