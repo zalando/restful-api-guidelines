@@ -149,15 +149,19 @@ If you provide query support for searching, sorting, filtering, and
 paginating, you must stick to the following naming conventions:
 
 * `q` — default query parameter (e.g. used by browser tab completion);
-should have an entity specific alias, like sku
-* `sort` — comma-separated list of fields to sort. To indicate sorting
-direction, fields may be prefixed with + (ascending) or - (descending,
-default), e.g. /sales-orders?sort=+id
-* `fields` — to retrieve a subset of fields. See <<157>> below.
-* `embed` — to expand embedded entities (ie.: inside of an article
-entity, expand silhouette code into the silhouette object). Implementing
-"expand" correctly is difficult, so do it with care. See <<158>> below.
-* `cursor` — key-based page start. See <<pagination>> section below.
-* `offset` — numeric offset page start. See <<pagination>> section below.
-* `limit` — to restrict the number of entries. See <<pagination>> section
-below.
+  should have an entity specific alias, like sku
+* `sort` — comma-separated list of fields to define the sort order. To
+  indicate sorting direction, fields may be prefixed with + (ascending) or
+  - (descending, default), e.g. /sales-orders?sort=+id
+* `fields` — to retrieve only a subset of fields of a resource. See <<157>>
+  below.
+* `embed` — to expand or embedded sub-entities (ie.: inside of an article
+  entity, expand silhouette code into the silhouette object). Implementing
+  `embed` correctly is difficult, so do it with care. See <<158>> below.
+* `offset` — numeric offset of the first element on a page. See <<pagination>>
+  section below.
+* `cursor` — encoded pointer to the first or last element on a page, the
+  pagination direction, and the applied query filters. See <<pagination>>
+  section below.
+* `limit` — client suggested limit to restrict the number of entries on
+  a page. See <<pagination>> section below.
