@@ -65,6 +65,14 @@ definition. For example, "sales-order-items" is superior to
 "order-items" in that it clearly indicates which business object it
 represents. Along these lines, "items" is too general.
 
+[#228]
+== {MUST} Use URL-friendly Resource Identifiers: [a-zA-Z0-9:._-]*
+
+To simplify encoding of resource IDs in URLs, their representation
+must only consist of ASCII strings of letters, numbers, underscore,
+minus, colon, and period.
+
+
 [#143]
 == {MUST} Identify resources and Sub-Resources via Path Segments
 
