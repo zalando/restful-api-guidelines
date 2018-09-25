@@ -159,7 +159,5 @@ entity, expand silhouette code into the silhouette object). Implementing
 "expand" correctly is difficult, so do it with care. See <<158>> below.
 * `cursor` — key-based page start. See <<pagination>> section below.
 * `offset` — numeric offset page start. See <<pagination>> section below.
-Hint: In combination with limit, you can use page as an alternative to
-offset.
 * `limit` — to restrict the number of entries. See <<pagination>> section
 below.
