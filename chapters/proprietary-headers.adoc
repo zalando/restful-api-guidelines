@@ -82,6 +82,10 @@ e.g. smartphone Android vs. iOS. Via this header info should be passed-through
 as generic aspect. Current range is iOS, Android, Windows, Linux, MacOS.
 |Android
 
+|X-Advertising-ID |String |An app specific, unique customer resettable 
+id for advertising purposes. It is not sent if the customer disables it 
+in the settings for respective platform. |b89fadce-1f42-46aa-9c83-b7bc49e76e1f
+
 |[[x-app-domain]]{X-App-Domain}|Integer|
 The app domain (i.e. shop channel context) of the request. Note, app-domain is
 a legacy concept that will be replaced in new platform by combinations of main
