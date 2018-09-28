@@ -73,10 +73,9 @@ in PostgreSQL]
 * API implementing <<163,HATEOS>> may use <<165,simplified hypertext controls>>
 for pagination within collections.
 
-Those collections should then have an `items` attribute holding the
-items of the current page. The collection may contain additional
-metadata about the collection or the current page (e.g. `index`,
-`page_size`) when necessary.
+Those collections should then have an `items` attribute holding the items of
+the current page. The collection may contain additional metadata about the
+collection or the current page (e.g. `index`) when necessary.
 
 You should avoid providing a total count in your API unless there's a
 clear need to do so. Very often, there are systems and performance
