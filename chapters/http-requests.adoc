@@ -83,9 +83,7 @@ approach.
 *Note:* In the rare cases where PUT is although used for resource creation,
 the resource IDs are maintained by the client and passed as a URL path segment.
 Putting the same resource twice is required to be idempotent and to result in
-the same single resource instance. If PUT is applied for creating a resource,
-only URIs should be allowed as resource IDs. If URIs are not available POST
-should be preferred.
+the same single resource instance.
 
 
 [[post]]
