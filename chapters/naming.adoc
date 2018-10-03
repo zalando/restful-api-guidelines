@@ -160,7 +160,6 @@ paginating, you must stick to the following naming conventions:
   `embed` correctly is difficult, so do it with care. See <<158>> below.
 * `offset` — numeric offset of the first element on a page. See <<pagination>>
   section below.
-  paque value, never to be inspected/constructed, addresses a single page
 * `cursor` — an opaque pointer to a page, never to be inspected/constructed by
   clients. It usually (encrypted) encodes the identifier of the first or last
   page element, the pagination direction, and the applied query filters to
