@@ -94,22 +94,24 @@ specific language types in Java will translate to `BigDecimal` for
 
 [source,yaml]
 ----
-Money:
-  type: object
-  properties:
-    amount:
-      type: number
-      description: Amount expressed as a decimal number of major currency units
-      format: decimal
-      example: 99.95
-   ...
-
-OrderList:
-  type: object
-  properties:
-    page_size:
-      type: integer
-      description: Number of orders in list
-      format: int32
-      example: 42
+components:
+  schemas:
+    Money:
+      type: object
+      properties:
+        amount:
+          type: number
+          description: Amount expressed as a decimal number of major currency units
+          format: decimal
+          example: 99.95
+       ...
+    
+    OrderList:
+      type: object
+      properties:
+        page_size:
+          type: integer
+          description: Number of orders in list
+          format: int32
+          example: 42
 ----

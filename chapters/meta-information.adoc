@@ -49,7 +49,7 @@ Example:
 
 [source,yaml]
 ----
-swagger: '2.0'
+openapi: 3.0.1
 info:
   title: Parcel Service API
   description: API for <...>
@@ -91,7 +91,7 @@ of changing the API identifier while evolving the API. Example:
 
 [source,yaml]
 ----
-swagger: '2.0'
+openapi: 3.0.1
 info:
   x-api-id: d0184f38-b98d-11e7-9c56-68f728c1ba70
   title: Parcel Service API
@@ -158,13 +158,13 @@ reason a smaller audience group is intentionally included in the wider group
 and thus does not need to be declared additionally. If parts of your API have
 a different target audience, we recommend to split API specifications along
 the target audience — even if this creates redundancies
-(https://docs.google.com/document/d/1ff9b6oIa6dyQRyaj36-jmFdtCjWlngnGMsligR4RMIY/edit#heading=h.401bmun50mlj[rationale]).
+(https://apis.zalando.net/redirect/85ee93a3-7a78-4461-8bf1-08ffdaebcd18[rationale (internal link)]).
 
 Example:
 
 [source,yaml]
 ----
-swagger: '2.0'
+openapi: 3.0.1
 info:
   x-audience: company-internal
   title: Parcel Helper Service API
@@ -174,5 +174,5 @@ info:
 ----
 
 For details and more information on audience groups see the
-https://docs.google.com/document/d/1ff9b6oIa6dyQRyaj36-jmFdtCjWlngnGMsligR4RMIY[
-API Audience narrative].
+https://apis.zalando.net/redirect/85ee93a3-7a78-4461-8bf1-08ffdaebcd18[
+API Audience narrative (internal link)].

@@ -27,8 +27,10 @@ responses:
   ...
   default:
     description: error occurred - see status code and problem object for more information.
-    schema:
-      $ref: 'https://zalando.github.io/problem/schema.yaml#/Problem'
+    content:
+      "application/problem+json":
+        schema:
+          $ref: 'https://zalando.github.io/problem/schema.yaml#/Problem'
 ----
 
 API designers should also think about a **troubleshooting board** as part of
@@ -58,12 +60,12 @@ Below we list the most commonly used and best understood HTTP status codes,
 consistent with their semantic in the RFCs. APIs should only use these to
 prevent misconceptions that arise from less commonly used HTTP status codes.
 
-As long as your HTTP status code usage is well covered by the semantic defined
-here, you should not describe it to avoid an overload with common sense
-information and the risk of inconsistent definitions. Only if the HTTP status
-code is not in the list below or its usage requires additional information
-aside the well defined semantic, the API specification must provide a clear
-description of the HTTP status code in the response.
+**Important:** As long as your HTTP status code usage is well covered by the
+semantic defined here, you should not describe it to avoid an overload with
+common sense information and the risk of inconsistent definitions. Only if the
+HTTP status code is not in the list below or its usage requires additional
+information aside the well defined semantic, the API specification must provide
+a clear description of the HTTP status code in the response.
 
 [[success-codes]]
 === Success Codes
@@ -167,8 +169,12 @@ unexpected server execution problem (here, client retry may be sensible)
 |501 |Not Implemented - server cannot fulfill the request (usually
 implies future availability, e.g. new feature). |All
 
-|503 |Service Unavailable - server is (temporarily) not available (e.g.
-due to overload) -- client retry may be sensible. |All
+|503 |Service Unavailable - service is (temporarily) not available (e.g.
+if a required component or downstream service is not available) -- client
+retry may be sensible. If possible, the service should indicate how long
+the client should wait by setting the
+https://tools.ietf.org/html/rfc7231#section-7.1.3['Retry-After']
+header. |All
 |=======================================================================
 
 [#220]
@@ -271,8 +277,10 @@ reference it by using:
 responses:
   503:
     description: Service Unavailable
-    schema:
-      $ref: 'https://zalando.github.io/problem/schema.yaml#/Problem'
+    content:
+      "application/problem+json":
+        schema:
+          $ref: 'https://zalando.github.io/problem/schema.yaml#/Problem'
 ----
 
 You may define custom problem types as extension of the Problem JSON object 
