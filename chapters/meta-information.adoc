@@ -158,7 +158,7 @@ reason a smaller audience group is intentionally included in the wider group
 and thus does not need to be declared additionally. If parts of your API have
 a different target audience, we recommend to split API specifications along
 the target audience — even if this creates redundancies
-(https://docs.google.com/document/d/1ff9b6oIa6dyQRyaj36-jmFdtCjWlngnGMsligR4RMIY/edit#heading=h.401bmun50mlj[rationale]).
+(https://apis.zalando.net/redirect/85ee93a3-7a78-4461-8bf1-08ffdaebcd18[rationale (internal link)]).
 
 Example:
 
@@ -174,5 +174,5 @@ info:
 ----
 
 For details and more information on audience groups see the
-https://docs.google.com/document/d/1ff9b6oIa6dyQRyaj36-jmFdtCjWlngnGMsligR4RMIY[
-API Audience narrative].
+https://apis.zalando.net/redirect/85ee93a3-7a78-4461-8bf1-08ffdaebcd18[
+API Audience narrative (internal link)].
