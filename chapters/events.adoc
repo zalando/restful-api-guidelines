@@ -237,6 +237,68 @@ EventType:
       required:
         - type
         - schema
+    ordering_key_fields:
+      type: array
+      description:
+        Indicates which field is used for application level ordering of events.
+        It is typically a single field, but also multiple fields for compound
+        ordering key are supported (first item is most significant).
+
+        This is an informational only event type attribute for specification of
+        application level ordering. Nakadi transportation layer is not affected,
+        where events are delivered to consumers in the order they were published.
+
+        Scope of the ordering is all events (of all partitions), unless it is
+        restricted to data instance scope in combination with
+        `ordering_instance_ids` attribute below.
+
+        This field can be modified at any moment, but event type owners are
+        expected to notify consumer in advance about the change.
+
+        *Background:* Event ordering is often created on application level using
+        ascending counters, and data providers/consumers do not need to rely on the
+        event publication order. A typical example are data instance change events
+        used to keep a slave data store replica in sync. Here you have an order
+        defined per instance using data object change counters (aka row update
+        version) and the order of event publication is not relevant, because
+        consumers for data synchronization skip older instance versions when they
+        reconstruct the data object replica state.
+
+      items:
+        type: string
+        description:
+          Indicates a single ordering field. This is a JsonPointer, which is applied
+          onto the whole event object, including the contained metadata and data (in
+          case of a data change event) objects. It must point to a field of type
+          string or number/integer (as for those the ordering is obvious).
+
+          Indicates a single ordering field. It is a simple path (dot separated) to
+          the JSON leaf element of the whole event object, including the contained metadata and data (in
+          case of a data change event) objects. It must point to a field of type
+          string or number/integer (as for those the ordering is obvious), and must be
+          present in the schema.
+        example: "data.order_change_counter"
+    ordering_instance_ids:
+      type: array
+      description:
+        Indicates which field represents the data instance identifier and scope in
+        which ordering_key_fields provides a strict order. It is typically a single
+        field, but multiple fields for compound identifier keys are also supported.
+
+        This is an informational only event type attribute without specific Nakadi
+        semantics for specification of application level ordering. It only can be
+        used in combination with `ordering_key_fields`.
+
+        This field can be modified at any moment, but event type owners are expected
+        to notify consumer in advance about the change.
+      items:
+        type: string
+        description:
+          Indicates a single key field. It is a simple path (dot separated) to the JSON
+          leaf element of the whole event object, including the contained metadata and
+          data (in case of a data change event) objects, and it must be present in the
+          schema.
+       example: "data.order_number"
     created_at:
       description: When this event type was created.
       type: string
@@ -252,7 +314,7 @@ including the set of supported categories and schema formats. For
 example the Nakadi API's event category registration also allows the
 declaration of validation and enrichment strategies for events, along
 with supplemental information, such as how events are partitioned in the
-stream.
+stream (see <<204>>).
 
 [#198]
 == {MUST} Ensure Events conform to a well-known Event Category
@@ -530,10 +592,16 @@ streams or replay events from a position within the stream. Events
 _should_ therefore contain a way to restore their partial order of
 occurrence.
 
-This can be done - among other ways - by adding - a strictly
-monotonically increasing entity version (e.g. as created by a database)
-to allow for partial ordering of all events for an entity - a strictly
-monotonically increasing message counter
+This can be done – among other ways – by adding
+
+ * a strictly monotonically increasing entity version (e.g. as
+   created by a database) to allow for partial ordering of all
+   events for an entity, or
+ * a strictly monotonically increasing message counter.
+
+In the event type definition, the `ordering_key_fields` property
+should be used to indicate which field(s) contains the ordering
+key, if any.
 
 System timestamps are not necessarily a good choice, since exact
 synchronization of clocks in distributed systems is difficult, two
@@ -541,6 +609,10 @@ events may occur in the same microsecond and system clocks may jump
 backward or forward to compensate drifts or leap-seconds. If you use
 system timestamps to indicate event ordering, you must carefully ensure
 that your designated event order is not messed up by these effects.
+
+Also, if using timestamps, the producer *must* make sure that they
+are formatted for all events in the UTC time zone, to allow for a
+simple string-based comparison.
 
 *Note* that basing events on data structures that can be converged upon
 in a distributed setting (such as
