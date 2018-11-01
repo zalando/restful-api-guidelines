@@ -64,7 +64,7 @@ depending on the <<219, audience>> as follows (see <<223>> for details and
 -----
 
 The following application specific legacy convention is *only* allowed for
-hostnames of <<223, internal>> APIs:
+hostnames of <<219, component-internal>> APIs:
 
 [source,bnf]
 -----
