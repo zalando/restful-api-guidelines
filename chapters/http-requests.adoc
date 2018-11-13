@@ -166,7 +166,7 @@ still showing readable patch requests (see also
 http://erosb.github.io/post/json-patch-vs-merge-patch[JSON patch vs. merge]).
 
 *Tip:* To prevent unnoticed concurrent updates when using PATCH, the
-combination of <<182,`ETag`and `If-Match`>> headers should be considered to
+combination of <<182,`ETag` and `If-Match`>> headers should be considered to
 signal the server stricter demands to expose conflicts and prevent lost
 updates.
 
