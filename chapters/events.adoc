@@ -239,7 +239,7 @@ EventType:
         - schema
     ordering_key_fields:
       type: array
-      description:
+      description: |
         Indicates which field is used for application level ordering of events.
         It is typically a single field, but also multiple fields for compound
         ordering key are supported (first item is most significant).
@@ -266,7 +266,7 @@ EventType:
 
       items:
         type: string
-        description:
+        description: |
           Indicates a single ordering field. This is a JsonPointer, which is applied
           onto the whole event object, including the contained metadata and data (in
           case of a data change event) objects. It must point to a field of type
@@ -280,7 +280,7 @@ EventType:
         example: "data.order_change_counter"
     ordering_instance_ids:
       type: array
-      description:
+      description: |
         Indicates which field represents the data instance identifier and scope in
         which ordering_key_fields provides a strict order. It is typically a single
         field, but multiple fields for compound identifier keys are also supported.
@@ -293,7 +293,7 @@ EventType:
         to notify consumer in advance about the change.
       items:
         type: string
-        description:
+        description: |
           Indicates a single key field. It is a simple path (dot separated) to the JSON
           leaf element of the whole event object, including the contained metadata and
           data (in case of a data change event) objects, and it must be present in the
