@@ -139,11 +139,18 @@ header.prepend(nav);
   })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
   ga('create', 'UA-130687305-1', 'auto');
 
-  if ("onhashchange" in window)
-    window.onhashchange = function () {
-      var title = document.getElementById(location.hash.replace('#','')).textContent;
-      ga('send', 'pageview', {'page': location.pathname + location.hash, 'title': title});
-    }
+  function trackPageview() {
+    var title = (location.hash && location.hash.length > 0) ?
+      document.getElementById(location.hash.replace('#','')).textContent :
+      document.title;
+
+    ga('send', 'pageview', {'page': location.pathname + location.hash, 'title': title});
+  }
+
+  if ("onhashchange" in window) 
+    window.onhashchange = trackPageview;
+
+  trackPageview(); // track user's first pageview
 </script>
 
 <!-- Cookies Consent -->
