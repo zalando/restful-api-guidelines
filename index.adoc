@@ -123,4 +123,36 @@ document.body.classList.add('toc-left');
 nav.append(ul);
 header.prepend(nav);
 </script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-130687305-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-130687305-1');
+</script>
+
+<!-- Cookies Consent -->
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
+<script>
+window.addEventListener("load", function(){
+window.cookieconsent.initialise({
+  "palette": {
+    "popup": {
+      "background": "#eaf7f7",
+      "text": "#5c7291"
+    },
+    "button": {
+      "background": "#56cbdb",
+      "text": "#ffffff"
+    }
+  },
+  "content": {
+    "message": "This web site uses cookies to analyze the general behavior of visitors."
+  }
+})});
+</script>
 ++++
