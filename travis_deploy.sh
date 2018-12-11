@@ -27,7 +27,7 @@ deploy_gh_pages () {
 }
 
 create_zally_issue () {
-    local pr_number count
+    local pr_number count=0
     while [ -z "${pr_number}" -a "${count}" -lt 30 ]; do
 	pr_number=$(curl -s "${GH_REPO_URL}/commits/${TRAVIS_COMMIT}" | \
             jq -r '.commit.message | capture("#(?<n>[0-9]+) ") | .n' || true)
