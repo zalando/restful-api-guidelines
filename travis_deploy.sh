@@ -27,6 +27,7 @@ deploy_gh_pages () {
 }
 
 create_zally_issue () {
+    sleep 3;
     local pr_number=$(curl -s "${GH_REPO_URL}/commits/${TRAVIS_COMMIT}" | \
          jq -r '.commit.message | capture("#(?<n>[0-9]+) ") | .n')
     local changed_files=($(curl -s "${GH_REPO_URL}/pulls/${pr_number}/files" | \
