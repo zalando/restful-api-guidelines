@@ -52,7 +52,7 @@ description.
 * Enum ranges can be reduced when used as input parameters, only if the
 server is ready to accept and handle old range values too. Enum range
 can be reduced when used as output parameters.
-* Enum ranges cannot not be extended when used for output parameters —
+* Enum ranges cannot be extended when used for output parameters —
 clients may not be prepared to handle it. However, enum ranges can be
 extended when used for input parameters.
 * Use <<112,`x-extensible-enum`>>,
@@ -68,7 +68,7 @@ clients must be agnostic to new values.
 Service clients should apply the robustness principle:
 
 * Be conservative with API requests and data passed as input, e.g. avoid
-to exploit definition deficits like passing megabytes for strings with
+to exploit definition deficits like passing megabytes of strings with
 unspecified maximum length.
 * Be tolerant in processing and reading data of API responses, more
 specifically...
