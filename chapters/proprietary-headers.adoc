@@ -135,9 +135,10 @@ which could crash your log parsing (line breaks, tabs, spaces, NULL). If
 a legacy subsystem can only work with Flow-Ids of a specific format, it
 needs to define this in its API, or make its own ones.
 
-In case of distributed tracing via https://github.bus.zalan.do/SRE/opentracing[OpenTracing]
+In case of distributed tracing via https://github.bus.zalan.do/SRE/opentracing[OpenTracing [internal link]]
 ensure that created Service Spans are enriched with Flow-Id
-see https://https://github.bus.zalan.do/SRE/opentracing/blob/master/wg-semantic-conventions/best-practices/flowid.md[How to connect Log Output with OpenTracing using FlowIDs]
+(see https://https://github.bus.zalan.do/SRE/opentracing/blob/master/wg-semantic-conventions/best-practices/flowid.md[How
+to connect Log Output with OpenTracing using FlowIDs [internal link]])
 
 *Service Guidance*
 
