@@ -11,10 +11,36 @@
 :keywords: Zalando, Guidelines, RESTful, API, Events, Schema
 :copyright: CC-BY-SA 3.0
 
+// Key words for titles.
 :MUST: pass:[<span class="must-keyword"><strong>Must</strong></span>:]
 :SHOULD: pass:[<span class="should-keyword"><strong>Should</strong></span>:]
 :MAY: pass:[<span class="may-keyword"><strong>May</strong></span>:]
 :MUST-SHOULD: pass:[<span class="must-keyword"><strong>Must</strong></span>/<span class="should-keyword"><strong>Should</strong></span>:]
+
+// Improvement for common table columns.
+:NO: pass:[<span class="must-keyword">&#x2717;</span> No]
+:YES: pass:[<span class="may-keyword">&#x2714;</span> Yes]
+:AT: pass:[<span class="should-keyword">&#x26a0;&#xFE0F;</span>]
+
+// Design and linking of common HTTP verbs.
+// Do not use in titles!! This is breaking references in asciidoctor - may be bug.
+:GET: pass:[<a href="#get"><code>GET</code></a>]
+:GET-with-Body: pass:[<a href="#get-with-body"><code>GET With Body</code></a>]
+:PUT: pass:[<a href="#put"><code>PUT</code></a>]
+:POST: pass:[<a href="#post"><code>POST</code></a>]
+:PATCH: pass:[<a href="#patch"><code>PATCH</code></a>]
+:DELETE: pass:[<a href="#delete"><code>DELETE</code></a>]
+:HEAD: pass:[<a href="#head"><code>HEAD</code></a>]
+:OPTIONS: pass:[<a href="#options"><code>OPTIONS</code></a>]
+:TRACE: pass:[<a href="#trace"><code>TRACE</code></a>]
+
+// Design and linking of common and custom used HTTP headers.
+// Do not use in titles!! This is breaking references in asciidoctor - may be bug.
+:ETag: pass:[<a href="https://tools.ietf.org/html/rfc7232#section-2.3"><code>ETag</code></a>]
+:If-Match: pass:[<a href="https://tools.ietf.org/html/rfc7232#section-3.1"><code>If-Match</code></a>]
+:If-None-Match: pass:[<a href="https://tools.ietf.org/html/rfc7232#section-3.2"><code>If-None-Match</code></a>]
+:Idempotency-Key: pass:[<a href="#230"><code>Idempotency-Key</code></a>]
+
 
 = Zalando RESTful API and Event Scheme Guidelines
 Zalando SE

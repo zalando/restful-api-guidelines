@@ -123,32 +123,28 @@ in https://tools.ietf.org/html/rfc7240[RFC7240] to indicate whether the
 preference was applied.
 
 [#182]
-== {MAY} Consider Using ETag Together With If-Match/If-None-Match Header
+== {MAY} Consider Using `ETag` Together With `If-Match`/`If-None-Match` Header
 
-When creating or updating resources it may be necessary to expose
-conflicts and to prevent the 'lost update' or 'initially created' problem. 
-Following https://tools.ietf.org/html/rfc7232[RFC 7232 "HTTP: Conditional Requests"]
-this can be best accomplished by using the
-https://tools.ietf.org/html/rfc7232#section-2.3[`ETag`] header together
-with the https://tools.ietf.org/html/rfc7232#section-3.1[`If-Match`] or
-https://tools.ietf.org/html/rfc7232#section-3.2[`If-None-Match`] conditional header. The
-contents of an `ETag: <entity-tag>` header is either (a) a hash of the
-response body, (b) a hash of the last modified field of the entity, or
-(c) a version number or identifier of the entity version.
+When creating or updating resources it may be necessary to expose conflicts
+and to prevent the 'lost update' or 'initially created' problem. Following
+https://tools.ietf.org/html/rfc7232[RFC 7232 "HTTP: Conditional Requests"]
+this can be best accomplished by using the {ETag} header together {If-Match}
+or {If-None-Match} conditional header. The contents of an {ETag}`: <entity-tag>`
+header is either (a) a hash of the response body, (b) a hash of the last
+modified field of the entity, or (c) a version number or identifier of the
+entity version.
 
-To expose conflicts between concurrent update operations via PUT, POST,
-or PATCH, the `If-Match: <entity-tag>` header can be used to force the
-server to check whether the version of the updated entity is conforming
-to the requested `<entity-tag>`. If no matching entity is found, the
-operation is supposed a to respond with status code 412 - precondition
-failed.
+To expose conflicts between concurrent update operations via {PUT}, {POST},
+or {PATCH}, the `If-Match: <entity-tag>` header can be used to force the server
+to check whether the version of the updated entity is conforming to the
+requested `<entity-tag>`. If no matching entity is found, the operation is
+supposed a to respond with status code 412 - precondition failed.
 
-Beside other use cases, the `If-None-Match:` header with parameter `*`
-can be used in a similar way to expose conflicts in resource creation.
-If any matching entity is found, the operation is supposed a to respond
-with status code 412 - precondition failed.
+Beside other use cases, `If-None-Match: *` can be used in a similar way to
+expose conflicts in resource creation. If any matching entity is found, the
+operation is supposed a to respond with status code 412 - precondition failed.
 
-The `ETag`, `If-Match`, and `If-None-Match` headers can be defined as
+The {ETag}, {If-Match}, and {If-None-Match} headers can be defined as
 follows in the API definition:
 
 [source,yaml]
@@ -191,4 +187,51 @@ components:
       example: "7da7a728-f910-11e6-942a-68f728c1ba70", *
 ----
 
-Please also see the section <<optimistic-locking>> for a discussion about alternative approaches.
+Please see <<optimistic-locking>> for a detailed discussion and options.
+
+[#230]
+== {MAY} Consider Using `Idempotency-Key` Header
+
+When creating or updating a resource it can be helpful or necessary to prevent
+duplicate execution to ensure idempotency of otherwise non-idempotent requests
+from perspective of the client. This can be simply achieved by sending a client
+specific unique request key via the {Idempotency-Key} header.
+
+The unique request key is not part of the resource. It is stored temporarily,
+e.g. for 24 hours, together with the response and a request hash (optionally).
+The service looks up the key to ensure idempotent behavior by sending the
+response without executing the request a second time. This allows clients to
+safely retry requests after timeouts and receive the same response.
+
+*Note:* To grant the single execution semantic, the request cache and the
+resource have to be created or updated in the same transaction. In this case
+clients may require fallback strategies for retries.
+
+The {Idempotency-Key} header should be defined as follows:
+
+[source,yaml]
+----
+components:
+  headers:
+    Idempotency-Key:
+      description: |
+        The idempotency key is a UUID version 4 (random) created by the client
+        to identify a request. It is used by the service to identify subsequent
+        retries of the same request and ensure idempotent behavior by sending
+        the same response without executing the request a second time.
+
+        Idempotency keys expire after 24 hours. Clients are responsible to stay
+        within this limits, if they require idempotent behavior.
+
+      type: string
+      format: uuid
+      required: false
+      example: "7da7a728-f910-11e6-942a-68f728c1ba70"
+----
+
+*Note:* The {Idempotency-Key} header unlike other headers in this section
+is not standardized in an RFC. Our only reference are the usage in the
+https://stripe.com/docs/api/idempotent_requests[Stripe API]. However, as it
+fit not into our section about <<proprietary-headers>>, and we did not want
+to change the header name and semantic, we decided to treat it as any other
+common header.
