@@ -192,22 +192,29 @@ Please see <<optimistic-locking>> for a detailed discussion and options.
 [#230]
 == {MAY} Consider Using `Idempotency-Key` Header
 
-When creating or updating a resource it can be helpful or necessary to prevent
-duplicate execution to ensure idempotency of otherwise non-idempotent requests
-from perspective of the client. This can be simply achieved by sending a client
-specific unique request key via the {Idempotency-Key} header.
+When creating or updating resources it can be helpful or necessary to prevent
+duplicate execution to ensure idempotent response behavior. Generally, this can 
+be achieved by sending a client specific _unique request key_ – that is not
+part of the resource – using the {Idempotency-Key} header.
 
-The unique request key is not part of the resource. It is stored temporarily,
-e.g. for 24 hours, together with the response and a request hash (optionally).
-The service looks up the key to ensure idempotent behavior by sending the
-response without executing the request a second time. This allows clients to
-safely retry requests after timeouts and receive the same response.
+The _unique request key_ is stored temporarily, e.g. for 24 hours, together
+with the response and a request hash (optionally) in a key cache. The service
+can now look up the _unique request key_ in the key cache and serve the
+response from the key cache, instead of re-executing the request, to ensure
+idempotent behavior. Optionally, it can check the request hash for consistency
+before serving the response. If the key is not in the key store, the request
+is executed as usual and the response is stored in the key cache.
 
-*Note:* To grant the single execution semantic, the request cache and the
-resource have to be created or updated in the same transaction. In this case
-clients may require fallback strategies for retries.
+This allows clients to safely retry requests after timeouts etc while receive
+the same response multiple times.
 
-The {Idempotency-Key} header should be defined as follows:
+*Note:* To grant a reliable idempotent execution semantic, the resource and
+the key cache have to be updated with hard transaction semantics – considering
+all potential pitfalls of failures, timeouts, and concurrent requests in a
+distributed systems. This makes a correct implementation very hard
+
+The {Idempotency-Key} header must be defined as follows, but you are free to
+choose your expiration time:
 
 [source,yaml]
 ----

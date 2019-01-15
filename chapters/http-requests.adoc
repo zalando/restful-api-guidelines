@@ -19,7 +19,7 @@ collection is empty) or 404 (if the collection is missing)
 * {GET} requests must NOT have a request body payload
 
 *Note:* {GET} requests on collection resources should provide sufficient
-<<filter, #137>> and <<pagination>> mechanisms.
+<<137, filter>> and <<pagination>> mechanisms.
 
 
 [[get-with-body]]
@@ -54,7 +54,7 @@ settings. Thus, switching to headers does not solve the original problem.
 === PUT
 
 {PUT} requests are used to *update* (in rare cases to create) *entire*
-resources - single or collection resources. The semantic is best described
+resources – single or collection resources. The semantic is best described
 as _"please put the enclosed representation at the resource mentioned by
 the URL, replacing any existing resource."_.
 
@@ -66,7 +66,7 @@ implicitly creating before updating
 addressed by the URL with the representation passed in the payload (subsequent
 reads will deliver the same payload)
 * successful {PUT} requests will usually generate 200 or 204 (if the resource
-was updated - with or without actual content returned), and 201 (if the
+was updated – with or without actual content returned), and 201 (if the
 resource was created)
 
 *Important:* It is best practice to prefer {POST} over {PUT} for creation of
@@ -95,9 +95,10 @@ identified by the URL"_.
 
 * on a successful {POST} request, the server will create one or multiple new
 resources and provide their URI/URLs in the response
-* successful {POST} requests will usually generate 200 (if resources have been
-updated), 201 (if resources have been created), and 202 (if the request was
-accepted but has not been finished yet)
+* successful {POST} requests will usually generate 200 (if resources have
+been updated), 201 (if resources have been created), 202 (if the request was
+accepted but has not been finished yet), and exceptionally 204 with {Location}
+header (if the actual resource is not returned).
 
 The semantic for single resource endpoints is best described as _"please
 execute the given well specified request on the resource identified by the
@@ -246,24 +247,30 @@ lost updates, e.g. if same resources may be created or changed in parallel or
 multiple times. To design an idempotent API owners should consider to apply
 one of the following three patterns.
 
-* A client specific *idempotency key* provided as {Idempotency-Key} header
-  in the request. The key is not part of the resource but stored temporarily
-  pointing to the resource to ensure idempotent behavior when _re-sending_
-  a request from the same client - for some time (see <<230>>).
-* A resource specific *secondary key* provided as resource property in the
-  request body. The _secondary key_ is stored permanently in the resource as
-  _alternate_ (or _unique foreign key_, if it links to an another - often
-  parent - resource, e.g. the shopping cart ID is a natural _unique foreign
-  key_ candidate for an order. It can be used to ensure idempotent request
-  behavior in case of multiple independent requests of clients.
-* A resource specific *conditional key* provided as <<182,`If-Match` header>>
+* A resource specific *conditional key* provided via <<182,`If-Match` header>>
   in the request. The key is in general a meta information of the resource,
   e.g. a _hash_ or _version number_, often stored with it. It allows to detect
   concurrent creations and updates to ensure idempotent request behavior
   (see <<182>>).
+* A resource specific *secondary key* provided as resource property in the
+  request body. The _secondary key_ is stored permanently in the resource as
+  _alternate_ (or _unique foreign key_, if it links to an another – often
+  parent – resource, e.g. the shopping cart ID is a natural _unique foreign
+  key_ candidate for an order. It allows to ensure idempotent request behavior
+  in case of multiple independent resource creations from different clients
+  (see <<231>>).
+* A client specific *idempotency key* provided via {Idempotency-Key} header
+  in the request. The key is not part of the resource but stored temporarily
+  pointing to the original response to ensure idempotent response behavior
+  when retrying a request (see <<230>>).
+
+*Note:* While *conditional key* and *secondary key* are focused on handling
+concurrent requests, the *idempotency key* is focused on providing exact same
+responses and can be combined with the other patterns.
 
 To decide, which pattern is suitable for your use case, please consult the
-following table showing the major properties of each pattern:
+following table showing the major properties of each pattern. As far as this
+patterns can be applied to {PUT} we added it to allow full comparison:
 
 [,cols="40%,20%,20%,20%",options="header",]
 |========================================================================================
@@ -278,6 +285,14 @@ following table showing the major properties of each pattern:
 | Usable without additional {GET}
 (before {PUT}/{POST}/{PATCH})          | {YES}  | {YES} | {NO}
 |========================================================================================
+
+If you mainly aim to support safe retries, we suggest to apply <<182,
+conditional key>> and <<231,secondary key>> pattern before the <<230,
+Idempotency Key>> pattern.
+
+[#231]
+== {MAY} Use Secondary Key for Idempotent `POST`
+
 
 [#154]
 == {SHOULD} Define Collection Format of Query Parameters and Headers

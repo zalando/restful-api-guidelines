@@ -39,6 +39,7 @@
 :ETag: pass:[<a href="https://tools.ietf.org/html/rfc7232#section-2.3"><code>ETag</code></a>]
 :If-Match: pass:[<a href="https://tools.ietf.org/html/rfc7232#section-3.1"><code>If-Match</code></a>]
 :If-None-Match: pass:[<a href="https://tools.ietf.org/html/rfc7232#section-3.2"><code>If-None-Match</code></a>]
+:Location: pass:[<a href="https://tools.ietf.org/html/rfc7231#section-7.1.2"><code>Location</code></a>]
 :Idempotency-Key: pass:[<a href="#230"><code>Idempotency-Key</code></a>]
 
 
