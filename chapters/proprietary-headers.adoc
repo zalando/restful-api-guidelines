@@ -138,9 +138,9 @@ needs to define this in its API, or make its own ones.
 In case of enabling distributed tracing via https://github.bus.zalan.do/SRE/opentracing[OpenTracing [internal link]]
 ensure that created Service Spans are tagged with Flow-Id information
 (see https://github.bus.zalan.do/SRE/opentracing/blob/master/wg-semantic-conventions/best-practices/flowid.md[How
-to connect Log Output with OpenTracing using FlowIDs [internal link]])
+to connect Log Output with OpenTracing using FlowIDs [internal link]]
 or https://github.bus.zalan.do/SRE/opentracing/blob/master/wg-semantic-conventions/best-practices.md[Best
-practises [internal link]]
+practises [internal link]])
 
 *Service Guidance*
 
