@@ -15,6 +15,11 @@
   color: $may-color;
 }
 
+.status-code, .status-code:link, .status-code:visited, .status-code:hover, .status-code:active {
+  color: black;
+  font-weight: bold;
+}
+
 .sect1 {
   max-width: 45em;
 }

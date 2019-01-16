@@ -138,11 +138,12 @@ To expose conflicts between concurrent update operations via {PUT}, {POST},
 or {PATCH}, the `If-Match: <entity-tag>` header can be used to force the server
 to check whether the version of the updated entity is conforming to the
 requested `<entity-tag>`. If no matching entity is found, the operation is
-supposed a to respond with status code 412 - precondition failed.
+supposed a to respond with status code {412} - precondition failed.
 
 Beside other use cases, `If-None-Match: *` can be used in a similar way to
 expose conflicts in resource creation. If any matching entity is found, the
-operation is supposed a to respond with status code 412 - precondition failed.
+operation is supposed a to respond with status code {412} - precondition
+failed.
 
 The {ETag}, {If-Match}, and {If-None-Match} headers can be defined as
 follows in the API definition:
@@ -193,22 +194,22 @@ Please see <<optimistic-locking>> for a detailed discussion and options.
 == {MAY} Consider Using `Idempotency-Key` Header
 
 When creating or updating resources it can be helpful or necessary to prevent
-duplicate execution to ensure idempotent response behavior. Generally, this can 
-be achieved by sending a client specific _unique request key_ – that is not
-part of the resource – using the {Idempotency-Key} header.
+duplicate execution to ensure <<idempotent>> behavior. Generally, this can be
+achieved by sending a client specific _unique request key_ – that is not part
+of the resource – using the {Idempotency-Key} header.
 
 The _unique request key_ is stored temporarily, e.g. for 24 hours, together
 with the response and a request hash (optionally) in a key cache. The service
 can now look up the _unique request key_ in the key cache and serve the
 response from the key cache, instead of re-executing the request, to ensure
-idempotent behavior. Optionally, it can check the request hash for consistency
-before serving the response. If the key is not in the key store, the request
-is executed as usual and the response is stored in the key cache.
+<<idempotent>> behavior. Optionally, it can check the request hash for
+consistency before serving the response. If the key is not in the key store,
+the request is executed as usual and the response is stored in the key cache.
 
 This allows clients to safely retry requests after timeouts etc while receive
 the same response multiple times.
 
-*Note:* To grant a reliable idempotent execution semantic, the resource and
+*Note:* To grant a reliable <<idempotent>> execution semantic, the resource and
 the key cache have to be updated with hard transaction semantics – considering
 all potential pitfalls of failures, timeouts, and concurrent requests in a
 distributed systems. This makes a correct implementation very hard
