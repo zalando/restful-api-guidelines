@@ -176,7 +176,7 @@ described as _"please delete the resource identified by the URL"_.
 
 * {DELETE} requests are usually applied to single resources, not on collection
 resources, as this would imply deleting the entire collection
-* successful {DELETE} requests will usually generate 200 (if the deleted
+* successful {DELETE} requests will usually generate {200} (if the deleted
 resource is returned) or {204} (if no content is returned)
 * failed {DELETE} requests will usually generate {404} (if the resource cannot
 be found) or {410} (if the resource was already deleted before)
@@ -316,7 +316,7 @@ A good example here for a secondary key is the shopping cart ID in an order
 resource.
 
 *Note:* When using the secondary key pattern without {Idempotency-Key} all
-subsequent retries should fail with status code {409} - conflict. We suggest
+subsequent retries should fail with status code {409} (conflict). We suggest
 to avoid {200} here unless you make sure, that the delivered resource is the
 original one implementing a well defined behavior. Using {204} without content
 would be a similar well defined option.
