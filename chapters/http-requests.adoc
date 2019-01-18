@@ -221,8 +221,8 @@ An operation can be...
 
 * [[idempotent, idempotent]]{RFC-idempotent} - the operation has the same
   _intended effect_ on the server state, independently whether it is executed
-  once or multiple times. *Note:* this does not mean that it is returning the
-  same response or status code.
+  once or multiple times. *Note:* this does not require that the operation is
+  returning the same response or status code.
 * [[safe, safe]]{RFC-safe} - the operation semantic is defined to be read-only,
   meaning it must not have _intended side effects_, i.e. changes, to the server
   state.
@@ -273,8 +273,8 @@ patterns.
   retrying a request (see <<230>>).
 
 *Note:* While *conditional key* and *secondary key* are focused on handling
-concurrent requests, the *idempotency key* is focused on providing exact same
-responses and can be combined with the other patterns.
+concurrent requests, the *idempotency key* is focused on providing the exact
+same responses, which is even a _stronger_ requirement than the <<idempotent, idempotency defined above>>. It can be combined with the two other patterns.
 
 To decide, which pattern is suitable for your use case, please consult the
 following table showing the major properties of each pattern:

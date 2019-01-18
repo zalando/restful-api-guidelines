@@ -193,26 +193,32 @@ Please see <<optimistic-locking>> for a detailed discussion and options.
 [#230]
 == {MAY} Consider Using `Idempotency-Key` Header
 
-When creating or updating resources it can be helpful or necessary to prevent
-duplicate execution to ensure <<idempotent>> behavior. Generally, this can be
-achieved by sending a client specific _unique request key_ – that is not part
-of the resource – using the {Idempotency-Key} header.
+When creating or updating resources it can be helpful or necessary to ensure a
+strong <<idempotent>> behavior comprising same responses, to prevent duplicate
+execution in case of retries after timeout and network outages. Generally, this
+can be achieved by sending a client specific _unique request key_ – that is not
+part of the resource – via {Idempotency-Key} header.
 
 The _unique request key_ is stored temporarily, e.g. for 24 hours, together
-with the response and a request hash (optionally) in a key cache. The service
-can now look up the _unique request key_ in the key cache and serve the
-response from the key cache, instead of re-executing the request, to ensure
-<<idempotent>> behavior. Optionally, it can check the request hash for
-consistency before serving the response. If the key is not in the key store,
-the request is executed as usual and the response is stored in the key cache.
+with the response and the request hash (optionally) of the first request in a
+key cache, regardless of whether it succeeded or failed. The service can now
+look up the _unique request key_ in the key cache and serve the response from
+the key cache, instead of re-executing the request, to ensure <<idempotent>>
+behavior. Optionally, it can check the request hash for consistency before
+serving the response. If the key is not in the key store, the request is
+executed as usual and the response is stored in the key cache.
 
-This allows clients to safely retry requests after timeouts etc while receive
-the same response multiple times.
+This allows clients to safely retry requests after timeouts, network outages,
+etc. while receive the same response multiple times. *Note:* The request retry
+in this context requires to send the exact same request, i.e. updates of the
+request that would change the result are off-limits. The request hash in the
+key cache can protection against this misbehavior.
 
-*Note:* To grant a reliable <<idempotent>> execution semantic, the resource and
-the key cache have to be updated with hard transaction semantics – considering
-all potential pitfalls of failures, timeouts, and concurrent requests in a
-distributed systems. This makes a correct implementation very hard
+*Important:* To grant a reliable <<idempotent>> execution semantic, the
+resource and the key cache have to be updated with hard transaction semantics
+– considering all potential pitfalls of failures, timeouts, and concurrent
+requests in a distributed systems. This makes a correct implementation
+exceeding the local context very hard.
 
 The {Idempotency-Key} header must be defined as follows, but you are free to
 choose your expiration time:
@@ -236,6 +242,10 @@ components:
       required: false
       example: "7da7a728-f910-11e6-942a-68f728c1ba70"
 ----
+
+*Hint:* The key cache is not intended as request log, and therefore should
+have a limited lifetime, else it could easily exceed the data resource in
+size.
 
 *Note:* The {Idempotency-Key} header unlike other headers in this section
 is not standardized in an RFC. Our only reference are the usage in the
