@@ -212,7 +212,8 @@ This allows clients to safely retry requests after timeouts, network outages,
 etc. while receive the same response multiple times. *Note:* The request retry
 in this context requires to send the exact same request, i.e. updates of the
 request that would change the result are off-limits. The request hash in the
-key cache can protection against this misbehavior.
+key cache can protection against this misbehavior. The service is recommended
+to reject such a request using status code {400}.
 
 *Important:* To grant a reliable <<idempotent>> execution semantic, the
 resource and the key cache have to be updated with hard transaction semantics
@@ -229,10 +230,15 @@ components:
   headers:
     Idempotency-Key:
       description: |
-        The idempotency key is a UUID version 4 (random) created by the client
-        to identify a request. It is used by the service to identify subsequent
+        The idempotency key is a free identifier created by the client to
+        identify a request. It is used by the service to identify subsequent
         retries of the same request and ensure idempotent behavior by sending
         the same response without executing the request a second time.
+
+        Clients should be careful as any subsequent requests with the same key
+        may return the same response without further check. Therefore, it is
+        recommended to use an UUID version 4 (random) or any other random
+        string with enough entropy to avoid collisions.
 
         Idempotency keys expire after 24 hours. Clients are responsible to stay
         within this limits, if they require idempotent behavior.
