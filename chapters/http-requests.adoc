@@ -226,6 +226,9 @@ An operation can be...
 * [[safe, safe]]{RFC-safe} - the operation semantic is defined to be read-only,
   meaning it must not have _intended side effects_, i.e. changes, to the server
   state.
+* [[cacheable, cacheable]]{RFC-cacheable} - to indicate that responses are
+  allowed to be stored for future reuse. In general, requests to safe methods
+  that do not depend on a current or authoritative response are cacheable.
 
 *Note:* The above definitions, of _intended (side) effect_ allows the server
 to provide additional state changing behavior as logging, accounting, pre-
@@ -234,17 +237,17 @@ intended by the operation so that it can be held accountable.
 
 Method implementations must fulfill the following basic properties:
 
-[cols="25%,25%,50%",options="header",]
+[cols="15%,15%,35%,35%",options="header",]
 |====================================================
-| HTTP Method | Safe  | Idempotent
-| {GET}       | {YES} | {YES}
-| {HEAD}      | {YES} | {YES}
-| {POST}      | {NO}  | {AT} No, however you <<229>>.
-| {PUT}       | {NO}  | {YES}
-| {PATCH}     | {NO}  | {AT} No, however you <<229>>.
-| {DELETE}    | {NO}  | {YES}
-| {OPTIONS}   | {YES} | {YES}
-| {TRACE}     | {YES} | {YES}
+| Method    | Safe  | Idempotent | Cacheable
+| {GET}     | {YES} | {YES}      | {YES}, but <<227>>
+| {HEAD}    | {YES} | {YES}      | {YES}, but <<227>>
+| {POST}    | {NO}  | {AT} No, but <<229>> | {AT} May, but <<227>>
+| {PUT}     | {NO}  | {YES}      | {NO}
+| {PATCH}   | {NO}  | {AT} No, but <<229>> | {NO}
+| {DELETE}  | {NO}  | {YES}      | {NO}
+| {OPTIONS} | {YES} | {YES}      | {NO}
+| {TRACE}   | {YES} | {YES}      | {NO}
 |====================================================
 
 [#229]

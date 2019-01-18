@@ -11,6 +11,16 @@
 :keywords: Zalando, Guidelines, RESTful, API, Events, Schema
 :copyright: CC-BY-SA 3.0
 
+
+// Some link short cuts.
+:RFC-7230: https://tools.ietf.org/html/rfc7230
+:RFC-7231: https://tools.ietf.org/html/rfc7231
+:RFC-7232: https://tools.ietf.org/html/rfc7232
+:RFC-7233: https://tools.ietf.org/html/rfc7233
+:RFC-7234: https://tools.ietf.org/html/rfc7234
+:RFC-7240: https://tools.ietf.org/html/rfc7240
+
+
 // Attribute to improve design of key words in titles.
 :MUST: pass:[<span class="must-keyword"><strong>Must</strong></span>:]
 :SHOULD: pass:[<span class="should-keyword"><strong>Should</strong></span>:]
@@ -33,6 +43,7 @@
 :HEAD: pass:[<a href="#head"><code>HEAD</code></a>]
 :OPTIONS: pass:[<a href="#options"><code>OPTIONS</code></a>]
 :TRACE: pass:[<a href="#trace"><code>TRACE</code></a>]
+
 
 // Attributes to improve design and linking of HTTP status codes
 :200: pass:[<a href="#code-200" class="status-code">200</a>]
@@ -60,6 +71,7 @@
 :500: pass:[<a href="#code-500" class="status-code">500</a>]
 :501: pass:[<a href="#code-501" class="status-code">501</a>]
 :503: pass:[<a href="#code-503" class="status-code">503</a>]
+
 
 // Attributes to improve design and anchoring of HTTP status codes
 :CODE-200: pass:[<a id="code-200"><a href="#code-200" class="status-code">200</a></a>]
@@ -94,14 +106,37 @@
 
 // Attributes to improve design and linking of common headers.
 :ETag: pass:[<a href="https://tools.ietf.org/html/rfc7232#section-2.3"><code>ETag</code></a>]
+:entity-tag: pass:[<a href="https://tools.ietf.org/html/rfc7232#section-2.3"><code>&lt;entity-tag&gt;</code></a>]
 :If-Match: pass:[<a href="https://tools.ietf.org/html/rfc7232#section-3.1"><code>If-Match</code></a>]
 :If-None-Match: pass:[<a href="https://tools.ietf.org/html/rfc7232#section-3.2"><code>If-None-Match</code></a>]
+
+:Accept: pass:[<a href="https://tools.ietf.org/html/rfc7231#section-5.3.2"><code>Accept</code></a>]
+:Accept-Charset: pass:[<a href="https://tools.ietf.org/html/rfc7231#section-5.3.3"><code>Accept-Charset</code></a>]
+:Accept-Encoding: pass:[<a href="https://tools.ietf.org/html/rfc7231#section-5.3.4"><code>Accept-Encoding</code></a>]
+:Accept-Language: pass:[<a href="https://tools.ietf.org/html/rfc7231#section-5.3.5"><code>Accept-Language</code></a>]
+
+:Content-Type: pass:[<a href="https://tools.ietf.org/html/rfc7231#section-3.1.1.5"><code>Content-Type</code></a>]
+:Content-Range: pass:[<a href="https://tools.ietf.org/html/rfc7233#section-4.2"><code>Content-Range</code></a>]
+:Content-Encoding: pass:[<a href="https://tools.ietf.org/html/rfc7231#section-3.1.2.2"><code>Content-Encoding</code></a>]
+:Content-Language: pass:[<a href="https://tools.ietf.org/html/rfc7231#section-3.1.3.2"><code>Content-Language</code></a>]
+:Content-Length: pass:[<a href="https://tools.ietf.org/html/rfc7230#section-3.3.2"><code>Content-Length</code></a>]
+:Content-Disposition: pass:[<a href="https://tools.ietf.org/html/rfc6266#section-3.1.4.2"><code>Content-Disposition</code></a>]
+:Content-Location: pass:[<a href="https://tools.ietf.org/html/rfc7231#section-3.1.4.2"><code>Content-Location</code></a>]
 :Location: pass:[<a href="https://tools.ietf.org/html/rfc7231#section-7.1.2"><code>Location</code></a>]
+
+:Prefer: pass:[<a href="https://tools.ietf.org/html/rfc7240"><code>Prefer</code></a>]
+:Preference-Applied: pass:[<a href="https://tools.ietf.org/html/rfc7240#section-3"><code>Preference-Applied</code></a>]
+
+:Vary: pass:[<a href="https://tools.ietf.org/html/rfc7231#section-7.1.4"><code>Vary</code></a>]
+:Cache-Control: pass:[<a href="https://tools.ietf.org/html/rfc7234#section-5.2"><code>Cache-Control</code></a>]
+:Cache-Control#no-store: pass:[<a href="https://tools.ietf.org/html/rfc7234#section-5.2.2.2"><code>Cache-Control: no-store</code></a>]
+
 
 // Attributes to improve design and linking of RFC key words.
 :RFC-safe: pass:[<a href="https://tools.ietf.org/html/rfc7231#section-4.2.1">safe</a>]
 :RFC-idempotent: pass:[<a href="https://tools.ietf.org/html/rfc7231#section-4.2.2">idempotent</a>]
 :RFC-cacheable: pass:[<a href="https://tools.ietf.org/html/rfc7231#section-4.2.3">cacheable</a>]
+
 
 
 
