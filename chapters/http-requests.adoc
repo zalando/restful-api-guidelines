@@ -274,7 +274,8 @@ patterns.
 
 *Note:* While *conditional key* and *secondary key* are focused on handling
 concurrent requests, the *idempotency key* is focused on providing the exact
-same responses, which is even a _stronger_ requirement than the <<idempotent, idempotency defined above>>. It can be combined with the two other patterns.
+same responses, which is even a _stronger_ requirement than the <<idempotent,
+idempotency defined above>>. It can be combined with the two other patterns.
 
 To decide, which pattern is suitable for your use case, please consult the
 following table showing the major properties of each pattern:
@@ -308,10 +309,10 @@ eliminate the problem of duplicate (a.k.a zombie) resources.
 
 The secondary key is stored permanently in the resource as _alternate key_ or
 _combined key_ (if consisting of multiple properties) guarded by a uniqueness
-constraint, that is visible when reading the resource. The best and often
-naturally existing candidate is a _unique foreign key_, that points to another
-resource having _one-on-one_ relationship with the newly created resource, e.g.
-a parent process identifier.
+constraint enforced server-side, that is visible when reading the resource.
+The best and often naturally existing candidate is a _unique foreign key_, that
+points to another resource having _one-on-one_ relationship with the newly
+created resource, e.g. a parent process identifier.
 
 A good example here for a secondary key is the shopping cart ID in an order
 resource.
