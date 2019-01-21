@@ -264,9 +264,9 @@ patterns.
   <<182>>).
 * A resource specific *secondary key* provided as resource property in the
   request body. The _secondary key_ is stored permanently in the resource. It
-  allows to ensure <<idempotent>> behavior by looking up the resource in case
-  of multiple independent resource creations from different clients (see
-  <<231>>).
+  allows to ensure <<idempotent>> behavior by looking up the unique secondary
+  key in case of multiple independent resource creations from different
+  clients (see <<231>>).
 * A client specific *idempotency key* provided via {Idempotency-Key} header
   in the request. The key is not part of the resource but stored temporarily
   pointing to the original response to ensure <<idempotent>> behavior when
@@ -306,11 +306,12 @@ The most important pattern to design {POST} <<idempotent>> for creation is to
 introduce a resource specific *secondary key* provided in the request body, to
 eliminate the problem of duplicate (a.k.a zombie) resources.
 
-The secondary key is stored permanently in the resource as _alternate key_
-or _combined key_ (i.e. consisting of multiple properties), that is visible
-when reading the resource. The best and often naturally existing candidate
-is a _unique foreign key_, that points to another resource having _one-on-one_
-relationship with the newly created resource, e.g. a parent process identifier.
+The secondary key is stored permanently in the resource as _alternate key_ or
+_combined key_ (if consisting of multiple properties) guarded by a uniqueness
+constraint, that is visible when reading the resource. The best and often
+naturally existing candidate is a _unique foreign key_, that points to another
+resource having _one-on-one_ relationship with the newly created resource, e.g.
+a parent process identifier.
 
 A good example here for a secondary key is the shopping cart ID in an order
 resource.
