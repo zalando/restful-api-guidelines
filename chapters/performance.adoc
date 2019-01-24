@@ -43,19 +43,20 @@ via {Accept-Encoding} request header -- see also {RFC-7231}#section-5.3.4[RFC
 [#157]
 == {SHOULD} Support Filtering of Resource Fields
 
-Depending on your use case and payload size, you can significantly reduce
-network bandwidth need by supporting filtering of returned entity fields. Here,
-the client can determine the subset of fields he wants to receive via the
-fields query parameter — example see
+Depending on your use case and payload size, you can significantly
+reduce network bandwidth need by supporting filtering of returned entity
+fields. Here, the client can explicitly determine the subset of fields he wants to
+receive via the `fields` query parameter. (It is analogue to https://graphql.org/learn/queries/#fields[GraphQL `fields`]
+and simplel queries, and also applied, for instance, for
 https://cloud.google.com/appengine/docs/python/taskqueue/rest/performance#partial-response[Google
-AppEngine API's partial response]:
+AppEngine API's partial responses].)
 
 [[unfiltered]]
 === Unfiltered
 
 [source,http]
 ----
-GET http://api.example.org/resources/123 HTTP/1.1
+GET http://api.example.org/users/123 HTTP/1.1
 
 HTTP/1.1 200 OK
 Content-Type: application/json
@@ -65,12 +66,12 @@ Content-Type: application/json
   "name": "John Doe",
   "address": "1600 Pennsylvania Avenue Northwest, Washington, DC, United States",
   "birthday": "1984-09-13",
-  "partner": {
+  "friends": [ {
     "id": "1fb43648-dae1-11e5-aa01-1fbc3abb1cd0",
     "name": "Jane Doe",
     "address": "1600 Pennsylvania Avenue Northwest, Washington, DC, United States",
     "birthday": "1988-04-07"
-  }
+  } ]
 }
 ----
 
@@ -79,55 +80,46 @@ Content-Type: application/json
 
 [source,http]
 ----
-GET http://api.example.org/resources/123?fields=(name,partner(name)) HTTP/1.1
+GET http://api.example.org/users/123?fields=(name,friends(name)) HTTP/1.1
 
 HTTP/1.1 200 OK
 Content-Type: application/json
 
 {
   "name": "John Doe",
-  "partner": {
+  "friends": [ {
     "name": "Jane Doe"
-  }
+  } ]
 }
 ----
 
-As illustrated by this example, field filtering should be done via
-request parameter "fields" with value range defined by the following
+The query `field` value determines the fields of the return object. 
+For instance, `(name)` returns root `users` object with only the `name` field,
+and `(name,friends(name))` returns the `name` and the nested `friends`
+objects with only its `name` field. 
+
+OpenAPI doesn't allow you to formally specify different return object (sub) schemes 
+depending on parameter. When you define the field parameter, we recommend to provide
+the following description: `Endpoint supports filtering of return object fields as 
+described in [Rule #157](https://opensource.zalando.com/restful-api-guidelines/#157)`
+
+The syntax of the query `field` value is defined by the following
 https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form[BNF] grammar.
 
 [source,bnf]
 ----
-<fields> ::= <negation> <fields_expression> | <fields_expression>
-
-<negation> ::= "!"
-
-<fields_expression> ::= "(" <field_set> ")"
-
-<field_set> ::= <qualified_field> | <qualified_field> "," <field_set>
-
-<qualified_field> ::= <field> | <field> <fields_expression>
-
-<field> ::= <DASH_LETTER_DIGIT> | <DASH_LETTER_DIGIT> <field>
-
-<DASH_LETTER_DIGIT> ::= <DASH> | <LETTER> | <DIGIT>
-
-<DASH> ::= "-" | "_"
-
-<LETTER> ::= "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z" | "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z"
-
-<DIGIT> ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+<fields>            ::= [ <negation> ] <fields_struct>
+<fields_struct>     ::= "(" <field_items> ")"
+<field_items>       ::= <field> [ "," <field_items> ]
+<field>             ::= <field_name> | <fields_substruct>
+<fields_substruct>  ::= <field_name> <fields_struct>
+<field_name>        ::= <dash_letter_digit> [ <field_name> ] 
+<dash_letter_digit> ::= <dash> | <letter> | <digit>
+<dash>              ::= "-" | "_"
+<letter>            ::= "A" | ... | "Z" | "a" | ... | "z"
+<digit>             ::= "0" | ... | "9"
+<negation>          ::= "!"
 ----
-
-A `fields_expression` as defined by the grammar describes the properties
-of an object, i.e. `(name)` returns only the `name` property of the root
-object. `(name,partner(name))` returns the `name` and `partner`
-properties where `partner` itself is also an object and only its `name`
-property is returned.
-
-Hint: OpenAPI doesn't allow you to formally specify whether depending on
-a given parameter will return different parts of the specified result
-schema. Explain this in English in the parameter description.
 
 [#158]
 == {SHOULD} Allow Optional Embedding of Sub-Resources
