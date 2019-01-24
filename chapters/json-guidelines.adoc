@@ -57,7 +57,7 @@ components:
         translations:
           description:
             The translations of this message into several languages.
-            The keys are https://tools.ietf.org/html/bcp47[BCP-47 language tags].
+            The keys are [IETF BCP-47 language tags](https://tools.ietf.org/html/bcp47).
           type: object
           additionalProperties:
             type: string
