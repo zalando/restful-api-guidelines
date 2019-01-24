@@ -47,7 +47,7 @@ Depending on your use case and payload size, you can significantly
 reduce network bandwidth need by supporting filtering of returned entity
 fields. Here, the client can explicitly determine the subset of fields he wants to
 receive via the `fields` query parameter. (It is analogue to https://graphql.org/learn/queries/#fields[GraphQL `fields`]
-and simplel queries, and also applied, for instance, for
+and simple queries, and also applied, for instance, for
 https://cloud.google.com/appengine/docs/python/taskqueue/rest/performance#partial-response[Google
 AppEngine API's partial responses].)
 
@@ -93,13 +93,13 @@ Content-Type: application/json
 }
 ----
 
-The query `field` value determines the fields of the return object. 
-For instance, `(name)` returns root `users` object with only the `name` field,
+The query `field` value determines the fields returned with the response payload object. 
+For instance, `(name)` returns `users` root object with only the `name` field,
 and `(name,friends(name))` returns the `name` and the nested `friends`
-objects with only its `name` field. 
+object with only its `name` field. 
 
-OpenAPI doesn't allow you to formally specify different return object (sub) schemes 
-depending on parameter. When you define the field parameter, we recommend to provide
+OpenAPI doesn't support you in formally specifying different return object schemes 
+depending on a parameter. When you define the field parameter, we recommend to provide
 the following description: `Endpoint supports filtering of return object fields as 
 described in [Rule #157](https://opensource.zalando.com/restful-api-guidelines/#157)`
 
