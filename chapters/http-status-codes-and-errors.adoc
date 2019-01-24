@@ -224,7 +224,7 @@ about your request processing status or error situations.
 == {MUST} Use Code 207 for Batch or Bulk Requests
 
 Some APIs are required to provide either _batch_ or _bulk_ requests
-using POST for performance reasons, i.e. for communication and
+using {POST} for performance reasons, i.e. for communication and
 processing efficiency. In this case services may be in need to signal
 multiple response codes for each part of an batch or bulk request. As
 HTTP does not provide proper guidance for handling batch/bulk requests
@@ -253,34 +253,30 @@ response processing this distinction normally does not matter.
 [#153]
 == {MUST} Use Code 429 with Headers for Rate Limits
 
-APIs that wish to manage the request rate of clients must use the
-http://tools.ietf.org/html/rfc6585['429 Too Many Requests'] response
-code if the client exceeded the request rate and therefore the request
-can't be fulfilled. Such responses must also contain header information
-providing further details to the client. There are two approaches a
-service can take for header information:
+APIs that wish to manage the request rate of clients must use the {429} (Too
+Many Requests) response code, if the client exceeded the request rate (see
+{RFC-6586}[RFC 6585]). Such responses must also contain header information
+providing further details to the client. There are two approaches a service
+can take for header information:
 
-* Return a
-https://tools.ietf.org/html/rfc7231#section-7.1.3['Retry-After'] header
-indicating how long the client ought to wait before making a follow-up
-request. The Retry-After header can contain a HTTP date value to retry
-after or the number of seconds to delay. Either is acceptable but APIs
-should prefer to use a delay in seconds.
-* Return a trio of 'X-RateLimit' headers. These headers (described
-below) allow a server to express a service level in the form of a number
-of allowing requests within a given window of time and when the window
-is reset.
+* Return a {Retry-After} header indicating how long the client ought to wait
+  before making a follow-up request. The Retry-After header can contain a HTTP
+  date value to retry after or the number of seconds to delay. Either is
+  acceptable but APIs should prefer to use a delay in seconds.
+* Return a trio of `X-RateLimit` headers. These headers (described below) allow
+  a server to express a service level in the form of a number of allowing
+  requests within a given window of time and when the window is reset.
 
-The 'X-RateLimit' headers are:
+The `X-RateLimit` headers are:
 
 * `X-RateLimit-Limit`: The maximum number of requests that the client is
-allowed to make in this window.
+  allowed to make in this window.
 * `X-RateLimit-Remaining`: The number of requests allowed in the current
-window.
-* `X-RateLimit-Reset`: The relative time in seconds when the rate limit
-window will be reset. **Beware** that this is different to Github and
-Twitter's usage of a header with the same name which is using UTC epoch
-seconds instead.
+  window.
+* `X-RateLimit-Reset`: The relative time in seconds when the rate limit window
+  will be reset. **Beware** that this is different to Github and Twitter's
+  usage of a header with the same name which is using UTC epoch seconds
+  instead.
 
 The reason to allow both approaches is that APIs can have different
 needs. Retry-After is often sufficient for general load handling and
@@ -298,12 +294,11 @@ number of requests made within a given window for each named entity.
 [#176]
 == {MUST} Use Problem JSON
 
-http://tools.ietf.org/html/rfc7807[RFC 7807] defines a Problem JSON object and 
-the media type `application/problem+json`. Operations should return it (together with
-a suitable status code) when any problem occurred during processing and
-you can give more details than the status code itself can supply,
-whether it be caused by the client or the server (i.e. both for {4xx} or
-{5xx} error codes).
+{RFC-7807}[RFC 7807] defines a Problem JSON object and  the media type
+`application/problem+json`. Operations should return it (together with a
+suitable status code) when any problem occurred during processing and you can
+give more details than the status code itself can supply, whether it be caused
+by the client or the server (i.e. both for {4xx} or {5xx} error codes).
 
 The Open API schema definition of the Problem JSON object can be found
 https://zalando.github.io/problem/schema.yaml[on github]. You can
@@ -324,15 +319,13 @@ You may define custom problem types as extension of the Problem JSON object
 if your API need to return specific additional error detail information.
 
 
-**Hint** for backward compatibility:
-A previous version of this guideline (before the publication of 
-http://tools.ietf.org/html/rfc7807[RFC 7807]
-and the registration of the media type) told to return
-custom variant of the media type `application/x.problem+json`. 
-Servers for APIs defined before this change should pay attention to the
-`Accept` header sent by the client and set the `Content-Type` header of
-the problem response correspondingly. Clients of such APIs should accept
-both media types.
+**Hint** for backward compatibility: A previous version of this guideline
+(before the publication of {RFC-7807}[RFC 7807] and the registration of the
+media type) told to return custom variant of the media type
+`application/x.problem+json`. Servers for APIs defined before this change
+should pay attention to the `Accept` header sent by the client and set the
+`Content-Type` header of the problem response correspondingly. Clients of such
+APIs should accept both media types.
 
 
 [#177]
