@@ -219,33 +219,41 @@ self-describe the full functionality of a resource.
 
 An operation can be...
 
+* [[safe, safe]]{RFC-safe} - the operation semantic is defined to be read-only,
+  meaning it must not have _intended side effects_, i.e. changes, to the server
+  state.
 * [[idempotent, idempotent]]{RFC-idempotent} - the operation has the same
   _intended effect_ on the server state, independently whether it is executed
   once or multiple times. *Note:* this does not require that the operation is
   returning the same response or status code.
-* [[safe, safe]]{RFC-safe} - the operation semantic is defined to be read-only,
-  meaning it must not have _intended side effects_, i.e. changes, to the server
-  state.
+* [[cacheable, cacheable]]{RFC-cacheable} - to indicate that responses are
+  allowed to be stored for future reuse. In general, requests to safe methods
+  are cachable, if it does not require a current or authoritative response
+  from the server.
 
 *Note:* The above definitions, of _intended (side) effect_ allows the server
 to provide additional state changing behavior as logging, accounting, pre-
 fetching, etc. However, these actual effects and state changes, must not be
 intended by the operation so that it can be held accountable.
 
-Method implementations must fulfill the following basic properties:
+Method implementations must fulfill the following basic properties according
+to {RFC-7231}[RFC 7231]:
 
-[cols="25%,25%,50%",options="header",]
+[cols="15%,15%,35%,35%",options="header",]
 |====================================================
-| HTTP Method | Safe  | Idempotent
-| {GET}       | {YES} | {YES}
-| {HEAD}      | {YES} | {YES}
-| {POST}      | {NO}  | {AT} No, however you <<229>>.
-| {PUT}       | {NO}  | {YES}
-| {PATCH}     | {NO}  | {AT} No, however you <<229>>.
-| {DELETE}    | {NO}  | {YES}
-| {OPTIONS}   | {YES} | {YES}
-| {TRACE}     | {YES} | {YES}
+| Method    | Safe  | Idempotent | Cacheable
+| {GET}     | {YES} | {YES}      | {YES}
+| {HEAD}    | {YES} | {YES}      | {YES}
+| {POST}    | {NO}  | {AT} No, but <<229>> | {AT} May, but only if specific
+{POST} endpoint is <<safe>>. *Hint:* not supported by most caches.
+| {PUT}     | {NO}  | {YES}      | {NO}
+| {PATCH}   | {NO}  | {AT} No, but <<229>> | {NO}
+| {DELETE}  | {NO}  | {YES}      | {NO}
+| {OPTIONS} | {YES} | {YES}      | {NO}
+| {TRACE}   | {YES} | {YES}      | {NO}
 |====================================================
+
+*Note:* <<227>>.
 
 [#229]
 == {SHOULD} Consider To Design `POST` and `PATCH` Idempotent
