@@ -228,7 +228,8 @@ An operation can be...
   state.
 * [[cacheable, cacheable]]{RFC-cacheable} - to indicate that responses are
   allowed to be stored for future reuse. In general, requests to safe methods
-  that do not depend on a current or authoritative response are cacheable.
+  are cachable, if it does not require a current or authoritative response
+  from the server.
 
 *Note:* The above definitions, of _intended (side) effect_ allows the server
 to provide additional state changing behavior as logging, accounting, pre-

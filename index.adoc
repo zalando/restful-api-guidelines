@@ -46,6 +46,7 @@
 :ALL: pass:[<code>&lt;all&gt;</code>]
 
 
+
 // Attributes to improve design and linking of HTTP status codes
 :2xx: pass:[<a href="#success-codes" class="status-code">2xx</a>]
 :3xx: pass:[<a href="#redirection-codes" class="status-code">3xx</a>]
