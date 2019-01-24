@@ -18,6 +18,8 @@ Common techniques include:
   <<157>> below)
 * {ETag} and {If-Match}/{If-None-Match} headers to avoid re-fetching of
   unchanged resources (see <<182>>)
+* {Prefer} header with `return=minimal` or `respond-async` to anticipate reduced
+  processing requirements of clients (see <<181>>)
 * <<pagination>> for incremental access of larger collections of data items
 * caching of master data items, i.e. resources that change rarely or not
   at all after creation (see <<227>>).
@@ -174,7 +176,8 @@ Caching has to take many aspects into account, e.g. general <<cacheable,
 cacheability>> of response information, our guideline to protect endpoints
 using SSL and <<104, OAuth authorization>>, resource update and invalidation
 rules, existence of multiple consumer instances. As a consequence, caching is
-in best case complex, in worst case inefficient.
+in best case complex, e.g. with respect to consistency, in worst case
+inefficient.
 
 As a consequence, client side as well as transparent web caching should be
 avoided, unless the service supports and requires it to protect itself, e.g.
@@ -246,6 +249,7 @@ components:
       type: string
       required: false
       example: "private, must-revalidate, max-age=300"
+
   - Vary:
       description: |
         The RFC 7231 Vary header field in a response defines which parts of
@@ -258,19 +262,9 @@ components:
       type: string
       required: false
       example: "accept-encoding, accept-language"
-  - ETag:
-      description: |
-        The RFC 7232 ETag header field in a response provides the entity-tag of
-        a selected resource. The entity-tag is an opaque identifier for versions
-        and representations of the same resource over time, regardless whether
-        multiple versions are valid at the same time. An entity-tag consists of
-        an opaque quoted string, possibly prefixed by a  weakness indicator (see
-        [RFC 7232 Section 2.3](https://tools.ietf.org/html/rfc7232#section-2.3).
-
-      type: string
-      required: false
-      example:  W/"xy", "5", "5db68c06-1a68-11e9-8341-68f728c1ba70"
 ----
+
+*Hint:* For {ETag} source see <<182>>.
 
 The default setting for {Cache-Control} should contain the `private` directive
 for endpoints with standard <<104, OAuth authorization>>, as well as the
