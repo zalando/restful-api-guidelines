@@ -13,13 +13,15 @@
 
 
 // Some link short cuts.
+:RFC-4122: https://tools.ietf.org/html/rfc4122
+:RFC-6585: https://tools.ietf.org/html/rfc6585
 :RFC-7230: https://tools.ietf.org/html/rfc7230
 :RFC-7231: https://tools.ietf.org/html/rfc7231
 :RFC-7232: https://tools.ietf.org/html/rfc7232
 :RFC-7233: https://tools.ietf.org/html/rfc7233
 :RFC-7234: https://tools.ietf.org/html/rfc7234
 :RFC-7240: https://tools.ietf.org/html/rfc7240
-
+:RFC-7807: https://tools.ietf.org/html/rfc7807
 
 // Attribute to improve design of key words in titles.
 :MUST: pass:[<span class="must-keyword"><strong>Must</strong></span>:]
@@ -43,65 +45,45 @@
 :HEAD: pass:[<a href="#head"><code>HEAD</code></a>]
 :OPTIONS: pass:[<a href="#options"><code>OPTIONS</code></a>]
 :TRACE: pass:[<a href="#trace"><code>TRACE</code></a>]
+:ALL: pass:[<code>&lt;all&gt;</code>]
+
 
 
 // Attributes to improve design and linking of HTTP status codes
-:200: pass:[<a href="#code-200" class="status-code">200</a>]
-:201: pass:[<a href="#code-201" class="status-code">201</a>]
-:202: pass:[<a href="#code-202" class="status-code">202</a>]
-:204: pass:[<a href="#code-204" class="status-code">204</a>]
-:207: pass:[<a href="#code-207" class="status-code">207</a>]
-:301: pass:[<a href="#code-301" class="status-code">301</a>]
-:303: pass:[<a href="#code-303" class="status-code">303</a>]
-:304: pass:[<a href="#code-304" class="status-code">304</a>]
-:400: pass:[<a href="#code-400" class="status-code">400</a>]
-:401: pass:[<a href="#code-401" class="status-code">401</a>]
-:403: pass:[<a href="#code-403" class="status-code">403</a>]
-:404: pass:[<a href="#code-404" class="status-code">404</a>]
-:405: pass:[<a href="#code-405" class="status-code">405</a>]
-:406: pass:[<a href="#code-406" class="status-code">406</a>]
-:408: pass:[<a href="#code-408" class="status-code">408</a>]
-:409: pass:[<a href="#code-409" class="status-code">409</a>]
-:410: pass:[<a href="#code-410" class="status-code">410</a>]
-:412: pass:[<a href="#code-412" class="status-code">412</a>]
-:415: pass:[<a href="#code-415" class="status-code">415</a>]
-:423: pass:[<a href="#code-423" class="status-code">423</a>]
-:428: pass:[<a href="#code-428" class="status-code">428</a>]
-:429: pass:[<a href="#code-429" class="status-code">429</a>]
-:500: pass:[<a href="#code-500" class="status-code">500</a>]
-:501: pass:[<a href="#code-501" class="status-code">501</a>]
-:503: pass:[<a href="#code-503" class="status-code">503</a>]
+:2xx: pass:[<a href="#success-codes" class="status-code">2xx</a>]
+:3xx: pass:[<a href="#redirection-codes" class="status-code">3xx</a>]
+:4xx: pass:[<a href="#client-side-error-codes" class="status-code">4xx</a>]
+:5xx: pass:[<a href="#server-side-error-codes" class="status-code">5xx</a>]
+:200: pass:[<a href="#status-code-200" class="status-code">200</a>]
+:201: pass:[<a href="#status-code-201" class="status-code">201</a>]
+:202: pass:[<a href="#status-code-202" class="status-code">202</a>]
+:204: pass:[<a href="#status-code-204" class="status-code">204</a>]
+:207: pass:[<a href="#status-code-207" class="status-code">207</a>]
+:301: pass:[<a href="#status-code-301" class="status-code">301</a>]
+:303: pass:[<a href="#status-code-303" class="status-code">303</a>]
+:304: pass:[<a href="#status-code-304" class="status-code">304</a>]
+:400: pass:[<a href="#status-code-400" class="status-code">400</a>]
+:401: pass:[<a href="#status-code-401" class="status-code">401</a>]
+:403: pass:[<a href="#status-code-403" class="status-code">403</a>]
+:404: pass:[<a href="#status-code-404" class="status-code">404</a>]
+:405: pass:[<a href="#status-code-405" class="status-code">405</a>]
+:406: pass:[<a href="#status-code-406" class="status-code">406</a>]
+:408: pass:[<a href="#status-code-408" class="status-code">408</a>]
+:409: pass:[<a href="#status-code-409" class="status-code">409</a>]
+:410: pass:[<a href="#status-code-410" class="status-code">410</a>]
+:412: pass:[<a href="#status-code-412" class="status-code">412</a>]
+:415: pass:[<a href="#status-code-415" class="status-code">415</a>]
+:423: pass:[<a href="#status-code-423" class="status-code">423</a>]
+:428: pass:[<a href="#status-code-428" class="status-code">428</a>]
+:429: pass:[<a href="#status-code-429" class="status-code">429</a>]
+:500: pass:[<a href="#status-code-500" class="status-code">500</a>]
+:501: pass:[<a href="#status-code-501" class="status-code">501</a>]
+:503: pass:[<a href="#status-code-503" class="status-code">503</a>]
 
-
-// Attributes to improve design and anchoring of HTTP status codes
-:CODE-200: pass:[<a id="code-200"><a href="#code-200" class="status-code">200</a></a>]
-:CODE-201: pass:[<a id="code-201"><a href="#code-201" class="status-code">201</a></a>]
-:CODE-202: pass:[<a id="code-202"><a href="#code-202" class="status-code">202</a></a>]
-:CODE-204: pass:[<a id="code-204"><a href="#code-204" class="status-code">204</a></a>]
-:CODE-207: pass:[<a id="code-207"><a href="#code-207" class="status-code">207</a></a>]
-:CODE-301: pass:[<a id="code-301"><a href="#code-301" class="status-code">301</a></a>]
-:CODE-303: pass:[<a id="code-303"><a href="#code-303" class="status-code">303</a></a>]
-:CODE-304: pass:[<a id="code-304"><a href="#code-304" class="status-code">304</a></a>]
-:CODE-400: pass:[<a id="code-400"><a href="#code-400" class="status-code">400</a></a>]
-:CODE-401: pass:[<a id="code-401"><a href="#code-401" class="status-code">401</a></a>]
-:CODE-403: pass:[<a id="code-403"><a href="#code-403" class="status-code">403</a></a>]
-:CODE-404: pass:[<a id="code-404"><a href="#code-404" class="status-code">404</a></a>]
-:CODE-405: pass:[<a id="code-405"><a href="#code-405" class="status-code">405</a></a>]
-:CODE-406: pass:[<a id="code-406"><a href="#code-406" class="status-code">406</a></a>]
-:CODE-408: pass:[<a id="code-408"><a href="#code-408" class="status-code">408</a></a>]
-:CODE-409: pass:[<a id="code-409"><a href="#code-409" class="status-code">409</a></a>]
-:CODE-410: pass:[<a id="code-410"><a href="#code-410" class="status-code">410</a></a>]
-:CODE-412: pass:[<a id="code-412"><a href="#code-412" class="status-code">412</a></a>]
-:CODE-415: pass:[<a id="code-415"><a href="#code-415" class="status-code">415</a></a>]
-:CODE-423: pass:[<a id="code-423"><a href="#code-423" class="status-code">423</a></a>]
-:CODE-428: pass:[<a id="code-428"><a href="#code-428" class="status-code">428</a></a>]
-:CODE-429: pass:[<a id="code-429"><a href="#code-429" class="status-code">429</a></a>]
-:CODE-500: pass:[<a id="code-500"><a href="#code-500" class="status-code">500</a></a>]
-:CODE-501: pass:[<a id="code-501"><a href="#code-501" class="status-code">501</a></a>]
-:CODE-503: pass:[<a id="code-503"><a href="#code-503" class="status-code">503</a></a>]
 
 // Attributes to improve linking to special definition anchors.
 :Idempotency-Key: pass:[<a href="#230"><code>Idempotency-Key</code></a>]
+:x-extensible-enum: pass:[<a href="#112"><code>x-extensible-enum</code></a>]
 
 
 // Attributes to improve design and linking of common headers.
@@ -109,6 +91,12 @@
 :entity-tag: pass:[<a href="https://tools.ietf.org/html/rfc7232#section-2.3"><code>&lt;entity-tag&gt;</code></a>]
 :If-Match: pass:[<a href="https://tools.ietf.org/html/rfc7232#section-3.1"><code>If-Match</code></a>]
 :If-None-Match: pass:[<a href="https://tools.ietf.org/html/rfc7232#section-3.2"><code>If-None-Match</code></a>]
+
+:Last-Modified: pass:[<a href="https://tools.ietf.org/html/rfc7232#section-2.2"><code>Last-Modified</code></a>]
+:If-Modified-Since: pass:[<a href="https://tools.ietf.org/html/rfc7232#section-3.3"><code>If-Modified-Since</code></a>]
+:If-Unmodified-Since: pass:[<a href="https://tools.ietf.org/html/rfc7232#section-3.4"><code>If-Unmodified-Since</code></a>]
+:If-Range: pass:[<a href="https://tools.ietf.org/html/rfc7232#section-3.5"><code>If-Range</code></a>]
+
 
 :Accept: pass:[<a href="https://tools.ietf.org/html/rfc7231#section-5.3.2"><code>Accept</code></a>]
 :Accept-Charset: pass:[<a href="https://tools.ietf.org/html/rfc7231#section-5.3.3"><code>Accept-Charset</code></a>]
@@ -127,6 +115,7 @@
 :Prefer: pass:[<a href="https://tools.ietf.org/html/rfc7240"><code>Prefer</code></a>]
 :Preference-Applied: pass:[<a href="https://tools.ietf.org/html/rfc7240#section-3"><code>Preference-Applied</code></a>]
 
+:Retry-After: pass:[<a href="https://tools.ietf.org/html/rfc7231#section-7.1.3"><code>Retry-After</code></a>]
 :Vary: pass:[<a href="https://tools.ietf.org/html/rfc7231#section-7.1.4"><code>Vary</code></a>]
 :Cache-Control: pass:[<a href="https://tools.ietf.org/html/rfc7234#section-5.2"><code>Cache-Control</code></a>]
 :Cache-Control#no-store: pass:[<a href="https://tools.ietf.org/html/rfc7234#section-5.2.2.2"><code>Cache-Control: no-store</code></a>]
@@ -136,8 +125,6 @@
 :RFC-safe: pass:[<a href="https://tools.ietf.org/html/rfc7231#section-4.2.1">safe</a>]
 :RFC-idempotent: pass:[<a href="https://tools.ietf.org/html/rfc7231#section-4.2.2">idempotent</a>]
 :RFC-cacheable: pass:[<a href="https://tools.ietf.org/html/rfc7231#section-4.2.3">cacheable</a>]
-
-
 
 
 = Zalando RESTful API and Event Scheme Guidelines
