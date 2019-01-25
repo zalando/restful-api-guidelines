@@ -13,6 +13,8 @@ To see a list of all changes, please have a look at the https://github.com/zalan
 [[rule-changes]]
 == Rule Changes
 
+* `2019-01-24:` Improve guidance on caching (<<149>>, <<227>>). 
+* `2019-01-15:` Improve guidance on idempotency, introduce idempotency-key (<<229>>, <<231>>).
 * `2018-06-11:` Introduced new naming guidelines for host, permission, and event names.
 * `2018-01-10:` Moved meta information related aspects into new chapter <<meta-information>>.
 * `2018-01-09:` Changed publication requirements for API specifications (<<192>>).
