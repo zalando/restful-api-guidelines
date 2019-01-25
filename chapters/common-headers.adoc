@@ -6,7 +6,7 @@ questions in our daily usage, or which are useful in particular circumstances
 but not widely known.
 
 [#178]
-== {MUST} Use `Content-.*` Headers Correctly
+== {MUST} Use `Content-*` Headers Correctly
 
 Content or entity headers are headers with a `Content-` prefix. They describe
 the content of the body of the message and they can be used in both, HTTP
@@ -109,10 +109,10 @@ components:
           return using 204 without resource (minimal) or using 200 or 201 with
           resource (representation) in the response body on success.
         * **wait=<delta-seconds>** is used to suggest a maximum time the server
-          has time to process the request.
+          has time to process the request synchronously.
         * **handling=<strinct|lenient>** is used to suggest the server to be
-          strict and report error conditions or lenient and try to continue
-          - if possible.
+          strict and report error conditions or lenient, i.e. robust and try to
+          continue, if possible.
 
       type: string
       required: false

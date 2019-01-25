@@ -170,7 +170,7 @@ GET /order/123?embed=(items) HTTP/1.1
 ----
 
 [#227]
-== {MUST} Document Caching, if Supported
+== {MUST} Document Cachable `GET`, `HEAD`, and `POST` Endpoints
 
 Caching has to take many aspects into account, e.g. general <<cacheable,
 cacheability>> of response information, our guideline to protect endpoints
