@@ -92,6 +92,12 @@
 :If-Match: pass:[<a href="https://tools.ietf.org/html/rfc7232#section-3.1"><code>If-Match</code></a>]
 :If-None-Match: pass:[<a href="https://tools.ietf.org/html/rfc7232#section-3.2"><code>If-None-Match</code></a>]
 
+:Last-Modified: pass:[<a href="https://tools.ietf.org/html/rfc7232#section-2.2"><code>Last-Modified</code></a>]
+:If-Modified-Since: pass:[<a href="https://tools.ietf.org/html/rfc7232#section-3.3"><code>If-Modified-Since</code></a>]
+:If-Unmodified-Since: pass:[<a href="https://tools.ietf.org/html/rfc7232#section-3.4"><code>If-Unmodified-Since</code></a>]
+:If-Range: pass:[<a href="https://tools.ietf.org/html/rfc7232#section-3.5"><code>If-Range</code></a>]
+
+
 :Accept: pass:[<a href="https://tools.ietf.org/html/rfc7231#section-5.3.2"><code>Accept</code></a>]
 :Accept-Charset: pass:[<a href="https://tools.ietf.org/html/rfc7231#section-5.3.3"><code>Accept-Charset</code></a>]
 :Accept-Encoding: pass:[<a href="https://tools.ietf.org/html/rfc7231#section-5.3.4"><code>Accept-Encoding</code></a>]
