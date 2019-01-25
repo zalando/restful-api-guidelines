@@ -41,15 +41,15 @@ via {Accept-Encoding} request header -- see also {RFC-7231}#section-5.3.4[RFC
 {Content-Encoding} header.
 
 [#157]
-== {SHOULD} Support Filtering of Resource Fields
+== {SHOULD} Support Partial Responses via Filtering
 
 Depending on your use case and payload size, you can significantly
 reduce network bandwidth need by supporting filtering of returned entity
 fields. Here, the client can explicitly determine the subset of fields he wants to
 receive via the `fields` query parameter. (It is analogue to https://graphql.org/learn/queries/#fields[GraphQL `fields`]
 and simple queries, and also applied, for instance, for
-https://cloud.google.com/appengine/docs/python/taskqueue/rest/performance#partial-response[Google
-AppEngine API's partial responses].)
+https://cloud.google.com/storage/docs/json_api/v1/how-tos/performance#partial-response[Google
+Cloud API's partial responses].)
 
 [[unfiltered]]
 === Unfiltered
