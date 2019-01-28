@@ -45,7 +45,7 @@ case-sensitive.
 [cols="15%,10%,60%,15%",options="header",]
 |=======================================================================
 |Header field name |Type |Description |Header field value example
-|X-Flow-ID |String | see [#232] Use X-Flow-ID |GKY7oDhpSiKY_gAAAABZ_A
+|X-Flow-ID |String | see <<#233>> Use X-Flow-ID |GKY7oDhpSiKY_gAAAABZ_A
 
 |X-Tenant-ID |String | Identifies the tenant initiated the request
 to the multi tenant Zalando Platform. The X-Tenant-ID must be set 
@@ -111,7 +111,7 @@ entity in a subsequent request. In such cases, the proprietary headers
 must still be propagated as headers with the subsequent request, despite
 the duplication of information.
 
-[#232]
+[#233]
 == {MUST} Use X-Flow-ID
 
 The Flow-Id is a generic pass through service API and event parameter that
