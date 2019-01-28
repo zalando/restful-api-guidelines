@@ -4,43 +4,42 @@
 [#148]
 == {MUST} Use HTTP Methods Correctly
 
-Be compliant with the standardized HTTP method semantics summarized as
-follows:
+Be compliant with the standardized HTTP method semantics summarized as follows:
 
 
 [[get]]
 === GET
 
-GET requests are used to *read* either a single or a collection resource.
+{GET} requests are used to *read* either a single or a collection resource.
 
-* GET requests for individual resources will usually generate a 404 if the
+* {GET} requests for individual resources will usually generate a {404} if the
 resource does not exist
-* GET requests for collection resources may return either 200 (if the
-collection is empty) or 404 (if the collection is missing)
-* GET requests must NOT have a request body payload
+* {GET} requests for collection resources may return either {200} (if the
+collection is empty) or {404} (if the collection is missing)
+* {GET} requests must NOT have a request body payload (see {GET-with-Body})
 
-*Note:* GET requests on collection resources should provide sufficient
-<<filter, #137>> and <<pagination>> mechanisms.
+*Note:* {GET} requests on collection resources should provide sufficient
+<<137, filter>> and <<pagination>> mechanisms.
 
 
 [[get-with-body]]
 === GET with Body
 
-APIs sometimes face the problem, that they have to provide extensive
-structured request information with GET, that may conflicts with the size
-limits of clients, load-balancers, and servers. As we require APIs to be
-standard conform (body in GET must be ignored on server side), API designers
-have to check the following two options:
+APIs sometimes face the problem, that they have to provide extensive structured
+request information with {GET}, that may conflict with the size limits of
+clients, load-balancers, and servers. As we require APIs to be standard conform
+(body in {GET} must be ignored on server side), API designers have to check the
+following two options:
 
-1. GET with URL encoded query parameters: when it is possible to encode the
+1. {GET} with URL encoded query parameters: when it is possible to encode the
 request information in query parameters, respecting the usual size limits of
 clients, gateways, and servers, this should be the first choice. The request
 information can either be provided distributed to multiple query parameters or
 a single structured URL encoded string.
-2. POST with body content: when a GET with URL encoded query parameters is not
-possible, a POST with body content must be used. In this case the endpoint
-must be documented with the hint `GET with body` to transport the GET semantic
-of this call.
+2. {POST} with body content: when a {GET} with URL encoded query parameters
+is not possible, a {POST} with body content must be used. In this case the
+endpoint must be documented with the hint {GET-with-Body} to transport the
+{GET} semantic of this call.
 
 *Note:* It is no option to encode the lengthy structured request information
 in header parameters. From a conceptual point of view, the semantic of an
@@ -54,107 +53,102 @@ settings. Thus, switching to headers does not solve the original problem.
 [[put]]
 === PUT
 
-PUT requests are used to *update* (in rare cases to create) *entire*
-resources - single or collection resources. The semantic is best described
+{PUT} requests are used to *update* (in rare cases to create) *entire*
+resources – single or collection resources. The semantic is best described
 as _"please put the enclosed representation at the resource mentioned by
 the URL, replacing any existing resource."_.
 
-* PUT requests are usually applied to single resources, and not to collection
+* {PUT} requests are usually applied to single resources, and not to collection
 resources, as this would imply replacing the entire collection
-* PUT requests are usually robust against non-existence of resources by
+* {PUT} requests are usually robust against non-existence of resources by
 implicitly creating before updating
-* on successful PUT requests, the server will *replace the entire resource*
+* on successful {PUT} requests, the server will *replace the entire resource*
 addressed by the URL with the representation passed in the payload (subsequent
 reads will deliver the same payload)
-* successful PUT requests will usually generate 200 or 204 (if the resource
-was updated - with or without actual content returned), and 201 (if the
-resource was created)
+* successful {PUT} requests will usually generate {200} or {204} (if the
+resource was updated – with or without actual content returned), and {201} (if
+the resource was created)
 
-*Important:* It is best practice to prefer POST over PUT for creation of (at
-least top-level) resources. This leaves the resource ID under control of the
-service and allows to concentrate on the update semantic using PUT as follows.
+*Important:* It is best practice to prefer {POST} over {PUT} for creation of
+(at least top-level) resources. This leaves the resource ID under control of
+the service and allows to concentrate on the update semantic using {PUT} as
+follows.
 
-*Tip:* To prevent unnoticed concurrent updates when using PUT, the combination
-of <<182,`ETag` and `If-(None-)Match`>> headers should be considered to signal
-the server stricter demands to expose conflicts and prevent lost updates.
-The section <<optimistic-locking>> also describes some alternatives to this
-approach. 
-
-*Note:* In the rare cases where PUT is although used for resource creation,
+*Note:* In the rare cases where {PUT} is although used for resource creation,
 the resource IDs are maintained by the client and passed as a URL path segment.
-Putting the same resource twice is required to be idempotent and to result in
-the same single resource instance.
+Putting the same resource twice is required to be <<idempotent>> and to result
+in the same single resource instance (see <<149>>).
 
+*Hint:* To prevent unnoticed concurrent updates and duplicate creations when
+using {PUT}, you <<182>> to allow the server to react on stricter demands that
+expose conflicts and prevent lost updates. See also <<optimistic-locking>> for
+details and options.
 
 [[post]]
 === POST
 
-POST requests are idiomatically used to *create* single resources on a
+{POST} requests are idiomatically used to *create* single resources on a
 collection resource endpoint, but other semantics on single resources endpoint
 are equally possible. The semantic for collection endpoints is best described
 as _"please add the enclosed representation to the collection resource
 identified by the URL"_.
 
-* on a successful POST request, the server will create one or multiple new
+* on a successful {POST} request, the server will create one or multiple new
 resources and provide their URI/URLs in the response
-* successful POST requests will usually generate 200 (if resources have been
-updated), 201 (if resources have been created), and 202 (if the request was
-accepted but has not been finished yet)
+* successful {POST} requests will usually generate {200} (if resources have
+been updated), {201} (if resources have been created), {202} (if the request
+was accepted but has not been finished yet), and exceptionally {204} with
+{Location} header (if the actual resource is not returned).
 
 The semantic for single resource endpoints is best described as _"please
 execute the given well specified request on the resource identified by the
 URL"_.
 
-*Generally:* POST should be used for scenarios that cannot be covered by the
+*Generally:* {POST} should be used for scenarios that cannot be covered by the
 other methods sufficiently. In such cases, make sure to document the fact that
-POST is used as a workaround (see <<get-with-body>>). 
+{POST} is used as a workaround (see {GET-with-Body}). 
 
-*Note:* Resource IDs with respect to POST requests are created and maintained
+*Note:* Resource IDs with respect to {POST} requests are created and maintained
 by server and returned with response payload.
 
-*Tip:* Posting the same resource twice is by itself *not* required to be
-_idempotent_ and may result in multiple resource instances. However, it is
-best practice to implement POST _idempotent_, by temporary or permanently
-storing _foreign keys_ or _idempotency keys_ to identify re-send requests on
-the server. Here, a _foreign key_ is a natural partner resource ID, e.g. the
-shopping cart ID is a _foreign key_ candidate for an order, while an
-_idempotency key_ is an artificial request key that is preserved when
-re-sending the POST request.
+*Hint:* Posting the same resource twice is *not* required to be <<idempotent>>
+(check <<149>>) and may result in multiple resources. However, you <<229>> to
+prevent this.
 
 
 [[patch]]
 === PATCH
 
-PATCH requests are used to *update parts* of single resources, i.e. where only
+{PATCH} requests are used to *update parts* of single resources, i.e. where only
 a specific subset of resource fields should be replaced. The semantic is best
 described as _"please change the resource identified by the URL according to my
 change request"_. The semantic of the change request is not defined in the HTTP
 standard and must be described in the API specification by using suitable media
 types.
 
-* PATCH requests are usually applied to single resources as patching entire
+* {PATCH} requests are usually applied to single resources as patching entire
 collection is challenging
-* PATCH requests are usually not robust against non-existence of resource
+* {PATCH} requests are usually not robust against non-existence of resource
 instances
-* on successful PATCH requests, the server will update parts of the resource
+* on successful {PATCH} requests, the server will update parts of the resource
 addressed by the URL as defined by the change request in the payload
-* successful PATCH requests will usually generate 200 or 204 (if resources
-have been updated with or without updated content returned)
+* successful {PATCH} requests will usually generate {200} or {204} (if
+resources have been updated with or without updated content returned)
 
-*Note:* since implementing PATCH correctly is a bit tricky, we strongly suggest
+*Note:* since implementing {PATCH} correctly is a bit tricky, we strongly suggest
 to choose one and only one of the following patterns per endpoint, unless
 forced by a <<106,backwards compatible change>>. In preference order:
 
-1. use PUT with complete objects to update a resource as long as feasible (i.e.
-do not use PATCH at all).
-2. use PATCH with partial objects to only update parts of a resource, whenever
+1. use {PUT} with complete objects to update a resource as long as feasible (i.e.
+do not use {PATCH} at all).
+2. use {PATCH} with partial objects to only update parts of a resource, whenever
 possible. (This is basically https://tools.ietf.org/html/rfc7396[JSON Merge
 Patch], a specialized media type `application/merge-patch+json` that is a partial
 resource representation.)
-3. use PATCH with http://tools.ietf.org/html/rfc6902[JSON Patch], a specialized
+3. use {PATCH} with http://tools.ietf.org/html/rfc6902[JSON Patch], a specialized
 media type `application/json-patch+json` that includes instructions on how to
 change the resource.
-4. use POST (with a proper description of what is happening) instead of PATCH,
+4. use {POST} (with a proper description of what is happening) instead of {PATCH},
 if the request does not modify the resource in a way defined by the semantics
 of the media type.
 
@@ -165,80 +159,177 @@ http://tools.ietf.org/html/rfc6902[JSON Patch] can shown its full power while
 still showing readable patch requests (see also
 http://erosb.github.io/post/json-patch-vs-merge-patch[JSON patch vs. merge]).
 
-*Tip:* To prevent unnoticed concurrent updates when using PATCH, the
-combination of <<182,`ETag` and `If-Match`>> headers should be considered to
-signal the server stricter demands to expose conflicts and prevent lost
-updates.
+*Note:* Patching the same resource twice is *not* required to be <<idempotent>>
+(check <<149>>) and may result in a changing result. However, you <<229>> to
+prevent this.
 
+*Hint:* To prevent unnoticed concurrent updates when using {PATCH} you <<182>>
+to allow the server to react on stricter demands that expose conflicts and
+prevent lost updates. See <<optimistic-locking>> and <<229>> for details and
+options.
 
 [#delete]
 === DELETE
 
-DELETE requests are used to *delete* resources. The semantic is best described
-as _"please delete the resource identified by the URL"_.
+{DELETE} requests are used to *delete* resources. The semantic is best
+described as _"please delete the resource identified by the URL"_.
 
-* DELETE requests are usually applied to single resources, not on collection
+* {DELETE} requests are usually applied to single resources, not on collection
 resources, as this would imply deleting the entire collection
-* successful DELETE requests will usually generate 200 (if the deleted resource
-is returned) or 204 (if no content is returned)
-* failed DELETE requests will usually generate 404 (if the resource cannot be
-found) or 410 (if the resource was already deleted before)
+* successful {DELETE} requests will usually generate {200} (if the deleted
+resource is returned) or {204} (if no content is returned)
+* failed {DELETE} requests will usually generate {404} (if the resource cannot
+be found) or {410} (if the resource was already deleted before)
 
-*Important:* After deleting a resource with DELETE, a GET request on the
-resource is expected to either return 404 (not found) or 410 (gone) depending
-on how the resource is represented after deletion. Under no circumstances the
-resource must be accessible after this operation on its endpoint. 
+*Important:* After deleting a resource with {DELETE}, a {GET} request on the
+resource is expected to either return {404} (not found) or {410} (gone)
+depending on how the resource is represented after deletion. Under no
+circumstances the resource must be accessible after this operation on its
+endpoint.
 
 
 [[head]]
 === HEAD
 
-HEAD requests are used to *retrieve* the header information of single resources
-and resource collections.
+{HEAD} requests are used to *retrieve* the header information of single
+resources and resource collections.
 
-* HEAD has exactly the same semantics as GET, but returns headers only, no
+* {HEAD} has exactly the same semantics as {GET}, but returns headers only, no
 body.
 
-*Hint:* This is particular useful to efficiently lookup whether large resources
-or collection resources have been updated in conjunction with the
-https://tools.ietf.org/html/rfc7232#section-2.3[`ETag`-header].
+*Hint:* {HEAD} is particular useful to efficiently lookup whether large
+resources or collection resources have been updated in conjunction with the
+{ETag}-header.
 
 [[options]]
 === OPTIONS
 
-OPTIONS requests are used to *inspect* the available operations (HTTP methods)
-of a given endpoint.
+{OPTIONS} requests are used to *inspect* the available operations (HTTP
+methods) of a given endpoint.
 
-* OPTIONS responses usually either return a comma separated list of methods in
-the `Allow` header or as a structured list of link templates
+* {OPTIONS} responses usually either return a comma separated list of methods
+in the `Allow` header or as a structured list of link templates
 
-*Note:* OPTIONS is rarely implemented, though it could be used to self-describe
-the full functionality of a resource.
+*Note:* {OPTIONS} is rarely implemented, though it could be used to
+self-describe the full functionality of a resource.
 
 
 [#149]
-== {MUST} Fulfill Safeness and Idempotency Properties
+== {MUST} Fulfill Common Method Properties
 
-An operation can be...
+Request methods in RESTful services can be...
 
-* idempotent, i.e. operation will have the same effect on the server's state if executed
-once or multiple times (note: this does not necessarily mean returning
-the same response or status code)
-* safe, i.e. must not have side effects such as state changes
+* [[safe, safe]]{RFC-safe} - the operation semantic is defined to be read-only,
+  meaning it must not have _intended side effects_, i.e. changes, to the server
+  state.
+* [[idempotent, idempotent]]{RFC-idempotent} - the operation has the same
+  _intended effect_ on the server state, independently whether it is executed
+  once or multiple times. *Note:* this does not require that the operation is
+  returning the same response or status code.
+* [[cacheable, cacheable]]{RFC-cacheable} - to indicate that responses are
+  allowed to be stored for future reuse. In general, requests to safe methods
+  are cachable, if it does not require a current or authoritative response
+  from the server.
 
-Method implementations must fulfill the following basic properties:
+*Note:* The above definitions, of _intended (side) effect_ allows the server
+to provide additional state changing behavior as logging, accounting, pre-
+fetching, etc. However, these actual effects and state changes, must not be
+intended by the operation so that it can be held accountable.
 
-[cols=",,",options="header",]
-|=============================
-|HTTP method |safe |idempotent
-|OPTIONS |Yes |Yes
-|HEAD |Yes |Yes
-|GET |Yes |Yes
-|PUT |No |Yes
-|POST |No |No
-|DELETE |No |Yes
-|PATCH |No |No
-|=============================
+Method implementations must fulfill the following basic properties according
+to {RFC-7231}[RFC 7231]:
+
+[cols="15%,15%,35%,35%",options="header",]
+|====================================================
+| Method    | Safe  | Idempotent | Cacheable
+| {GET}     | {YES} | {YES}      | {YES}
+| {HEAD}    | {YES} | {YES}      | {YES}
+| {POST}    | {NO}  | {AT} No, but <<229>> | {AT} May, but only if specific
+{POST} endpoint is <<safe>>. *Hint:* not supported by most caches.
+| {PUT}     | {NO}  | {YES}      | {NO}
+| {PATCH}   | {NO}  | {AT} No, but <<229>> | {NO}
+| {DELETE}  | {NO}  | {YES}      | {NO}
+| {OPTIONS} | {YES} | {YES}      | {NO}
+| {TRACE}   | {YES} | {YES}      | {NO}
+|====================================================
+
+*Note:* <<227>>.
+
+[#229]
+== {SHOULD} Consider To Design `POST` and `PATCH` Idempotent
+
+In many cases it is helpful or even necessary to design {POST} and {PATCH}
+<<idempotent>> for clients to expose conflicts and prevent resource duplicate
+(a.k.a. zombie resources) or lost updates, e.g. if same resources may be
+created or changed in parallel or multiple times. To design an <<idempotent>>
+API endpoint owners should consider to apply one of the following three
+patterns.
+
+* A resource specific *conditional key* provided via <<182,`If-Match` header>>
+  in the request. The key is in general a meta information of the resource,
+  e.g. a _hash_ or _version number_, often stored with it. It allows to detect
+  concurrent creations and updates to ensure <<idempotent>> behavior (see
+  <<182>>).
+* A resource specific *secondary key* provided as resource property in the
+  request body. The _secondary key_ is stored permanently in the resource. It
+  allows to ensure <<idempotent>> behavior by looking up the unique secondary
+  key in case of multiple independent resource creations from different
+  clients (see <<231>>).
+* A client specific *idempotency key* provided via {Idempotency-Key} header
+  in the request. The key is not part of the resource but stored temporarily
+  pointing to the original response to ensure <<idempotent>> behavior when
+  retrying a request (see <<230>>).
+
+*Note:* While *conditional key* and *secondary key* are focused on handling
+concurrent requests, the *idempotency key* is focused on providing the exact
+same responses, which is even a _stronger_ requirement than the <<idempotent,
+idempotency defined above>>. It can be combined with the two other patterns.
+
+To decide, which pattern is suitable for your use case, please consult the
+following table showing the major properties of each pattern:
+
+[,cols="46%,18%,18%,18%",options="header",]
+|==================================================================================
+|                               | Conditional Key | Secondary Key | Idempotency Key
+| Applicable with                       | {PATCH} | {POST}  | {POST}/{PATCH}
+| HTTP Standard                         | {YES}   | {NO}    | {NO}
+| Prevents duplicate (zombie) resources | {YES}   | {YES}   | {NO}
+| Prevents concurrent lost updates      | {YES}   | {NO}    | {NO} 
+| Supports safe retries                 | {YES}   | {YES}   | {YES}
+| Supports exact same response          | {NO}    | {NO}    | {YES}
+| Can be inspected (by intermediaries)  | {YES}   | {NO}    | {YES}
+| Usable without previous {GET}         | {NO}    | {YES}   | {YES}
+|==================================================================================
+
+*Note:* The patterns applicable to {PATCH} can be applied in the same way to
+{PUT} and {DELETE} providing the same properties.
+
+If you mainly aim to support safe retries, we suggest to apply <<182,
+conditional key>> and <<231,secondary key>> pattern before the <<230,
+Idempotency Key>> pattern.
+
+[#231]
+== {Should} Use Secondary Key for Idempotent `POST` Design
+
+The most important pattern to design {POST} <<idempotent>> for creation is to
+introduce a resource specific *secondary key* provided in the request body, to
+eliminate the problem of duplicate (a.k.a zombie) resources.
+
+The secondary key is stored permanently in the resource as _alternate key_ or
+_combined key_ (if consisting of multiple properties) guarded by a uniqueness
+constraint enforced server-side, that is visible when reading the resource.
+The best and often naturally existing candidate is a _unique foreign key_, that
+points to another resource having _one-on-one_ relationship with the newly
+created resource, e.g. a parent process identifier.
+
+A good example here for a secondary key is the shopping cart ID in an order
+resource.
+
+*Note:* When using the secondary key pattern without {Idempotency-Key} all
+subsequent retries should fail with status code {409} (conflict). We suggest
+to avoid {200} here unless you make sure, that the delivered resource is the
+original one implementing a well defined behavior. Using {204} without content
+would be a similar well defined option.
 
 [#154]
 == {SHOULD} Define Collection Format of Query Parameters and Headers
@@ -267,19 +358,20 @@ is authorized to access.
 
 Implicit filtering could be done on:
 
-* the collection of resources being return on a parent `GET` request
+* the collection of resources being return on a parent {GET} request
 * the fields returned for the resource's detail
 
-In such cases, the implicit filtering must be in the API Specification (in its description).
+In such cases, the implicit filtering must be in the API specification (in its description).
 
 Consider <<227,caching considerations>> when implicitely filtering.
 
 Example:
 
 If an employee of the company _Foo_ accesses one of our business-to-business
-service and performs a `GET /business-partners`, it must, for legal reasons, not display
-any other business partner that is not owned or contractually managed by her/his company.
-It should never see that we are doing business also with company _Bar_.
+service and performs a `{GET} /business-partners`, it must, for legal reasons,
+not display any other business partner that is not owned or contractually
+managed by her/his company. It should never see that we are doing business
+also with company _Bar_.
 
 Response as seen from a consumer working at `FOO`:
 
