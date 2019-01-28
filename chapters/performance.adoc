@@ -202,7 +202,8 @@ following rules:
   caching boundaries, i.e. time-to-live and cache constraints, by providing
   sensible values for {Cache-Control} and {Vary} in your service. We will
   explain best practices below.
-* Provide efficient methods to warm up and update caches, e.g. as follows:
+* [[cache-support-patterns]]Provide efficient methods to warm up and update
+  caches, e.g. as follows:
 ** In general, you should support <<182, `ETag` Together With `If-Match`/
    `If-None-Match` Header>> on all <<cacheable>> endpoints.
 ** For larger data items support {HEAD} requests or more efficient {GET}
@@ -215,7 +216,7 @@ following rules:
    for limiting the response to changes since the provided {entity-tag}. *Note:*
    this is not supported by generic client and proxy caches on HTTP layer.
 
-*Hint:* For proper cache support you must return {304} without content on a
+*Hint:* For proper cache support, you must return {304} without content on a
 failed {HEAD} or {GET} request with `If-None-Match: <entity-tag>` instead of {412}.
 
 [source,yaml]
@@ -289,7 +290,8 @@ Therefore, we strongly recommend to attach the (possibly distributed) cache
 directly to the service (or gateway) layer of your application. This relieves
 from interpreting the {vary} header and greatly simplifies interpreting the
 {Cache-Control} and {ETag} headers. Moreover, is highly efficient with respect
-to caching performance and overhead, and allows more advanced.
+to caching performance and overhead, and allows to support more
+<<cache-support-patterns, advanced cache update and warm up patterns>>.
 
 Anyhow, please carefully read {RFC-7234}[RFC 7234] before adding any client or
 proxy cache.
