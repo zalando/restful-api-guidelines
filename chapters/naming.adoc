@@ -173,3 +173,4 @@ paginating, you must stick to the following naming conventions:
   recreate the collection. See <<pagination>> section below.
 * `limit` — client suggested limit to restrict the number of entries on
   a page. See <<pagination>> section below.
+
