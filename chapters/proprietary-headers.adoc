@@ -125,13 +125,16 @@ the duplication of information.
 
 The *Flow-Id* is a generic parameter to be through service APIs and events,
 that is should be written into log files and traces. A Consequent usage of the
-_Flow-Id_ facilitates the tracking of call flows through our system and allows
+*Flow-Id* facilitates the tracking of call flows through our system and allows
 the correlation of service activities initiated by a specific call. This is
-extremely helpful for operational troubleshooting and log analysis.
+extremely helpful for operational troubleshooting and log analysis. Main use
+case of *Flow-Id* is to track service calls of our SaaS fashion commerce
+platform and initiated internal processing flows (executed synchronously via
+APIs or asynchronously via published events).
 
 *Data Definition*
 
-The _Flow-Id_ must be passed through:
+The *Flow-Id* must be passed through:
 
 * RESTful API requests via {X-Flow-ID} proprietary header (see <<184>>)
 * Published events via `flow_id` event field (see <<event-metadata, metadata>>)
