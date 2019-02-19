@@ -45,52 +45,51 @@ case-sensitive.
 [cols="15%,10%,60%,15%",options="header",]
 |=======================================================================
 |Header field name |Type |Description |Header field value example
-|X-Flow-ID |String |The flow id of the request, which is written into
-the logs and passed to called services. Helpful for operational
-troubleshooting and log analysis. It supports traceability of requests
-and identifying request flows through system of many services. It should
-be a string consisting of just printable ASCII characters (i.e. without
-whitespace). Verify in a received request that it fits to a specific
-format, has a sensible maximum length and possibly throw out or escape
-characters/bytes which could crash your log parsing (line breaks, tabs,
-spaces, NULL). If a legacy subsystem can only work with flow IDs of a
-specific format, it needs to define this in its API, or make its own
-ones. |GKY7oDhpSiKY_gAAAABZ_A
 
-|X-Tenant-ID |String | Identifies the tenant initiated the request
-to the multi tenant Zalando Platform. The X-Tenant-ID must be set 
+|[[x-flow-id]]{X-Flow-ID}|String|
+For more information see <<233>>.
+|GKY7oDhpSiKY_gAAAABZ_A
+
+|[[x-tenant-id]]{X-Tenant-ID}|String|
+Identifies the tenant initiated the request
+to the multi tenant Zalando Platform. The {X-Tenant-ID} must be set 
 according to the Business Partner ID extracted from the OAuth token when 
 a request from a Business Partner hits the Zalando Platform. 
 |9f8b3ca3-4be5-436c-a847-9cd55460c495
 
-|X-Sales-Channel |String |Sales channels are owned by retailers and
-represent a specific consumer segment being addressed with a specific
-product assortment that is offered via CFA retailer catalogs to
-consumers (see
+|[[x-sales-channel]]{X-Sales-Channel}|String|
+Sales channels are owned by retailers and represent a specific consumer segment
+being addressed with a specific product assortment that is offered via CFA
+retailer catalogs to consumers (see
 https://pages.github.bus.zalan.do/core-platform/docs/glossary/glossary.html[platform
-glossary [internal link]]) |52b96501-0f8d-43e7-82aa-8a96fab134d7
+glossary (internal link)])
+|52b96501-0f8d-43e7-82aa-8a96fab134d7
 
-|X-Frontend-Type |String |Consumer facing applications (CFAs) provide
-business experience to their customers via different frontend
-application types, for instance, mobile app or browser. Info should be
-passed-through as generic aspect -- there are diverse concerns, e.g.
-pushing mobiles with specific coupons, that make use of it. Current
-range is mobile-app, browser, facebook-app, chat-app |mobile-app
+|[[c-frontend-type]]{X-Frontend-Type}|String|
+Consumer facing applications (CFAs) provide business experience to their
+customers via different frontend application types, for instance, mobile app
+or browser. Info should be passed-through as generic aspect -- there are
+diverse concerns, e.g. pushing mobiles with specific coupons, that make use of
+it. Current range is mobile-app, browser, facebook-app, chat-app
+|mobile-app
 
-|X-Device-Type |String |There are also use cases for steering customer
-experience (incl. features and content) depending on device type. Via
-this header info should be passed-through as generic aspect. Current
-range is smartphone, tablet, desktop, other |tablet
+|[[x-device-type]]{X-Device-Type}|String|
+There are also use cases for steering customer experience (incl. features and
+content) depending on device type. Via this header info should be passed-through
+as generic aspect. Current range is smartphone, tablet, desktop, other.
+|tablet
 
-|X-Device-OS |String |On top of device type above, we even want to
-differ between device platform, e.g. smartphone Android vs. iOS. Via
-this header info should be passed-through as generic aspect. Current
-range is iOS, Android, Windows, Linux, MacOS |Android
+|[[x-device-os]]{X-Device-OS}|String|
+On top of device type above, we even want to differ between device platform,
+e.g. smartphone Android vs. iOS. Via this header info should be passed-through
+as generic aspect. Current range is iOS, Android, Windows, Linux, MacOS.
+|Android
 
-|X-App-Domain |Integer |The app domain (i.e. shop channel context) of
-the request. Note, app-domain is a legacy concept that will be replaced
-in new platform by combinations of main CFA concerns like retailer,
-sales channel, country |16
+|[[x-app-domain]]{X-App-Domain}|Integer|
+The app domain (i.e. shop channel context) of the request. Note, app-domain is
+a legacy concept that will be replaced in new platform by combinations of main
+CFA concerns like retailer, sales channel, country
+|16
 |=======================================================================
 
 *Exception:* The only exception to this guideline are the conventional
@@ -121,3 +120,56 @@ entity in a subsequent request. In such cases, the proprietary headers
 must still be propagated as headers with the subsequent request, despite
 the duplication of information.
 
+[#233]
+== {MUST} Use `X-Flow-ID`
+
+The *Flow-Id* is a generic parameter to be through service APIs and events,
+that is should be written into log files and traces. A Consequent usage of the
+*Flow-Id* facilitates the tracking of call flows through our system and allows
+the correlation of service activities initiated by a specific call. This is
+extremely helpful for operational troubleshooting and log analysis. Main use
+case of *Flow-Id* is to track service calls of our SaaS fashion commerce
+platform and initiated internal processing flows (executed synchronously via
+APIs or asynchronously via published events).
+
+*Data Definition*
+
+The *Flow-Id* must be passed through:
+
+* RESTful API requests via {X-Flow-ID} proprietary header (see <<184>>)
+* Published events via `flow_id` event field (see <<event-metadata, metadata>>)
+
+It must be an random unique string consisting of maximal 128 chars, restricted
+to the character set `[a-zA-Z0-9/+]` (Base64). Services should verify the _flow
+identifier_ for compliance to the before rules, but should be generous and
+remove invalid characters and cut the length to the supported limit.
+
+*Note:* If a legacy subsystem can only process _Flow-Ids_ with a specific
+format or length, it must define this restrictions in its API specification.
+
+*Hint:* In case distributed tracing is supported by {SRE-Tracing}[OpenTracing
+(internal link)] you should ensure that created _spans_ are tagged using
+`flow_id` (see
+{SRE-Tracing}/blob/master/wg-semantic-conventions/best-practices/flowid.md[How
+to Connect Log Output with OpenTracing Using FlowIDs (internal link)] or
+{SRE-Tracing}/blob/master/wg-semantic-conventions/best-practices.md[Best
+practises (internal link)])
+
+*Service Guidance*
+
+* Services *must* support _Flow-Id_ as generic input, i.e.
+** RESTful API endpoints *must* support {X-Flow-ID} header in requests
+** Event listeners *must* support the metadata `flow-id` from events.
+
+*Note:*  API-Clients *must* provide _Flow-Id_ when calling a service or
+producing events. If no _Flow-Id_ is provided in a request or event, the
+service must create a new _Flow-Id_.
+
+* MUST: Platform services propagate _Flow-Id_. Services use _Flow-Id_ received
+with API-Calls or consumed events as...
+** input for all API called and events published during processing
+** data field written for logging and tracing
+
+*Hint:* This rule also applies to application internal interfaces and events
+not published via Nakadi (but e.g. via AWS SQS, Kinesis or service specific
+DB solutions).

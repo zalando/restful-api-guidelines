@@ -23,6 +23,8 @@
 :RFC-7240: https://tools.ietf.org/html/rfc7240
 :RFC-7807: https://tools.ietf.org/html/rfc7807
 
+:SRE-Tracing: https://github.bus.zalan.do/SRE/opentracing
+
 // Attribute to improve design of key words in titles.
 :MUST: pass:[<span class="must-keyword"><strong>Must</strong></span>:]
 :SHOULD: pass:[<span class="should-keyword"><strong>Should</strong></span>:]
@@ -83,6 +85,14 @@
 
 // Attributes to improve linking to special definition anchors.
 :Idempotency-Key: pass:[<a href="#230"><code>Idempotency-Key</code></a>]
+:X-Flow-ID: pass:[<a href="#x-flow-id"><code>X-Flow-ID</code></a>]
+:X-Tenant-ID: pass:[<a href="#x-tenant-id"><code>X-Tenant-ID</code></a>]
+:X-Sales-Channel: pass:[<a href="#x-sales-channel"><code>X-Sales-Channel</code></a>]
+:X-Frontend-Type: pass:[<a href="#x-frontend-type"><code>X-Frontend-Type</code></a>]
+:X-Device-Type: pass:[<a href="#x-device-type"><code>X-device-Type</code></a>]
+:X-Device-OS: pass:[<a href="#x-device-os"><code>X-device-OS</code></a>]
+:X-App-Domain: pass:[<a href="#x-app-domain"><code>X-App-Domain</code></a>]
+
 :x-extensible-enum: pass:[<a href="#112"><code>x-extensible-enum</code></a>]
 
 
