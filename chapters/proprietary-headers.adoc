@@ -159,6 +159,7 @@ practises (internal link)].
 * Services *must* support _Flow-Id_ as generic input, i.e.
 ** RESTful API endpoints *must* support {X-Flow-ID} header in requests
 ** Event listeners *must* support the metadata `flow-id` from events.
+
 +
 *Note:*  API-Clients *must* provide _Flow-Id_ when calling a service or
 producing events. If no _Flow-Id_ is provided in a request or event, the
