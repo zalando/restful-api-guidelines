@@ -123,8 +123,8 @@ the duplication of information.
 [#233]
 == {MUST} Use `X-Flow-ID`
 
-The *Flow-Id* is a generic parameter to be through service APIs and events,
-that is should be written into log files and traces. A Consequent usage of the
+The *Flow-Id* is a generic parameter to be passed through service APIs and events
+and written into log files and traces. A consequent usage of the
 *Flow-Id* facilitates the tracking of call flows through our system and allows
 the correlation of service activities initiated by a specific call. This is
 extremely helpful for operational troubleshooting and log analysis. Main use
@@ -140,20 +140,19 @@ The *Flow-Id* must be passed through:
 * Published events via `flow_id` event field (see <<event-metadata, metadata>>)
 
 It must be an random unique string consisting of maximal 128 chars, restricted
-to the character set `[a-zA-Z0-9/+]` (Base64). Services should verify the _flow
-identifier_ for compliance to the before rules, but should be generous and
-remove invalid characters and cut the length to the supported limit.
+to the character set `[a-zA-Z0-9/+]` (Base64). 
 
 *Note:* If a legacy subsystem can only process _Flow-Ids_ with a specific
-format or length, it must define this restrictions in its API specification.
+format or length, it must define this restrictions in its API specification,
+and be generous and remove invalid characters or cut the length to the supported limit.
 
 *Hint:* In case distributed tracing is supported by {SRE-Tracing}[OpenTracing
 (internal link)] you should ensure that created _spans_ are tagged using
-`flow_id` (see
+`flow_id` — see
 {SRE-Tracing}/blob/master/wg-semantic-conventions/best-practices/flowid.md[How
 to Connect Log Output with OpenTracing Using FlowIDs (internal link)] or
 {SRE-Tracing}/blob/master/wg-semantic-conventions/best-practices.md[Best
-practises (internal link)])
+practises (internal link)].
 
 *Service Guidance*
 
@@ -161,11 +160,12 @@ practises (internal link)])
 ** RESTful API endpoints *must* support {X-Flow-ID} header in requests
 ** Event listeners *must* support the metadata `flow-id` from events.
 
++
 *Note:*  API-Clients *must* provide _Flow-Id_ when calling a service or
 producing events. If no _Flow-Id_ is provided in a request or event, the
 service must create a new _Flow-Id_.
 
-* MUST: Platform services propagate _Flow-Id_. Services use _Flow-Id_ received
+* Services *must* propagate _Flow-Id_, i.e. use _Flow-Id_ received
 with API-Calls or consumed events as...
 ** input for all API called and events published during processing
 ** data field written for logging and tracing
