@@ -37,7 +37,9 @@ make it discoverable for the group via our https://apis.zalando.net/[API Portal
 *Hint:* A good way to explore *OpenAPI 3.0/2.0* is to navigate through the
 https://openapi-map.apihandyman.io/[OpenAPI specification mind map] and use
 our https://plugins.jetbrains.com/search?search=swagger+Monte[Swagger Plugin
-for IntelliJ IDEA] to create your first API.
+for IntelliJ IDEA] to create your first API. To explore and validate/evaluate
+existing APIs the https://editor.swagger.io/[Swagger Editor] or our
+https://apis.zalando.net[API Portal] may be a good starting point.
 
 
 [#102]
