@@ -81,7 +81,7 @@ More details in RFC 7231 {RFC-7231}#section-7.1.2[7.1.2 Location],
 [#181]
 == {MAY} Consider to Support `Prefer` Header to Handle Processing Preferences
 
-The {Prefer} header defined in {RFC-7240}[RFC-7240] allows clients to request
+The {Prefer} header defined in {RFC-7240}[RFC 7240] allows clients to request
 processing behaviors from servers. It pre-defines a number of preferences and
 is extensible, to allow others to be defined. Support for the {Prefer} header
 is entirely optional and at the discretion of API designers, but as an existing
@@ -119,7 +119,7 @@ components:
 ----
 
 Supporting APIs may return the {Preference-Applied} header also defined in
-{RFC7240}[RFC-7240] to indicate whether a preference has been applied.
+{RFC7240}[RFC 7240] to indicate whether a preference has been applied.
 
 [#182]
 == {MAY} Consider to Support `ETag` Together With `If-Match`/`If-None-Match` Header

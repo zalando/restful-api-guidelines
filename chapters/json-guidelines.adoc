@@ -1,16 +1,15 @@
 [[json-guidelines]]
 = JSON Guidelines
 
-These guidelines provides recommendations for defining JSON data at
-Zalando. JSON here refers to
-http://www.rfc-editor.org/rfc/rfc7159.txt[RFC 7159] (which updates
-https://www.ietf.org/rfc/rfc4627.txt[RFC 4627]), the "application/json"
-media type and custom JSON media types defined for APIs. The guidelines
-clarifies some specific cases to allow Zalando JSON data to have an
-idiomatic form across teams and services.
+These guidelines provides recommendations for defining JSON data at Zalando.
+JSON here refers to {RFC-7159}[RFC 7159] (which updates {RFC-4627}[RFC 4627]),
+the "application/json" media type and custom JSON media types defined for APIs.
+The guidelines clarifies some specific cases to allow Zalando JSON data to have
+an idiomatic form across teams and services.
 
-The first some of the following guidelines are about property names,
-the later ones about values.
+The first some of the following guidelines are about property names, the later
+ones about values.
+
 
 [#118]
 == {MUST} Property names must be ASCII snake_case (and never camelCase): `^[a-z_][a-z_0-9]*$`
@@ -26,6 +25,7 @@ companies prefer snake_case: e.g. GitHub, Stack Exchange, Twitter.
 Others, like Google and Amazon, use both - but not only camelCase. It’s
 essential to establish a consistent look and feel such that JSON looks
 as if it came from the same hand.
+
 
 [#216]
 == {SHOULD} Define Maps Using `additionalProperties`
@@ -78,11 +78,13 @@ An actual JSON object described by this might then look like this:
 }
 ```
 
+
 [#120]
 == {SHOULD} Array names should be pluralized
 
 To indicate they contain multiple values prefer to pluralize array
 names. This implies that object names should in turn be singular.
+
 
 [#122]
 == {MUST} Boolean property values must not be null
@@ -95,34 +97,34 @@ or statuses - for example accepted_terms_and_conditions with true or
 false can be replaced with terms_and_conditions with values yes, no and
 unknown.
 
+
 [#123]
 == {SHOULD} Null values should have their fields removed
 
-OpenAPI, which is in common use, doesn't support null field
-values (it does allow omitting that field completely if it is not marked
-as required). However that doesn't prevent clients and servers sending
-and receiving those fields with null values. Also, in some cases null
-may be a meaningful value - for example, JSON Merge Patch
-https://tools.ietf.org/html/rfc7386[RFC 7382]) using null to indicate
+OpenAPI, which is in common use, doesn't support null field values (it does
+allow omitting that field completely if it is not marked as required).
+However that doesn't prevent clients and servers sending and receiving those
+fields with null values. Also, in some cases null may be a meaningful value
+- for example, JSON Merge Patch {RFC-7396}[RFC 7396]) using null to indicate
 property deletion.
+
 
 [#124]
 == {SHOULD} Empty array values should not be null
 
-Empty array values can unambiguously be represented as the empty
-list, `[]`.
+Empty array values can unambiguously be represented as the empty list, `[]`.
+
 
 [#125]
 == {SHOULD} Enumerations should be represented as Strings
 
-Strings are a reasonable target for values that are by design
-enumerations.
+Strings are a reasonable target for values that are by design enumerations.
+
 
 [#126]
 == {SHOULD} Date property values should conform to RFC 3339
 
-Use the date and time formats defined by
-http://tools.ietf.org/html/rfc3339#section-5.6[RFC 3339]:
+Use the date and time formats defined by {RFC-3339}#section-5.6[RFC 3339]:
 
 * for "date" use strings matching
 `date-fullyear "-" date-month "-" date-mday`, for example: `2015-05-28`
@@ -134,7 +136,7 @@ https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-ty
 format] "date-time" corresponds to "date-time" in the RFC) and
 `2015-05-28` for a date (note that the OpenAPI format "date" corresponds
 to "full-date" in the RFC). Both are specific profiles, a subset of the
-international standard http://en.wikipedia.org/wiki/ISO_8601[ISO 8601].
+international standard {ISO-8601}[ISO 8601].
 
 A zone offset may be used (both, in request and responses) -- this is
 simply defined by the standards. However, we encourage restricting dates
@@ -155,21 +157,23 @@ timestamps, but this can introduce interpretation issues with precision
 1460062925000 or 1460062925.000. Date strings, though more verbose and
 requiring more effort to parse, avoid this ambiguity.
 
+
 [#127]
 == {MAY} Time durations and intervals could conform to ISO 8601
 
 Schema based JSON properties that are by design durations and intervals
-could be strings formatted as recommended by ISO 8601
-(https://tools.ietf.org/html/rfc3339#appendix-A[Appendix A of RFC 3339
-contains a grammar] for durations).
+could be strings formatted as recommended by {ISO-8601}[ISO 8601]
+({RFC-3339}#appendix-A[Appendix A of RFC 3339 contains a grammar] for
+durations).
+
 
 [#128]
 == {MAY} Standards could be used for Language, Country and Currency
 
-* http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2[ISO 3166-1-alpha2 country]
+* {ISO-3166-1-a2}[ISO 3166-1-alpha2 country]
 * (It's "GB", not "UK", even though "UK" has seen some use at Zalando)
-* https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes[ISO 639-1 language code]
-* https://tools.ietf.org/html/bcp47[BCP-47] (based on ISO 639-1) for language variants
-* http://en.wikipedia.org/wiki/ISO_4217[ISO 4217 currency codes]
-
+* {ISO-639-1}[ISO 639-1 language code]
+* https://tools.ietf.org/html/bcp47[BCP-47] (based on {ISO-639-1}[ISO 639-1])
+  for language variants
+* {ISO-4217}[ISO 4217 currency codes]
 

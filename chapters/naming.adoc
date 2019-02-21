@@ -114,8 +114,7 @@ Disposition-Notification-Options
 Original-Message-ID
 ----
 
-See also: http://tools.ietf.org/html/rfc7230#page-22[HTTP Headers are
-case-insensitive (RFC 7230)].
+See also: {RFC-7230}#page-22[HTTP Headers are case-insensitive (RFC 7230)].
 
 See <<common-headers>> and <<proprietary-headers>> sections for more guidance
 on HTTP headers.

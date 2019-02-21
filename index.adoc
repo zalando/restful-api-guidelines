@@ -13,15 +13,29 @@
 
 
 // Some link short cuts.
+:RFC-3339: https://tools.ietf.org/html/rfc3339
 :RFC-4122: https://tools.ietf.org/html/rfc4122
+:RFC-4627: https://tools.ietf.org/html/rfc4627
+:RFC-5988: https://tools.ietf.org/html/rfc5988
 :RFC-6585: https://tools.ietf.org/html/rfc6585
+:RFC-6648: https://tools.ietf.org/html/rfc6648
+:RFC-6838: https://tools.ietf.org/html/rfc6838
+:RFC-6902: https://tools.ietf.org/html/rfc6902
+:RFC-7159: https://tools.ietf.org/html/rfc7159
 :RFC-7230: https://tools.ietf.org/html/rfc7230
 :RFC-7231: https://tools.ietf.org/html/rfc7231
 :RFC-7232: https://tools.ietf.org/html/rfc7232
 :RFC-7233: https://tools.ietf.org/html/rfc7233
 :RFC-7234: https://tools.ietf.org/html/rfc7234
 :RFC-7240: https://tools.ietf.org/html/rfc7240
+:RFC-7396: https://tools.ietf.org/html/rfc7396
 :RFC-7807: https://tools.ietf.org/html/rfc7807
+
+
+:ISO-8601: https://en.wikipedia.org/wiki/ISO_8601
+:ISO-3166-1-a2: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+:ISO-639-1: https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
+:ISO-4217: https://en.wikipedia.org/wiki/ISO_4217
 
 :SRE-Tracing: https://github.bus.zalan.do/SRE/opentracing
 
