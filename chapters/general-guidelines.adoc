@@ -21,18 +21,25 @@ all apis with `x-api-audience =/= component-internal` (see <<219, API Audience>>
 [#101]
 == {MUST} Provide API Specification using OpenAPI
 
-We use the http://swagger.io/specification/[OpenAPI specification]
-as standard to define API specifications files.
-API designers have to provide the API specification files using *YAML*
-to improve readability. We encourage to use *OpenAPI 3.0* version, but
-still support *OpenAPI 2.0* (a.k.a. Swagger 2).
+We use the http://swagger.io/specification/[OpenAPI specification] as standard
+to define API specifications files. API designers have to provide the API
+specification files using *YAML* to improve readability. We encourage to use
+*OpenAPI 3.0* version, but still support *OpenAPI 2.0* (a.k.a. Swagger 2).
 
-The API specification files should be subject to version control using
-a source code management system - best together with the implementing sources. 
+The API specification files should be subject to version control using a source
+code management system - best together with the implementing sources. 
 
-You <<192, must / should publish>> the component <<219, external / internal>> API specification
-with the deployment of the implementing service, and, hence, make it discoverable 
-for the group via our https://apis.zalando.net/[API Portal [internal link]].
+You <<192, must / should publish>> the component <<219, external / internal>>
+API specification with the deployment of the implementing service, and, hence,
+make it discoverable for the group via our https://apis.zalando.net/[API Portal
+[internal link]].
+
+*Hint:* A good way to explore *OpenAPI 3.0/2.0* is to navigate through the
+https://openapi-map.apihandyman.io/[OpenAPI specification mind map] and use
+our https://plugins.jetbrains.com/search?search=swagger+Monte[Swagger Plugin
+for IntelliJ IDEA] to create your first API. To explore and validate/evaluate
+existing APIs the https://editor.swagger.io/[Swagger Editor] or our
+https://apis.zalando.net[API Portal] may be a good starting point.
 
 
 [#102]
