@@ -160,8 +160,7 @@ See <<pagination>> for information how to best represent paginateable collection
 [#166]
 == {MUST} Not Use Link Headers with JSON entities
 
-We don't allow the use of the
-http://tools.ietf.org/html/rfc5988#section-5[`Link` Header defined by
+We don't allow the use of the {RFC-5988}#section-5[`Link` Header defined by
 RFC 5988] in conjunction with JSON media types. We prefer links directly
 embedded in JSON payloads to the uncommon link header syntax.
 

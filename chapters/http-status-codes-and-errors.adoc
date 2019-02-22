@@ -47,9 +47,8 @@ You must only use standardized HTTP status codes consistently with their
 intended semantics. You must not invent new HTTP status codes.
 
 RFC standards define ~60 different HTTP status codes with specific semantics 
-(mainly https://tools.ietf.org/html/rfc7231#section-6[RFC7231] and
-https://tools.ietf.org/html/rfc6585[RFC-6585]) — and there are upcoming
-new ones, e.g.
+(mainly {RFC-7231}#section-6[RFC7231] and {RFC-6585}[RFC 6585]) — and there
+are upcoming new ones, e.g.
 https://tools.ietf.org/html/draft-tbray-http-legally-restricted-status-05[draft
 legally-restricted-status]. See overview on all error codes on
 https://en.wikipedia.org/wiki/List_of_HTTP_status_codes[Wikipedia] or

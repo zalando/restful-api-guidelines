@@ -139,24 +139,23 @@ resources have been updated with or without updated content returned)
 to choose one and only one of the following patterns per endpoint, unless
 forced by a <<106,backwards compatible change>>. In preference order:
 
-1. use {PUT} with complete objects to update a resource as long as feasible (i.e.
-do not use {PATCH} at all).
-2. use {PATCH} with partial objects to only update parts of a resource, whenever
-possible. (This is basically https://tools.ietf.org/html/rfc7396[JSON Merge
-Patch], a specialized media type `application/merge-patch+json` that is a partial
-resource representation.)
-3. use {PATCH} with http://tools.ietf.org/html/rfc6902[JSON Patch], a specialized
-media type `application/json-patch+json` that includes instructions on how to
-change the resource.
-4. use {POST} (with a proper description of what is happening) instead of {PATCH},
-if the request does not modify the resource in a way defined by the semantics
-of the media type.
+1. use {PUT} with complete objects to update a resource as long as feasible
+  (i.e. do not use {PATCH} at all).
+2. use {PATCH} with partial objects to only update parts of a resource,
+   whenever possible. (This is basically {RFC-7396}[JSON Merge Patch], a
+   specialized media type `application/merge-patch+json` that is a partial
+   resource representation.)
+3. use {PATCH} with {RFC-6902}[JSON Patch], a specialized media type
+   `application/json-patch+json` that includes instructions on how to change
+   the resource.
+4. use {POST} (with a proper description of what is happening) instead of
+   {PATCH}, if the request does not modify the resource in a way defined by
+   the semantics of the media type.
 
-In practice https://tools.ietf.org/html/rfc7396[JSON Merge Patch] quickly turns
-out to be too limited, especially when trying to update single objects in large
-collections (as part of the resource). In this cases
-http://tools.ietf.org/html/rfc6902[JSON Patch] can shown its full power while
-still showing readable patch requests (see also
+In practice {RFC-7396}[JSON Merge Patch] quickly turns out to be too limited,
+especially when trying to update single objects in large collections (as part
+of the resource). In this cases {RFC-6902}[JSON Patch] can shown its full
+power while still showing readable patch requests (see also
 http://erosb.github.io/post/json-patch-vs-merge-patch[JSON patch vs. merge]).
 
 *Note:* Patching the same resource twice is *not* required to be <<idempotent>>

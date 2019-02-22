@@ -5,11 +5,10 @@
 == {MUST} Use JSON to Encode Structured Data
 
 Use JSON-encoded body payload for transferring structured data. The JSON
-payload must follow https://tools.ietf.org/html/rfc7159[RFC-7159] by
-having (if possible) a serialized object as the top-level structure,
-since it would allow for future extension. This also applies for
-collection resources where one naturally would assume an array. See <<161>> for
-an example.
+payload must follow {RFC-7159}[RFC 7159] by having (if possible) a serialized
+object as the top-level structure, since it would allow for future extension.
+This also applies for collection resources where one naturally would assume an
+array. See <<161>> for an example.
 
 [#168]
 == {MAY} Use non JSON Media Types for Binary Data or Alternative Content Representations
@@ -17,11 +16,10 @@ an example.
 Other media types may be used in following cases:
 
 * Transferring binary data or data whose structure is not relevant. This is
-the case if payload structure is not interpreted and consumed by clients as is.
-Example of such use case is downloading images in formats JPG, PNG, GIF.
-* In addition to JSON version alternative data representations (e.g. in
-formats PDF, DOC, XML) may be made available through content
-negotiation.
+  the case if payload structure is not interpreted and consumed by clients as
+  is. Example of such use case is downloading images in formats JPG, PNG, GIF.
+* In addition to JSON version alternative data representations (e.g. in formats
+  PDF, DOC, XML) may be made available through content negotiation.
 
 [#172]
 == {SHOULD} Prefer standard Media type name `application/json`
@@ -32,11 +30,9 @@ anymore and should be avoided, except where it is necessary for cases of
 <<114,media type versioning>>. Instead, just use the standard media type name
 `application/json` (or `application/problem+json` for <<176>>).
 
-Custom media types beginning with `x` bring no advantage
-compared to the standard media type for JSON, and make automated
-processing more difficult. They are also
-https://tools.ietf.org/html/rfc6838#section-3.4[discouraged by RFC
-6838].
+Custom media types beginning with `x` bring no advantage compared to the
+standard media type for JSON, and make automated processing more difficult.
+They are also {RFC-6838}#section-3.4[discouraged by RFC 6838].
 
 [#169]
 == {MUST} Use Standard Date and Time Formats
@@ -50,8 +46,7 @@ Read more about date and time format in <<126>>.
 === HTTP headers
 
 Http headers including the proprietary headers use the
-http://tools.ietf.org/html/rfc7231#section-7.1.1.1[HTTP date format
-defined in RFC 7231].
+{RFC-7231}#section-7.1.1.1[HTTP date format defined in RFC 7231].
 
 [#170]
 == {MAY} Use Standards for Country, Language and Currency Codes
@@ -59,14 +54,12 @@ defined in RFC 7231].
 Use the following standard formats for country, language and currency
 codes:
 
-* https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2[ISO 3166-1-alpha2
-country codes]
+* {ISO-3166-1-a2}[ISO 3166-1-alpha2 country codes]
 ** (It is "GB", not "UK", even though "UK" has seen some use at Zalando)
-* https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes[ISO 639-1
-language code]
-** https://tools.ietf.org/html/bcp47[BCP-47] (based on ISO 639-1) for
-language variants
-* https://en.wikipedia.org/wiki/ISO_4217[ISO 4217 currency codes]
+* {ISO-639-1}[ISO 639-1 language code]
+** https://tools.ietf.org/html/bcp47[BCP-47] (based on {ISO-639-1}[ISO 639-1])
+   for language variants
+* {ISO-4217}[ISO 4217 currency codes]
 
 [#171]
 == {MUST} Define Format for Type Number and Integer

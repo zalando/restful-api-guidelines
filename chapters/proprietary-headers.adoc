@@ -22,21 +22,18 @@ operation should always be expressed by URLs path and query parameters,
 the method, and the content. Headers are more often used to implement
 functions close to the protocol considerations, such as flow control,
 content negotiation, and authentication. Thus, headers are reserved for
-general context information
-(https://tools.ietf.org/html/rfc7231#section-5[RFC-7231]).
+general context information ({RFC-7231#section-5[RFC 7231]).
 
-`X-` headers were initially reserved for unstandardized parameters, but
-the usage of `X-` headers is deprecated
-(https://tools.ietf.org/html/rfc6648[RFC-6648]). This complicates the
-contract definition between consumer and producer of an API following
+`X-` headers were initially reserved for unstandardized parameters, but the
+usage of `X-` headers is deprecated ({RFC-6648}[RFC 6648]). This complicates
+the contract definition between consumer and producer of an API following
 these guidelines, since there is no aligned way of using those headers.
 Because of this, the guidelines restrict which `X-` headers can be used
 and how they are used.
 
-The Internet Engineering Task Force's states in
-https://tools.ietf.org/html/rfc6648[RFC-6648] that company specific
-header' names should incorporate the organization's name. We aim for
-backward compatibility, and therefore keep the `X-` prefix.
+The Internet Engineering Task Force's states in {RFC-6648}[RFC 6648] that
+company specific header' names should incorporate the organization's name.
+We aim for backward compatibility, and therefore keep the `X-` prefix.
 
 The following proprietary headers have been specified by this guideline
 for usage so far. Remember that HTTP header field names are not
@@ -99,32 +96,31 @@ hop-by-hop `X-RateLimit-` headers which can be used as defined in <<153>>.
 == {MUST} Propagate Proprietary Headers
 
 All Zalando's proprietary headers are end-to-end headers.
-footnoteref:[header-types, HTTP/1.1 standard
-(https://tools.ietf.org/html/rfc7230#section-6.1[RFC-7230]) defines two
-types of headers: end-to-end and hop-by-hop headers. End-to-end headers
-must be transmitted to the ultimate recipient of a request or response.
-Hop-by-hop headers, on the contrary, are meaningful for a single
-connection only.]
+footnoteref:[header-types, HTTP/1.1 standard ({RFC-7230}#section-6.1[RFC 7230])
+defines two types of headers: end-to-end and hop-by-hop headers. End-to-end
+headers must be transmitted to the ultimate recipient of a request or response.
+Hop-by-hop headers, on the contrary, are meaningful for a single connection
+only.]
 
-All headers specified above must be propagated to the services down the
-call chain. The header names and values must remain unchanged.
+All headers specified above must be propagated to the services down the call
+chain. The header names and values must remain unchanged.
 
-For example, the values of the custom headers like `X-Device-Type` can
-affect the results of queries by using device type information to
-influence recommendation results. Besides, the values of the custom
-headers can influence the results of the queries (e.g. the device type
-information influences the recommendation results).
+For example, the values of the custom headers like `X-Device-Type` can affect
+the results of queries by using device type information to influence
+recommendation results. Besides, the values of the custom headers can influence
+the results of the queries (e.g. the device type information influences the
+recommendation results).
 
-Sometimes the value of a proprietary header will be used as part of the
-entity in a subsequent request. In such cases, the proprietary headers
-must still be propagated as headers with the subsequent request, despite
-the duplication of information.
+Sometimes the value of a proprietary header will be used as part of the entity
+in a subsequent request. In such cases, the proprietary headers must still be
+propagated as headers with the subsequent request, despite the duplication of
+information.
 
 [#233]
 == {MUST} Use `X-Flow-ID`
 
-The *Flow-Id* is a generic parameter to be passed through service APIs and events
-and written into log files and traces. A consequent usage of the
+The *Flow-Id* is a generic parameter to be passed through service APIs and
+events and written into log files and traces. A consequent usage of the
 *Flow-Id* facilitates the tracking of call flows through our system and allows
 the correlation of service activities initiated by a specific call. This is
 extremely helpful for operational troubleshooting and log analysis. Main use
@@ -144,7 +140,8 @@ to the character set `[a-zA-Z0-9/+]` (Base64).
 
 *Note:* If a legacy subsystem can only process _Flow-Ids_ with a specific
 format or length, it must define this restrictions in its API specification,
-and be generous and remove invalid characters or cut the length to the supported limit.
+and be generous and remove invalid characters or cut the length to the
+supported limit.
 
 *Hint:* In case distributed tracing is supported by {SRE-Tracing}[OpenTracing
 (internal link)] you should ensure that created _spans_ are tagged using
