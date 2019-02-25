@@ -40,8 +40,6 @@ These utility libraries support you in implementing various parts of our RESTful
   library for handling Problems in Spring Web MVC
 * *https://github.com/zalando/jackson-datatype-money[Jackson Datatype Money]:*
   extension module to properly support datatypes of javax.money
-* *https://github.com/zalando-incubator/json-fields[JSON fields]:*
-  framework for limiting fields of JSON objects exposed by Rest APIs
 * *https://github.com/zalando/tracer[Tracer]:*
   call tracing and log correlation in distributed systems
 * *https://github.com/zalando/twintip-spring-web[TWINTIP Spring Integration]:*
