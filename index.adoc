@@ -5,6 +5,7 @@
 :leveloffset: +1
 :sectlinks:
 :sectnumlevels: 1
+:icons: font
 
 :creator: Zalando SE
 :producer: Asciidoctor
@@ -151,10 +152,10 @@
 :RFC-cacheable: pass:[<a href="https://tools.ietf.org/html/rfc7231#section-4.2.3">cacheable</a>]
 
 
-= Zalando RESTful API and Event Scheme Guidelines
-Zalando SE
+= Infinitec RESTful API Guidelines
+Infinitec Solutions GmbH
 
-image::assets/api-zalando-small.jpg[API Guild Logo]
+NOTE: Our Guidelines are an adaptation of the https://github.com/zalando/restful-api-guidelines[Zalando RESTful API and Event Scheme Guidelines]. Their material as well as our adaptation is licensed under link:LICENSE[Creative Commons Attribution 4.0 International]
 
 Other formats: link:zalando-guidelines.pdf[PDF], link:zalando-guidelines.epub[EPUB3]
 
