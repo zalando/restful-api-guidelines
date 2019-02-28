@@ -40,11 +40,8 @@ this information.
 
 APIs must define permissions to protect their resources. Thus, at least one
 permission must be assigned to each endpoint. Permissions are defined as shown
-in the <<104, previous section>>.
-
-The naming schema for permissions corresponds to the naming schema for <<224,
-hostnames>> and <<213, event type names>>. Please refer to <<225>> for
-designing permission names.
+in the <<104, previous section>>. Please refer to <<225>> for designing permission
+names.
 
 APIs should stick to component specific permissions without resource extension
 to avoid governance complexity of too many fine grained permissions. For the
@@ -64,25 +61,6 @@ Some examples for standard and resource-specific permissions:
 | `fulfillment-order` | | `write` | `fulfillment-order.write`
 | `business-partner-service` | |`read` | `business-partner-service.read`
 |=======================================================================
-
-////
-//Prepared change for functional permission names:
-
-[cols="15%,15%,15%,15%,40%",options="header",]
-|=======================================================================
-| Domain | Component | Resource | Access Type | Example
-| finance | exchange-rate | - | write | z::finance.exchange-rate.write 
-| transactions | order | - | read | z::transactions.order.read
-| customer | address | shipment-address | read  | z::customer.address.shipment-address.read
-|=======================================================================
-[cols="30%,15%,15%,40%",options="header",]
-|=======================================================================
-| Application | Resource | Access Type | Example
-| business-partner-service | | - | read | z::business-partner-service.read
-| order-management | sales_order | write | z::order-management.sales_order.write
-|=======================================================================
-
-////
 
 After permission names are defined and the permission is declared in the 
 security definition at the top of an API specification, it should be assigned 
@@ -125,8 +103,7 @@ standard header so to say implicitly defined via the security section.
 [#225]
 == {MUST} Follow Naming Convention for Permissions (Scopes)
 
-As long as the <<223,functional naming>> is not supported for permissions,
-permission names in APIs must conform to the following naming pattern:
+Permission names in APIs must conform to the following naming pattern:
 
 [source,bnf]
 -----
@@ -142,39 +119,3 @@ permission names in APIs must conform to the following naming pattern:
 <resource-name>       ::= [a-z][a-z0-9-]*  -- free resource identifier
 <access-mode>         ::= read | write    -- might be extended in future
 -----
-
-This pattern is compatible with the previous definition.
-
-////
-//Prepared change for functional permission names:
-Permission names in APIs must, respectively should conform to the functional
-naming depending on the <<219, audience>> as follows (see <<223>> for details
-and `<functional-name>` definition):
-
-[source,bnf]
------
-<permission> ::= <functional-permission> |
-                 <standard-permission> |  -- standard permission without functional naming
-                 <resource-permission> |  -- resource permission without functional naming
-                 <pseudo-permission>      -- used to indicate unrestricted access
-
-<functional-permission> ::= z::<functional-name>[.<resource-name>].<access-mode>
-<pseudo-permission>     ::= uid
-
-<resource-name>       ::= [a-z][a-z0-9-]*  -- free resource identifier
-<access-mode>         ::= read || write    -- might be extended in future
------
-
-The following application specific legacy convention is *only* allowed for
-permissions names of <<223, internal>> APIs:
-
-[source,bnf]
------
-<standard-permission> ::= <application-id>.<access-mode>
-<resource-permission> ::= <application-id>.<resource-name>.<access-mode>
-
-<application-id>      ::= [a-z][a-z0-9-]*  -- application identifier
-
------
-
-////
