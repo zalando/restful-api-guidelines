@@ -12,19 +12,16 @@ ones about values.
 
 
 [#118]
-== {MUST} Property names must be ASCII snake_case (and never camelCase): `^[a-z_][a-z_0-9]*$`
+== {MUST} Property names must be ASCII camelCase (and never snake_case): `^[a-z][a-zA-Z0-9]*$`
 
 Property names are restricted to ASCII strings. The first
-character must be a letter, or an underscore, and subsequent
-characters can be a letter, an underscore, or a number.
+character must be a letter, and subsequent characters can be a letter or a
+number.
 
 (It is recommended to use `_` at the start of property names only for keywords like `_links`.)
 
-Rationale: No established industry standard exists, but many popular Internet
-companies prefer snake_case: e.g. GitHub, Stack Exchange, Twitter.
-Others, like Google and Amazon, use both - but not only camelCase. It’s
-essential to establish a consistent look and feel such that JSON looks
-as if it came from the same hand.
+Rationale: No established industry standard exists, but it’s essential to establish
+a consistent look and feel such that JSON looks as if it came from the same hand.
 
 
 [#216]
@@ -176,4 +173,3 @@ durations).
 * https://tools.ietf.org/html/bcp47[BCP-47] (based on {ISO-639-1}[ISO 639-1])
   for language variants
 * {ISO-4217}[ISO 4217 currency codes]
-
