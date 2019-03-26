@@ -50,8 +50,8 @@ Normally, API specification files must be *self-contained*, i.e. files
 should not contain references to local or remote content, e.g
 `$ref: 'https://github.com/zalando/zally/blob/master/server/src/main/resources/api/zally-api.yaml'`.
 The reason is, that the content referred to is _in general_ *not durable* and
-*immutable*. As a consequence, the semantic of an API may change in unexpected
-ways.
+*not immutable*. As a consequence, the semantic of an API may change in
+unexpected ways.
 
 However, you may use remote references to resources accessible by the following
 service URLs.
