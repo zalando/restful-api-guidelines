@@ -86,10 +86,9 @@ as generic aspect. Current range is iOS, Android, Windows, Linux, MacOS.
 Provided by mobile apps only. It is a unique, customer-resettable identifier provided
 by mobile device's operating system for advertising purposes. It is not sent if 
 the customer disables it in the settings for respective platform. The value 
-can either be Apple IDFA (iOS, see 
-https://developer.apple.com/documentation/adsupport/asidentifiermanager[Apple developer, 
-AdSupport]) or the Goggle AddID (Android, see 
-https://support.google.com/admanager/answer/6274238[Goggle Ad Manager]). 
+can either be https://developer.apple.com/documentation/adsupport/asidentifiermanager[Apple 
+IDFA] (iOS) or the https://support.google.com/googleplay/android-developer/answer/6048248[Goggle 
+AddID] (Android)
 |b89fadce-1f42-46aa-9c83-b7bc49e76e1f
 
 |[[x-app-domain]]{X-App-Domain}|Integer|
