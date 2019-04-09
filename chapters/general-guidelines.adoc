@@ -44,11 +44,11 @@ https://apis.zalando.net[API Portal] may be a good starting point.
 
 
 [#234]
-== {MAY} use Durable and Immutable Remote References
+== {MUST} only use Durable and Immutable Remote References
 
 Normally, API specification files must be *self-contained*, i.e. files
-should not contain references to local or remote content, e.g
-`$ref: 'https://github.com/zalando/zally/blob/master/server/src/main/resources/api/zally-api.yaml'`.
+should not contain references to local or remote content, e.g. `../fragment.yaml#/element` or
+`$ref: 'https://github.com/zalando/zally/blob/master/server/src/main/resources/api/zally-api.yaml#/schemas/LintingRequest'`.
 The reason is, that the content referred to is _in general_ *not durable* and
 *not immutable*. As a consequence, the semantic of an API may change in
 unexpected ways.
@@ -56,10 +56,11 @@ unexpected ways.
 However, you may use remote references to resources accessible by the following
 service URLs.
 
-* `https://infrastructure-api-repository.zalandoapis.com/`
-* `https://zalando.github.io/problem/`
+* `https://infrastructure-api-repository.zalandoapis.com/` (internal repository of APIs)
+* `https://opensource.zalando.com/problem/` (see <<176>>)
+* `https://zalando.github.io/problem/` (deprecated alias for <<176>>)
 
-As we control this URLs, we ensure that their content is *durable* and
+As we control these URLs, we ensure that their content is *durable* and
 *immutable*. This allows to define API specifications by using fragments
 published via this sources, as suggested in <<151>>.
 
