@@ -82,7 +82,7 @@ e.g. smartphone Android vs. iOS. Via this header info should be passed-through
 as generic aspect. Current range is iOS, Android, Windows, Linux, MacOS.
 |Android
 
-|[[x-mobile-advertising-id]]{X-Mobile-Advertising-Id}|String |
+|[[x-mobile-advertising-id]]{X-Mobile-Advertising-Id}|String|
 It is either the 
 https://developer.apple.com/documentation/adsupport/asidentifiermanager[IDFA] 
 (Apple Identifier for mobile Advertising) for iOS, or the 
