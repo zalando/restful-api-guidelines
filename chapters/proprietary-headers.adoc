@@ -89,7 +89,7 @@ https://developer.apple.com/documentation/adsupport/asidentifiermanager[IDFA]
 https://support.google.com/googleplay/android-developer/answer/6048248[GAID] 
 (Google mobile Advertising Identifier) for Android. It is a unique, 
 customer-resettable identifier provided by mobile device’s operating system 
-for advertising purposes, and usually passed by mobile apps via http header 
+to faciliate personalized advertising, and usually passed by mobile apps via http header 
 when calling backend services. Called services should be ready to pass this 
 parameter through when calling other services. It is not sent if the customer 
 disables it in the settings for respective mobile platform.
