@@ -115,7 +115,9 @@ See Other - The response to the request can be found under another URI using a
 |{POST}, {PUT}, {PATCH}, {DELETE}
 
 |[[status-code-304]]{304}|
-Not Modified - resource has not been modified since the date or version passed
+Not Modified - indicates that a conditional GET or HEAD request would have 
+resulted in 200 response if it were not for the fact that the condition evaluated 
+to false, i.e. resource has not been modified since the date or version passed
 via request headers If-Modified-Since or If-None-Match.
 |{GET}, {HEAD}
 |=======================================================================
