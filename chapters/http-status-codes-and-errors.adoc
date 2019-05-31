@@ -117,7 +117,7 @@ See Other - The response to the request can be found under another URI using a
 |[[status-code-304]]{304}|
 Not Modified - resource has not been modified since the date or version passed
 via request headers If-Modified-Since or If-None-Match.
-|{GET}
+|{GET}, {HEAD}
 |=======================================================================
 
 [[client-side-error-codes]]
