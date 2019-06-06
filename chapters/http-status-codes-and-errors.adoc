@@ -257,7 +257,7 @@ response processing this distinction normally does not matter.
 
 APIs that wish to manage the request rate of clients must use the {429} (Too
 Many Requests) response code, if the client exceeded the request rate (see
-{RFC-6586}[RFC 6585]). Such responses must also contain header information
+{RFC-6585}[RFC 6585]). Such responses must also contain header information
 providing further details to the client. There are two approaches a service
 can take for header information:
 

@@ -139,7 +139,7 @@ the Open API specification and must conform to the following specification:
 
 [source,yaml]
 ----
-#/info/x-audience:
+/info/x-audience:
   type: string
   x-extensible-enum:
     - component-internal

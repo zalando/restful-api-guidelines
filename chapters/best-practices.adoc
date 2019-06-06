@@ -218,5 +218,5 @@ later than the given date:
   not perfectly in sync, the locking could potentially fail
 
 === Conclusion
-We suggest to either use the _{ETags} in result entities_ or _{Last-Modified}
+We suggest to either use the _{ETag} in result entities_ or _{Last-Modified}
 / {If-Unmodified-Since}_ approach.

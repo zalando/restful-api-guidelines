@@ -125,7 +125,7 @@ that are supported by your API endpoint. If necessary, specify different
 {Prefer} headers for each supported use case.
 
 Supporting APIs may return the {Preference-Applied} header also defined in
-{RFC7240}[RFC 7240] to indicate whether a preference has been applied.
+{RFC-7240}[RFC 7240] to indicate whether a preference has been applied.
 
 
 
