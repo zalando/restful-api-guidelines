@@ -115,7 +115,6 @@ components:
           continue, if possible.
 
       type: array
-      style: form
       items:
         type: string
       required: false
