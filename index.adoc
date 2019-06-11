@@ -66,6 +66,7 @@
 
 
 // Attributes to improve design and linking of HTTP status codes
+:x00: pass:[<a href="#http-status-codes-and-errors" class="status-code">2xx</a>]
 :2xx: pass:[<a href="#success-codes" class="status-code">2xx</a>]
 :3xx: pass:[<a href="#redirection-codes" class="status-code">3xx</a>]
 :4xx: pass:[<a href="#client-side-error-codes" class="status-code">4xx</a>]
@@ -105,6 +106,7 @@
 :X-Frontend-Type: pass:[<a href="#x-frontend-type"><code>X-Frontend-Type</code></a>]
 :X-Device-Type: pass:[<a href="#x-device-type"><code>X-device-Type</code></a>]
 :X-Device-OS: pass:[<a href="#x-device-os"><code>X-device-OS</code></a>]
+:X-Mobile-Advertising-ID: pass:[<a href="#x-mobile-advertising-id"><code>X-Mobile-Advertising-ID</code></a>]
 :X-App-Domain: pass:[<a href="#x-app-domain"><code>X-App-Domain</code></a>]
 
 :x-extensible-enum: pass:[<a href="#112"><code>x-extensible-enum</code></a>]
@@ -142,8 +144,8 @@
 :Retry-After: pass:[<a href="https://tools.ietf.org/html/rfc7231#section-7.1.3"><code>Retry-After</code></a>]
 :Vary: pass:[<a href="https://tools.ietf.org/html/rfc7231#section-7.1.4"><code>Vary</code></a>]
 :Cache-Control: pass:[<a href="https://tools.ietf.org/html/rfc7234#section-5.2"><code>Cache-Control</code></a>]
-:Cache-Control#no-store: pass:[<a href="https://tools.ietf.org/html/rfc7234#section-5.2.2.2"><code>Cache-Control: no-store</code></a>]
-
+:Cache-Control-no-store: pass:[<a href="https://tools.ietf.org/html/rfc7234#section-5.2.2.2"><code>Cache-Control: no-store</code></a>]
+:Expires: pass:[<a href="https://tools.ietf.org/html/rfc7234#section-5.3"><code>Expires</code></a>]
 
 // Attributes to improve design and linking of RFC key words.
 :RFC-safe: pass:[<a href="https://tools.ietf.org/html/rfc7231#section-4.2.1">safe</a>]

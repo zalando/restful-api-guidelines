@@ -22,7 +22,7 @@ operation should always be expressed by URLs path and query parameters,
 the method, and the content. Headers are more often used to implement
 functions close to the protocol considerations, such as flow control,
 content negotiation, and authentication. Thus, headers are reserved for
-general context information ({RFC-7231#section-5[RFC 7231]).
+general context information ({RFC-7231}#section-5[RFC 7231]).
 
 `X-` headers were initially reserved for unstandardized parameters, but the
 usage of `X-` headers is deprecated ({RFC-6648}[RFC 6648]). This complicates
@@ -130,20 +130,20 @@ propagated as headers with the subsequent request, despite the duplication of
 information.
 
 [#233]
-== {MUST} Use `X-Flow-ID`
+== {MUST} Support `X-Flow-ID`
 
-The *Flow-Id* is a generic parameter to be passed through service APIs and
+The _Flow-ID_ is a generic parameter to be passed through service APIs and
 events and written into log files and traces. A consequent usage of the
-*Flow-Id* facilitates the tracking of call flows through our system and allows
+_Flow-ID_ facilitates the tracking of call flows through our system and allows
 the correlation of service activities initiated by a specific call. This is
 extremely helpful for operational troubleshooting and log analysis. Main use
-case of *Flow-Id* is to track service calls of our SaaS fashion commerce
+case of _Flow-ID_ is to track service calls of our SaaS fashion commerce
 platform and initiated internal processing flows (executed synchronously via
 APIs or asynchronously via published events).
 
 *Data Definition*
 
-The *Flow-Id* must be passed through:
+The _Flow-ID_ must be passed through:
 
 * RESTful API requests via {X-Flow-ID} proprietary header (see <<184>>)
 * Published events via `flow_id` event field (see <<event-metadata, metadata>>)
@@ -151,7 +151,7 @@ The *Flow-Id* must be passed through:
 It must be an random unique string consisting of maximal 128 chars, restricted
 to the character set `[a-zA-Z0-9/+]` (Base64). 
 
-*Note:* If a legacy subsystem can only process _Flow-Ids_ with a specific
+*Note:* If a legacy subsystem can only process _Flow-IDs_ with a specific
 format or length, it must define this restrictions in its API specification,
 and be generous and remove invalid characters or cut the length to the
 supported limit.
@@ -160,22 +160,22 @@ supported limit.
 (internal link)] you should ensure that created _spans_ are tagged using
 `flow_id` — see
 {SRE-Tracing}/blob/master/wg-semantic-conventions/best-practices/flowid.md[How
-to Connect Log Output with OpenTracing Using FlowIDs (internal link)] or
+to Connect Log Output with OpenTracing Using Flow-IDs (internal link)] or
 {SRE-Tracing}/blob/master/wg-semantic-conventions/best-practices.md[Best
 practises (internal link)].
 
 *Service Guidance*
 
-* Services *must* support _Flow-Id_ as generic input, i.e.
+* Services *must* support _Flow-ID_ as generic input, i.e.
 ** RESTful API endpoints *must* support {X-Flow-ID} header in requests
 ** Event listeners *must* support the metadata `flow-id` from events.
 
 +
-*Note:*  API-Clients *must* provide _Flow-Id_ when calling a service or
-producing events. If no _Flow-Id_ is provided in a request or event, the
-service must create a new _Flow-Id_.
+*Note:*  API-Clients *must* provide _Flow-ID_ when calling a service or
+producing events. If no _Flow-ID_ is provided in a request or event, the
+service must create a new _Flow-ID_.
 
-* Services *must* propagate _Flow-Id_, i.e. use _Flow-Id_ received
+* Services *must* propagate _Flow-ID_, i.e. use _Flow-ID_ received
 with API-Calls or consumed events as...
 ** input for all API called and events published during processing
 ** data field written for logging and tracing

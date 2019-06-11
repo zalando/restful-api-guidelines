@@ -81,8 +81,8 @@ providers:
   either be agnostic or provide default behavior for unknown values.
 * Be prepared to handle HTTP status codes not explicitly specified in endpoint
   definitions. Note also, that status codes are extensible. Default handling is
-  how you would treat the corresponding {x00} code (see {RFC7231}#section-6[RFC
-  7231 Section 6]).
+  how you would treat the corresponding {x00} code (see
+  {RFC-7231}#section-6[RFC 7231 Section 6]).
 * Follow the redirect when the server returns HTTP status code {301} (Moved
   Permanently).
 

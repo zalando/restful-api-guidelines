@@ -217,7 +217,8 @@ following rules:
    this is not supported by generic client and proxy caches on HTTP layer.
 
 *Hint:* For proper cache support, you must return {304} without content on a
-failed {HEAD} or {GET} request with `If-None-Match: <entity-tag>` instead of {412}.
+failed {HEAD} or {GET} request with  <<182, `If-None-Match: <entity-tag>`>> instead
+of {412}.
 
 [source,yaml]
 ----

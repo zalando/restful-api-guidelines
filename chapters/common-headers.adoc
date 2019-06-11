@@ -95,7 +95,7 @@ The {Prefer} header can defined like this in an API definition:
 components:
   headers:
   - Prefer:
-      description: |
+      description: >
         The RFC7240 Prefer header indicates that a particular server behavior
         is preferred by the client but is not required for successful completion
         of the request (see [RFC 7240](https://tools.ietf.org/html/rfc7240).
@@ -110,16 +110,24 @@ components:
           resource (representation) in the response body on success.
         * **wait=<delta-seconds>** is used to suggest a maximum time the server
           has time to process the request synchronously.
-        * **handling=<strinct|lenient>** is used to suggest the server to be
+        * **handling=<strict|lenient>** is used to suggest the server to be
           strict and report error conditions or lenient, i.e. robust and try to
           continue, if possible.
 
-      type: string
+      type: array
+      items:
+        type: string
       required: false
 ----
 
+*Note:* Please copy only the behaviors into your {Prefer} header specification
+that are supported by your API endpoint. If necessary, specify different
+{Prefer} headers for each supported use case.
+
 Supporting APIs may return the {Preference-Applied} header also defined in
-{RFC7240}[RFC 7240] to indicate whether a preference has been applied.
+{RFC-7240}[RFC 7240] to indicate whether a preference has been applied.
+
+
 
 [#182]
 == {MAY} Consider to Support `ETag` Together With `If-Match`/`If-None-Match` Header
