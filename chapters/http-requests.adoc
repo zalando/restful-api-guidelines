@@ -331,19 +331,36 @@ original one implementing a well defined behavior. Using {204} without content
 would be a similar well defined option.
 
 [#154]
-== {SHOULD} Define Collection Format of Query Parameters and Headers
+== {MUST} Define Collection Format of Query Parameters and Headers
 
-Sometimes, query parameters and headers allow to provide a list of values,
-either by providing a comma-separated list (`csv`) or by repeating the
-parameter multiple times with different values (`multi`). The API
-specification should explicitly define one type as follows:
+Header, path, and query parameters  allow to provide a collection of values,
+either by providing a comma-separated list of values (`csv`) or by repeating
+the parameter multiple times with different values (`multi`) as follows:
 
-[,cols="20%,20%,25%,35%",options="header",]
-|=======================================================================
-|Description |OpenAPI 3.0 |OpenAPI 2.0 |Example
-|Comma separated values |`style: form, explode: false` |`collectionFormat: csv` |`?param=value1,value2`
-|Multiple parameters |`style: form, explode: true` |`collectionFormat: multi` |`?param=value1&param=value2`
-|=======================================================================
+[,cols="14%,30%,39%,17%",options="header",]
+|=========================================================================
+| Parameter Type | Comma-separated Values | Multiple Parameters | Standard
+| Header | `Header: value1,value2` | `Header: value1, Header: value2`
+| {RFC-7230}#section-3.2.2[RFC 7230 Section 3.2.2]
+
+| Path | `key=value1,value2` | `/key=value1;key=value2`
+| {RFC-6570}#section-3.2.7[RFC 6570 Section 3.2.7]
+
+| Query | `?param=value1,value2` | `?param=value1&param=value2`
+| {RFC-6570}#section-3.2.8[RFC 6570 Section 3.2.8]
+|=========================================================================
+
+As Open API does not support both schemas at once, an API specification must
+explicitly define the collection format to guide consumers as follows:
+
+[,cols="14%,40%,46%",options="header",]
+|===============================================================
+| Parameter Type | Comma-separated Values | Multiple Parameters
+| Header | `style: simple, explode: false` | not allowed (see
+  {RFC-7230}#section-3.2.2[RFC 7230 Section 3.2.2])
+| Path   | `style: simple, explode: false` | `style: simple, explode: true`
+| Query  | `style: form, explode: false`   | `style: form, explode: true`
+|===============================================================
 
 When choosing the collection format, take into account the tool support,
 the escaping of special characters and the maximal URL length.
