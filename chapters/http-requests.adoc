@@ -331,11 +331,11 @@ original one implementing a well defined behavior. Using {204} without content
 would be a similar well defined option.
 
 [#154]
-== {MUST} Define Collection Format of Query Parameters and Headers
+== {MUST} Define Collection Format of Header, Path, and Query Parameters
 
 Header, path, and query parameters  allow to provide a collection of values,
-either by providing a comma-separated list of values (`csv`) or by repeating
-the parameter multiple times with different values (`multi`) as follows:
+either by providing a comma-separated list of values or by repeating the
+parameter multiple times with different values as follows:
 
 [,cols="14%,30%,39%,17%",options="header",]
 |=========================================================================
