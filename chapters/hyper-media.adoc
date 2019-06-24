@@ -158,7 +158,7 @@ extensible common hypertext control
 See <<pagination>> for information how to best represent paginateable collections.
 
 [#166]
-== {MUST} Not Use Link Headers with JSON entities
+== {MUST} Don't Use Link Headers with JSON entities
 
 We don't allow the use of the {RFC-5988}#section-5[`Link` Header defined by
 RFC 5988] in conjunction with JSON media types. We prefer links directly
