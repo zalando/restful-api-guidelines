@@ -91,7 +91,7 @@ provided that otherwise requires examining the Open API file.
 
 Example JSON schema:
 
-[source,json]
+[source,yaml]
 ----
 tree_node:
   type: object
@@ -121,11 +121,91 @@ tree_node:
     parent_node_id: '534321'
 ----
 
-These properties are not always strictly necessary, but making them
-idiomatic allows API client developers to build up a common
-understanding of Zalando's resources. There is very little utility for
-API consumers in having different names or value types for these fields
-across APIs.
+These properties are not always strictly necessary, but making them idiomatic
+allows API client developers to build up a common understanding of Zalando's
+resources. There is very little utility for API consumers in having different
+names or value types for these fields across APIs.
+
+[[pagination-fields]]
+=== Pagination Fields
+
+To foster a consistent look and feel response object for paginating over
+collections should follow a common pattern using the following pagination
+field semantics:
+
+* [[first]]{first}: the cursor or link in a pagination response pointing to
+  the first page.
+* [[prev]]{prev}: the cursor or link in a pagination response pointing to the
+  previous page.
+* [[self]]{self}: the cursor or link in a pagination response pointing to the
+  current page.
+* [[next]]{next}: the cursor or link in a pagination response pointing to the
+  next page.
+* [[last]]{last}: the cursor or link in a pagination response pointing to the
+  last page.
+
+To distinguish between pagination links and cursors the cursor set should be
+wrapped in a {cursors} object as follows:
+
+* [[cursors]]{cursors}: pagination object containing the cursors for the
+  {first}, {prev}, {self}, {next}, and {last} page.
+* [[cursor]]{cursor}: the cursor used in a {GET-with-body} search request
+  pointing to the requested page.
+* [[items]]{items}: array of resources, holding all the items of the current
+  page (can be replaced by resource name).
+
+
+[source,yaml]
+----
+ResponsePage:
+  type: object
+  properties: 
+    first:
+      description: pagination link pointing to the first page.
+      type: string
+      format: uri
+    prev:
+      description: pagination link pointing to the previous page.
+      type: string
+      format: uri
+    self:
+      description: pagination link pointing to the current page.
+      type: string
+      format: uri
+    next:
+      description: pagination link pointing to the next page.
+      type: string
+      format: uri
+    last:
+      description: pagination link pointing to the last page.
+      type: string
+      format: uri
+
+    cursors:
+      first:
+        description: cursor pointing to the first page.
+        type: string
+      prev:
+        description: cursor pointing to the previous page.
+        type: string
+      self:
+        description: cursor pointing to the current page.
+        type: string
+      next:
+        description: cursor pointing to the next page.
+        type: string
+      last:
+        description: cursor pointing to the last page.
+        type: string
+
+     items:
+       description: array of collection items
+       type: array
+       items: ...
+----
+
+The response page may contain additional metadata about the collection or the
+current page, if necessary.
 
 [[address-fields]]
 === Address Fields

@@ -98,6 +98,17 @@
 :503: pass:[<a href="#status-code-503" class="status-code">503</a>]
 
 
+// Attributes to improve linking to semantic fields.
+:first: pass:[<a href="#first"><code>first</code></a>]
+:prev: pass:[<a href="#prev"><code>prev</code></a>]
+:self: pass:[<a href="#self"><code>self</code></a>]
+:next: pass:[<a href="#next"><code>next</code></a>]
+:last: pass:[<a href="#last"><code>last</code></a>]
+:cursors: pass:[<a href="#cursors"><code>cursors</code></a>]
+:cursor: pass:[<a href="#cursor"><code>cursor</code></a>]
+:items: pass:[<a href="#items"><code>items</code></a>]
+
+
 // Attributes to improve linking to special definition anchors.
 :Idempotency-Key: pass:[<a href="#230"><code>Idempotency-Key</code></a>]
 :X-Flow-ID: pass:[<a href="#x-flow-id"><code>X-Flow-ID</code></a>]
