@@ -16,7 +16,6 @@
 :RFC-3339: https://tools.ietf.org/html/rfc3339
 :RFC-4122: https://tools.ietf.org/html/rfc4122
 :RFC-4627: https://tools.ietf.org/html/rfc4627
-:RFC-5988: https://tools.ietf.org/html/rfc5988
 :RFC-6585: https://tools.ietf.org/html/rfc6585
 :RFC-6648: https://tools.ietf.org/html/rfc6648
 :RFC-6838: https://tools.ietf.org/html/rfc6838
@@ -30,6 +29,7 @@
 :RFC-7240: https://tools.ietf.org/html/rfc7240
 :RFC-7396: https://tools.ietf.org/html/rfc7396
 :RFC-7807: https://tools.ietf.org/html/rfc7807
+:RFC-8288: https://tools.ietf.org/html/rfc8288
 
 
 :ISO-8601: https://en.wikipedia.org/wiki/ISO_8601
