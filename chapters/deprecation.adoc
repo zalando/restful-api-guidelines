@@ -74,7 +74,7 @@ Clients should monitor the `Warning` header in HTTP responses to see if
 an API will be deprecated in future.
 
 [#191]
-== {MUST} Not Start Using Deprecated APIs
+== {MUST} Don't Start Using Deprecated APIs
 
 Clients must not start using deprecated parts of an API.
 
