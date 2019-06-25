@@ -18,7 +18,7 @@ This section collects links to documents to which we refer, and base our guideli
 * *{RFC-3339}[RFC 3339]:* Date and Time on the Internet: Timestamps
 * *{RFC-4122}[RFC 4122]:* A Universally Unique IDentifier (UUID) URN Namespace
 * *{RFC-4627}[RFC 4627]:* The application/json Media Type for JavaScript Object Notation (JSON)
-* *{RFC-5988}[RFC 5988]:* Web Linking
+* *{RFC-8288}[RFC 8288]:* Web Linking
 * *{RFC-6585}[RFC 6585]:* Additional HTTP Status Codes
 * *{RFC-6902}[RFC 6902]:* JavaScript Object Notation (JSON) Patch
 * *{RFC-7159}[RFC 7159]:* The JavaScript Object Notation (JSON) Data Interchange Format

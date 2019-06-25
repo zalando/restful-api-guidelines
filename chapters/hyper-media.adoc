@@ -158,9 +158,9 @@ extensible common hypertext controls.
 See <<161>> and <<pagination-fields>> for more information.
 
 [#166]
-== {MUST} Not Use Link Headers with JSON entities
+== {MUST} Not Use Link Headers with JSON Entities
 
-We don't allow the use of the {RFC-5988}#section-5[`Link` Header defined by
-RFC 5988] in conjunction with JSON media types. We prefer links directly
-embedded in JSON payloads to the uncommon link header syntax.
-
+For flexibility and precision, we prefer links to be directly embedded in the
+JSON payload instead of being attached using the uncommon link header syntax.
+As a result, the use of the {RFC-8288}#section-3[`Link` Header defined by RFC
+8288] in conjunction with JSON media types is forbidden.
