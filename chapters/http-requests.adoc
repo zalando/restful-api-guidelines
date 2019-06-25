@@ -331,20 +331,17 @@ original one implementing a well defined behavior. Using {204} without content
 would be a similar well defined option.
 
 [#154]
-== {MUST} Define Collection Format of Header, Path, and Query Parameters
+== {MUST} Define Collection Format of Header and Query Parameters
 
-Header, path, and query parameters  allow to provide a collection of values,
-either by providing a comma-separated list of values or by repeating the
-parameter multiple times with different values as follows:
+Header and query parameters allow to provide a collection of values, either
+by providing a comma-separated list of values or by repeating the parameter
+multiple times with different values as follows:
 
 [,cols="14%,30%,39%,17%",options="header",]
 |=========================================================================
 | Parameter Type | Comma-separated Values | Multiple Parameters | Standard
 | Header | `Header: value1,value2` | `Header: value1, Header: value2`
 | {RFC-7230}#section-3.2.2[RFC 7230 Section 3.2.2]
-
-| Path | `key=value1,value2` | `/key=value1;key=value2`
-| {RFC-6570}#section-3.2.7[RFC 6570 Section 3.2.7]
 
 | Query | `?param=value1,value2` | `?param=value1&param=value2`
 | {RFC-6570}#section-3.2.8[RFC 6570 Section 3.2.8]
@@ -358,7 +355,6 @@ explicitly define the collection format to guide consumers as follows:
 | Parameter Type | Comma-separated Values | Multiple Parameters
 | Header | `style: simple, explode: false` | not allowed (see
   {RFC-7230}#section-3.2.2[RFC 7230 Section 3.2.2])
-| Path   | `style: simple, explode: false` | `style: simple, explode: true`
 | Query  | `style: form, explode: false`   | `style: form, explode: true`
 |===============================================================
 
