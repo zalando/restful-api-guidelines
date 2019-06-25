@@ -62,7 +62,8 @@ the applied query filters to recreate the collection.
 
 The page information for cursor-based pagination should consist of a set of
 {cursors}, that besides {next} may provide support for {prev}, {first}, {last},
-and {self} (see also <<pagination-fields>> for details) as follows:
+and {self} (see also <<simple-hypertext-control-fields>> for details) as
+follows:
 
 [source,json]
 ----
@@ -78,6 +79,8 @@ and {self} (see also <<pagination-fields>> for details) as follows:
 }
 ----
 
+*Note:* The support of the set of {cursors} may be dropped in favor of <<161>>.
+
 Further reading:
 
 * https://dev.twitter.com/rest/public/timelines[Twitter]
@@ -91,8 +94,8 @@ Further reading:
 To simplify client design, APIs should support <<165, simplified hypertext
 controls>> for pagination over collections whenever applicable. Beside {next}
 this may comprise the support for {prev}, {first}, {last}, and {self} as
-http://www.iana.org/assignments/link-relations/[link relations] (see also
-<<pagination-fields>> for details).
+{link-relations}[link relations] (see also <<simple-hypertext-control-fields>>
+for details).
 
 *Remark:* You should avoid providing a total count unless there is a clear
 need to do so. Very often, there are significant system and performance
@@ -107,9 +110,8 @@ system limits. In this case, the encoded {cursor} needs to be transported in
 the request body (see {GET-with-body}).
 
 If the collection consists of links to other resources, the collection
-name should use http://www.iana.org/assignments/link-relations/[IANA
-registered link relations] as names whenever appropriate, but use plural
-form.
+name should use {link-relations}[IANA registered link relations] as names
+whenever appropriate, but use plural form.
 
 E.g. a service for articles could represent the collection of hyperlinks to
 the `authors` of an article as follows:

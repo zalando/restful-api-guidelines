@@ -32,6 +32,7 @@
 :RFC-7807: https://tools.ietf.org/html/rfc7807
 :RFC-8288: https://tools.ietf.org/html/rfc8288
 
+:link-relations: http://www.iana.org/assignments/link-relations
 
 :ISO-8601: https://en.wikipedia.org/wiki/ISO_8601
 :ISO-3166-1-a2: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
@@ -100,6 +101,7 @@
 
 
 // Attributes to improve linking to semantic fields.
+:href: pass:[<a href="#href"><code>href</code></a>]
 :first: pass:[<a href="#first"><code>first</code></a>]
 :prev: pass:[<a href="#prev"><code>prev</code></a>]
 :self: pass:[<a href="#self"><code>self</code></a>]

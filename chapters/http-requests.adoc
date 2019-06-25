@@ -54,7 +54,7 @@ original problem.
 within the body, <<161, pagination links>> are in general not applicable any
 longer. As a consequence, all {cursors} used for <<160, cursor-based
 pagination>> need to be transported in the request body (see
-<<pagination-fields>>) as follows:
+<<simple-hypertext-control-fields>>) as follows:
 
 [source,json]
 ----

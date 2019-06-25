@@ -126,23 +126,23 @@ allows API client developers to build up a common understanding of Zalando's
 resources. There is very little utility for API consumers in having different
 names or value types for these fields across APIs.
 
-[[pagination-fields]]
-=== Pagination Fields
+[[simple-hypertext-control-fields]]
+=== Simple Hypertext Control and Pagination Fields
 
-To foster a consistent look and feel response object for paginating over
-collections should follow a common pattern using the following pagination
-field semantics:
+To foster a consistent look and feel of simple hypertext controls responses
+for paginating over collection values should follow a common pattern using the
+following field semantics:
 
-* [[first]]{first}: the cursor or link in a pagination response pointing to
-  the first page.
-* [[prev]]{prev}: the cursor or link in a pagination response pointing to the
-  previous page.
-* [[self]]{self}: the cursor or link in a pagination response pointing to the
-  current page.
-* [[next]]{next}: the cursor or link in a pagination response pointing to the
-  next page.
-* [[last]]{last}: the cursor or link in a pagination response pointing to the
-  last page.
+* [[first]]{first}: the link or cursor in an object or pagination response
+  pointing to the first object or page.
+* [[prev]]{prev}: the link or cursor in an object or pagination response
+  pointing to the previous object or page.
+* [[self]]{self}: the link or cursor in an object or pagination response
+  pointing to the same object or the current page.
+* [[next]]{next}: the link or cursor in an object or pagination response
+  pointing to the next object or page.
+* [[last]]{last}: the link or cursor in an object or pagination response
+  pointing to the last page.
 
 To distinguish between pagination links and cursors the cursor set should be
 wrapped in a {cursors} object as follows:
@@ -154,6 +154,7 @@ wrapped in a {cursors} object as follows:
 * [[items]]{items}: array of resources, holding all the items of the current
   page (can be replaced by resource name).
 
+For a standard response page this may look as follows:
 
 [source,yaml]
 ----
@@ -204,8 +205,9 @@ ResponsePage:
        items: ...
 ----
 
-The response page may contain additional metadata about the collection or the
-current page, if necessary.
+Normally, only cursors or simple hypertext controls are used. The response page
+may contain additional metadata about the collection or the current page, if
+necessary.
 
 [[address-fields]]
 === Address Fields
