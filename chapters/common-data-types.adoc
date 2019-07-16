@@ -126,88 +126,82 @@ allows API client developers to build up a common understanding of Zalando's
 resources. There is very little utility for API consumers in having different
 names or value types for these fields across APIs.
 
-[[simple-hypertext-control-fields]]
-=== Simple Hypertext Control and Pagination Fields
+[[link-relation-fields]]
+=== Link Relation Fields
 
-To foster a consistent look and feel of simple hypertext controls responses
-for paginating over collection values should follow a common pattern using the
-following field semantics:
+To foster a consistent look and feel using simple hypertext controls for
+paginating and iterating over collection values the response objects should
+follow a common pattern using the below field semantics:
 
-* [[first]]{first}: the link or cursor in an object or pagination response
-  pointing to the first object or page.
-* [[prev]]{prev}: the link or cursor in an object or pagination response
-  pointing to the previous object or page.
-* [[self]]{self}: the link or cursor in an object or pagination response
-  pointing to the same object or the current page.
-* [[next]]{next}: the link or cursor in an object or pagination response
-  pointing to the next object or page.
-* [[last]]{last}: the link or cursor in an object or pagination response
-  pointing to the last page.
+* [[self]]{self}:the link or cursor in a pagination response or object
+  pointing to the same collection object or page.
+* [[first]]{first}: the link or cursor in a pagination response or object
+  pointing to the first collection object or page.
+* [[prev]]{prev}: the link or cursor in a pagination response or object
+  pointing to the previous collection object or page.
+* [[next]]{next}: the link or cursor in a pagination response or object
+  pointing to the next collection object or page.
+* [[last]]{last}: the link or cursor in a pagination response or object
+  pointing to the last collection object or page.
 
-To distinguish between pagination links and cursors the cursor set should be
-wrapped in a {cursors} object as follows:
+Pagination responses should contain the following additional array field to
+transport the page content:
 
-* [[cursors]]{cursors}: pagination object containing the cursors for the
-  {first}, {prev}, {self}, {next}, and {last} page.
-* [[cursor]]{cursor}: the cursor used in a {GET-with-body} search request
-  pointing to the requested page.
 * [[items]]{items}: array of resources, holding all the items of the current
-  page (can be replaced by resource name).
+  page ({items} may be replaced by a resource name).
 
-For a standard response page this may look as follows:
+To simplify user experience, the applied query filters may be returned using
+the following field (see also {GET-with-body}):
+
+* [[query]]{query}: object containing the query filters applied in the search
+  request to filter the collection resource.
+
+As Result, the standard response page using <<161, pagination links>> is
+defined as follows:
 
 [source,yaml]
 ----
 ResponsePage:
   type: object
   properties: 
+    self:
+      description: Pagination link pointing to the current page.
+      type: string
+      format: uri
     first:
-      description: pagination link pointing to the first page.
+      description: Pagination link pointing to the first page.
       type: string
       format: uri
     prev:
-      description: pagination link pointing to the previous page.
-      type: string
-      format: uri
-    self:
-      description: pagination link pointing to the current page.
+      description: Pagination link pointing to the previous page.
       type: string
       format: uri
     next:
-      description: pagination link pointing to the next page.
+      description: Pagination link pointing to the next page.
       type: string
       format: uri
     last:
-      description: pagination link pointing to the last page.
+      description: Pagination link pointing to the last page.
       type: string
       format: uri
 
-    cursors:
-      first:
-        description: cursor pointing to the first page.
-        type: string
-      prev:
-        description: cursor pointing to the previous page.
-        type: string
-      self:
-        description: cursor pointing to the current page.
-        type: string
-      next:
-        description: cursor pointing to the next page.
-        type: string
-      last:
-        description: cursor pointing to the last page.
-        type: string
+     query:
+       description: >
+         Object containing the query filters applied to the collection resource.
+       type: object
+       properties: ...
 
      items:
-       description: array of collection items
+       description: Array of collection items.
        type: array
-       items: ...
+       required: false
+       items:
+         type: ...
 ----
 
-Normally, only cursors or simple hypertext controls are used. The response page
-may contain additional metadata about the collection or the current page, if
-necessary.
+The response page may contain additional metadata about the collection or the
+current page.
+
 
 [[address-fields]]
 === Address Fields

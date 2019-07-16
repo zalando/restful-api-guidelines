@@ -99,6 +99,14 @@
 :501: pass:[<a href="#status-code-501" class="status-code">501</a>]
 :503: pass:[<a href="#status-code-503" class="status-code">503</a>]
 
+// Attributes to improve common query parameters.
+:q: pass:[<a href="#q"><code>q</code></a>]
+:sort: pass:[<a href="#sort"><code>sort</code></a>]
+:fields: pass:[<a href="#fields"><code>fields</code></a>]
+:embed: pass:[<a href="#embed"><code>embed</code></a>]
+:offset: pass:[<a href="#offset"><code>offset</code></a>]
+:cursor: pass:[<a href="#cursor"><code>cursor</code></a>]
+:limit: pass:[<a href="#limit"><code>limit</code></a>]
 
 // Attributes to improve linking to semantic fields.
 :href: pass:[<a href="#href"><code>href</code></a>]
@@ -107,8 +115,7 @@
 :self: pass:[<a href="#self"><code>self</code></a>]
 :next: pass:[<a href="#next"><code>next</code></a>]
 :last: pass:[<a href="#last"><code>last</code></a>]
-:cursors: pass:[<a href="#cursors"><code>cursors</code></a>]
-:cursor: pass:[<a href="#cursor"><code>cursor</code></a>]
+:query: pass:[<a href="#query"><code>query</code></a>]
 :items: pass:[<a href="#items"><code>items</code></a>]
 
 

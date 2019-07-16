@@ -34,8 +34,8 @@ following two options:
 1. {GET} with URL encoded query parameters: when it is possible to encode the
    request information in query parameters, respecting the usual size limits of
    clients, gateways, and servers, this should be the first choice. The request
-   information can either be provided distributed to multiple query parameters
-   or a single structured URL encoded string.
+   information can either be provided via multiple query parameters or by a
+   single structured URL encoded string.
 2. {POST} with body content: when a {GET} with URL encoded query parameters
    is not possible, a {POST} with body content must be used. In this case the
    endpoint must be documented with the hint {GET-with-Body} to transport the
@@ -43,28 +43,20 @@ following two options:
 
 *Note:* It is no option to encode the lengthy structured request information
 using header parameters. From a conceptual point of view, the semantic of an
-operation should always be expressed by resource name, path, and query
-parameters, i.e. what goes into the URL. Request headers are reserved for
-general context information, e.g. FlowIDs. In addition, size limits on query
-parameters and headers are not reliable and depend on clients, gateways,
-server, and actual settings. Thus, switching to headers does not solve the
-original problem.
+operation should always be expressed by the resource names, as well as the
+involved path and query parameters. In other words by everything that goes into
+the URL. Request headers are reserved for general context information (see
+<<183>>). In addition, size limits on query parameters and headers are not
+reliable and depend on clients, gateways, server, and actual settings. Thus,
+switching to headers does not solve the original problem.
 
-*Hint:* As {GET-with-body} is used to transport extensive request parameters
-within the body, <<161, pagination links>> are in general not applicable any
-longer. As a consequence, all {cursors} used for <<160, cursor-based
-pagination>> need to be transported in the request body (see
-<<simple-hypertext-control-fields>>) as follows:
-
-[source,json]
-----
-{
-  "cursor": <string>, // encoded search query with resource pointer and direction.
-  "limit": <number>,
-  "query-param-<1>": ..., // ignored, if cursor is provided.
-  "query-param-<n>": ...
-}
-----
+*Hint:* As {GET-with-body} is used to transport extensive query parameters,
+the {cursor} cannot any longer be used to encode the query filters in case of
+<<160, cursor-based pagination>>. As a consequence, it is best practice to
+transport the query filters in the body, while using <<161, pagination links>>
+containing the {cursor} that is only encoding the page position and direction.
+To protect the pagination sequence the {cursor} may contain a hash over all
+applied query filters (See also <<161>>).
 
 
 [[put]]

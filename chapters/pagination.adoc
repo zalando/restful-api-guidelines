@@ -28,6 +28,7 @@ pagination.
 **Note:** To provide a consistent look and feel of pagination patterns,
 you must stick to the common query parameter names defined in <<137>>.
 
+
 [#160]
 == {SHOULD} Prefer Cursor-Based Pagination, Avoid Offset-Based Pagination
 
@@ -55,15 +56,54 @@ Before choosing cursor-based pagination, consider the following trade-offs:
   ** Sharded or NoSQL databases.
 * Cursor-based navigation may not work if you need the total count of results.
 
-*Hint:* The cursor used for pagination is an opaque pointer to a page, that
-must never be inspected/constructed by clients. It usually (encrypted) encodes
-the identifier of the first or last page element, the pagination direction, and
-the applied query filters to recreate the collection. 
+The {cursor} used for pagination is an opaque pointer to a page, that must
+never be *inspected* or *constructed* by clients. It usually encodes (encrypts)
+the page position, i.e. the identifier of the first or last page element, the
+pagination direction, and the applied query filters - or a hash over these -
+to safely recreate the collection. The {cursor} may be defined as follows:
 
-The page information for cursor-based pagination should consist of a set of
-{cursors}, that besides {next} may provide support for {prev}, {first}, {last},
-and {self} (see also <<simple-hypertext-control-fields>> for details) as
-follows:
+[source,yaml]
+----
+Cursor:
+  type: object
+  properties: 
+    position:
+      description: >
+        Object containing the identifier(s) pointing to the entity that is
+        defining the collection resource page - normally the position is
+        represented by the first or the last page element.
+      type: object
+      properties: ...
+
+    direction:
+      description: >
+        The pagination direction that is defining which elements to choose
+        from the collection resource starting from the page position.
+      type: string
+      enum: [ ASC, DESC ]
+
+    query:
+      description: >
+        Object containing the query filters applied to create the collection
+        resource that is represented by this cursor.
+      type: object
+      properties: ...
+
+    query_hash:
+      description: >
+        Stable hash calculated over all query filters applied to create the
+        collection resource that is represented by this cursor.
+      type: string
+
+  required:
+    - position
+    - direction
+----
+
+
+The page information for cursor-based pagination should consist of a {cursor}
+set, that besides {next} may provide support for {prev}, {first}, {last}, and
+{self} as follows (see also <<link-relation-fields>>):
 
 [source,json]
 ----
@@ -79,7 +119,7 @@ follows:
 }
 ----
 
-*Note:* The support of the set of {cursors} may be dropped in favor of <<161>>.
+*Note:* The support of the {cursor} set may be dropped in favor of <<161>>.
 
 Further reading:
 
@@ -88,14 +128,42 @@ Further reading:
 * https://www.citusdata.com/blog/1872-joe-nelson/409-five-ways-paginate-postgres-basic-exotic[Paging
   in PostgreSQL]
 
+
 [#161]
 == {SHOULD} Use Pagination Links Where Applicable
 
 To simplify client design, APIs should support <<165, simplified hypertext
 controls>> for pagination over collections whenever applicable. Beside {next}
 this may comprise the support for {prev}, {first}, {last}, and {self} as
-{link-relations}[link relations] (see also <<simple-hypertext-control-fields>>
-for details).
+{link-relations}[link relations] (see also <<link-relation-fields>> for
+details).
+
+The page content is transported via {items}, while the {query} object may
+contain the query filters applied to the collection resource as follows:
+
+[source,json]
+----
+{
+  "self": "http://my-service.zalandoapis.com/resources?cursor=<self-position>",
+  "first": "http://my-service.zalandoapis.com/resources?cursor=<first-position>",
+  "prev": "http://my-service.zalandoapis.com/resources?cursor=<previous-position>",
+  "next": "http://my-service.zalandoapis.com/resources?cursor=<next-position>",
+  "last": "http://my-service.zalandoapis.com/resources?cursor=<last-position>",
+  "query": {
+    "query-param-<1>": ...,
+    "query-param-<n>": ...
+  },
+  "items": [...]
+}
+----
+
+*Note:* In case of complex search requests, e.g. when {GET-with-body} is
+required, the {cursor} may not be able to encode all query filters. In this
+case, it is best practice to encode only page position and direction in the
+{cursor} and transport the query filter in the body - in the request as well
+as in the response. To protect the pagination sequence, in this case it is
+recommended, that the {cursor} contains a hash over all applied query
+filters for pagination request validation.
 
 *Remark:* You should avoid providing a total count unless there is a clear
 need to do so. Very often, there are significant system and performance
@@ -103,36 +171,3 @@ implications when supporting full counts. Especially, if the data set grows
 and requests become complex queries and filters drive full scans. While this
 is an implementation detail relative to the API, it is important to consider
 the ability to support serving counts over the life of a service.
-
-*Note:* In case of complex queries and filters, pagination links might not
-work for cursor-based pagination, as the length of the link URL can exceed
-system limits. In this case, the encoded {cursor} needs to be transported in
-the request body (see {GET-with-body}).
-
-If the collection consists of links to other resources, the collection
-name should use {link-relations}[IANA registered link relations] as names
-whenever appropriate, but use plural form.
-
-E.g. a service for articles could represent the collection of hyperlinks to
-the `authors` of an article as follows:
-
-[source,json]
-----
-{
-  "self": "https://.../articles/xyz/authors?cursor=...",
-  "first": "https://.../articles/xyz/authors?cursor=...",
-  "prev": "https://.../articles/xyz/authors?cursor=...",
-  "next": "https://.../articles/xyz/authors?cursor=...",
-  "last": "https://.../articles/xyz/authors?cursor=...",
-  "items": [{
-      "href": "https://.../authors/...",
-      "id": "123e4567-e89b-12d3-a456-426655440000",
-      "name": "Kent Beck"
-    }, {
-      "href": "https://.../authors/...",
-      "id": "987e2343-e89b-12d3-a456-426655440000",
-      "name": "Mike Beedle"
-    }
-  ]
-}
-----
