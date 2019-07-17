@@ -370,6 +370,67 @@ explicitly define the collection format to guide consumers as follows:
 When choosing the collection format, take into account the tool support,
 the escaping of special characters and the maximal URL length.
 
+[#236]
+== {SHOULD} Design simple query languages using query parameters
+
+We prefer the use of query parameters to describe resource-specific
+query languages for the majority of APIs because it's native to HTTP,
+easy to extend and has excellent implementation support in HTTP clients
+and web frameworks.
+
+Query parameters should have the following aspects specified:
+
+* Reference to corresponding property, if any
+* Value range, e.g. inclusive vs. exclusive
+* Comparison semantics (equals, less than, greater than, etc)
+* Implications when combined with other queries, e.g. _and_ vs. _or_
+
+How query parameters are named and used is up to individual API designers.
+The following examples should serve as ideas:
+
+* `name=Zalando`, to query for elements based on property equality
+* `age=5`, to query for elements based on logical properties
+**  Assumung that elements don't actually have an `age` but rather a `birthday`
+* `max_length=5`, based on upper and lower bounds (`min` and `max`)
+* `shorter_than=5`, using terminology specific e.g. to _length_
+* `created_before=2019-07-17` or `not_modified_since=2019-07-17`
+** Using terminology specific e.g. to time: _before_, _after_, _since_ and _until_
+
+We don't advocate for or against certain names because in the end
+APIs should be free to choose the terminology that fits their domain the best.
+
+
+[#237]
+== {SHOULD} Design complex query languages using JSON
+
+Minimalistic query languages based on <<236, query parameters>> are suitable for
+simple use cases with a small set of available filters that are combined in one
+way and one way only (e.g. _and_ semantics).
+
+Some APIs will have a need for sophisticated and more complex query languages.
+Dominant examples are APIs around search (incl. faceting) and product catalogs.
+
+Aspects that sets those APIs apart from the rest include but are not limited to:
+
+* Unusual high number of available filters
+* Dynamic filters, due to a dynamic and extensible resource model
+* Free choice of operators, e.g. `and`, `or` and `not`
+
+APIs that qualify for a specific, complex query language are encouraged to define
+it as a structured, potentially nested data structure in JSON.
+
+The reason for favoring data structures over text-based query languages is that
+traditionally there are more applications generating queries than there are
+that read and interpret them. If a query language is defined in terms of data
+structures it's very easy to generate queries, even dynamically. The same is
+not true for text-based query languages.
+
+Complex query languages should be specified within the OpenAPI specification
+of the API itself. The query is then obviously subject to all
+<<json-guidelines, JSON-specific rules>> and most certainly needs to make use of the
+<<get-with-body, `GET`-with-body>> pattern.
+
+
 [#226]
 == {MUST} Document Implicit Filtering
 
@@ -384,7 +445,7 @@ Implicit filtering could be done on:
 
 In such cases, the implicit filtering must be in the API specification (in its description).
 
-Consider <<227,caching considerations>> when implicitely filtering.
+Consider <<227,caching considerations>> when implicitly filtering.
 
 Example:
 
