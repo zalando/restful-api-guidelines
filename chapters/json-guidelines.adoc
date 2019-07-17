@@ -98,14 +98,35 @@ unknown.
 
 
 [#123]
-== {SHOULD} Null values should have their fields removed
+== {MUST} Use same semantics for `null` and absent properties
 
-OpenAPI, which is in common use, doesn't support null field values (it does
-allow omitting that field completely if it is not marked as required).
-However that doesn't prevent clients and servers sending and receiving those
-fields with null values. Also, in some cases null may be a meaningful value
-- for example, JSON Merge Patch {RFC-7396}[RFC 7396]) using null to indicate
-property deletion.
+OpenAPI 3 allows to mark properties as `required` and `nullable`. The
+following table showcases all combinations of both and whether the examples
+are valid in the context of the schema or not:
+
+[cols=",,,",options="header",]
+|===
+|`+required+` |`+nullable+` |`+{}+` |`+{"example":null}+`
+|`+true+` |`+true+` | ❌ |✔️
+|`+false+` |`+true+` |✔️ |✔️
+|`+true+` |`+false+` |❌ |❌
+|`+false+` |`+false+` |✔️ |❌
+|===
+
+Non-required, nullable properties (2nd row) have two valid forms,
+`{}` and `{"example":null}`. API designers and implementations are free use
+either one and they must be treated in the very same way.
+
+We do recognize that there are use cases when a semantic difference between
+absent and null may seem tempting, but we explicitly decide against it because
+any possible gain in expressiveness does not outweigh the risk of clients
+implementing and understanding this incorrectly. This is especially problematic
+for strong-typed languages that traditionally map JSON to objects because
+effectively all major libraries and frameworks don't support this use case.
+
+The only exception to this rule are JSON Merge Patches {RFC-7396}[RFC 7396])
+which uses `null` to explicitly indicate property deletion while absent
+properties are ignored, i.e. not modified.
 
 
 [#124]
