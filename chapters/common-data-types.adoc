@@ -78,10 +78,12 @@ referenced object or the relationship to the referenced object followed
 by `_id` (e.g. `customer_id` not `customer_number`; `parent_node_id` for
 the reference to a parent node from a child node, even if both have the
 type `Node`)
-* `created`: when the object was created. If used, this must be a
+* `created_at`: when the object was created. If used, this must be a
 `date-time` construct.
-* `modified`: when the object was updated. If used, this must be a
+** Used to be `created`, see <<235, Naming conventions for date/time properties>>.
+* `modified_at`: when the object was updated. If used, this must be a
 `date-time` construct.
+** Used to be `modified`, see <<235, Naming conventions for date/time properties>>.
 * `type`: the kind of thing this object is. If used, the type of this
 field should be a string. Types allow runtime information on the entity
 provided that otherwise requires examining the Open API file.

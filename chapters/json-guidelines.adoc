@@ -26,7 +26,6 @@ Others, like Google and Amazon, use both - but not only camelCase. It’s
 essential to establish a consistent look and feel such that JSON looks
 as if it came from the same hand.
 
-
 [#216]
 == {SHOULD} Define Maps Using `additionalProperties`
 
@@ -119,6 +118,18 @@ Empty array values can unambiguously be represented as the empty list, `[]`.
 == {SHOULD} Enumerations should be represented as Strings
 
 Strings are a reasonable target for values that are by design enumerations.
+
+[#235]
+== {SHOULD} Name date/time properties using the `_at` suffix
+
+Dates and date-time properties should end with `_at` to distinguish them from
+boolean properties which otherwise would have very similar or even identical names:
+
+- `created_at` and `modified_at` rather than `created` and `modified`
+  The later ones were used in an earlier version of the guidelines and are therefore still accepted
+  for APIs that predate this rule.
+- `occurred_at`, rather than `occurred`
+- `returned_at`, rather than `returned`
 
 
 [#126]
