@@ -100,33 +100,35 @@ unknown.
 [#123]
 == {MUST} Use same semantics for `null` and absent properties
 
-OpenAPI 3 allows to mark properties as `required` and `nullable`. The
-following table showcases all combinations of both and whether the examples
-are valid in the context of the schema or not:
+Open API 3.x allows to mark properties as `required` and as `nullable` to
+specify whether properties may be absent (`{}`) or `null` (`{"example":null}`).
+If a property is defined to be `non-required` and `nullable` (see
+<<required-nullable-row-2, 2nd row of below Table>>), this rule demands 
+that both cases must be handled in the exact same manner by specification.
+
+The following table shows all combinations and whether the examples are
+valid:
 
 [cols=",,,",options="header",]
-|===
-|`+required+` |`+nullable+` |`+{}+` |`+{"example":null}+`
-|`+true+` |`+true+` | ❌ |✔️
-|`+false+` |`+true+` |✔️ |✔️
-|`+true+` |`+false+` |❌ |❌
-|`+false+` |`+false+` |✔️ |❌
-|===
+|===========================================
+| {CODE-START}required{CODE-END} | {CODE-START}nullable{CODE-END}
+| {CODE-START}{}{CODE-END} | {CODE-START}{"example":null}{CODE-END}
+| `true`  |`true`   | {NO}  | {YES}
+| `false` | `true`  | {YES} | {YES} [[required-nullable-row-2]]
+| `true`  |`false`  | {NO}  | {NO}
+| `false` |`false`  | {YES} | {NO}
+|===========================================
 
-Non-required, nullable properties (2nd row) have two valid forms,
-`{}` and `{"example":null}`. API designers and implementations are free use
-either one and they must be treated in the very same way.
+While API designers and implementers may be tempted to assign both cases a
+different semantics, we explicitly decide **against** this options, because we
+think that any gain in expressiveness is far outweighed by the risk of clients
+not understanding and implementing the subtle differences correctly. Moreover,
+many major libraries and frameworks as well as some strong-typed languages
+simply do not support different semantics.
 
-We do recognize that there are use cases when a semantic difference between
-absent and null may seem tempting, but we explicitly decide against it because
-any possible gain in expressiveness does not outweigh the risk of clients
-implementing and understanding this incorrectly. This is especially problematic
-for strong-typed languages that traditionally map JSON to objects because
-effectively all major libraries and frameworks don't support this use case.
-
-The only exception to this rule are JSON Merge Patches {RFC-7396}[RFC 7396])
-which uses `null` to explicitly indicate property deletion while absent
-properties are ignored, i.e. not modified.
+The only exception to this rule is JSON Merge Patch {RFC-7396}[RFC 7396]) which
+uses `null` to explicitly indicate property deletion while absent properties are
+ignored, i.e. not modified.
 
 
 [#124]
