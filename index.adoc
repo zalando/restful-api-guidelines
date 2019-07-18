@@ -108,6 +108,17 @@
 :cursor: pass:[<a href="#cursor"><code>cursor</code></a>]
 :limit: pass:[<a href="#limit"><code>limit</code></a>]
 
+// Attributes to improve generic fields.
+:id: pass:[<a href="#id"><code>id</code></a>]
+:xyz_id: pass:[<a href="#xyz_id"><code>xyz_id</code></a>]
+:created: pass:[<a href="#created"><code>created</code></a>]
+:created_at: pass:[<a href="#created_at"><code>created_at</code></a>]
+:modified: pass:[<a href="#modified"><code>modified</code></a>]
+:modified_at: pass:[<a href="#modified_at"><code>modified_at</code></a>]
+:type: pass:[<a href="#type"><code>type</code></a>]
+:etag: pass:[<a href="#etag"><code>etag</code></a>]
+
+
 // Attributes to improve linking to semantic fields.
 :href: pass:[<a href="#href"><code>href</code></a>]
 :first: pass:[<a href="#first"><code>first</code></a>]
