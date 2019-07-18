@@ -91,7 +91,7 @@ provided that otherwise requires examining the Open API file.
 
 Example JSON schema:
 
-[source,json]
+[source,yaml]
 ----
 tree_node:
   type: object
@@ -121,11 +121,87 @@ tree_node:
     parent_node_id: '534321'
 ----
 
-These properties are not always strictly necessary, but making them
-idiomatic allows API client developers to build up a common
-understanding of Zalando's resources. There is very little utility for
-API consumers in having different names or value types for these fields
-across APIs.
+These properties are not always strictly necessary, but making them idiomatic
+allows API client developers to build up a common understanding of Zalando's
+resources. There is very little utility for API consumers in having different
+names or value types for these fields across APIs.
+
+[[link-relation-fields]]
+=== Link Relation Fields
+
+To foster a consistent look and feel using simple hypertext controls for
+paginating and iterating over collection values the response objects should
+follow a common pattern using the below field semantics:
+
+* [[self]]{self}:the link or cursor in a pagination response or object
+  pointing to the same collection object or page.
+* [[first]]{first}: the link or cursor in a pagination response or object
+  pointing to the first collection object or page.
+* [[prev]]{prev}: the link or cursor in a pagination response or object
+  pointing to the previous collection object or page.
+* [[next]]{next}: the link or cursor in a pagination response or object
+  pointing to the next collection object or page.
+* [[last]]{last}: the link or cursor in a pagination response or object
+  pointing to the last collection object or page.
+
+Pagination responses should contain the following additional array field to
+transport the page content:
+
+* [[items]]{items}: array of resources, holding all the items of the current
+  page ({items} may be replaced by a resource name).
+
+To simplify user experience, the applied query filters may be returned using
+the following field (see also {GET-with-body}):
+
+* [[query]]{query}: object containing the query filters applied in the search
+  request to filter the collection resource.
+
+As Result, the standard response page using <<161, pagination links>> is
+defined as follows:
+
+[source,yaml]
+----
+ResponsePage:
+  type: object
+  properties: 
+    self:
+      description: Pagination link pointing to the current page.
+      type: string
+      format: uri
+    first:
+      description: Pagination link pointing to the first page.
+      type: string
+      format: uri
+    prev:
+      description: Pagination link pointing to the previous page.
+      type: string
+      format: uri
+    next:
+      description: Pagination link pointing to the next page.
+      type: string
+      format: uri
+    last:
+      description: Pagination link pointing to the last page.
+      type: string
+      format: uri
+
+     query:
+       description: >
+         Object containing the query filters applied to the collection resource.
+       type: object
+       properties: ...
+
+     items:
+       description: Array of collection items.
+       type: array
+       required: false
+       items:
+         type: ...
+----
+
+The response page may contain additional metadata about the collection or the
+current page.
+
 
 [[address-fields]]
 === Address Fields

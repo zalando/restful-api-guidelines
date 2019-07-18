@@ -32,22 +32,31 @@ clients, load-balancers, and servers. As we require APIs to be standard conform
 following two options:
 
 1. {GET} with URL encoded query parameters: when it is possible to encode the
-request information in query parameters, respecting the usual size limits of
-clients, gateways, and servers, this should be the first choice. The request
-information can either be provided distributed to multiple query parameters or
-a single structured URL encoded string.
+   request information in query parameters, respecting the usual size limits of
+   clients, gateways, and servers, this should be the first choice. The request
+   information can either be provided via multiple query parameters or by a
+   single structured URL encoded string.
 2. {POST} with body content: when a {GET} with URL encoded query parameters
-is not possible, a {POST} with body content must be used. In this case the
-endpoint must be documented with the hint {GET-with-Body} to transport the
-{GET} semantic of this call.
+   is not possible, a {POST} with body content must be used. In this case the
+   endpoint must be documented with the hint {GET-with-Body} to transport the
+   {GET} semantic of this call.
 
 *Note:* It is no option to encode the lengthy structured request information
-in header parameters. From a conceptual point of view, the semantic of an
-operation should always be expressed by resource name and query parameters,
-i.e. what goes into the URL. Request headers are reserved for general context
-information, e.g. FlowIDs. In addition, size limits on query parameters and
-headers are not reliable and depend on clients, gateways, server, and actual
-settings. Thus, switching to headers does not solve the original problem.
+using header parameters. From a conceptual point of view, the semantic of an
+operation should always be expressed by the resource names, as well as the
+involved path and query parameters. In other words by everything that goes into
+the URL. Request headers are reserved for general context information (see
+<<183>>). In addition, size limits on query parameters and headers are not
+reliable and depend on clients, gateways, server, and actual settings. Thus,
+switching to headers does not solve the original problem.
+
+*Hint:* As {GET-with-body} is used to transport extensive query parameters,
+the {cursor} cannot any longer be used to encode the query filters in case of
+<<160, cursor-based pagination>>. As a consequence, it is best practice to
+transport the query filters in the body, while using <<161, pagination links>>
+containing the {cursor} that is only encoding the page position and direction.
+To protect the pagination sequence the {cursor} may contain a hash over all
+applied query filters (See also <<161>>).
 
 
 [[put]]
