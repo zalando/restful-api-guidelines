@@ -390,7 +390,7 @@ The following examples should serve as ideas:
 
 * `name=Zalando`, to query for elements based on property equality
 * `age=5`, to query for elements based on logical properties
-**  Assumung that elements don't actually have an `age` but rather a `birthday`
+**  Assuming that elements don't actually have an `age` but rather a `birthday`
 * `max_length=5`, based on upper and lower bounds (`min` and `max`)
 * `shorter_than=5`, using terminology specific e.g. to _length_
 * `created_before=2019-07-17` or `not_modified_since=2019-07-17`
