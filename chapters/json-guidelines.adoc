@@ -98,14 +98,54 @@ unknown.
 
 
 [#123]
-== {SHOULD} Null values should have their fields removed
+== {MUST} Use same semantics for `null` and absent properties
 
-OpenAPI, which is in common use, doesn't support null field values (it does
-allow omitting that field completely if it is not marked as required).
-However that doesn't prevent clients and servers sending and receiving those
-fields with null values. Also, in some cases null may be a meaningful value
-- for example, JSON Merge Patch {RFC-7396}[RFC 7396]) using null to indicate
-property deletion.
+Open API 3.x allows to mark properties as `required` and as `nullable` to
+specify whether properties may be absent (`{}`) or `null` (`{"example":null}`).
+If a property is defined to be not `required` and `nullable` (see
+<<required-nullable-row-2, 2nd row in Table below>>), this rule demands
+that both cases must be handled in the exact same manner by specification.
+
+The following table shows all combinations and whether the examples are
+valid:
+
+[cols=",,,",options="header",]
+|===========================================
+| {CODE-START}required{CODE-END} | {CODE-START}nullable{CODE-END}
+| {CODE-START}{}{CODE-END} | {CODE-START}{"example":null}{CODE-END}
+| `true`  |`true`   | {NO}  | {YES}
+| `false` | `true`  | {YES} | {YES} [[required-nullable-row-2]]
+| `true`  |`false`  | {NO}  | {NO}
+| `false` |`false`  | {YES} | {NO}
+|===========================================
+
+While API designers and implementers may be tempted to assign different
+semantics to both cases, we explicitly decide **against** that option, because we
+think that any gain in expressiveness is far outweighed by the risk of clients
+not understanding and implementing the subtle differences incorrectly.
+
+As an example, an API that provides the ability for different users to
+coordinate on a time schedule, e.g. a meeting, may have a resource for options
+in which every user has to make a `choice`. The difference between _undecided_
+and _decided against any of the options_ could be modeled as _absent_ and
+`null` respectively. It would be safer to express the `null` case with a
+dedicated https://en.wikipedia.org/wiki/Null_object_pattern[Null object], e.g.
+`{}` compared to `{"id":"42"}`.
+
+Moreover, many major libraries have somewhere between little to no support for
+a `null`/absent pattern (see
+https://stackoverflow.com/questions/48465005/gson-distinguish-null-value-field-and-missing-field[Gson],
+https://github.com/square/moshi#borrows-from-gson[Moshi],
+https://github.com/FasterXML/jackson-databind/issues/578[Jackson],
+https://developer.ibm.com/articles/j-javaee8-json-binding-3/[JSON-B]). Especially
+strongly-typed languages suffer from this since a new composite type is required
+to express the third state. Nullable `Option`/`Optional`/`Maybe` types could be
+used but having nullable references of these types completely contradicts their
+purpose.
+
+The only exception to this rule is JSON Merge Patch {RFC-7396}[RFC 7396]) which
+uses `null` to explicitly indicate property deletion while absent properties are
+ignored, i.e. not modified.
 
 
 [#124]

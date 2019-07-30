@@ -52,6 +52,9 @@
 :YES: pass:[<span class="may-keyword">&#x2714;</span> Yes]
 :AT: pass:[<span class="should-keyword">&#x26a0;&#xFE0F;</span>]
 
+:CODE-START: pass:[<span style="font-weight: bold; font-family: Consolas, Liberation Mono, Courier, monospace">]
+:CODE-END: pass:[</span>]
+
 // Attributes to improve Design and linking of HTTP methods.
 // Do not use in titles!! This is breaking references in asciidoctor - may be bug.
 :GET: pass:[<a href="#get"><code>GET</code></a>]
