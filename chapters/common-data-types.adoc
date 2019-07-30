@@ -4,7 +4,7 @@
 Definitions of data objects that are good candidates for wider usage:
 
 [#173]
-== {SHOULD} Use a Common Money Object
+== {MUST} Use a Common Money Object
 
 Use the following common money structure:
 
