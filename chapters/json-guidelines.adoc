@@ -188,7 +188,7 @@ durations).
 * {ISO-3166-1-a2}[ISO 3166-1-alpha2 country]
 * (It's "GB", not "UK", even though "UK" has seen some use at Zalando)
 * {ISO-639-1}[ISO 639-1 language code]
-* https://tools.ietf.org/html/bcp47[BCP-47] (based on {ISO-639-1}[ISO 639-1])
+* {BCP47}[BCP 47] (based on {ISO-639-1}[ISO 639-1])
   for language variants
 * {ISO-4217}[ISO 4217 currency codes]
 
