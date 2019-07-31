@@ -10,32 +10,64 @@ Use the following common money structure:
 
 [source,yaml]
 ----
-Money:
-  type: object
-  properties:
-    amount:
-      type: number
-      description: Amount expressed as a decimal number of major currency units
-      format: decimal
-      example: 99.95
-    currency:
-      type: string
-      description: 3 letter currency code as defined by ISO-4217
-      format: iso-4217
-      example: EUR
-  required:
-    - amount
-    - currency
+include::../money.yaml[]
 ----
 
-The decimal values for "amount" describe unit and subunit of the
-currency in a single value, where the digits before the decimal point
-are for the major unit and the digits after the decimal point are for
-the minor unit. Note that some business cases (e.g. transactions in
-Bitcoin) call for a higher precision, so applications must be prepared
-to accept values with unlimited precision, unless explicitly stated
-otherwise in the API specification. Examples for correct representations
-(in EUR):
+APIs are encouraged to include a reference to the global schema for Money.
+
+[source,yaml]
+----
+SalesOrder:
+  properties:
+    grand_total:
+      $ref: 'https://opensource.zalando.com/restful-api-guidelines/money.yaml#/Money'
+----
+
+Please note that APIs have to treat Money as a closed data type, i.e. it's not meant to be used in an inheritance hierarchy. That means the following usage is not allowed:
+
+[source,json]
+----
+{
+  "amount": 19.99,
+  "currency": "EUR",
+  "discounted_amount": 9.99
+}
+----
+
+=== Cons
+
+* Violates the https://en.wikipedia.org/wiki/Liskov_substitution_principle[Liskov Substitution Principle]
+* Breaks existing library support, e.g. https://github.com/zalando/jackson-datatype-money[Jackson Datatype Money]
+* Less flexible since both amounts are coupled together, e.g. mixed currencies are impossible
+
+A better approach is to favor https://en.wikipedia.org/wiki/Composition_over_inheritance[composition over inheritance]:
+
+[source,json]
+----
+{
+    "price": {
+      "amount": 19.99,
+      "currency": "EUR"
+    },
+    "discounted_price": {
+      "amount": 9.99,
+      "currency": "EUR"
+    }
+}
+----
+
+=== Pros
+
+* No inheritance, hence no issue with the substitution principle
+* Makes use of existing library support
+* No coupling, i.e. mixed currencies is an option
+* Prices are now self-describing, atomic values
+
+=== Notes
+
+Please be aware that some business cases (e.g. transactions in Bitcoin) call for a higher precision, so applications must be prepared to accept values with unlimited precision, unless explicitly stated otherwise in the API specification.
+
+Examples for correct representations (in EUR):
 
 * `42.20` or `42.2` = 42 Euros, 20 Cent
 * `0.23` = 23 Cent
