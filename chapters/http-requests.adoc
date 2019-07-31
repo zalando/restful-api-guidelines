@@ -410,7 +410,7 @@ way and one way only (e.g. _and_ semantics).
 Some APIs will have a need for sophisticated and more complex query languages.
 Dominant examples are APIs around search (incl. faceting) and product catalogs.
 
-Aspects that sets those APIs apart from the rest include but are not limited to:
+Aspects that set those APIs apart from the rest include but are not limited to:
 
 * Unusual high number of available filters
 * Dynamic filters, due to a dynamic and extensible resource model
