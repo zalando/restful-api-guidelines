@@ -63,7 +63,7 @@ need for further documentation outside the API definition. For example,
 which business object it represents. Along these lines, "items" is too general.
 
 [#228]
-== {MUST} Use URL-friendly Resource Identifiers: [a-zA-Z0-9:._-]*
+== {MUST} Use URL-friendly Resource Identifiers: `[a-zA-Z0-9:._-]`*
 
 To simplify encoding of resource IDs in URLs, their representation must only
 consist of ASCII strings of letters, numbers, underscore, minus, colon, and

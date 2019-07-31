@@ -53,3 +53,23 @@ a > code {
 #toc a {
   color: #364149;
 }
+
+// no clue why asciidoctor is changing the style of this to lowercase otherwise...
+#header #toctitle {
+  text-transform: none;
+}
+
+.toc li li,
+h3 {
+  text-transform: lowercase;
+}
+
+.toc li li strong,
+h3 strong {
+  text-transform: capitalize;
+}
+
+.toc li li code,
+h3 code {
+  text-transform: none;
+}
