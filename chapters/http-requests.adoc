@@ -416,19 +416,45 @@ Aspects that sets those APIs apart from the rest include but are not limited to:
 * Dynamic filters, due to a dynamic and extensible resource model
 * Free choice of operators, e.g. `and`, `or` and `not`
 
-APIs that qualify for a specific, complex query language are encouraged to define
-it as a structured, potentially nested data structure in JSON.
+APIs that qualify for a specific, complex query language are encouraged to use nested JSON data structures and define them using OpenAPI directly. The provides the following benefits:
 
-The reason for favoring data structures over text-based query languages is that
-traditionally there are more applications generating queries than there are
-that read and interpret them. If a query language is defined in terms of data
-structures it's very easy to generate queries, even dynamically. The same is
-not true for text-based query languages.
+* Data structures are easy to use for clients
+** No special library support necessary
+** No need for string concatenation or manual escaping
+* Data structures are easy to use for servers
+** No special parsers needed
+** Semantics are attached to data structures rather than text tokens
+* Consistent with other HTTP methods
+* API is defined in OpenAPI completely
+** No external documents or grammars needed
+** Existing means are familiar to everyone
 
-Complex query languages should be specified within the OpenAPI specification
-of the API itself. The query is then obviously subject to all
 <<json-guidelines, JSON-specific rules>> and most certainly needs to make use of the
 <<get-with-body, `GET`-with-body>> pattern.
+
+=== Example
+
+The following JSON document should serve as an idea how a structured query might look like. Feel free to also get some inspiration from https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html[Elastic Search: Query DSL].
+
+[source,json]
+----
+{
+  "and": {
+    "name": {
+      "match": "Alice"
+    },
+    "age": {
+      "or": {
+        "range": {
+          ">": 25,
+          "<=": 50
+        },
+        "=": 65
+      }
+    }
+  }
+}
+----
 
 
 [#226]
