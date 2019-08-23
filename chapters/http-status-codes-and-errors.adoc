@@ -109,7 +109,7 @@ Moved Permanently - This and all future requests should be directed to the
 given URI.
 |{ALL}
 
-|[[status-code-303]]{301}|
+|[[status-code-303]]{303}|
 See Other - The response to the request can be found under another URI using a
 {GET} method.
 |{POST}, {PUT}, {PATCH}, {DELETE}
