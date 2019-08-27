@@ -10,6 +10,12 @@ object as the top-level structure, since it would allow for future extension.
 This also applies for collection resources where one naturally would assume an
 array. See <<161>> for an example.
 
+Additional restrictions that any JSON document must comply with (see {RFC-7493}[RFC 7493]):
+
+* https://tools.ietf.org/html/rfc7159#section-8.1[`UTF-8` encoding]
+* only https://tools.ietf.org/html/rfc7159#section-8.2[valid unicode strings]
+* unique keys, i.e. no https://tools.ietf.org/html/rfc7493#section-2.3[duplicates]
+
 [#168]
 == {MAY} Use non JSON Media Types for Binary Data or Alternative Content Representations
 
