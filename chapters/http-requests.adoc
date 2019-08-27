@@ -419,7 +419,7 @@ APIs that qualify for a specific, complex query language are encouraged to use n
 ** No special library support necessary
 ** No need for string concatenation or manual escaping
 * Data structures are easy to use for servers
-** No special parsers needed
+** No special tokenizers needed
 ** Semantics are attached to data structures rather than text tokens
 * Consistent with other HTTP methods
 * API is defined in OpenAPI completely
