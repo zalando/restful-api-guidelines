@@ -403,12 +403,9 @@ APIs should be free to choose the terminology that fits their domain the best.
 [#237]
 == {SHOULD} Design complex query languages using JSON
 
-Minimalistic query languages based on <<236, query parameters>> are suitable for
-simple use cases with a small set of available filters that are combined in one
-way and one way only (e.g. _and_ semantics).
+Minimalistic query languages based on <<236, query parameters>> are suitable for simple use cases with a small set of available filters that are combined in one way and one way only (e.g. _and_ semantics). Simple query languages are generally preferred over complex ones.
 
-Some APIs will have a need for sophisticated and more complex query languages.
-Dominant examples are APIs around search (incl. faceting) and product catalogs.
+Some APIs will have a need for sophisticated and more complex query languages. Dominant examples are APIs around search (incl. faceting) and product catalogs.
 
 Aspects that set those APIs apart from the rest include but are not limited to:
 
@@ -434,7 +431,7 @@ APIs that qualify for a specific, complex query language are encouraged to use n
 
 === Example
 
-The following JSON document should serve as an idea how a structured query might look like. Feel free to also get some inspiration from https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html[Elastic Search: Query DSL].
+The following JSON document should serve as an idea how a structured query might look like.
 
 [source,json]
 ----
@@ -455,6 +452,11 @@ The following JSON document should serve as an idea how a structured query might
   }
 }
 ----
+
+Feel free to also get some inspiration from:
+
+* https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html[Elastic Search: Query DSL]
+* https://graphql.org/learn/queries/[GraphQL: Queries]
 
 
 [#226]
