@@ -14,7 +14,7 @@ Additional restrictions that any JSON document must comply with (see {RFC-7493}[
 
 * https://tools.ietf.org/html/rfc7159#section-8.1[`UTF-8` encoding]
 * only https://tools.ietf.org/html/rfc7159#section-8.2[valid unicode strings]
-* unique keys, i.e. no https://tools.ietf.org/html/rfc7493#section-2.3[duplicates]
+* unique member names, i.e. no https://tools.ietf.org/html/rfc7493#section-2.3[duplicate names]
 
 [#168]
 == {MAY} Use non JSON Media Types for Binary Data or Alternative Content Representations
