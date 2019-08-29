@@ -5,16 +5,25 @@
 == {MUST} Use JSON to Encode Structured Data
 
 Use JSON-encoded body payload for transferring structured data. The JSON
-payload must follow {RFC-7159}[RFC 7159] by having (if possible) a serialized
-object as the top-level structure, since it would allow for future extension.
-This also applies for collection resources where one naturally would assume an
-array. See <<161>> for an example.
+payload must follow {RFC-7159}[RFC 7159] using a JSON object as top-level data
+structure (if possible) to allow for future extension. This also applies to
+collection resources, where one naturally would assume an array. See also
+<<110>>.
 
-Additional restrictions that any JSON document must comply with (see {RFC-7493}[RFC 7493]):
+Additionally, the JSON payload must comply to {RFC-7493}[RFC 7493]),
+particularly
 
-* https://tools.ietf.org/html/rfc7159#section-8.1[`UTF-8` encoding]
-* only https://tools.ietf.org/html/rfc7159#section-8.2[valid unicode strings]
-* unique member names, i.e. no https://tools.ietf.org/html/rfc7493#section-2.3[duplicate names]
+* {RFC-7493}#section-2.1[Section 2.1] on encoding of characters, and
+* {RFC-7493}#section-2.3[Section 2.3] on object constraints.
+
+As a consequence, a JSON payload must
+
+* use {RFC-7493}#section-2.1[`UTF-8` encoding]
+* consist of {RFC-7493}#section-2.1[valid Unicode strings], i.e. must not
+  contain non-characters or surrogates, and
+* contain only {RFC-7493}#section-2.3[unique member names] (no duplicate
+  names).
+
 
 [#168]
 == {MAY} Use non JSON Media Types for Binary Data or Alternative Content Representations
@@ -30,9 +39,12 @@ Other media types may be used in following cases:
 [#239]
 === {SHOULD} encode embedded binary data in `base64url`
 
-Exposing binary data using an alternative media type is generally preferred. See <<168,the rule above>>.
+Exposing binary data using an alternative media type is generally preferred.
+See <<168,the rule above>>.
 
-If an alternative content representation is not desired then binary data should be embedded into the JSON document as a https://tools.ietf.org/html/rfc7493#section-4.4[`base64url`-encoded string] property.
+If an alternative content representation is not desired then binary data should
+be embedded into the JSON document as a `base64url`-encoded string property
+following {RFC-7493}#section-4.4[RFC 7493 Section 4.4].
 
 [#172]
 == {SHOULD} Prefer standard Media type name `application/json`
