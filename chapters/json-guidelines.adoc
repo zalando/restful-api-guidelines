@@ -214,7 +214,7 @@ requiring more effort to parse, avoid this ambiguity.
 
 
 [#127]
-== {MAY} Time durations and intervals could conform to ISO 8601
+== {SHOULD} Time durations and intervals could conform to ISO 8601
 
 Schema based JSON properties that are by design durations and intervals
 could be strings formatted as recommended by {ISO-8601}[ISO 8601]
