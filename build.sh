@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Script to build ValiMail RESTful Guidelines (static HTML, PDF)
 
-set -ex
+#set -ex
 
 pushd `dirname $0` > /dev/null
 SCRIPT_DIR=`pwd -P`
