@@ -20,7 +20,7 @@ APIs are encouraged to include a reference to the global schema for Money.
 SalesOrder:
   properties:
     grand_total:
-      $ref: 'https://opensource.zalando.com/restful-api-guidelines/money.yaml#/Money'
+      $ref: 'https://opensource.zalando.com/restful-api-guidelines/money-1.0.0.yaml#/Money'
 ----
 
 Please note that APIs have to treat Money as a closed data type, i.e. it's not meant to be used in an inheritance hierarchy. That means the following usage is not allowed:
