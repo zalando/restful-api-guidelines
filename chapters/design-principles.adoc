@@ -19,7 +19,7 @@ functionality via the internet or intranet.
 
 * We prefer REST-based APIs with JSON payloads
 * We prefer systems to be truly RESTful
-footnoteref:[fielding-restful,Per definition of R.Fielding REST APIs have to support
+footnote:fielding-restful[Per definition of R.Fielding REST APIs have to support
 HATEOAS (maturity level 3). Our guidelines do not strongly advocate for
 full REST compliance, but limited hypermedia usage, e.g. for pagination
 (see <<hypermedia>>).

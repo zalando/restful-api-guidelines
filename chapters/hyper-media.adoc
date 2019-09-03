@@ -77,14 +77,13 @@ achievable by following the recommendation to use <<156,gzip compression>>
 [#164]
 == {MUST} Use Common Hypertext Controls
 
-When embedding links to other resources into representations you must
-use the common hypertext control object. It contains at least one
-attribute:
+When embedding links to other resources into representations you must use the
+common hypertext control object. It contains at least one attribute:
 
-* `href`: The URI of the resource the hypertext control is linking to.
-All our API are using HTTP(s) as URI scheme.
+* [[href]]{href}: The URI of the resource the hypertext control is linking to.
+  All our API are using HTTP(s) as URI scheme.
 
-In API that contain any hypertext controls, the attribute name `href` is
+In API that contain any hypertext controls, the attribute name {href} is
 reserved for usage within hypertext controls.
 
 The schema for hypertext controls can be derived from this model:
@@ -105,8 +104,7 @@ HttpLink:
 
 The name of an attribute holding such a `HttpLink` object specifies the
 relation between the object that contains the link and the linked
-resource. Implementations should use names from the
-http://www.iana.org/assignments/link-relations/link-relations.xhtml[IANA
+resource. Implementations should use names from the {link-relations}[IANA
 Link Relation Registry] whenever appropriate. As IANA link relation
 names use hyphen-case notation, while this guide enforces snake_case
 notation for attribute names, hyphens in IANA names have to be replaced
@@ -147,13 +145,14 @@ understandability and usability of an API.
 [#165]
 == {SHOULD} Use Simple Hypertext Controls for Pagination and Self-References
 
-Hypertext controls for pagination inside collections and self-references
-should use a simple URI value in combination with their corresponding
-http://www.iana.org/assignments/link-relations/link-relations.xml[link
-relations] (`next`, `prev`, `first`, `last`, `self`) instead of the
-extensible common hypertext control
+For pagination and self-references a simplified form of the <<164, extensible
+common hypertext controls>> should be used to reduce the specification and
+cognitive overhead. It consists of a simple URI value in combination with the
+corresponding {link-relations}[link relations], e.g. {next}, {prev}, {first},
+{last}, or {self}.
 
-See <<pagination>> for information how to best represent paginateable collections.
+See <<simple-hypertext-control-fields>> and <<161>> for examples and more
+information.
 
 [#166]
 == {MUST} Not Use Link Headers with JSON Entities

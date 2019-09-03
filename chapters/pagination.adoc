@@ -12,112 +12,162 @@ just a few hundred entries.
 There are two well known page iteration techniques:
 
 * https://developer.infoconnect.com/paging-results[Offset/Limit-based
-pagination]: numeric offset identifies the first page entry
+  pagination]: numeric offset identifies the first page entry
 * https://dev.twitter.com/overview/api/cursoring[Cursor/Limit-based] — aka
-key-based — pagination: a unique key element identifies the first page entry
-(see also
-https://developers.facebook.com/docs/graph-api/using-graph-api/v2.4#paging[Facebook’s
-guide])
+  key-based — pagination: a unique key element identifies the first page entry
+  (see also https://developers.facebook.com/docs/graph-api/using-graph-api/v2.4#paging[Facebook’s
+  guide])
 
 The technical conception of pagination should also consider user experience
 related issues. As mentioned in this
 https://www.smashingmagazine.com/2016/03/pagination-infinite-scrolling-load-more-buttons/[article],
-jumping to a specific page is far less used than navigation via `next`/`prev`
+jumping to a specific page is far less used than navigation via {next}/{prev}
 page links (See <<161>>). This favours cursor-based over offset-based
 pagination.
 
 **Note:** To provide a consistent look and feel of pagination patterns,
 you must stick to the common query parameter names defined in <<137>>.
 
+
 [#160]
 == {SHOULD} Prefer Cursor-Based Pagination, Avoid Offset-Based Pagination
 
-Cursor-based pagination is usually better and more efficient when
-compared to offset-based pagination. Especially when it comes to
-high-data volumes and / or storage in NoSQL databases.
+Cursor-based pagination is usually better and more efficient when compared to
+offset-based pagination. Especially when it comes to high-data volumes and/or
+storage in NoSQL databases.
 
-Before choosing cursor-based pagination, consider the following
-trade-offs:
+Before choosing cursor-based pagination, consider the following trade-offs:
 
 * Usability/framework support:
-** Offset / limit based pagination is more known than cursor-based
-pagination, so it has more framework support and is easier to use for
-API clients
-* Use case: Jump to a certain page
-** If jumping to a particular page in a range (e.g., 51 of 100) is
-really a required use case, cursor-based navigation is not feasible
-* Variability of data may lead to anomalies in result pages
-** Offset-based pagination may create duplicates or lead to missing
-entries if rows are inserted or deleted between two subsequent paging
-requests.
-** When using cursor-based pagination, paging cannot continue when the
-cursor entry has been deleted while fetching two pages
+  ** Offset-based pagination is more widely known than cursor-based pagination,
+    so it has more framework support and is easier to use for API clients
+* Use case - jump to a certain page:
+  ** If jumping to a particular page in a range (e.g., 51 of 100) is really a
+   required use case, cursor-based navigation is not feasible.
+* Data changes may lead to anomalies in result pages:
+  ** Offset-based pagination may create duplicates or lead to missing entries
+     if rows are inserted or deleted between two subsequent paging requests.
+  ** If implemented incorrectly, cursor-based pagination may fail when the
+     cursor entry has been deleted before fetching the pages.
 * Performance considerations - efficient server-side processing using
-offset-based pagination is hardly feasible for:
-** Higher data list volumes, especially if they do not reside in the
-database’s main memory
-** Sharded or NoSQL databases
-* Cursor-based navigation may not work if you need the total count of
-results and / or backward iteration support
+  offset-based pagination is hardly feasible for:
+  ** Very big data sets, especially if they cannot reside in the main memory of
+     the database.
+  ** Sharded or NoSQL databases.
+* Cursor-based navigation may not work if you need the total count of results.
+
+The {cursor} used for pagination is an opaque pointer to a page, that must
+never be *inspected* or *constructed* by clients. It usually encodes (encrypts)
+the page position, i.e. the identifier of the first or last page element, the
+pagination direction, and the applied query filters - or a hash over these -
+to safely recreate the collection. The {cursor} may be defined as follows:
+
+[source,yaml]
+----
+Cursor:
+  type: object
+  properties: 
+    position:
+      description: >
+        Object containing the identifier(s) pointing to the entity that is
+        defining the collection resource page - normally the position is
+        represented by the first or the last page element.
+      type: object
+      properties: ...
+
+    direction:
+      description: >
+        The pagination direction that is defining which elements to choose
+        from the collection resource starting from the page position.
+      type: string
+      enum: [ ASC, DESC ]
+
+    query:
+      description: >
+        Object containing the query filters applied to create the collection
+        resource that is represented by this cursor.
+      type: object
+      properties: ...
+
+    query_hash:
+      description: >
+        Stable hash calculated over all query filters applied to create the
+        collection resource that is represented by this cursor.
+      type: string
+
+  required:
+    - position
+    - direction
+----
+
+
+The page information for cursor-based pagination should consist of a {cursor}
+set, that besides {next} may provide support for {prev}, {first}, {last}, and
+{self} as follows (see also <<link-relation-fields>>):
+
+[source,json]
+----
+{
+  "cursors": {
+    "self": "...",
+    "first": "...",
+    "prev": "...",
+    "next": "...",
+    "last": "..."
+  },
+  "items": [... ]
+}
+----
+
+*Note:* The support of the {cursor} set may be dropped in favor of <<161>>.
 
 Further reading:
 
 * https://dev.twitter.com/rest/public/timelines[Twitter]
 * http://use-the-index-luke.com/no-offset[Use the Index, Luke]
 * https://www.citusdata.com/blog/1872-joe-nelson/409-five-ways-paginate-postgres-basic-exotic[Paging
-in PostgreSQL]
+  in PostgreSQL]
+
 
 [#161]
-== {MAY} Use Pagination Links Where Applicable
+== {SHOULD} Use Pagination Links Where Applicable
 
-* API implementing <<163,HATEOS>> may use <<165,simplified hypertext controls>>
-for pagination within collections.
+To simplify client design, APIs should support <<165, simplified hypertext
+controls>> for pagination over collections whenever applicable. Beside {next}
+this may comprise the support for {prev}, {first}, {last}, and {self} as
+{link-relations}[link relations] (see also <<link-relation-fields>> for
+details).
 
-Those collections should then have an `items` attribute holding the items of
-the current page. The collection may contain additional metadata about the
-collection or the current page (e.g. `index`) when necessary.
-
-You should avoid providing a total count in your API unless there's a
-clear need to do so. Very often, there are systems and performance
-implications to supporting full counts, especially as datasets grow and
-requests become complex queries or filters that drive full scans (e.g.,
-your database might need to look at all candidate items to count them).
-While this is an implementation detail relative to the API, it's
-important to consider your ability to support serving counts over the
-life of a service.
-
-If the collection consists of links to other resources, the collection
-name should use
-http://www.iana.org/assignments/link-relations/link-relations.xml[IANA
-registered link relations] as names whenever appropriate, but use plural
-form.
-
-E.g. a service for articles could represent the collection of hyperlinks
-to an article's `authors` like that:
+The page content is transported via {items}, while the {query} object may
+contain the query filters applied to the collection resource as follows:
 
 [source,json]
 ----
 {
-  "self": "https://.../articles/xyz/authors/",
-  "index": 0,
-  "page_size": 5,
-  "items": [
-    {  
-      "href": "https://...",
-      "id": "123e4567-e89b-12d3-a456-426655440000",
-      "name": "Kent Beck"
-    },
-    {  
-      "href": "https://...",
-      "id": "987e2343-e89b-12d3-a456-426655440000",
-      "name": "Mike Beedle"
-    },
-    ...
-  ],
-  "first": "https://...",
-  "next": "https://...",
-  "prev": "https://...",
-  "last": "https://..."
+  "self": "http://my-service.zalandoapis.com/resources?cursor=<self-position>",
+  "first": "http://my-service.zalandoapis.com/resources?cursor=<first-position>",
+  "prev": "http://my-service.zalandoapis.com/resources?cursor=<previous-position>",
+  "next": "http://my-service.zalandoapis.com/resources?cursor=<next-position>",
+  "last": "http://my-service.zalandoapis.com/resources?cursor=<last-position>",
+  "query": {
+    "query-param-<1>": ...,
+    "query-param-<n>": ...
+  },
+  "items": [...]
 }
 ----
 
+*Note:* In case of complex search requests, e.g. when {GET-with-body} is
+required, the {cursor} may not be able to encode all query filters. In this
+case, it is best practice to encode only page position and direction in the
+{cursor} and transport the query filter in the body - in the request as well
+as in the response. To protect the pagination sequence, in this case it is
+recommended, that the {cursor} contains a hash over all applied query
+filters for pagination request validation.
+
+*Remark:* You should avoid providing a total count unless there is a clear
+need to do so. Very often, there are significant system and performance
+implications when supporting full counts. Especially, if the data set grows
+and requests become complex queries and filters drive full scans. While this
+is an implementation detail relative to the API, it is important to consider
+the ability to support serving counts over the life of a service.

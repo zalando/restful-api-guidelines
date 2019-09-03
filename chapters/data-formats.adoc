@@ -5,10 +5,25 @@
 == {MUST} Use JSON to Encode Structured Data
 
 Use JSON-encoded body payload for transferring structured data. The JSON
-payload must follow {RFC-7159}[RFC 7159] by having (if possible) a serialized
-object as the top-level structure, since it would allow for future extension.
-This also applies for collection resources where one naturally would assume an
-array. See <<161>> for an example.
+payload must follow {RFC-7159}[RFC 7159] using a JSON object as top-level data
+structure (if possible) to allow for future extension. This also applies to
+collection resources, where one naturally would assume an array. See also
+<<110>>.
+
+Additionally, the JSON payload must comply to {RFC-7493}[RFC 7493]),
+particularly
+
+* {RFC-7493}#section-2.1[Section 2.1] on encoding of characters, and
+* {RFC-7493}#section-2.3[Section 2.3] on object constraints.
+
+As a consequence, a JSON payload must
+
+* use {RFC-7493}#section-2.1[`UTF-8` encoding]
+* consist of {RFC-7493}#section-2.1[valid Unicode strings], i.e. must not
+  contain non-characters or surrogates, and
+* contain only {RFC-7493}#section-2.3[unique member names] (no duplicate
+  names).
+
 
 [#168]
 == {MAY} Use non JSON Media Types for Binary Data or Alternative Content Representations
@@ -21,6 +36,16 @@ Other media types may be used in following cases:
 * In addition to JSON version alternative data representations (e.g. in formats
   PDF, DOC, XML) may be made available through content negotiation.
 
+[#239]
+=== {SHOULD} encode embedded binary data in `base64url`
+
+Exposing binary data using an alternative media type is generally preferred.
+See <<168,the rule above>>.
+
+If an alternative content representation is not desired then binary data should
+be embedded into the JSON document as a `base64url`-encoded string property
+following {RFC-7493}#section-4.4[RFC 7493 Section 4.4].
+
 [#172]
 == {SHOULD} Prefer standard Media type name `application/json`
 
@@ -30,6 +55,43 @@ Use the standard media type name
 Custom media types beginning with `x` bring no advantage compared to the
 standard media type for JSON, and make automated processing more difficult.
 They are also {RFC-6838}#section-3.4[discouraged by RFC 6838].
+
+[#238]
+== {SHOULD} Use standardized property formats
+
+{https://json-schema.org/understanding-json-schema/reference/string.html#format}[JSON Schema] and {https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#data-types}[OpenAPI] define several universally useful property formats. The following table contains some additional formats that are particularly useful in an e-commerce environment.
+
+Please notice that the list is not exhaustive and everyone is encouraged to propose additions.
+
+[cols="10%,25%,25%,40%",options="header",]
+|=====================================================================
+| `type` | `format` | Specification | Example
+| `integer` | <<171, `int32`>> |  | `7721071004`
+| `integer` | <<171, `int64`>> |  | `772107100456824`
+| `integer` | <<171, `bigint`>> |  | `77210710045682438959`
+| `number` | <<171, `float`>> | {IEEE-754-2008}[IEEE 754-2008] | `3.1415927`
+| `number` | <<171, `double`>> | {IEEE-754-2008}[IEEE 754-2008] | `3.141592653589793`
+| `number` | <<171, `decimal`>> |  | `3.141592653589793238462643383279`
+| `string` | <<170, `bcp47`>> | {BCP47}[BCP 47] | `"en-DE"`
+| `string` | `byte` | {RFC-7493}[RFC 7493] | `"dGVzdA=="`
+| `string` | <<126, `date`>> | {RFC-3339}[RFC 3339] | `"2019-07-30"`
+| `string` | <<126, `date-time`>> | {RFC-3339}[RFC 3339] |`"2019-07-30T06:43:40.252Z"`
+| `string` | `email` | {RFC-5322}[RFC 5322] | `"example@zalando.de"`
+| `string` | `gtin-13` | {GTIN}[GTIN] | `"5710798389878"`
+| `string` | `hostname` | {RFC-1034}[RFC 1034] | `"www.zalando.de"`
+| `string` | `ipv4` | {RFC-2673}[RFC 2673] | `"104.75.173.179"`
+| `string` | `ipv6` | {RFC-2673}[RFC 2673] | `"2600:1401:2::8a"`
+| `string` | <<170, `iso-3166`>> | {ISO-3166-1-a2}[ISO 3166-1 alpha-2] | `"DE"`
+| `string` | <<173, `iso-4217`>> | {ISO-4217}[ISO 4217] | `"EUR"`
+| `string` | <<170, `iso-639`>> | {ISO-639-1}[ISO 639-1] | `"de"`
+| `string` | `json-pointer` | {RFC-6901}[RFC 6901] | `"/items/0/id"`
+| `string` | `password` |  | `"secret"`
+| `string` | `regex` | {ECMA-262}[ECMA 262] | `"^[a-z0-9]+$"`
+| `string` | <<126, `time`>> | {RFC-3339}[RFC 3339] | `"06:43:40.252Z"`
+| `string` | `uri` | {RFC-3986}[RFC 3986] | `"https://www.zalando.de/"`
+| `string` | `uri-template` | {RFC-6570}[RFC 6570] | `"/users/\{id\}"`
+| `string` | <<144, `uuid`>> | {RFC-4122}[RFC 4122] | `"e2ab873e-b295-11e9-9c02-..."`
+|=====================================================================
 
 [#169]
 == {MUST} Use Standard Date and Time Formats
@@ -54,7 +116,7 @@ codes:
 * {ISO-3166-1-a2}[ISO 3166-1-alpha2 country codes]
 ** (It is "GB", not "UK")
 * {ISO-639-1}[ISO 639-1 language code]
-** https://tools.ietf.org/html/bcp47[BCP-47] (based on {ISO-639-1}[ISO 639-1])
+** {BCP47}[BCP 47] (based on {ISO-639-1}[ISO 639-1])
    for language variants
 * {ISO-4217}[ISO 4217 currency codes]
 
@@ -72,8 +134,8 @@ unintentionally:
 |integer |int32 |integer between pass:[-2<sup>31</sup>] and pass:[2<sup>31</sup>]-1
 |integer |int64 |integer between pass:[-2<sup>63</sup>] and pass:[2<sup>63</sup>]-1
 |integer |bigint |arbitrarily large signed integer number
-|number |float |IEEE 754-2008/ISO 60559:2011 binary64 decimal number
-|number |double |IEEE 754-2008/ISO 60559:2011 binary128 decimal number
+|number |float |{IEEE-754-2008}[IEEE 754-2008/ISO 60559:2011] binary32 decimal number
+|number |double |{IEEE-754-2008}[IEEE 754-2008/ISO 60559:2011] binary64 decimal number
 |number |decimal |arbitrarily precise signed decimal number
 |=====================================================================
 

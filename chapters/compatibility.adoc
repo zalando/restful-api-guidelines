@@ -138,7 +138,7 @@ In a response body, you must always return a JSON object (and not e.g. an
 array) as a top level data structure to support future extensibility. JSON
 objects support compatible extension by additional attributes. This allows you
 to easily extend your response and e.g. add pagination later, without breaking
-backwards compatibility.
+backwards compatibility. See <<161>> for an example.
 
 Maps (see <<216>>), even though technically objects, are also forbidden as top
 level data structures, since they don't support compatible, future extensions.

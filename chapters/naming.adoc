@@ -155,22 +155,24 @@ deliver the same results whether they have the trailing slash or not.
 If you provide query support for searching, sorting, filtering, and
 paginating, you must stick to the following naming conventions:
 
-* `q` — default query parameter (e.g. used by browser tab completion); should
-  have an entity specific alias, like sku
-* `sort` — comma-separated (as defined in <<154>>) list of fields to define
-  the sort order. To indicate sorting direction, fields may be prefixed with
-  `+` (ascending) or `-` (descending), e.g. /sales-orders?sort=+id
-* `fields` — to retrieve only a subset of fields of a resource. See <<157>>
-  below.
-* `embed` — to expand or embedded sub-entities (ie.: inside of an article
-  entity, expand silhouette code into the silhouette object). Implementing
-  `embed` correctly is difficult, so do it with care. See <<158>> below.
-* `offset` — numeric offset of the first element on a page. See <<pagination>>
-  section below.
-* `cursor` — an opaque pointer to a page, never to be inspected/constructed by
-  clients. It usually (encrypted) encodes the identifier of the first or last
-  page element, the pagination direction, and the applied query filters to
-  recreate the collection. See <<pagination>> section below.
-* `limit` — client suggested limit to restrict the number of entries on
+* [[q]]{q}: default query parameter, e.g. used by browser tab completion;
+  should have an entity specific alias, e.g. sku.
+* [[sort]]{sort}: comma-separated list of fields (as defined by <<154>>) to
+  define the sort order. To indicate sorting direction, fields may be prefixed
+  with `+` (ascending) or `-` (descending), e.g. /sales-orders?sort=+id.
+* [[fields]]{fields}: field name expression to retrieve only a subset of fields
+  of a resource. See <<157>> below.
+* [[embed]]{embed}: field name expression to expand or embedded sub-entities,
+  e.g. inside of an article entity, expand silhouette code into the silhouette
+  object. Implementing {embed} correctly is difficult, so do it with care.
+  See <<158>> below.
+* [[offset]]{offset}: numeric offset of the first element provided on a page
+  representing a collection request. See <<pagination>> section below.
+* [[cursor]]{cursor}: an opaque pointer to a page, never to be inspected or
+  constructed by clients. It usually (encrypted) encodes the page position,
+  i.e. the identifier of the first or last page element, the pagination
+  direction, and the applied query filters to recreate the collection. See
+  <<160, pagination>> section below.
+* [[limit]]{limit}: client suggested limit to restrict the number of entries on
   a page. See <<pagination>> section below.
 

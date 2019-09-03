@@ -35,7 +35,7 @@ This section collects links to documents to which we refer, and base our guideli
 * *{ISO-3166-1-a2}[ISO 3166-1 alpha-2]:* Two letter country codes
 * *{ISO-639-1}[ISO 639-1]:* Two letter language codes
 * *{ISO-4217}[ISO 4217]:* Currency codes
-* *https://tools.ietf.org/html/bcp47[BCP 47]:* Tags for Identifying Languages
+* *{BCP47}[BCP 47]:* Tags for Identifying Languages
 
 [[dissertations]]
 == Dissertations

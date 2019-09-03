@@ -13,13 +13,18 @@
 
 
 // Some link short cuts.
+:RFC-1034: https://tools.ietf.org/html/rfc1034
+:RFC-2673: https://tools.ietf.org/html/rfc2673
 :RFC-3339: https://tools.ietf.org/html/rfc3339
+:RFC-3986: https://tools.ietf.org/html/rfc3986
 :RFC-4122: https://tools.ietf.org/html/rfc4122
 :RFC-4627: https://tools.ietf.org/html/rfc4627
+:RFC-5322: https://tools.ietf.org/html/rfc5322
 :RFC-6570: https://tools.ietf.org/html/rfc6570
 :RFC-6585: https://tools.ietf.org/html/rfc6585
 :RFC-6648: https://tools.ietf.org/html/rfc6648
 :RFC-6838: https://tools.ietf.org/html/rfc6838
+:RFC-6901: https://tools.ietf.org/html/rfc6901
 :RFC-6902: https://tools.ietf.org/html/rfc6902
 :RFC-7159: https://tools.ietf.org/html/rfc7159
 :RFC-7230: https://tools.ietf.org/html/rfc7230
@@ -29,10 +34,16 @@
 :RFC-7234: https://tools.ietf.org/html/rfc7234
 :RFC-7240: https://tools.ietf.org/html/rfc7240
 :RFC-7396: https://tools.ietf.org/html/rfc7396
+:RFC-7493: https://tools.ietf.org/html/rfc7493
 :RFC-7807: https://tools.ietf.org/html/rfc7807
 :RFC-8288: https://tools.ietf.org/html/rfc8288
 
+:link-relations: http://www.iana.org/assignments/link-relations
 
+:BCP47: https://tools.ietf.org/html/bcp47
+:ECMA-262: http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf
+:GTIN: https://en.wikipedia.org/wiki/Global_Trade_Item_Number
+:IEEE-754-2008: https://en.wikipedia.org/wiki/IEEE_754
 :ISO-8601: https://en.wikipedia.org/wiki/ISO_8601
 :ISO-3166-1-a2: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
 :ISO-639-1: https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
@@ -50,6 +61,9 @@
 :NO: pass:[<span class="must-keyword">&#x2717;</span> No]
 :YES: pass:[<span class="may-keyword">&#x2714;</span> Yes]
 :AT: pass:[<span class="should-keyword">&#x26a0;&#xFE0F;</span>]
+
+:CODE-START: pass:[<span style="font-weight: bold; font-family: Consolas, Liberation Mono, Courier, monospace">]
+:CODE-END: pass:[</span>]
 
 // Attributes to improve Design and linking of HTTP methods.
 // Do not use in titles!! This is breaking references in asciidoctor - may be bug.
@@ -97,6 +111,36 @@
 :500: pass:[<a href="#status-code-500" class="status-code">500</a>]
 :501: pass:[<a href="#status-code-501" class="status-code">501</a>]
 :503: pass:[<a href="#status-code-503" class="status-code">503</a>]
+
+// Attributes to improve common query parameters.
+:q: pass:[<a href="#q"><code>q</code></a>]
+:sort: pass:[<a href="#sort"><code>sort</code></a>]
+:fields: pass:[<a href="#fields"><code>fields</code></a>]
+:embed: pass:[<a href="#embed"><code>embed</code></a>]
+:offset: pass:[<a href="#offset"><code>offset</code></a>]
+:cursor: pass:[<a href="#cursor"><code>cursor</code></a>]
+:limit: pass:[<a href="#limit"><code>limit</code></a>]
+
+// Attributes to improve generic fields.
+:id: pass:[<a href="#id"><code>id</code></a>]
+:xyz_id: pass:[<a href="#xyz_id"><code>xyz_id</code></a>]
+:created: pass:[<a href="#created"><code>created</code></a>]
+:created_at: pass:[<a href="#created_at"><code>created_at</code></a>]
+:modified: pass:[<a href="#modified"><code>modified</code></a>]
+:modified_at: pass:[<a href="#modified_at"><code>modified_at</code></a>]
+:type: pass:[<a href="#type"><code>type</code></a>]
+:etag: pass:[<a href="#etag"><code>etag</code></a>]
+
+
+// Attributes to improve linking to semantic fields.
+:href: pass:[<a href="#href"><code>href</code></a>]
+:first: pass:[<a href="#first"><code>first</code></a>]
+:prev: pass:[<a href="#prev"><code>prev</code></a>]
+:self: pass:[<a href="#self"><code>self</code></a>]
+:next: pass:[<a href="#next"><code>next</code></a>]
+:last: pass:[<a href="#last"><code>last</code></a>]
+:query: pass:[<a href="#query"><code>query</code></a>]
+:items: pass:[<a href="#items"><code>items</code></a>]
 
 
 // Attributes to improve linking to special definition anchors.
