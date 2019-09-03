@@ -10,7 +10,7 @@
 
 In order to generate custom CSS we have to use http://asciidoctor.org/docs/user-manual/#stylesheet-factory[`stylesheet-factory`]
 
-This script clones the factory repository, installs the dependencies and generates CSS based in the `zalando.scss`
+This script clones the factory repository, installs the dependencies and generates CSS based in the `stylesheet.scss`
 
 [source,bash]
 ----

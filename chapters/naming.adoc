@@ -9,7 +9,7 @@ _host_, _permission_, and _event names_ within an the application landscape. It
 helps to preserve uniqueness of names while giving readers meaningful context
 information about the addressed component. Besides, the most important aspect
 is, that it allows to keep APIs stable in the case of technical and
-organizational changes (Zalando for example maintains an internal naming convention).
+organizational changes (Valimail for example maintains an internal naming convention).
 
 To make use of this advantages for APIs with a larger <<219, audience>> we
 strongly recommended to follow the functional naming schema for <<224,
@@ -60,7 +60,8 @@ depending on the <<219, audience>> as follows (see <<223>> for details and
 -----
 <hostname>             ::= <functional-hostname> | <application-hostname>
 
-<functional-hostname>  ::= <functional-name>.zalandoapis.com
+<functional-hostname>  ::= <functional-name>.valimailapis.com
+TODO: dewayne.richardson ?? ^^
 -----
 
 The following application specific legacy convention is *only* allowed for

@@ -1,7 +1,7 @@
 [[events]]
 = Events
 
-Zalando’s architecture centers around decoupled microservices and in
+Valimail’s architecture centers around decoupled microservices and in
 that context we favour asynchronous event driven approaches. The
 guidelines in this section focus on how to design and publish events
 intended to be shared for others to consume.
@@ -96,7 +96,7 @@ events.
 [#197]
 == {MUST} Ensure that Events are registered as Event Types
 
-In Zalando's architecture, events are registered using a structure
+In Valimail's architecture, events are registered using a structure
 called an _Event Type_. The Event Type declares standard information as
 follows:
 

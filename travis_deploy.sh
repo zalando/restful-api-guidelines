@@ -6,13 +6,13 @@
 
 set -ex
 
-USER="ZalandoGhPages"
-EMAIL="no-reply@zalando.de"
+USER="dewayne.richardson"
+EMAIL="no-reply@valimail.com"
 DEPLOY_MESSAGE="auto-deployment to the gh-branch"
-GH_REPO="github.com/zalando/restful-api-guidelines.git"
-GH_REPO_URL="https://api.github.com/repos/zalando/restful-api-guidelines"
-GH_REPO_LINK="https://github.com/zalando/restful-api-guidelines"
-ZALLY_REPO_URL="https://api.github.com/repos/zalando/zally"
+GH_REPO="github.com/ValiMail/restful-api-guidelines.git"
+GH_REPO_URL="https://api.github.com/repos/ValiMail/restful-api-guidelines"
+GH_REPO_LINK="https://github.com/ValiMail/restful-api-guidelines"
+ZALLY_REPO_URL="https://api.github.com/repos/ValiMail/zally"
 
 deploy_gh_pages () {
     echo "Deploying to gh-pages branch"

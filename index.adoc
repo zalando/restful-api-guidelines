@@ -1,4 +1,4 @@
-:stylesheet: zalando.css
+:stylesheet: stylesheet.css
 :source-highlighter: coderay
 :toc: macro
 :toclevels: 2
@@ -6,9 +6,9 @@
 :sectlinks:
 :sectnumlevels: 1
 
-:creator: Zalando SE
+:creator: Valimail Inc.
 :producer: Asciidoctor
-:keywords: Zalando, Guidelines, RESTful, API, Events, Schema
+:keywords: Valimail, Guidelines, RESTful, API, Events, Schema
 :copyright: CC-BY-SA 3.0
 
 
@@ -154,12 +154,12 @@
 :RFC-cacheable: pass:[<a href="https://tools.ietf.org/html/rfc7231#section-4.2.3">cacheable</a>]
 
 
-= Zalando RESTful API and Event Scheme Guidelines
-Zalando SE
+= Valimail RESTful API and Event Scheme Guidelines
+Valimail
 
 image::assets/api-zalando-small.jpg[API Guild Logo]
 
-Other formats: link:zalando-guidelines.pdf[PDF], link:zalando-guidelines.epub[EPUB3]
+Other formats: link:valimail-guidelines.pdf[PDF], link:valimail-guidelines.epub[EPUB3]
 
 toc::[]
 

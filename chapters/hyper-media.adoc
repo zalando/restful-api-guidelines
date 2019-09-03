@@ -61,8 +61,6 @@ However, we do not forbid HATEOAS; you could use it, if you checked its
 limitations and still see clear value for your usage scenario that
 justifies its additional complexity. If you use HATEOAS please share
 experience and present your findings in the
-https://confluence.zalando.net/display/GUL/API+Guild[API Guild [internal
-link]].
 
 [#217]
 == {MUST} Use full, absolute URI

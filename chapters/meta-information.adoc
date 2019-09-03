@@ -123,8 +123,7 @@ groups with clear organisational and legal boundaries:
   specific product portfolio owned by the same business unit.
 *company-internal*::
   The API consumers with this audience are restricted to applications owned
-  by the business units of the same the company (e.g. Zalando company with
-  Zalando SE, Zalando Payments SE & Co. KG. etc.)
+  by the business units of the same the company
 *external-partner*::
   The API consumers with this audience are restricted to applications of
   business partners of the company owning the API and the company itself.
@@ -158,7 +157,6 @@ reason a smaller audience group is intentionally included in the wider group
 and thus does not need to be declared additionally. If parts of your API have
 a different target audience, we recommend to split API specifications along
 the target audience — even if this creates redundancies
-(https://apis.zalando.net/redirect/85ee93a3-7a78-4461-8bf1-08ffdaebcd18[rationale (internal link)]).
 
 Example:
 
@@ -172,7 +170,3 @@ info:
   version: 1.2.4
   <...>
 ----
-
-For details and more information on audience groups see the
-https://apis.zalando.net/redirect/85ee93a3-7a78-4461-8bf1-08ffdaebcd18[
-API Audience narrative (internal link)].

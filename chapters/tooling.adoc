@@ -11,10 +11,6 @@ Using a tool mentioned here doesn't automatically ensure you follow the guidelin
 
 The following frameworks were specifically designed to support the API First workflow with OpenAPI YAML files (sorted alphabetically):
 
-* *https://github.com/zalando/connexion[Connexion]:*
-  OpenAPI First framework for Python on top of Flask
-* *https://github.com/zalando-stups/friboo[Friboo]:*
-  utility library to write microservices in Clojure with support for Swagger and OAuth
 * *https://github.com/zalando/api-first-hand[Api-First-Hand]:*
   API-First Play Bootstrapping Tool for Swagger/OpenAPI specs
 * *https://github.com/swagger-api/swagger-codegen[Swagger Codegen]:*
@@ -28,19 +24,11 @@ The following frameworks were specifically designed to support the API First wor
 The Swagger/OpenAPI homepage lists more
 http://swagger.io/open-source-integrations/[Community-Driven Language Integrations], but most of them do not fit our API First approach.
 
-
 [[support-libraries]]
 == Support Libraries
+Go
+TODO: dewayne.richardson
 
-These utility libraries support you in implementing various parts of our RESTful API guidelines (sorted alphabetically):
+Ruby/Rails
+TODO: dewayne.richardson
 
-* *https://github.com/zalando/problem[Problem]:*
-  Java library that implements application/problem+json
-* *https://github.com/zalando/problem-spring-web[Problems for Spring Web MVC]:*
-  library for handling Problems in Spring Web MVC
-* *https://github.com/zalando/jackson-datatype-money[Jackson Datatype Money]:*
-  extension module to properly support datatypes of javax.money
-* *https://github.com/zalando/tracer[Tracer]:*
-  call tracing and log correlation in distributed systems
-* *https://github.com/zalando/twintip-spring-web[TWINTIP Spring Integration]:*
-  API discovery endpoint for Spring Web MVC

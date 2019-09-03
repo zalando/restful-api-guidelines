@@ -240,7 +240,11 @@ management.
 
 Media type versioning: Here, version information and media type are provided
 together via the HTTP Content-Type header — e.g.
-`application/x.zalando.cart+json;version=2`. For incompatible changes, a new
+
+TODO: dewayne.richardson
+Verify HTTP content-type header with the Valimail Community
+
+`application/x.valimail+json;version=1`. For incompatible changes, a new
 media type version for the resource is created. To generate the new
 representation version, consumer and producer can do content negotiation using
 the HTTP Content-Type and Accept headers. Note: This versioning only applies to
@@ -250,7 +254,7 @@ In this example, a client wants only the new version of the response:
 
 [source,http]
 ----
-Accept: application/x.zalando.cart+json;version=2
+Accept: application/x.valimail+json;version=1
 ----
 
 A server responding to this, as well as a client sending a request with content
@@ -259,7 +263,7 @@ version:
 
 [source,http]
 ----
-Content-Type: application/x.zalando.cart+json;version=2
+Content-Type: application/x.valimail+json;version=1
 ----
 
 Using header versioning should:

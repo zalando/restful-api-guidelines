@@ -24,14 +24,9 @@ response specifications can be combined using the following pattern
 
 [source,yaml]
 ----
-responses:
-  ...
-  default:
-    description: error occurred - see status code and problem object for more information.
-    content:
-      "application/problem+json":
-        schema:
-          $ref: 'https://opensource.zalando.com/problem/schema.yaml#/Problem'
+TODO: dewayne.richardson 
+
+<Insert example error schema yaml here>
 ----
 
 API designers should also think about a **troubleshooting board** as part of

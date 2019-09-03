@@ -10,7 +10,7 @@ APIs. While this is optional for internal APIs, i.e. APIs marked with the
 to profit from the API management infrastructure.
 
 An API is published by copying its *OpenAPI specification* into the reserved
-*/zalando-apis* directory of the *deployment artifact* used to deploy the
+*/valimail-apis* directory of the *deployment artifact* used to deploy the
 provisioning service. The directory must only contain *self-contained YAML*
 *files* that each describe one API (exception see <<234>>). We prefer this
 deployment artifact-based method over the past (now legacy)
@@ -21,7 +21,7 @@ Background: In our dynamic and complex service infrastructure, it is important
 to provide API client developers a central place with online access to the API
 specifications of all running applications. As a part of the infrastructure,
 the API publishing process is used to detect API specifications. The findings
-are published in the API Portal - the universal hub for all Zalando APIs.
+are published in the API Portal - the universal hub for all Valimail APIs.
 
 *Note:* To publish an API, it is still necessary to deploy the artifact
 successful, as we focus the discovery experience on APIs supported by running

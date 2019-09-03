@@ -10,8 +10,6 @@ The titles are marked with the corresponding labels: {MUST},
 You must follow the <<api-first, API First Principle>>, more specifically: 
 
 * You must define APIs first, before coding its implementation, <<101, using OpenAPI as specification language>>
-* You must design your APIs consistently with this guidelines; 
-use our https://zally.zalando.net/[API Linter Service [internal link]] for automated rule checks. 
 * You must call for early review feedback from peers and client developers, 
 and apply https://github.bus.zalan.do/ApiGuild/ApiReviewProcedure[our lightweight API
 review process [internal link]] for all component external APIs, i.e. 
@@ -32,7 +30,7 @@ code management system - best together with the implementing sources.
 
 You <<192, must / should publish>> the component <<219, external / internal>>
 API specification with the deployment of the implementing service, and, hence,
-make it discoverable for the group via our https://apis.zalando.net/[API Portal
+make it discoverable for the group via our https://apis.valimail.com/[API Portal
 [internal link]].
 
 *Hint:* A good way to explore *OpenAPI 3.0/2.0* is to navigate through the
@@ -40,7 +38,7 @@ https://openapi-map.apihandyman.io/[OpenAPI specification mind map] and use
 our https://plugins.jetbrains.com/search?search=swagger+Monte[Swagger Plugin
 for IntelliJ IDEA] to create your first API. To explore and validate/evaluate
 existing APIs the https://editor.swagger.io/[Swagger Editor] or our
-https://apis.zalando.net[API Portal] may be a good starting point.
+https://apis.valimail.com[API Portal] may be a good starting point.
 
 
 [#234]
@@ -48,7 +46,8 @@ https://apis.zalando.net[API Portal] may be a good starting point.
 
 Normally, API specification files must be *self-contained*, i.e. files
 should not contain references to local or remote content, e.g. `../fragment.yaml#/element` or
-`$ref: 'https://github.com/zalando/zally/blob/master/server/src/main/resources/api/zally-api.yaml#/schemas/LintingRequest'`.
+TODO: dewayne.richardson
+Setup link to Valimail swagger refs
 The reason is, that the content referred to is _in general_ *not durable* and
 *not immutable*. As a consequence, the semantic of an API may change in
 unexpected ways.
@@ -56,9 +55,7 @@ unexpected ways.
 However, you may use remote references to resources accessible by the following
 service URLs.
 
-* `https://infrastructure-api-repository.zalandoapis.com/` (internal repository of APIs)
-* `https://opensource.zalando.com/problem/` (see <<176>>)
-* `https://zalando.github.io/problem/` (deprecated alias for <<176>>)
+TODO: dewayne.richardson - refer example at valimail repos
 
 As we control these URLs, we ensure that their content is *durable* and
 *immutable*. This allows to define API specifications by using fragments

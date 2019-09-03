@@ -1,14 +1,14 @@
 [[introduction]]
 = Introduction
 
-Zalando’s software architecture centers around decoupled microservices
+Valimail’s software architecture centers around decoupled microservices
 that provide functionality via RESTful APIs with a JSON payload. Small
 engineering teams own, deploy and operate these microservices in their
 AWS (team) accounts. Our APIs most purely express what our systems do,
 and are therefore highly valuable business assets. Designing
 high-quality, long-lasting APIs has become even more critical for us
 since we started developing our new open platform strategy, which
-transforms Zalando from an online shop into an expansive fashion
+transforms Valimail from an online shop into an expansive fashion
 platform. Our strategy emphasizes developing lots of public APIs for our
 external business partners to use via third-party applications.
 
@@ -27,7 +27,7 @@ ensure that our APIs:
 * follow a consistent RESTful style and syntax
 * are consistent with other teams’ APIs and our global architecture
 
-Ideally, all Zalando APIs will look like the same author created them.
+Ideally, all Valimail APIs will look like the same author created them.
 
 [[conventions-used-in-these-guidelines]]
 == Conventions Used in These Guidelines
@@ -38,13 +38,12 @@ The requirement level keywords "MUST", "MUST NOT", "REQUIRED", "SHALL",
 interpreted as described in https://www.ietf.org/rfc/rfc2119.txt[RFC
 2119].
 
-[[zalando-specific-information]]
-== Zalando specific information
+[[valimail-specific-information]]
+== Valimail specific information
 
 The purpose of our "RESTful API guidelines" is to define standards to
-successfully establish "consistent API look and feel" quality. The
-https://confluence.zalando.net/display/GUL/API+Guild[API Guild [internal
-link]] drafted and owns this document. Teams are responsible to fulfill
+successfully establish "consistent API look and feel" quality. Teams are 
+responsible to fulfill
 these guidelines during API development and are encouraged to contribute
 to guideline evolution via pull requests.
 

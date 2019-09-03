@@ -15,4 +15,4 @@ cd ${STYLESHEET_FACTORY_DIR} && bundle install
 
 cp -r ${GUIDELINES_DIR}/sass/* ${STYLESHEET_FACTORY_DIR}/sass
 cd ${STYLESHEET_FACTORY_DIR} && compass compile
-cp ${STYLESHEET_FACTORY_DIR}/stylesheets/zalando.css ${GUIDELINES_DIR}/
+cp ${STYLESHEET_FACTORY_DIR}/stylesheets/stylesheet.css ${GUIDELINES_DIR}/

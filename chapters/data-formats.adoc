@@ -24,11 +24,8 @@ Other media types may be used in following cases:
 [#172]
 == {SHOULD} Prefer standard Media type name `application/json`
 
-Previously, this guideline allowed the use of custom media types like 
-`application/x.zalando.article+json`. This usage is not recommended
-anymore and should be avoided, except where it is necessary for cases of
-<<114,media type versioning>>. Instead, just use the standard media type name
-`application/json` (or `application/problem+json` for <<176>>).
+Use the standard media type name
+`application/json` (or `application/valimail+json` for <<176>>).
 
 Custom media types beginning with `x` bring no advantage compared to the
 standard media type for JSON, and make automated processing more difficult.
@@ -55,7 +52,7 @@ Use the following standard formats for country, language and currency
 codes:
 
 * {ISO-3166-1-a2}[ISO 3166-1-alpha2 country codes]
-** (It is "GB", not "UK", even though "UK" has seen some use at Zalando)
+** (It is "GB", not "UK")
 * {ISO-639-1}[ISO 639-1 language code]
 ** https://tools.ietf.org/html/bcp47[BCP-47] (based on {ISO-639-1}[ISO 639-1])
    for language variants
