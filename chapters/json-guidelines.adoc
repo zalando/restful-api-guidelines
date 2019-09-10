@@ -220,15 +220,3 @@ Schema based JSON properties that are by design durations and intervals
 could be strings formatted as recommended by {ISO-8601}[ISO 8601]
 ({RFC-3339}#appendix-A[Appendix A of RFC 3339 contains a grammar] for
 durations).
-
-
-[#128]
-== {MAY} Standards could be used for Language, Country and Currency
-
-* {ISO-3166-1-a2}[ISO 3166-1-alpha2 country]
-* (It's "GB", not "UK", even though "UK" has seen some use at Zalando)
-* {ISO-639-1}[ISO 639-1 language code]
-* {BCP47}[BCP 47] (based on {ISO-639-1}[ISO 639-1])
-  for language variants
-* {ISO-4217}[ISO 4217 currency codes]
-
