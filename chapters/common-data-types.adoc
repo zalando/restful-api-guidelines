@@ -107,8 +107,12 @@ There are some data fields that come up again and again in API data:
 * [[xyz_id]]{xyz_id}: an attribute within one object holding the identifier of
   another object must use a name that corresponds to the type of the referenced
   object or the relationship to the referenced object followed by `_id` (e.g.
-  `customer_id` not `customer_number`; `parent_node_id` for the reference to a parent
-  node from a child node, even if both have the type `Node`)
+  `partner_id` not `partner_number`, or `parent_node_id` for the reference to a parent
+  node from a child node, even if both have the type `Node`).
+  *Exception*: We use `customer_number` instead of `customer_id` for customer facing 
+  identification of customers due to legacy reasons. (Hint: `customer_id` used to be defined 
+  as internal only, technical integer key, see
+  https://docs.google.com/document/d/1Lj56Snl6ISn6JsgyXpiRNUjzO7u2DsqBXCgHYvOQi7Y[Naming Decision: `customer_number` vs `customer_id` [internal link]]).
 * [[created_at]]{created_at}: when the object was created. If used, this must
   be a `date-time` construct. Originally named [[created]]{created} before
   adding the <<235, naming conventions for date/time properties>>.
