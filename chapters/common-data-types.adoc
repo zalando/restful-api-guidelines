@@ -10,7 +10,7 @@ Use the following common money structure:
 
 [source,yaml]
 ----
-include::../money.yaml[]
+include::../models/money-1.0.0.yaml[]
 ----
 
 APIs are encouraged to include a reference to the global schema for Money.
