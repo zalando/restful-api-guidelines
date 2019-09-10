@@ -43,7 +43,7 @@ existing APIs the https://editor.swagger.io/[Swagger Editor] or our
 https://apis.zalando.net[API Portal] may be a good starting point.
 
 
-*Hint:* We do not yet provide analog guidelines for https://graphql.org/[GraphQL]. 
+*Hint:* We do not yet provide guidelines for https://graphql.org/[GraphQL]. 
 Following our https://techradar.zalando.net/languages/graphql.html[Zalando Tech Radar [internal link]], 
 we focus on resource oriented HTTP/REST API style (and related tooling and 
 infrastructure support) for general purpose peer-to-peer microservice communication. 
