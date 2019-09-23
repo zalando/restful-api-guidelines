@@ -679,11 +679,19 @@ algorithm, or the generation of enriched data, and which might not be
 stored as entity by the service.
 
 [#206]
-== {MUST} Permissions on events must correspond to API permissions
+== {MUST} Carefully manage read and write permissions for events
 
-If a resource can be read synchronously via a REST API and read
-asynchronously via an event, the same read-permission must apply: We
-want to protect access to data, not the way data is accessed.
+Our event bus system (Nakadi) currently doesn't support permission-based
+access control (which would allow to use the same permissions as for the
+corresponding APIs), but requires explicitly listing the services and
+employees which have access.
+
+Event type owners need to think about who needs access to their
+events' data, and give *read access* to those services (+ usually the
+developers of those services, for ease of debugging, unless it's
+sensitive data).
+*Write access* should only be given to the (normally only one) service
+which is supposed to publish events on this event type. 
 
 [#207]
 == {MUST} Indicate ownership of Event Types
