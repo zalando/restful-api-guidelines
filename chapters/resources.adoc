@@ -152,7 +152,7 @@ pagination use cases ordered along creation time.
 [#145]
 == {MAY} Consider Using (Non-) Nested URLs
 
-If a sub-resource is only accessible via its parent resource and may not exists
+If a sub-resource is only accessible via its parent resource and may not exist
 without parent resource, consider using a nested URL structure, for instance:
 
 [source,http]
