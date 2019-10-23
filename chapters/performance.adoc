@@ -43,11 +43,12 @@ via {Accept-Encoding} request header -- see also {RFC-7231}#section-5.3.4[RFC
 [#157]
 == {SHOULD} Support Partial Responses via Filtering
 
-Depending on your use case and payload size, you can significantly
-reduce network bandwidth need by supporting filtering of returned entity
-fields. Here, the client can explicitly determine the subset of fields he wants to
-receive via the `fields` query parameter. (It is analogue to https://graphql.org/learn/queries/#fields[GraphQL `fields`]
-and simple queries, and also applied, for instance, for
+Depending on your use case and payload size, you can significantly reduce
+network bandwidth need by supporting filtering of returned entity fields.
+Here, the client can explicitly determine the subset of fields he wants to
+receive via the {fields} query parameter. (It is analogue to
+https://graphql.org/learn/queries/#fields[GraphQL `fields`] and simple
+queries, and also applied, for instance, for
 https://cloud.google.com/storage/docs/json_api/v1/how-tos/performance#partial-response[Google
 Cloud API's partial responses].)
 
@@ -93,17 +94,18 @@ Content-Type: application/json
 }
 ----
 
-The query `field` value determines the fields returned with the response payload object. 
-For instance, `(name)` returns `users` root object with only the `name` field,
-and `(name,friends(name))` returns the `name` and the nested `friends`
-object with only its `name` field. 
+The {fields} query parameter determines the fields returned with the response
+payload object. For instance, `(name)` returns `users` root object with only
+the `name` field, and `(name,friends(name))` returns the `name` and the nested
+`friends` object with only its `name` field.
 
-OpenAPI doesn't support you in formally specifying different return object schemes 
-depending on a parameter. When you define the field parameter, we recommend to provide
-the following description: `Endpoint supports filtering of return object fields as 
-described in [Rule #157](https://opensource.zalando.com/restful-api-guidelines/#157)`
+OpenAPI doesn't support you in formally specifying different return object
+schemes depending on a parameter. When you define the field parameter, we
+recommend to provide the following description: `Endpoint supports filtering
+of return object fields as described in
+[Rule #157](https://opensource.zalando.com/restful-api-guidelines/#157)`
 
-The syntax of the query `field` value is defined by the following
+The syntax of the query {fields} value is defined by the following
 https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form[BNF] grammar.
 
 [source,bnf]
@@ -120,6 +122,12 @@ https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form[BNF] grammar.
 <digit>             ::= "0" | ... | "9"
 <negation>          ::= "!"
 ----
+
+**Note:** Following the
+https://en.wikipedia.org/wiki/Principle_of_least_astonishment[principle of
+least astonishment], you should not define the {fields} query parameter using
+a default value, as the result is counter-intuitive and very likely not
+anticipated by the consumer.
 
 [#158]
 == {SHOULD} Allow Optional Embedding of Sub-Resources
