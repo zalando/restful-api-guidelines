@@ -1,8 +1,9 @@
 [[resources]]
 = Resources
 
+
 [#138]
-== {MUST} Avoid Actions — Think About Resources
+== {MUST} avoid actions — think about resources
 
 REST is all about your resources, so consider the domain entities that take
 part in web service interaction, and aim to model your API around these using
@@ -21,8 +22,9 @@ PUT /article-locks/{article-id}
 The added benefit is that you already have a service for browsing and filtering
 article locks.
 
+
 [#139]
-== {SHOULD} Model complete business processes
+== {SHOULD} model complete business processes
 
 An API should contain the complete business processes containing all resources
 representing the process. This enables clients to understand the business
@@ -33,8 +35,9 @@ implicit invisible dependencies between APIs.
 In addition, it prevents services from being designed as thin wrappers around
 databases, which normally tends to shift business logic to the clients.
 
+
 [#140]
-== {SHOULD} Define _useful_ resources
+== {SHOULD} define _useful_ resources
 
 As a rule of thumb resources should be defined to cover 90% of all its client's
 use cases. A _useful_ resource should contain as much information as necessary,
@@ -42,8 +45,9 @@ but as little as possible. A great way to support the last 10% is to allow
 clients to specify their needs for more/less information by supporting
 filtering and <<157, embedding>>.
 
+
 [#141]
-== {MUST} Keep URLs Verb-Free
+== {MUST} keep URLs verb-free
 
 The API describes resources, so the only place where actions should appear is
 in the HTTP methods. In URLs, use only nouns. Instead of thinking of actions
@@ -52,8 +56,9 @@ e.g., instead of having the verb _cancel_ in the url, think of sending a
 message to cancel an order to the _cancellations_ letter box on the server
 side.
 
+
 [#142]
-== {MUST} Use Domain-Specific Resource Names
+== {MUST} use domain-specific resource names
 
 API resources represent elements of the application’s domain model. Using
 domain-specific nomenclature for resource names helps developers to understand
@@ -62,8 +67,9 @@ need for further documentation outside the API definition. For example,
 "sales-order-items" is superior to "order-items" in that it clearly indicates
 which business object it represents. Along these lines, "items" is too general.
 
+
 [#228]
-== {MUST} Use URL-friendly Resource Identifiers: [a-zA-Z0-9:._-]*
+== {MUST} use URL-friendly resource identifiers: [a-zA-Z0-9:._-]*
 
 To simplify encoding of resource IDs in URLs, their representation must only
 consist of ASCII strings of letters, numbers, underscore, minus, colon, and
@@ -71,7 +77,7 @@ period.
 
 
 [#143]
-== {MUST} Identify resources and Sub-Resources via Path Segments
+== {MUST} identify resources and sub-resources via path segments
 
 Some API resources may contain or reference sub-resources. Embedded
 sub-resources, which are not top-level resources, are parts of a higher-level
@@ -102,6 +108,7 @@ Examples:
 /customers/12ev123bv12v/addresses/DE_100100101
 /content/images/9cacb4d8
 ----
+
 
 [#144]
 == {SHOULD} Only Use UUIDs If Necessary
@@ -149,8 +156,9 @@ https://github.com/alizain/ulid[ULID] (Universally Unique Lexicographically
 Sortable Identifier). You may favour ULID instead of UUID, for instance, for
 pagination use cases ordered along creation time.
 
+
 [#145]
-== {MAY} Consider Using (Non-) Nested URLs
+== {MAY} consider using (non-)nested URLs
 
 If a sub-resource is only accessible via its parent resource and may not exist
 without parent resource, consider using a nested URL structure, for instance:
@@ -172,7 +180,7 @@ some services may choose to access the orders directly, for instance:
 ----
 
 [#146]
-== {SHOULD} Limit number of Resource types
+== {SHOULD} limit number of resource types
 
 To keep maintenance and service evolution manageable, we should follow
 "functional segmentation" and "separation of concern" design principles and do
@@ -215,8 +223,9 @@ split them into separate subdomains with distinct APIs.
 Nevertheless one API should hold all necessary resources to model complete
 business processes helping clients to understand these flows.
 
+
 [#147]
-== {SHOULD} Limit number of Sub-Resource Levels
+== {SHOULD} limit number of sub-resource levels
 
 There are main resources (with root url paths) and sub-resources (or _nested_
 resources with non-root urls paths). Use sub-resources if their life cycle is

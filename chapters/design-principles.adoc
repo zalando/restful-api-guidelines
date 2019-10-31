@@ -1,8 +1,9 @@
 [[principles]]
 = Principles
 
+
 [[api-design-principles]]
-== API Design Principles
+== API design principles
 
 Comparing SOA web service interfacing style of SOAP vs. REST, the former
 tend to be centered around operations that are usually use-case specific
@@ -56,7 +57,7 @@ Styles and the Design of Network-Based Software Architectures]
 
 
 [[api-as-a-product]]
-== API as a Product
+== API as a product
 
 As mentioned above, Zalando is transforming from an online shop into an
 expansive fashion platform comprising a rich set of products following a
@@ -94,9 +95,8 @@ API as a Product is closely related to our <<100,API First principle>>
 (see next chapter) which is more focused on how we engineer high quality APIs.
 
 
-
 [[api-first]]
-== API First 
+== API first 
 
 API First is one of our
 https://github.com/zalando/engineering-principles[engineering

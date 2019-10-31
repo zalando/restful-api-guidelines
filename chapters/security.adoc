@@ -1,13 +1,14 @@
 [[security]]
 = Security
 
+
 [#104]
-== {MUST} Secure Endpoints with OAuth 2.0
+== {MUST} secure endpoints with OAuth 2.0
 
 Every API endpoint needs to be secured using OAuth 2.0. Please refer to
 the
 https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#security-definitions-object[official
-OpenAPI spec] on how to specify security definitions in your API
+Open API specification] on how to specify security definitions in your API
 specification or take a look at the following example.
 
 [source,yaml]
@@ -35,8 +36,9 @@ tokens were created. Unfortunately the `flow` field is mandatory and cannot
 be omitted. API endpoints should always set `flow: clientCredentials` and ignore
 this information.
 
+
 [#105]
-== {MUST} Define and Assign Permissions (Scopes)
+== {MUST} define and assign permissions (scopes)
 
 APIs must define permissions to protect their resources. Thus, at least one
 permission must be assigned to each endpoint. Permissions are defined as shown
@@ -123,7 +125,7 @@ standard header so to say implicitly defined via the security section.
 
 
 [#225]
-== {MUST} Follow Naming Convention for Permissions (Scopes)
+== {MUST} follow naming convention for permissions (scopes)
 
 As long as the <<223,functional naming>> is not supported for permissions,
 permission names in APIs must conform to the following naming pattern:

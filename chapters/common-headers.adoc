@@ -1,12 +1,13 @@
 [[common-headers]]
-= Common Headers
+= Common headers
 
 This section describes a handful of headers, which we found raised the most
 questions in our daily usage, or which are useful in particular circumstances
 but not widely known.
 
+
 [#178]
-== {MUST} Use `Content-*` Headers Correctly
+== {MUST} use `Content-*` headers correctly
 
 Content or entity headers are headers with a `Content-` prefix. They describe
 the content of the body of the message and they can be used in both, HTTP
@@ -26,14 +27,16 @@ limited to:
   of the requested resource representation is delivered with the body.
 * {Content-Type} indicates the media type of the body content.
 
+
 [#133]
-== {MAY} Use Standardized Headers
+== {MAY} use standardized headers
 
 Use http://en.wikipedia.org/wiki/List_of_HTTP_header_fields[this list] and
-mention its support in your OpenAPI definition.
+mention its support in your Open API definition.
+
 
 [#179]
-== {MAY} Use `Content-Location` Header
+== {MAY} use `Content-Location` header
 
 The {Content-Location} header is _optional_ and can be used in successful write
 operations ({PUT}, {POST}, or {PATCH}) or read operations ({GET}, {HEAD}) to
@@ -66,8 +69,9 @@ Content-Type: image/png
 Content-Location: /products/123/images?format=raw
 ----
 
+
 [#180]
-== {SHOULD} Use `Location` Header instead of `Content-Location` Header
+== {SHOULD} use `Location` header instead of `Content-Location` header
 
 As the correct usage of {Content-Location} with respect to semantics and
 caching is difficult, we _discourage_ the use of {Content-Location}. In most
@@ -78,8 +82,9 @@ ambiguities and complexities.
 More details in RFC 7231 {RFC-7231}#section-7.1.2[7.1.2 Location],
 {RFC-7231}#section-3.1.4.2[3.1.4.2 Content-Location]
 
+
 [#181]
-== {MAY} Consider to Support `Prefer` Header to Handle Processing Preferences
+== {MAY} consider to support `Prefer` header to handle processing preferences
 
 The {Prefer} header defined in {RFC-7240}[RFC 7240] allows clients to request
 processing behaviors from servers. It pre-defines a number of preferences and
@@ -128,9 +133,8 @@ Supporting APIs may return the {Preference-Applied} header also defined in
 {RFC-7240}[RFC 7240] to indicate whether a preference has been applied.
 
 
-
 [#182]
-== {MAY} Consider to Support `ETag` Together With `If-Match`/`If-None-Match` Header
+== {MAY} consider to support `ETag` together with `If-Match`/`If-None-Match` header
 
 When creating or updating resources it may be necessary to expose conflicts
 and to prevent the 'lost update' or 'initially created' problem. Following
@@ -199,8 +203,9 @@ components:
 
 Please see <<optimistic-locking>> for a detailed discussion and options.
 
+
 [#230]
-== {MAY} Consider to Support `Idempotency-Key` Header
+== {MAY} consider to support `Idempotency-Key` header
 
 When creating or updating resources it can be helpful or necessary to ensure a
 strong <<idempotent>> behavior comprising same responses, to prevent duplicate

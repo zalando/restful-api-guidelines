@@ -1,8 +1,9 @@
 [[api-naming]]
-= API Naming
+= API naming
+
 
 [#223]
-== {MUST-SHOULD} Use Functional Naming Schema
+== {MUST-SHOULD} use functional naming schema
 
 Functional naming is a powerful, yet easy way to align global resources as
 _host_, _permission_, and _event names_ within an the application landscape. It
@@ -49,8 +50,9 @@ Please see the following rules for detailed functional naming patterns:
 // * <<225>>
 * <<213>>
 
+
 [#224]
-== {MUST} Follow Naming Convention for Hostnames
+== {MUST} follow naming convention for hostnames
 
 Hostnames in APIs must, respectively should conform to the functional naming
 depending on the <<219, audience>> as follows (see <<223>> for details and
@@ -73,8 +75,9 @@ hostnames of <<219, component-internal>> APIs:
 <organization-id>      ::= [a-z][a-z0-9-]*  -- organization unit identifier, e.g. team identifier
 -----
 
+
 [#129]
-== {MUST} Use lowercase separate words with hyphens for Path Segments
+== {MUST} use lowercase separate words with hyphens for path segments
 
 Example:
 
@@ -87,8 +90,9 @@ This applies to concrete path segments and not the names of path
 parameters. For example `{shipment_order_id}` would be ok as a path
 parameter.
 
+
 [#130]
-== {MUST} Use snake_case (never camelCase) for Query Parameters
+== {MUST} use snake_case (never camelCase) for query parameters
 
 Examples:
 
@@ -97,8 +101,9 @@ Examples:
 customer_number, order_id, billing_address
 ----
 
+
 [#132]
-== {SHOULD} Prefer Hyphenated-Pascal-Case for HTTP header Fields
+== {SHOULD} prefer hyphenated-pascal-case for HTTP header fields
 
 This is for consistency in your documentation (most other headers follow
 this convention). Avoid camelCase (without hyphens). Exceptions are
@@ -119,15 +124,17 @@ See also: {RFC-7230}#page-22[HTTP Headers are case-insensitive (RFC 7230)].
 See <<common-headers>> and <<proprietary-headers>> sections for more guidance
 on HTTP headers.
 
+
 [#134]
-== {MUST} Pluralize Resource Names
+== {MUST} pluralize resource names
 
 Usually, a collection of resource instances is provided (at least API
 should be ready here). The special case of a resource singleton is a
 collection with cardinality 1.
 
+
 [#135]
-== {SHOULD} Not Use /api as Base Path
+== {SHOULD} not use /api as base path
 
 In most cases, all resources provided by a service are part of the
 public API, and therefore should be made available under the root "/"
@@ -142,14 +149,16 @@ We see API's base path as a part of deployment variant configuration.
 Therefore, this information has to be declared in the
 https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#server-object[server object].
 
+
 [#136]
-== {MUST} Avoid Trailing Slashes
+== {MUST} avoid trailing slashes
 
 The trailing slash must not have specific semantics. Resource paths must
 deliver the same results whether they have the trailing slash or not.
 
+
 [#137]
-== {MUST} Stick to Conventional Query Parameters
+== {MUST} stick to conventional query parameters
 
 If you provide query support for searching, sorting, filtering, and
 paginating, you must stick to the following naming conventions:

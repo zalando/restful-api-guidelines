@@ -1,10 +1,11 @@
 [[common-data-types]]
-= Common Data Types
+= Common data types
 
 Definitions of data objects that are good candidates for wider usage:
 
+
 [#173]
-== {MUST} Use a Common Money Object
+== {MUST} use the common money object
 
 Use the following common money structure:
 
@@ -83,20 +84,21 @@ https://docs.oracle.com/javase/8/docs/api/java/math/BigDecimal.html[`BigDecimal`
 See http://stackoverflow.com/a/3730040/342852[Stack Overflow] for more
 info.
 
-Some JSON parsers (NodeJS’s, for example) convert numbers to floats by
-default. After discussing the pros and cons we’ve decided on "decimal" as our amount format. It
-is not a standard OpenAPI format, but should help us to avoid parsing numbers
-as float / doubles.
+Some JSON parsers (NodeJS’s, for example) convert numbers to floats by default.
+After discussing the pros and cons we’ve decided on "decimal" as our amount
+format. It is not a standard Open API format, but should help us to avoid parsing
+numbers as float / doubles.
+
 
 [#174]
-== {MUST} Use common field names and semantics
+== {MUST} use common field names and semantics
 
-There exist a variety of field types that are required in multiple
-places. To achieve consistency across all API implementations, you must
-use common field names and semantics whenever applicable.
+There exist a variety of field types that are required in multiple places. To
+achieve consistency across all API implementations, you must use common field
+names and semantics whenever applicable.
 
 [[generic-fields]]
-=== Generic Fields
+=== Generic fields
 
 There are some data fields that come up again and again in API data:
 
@@ -163,8 +165,9 @@ allows API client developers to build up a common understanding of Zalando's
 resources. There is very little utility for API consumers in having different
 names or value types for these fields across APIs.
 
+
 [[link-relation-fields]]
-=== Link Relation Fields
+=== Link relation fields
 
 To foster a consistent look and feel using simple hypertext controls for
 paginating and iterating over collection values the response objects should
@@ -241,7 +244,7 @@ current page.
 
 
 [[address-fields]]
-=== Address Fields
+=== Address fields
 
 Address structures play a role in different functional and use-case
 contexts, including country variances. All attributes that relate to

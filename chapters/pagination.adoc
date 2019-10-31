@@ -1,8 +1,9 @@
 [[pagination]]
 = Pagination
 
+
 [#159]
-== {MUST} Support Pagination
+== {MUST} support pagination
 
 Access to lists of data items must support pagination to protect the service
 against overload as well as for best client side iteration and batch processing
@@ -30,7 +31,7 @@ you must stick to the common query parameter names defined in <<137>>.
 
 
 [#160]
-== {SHOULD} Prefer Cursor-Based Pagination, Avoid Offset-Based Pagination
+== {SHOULD} prefer cursor-based pagination, avoid offset-based pagination
 
 Cursor-based pagination is usually better and more efficient when compared to
 offset-based pagination. Especially when it comes to high-data volumes and/or
@@ -100,7 +101,6 @@ Cursor:
     - direction
 ----
 
-
 The page information for cursor-based pagination should consist of a {cursor}
 set, that besides {next} may provide support for {prev}, {first}, {last}, and
 {self} as follows (see also <<link-relation-fields>>):
@@ -130,7 +130,7 @@ Further reading:
 
 
 [#161]
-== {SHOULD} Use Pagination Links Where Applicable
+== {SHOULD} use pagination links where applicable
 
 To simplify client design, APIs should support <<165, simplified hypertext
 controls>> for pagination over collections whenever applicable. Beside {next}
