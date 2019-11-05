@@ -1,13 +1,14 @@
 [[appendix-best-practices]]
 [appendix]
-= Best Practices
+= Best practices
 
 The best practices presented in this section are not part of the actual
 guidelines, but should provide guidance for common challenges we face when
 implementing RESTful APIs.
 
+
 [[optimistic-locking]]
-== Optimistic Locking in RESTful APIs
+== Optimistic locking in RESTful APIs
 
 === Introduction
 Optimistic locking might be used to avoid concurrent writes on the same entity,

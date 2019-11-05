@@ -1,8 +1,9 @@
 [[data-formats]]
-= Data Formats
+= Data formats
+
 
 [#167]
-== {MUST} Use JSON to Encode Structured Data
+== {MUST} use JSON to encode structured data
 
 Use JSON-encoded body payload for transferring structured data. The JSON
 payload must follow {RFC-7159}[RFC 7159] using a JSON object as top-level data
@@ -26,7 +27,7 @@ As a consequence, a JSON payload must
 
 
 [#168]
-== {MAY} Use non JSON Media Types for Binary Data or Alternative Content Representations
+== {MAY} use non JSON media types for binary data or alternative content representations
 
 Other media types may be used in following cases:
 
@@ -35,6 +36,7 @@ Other media types may be used in following cases:
   is. Example of such use case is downloading images in formats JPG, PNG, GIF.
 * In addition to JSON version alternative data representations (e.g. in formats
   PDF, DOC, XML) may be made available through content negotiation.
+
 
 [#239]
 === {SHOULD} encode embedded binary data in `base64url`
@@ -46,8 +48,9 @@ If an alternative content representation is not desired then binary data should
 be embedded into the JSON document as a `base64url`-encoded string property
 following {RFC-7493}#section-4.4[RFC 7493 Section 4.4].
 
+
 [#172]
-== {SHOULD} Prefer standard Media type name `application/json`
+== {SHOULD} prefer standard media type name `application/json`
 
 Previously, this guideline allowed the use of custom media types like 
 `application/x.zalando.article+json`. This usage is not recommended
@@ -59,10 +62,11 @@ Custom media types beginning with `x` bring no advantage compared to the
 standard media type for JSON, and make automated processing more difficult.
 They are also {RFC-6838}#section-3.4[discouraged by RFC 6838].
 
-[#238]
-== {SHOULD} Use standardized property formats
 
-{https://json-schema.org/understanding-json-schema/reference/string.html#format}[JSON Schema] and {https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#data-types}[OpenAPI] define several universally useful property formats. The following table contains some additional formats that are particularly useful in an e-commerce environment.
+[#238]
+== {SHOULD} use standardized property formats
+
+{https://json-schema.org/understanding-json-schema/reference/string.html#format}[JSON Schema] and {https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#data-types}[Open API] define several universally useful property formats. The following table contains some additional formats that are particularly useful in an e-commerce environment.
 
 Please notice that the list is not exhaustive and everyone is encouraged to propose additions.
 
@@ -96,13 +100,16 @@ Please notice that the list is not exhaustive and everyone is encouraged to prop
 | `string` | <<144, `uuid`>> | {RFC-4122}[RFC 4122] | `"e2ab873e-b295-11e9-9c02-..."`
 |=====================================================================
 
+
 [#169]
-== {MUST} Use Standard Date and Time Formats
+== {MUST} use standard date and time formats
+
 
 [[json-payload]]
-=== JSON Payload
+=== JSON payload
 
 Read more about date and time format in <<126>>.
+
 
 [[http-headers]]
 === HTTP headers
@@ -110,9 +117,10 @@ Read more about date and time format in <<126>>.
 Http headers including the proprietary headers use the
 {RFC-7231}#section-7.1.1.1[HTTP date format defined in RFC 7231].
 
+
 [#128]
 [#170]
-== {SHOULD} Use Standards for Country, Language and Currency Codes
+== {SHOULD} use standards for country, language and currency codes
 
 Use the following standard formats for country, language and currency
 codes:
@@ -124,8 +132,9 @@ codes:
    for language variants
 * {ISO-4217}[ISO 4217 currency codes]
 
+
 [#171]
-== {MUST} Define Format for Type Number and Integer
+== {MUST} define format for number and integer types
 
 Whenever an API defines a property of type `number` or `integer`, the
 precision must be defined by the format as follows to prevent clients

@@ -7,32 +7,35 @@ Using a tool mentioned here doesn't automatically ensure you follow the guidelin
 
 
 [[api-first-integrations]]
-== API First Integrations
+== API first integrations
 
-The following frameworks were specifically designed to support the API First workflow with OpenAPI YAML files (sorted alphabetically):
+The following frameworks were specifically designed to support the API First
+workflow with Open API YAML files (sorted alphabetically):
 
 * *https://github.com/zalando/connexion[Connexion]:*
-  OpenAPI First framework for Python on top of Flask
+  Open API First framework for Python on top of Flask
 * *https://github.com/zalando-stups/friboo[Friboo]:*
   utility library to write microservices in Clojure with support for Swagger and OAuth
 * *https://github.com/zalando/api-first-hand[Api-First-Hand]:*
-  API-First Play Bootstrapping Tool for Swagger/OpenAPI specs
+  API-First Play Bootstrapping Tool for Swagger/Open API specs
 * *https://github.com/swagger-api/swagger-codegen[Swagger Codegen]:*
   template-driven engine to generate client code in different languages by
   parsing Swagger Resource Declaration
 * *https://github.com/zalando-stups/swagger-codegen-tooling[Swagger Codegen Tooling]:*
-  plugin for Maven that generates pieces of code from OpenAPI specification
+  plugin for Maven that generates pieces of code from Open API specification
 * *https://github.com/zalando/intellij-swagger[Swagger Plugin for IntelliJ IDEA]:*
   plugin to help you easily edit Swagger specification files inside IntelliJ IDEA
 
-The Swagger/OpenAPI homepage lists more
-http://swagger.io/open-source-integrations/[Community-Driven Language Integrations], but most of them do not fit our API First approach.
+The Swagger/Open API homepage lists more
+http://swagger.io/open-source-integrations/[Community-Driven Language
+Integrations], but most of them do not fit our API First approach.
 
 
 [[support-libraries]]
-== Support Libraries
+== Support libraries
 
-These utility libraries support you in implementing various parts of our RESTful API guidelines (sorted alphabetically):
+These utility libraries support you in implementing various parts of our
+RESTful API guidelines (sorted alphabetically):
 
 * *https://github.com/zalando/problem[Problem]:*
   Java library that implements application/problem+json

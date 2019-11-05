@@ -1,8 +1,9 @@
 [[performance]]
 = Performance
 
+
 [#155]
-== {SHOULD} Reduce Bandwidth Needs and Improve Responsiveness
+== {SHOULD} reduce bandwidth needs and improve responsiveness
 
 APIs should support techniques for reducing bandwidth based on client needs.
 This holds for APIs that (might) have high payloads and/or are used in
@@ -26,8 +27,9 @@ Common techniques include:
 
 Each of these items is described in greater detail below.
 
+
 [#156]
-== {SHOULD} Use gzip Compression
+== {SHOULD} use `gzip` compression
 
 Compress the payload of your API’s responses with gzip, unless there’s a good
 reason not to — for example, you are serving so many requests that the time to
@@ -40,8 +42,9 @@ via {Accept-Encoding} request header -- see also {RFC-7231}#section-5.3.4[RFC
 7231 Section 5.3.4]. The server should indicate used gzip compression via the
 {Content-Encoding} header.
 
+
 [#157]
-== {SHOULD} Support Partial Responses via Filtering
+== {SHOULD} support partial responses via filtering
 
 Depending on your use case and payload size, you can significantly reduce
 network bandwidth need by supporting filtering of returned entity fields.
@@ -51,6 +54,7 @@ https://graphql.org/learn/queries/#fields[GraphQL `fields`] and simple
 queries, and also applied, for instance, for
 https://cloud.google.com/storage/docs/json_api/v1/how-tos/performance#partial-response[Google
 Cloud API's partial responses].)
+
 
 [[unfiltered]]
 === Unfiltered
@@ -76,6 +80,7 @@ Content-Type: application/json
 }
 ----
 
+
 [[filtered]]
 === Filtered
 
@@ -99,7 +104,7 @@ payload object. For instance, `(name)` returns `users` root object with only
 the `name` field, and `(name,friends(name))` returns the `name` and the nested
 `friends` object with only its `name` field.
 
-OpenAPI doesn't support you in formally specifying different return object
+Open API doesn't support you in formally specifying different return object
 schemes depending on a parameter. When you define the field parameter, we
 recommend to provide the following description: `Endpoint supports filtering
 of return object fields as described in
@@ -129,8 +134,9 @@ least astonishment], you should not define the {fields} query parameter using
 a default value, as the result is counter-intuitive and very likely not
 anticipated by the consumer.
 
+
 [#158]
-== {SHOULD} Allow Optional Embedding of Sub-Resources
+== {SHOULD} allow optional embedding of sub-resources
 
 Embedding related resources (also know as _Resource expansion_) is a
 great way to reduce the number of requests. In cases where clients know
@@ -169,8 +175,9 @@ GET /order/123?embed=(items) HTTP/1.1
 }
 ----
 
+
 [#227]
-== {MUST} Document Cachable `GET`, `HEAD`, and `POST` Endpoints
+== {MUST} document cachable `GET`, `HEAD`, and `POST` endpoints
 
 Caching has to take many aspects into account, e.g. general <<cacheable,
 cacheability>> of response information, our guideline to protect endpoints

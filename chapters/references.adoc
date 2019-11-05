@@ -6,10 +6,10 @@ This section collects links to documents to which we refer, and base our guideli
 
 
 [[openapi-specification]]
-== OpenAPI Specification
+== Open API specification
 
-* *https://github.com/OAI/OpenAPI-Specification/[OpenAPI Specification]*
-* *https://openapi-map.apihandyman.io/[OpenAPI Specification Mind Map]*
+* *https://github.com/OAI/OpenAPI-Specification/[Open API specification]*
+* *https://openapi-map.apihandyman.io/[Open API specification mind map]*
 
 
 [[publications-specifications-and-standards]]
@@ -37,6 +37,7 @@ This section collects links to documents to which we refer, and base our guideli
 * *{ISO-4217}[ISO 4217]:* Currency codes
 * *{BCP47}[BCP 47]:* Tags for Identifying Languages
 
+
 [[dissertations]]
 == Dissertations
 
@@ -44,12 +45,14 @@ This section collects links to documents to which we refer, and base our guideli
   Fielding - Architectural Styles and the Design of Network-Based Software
   Architectures]:* This is the text which defines what REST is.
 
+
 [[books]]
 == Books
 
 * *http://www.amazon.de/REST-Practice-Hypermedia-Systems-Architecture/dp/0596805829[REST in Practice: Hypermedia and Systems Architecture]*
 * *https://leanpub.com/build-apis-you-wont-hate[Build APIs You Won't Hate]*
 * *http://www.infoq.com/minibooks/emag-web-api[InfoQ eBook - Web APIs: From Start to Finish]*
+
 
 [[blogs]]
 == Blogs

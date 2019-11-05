@@ -1,8 +1,9 @@
 [[compatibility]]
 = Compatibility
 
+
 [#106]
-== {MUST} Don’t Break Backward Compatibility
+== {MUST} not break backward compatibility
 
 Change APIs, but keep all consumers running. Consumers usually have independent
 release lifecycles, focus on stability, and avoid changes that do not provide
@@ -36,7 +37,7 @@ expected that code changes are necessary.
 
 
 [#107]
-== {SHOULD} Prefer Compatible Extensions
+== {SHOULD} prefer compatible extensions
 
 API designers should apply the following rules to evolve RESTful APIs for
 services in a backward-compatible way:
@@ -60,7 +61,7 @@ services in a backward-compatible way:
 
 
 [#108]
-== {MUST} Prepare Clients To Not Crash On Compatible API Extensions
+== {MUST} prepare clients accept compatible API extensions
 
 Service clients should apply the robustness principle:
 
@@ -88,7 +89,7 @@ providers:
 
 
 [#109]
-== {SHOULD} Design APIs Conservatively
+== {SHOULD} design APIs conservatively
 
 Designers of service provider APIs should be conservative and accurate in what
 they accept from clients:
@@ -132,7 +133,7 @@ specific parameter.
 
 
 [#110]
-== {MUST} Always Return JSON Objects As Top-Level Data Structures To Support Extensibility
+== {MUST} always return JSON objects as top-level data structures
 
 In a response body, you must always return a JSON object (and not e.g. an
 array) as a top level data structure to support future extensibility. JSON
@@ -143,14 +144,14 @@ backwards compatibility. See <<161>> for an example.
 Maps (see <<216>>), even though technically objects, are also forbidden as top
 level data structures, since they don't support compatible, future extensions.
 
-[#111]
-== {MUST} Treat Open API Definitions As Open For Extension By Default
 
-The Open API 2.0 specification is not very specific on default
-extensibility of objects, and redefines JSON-Schema keywords related to
-extensibility, like `additionalProperties`. Following our overall
-compatibility guidelines, Open API object definitions are considered
-open for extension by default as per
+[#111]
+== {MUST} treat Open API specification as open for extension by default
+
+The Open API 2.0 specification is not very specific on default extensibility
+of objects, and redefines JSON-Schema keywords related to extensibility, like
+`additionalProperties`. Following our overall compatibility guidelines, Open
+API object definitions are considered open for extension by default as per
 http://json-schema.org/latest/json-schema-validation.html#rfc.section.5.18[Section
 5.18 "additionalProperties"] of JSON-Schema.
 
@@ -177,7 +178,7 @@ be appropriate in some circumstances, e.g. see <<216>>.
 
 
 [#112]
-== {SHOULD} Used Open-Ended List of Values (`x-extensible-enum`) Instead of Enumerations
+== {SHOULD} used open-ended list of values (`x-extensible-enum`) for enumerations
 
 Enumerations are per definition closed sets of values, that are assumed to be
 complete and not intended for extension. This closed principle of enumerations
@@ -206,8 +207,9 @@ deliver_methods:
 *Note:* {x-extensible-enum} is not JSON Schema conform but will be ignored by
 most tools.
 
+
 [#113]
-== {SHOULD} Avoid Versioning
+== {SHOULD} avoid versioning
 
 When changing your RESTful APIs, do so in a compatible way and avoid generating
 additional API versions. Multiple versions can significantly complicate
@@ -230,7 +232,7 @@ we strongly recommend to only use the first two approaches.
 
 
 [#114]
-== {MUST} Use Media Type Versioning
+== {MUST} use media type versioning
 
 However, when API versioning is unavoidable, you have to design your
 multi-version RESTful APIs using media type versioning (instead of URI
@@ -278,7 +280,7 @@ approaches to handle breaking changes without being opinionated.
 
 
 [#115]
-== {MUST} Do Not Use URI Versioning
+== {MUST} not use URI versioning
 
 With URI versioning a (major) version number is included in the path, e.g.
 `/v1/customers`. The consumer has to wait until the provider has been released

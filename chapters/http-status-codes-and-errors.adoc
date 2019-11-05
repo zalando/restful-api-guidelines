@@ -1,9 +1,9 @@
 [[http-status-codes-and-errors]]
-= HTTP Status Codes And Errors
+= HTTP status codes and errors
 
 
 [#151]
-== {MUST} Specify Success and Error Responses
+== {MUST} specify success and error responses
 
 APIs should define the functional, business view and abstract from
 implementation aspects. Success and error responses are a vital part to
@@ -42,7 +42,7 @@ service client and provider performance.
 
 
 [#150]
-== {MUST} Use Standard HTTP Status Codes
+== {MUST} use standard HTTP status codes
 
 You must only use standardized HTTP status codes consistently with their
 intended semantics. You must not invent new HTTP status codes.
@@ -67,8 +67,9 @@ HTTP status code is not in the list below or its usage requires additional
 information aside the well defined semantic, the API specification must provide
 a clear description of the HTTP status code in the response.
 
+
 [[success-codes]]
-=== Success Codes
+=== Success codes
 
 [cols="10%,70%,20%",options="header",]
 |=======================================================================
@@ -98,8 +99,9 @@ different parts of a batch/bulk request (see <<152>>).
 |{POST}
 |=======================================================================
 
+
 [[redirection-codes]]
-=== Redirection Codes
+=== Redirection codes
 
 [cols="10%,70%,20%",options="header",]
 |=======================================================================
@@ -122,8 +124,9 @@ via request headers If-Modified-Since or If-None-Match.
 |{GET}, {HEAD}
 |=======================================================================
 
+
 [[client-side-error-codes]]
-=== Client Side Error Codes
+=== Client side error codes
 
 [cols="10%,70%,20%",options="header",]
 |=======================================================================
@@ -192,8 +195,9 @@ many requests (see <<153>>).
 |{ALL}
 |=======================================================================
 
+
 [[server-side-error-codes]]
-=== Server Side Error Codes:
+=== Server side error codes:
 
 [cols="10%,70%,20%",options="header",]
 |=======================================================================
@@ -216,14 +220,16 @@ should wait by setting the {Retry-After} header.
 |{ALL}
 |=======================================================================
 
+
 [#220]
-== {MUST} Use Most Specific HTTP Status Codes
+== {MUST} use most specific HTTP status codes
 
 You must use the most specific HTTP status code when returning information 
 about your request processing status or error situations.
 
+
 [#152]
-== {MUST} Use Code 207 for Batch or Bulk Requests
+== {MUST} use code 207 for batch or bulk requests
 
 Some APIs are required to provide either _batch_ or _bulk_ requests
 using {POST} for performance reasons, i.e. for communication and
@@ -252,8 +258,9 @@ independent processes, a _bulk_ defines a collection of independent
 resources created or updated together in one request. With respect to
 response processing this distinction normally does not matter.
 
+
 [#153]
-== {MUST} Use Code 429 with Headers for Rate Limits
+== {MUST} use code 429 with headers for rate limits
 
 APIs that wish to manage the request rate of clients must use the {429} (Too
 Many Requests) response code, if the client exceeded the request rate (see
@@ -294,7 +301,7 @@ number of requests made within a given window for each named entity.
 
 
 [#176]
-== {MUST} Use Problem JSON
+== {MUST} use problem JSON
 
 {RFC-7807}[RFC 7807] defines a Problem JSON object and  the media type
 `application/problem+json`. Operations should return it (together with a
@@ -331,7 +338,7 @@ APIs should accept both media types.
 
 
 [#177]
-== {MUST} Do not expose Stack Traces
+== {MUST} not expose stack traces
 
 Stack traces contain implementation details that are not part of an API,
 and on which clients should never rely. Moreover, stack traces can leak

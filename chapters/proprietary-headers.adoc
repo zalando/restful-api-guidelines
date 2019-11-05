@@ -1,15 +1,16 @@
 [[proprietary-headers]]
-= Proprietary Headers
+= Proprietary headers
 
 This section shares definitions of proprietary headers that should be
 named consistently because they address overarching service-related
 concerns. Whether services support these concerns or not is optional;
-therefore, the OpenAPI API specification is the right place to make this
+therefore, the Open API API specification is the right place to make this
 explicitly visible. Use the parameter definitions of the resource HTTP
 methods.
 
+
 [#183]
-== {MUST} Use Only the Specified Proprietary Zalando Headers
+== {MUST} use only the specified proprietary Zalando headers
 
 As a general rule, proprietary HTTP headers should be avoided. Still
 they can be useful in cases where context needs to be passed through
@@ -100,8 +101,9 @@ disables it in the settings for respective mobile platform.
 *Exception:* The only exception to this guideline are the conventional
 hop-by-hop `X-RateLimit-` headers which can be used as defined in <<153>>.
 
+
 [#184]
-== {MUST} Propagate Proprietary Headers
+== {MUST} propagate proprietary headers
 
 All Zalando's proprietary headers are end-to-end headers.
 footnote:header-types[HTTP/1.1 standard ({RFC-7230}#section-6.1[RFC 7230])
@@ -124,8 +126,9 @@ in a subsequent request. In such cases, the proprietary headers must still be
 propagated as headers with the subsequent request, despite the duplication of
 information.
 
+
 [#233]
-== {MUST} Support `X-Flow-ID`
+== {MUST} support `X-Flow-ID`
 
 The _Flow-ID_ is a generic parameter to be passed through service APIs and
 events and written into log files and traces. A consequent usage of the
@@ -136,7 +139,8 @@ case of _Flow-ID_ is to track service calls of our SaaS fashion commerce
 platform and initiated internal processing flows (executed synchronously via
 APIs or asynchronously via published events).
 
-*Data Definition*
+
+=== Data Definition
 
 The _Flow-ID_ must be passed through:
 
@@ -159,7 +163,8 @@ to Connect Log Output with OpenTracing Using Flow-IDs (internal link)] or
 {SRE-Tracing}/blob/master/wg-semantic-conventions/best-practices.md[Best
 practises (internal link)].
 
-*Service Guidance*
+
+=== Service Guidance
 
 * Services *must* support _Flow-ID_ as generic input, i.e.
 ** RESTful API endpoints *must* support {X-Flow-ID} header in requests

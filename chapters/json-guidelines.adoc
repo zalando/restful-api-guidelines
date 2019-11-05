@@ -1,5 +1,5 @@
 [[json-guidelines]]
-= JSON Guidelines
+= JSON guidelines
 
 These guidelines provides recommendations for defining JSON data at Zalando.
 JSON here refers to {RFC-7159}[RFC 7159] (which updates {RFC-4627}[RFC 4627]),
@@ -12,7 +12,7 @@ ones about values.
 
 
 [#118]
-== {MUST} Property names must be ASCII snake_case (and never camelCase): `^[a-z_][a-z_0-9]*$`
+== {MUST} property names must be ASCII snake_case (and never camelCase): `^[a-z_][a-z_0-9]*$`
 
 Property names are restricted to ASCII strings. The first
 character must be a letter, or an underscore, and subsequent
@@ -27,18 +27,17 @@ essential to establish a consistent look and feel such that JSON looks
 as if it came from the same hand.
 
 [#216]
-== {SHOULD} Define Maps Using `additionalProperties`
+== {SHOULD} define maps using `additionalProperties`
 
-A "map" here is a mapping from string keys to some other type.
-In JSON this is represented as an object, the key-value pairs being represented
-by property names and property values.
-In OpenAPI schema (as well as in JSON schema) they should be represented using
-additionalProperties with a schema defining the value type. Such an object should normally
-have no other defined properties.
+A "map" here is a mapping from string keys to some other type. In JSON this is
+represented as an object, the key-value pairs being represented by property
+names and property values. In Open API schema (as well as in JSON schema) they
+should be represented using additionalProperties with a schema defining the
+value type. Such an object should normally have no other defined properties.
 
-The map keys don't count as property names in the sense of <<118,rule 118>>, and can
-follow whatever format is natural for their domain. Please document this in the description
-of the map object's schema.
+The map keys don't count as property names in the sense of <<118,rule 118>>,
+and can follow whatever format is natural for their domain. Please document
+this in the description of the map object's schema.
 
 Here is an example for such a map definition (the `translations` property):
 
@@ -79,14 +78,14 @@ An actual JSON object described by this might then look like this:
 
 
 [#120]
-== {SHOULD} Array names should be pluralized
+== {SHOULD} pluralize array names
 
 To indicate they contain multiple values prefer to pluralize array
 names. This implies that object names should in turn be singular.
 
 
 [#122]
-== {MUST} Boolean property values must not be null
+== {MUST} not use `null` for boolean properties
 
 Schema based JSON properties that are by design booleans must not be
 presented as nulls. A boolean is essentially a closed enumeration of two
@@ -98,7 +97,7 @@ unknown.
 
 
 [#123]
-== {MUST} Use same semantics for `null` and absent properties
+== {MUST} use same semantics for `null` and absent properties
 
 Open API 3.x allows to mark properties as `required` and as `nullable` to
 specify whether properties may be absent (`{}`) or `null` (`{"example":null}`).
@@ -149,19 +148,19 @@ ignored, i.e. not modified.
 
 
 [#124]
-== {SHOULD} Empty array values should not be null
+== {SHOULD} not use `null` for empty arrays
 
 Empty array values can unambiguously be represented as the empty list, `[]`.
 
 
 [#125]
-== {SHOULD} Enumerations should be represented as Strings
+== {SHOULD} represent enumerations as strings
 
 Strings are a reasonable target for values that are by design enumerations.
 
 
 [#235]
-== {SHOULD} Name date/time properties using the `_at` suffix
+== {SHOULD} name date/time properties with `_at` suffix
 
 Dates and date-time properties should end with `_at` to distinguish them from
 boolean properties which otherwise would have very similar or even identical
@@ -177,7 +176,7 @@ guideline and are therefore still accepted for APIs that predate this rule.
 
 
 [#126]
-== {SHOULD} Date property values should conform to RFC 3339
+== {SHOULD} define dates properties compliant with RFC 3339
 
 Use the date and time formats defined by {RFC-3339}#section-5.6[RFC 3339]:
 
@@ -187,36 +186,34 @@ Use the date and time formats defined by {RFC-3339}#section-5.6[RFC 3339]:
 example `2015-05-28T14:07:17Z`
 
 Note that the
-https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types[OpenAPI
-format] "date-time" corresponds to "date-time" in the RFC) and
-`2015-05-28` for a date (note that the OpenAPI format "date" corresponds
-to "full-date" in the RFC). Both are specific profiles, a subset of the
-international standard {ISO-8601}[ISO 8601].
+https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types[Open
+API format] "date-time" corresponds to "date-time" in the RFC) and `2015-05-28`
+for a date (note that the Open API format "date" corresponds to "full-date" in
+the RFC). Both are specific profiles, a subset of the international standard
+{ISO-8601}[ISO 8601].
 
-A zone offset may be used (both, in request and responses) -- this is
-simply defined by the standards. However, we encourage restricting dates
-to UTC and without offsets. For example `2015-05-28T14:07:17Z` rather
-than `2015-05-28T14:07:17+00:00`. From experience we have learned that
-zone offsets are not easy to understand and often not correctly handled.
-Note also that zone offsets are different from local times that might be
-including daylight saving time. Localization of dates should be done by
-the services that provide user interfaces, if required.
+A zone offset may be used (both, in request and responses) -- this is simply
+defined by the standards. However, we encourage restricting dates to UTC and
+without offsets. For example `2015-05-28T14:07:17Z` rather than
+`2015-05-28T14:07:17+00:00`. From experience we have learned that zone offsets
+are not easy to understand and often not correctly handled. Note also that
+zone offsets are different from local times that might be including daylight
+saving time. Localization of dates should be done by the services that provide
+user interfaces, if required.
 
 When it comes to storage, all dates should be consistently stored in UTC
-without a zone offset. Localization should be done locally by the
-services that provide user interfaces, if required.
+without a zone offset. Localization should be done locally by the services that
+provide user interfaces, if required.
 
-Sometimes it can seem data is naturally represented using numerical
-timestamps, but this can introduce interpretation issues with precision
-- for example whether to represent a timestamp as 1460062925,
-1460062925000 or 1460062925.000. Date strings, though more verbose and
-requiring more effort to parse, avoid this ambiguity.
+Sometimes it can seem data is naturally represented using numerical timestamps,
+but this can introduce interpretation issues with precision, e.g. whether to
+represent a timestamp as 1460062925, 1460062925000 or 1460062925.000. Date
+strings, though more verbose and requiring more effort to parse, avoid this
+ambiguity.
 
 
 [#127]
-== {SHOULD} Time durations and intervals could conform to ISO 8601
+== {SHOULD} define time durations and intervals properties conform to ISO 8601
 
-Schema based JSON properties that are by design durations and intervals
-could be strings formatted as recommended by {ISO-8601}[ISO 8601]
-({RFC-3339}#appendix-A[Appendix A of RFC 3339 contains a grammar] for
-durations).
+Schema based JSON properties that are by design durations and intervals could
+be strings formatted as recommended by {ISO-8601}[ISO 8601]({RFC-3339}#appendix-A[Appendix A of RFC 3339 contains a grammar] for durations).
