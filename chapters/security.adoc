@@ -93,7 +93,7 @@ paths:
     get:
       summary: Retrieves information about a business partner
       security:
-        - BearerAuth: [ business-partner.read ]
+        - BearerAuth: [ business-partner-service.read ]
 ----
 
 In very rare cases a whole API or some selected endpoints may not require
