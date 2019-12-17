@@ -32,18 +32,17 @@ this minimum after-deprecation-life-span before he starts using the API.
 [#187]
 == {MUST} reflect deprecation in API specifications
 
-API deprecation must be part of the Open API definition. If a method on a
-path, a whole path or even a whole API endpoint (multiple paths) should be
-deprecated, the producers must set `deprecated=true` on each method/path-
-element that will be deprecated (Open API 2.0 only allows you to define
-deprecation on this level). If deprecation should happen on a more fine
-grained level (i.e. query parameter, payload etc.), the producer should set
-`deprecated=true` on the affected method / path element and add further
+API deprecation must be part of the Open API definition. 
+If an API endpoint (operation object), an input argument (parameter object), 
+or in/out data object (schema object) should be deprecated, the producers 
+must set `deprecated=true` for the element. 
+If deprecation should happen on a more fine grained level (i.e. schema attribute etc.), 
+the producer should set `deprecated=true` on the affected element and add further
 explanation to the `description` section.
 
-If `deprecated` is set to `true`, the producer must describe what clients
-should use instead and when the API will be shut down in the `description`
-section of the API definition.
+If `deprecated` is set to `true`, the producer must provide a sunset date and 
+describe what consumers should use instead (possibly via links to details) 
+in the `description` section.
 
 
 [#188]
@@ -55,28 +54,30 @@ uncontrolled breaking effects. See also the <<193>>.
 
 
 [#189]
-== {SHOULD} add a warning header to responses
+== {SHOULD} add a deprecation header to responses
 
-During deprecation phase, the producer should add a `Warning` header (see
-{RFC-7234}#section-5.5[RFC 7234 - Warning header]) field. When adding the
-`Warning` header, the `warn-code` must be `299` and the `warn-text` should be
-in form of 
+During deprecation phase, the producer should add a `Deprecation` header 
+(see
+https://tools.ietf.org/html/draft-dalal-deprecation-header-01[draft: RFC Deprecation HTTP Header])
+with the sunset date value (in https://tools.ietf.org/html/rfc7231#section-7.1.1.1[HTTP Date/Time] form): 
 
 [source,txt]
 ----
-The path/operation/parameter/... {name} is deprecated and will be removed by {date}.
-Please see {link} for details.
+Deprecation: Sun, 11 Nov 2018 23:59:59 GMT
 ----
 
-with a link to a documentation describing why the API is no longer supported
-in the current form and what clients should do about it. Adding the `Warning`
-header is not sufficient to gain client consent to shut down an API.
+Note, adding the `Deprecation` header is not sufficient to gain client consent to shut down an API.
+
+Hint: In earlier guideline version, we used the `Warning` header to provide the deprecation info to clients. 
+However, `Warning` header has less specific semantics and will be obsolete with 
+https://tools.ietf.org/html/draft-ietf-httpbis-cache-06[draft: RFC HTTP Caching], 
+and our syntax was not conform with {RFC-7234}#page-29[RFC 7234 -- Warning header].
 
 
 [#190]
-== {SHOULD} add monitoring for warning header
+== {SHOULD} add monitoring for deprecation header
 
-Clients should monitor the `Warning` header in HTTP responses to see if
+Clients should monitor the `Deprecation` header in HTTP responses to see if
 an API will be deprecated in future.
 
 
