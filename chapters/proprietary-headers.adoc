@@ -147,8 +147,12 @@ The _Flow-ID_ must be passed through:
 * RESTful API requests via {X-Flow-ID} proprietary header (see <<184>>)
 * Published events via `flow_id` event field (see <<event-metadata, metadata>>)
 
-It must be an random unique string consisting of maximal 128 chars, restricted
-to the character set `[a-zA-Z0-9/+]` (Base64). 
+The following formats are allowed:
+
+* `UUID` ({RFC-4122}[RFC-4122])
+* `Base64` ({RFC-4648}[RFC-4648])
+* `Base64` with URL ({RFC-4648}#section-5[RFC-4648 Section 5])
+* Random unique string restricted to the character set `[a-zA-Z0-9/+_-=]` maximal of 128 characters.
 
 *Note:* If a legacy subsystem can only process _Flow-IDs_ with a specific
 format or length, it must define this restrictions in its API specification,

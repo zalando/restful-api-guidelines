@@ -30,6 +30,7 @@ This section collects links to documents to which we refer, and base our guideli
 * *{RFC-7240}[RFC 7240]:* Prefer Header for HTTP
 * *{RFC-7396}[RFC 7396]:* JSON Merge Patch
 * *{RFC-7807}[RFC 7807]:* Problem Details for HTTP APIs
+* *{RFC-4648}[RFC 4648]:* The Base16, Base32, and Base64 Data Encodings
 
 * *{ISO-8601}[ISO 8601]:* Date and time format
 * *{ISO-3166-1-a2}[ISO 3166-1 alpha-2]:* Two letter country codes
