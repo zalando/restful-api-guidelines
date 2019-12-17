@@ -5,37 +5,31 @@
 [#104]
 == {MUST} secure endpoints with OAuth 2.0
 
-Every API endpoint needs to be secured using OAuth 2.0. Please refer to
-the
-https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#security-definitions-object[official
-Open API specification] on how to specify security definitions in your API
-specification or take a look at the following example.
+Every API endpoint needs to be secured using OAuth 2.0. Please refer to the
+https://swagger.io/docs/specification/authentication/[Authentication section] of the official
+Open API specification on how to specify security definitions in your API.
+
+The following code snippet shows how to define the authorization scheme using
+a bearer token (e.g. JWT token).
 
 [source,yaml]
 ----
 components:
   securitySchemes:
-    oauth2:
-      type: oauth2
-      flows:
-        clientCredentials:
-          tokenUrl: https://identity.zalando.com/oauth2/token
-          scopes:
-            fulfillment-order-service.read: Access right needed to read from the fulfillment order service.
-            fulfillment-order-service.write: Access right needed to write to the fulfillment order service.
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
 ----
 
-The example defines OAuth2 with client credentials flow as security standard
-used for authentication when accessing endpoints. Additionally, there are two
-API access rights (permissions) defined via the scopes section for later
-endpoint authorization usage (see <<105, next section>>).
+The next code snippet applies this security scheme to all API endpoints. The bearer
+token of the client must have additionally the scopes scope_1 and scope_2.
 
-It makes little sense specifying the flow to retrieve OAuth tokens in the
-`securitySchemes` section, as API endpoints should not care, how OAuth
-tokens were created. Unfortunately the `flow` field is mandatory and cannot
-be omitted. API endpoints should always set `flow: clientCredentials` and ignore
-this information.
-
+[source,yaml]
+----
+security:
+  - BearerAuth: [ scope_1, scope_2 ]
+----
 
 [#105]
 == {MUST} define and assign permissions (scopes)
@@ -99,8 +93,7 @@ paths:
     get:
       summary: Retrieves information about a business partner
       security:
-        - oauth2:
-          - business-partner.read
+        - BearerAuth: [ business-partner.read ]
 ----
 
 In very rare cases a whole API or some selected endpoints may not require
@@ -116,8 +109,7 @@ paths:
       summary: Provides public information about ... 
                Accessible by any user; no permissions needed.
       security:
-        - oauth2:
-          - uid
+        - BearerAuth: [ uid ]
 ----
 
 Hint: you need not explicitly define the "Authorization" header; it is a
