@@ -37,7 +37,7 @@ If an API endpoint (operation object), an input argument (parameter object),
 or in/out data object (schema object) should be deprecated, the producers 
 must set `deprecated: true` for the element. 
 If deprecation should happen on a more fine grained level (i.e. schema attribute etc.), 
-the producer should set `deprecated=true` on the affected element and add further
+the producer should set `deprecated: true` on the affected element and add further
 explanation to the `description` section.
 
 If `deprecated` is set to `true`, the producer must provide a sunset date and 
