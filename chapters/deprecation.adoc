@@ -68,8 +68,8 @@ Deprecation: Sun, 11 Nov 2018 23:59:59 GMT
 
 Note, adding the `Deprecation` header is not sufficient to gain client consent to shut down an API.
 
-Hint: In earlier guideline version, we used the `Warning` header to provide the deprecation info to clients. 
-However, `Warning` header has less specific semantics and will be obsolete with 
+Hint: In earlier guideline versions, we used the `Warning` header to provide the deprecation info to clients. 
+However, `Warning` header has less specific semantics, will be obsolete with 
 https://tools.ietf.org/html/draft-ietf-httpbis-cache-06[draft: RFC HTTP Caching], 
 and our syntax was not conform with {RFC-7234}#page-29[RFC 7234 -- Warning header].
 
