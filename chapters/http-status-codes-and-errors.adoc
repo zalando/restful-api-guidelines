@@ -152,7 +152,7 @@ Not found - the resource is not found.
 Method Not Allowed - the method is not supported, see {OPTIONS}.
 |{ALL}
 
-|[[status-code-406]]{405}|
+|[[status-code-406]]{406}|
 Not Acceptable - resource can only generate content not acceptable according
 to the Accept headers sent in the request.
 |{ALL}
