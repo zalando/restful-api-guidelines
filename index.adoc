@@ -19,6 +19,7 @@
 :RFC-3986: https://tools.ietf.org/html/rfc3986
 :RFC-4122: https://tools.ietf.org/html/rfc4122
 :RFC-4627: https://tools.ietf.org/html/rfc4627
+:RFC-4648: https://tools.ietf.org/html/rfc4648
 :RFC-5322: https://tools.ietf.org/html/rfc5322
 :RFC-6570: https://tools.ietf.org/html/rfc6570
 :RFC-6585: https://tools.ietf.org/html/rfc6585
