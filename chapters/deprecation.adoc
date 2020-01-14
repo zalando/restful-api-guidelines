@@ -58,7 +58,7 @@ uncontrolled breaking effects. See also the <<193>>.
 
 During deprecation phase, the producer should add a `Deprecation` header 
 (see
-https://tools.ietf.org/html/draft-dalal-deprecation-header-01[draft: RFC Deprecation HTTP Header])
+https://tools.ietf.org/html/draft-dalal-deprecation-header[draft: RFC Deprecation HTTP Header])
 with the sunset date value (in https://tools.ietf.org/html/rfc7231#section-7.1.1.1[HTTP Date/Time] form): 
 
 [source,txt]
