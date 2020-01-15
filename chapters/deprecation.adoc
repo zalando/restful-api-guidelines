@@ -59,7 +59,7 @@ uncontrolled breaking effects. See also the <<193>>.
 During deprecation phase, the producer should add a `Deprecation` header 
 (see
 https://tools.ietf.org/html/draft-dalal-deprecation-header[draft: RFC Deprecation HTTP Header])
-with the sunset date value (in https://tools.ietf.org/html/rfc7231#section-7.1.1.1[HTTP Date/Time] form): 
+with the sunset date value (in {RFC-7231}#section-7.1.1.1[HTTP Date/Time] form): 
 
 [source,txt]
 ----
@@ -68,7 +68,7 @@ Deprecation: Sun, 11 Nov 2018 23:59:59 GMT
 
 Note, adding the `Deprecation` header is not sufficient to gain client consent to shut down an API.
 
-Hint: In earlier guideline versions, we used the `Warning` header to provide the deprecation info to clients. 
+*Hint:* In earlier guideline versions, we used the `Warning` header to provide the deprecation info to clients. 
 However, `Warning` header has less specific semantics, will be obsolete with 
 https://tools.ietf.org/html/draft-ietf-httpbis-cache-06[draft: RFC HTTP Caching], 
 and our syntax was not conform with {RFC-7234}#page-29[RFC 7234 -- Warning header].
@@ -77,9 +77,9 @@ and our syntax was not conform with {RFC-7234}#page-29[RFC 7234 -- Warning heade
 [#190]
 == {SHOULD} add monitoring for deprecation header
 
-Clients should monitor the `Deprecation` header in HTTP responses to see if
-an API will be deprecated in future.
+Clients should monitor the `Deprecation` header in HTTP responses to get information about future sunset of API features. 
 
+*Hint:* In earlier guideline versions, we used the `Warning` header to provide the deprecation info -- see hint in <<189>>.
 
 [#191]
 == {MUST} not start using deprecated APIs
