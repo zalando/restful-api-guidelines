@@ -324,8 +324,22 @@ responses:
           $ref: 'https://opensource.zalando.com/problem/schema.yaml#/Problem'
 ----
 
-You may define custom problem types as extension of the Problem JSON object 
-if your API need to return specific additional error detail information.
+You may define custom problem types as extensions of the Problem JSON object
+if your API needs to return specific, additional and detailed error information.
+
+The specification encourages that custom problem types are URI references that point to human-readable documentation, **but** we deliberately decided against that. URLs tend to be fragile and not very stable over a longer period. Hosting documentation often requires to bind to a specific tool or have DNS records that contain volatile organization structures, e.g. team names. Another reason is that all the important parts of an API must be documented using <<101, OpenAPI>> anyway.
+
+In order to stay compatible the proposed pattern for custom problem types is to use https://tools.ietf.org/html/rfc3986#section-4.1[relative URI references]:
+
+* `/out-of-stock`
+* `/insufficient-funds`
+* `/user-deactivated`
+
+Examples of problem types that **do not** satisfy our criteria:
+
+* `https://docs.team.company.org/out-of-stock`
+* `https://en.wikipedia.org/wiki/Stockout`
+* `http://www.businessdictionary.com/definition/stockout.html`
 
 
 **Hint** for backward compatibility: A previous version of this guideline
