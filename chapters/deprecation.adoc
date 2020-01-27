@@ -54,10 +54,12 @@ uncontrolled breaking effects. See also the <<193>>.
 [#189]
 == {SHOULD} add `Deprecation` and `Sunset` header to responses
 
-During the deprecation phase, the producer should add a `Deprecation: true`
+During the deprecation phase, the producer should add a `Deprecation: true | <date-time>`
 (see https://tools.ietf.org/html/draft-dalal-deprecation-header[draft: RFC
-Deprecation HTTP Header]) and a `Sunset: <data>` (See {RFC-8594}#section-3[RFC
+Deprecation HTTP Header]) and a `Sunset: <date-time>` (See {RFC-8594}#section-3[RFC
 8594]) header on each response affected by a deprecated element (see <<187>>).
+If multiple elements are deprecated the {Sunset} date is expected to be set to
+the earliest involved time stamp.
 
 [source,txt]
 ----
