@@ -38,6 +38,7 @@
 :RFC-7493: https://tools.ietf.org/html/rfc7493
 :RFC-7807: https://tools.ietf.org/html/rfc7807
 :RFC-8288: https://tools.ietf.org/html/rfc8288
+:RFC-8594: https://tools.ietf.org/html/rfc8594
 
 :link-relations: http://www.iana.org/assignments/link-relations
 
@@ -186,6 +187,9 @@
 
 :Prefer: pass:[<a href="https://tools.ietf.org/html/rfc7240"><code>Prefer</code></a>]
 :Preference-Applied: pass:[<a href="https://tools.ietf.org/html/rfc7240#section-3"><code>Preference-Applied</code></a>]
+
+:Sunset: pass:[<a href="https://tools.ietf.org/html/rfc8594"><code>Sunset</code></a>]
+:Deprecation: pass:[<a href="https://tools.ietf.org/html/draft-dalal-deprecation-header"><code>Deprectated</code></a>]
 
 :Retry-After: pass:[<a href="https://tools.ietf.org/html/rfc7231#section-7.1.3"><code>Retry-After</code></a>]
 :Vary: pass:[<a href="https://tools.ietf.org/html/rfc7231#section-7.1.4"><code>Vary</code></a>]
