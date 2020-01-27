@@ -231,12 +231,12 @@ about your request processing status or error situations.
 [#152]
 == {MUST} use code 207 for batch or bulk requests
 
-Some APIs are required to provide either _batch_ or _bulk_ requests
-using {POST} for performance reasons, i.e. for communication and
-processing efficiency. In this case services may be in need to signal
-multiple response codes for each part of an batch or bulk request. As
-HTTP does not provide proper guidance for handling batch/bulk requests
-and responses, we herewith define the following approach:
+Some APIs are required to provide either _batch_ or _bulk_ requests using
+{POST} for performance reasons, i.e. for communication and processing
+efficiency. In this case services may be in need to signal multiple response
+codes for each part of an batch or bulk request. As HTTP does not provide
+proper guidance for handling batch/bulk requests and responses, we herewith
+define the following approach:
 
 * A batch or bulk request *always* has to respond with HTTP status code
   {207}, unless it encounters a generic or unexpected failure before
@@ -248,10 +248,44 @@ and responses, we herewith define the following approach:
   the service encounters a failure before looking at individual parts or,
   if an unanticipated failure occurs.
 
-The before rules apply _even in the case_ that processing of all
-individual part _fail_ or each part is executed _asynchronously_! They
-are intended to allow clients to act on batch and bulk responses by
-inspecting the individual results in a consistent way.
+The before rules apply _even in the case_ that processing of all individual
+parts _fail_ or each part is executed _asynchronously_! They are intended
+to allow clients to act on batch and bulk responses in a consistent way by
+inspecting the individual results. This rules are intended to prevent
+misinterpretation base on global response codes, i.e. we explicitly reject
+the option to apply {200} for a completely successful batch as proposed in
+Nakadi's https://nakadi.io/manual.html#/event-types/name/events_post[`POST
+/event-types/{name}/events`] as short cut without inspecting the result.
+
+A proper bulk or batch response may look as follows:
+
+[source,yaml]
+----
+Response:
+  description: standard batch response object.
+  type: object
+  properties:
+    items:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            description: Identifier of batch or bulk request item.
+            type: string
+          status:
+            description: >
+              Response status value. A number or extensible enum describing
+              the execution status of the batch or bulk request items.
+            type: string
+            x-extensible-enum: [...] 
+          description:
+            description: >
+              Human readable status description and containing additional
+              failure context information.
+            type: string
+        required: [id, status]
+----
 
 *Note*: while a _batch_ defines a collection of requests triggering
 independent processes, a _bulk_ defines a collection of independent
