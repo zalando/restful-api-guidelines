@@ -244,7 +244,7 @@ define the following approach:
   failure cannot be related to individual items of the batch or bulk request,
   e.g. in case of a general overload situation.
 
-* A batch or bulk response with status code {207} *always* returns as payload
+* A batch or bulk response with status code {207} as payload *always* returns
   a multi-status object containing sufficient status and/or monitoring
   information for each part of the batch or bulk request.
 
@@ -259,12 +259,12 @@ Nakadi's https://nakadi.io/manual.html#/event-types/name/events_post[`POST
 want to avoid  risks and expect clients to handle partial
 batch failures anyway.
 
-A proper bulk or batch response may look as follows:
+The bulk or batch response may look as follows:
 
 [source,yaml]
 ----
-Response:
-  description: standard batch response object.
+BatchOrBulkResponse:
+  description: batch response object.
   type: object
   properties:
     items:
@@ -284,7 +284,7 @@ Response:
           description:
             description: >
               Human readable status description and containing additional
-              failure context information.
+              context information about failures etc.
             type: string
         required: [id, status]
 ----
