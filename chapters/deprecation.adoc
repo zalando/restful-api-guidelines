@@ -59,11 +59,12 @@ During the deprecation phase, the producer should add a `Deprecation: <date-time
 Deprecation HTTP Header]) and a `Sunset: <date-time>` (see {RFC-8594}#section-3[RFC
 8594]) header on each response affected by a deprecated element (see <<187>>).
 
-The {Deprecation} header can either be set to `true` or carry a deprecation
-time stamp, at which a replacement will become/became available and further
-on-boarding is discouraged. The optional {Sunset} time stamp carries the
-information when consumers latest have to switch to the replacement solution,
-and should always offer an eligible time interval for switching.
+The {Deprecation} header can either be set to `true` - if a feature is retired
+-, or carry a deprecation time stamp, at which a replacement will become/became
+available and consumers must not on-board any longer (see <<191>>). The optional
+{Sunset} time stamp carries the information when consumers latest have to stop
+using a feature and switch to a replacement solution. The sunset date should
+always offer an eligible time interval for switching.
 
 [source,txt]
 ----
@@ -89,8 +90,10 @@ Caching], and our syntax was not compliant with {RFC-7234}#page-29[RFC 7234
 [#190]
 == {SHOULD} add monitoring for `Deprecation` and `Sunset` header
 
-Clients should monitor the {Deprecation} and {Sunset} headers in HTTP
-responses to get information about future sunset of API features (see <<189>>).
+Clients should monitor the {Deprecation} and {Sunset} headers in HTTP responses
+to get information about future sunset of APIs and API features (see <<189>>).
+Based collected dates client owners should build alerts to ensure alignment
+with service owners on required migration task.
 
 *Hint:* In earlier guideline versions, we used the `Warning` header to provide
 the deprecation info (see hint in <<189>>).
