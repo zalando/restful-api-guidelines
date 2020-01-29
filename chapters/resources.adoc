@@ -116,8 +116,7 @@ identifiers (see <<241>>).
 == {MAY} expose compound keys as resource identifiers
 
 **Warning:** Exposing a compound key as described below limits ability to
-evolve the structure of the resource identifier as it is not any longer
-opaque.
+evolve the structure of the resource identifier as it is no longer opaque.
 
 If a resource is best described by a _compound key_ consisting of multiple
 other resource identifiers, it is allowed to reuse the compound key in its
