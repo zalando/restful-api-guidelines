@@ -72,9 +72,11 @@ which business object it represents. Along these lines, "items" is too general.
 == {MUST} use URL-friendly resource identifiers: [a-zA-Z0-9:._\-/]*
 
 To simplify encoding of resource IDs in URLs, their representation must only
-consist of ASCII strings of letters, numbers, underscore, minus, colon, and
-period. **Note:** slashes are only allowed to build and signal resource
-identifiers consisting of <<241, compound keys>>.
+consist of ASCII strings using letters, numbers, underscore, minus, colon,
+period, and - on rare occasions - slash.
+
+**Note:** slashes are only allowed to build and signal resource identifiers
+consisting of <<241, compound keys>>.
 
 
 [#143]
@@ -119,8 +121,8 @@ opaque.
 
 If a resource is best described by a _compound key_ consisting of multiple
 other resource identifiers, it is allowed to reuse the compound key in its
-natural form containing also slashes as _technical_ resource identifier,
-e.g. for Docker images the compound key may look like
+natural form containing slashes as _technical_ resource identifier, e.g. for
+Docker images the compound key may look like
 `{repository-name}/{artifact-name}:{tag}`.
 
 However, resources using a compound key are expected to apply it consistently
