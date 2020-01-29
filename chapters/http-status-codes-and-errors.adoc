@@ -238,14 +238,16 @@ codes for each part of an batch or bulk request. As HTTP does not provide
 proper guidance for handling batch/bulk requests and responses, we herewith
 define the following approach:
 
-* A batch or bulk request *always* responds with HTTP status code {207}.
+* A batch or bulk request *always* responds with HTTP status code {207}
+  unless a non-item-specific failure occurs.
 
 * A batch or bulk request *may* return {4xx}/{5xx} status codes, if the
-  failure cannot be related to individual items of the batch or bulk request,
-  e.g. in case of a general overload situation.
+  failure is non-item-specific and cannot be restricted to individual items of
+  the batch or bulk request, e.g. in case of overload situations or general
+  service failures.
 
-* A batch or bulk response with status code {207} as payload *always* returns
-  a multi-status object containing sufficient status and/or monitoring
+* A batch or bulk response with status code {207} *always* returns as payload
+  a multi-status response containing item specific status and/or monitoring
   information for each part of the batch or bulk request.
 
 **Note:** These rules apply _even in the case_ that processing of all
