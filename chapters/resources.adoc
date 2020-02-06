@@ -141,15 +141,27 @@ evolve the structure of the resource identifier as it is no longer opaque.
 
 To compensate for this drawback, APIs must apply a compound key abstraction
 consistently in all requests and responses parameters and attributes allowing
-consumer to treat these as _technical resource identifier_ replacement. The
+consumers to treat these as _technical resource identifier_ replacement. The
 use of independent compound key components must be limited to search and
-creation requests, e.g.:
+creation requests, as follows:
 
 [source,http]
 ----
-GET /article-size-advices?skus=id-1,id-2,id-3&sales_channel_id=sid-1
-POST /shopping-carts { "country": "DE", "session_id": "id-1" }
+# compound key components passed as independent search query parameters
+GET /article-size-advices?skus=sku-1,sku-2&sales_channel_id=sid-1
+=> { "items": [{ "id": "id-1", ...  },{ "id": "id-2", ...  }] }
+
+# opaque technical resource identifier passed as path parameter
+GET /article-size-advices/id-1
+=> { "id": "id-1", "sku": "sku-1", "sales_channel_id": "sid-1", "size": ... }
+
+# compound key components passed as mandatory request fields
+POST /article-size-advices { "sku": "sku-1", "sales_channel_id": "sid-1", "size": ... }
+=> { "id": "id-1", "sku": "sku-1", "sales_channel_id": "sid-1", "size": ... }
 ----
+
+Where `id-1` is representing the opaque provision of the compound key
+`sku-1/sid-1` as technical resource identifier.
 
 **Remark:** A compound key component may itself be used as another resource
 identifier providing another resource endpoint, e.g `/article-size-advices/{sku}`.
