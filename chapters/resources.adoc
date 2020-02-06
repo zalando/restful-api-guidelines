@@ -69,11 +69,14 @@ which business object it represents. Along these lines, "items" is too general.
 
 
 [#228]
-== {MUST} use URL-friendly resource identifiers: [a-zA-Z0-9:._-]*
+== {MUST} use URL-friendly resource identifiers: [a-zA-Z0-9:._\-/]*
 
 To simplify encoding of resource IDs in URLs, their representation must only
-consist of ASCII strings of letters, numbers, underscore, minus, colon, and
-period.
+consist of ASCII strings using letters, numbers, underscore, minus, colon,
+period, and - on rare occasions - slash.
+
+**Note:** slashes are only allowed to build and signal resource identifiers
+consisting of <<241, compound keys>>.
 
 
 [#143]
@@ -82,36 +85,113 @@ period.
 Some API resources may contain or reference sub-resources. Embedded
 sub-resources, which are not top-level resources, are parts of a higher-level
 resource and cannot be used outside of its scope. Sub-resources should be
-referenced by their name and identifier in the path segments.
-
-Composite identifiers must not contain `/` as a separator. In order to improve
-the consumer experience, you should aim for intuitively understandable URLs,
-where each sub-path is a valid reference to a resource or a set of resources.
-For example, if `/customers/12ev123bv12v/addresses/DE_100100101` is a valid
-path of your API, then `/customers/12ev123bv12v/addresses`,
-`/customers/12ev123bv12v` and `/customers` must be valid as well in principle.
-
-Basic URL structure:
+referenced by their name and identifier in the path segments as follows:
 
 [source,http]
 ----
-/{resources}/[resource-id]/{sub-resources}/[sub-resource-id]
-/{resources}/[partial-id-1][separator][partial-id-2]
+/resources/{resource-id}/sub-resources/{sub-resource-id}
 ----
 
-Examples:
+In order to improve the consumer experience, you should aim for intuitively
+understandable URLs, where each sub-path is a valid reference to a resource or
+a set of resources. E.g. if `/customers/12ev123bv12v/addresses/DE_100100101` is valid,
+then `/customers/12ev123bv12v/addresses`, `/customers/12ev123bv12v` and
+`/customers` must be valid as well in principle. E.g.:
 
 [source,http]
 ----
-/carts/1681e6b88ec1/items
-/carts/1681e6b88ec1/items/1
 /customers/12ev123bv12v/addresses/DE_100100101
+/customers/12ev123bv12v
+/shopping-carts/de:1681e6b88ec1/items/1
+/shopping-carts/de:1681e6b88ec1
 /content/images/9cacb4d8
+/content/images
+----
+
+**Note:** resource identifiers may be build of multiple other resource
+identifiers (see <<241>>).
+
+
+[#241]
+== {MAY} expose compound keys as resource identifiers
+
+If a resource is best identified by a _compound key_ consisting of multiple
+other resource identifiers, it is allowed to reuse the compound key in its
+natural form containing slashes instead of _technical_ resource identifier in
+the resource path without violating the above rule <<143>> as follows:
+
+[source,http]
+----
+/resources/{compound-key-1}[delim-1]...[delim-n-1]{compound-key-n}
+----
+
+Example paths:
+
+[source,http]
+----
+/shopping-carts/{country}/{session-id}
+/shopping-carts/{country}/{session-id}/items/{item-id}
+/api-specifications/{docker-image-id}/apis/{path}/{file-name}
+/api-specifications/{repository-name}/{artifact-name}:{tag}
+/article-size-advices/{sku}/{sales-channel}
+----
+
+**Warning:** Exposing a compound key as described above limits ability to
+evolve the structure of the resource identifier as it is no longer opaque.
+
+To compensate for this drawback, APIs must apply a compound key abstraction
+consistently in all requests and responses parameters and attributes allowing
+consumers to treat these as _technical resource identifier_ replacement. The
+use of independent compound key components must be limited to search and
+creation requests, as follows:
+
+[source,http]
+----
+# compound key components passed as independent search query parameters
+GET /article-size-advices?skus=sku-1,sku-2&sales_channel_id=sid-1
+=> { "items": [{ "id": "id-1", ...  },{ "id": "id-2", ...  }] }
+
+# opaque technical resource identifier passed as path parameter
+GET /article-size-advices/id-1
+=> { "id": "id-1", "sku": "sku-1", "sales_channel_id": "sid-1", "size": ... }
+
+# compound key components passed as mandatory request fields
+POST /article-size-advices { "sku": "sku-1", "sales_channel_id": "sid-1", "size": ... }
+=> { "id": "id-1", "sku": "sku-1", "sales_channel_id": "sid-1", "size": ... }
+----
+
+Where `id-1` is representing the opaque provision of the compound key
+`sku-1/sid-1` as technical resource identifier.
+
+**Remark:** A compound key component may itself be used as another resource
+identifier providing another resource endpoint, e.g `/article-size-advices/{sku}`.
+
+
+[#145]
+== {MAY} consider using (non-)nested URLs
+
+If a sub-resource is only accessible via its parent resource and may not exist
+without parent resource, consider using a nested URL structure, for instance:
+
+[source,http]
+----
+/shoping-carts/de/1681e6b88ec1/cart-items/1
+----
+
+However, if the resource can be accessed directly via its unique id, then the
+API should expose it as a top-level resource. For example, customer has a
+collection for sales orders; however, sales orders have globally unique id and
+some services may choose to access the orders directly, for instance:
+
+[source,http]
+----
+/customers/1637asikzec1
+/sales-orders/5273gh3k525a
 ----
 
 
 [#144]
-== {SHOULD} Only Use UUIDs If Necessary
+== {SHOULD} only use UUIDs if necessary
 
 Generating IDs can be a scaling problem in high frequency and near real time
 use cases. UUIDs solve this problem, as they can be generated without
@@ -156,28 +236,6 @@ https://github.com/alizain/ulid[ULID] (Universally Unique Lexicographically
 Sortable Identifier). You may favour ULID instead of UUID, for instance, for
 pagination use cases ordered along creation time.
 
-
-[#145]
-== {MAY} consider using (non-)nested URLs
-
-If a sub-resource is only accessible via its parent resource and may not exist
-without parent resource, consider using a nested URL structure, for instance:
-
-[source,http]
-----
-/carts/1681e6b88ec1/cart-items/1
-----
-
-However, if the resource can be accessed directly via its unique id, then the
-API should expose it as a top-level resource. For example, customer has a
-collection for sales orders; however, sales orders have globally unique id and
-some services may choose to access the orders directly, for instance:
-
-[source,http]
-----
-/customers/1681e6b88ec1
-/sales-orders/5273gh3k525a
-----
 
 [#146]
 == {SHOULD} limit number of resource types
