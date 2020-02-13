@@ -66,7 +66,7 @@ They are also {RFC-6838}#section-3.4[discouraged by RFC 6838].
 [#238]
 == {SHOULD} use standardized property formats
 
-{https://json-schema.org/understanding-json-schema/reference/string.html#format}[JSON Schema] and {https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#data-types}[Open API] define several universally useful property formats. The following table contains some additional formats that are particularly useful in an e-commerce environment.
+https://json-schema.org/understanding-json-schema/reference/string.html#format[JSON Schema] and https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#data-types[Open API] define several universally useful property formats. The following table contains some additional formats that are particularly useful in an e-commerce environment.
 
 Please notice that the list is not exhaustive and everyone is encouraged to propose additions.
 
