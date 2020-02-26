@@ -327,7 +327,8 @@ responses:
 You may define custom problem types as extensions of the Problem JSON object
 if your API needs to return specific, additional and detailed error information.
 
-The specification encourages that custom problem types are URI references that point to human-readable documentation, **but** we deliberately decided against that. URLs tend to be fragile and not very stable over a longer period. Hosting documentation often requires to bind to a specific tool or have DNS records that contain volatile organization structures, e.g. team names. Another reason is that all the important parts of an API must be documented using <<101, OpenAPI>> anyway.
+Problem `type` identifiers in our APIs are not meant to be resolved.
+The RFC encourages that custom problem types are URI references that point to human-readable documentation, **but** we deliberately decided against that. URLs tend to be fragile and not very stable over a longer period. Hosting documentation often requires to bind to a specific tool or have DNS records that contain volatile organization structures, e.g. team names. Another reason is that all the important parts of an API must be documented using <<101, OpenAPI>> anyway.
 
 In order to stay compatible the proposed pattern for custom problem types is to use https://tools.ietf.org/html/rfc3986#section-4.1[relative URI references]:
 
@@ -358,4 +359,3 @@ Stack traces contain implementation details that are not part of an API,
 and on which clients should never rely. Moreover, stack traces can leak
 sensitive information that partners and third parties are not allowed to
 receive and may disclose insights about vulnerabilities to attackers.
-
