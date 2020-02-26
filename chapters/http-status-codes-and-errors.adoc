@@ -332,9 +332,9 @@ The RFC encourages that custom problem types are URI references that point to hu
 
 In order to stay compatible the proposed pattern for custom problem types is to use https://tools.ietf.org/html/rfc3986#section-4.1[relative URI references]:
 
-* `/out-of-stock`
-* `/insufficient-funds`
-* `/user-deactivated`
+* `/problems/out-of-stock`
+* `/problems/insufficient-funds`
+* `/problems/user-deactivated`
 
 Examples of problem types that **do not** satisfy our criteria:
 
