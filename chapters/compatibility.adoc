@@ -199,14 +199,15 @@ follows:
 deliver_methods:
   type: string
   x-extensible-enum:
-    - parcel
-    - letter
-    - email
+    - PARCEL
+    - LETTER
+    - EMAIL
 ----
 
 *Note:* {x-extensible-enum} is not JSON Schema conform but will be ignored by
 most tools.
 
+See <<240>> about enum values formatting constraints.
 
 [#113]
 == {SHOULD} avoid versioning
