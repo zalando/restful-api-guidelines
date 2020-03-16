@@ -207,7 +207,7 @@ delivery_methods:
 *Note:* {x-extensible-enum} is not JSON Schema conform but will be ignored by
 most tools.
 
-See <<240>> about enum values formatting constraints.
+See <<240>> about enum value naming conventions.
 
 [#113]
 == {SHOULD} avoid versioning
