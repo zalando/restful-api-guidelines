@@ -196,7 +196,7 @@ follows:
 
 [source,yaml]
 ----
-deliver_methods:
+delivery_methods:
   type: string
   x-extensible-enum:
     - PARCEL
