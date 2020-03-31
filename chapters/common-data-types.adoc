@@ -154,8 +154,8 @@ tree_node:
       type: string
   example:
     id: '123435'
-    created: '2017-04-12T23:20:50.52Z'
-    modified: '2017-04-12T23:20:50.52Z'
+    created_at: '2017-04-12T23:20:50.52Z'
+    modified_at: '2017-04-12T23:20:50.52Z'
     type: 'LEAF'
     parent_node_id: '534321'
 ----
