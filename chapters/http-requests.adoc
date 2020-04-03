@@ -185,8 +185,9 @@ options.
 {DELETE} requests are used to *delete* resources. The semantic is best
 described as _"please delete the resource identified by the URL"_.
 
-* {DELETE} requests are usually applied to single resources, not on collection
-resources, as this would imply deleting the entire collection
+* {DELETE} requests are usually applied to single resource but not on collection resources, as this would imply
+deleting the entire collection. 
+* {DELETE} request can be applied to multiple resources using query parameters (<<delete-with-query-params>>).
 * successful {DELETE} requests will usually generate {200} (if the deleted
 resource is returned) or {204} (if no content is returned)
 * failed {DELETE} requests will usually generate {404} (if the resource cannot
@@ -198,6 +199,44 @@ depending on how the resource is represented after deletion. Under no
 circumstances the resource must be accessible after this operation on its
 endpoint.
 
+[[delete-with-query-params]]
+=== DELETE with query parameters
+
+{DELETE} request can have query parameters. Query parameters should be used as filter parameters on a resource and not 
+for passing context information to steer method behaviour.
+
+==== Example
+[source, http]
+----
+DELETE /resources?param1=value1&param2=value2...&paramN=valueN
+----
+
+Some resources may be partially deleted by {DELETE} request with query parameters due to errors or business logic issues. 
+It is recommended that API designer explicitly states the behaviour of the {DELETE} operation with query parameters.
+
+The response status code of the {DELETE} method with query parameters request should match semantics of usual 
+{DELETE} requests. In some situtuations API may return {207} response with a payload describing operation 
+results (see <<152>> for details).
+
+[[delete-with-body]]
+=== DELETE with body
+
+In some situations a {DELETE} of a sigle resource requires additional information to perform an operation. As {RFC-7231}#section-4.3.5[RFC-7231] states,
+a payload in the {DELETE} request has undefined semantics. In such situations the {DELETE} can be replaced by a {POST} 
+request with the payload. The {POST} request should have a `resource-id` path parameter.
+`DELETE` with body response code behavior the same as for usual {DELETE} request.
+
+==== Example
+[source, http]
+----
+POST /resources/{resource-id}
+
+{
+  "key1": "Value 1",
+  ...
+  "keyN": "Value N",
+}
+----
 
 [[head]]
 === HEAD
