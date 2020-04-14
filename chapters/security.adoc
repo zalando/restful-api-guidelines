@@ -3,11 +3,9 @@
 
 
 [#104]
-== {MUST} secure endpoints with OAuth 2.0
+== {STATUS_RFP} {MUST} secure endpoints
 
-Every API endpoint needs to be secured using OAuth 2.0. Please refer to the
-https://swagger.io/docs/specification/authentication/[Authentication section] of the official
-Open API specification on how to specify security definitions in your API.
+Every API endpoint should be secured, peferably using OAuth 2.0.
 
 The following code snippet shows how to define the authorization scheme using
 a bearer token (e.g. JWT token).
@@ -32,9 +30,9 @@ security:
 ----
 
 [#105]
-== {MUST} define and assign permissions (scopes)
+== {STATUS_RFP} {SHOULD} define and assign permissions (scopes)
 
-APIs must define permissions to protect their resources. Thus, at least one
+APIs should define permissions to protect their resources. Thus, at least one
 permission must be assigned to each endpoint. Permissions are defined as shown
 in the <<104, previous section>>.
 
@@ -117,7 +115,7 @@ standard header so to say implicitly defined via the security section.
 
 
 [#225]
-== {MUST} follow naming convention for permissions (scopes)
+== {STATUS_RFP} {MAY} follow naming convention for permissions (scopes)
 
 As long as the <<223,functional naming>> is not supported for permissions,
 permission names in APIs must conform to the following naming pattern:

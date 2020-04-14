@@ -3,7 +3,7 @@
 
 
 [#106]
-== {MUST} not break backward compatibility
+== {STATUS_RFP} {MUST} not break backward compatibility
 
 Change APIs, but keep all consumers running. Consumers usually have independent
 release lifecycles, focus on stability, and avoid changes that do not provide
@@ -37,9 +37,9 @@ expected that code changes are necessary.
 
 
 [#107]
-== {SHOULD} prefer compatible extensions
+== {STATUS_RFP} {SHOULD} prefer compatible extensions
 
-API designers should apply the following rules to evolve RESTful APIs for
+API designers may apply the following rules to evolve APIs for
 services in a backward-compatible way:
 
 * Add only optional, never mandatory fields.
@@ -61,7 +61,7 @@ services in a backward-compatible way:
 
 
 [#108]
-== {MUST} prepare clients accept compatible API extensions
+== {STATUS_RFP} {MUST} prepare clients accept compatible API extensions
 
 Service clients should apply the robustness principle:
 
@@ -89,7 +89,7 @@ providers:
 
 
 [#109]
-== {SHOULD} design APIs conservatively
+== {STATUS_RFP} {SHOULD} design APIs conservatively
 
 Designers of service provider APIs should be conservative and accurate in what
 they accept from clients:
@@ -133,9 +133,9 @@ specific parameter.
 
 
 [#110]
-== {MUST} always return JSON objects as top-level data structures
+== {STATUS_RFP} {MUST} always return JSON objects as top-level data structures if JSON is being used
 
-In a response body, you must always return a JSON object (and not e.g. an
+In a JSON response body, you must always return a JSON object (and not e.g. an
 array) as a top level data structure to support future extensibility. JSON
 objects support compatible extension by additional attributes. This allows you
 to easily extend your response and e.g. add pagination later, without breaking
@@ -144,38 +144,8 @@ backwards compatibility. See <<161>> for an example.
 Maps (see <<216>>), even though technically objects, are also forbidden as top
 level data structures, since they don't support compatible, future extensions.
 
-
-[#111]
-== {MUST} treat Open API specification as open for extension by default
-
-The Open API 2.0 specification is not very specific on default extensibility
-of objects, and redefines JSON-Schema keywords related to extensibility, like
-`additionalProperties`. Following our overall compatibility guidelines, Open
-API object definitions are considered open for extension by default as per
-http://json-schema.org/latest/json-schema-validation.html#rfc.section.5.18[Section
-5.18 "additionalProperties"] of JSON-Schema.
-
-When it comes to Open API 2.0, this means an `additionalProperties` declaration
-is not required to make an object definition extensible:
-
-* API clients consuming data must not assume that objects are closed for
-  extension in the absence of an `additionalProperties` declaration and must
-  ignore fields sent by the server they cannot process. This allows API
-  servers to evolve their data formats.
-* For API servers receiving unexpected data, the situation is slightly
-  different. Instead of ignoring fields, servers _may_ reject requests whose
-  entities contain undefined fields in order to signal to clients that those
-  fields would not be stored on behalf of the client. API designers must
-  document clearly how unexpected fields are handled for {PUT}, {POST}, and
-  {PATCH} requests.
-
-API formats must not declare `additionalProperties` to be false, as this
-prevents objects being extended in the future.
-
-Note that this guideline concentrates on default extensibility and does not
-exclude the use of `additionalProperties` with a schema as a value, which might
-be appropriate in some circumstances, e.g. see <<216>>. 
-
+{TODO}
+Add example
 
 [#112]
 == {SHOULD} used open-ended list of values (`x-extensible-enum`) for enumerations
