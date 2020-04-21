@@ -1,10 +1,9 @@
-= Developing Restful APIs: A Comprehensive Set of Guidelines by Zalando
+= Developing APIs and integrations: A Comprehensive Set of Guidelines by Pon
 
-https://travis-ci.org/zalando/restful-api-guidelines[image:https://travis-ci.org/zalando/restful-api-guidelines.svg?branch=master[Build Status]]
 Latest published version:
-http://zalando.github.io/restful-api-guidelines/[*HTML*],
-http://zalando.github.io/restful-api-guidelines/zalando-guidelines.pdf[*PDF*],
-http://zalando.github.io/restful-api-guidelines/zalando-guidelines.epub[*EPUB3*]
+https://github.com/PonDigitalSolutions/restful-api-guidelines[*HTML*],
+https://github.com/PonDigitalSolutions/restful-api-guidelines/pon-guidelines.pdf[*PDF*],
+https://github.com/PonDigitalSolutions/restful-api-guidelines/pon-guidelines.epub[*EPUB3*]
 
 == Purpose
 
@@ -12,7 +11,7 @@ Great RESTful APIs look like they were designed by a single team. This
 promotes API adoption, reduces friction, and enables clients to use them
 properly. To build APIs that meet this standard, and to answer many
 common questions encountered along the way of RESTful API development,
-the Zalando Tech team has created this comprehensive set of guidelines.
+the Pon integration guild has created this comprehensive set of guidelines.
 We have shared it with you to inspire additional discussion and
 refinement within and among your teams, and contribute our learnings and
 suggestions to the tech community at large.

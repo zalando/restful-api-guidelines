@@ -1,10 +1,10 @@
 :stylesheet: pon.css
 :source-highlighter: coderay
 :toc: macro
-:toclevels: 2
+:toclevels: 5
 :leveloffset: +1
 :sectlinks:
-:sectnumlevels: 1
+:sectnumlevels: 5
 
 :creator: Pon Integration Guild
 :producer: Asciidoctor
@@ -217,6 +217,11 @@ toc::[]
 :sectnums:
 
 include::chapters/introduction.adoc[]
+
+= Integration guidelines
+
+:leveloffset: +1
+
 include::chapters/design-principles.adoc[]
 include::chapters/general-guidelines.adoc[]
 include::chapters/meta-information.adoc[]
@@ -237,19 +242,23 @@ include::chapters/deprecation.adoc[]
 //include::chapters/common-headers.adoc[]
 //include::chapters/proprietary-headers.adoc[]
 //include::chapters/api-operation.adoc[]
-//nclude::chapters/events.adoc[]
+//include::chapters/events.adoc[]
 //include::chapters/references.adoc[]
 //include::chapters/tooling.adoc[]
 //include::chapters/best-practices.adoc[]
 //include::chapters/changelog.adoc[]
 
+:leveloffset: -1
+
+= Development guidelines
+
 ++++
 <!-- Adds rule id as a postfix to all rule titles -->
 <script>
 var ruleIdRegEx = /(\d)+/;
-var h3headers = document.getElementsByTagName("h3");
-for (var i = 0; i < h3headers.length; i++) {
-    var header = h3headers[i];
+var ruleheaders = document.getElementsByTagName("h4");
+for (var i = 0; i < ruleheaders.length; i++) {
+    var header = ruleheaders[i];
     if (header.id && header.id.match(ruleIdRegEx)) {
         var a = header.getElementsByTagName("a")[0]
         a.innerHTML += " [" + header.id + "]";
@@ -295,7 +304,7 @@ li.append(link);
 ul.append(li);
 
 var link, li;
-var h2headers = document.getElementsByTagName('h2');
+var h2headers = document.getElementsByTagName('h3');
 for (var i = 1; i < h2headers.length; i++) {
     var a = h2headers[i].getElementsByTagName("a")[0];
     if (a !== undefined) {
