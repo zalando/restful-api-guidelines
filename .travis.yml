@@ -15,9 +15,9 @@ script:
   - cp -r assets output/
   - cp -r models/* output/
   - cp -r -n legacy/* output/
+  - mv output/index.pdf output/pon-guidelines.pdf
+  - mv output/index.epub output/pon-guidelines.epub
   - ./generate_rules_json.sh output
-  - mv output/index.pdf output/zalando-guidelines.pdf
-  - mv output/index.epub output/zalando-guidelines.epub
 
 after_error:
   - docker logs asciidoc-to-html

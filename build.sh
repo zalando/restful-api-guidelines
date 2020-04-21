@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Script to build Zalando RESTful Guidelines (static HTML, PDF)
+# Script to build Pon Guidelines (static HTML, PDF)
 
 set -ex
 
@@ -24,5 +24,5 @@ cp -r -n legacy/* ${BUILD_DIR}/
 
 ./generate_rules_json.sh
 
-mv ${BUILD_DIR}/index.pdf ${BUILD_DIR}/zalando-guidelines.pdf
-mv ${BUILD_DIR}/index.epub ${BUILD_DIR}/zalando-guidelines.epub
+mv ${BUILD_DIR}/index.pdf ${BUILD_DIR}/pon-guidelines.pdf
+mv ${BUILD_DIR}/index.epub ${BUILD_DIR}/pon-guidelines.epub

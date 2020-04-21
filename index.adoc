@@ -1,4 +1,4 @@
-:stylesheet: zalando.css
+:stylesheet: pon.css
 :source-highlighter: coderay
 :toc: macro
 :toclevels: 2
@@ -6,10 +6,10 @@
 :sectlinks:
 :sectnumlevels: 1
 
-:creator: Zalando SE
+:creator: Pon Integration Guild
 :producer: Asciidoctor
-:keywords: Zalando, Guidelines, RESTful, API, Events, Schema
-:copyright: CC-BY-SA 3.0
+:keywords: Pon, Guidelines, RESTful, API, Events, Schema
+:copyright: CC-BY-SA 4.0
 
 
 // Some link short cuts.
@@ -205,12 +205,12 @@
 :RFC-cacheable: pass:[<a href="https://tools.ietf.org/html/rfc7231#section-4.2.3">cacheable</a>]
 
 
-= Zalando RESTful API and Event Scheme Guidelines
-Zalando SE
+= Pon Integration Guidlines
+Pon
 
-image::assets/api-zalando-small.jpg[API Guild Logo]
+image::assets/pon-logo.png[Pon Logo]
 
-Other formats: link:zalando-guidelines.pdf[PDF], link:zalando-guidelines.epub[EPUB3]
+Other formats: link:pon-guidelines.pdf[PDF], link:pon-guidelines.epub[EPUB3]
 
 toc::[]
 
