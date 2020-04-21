@@ -3,7 +3,7 @@
 
 
 [#104]
-== {STATUS_RFP} {MUST} secure endpoints
+== {STATUS-RFP} {MUST} secure endpoints
 
 Every API endpoint should be secured, peferably using OAuth 2.0.
 
@@ -30,7 +30,7 @@ security:
 ----
 
 [#105]
-== {STATUS_RFP} {SHOULD} define and assign permissions (scopes)
+== {STATUS-RFP} {SHOULD} define and assign permissions (scopes)
 
 APIs should define permissions to protect their resources. Thus, at least one
 permission must be assigned to each endpoint. Permissions are defined as shown
@@ -115,7 +115,7 @@ standard header so to say implicitly defined via the security section.
 
 
 [#225]
-== {STATUS_RFP} {MAY} follow naming convention for permissions (scopes)
+== {STATUS-RFP} {MAY} follow naming convention for permissions (scopes)
 
 As long as the <<223,functional naming>> is not supported for permissions,
 permission names in APIs must conform to the following naming pattern:

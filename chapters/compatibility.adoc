@@ -3,7 +3,7 @@
 
 
 [#106]
-== {STATUS_RFP} {MUST} not break backward compatibility
+== {STATUS-RFP} {MUST} not break backward compatibility
 
 Change APIs, but keep all consumers running. Consumers usually have independent
 release lifecycles, focus on stability, and avoid changes that do not provide
@@ -37,7 +37,7 @@ expected that code changes are necessary.
 
 
 [#107]
-== {STATUS_RFP} {SHOULD} prefer compatible extensions
+== {STATUS-RFP} {SHOULD} prefer compatible extensions
 
 API designers may apply the following rules to evolve APIs for
 services in a backward-compatible way:
@@ -61,7 +61,7 @@ services in a backward-compatible way:
 
 
 [#108]
-== {STATUS_RFP} {MUST} prepare clients accept compatible API extensions
+== {STATUS-RFP} {MUST} prepare clients accept compatible API extensions
 
 Service clients should apply the robustness principle:
 
@@ -89,7 +89,7 @@ providers:
 
 
 [#109]
-== {STATUS_RFP} {SHOULD} design APIs conservatively
+== {STATUS-RFP} {SHOULD} design APIs conservatively
 
 Designers of service provider APIs should be conservative and accurate in what
 they accept from clients:
@@ -133,7 +133,7 @@ specific parameter.
 
 
 [#110]
-== {STATUS_RFP} {MUST} always return JSON objects as top-level data structures if JSON is being used
+== {STATUS-RFP} {MUST} always return JSON objects as top-level data structures if JSON is being used
 
 In a JSON response body, you must always return a JSON object (and not e.g. an
 array) as a top level data structure to support future extensibility. JSON

@@ -31,3 +31,10 @@ See link:BUILD.adoc[BUILD documentation] for technical details.
 
 We have published these guidelines under the CC-BY (Creative commons
 Attribution 4.0) license. Please see link:LICENSE[LICENSE file].
+
+== Attribution
+
+This work, "Pon integration guidelines", is a derivative of "Developing Restful 
+APIs: A Comprehensive Set of Guidelines by Zalando" by Zalando, used under 
+CC BY (Creative commons Attribution 4.0). "Pon integration guidelines" is 
+icensed under CC BY (Creative commons Attribution 4.0) by Pon.
