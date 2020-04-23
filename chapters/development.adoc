@@ -13,22 +13,40 @@ ____
 This chapter is about coding, developing or anything related to using a
 programming language to solve a problem. A problem is defined as a resolution
 for a challenge the business is facing. The mission of a coder is to write ”
-good”, ”clean” and ”secure” code.  These terms are ill defined.
+good”, ”clean” and ”secure” code.  These terms are ill-defined.
 
 At Pon we consider code ”good”, ”clean” and ”secure” based on the following rule
 of thumb
 
 IMPORTANT: How much effort is required^<<244,244>>^ for another developer of
-compare experience to pick up where the previous developer left off to fix,
+comparable experience to pick up where the previous developer left off to fix,
 enhance or build upon the source code - without involving the previous
-developer^<<245,245>>^ and taking into account the lifetime, security and
-business impact of the application.
+developer^<<245,245>>^ and taking into account the lifetime, quality, security
+and the business^<<246,246>>^ impact of the application.
 
-There is a clear relationship betwee the amount of bugs in the code and the
+There is a clear relationship between the amount of bugs in the code and the
 development effort required, needlessly complex unlogical code will in itself be
 a source of new bugs.
 
 The following chapters will further explain the intricacies of this rule.
+
+[#248]
+== Definition: code quality
+
+[[wikipedia-quote-software-quality]]
+[quote, Wikipedia]     
+____
+* Software functional quality reflects how well it complies with or conforms to a
+given design, based on functional requirements or specifications.  That
+attribute can also be described as the fitness for purpose of a piece of
+software or how it compares to competitors in the marketplace as a worthwhile
+product. It is the degree to which the correct software was produced.
+
+* Software structural quality refers to how it meets non-functional requirements
+that support the delivery of the functional requirements, such as robustness or
+maintainability. It has a lot more to do with the degree to which the software
+works as needed.
+____
 
 [#244]
 == Coding rule: logical structured code
@@ -55,7 +73,7 @@ easy to find code to be updated.
 ====
 The once and only once rule is one of the most fundamental principles of
 software development, it can be seen as a hallmark of good and clean code and
-will greatly reduce developer effort when applied corretly. But it is not the
+will greatly reduce developer effort when applied correctly. But it is not the
 goal of software development; the goal is resolving challenges of the business
 under their conditions.
 
@@ -63,7 +81,7 @@ DRY code is good, but it is always a choice.
 ====
 
 [#245]
-== Coding rule: code is self explanatory
+== Coding rule: code is self-explanatory
 
 Refers to “_without involving the previous developer_”.
 
@@ -71,14 +89,25 @@ All code is sufficiently documented in order to reduce the effort^<<244,244>>^
 required for updates and changes
 
 [#246]
-== Coding rule: solution design steps are template based
+== Coding rule: solution design steps are template-based
 
-Refers to “_taking into account the lifetime, security and business impact_”.
+Refers to “_taking into account the lifetime, quality, security and business
+impact_”.
 
 Solution design comes first, coding second. The solution design must address the
 following
 
 * Software lifetime
+* Required quality
 * Required security
 * Business impact
 
+[#247]
+== Coding rule: code quality is known
+
+Based on the quality as discussed in the <<246, solution design>> steps the code
+quality must be known.
+
+This rule does not state that code must be fully automatically tested and
+scoring 100/100 on quality. This rule states that the quality, as agreed upon
+beforehand with the business, is known and documented.
