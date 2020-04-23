@@ -24,7 +24,7 @@ jobs:
 
     # Runs a single command using the runners shell
     - name: Build the documentation
-      run: build.sh
+      run: ./build.sh
       
     - name: Deploy 🚀
       uses: JamesIves/github-pages-deploy-action@releases/v3
