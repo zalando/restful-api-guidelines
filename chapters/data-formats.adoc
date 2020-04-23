@@ -53,7 +53,7 @@ following {RFC-7493}#section-4.4[RFC 7493 Section 4.4].
 == {SHOULD} prefer standard media type name `application/json`
 
 Previously, this guideline allowed the use of custom media types like 
-`application/x.zalando.article+json`. This usage is not recommended
+`application/x.pon.article+json`. This usage is not recommended
 anymore and should be avoided, except where it is necessary for cases of
 <<114,media type versioning>>. Instead, just use the standard media type name
 `application/json` (or `application/problem+json` for <<176>>).
@@ -83,9 +83,9 @@ Please notice that the list is not exhaustive and everyone is encouraged to prop
 | `string` | `byte` | {RFC-7493}[RFC 7493] | `"dGVzdA=="`
 | `string` | <<126, `date`>> | {RFC-3339}[RFC 3339] | `"2019-07-30"`
 | `string` | <<126, `date-time`>> | {RFC-3339}[RFC 3339] |`"2019-07-30T06:43:40.252Z"`
-| `string` | `email` | {RFC-5322}[RFC 5322] | `"example@zalando.de"`
+| `string` | `email` | {RFC-5322}[RFC 5322] | `"example@pon.com"`
 | `string` | `gtin-13` | {GTIN}[GTIN] | `"5710798389878"`
-| `string` | `hostname` | {RFC-1034}[RFC 1034] | `"www.zalando.de"`
+| `string` | `hostname` | {RFC-1034}[RFC 1034] | `"www.pon.com"`
 | `string` | `ipv4` | {RFC-2673}[RFC 2673] | `"104.75.173.179"`
 | `string` | `ipv6` | {RFC-2673}[RFC 2673] | `"2600:1401:2::8a"`
 | `string` | <<170, `iso-3166`>> | {ISO-3166-1-a2}[ISO 3166-1 alpha-2] | `"DE"`
@@ -95,7 +95,7 @@ Please notice that the list is not exhaustive and everyone is encouraged to prop
 | `string` | `password` |  | `"secret"`
 | `string` | `regex` | {ECMA-262}[ECMA 262] | `"^[a-z0-9]+$"`
 | `string` | <<126, `time`>> | {RFC-3339}[RFC 3339] | `"06:43:40.252Z"`
-| `string` | `uri` | {RFC-3986}[RFC 3986] | `"https://www.zalando.de/"`
+| `string` | `uri` | {RFC-3986}[RFC 3986] | `"https://www.pon.com/"`
 | `string` | `uri-template` | {RFC-6570}[RFC 6570] | `"/users/\{id\}"`
 | `string` | <<144, `uuid`>> | {RFC-4122}[RFC 4122] | `"e2ab873e-b295-11e9-9c02-..."`
 |=====================================================================
@@ -126,7 +126,7 @@ Use the following standard formats for country, language and currency
 codes:
 
 * {ISO-3166-1-a2}[ISO 3166-1-alpha2 country codes]
-** (It is "GB", not "UK", even though "UK" has seen some use at Zalando)
+** (It is "GB", not "UK", even though "UK" has seen some use at Pon)
 * {ISO-639-1}[ISO 639-1 language code]
 ** {BCP47}[BCP 47] (based on {ISO-639-1}[ISO 639-1])
    for language variants

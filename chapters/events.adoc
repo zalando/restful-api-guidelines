@@ -1,7 +1,7 @@
 [[events]]
 = Events
 
-Zalando’s architecture centers around decoupled microservices and in
+Pon’s architecture centers around decoupled microservices and in
 that context we favour asynchronous event driven approaches. The
 guidelines in this section focus on how to design and publish events
 intended to be shared for others to consume.
@@ -101,7 +101,7 @@ events.
 [#197]
 == {MUST} ensure that events are registered as event types
 
-In Zalando's architecture, events are registered using a structure
+In Pon's architecture, events are registered using a structure
 called an _Event Type_. The Event Type declares standard information as
 follows:
 
@@ -191,7 +191,7 @@ EventType:
         - external-public
       description: |
         Intended target audience of the event type, analogue to audience definition for REST APIs 
-        in rule #219 -- see https://opensource.zalando.com/restful-api-guidelines/#219
+        in rule #219 https://github.com/PonDigitalSolutions/restful-api-guidelines
     owning_application:
       description: |
         Name of the application (eg, as would be used in infrastructure

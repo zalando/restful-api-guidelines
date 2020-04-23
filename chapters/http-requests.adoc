@@ -396,7 +396,7 @@ Query parameters should have the following aspects specified:
 How query parameters are named and used is up to individual API designers.
 The following examples should serve as ideas:
 
-* `name=Zalando`, to query for elements based on property equality
+* `name=Pon`, to query for elements based on property equality
 * `age=5`, to query for elements based on logical properties
 **  Assuming that elements don't actually have an `age` but rather a `birthday`
 * `max_length=5`, based on upper and lower bounds (`min` and `max`)

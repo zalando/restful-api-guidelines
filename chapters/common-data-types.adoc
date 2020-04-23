@@ -161,7 +161,7 @@ tree_node:
 ----
 
 These properties are not always strictly necessary, but making them idiomatic
-allows API client developers to build up a common understanding of Zalando's
+allows API client developers to build up a common understanding of Pon's
 resources. There is very little utility for API consumers in having different
 names or value types for these fields across APIs.
 

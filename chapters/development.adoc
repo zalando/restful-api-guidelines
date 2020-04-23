@@ -1,0 +1,10 @@
+[[development-guidelines]]
+= General development guidelines
+
+[#242]
+== {STATUS-RFP} {MUST} add comment to file
+
+Each source must contain comment containing at least the following
+
+* Purpose of the file
+* Author of the file

@@ -144,11 +144,11 @@ contain the query filters applied to the collection resource as follows:
 [source,json]
 ----
 {
-  "self": "http://my-service.zalandoapis.com/resources?cursor=<self-position>",
-  "first": "http://my-service.zalandoapis.com/resources?cursor=<first-position>",
-  "prev": "http://my-service.zalandoapis.com/resources?cursor=<previous-position>",
-  "next": "http://my-service.zalandoapis.com/resources?cursor=<next-position>",
-  "last": "http://my-service.zalandoapis.com/resources?cursor=<last-position>",
+  "self": "http://my-service.pon.com/resources?cursor=<self-position>",
+  "first": "http://my-service.pon.com/resources?cursor=<first-position>",
+  "prev": "http://my-service.pon.com/resources?cursor=<previous-position>",
+  "next": "http://my-service.pon.com/resources?cursor=<next-position>",
+  "last": "http://my-service.pon.com/resources?cursor=<last-position>",
   "query": {
     "query-param-<1>": ...,
     "query-param-<n>": ...

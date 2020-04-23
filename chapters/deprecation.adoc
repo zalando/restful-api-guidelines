@@ -12,7 +12,7 @@ dates.
 
 
 [#185]
-== {MUST} obtain approval of clients before API shut down
+== {STATUS-RFP} {MUST} obtain approval of clients before API shut down
 
 Before shutting down an API, version of an API, or API feature the producer
 must make sure, that all clients have given their consent on a sunset date.
@@ -24,7 +24,7 @@ API feature.
 
 
 [#186]
-== {MUST} collect external partner consent on deprecation time span
+== {STATUS-RFP} {MUST} collect external partner consent on deprecation time span
 
 If the API is consumed by any external partner, the API owner must define a
 reasonable time span that the API will be maintained after the producer has

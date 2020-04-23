@@ -59,49 +59,39 @@ Styles and the Design of Network-Based Software Architectures]
 [[api-as-a-product]]
 == API as a product
 
-As mentioned above, Zalando is transforming from an online shop into an
-expansive fashion platform comprising a rich set of products following a
-Software as a Platform (SaaP) model for our business partners. As a
-company we want to deliver products to our (internal and external)
-customers which can be consumed like a service.
+The design of our APIs should be based on the API as a Product principle:
 
-Platform products provide their functionality via (public) APIs; hence,
-the design of our APIs should be based on the API as a Product
-principle:
-
-* Treat your API as product and act like a product owner
-* Put yourself into the place of your customers; be an advocate for
-  their needs
-* Emphasize simplicity, comprehensibility, and usability of APIs to
-make them irresistible for client engineers
+* Treat your API as product and act like a product owner 
+* Put yourself into the place of your customers; be an advocate for their needs
+* Emphasize simplicity, comprehensibility, and usability of APIs to make them
+irresistible for client engineers 
 * Actively improve and maintain API consistency over the long term
 * Make use of customer feedback and provide service level support
 
-Embracing 'API as a Product' facilitates a service ecosystem which can 
-be evolved more easily, and used to experiment quickly with new business 
-ideas by recombining core capabilities. 
-It makes the difference between agile, innovative product service 
-business built on a platform of APIs and ordinary enterprise integration business
-where APIs are provided as "appendix" of existing products to support system integration
-and optimised for local server-side realization. 
+Embracing 'API as a Product' facilitates a service ecosystem which can be
+evolved more easily, and used to experiment quickly with new business ideas by
+recombining core capabilities. It makes the difference between agile, innovative
+product service business built on a platform of APIs and ordinary enterprise
+integration business where APIs are provided as "appendix" of existing products
+to support system integration and optimised for local server-side realization. 
 
-Understand the concrete use cases of your customers and carefully check 
-the trade-offs of your API design variants with a product mindset. Avoid short-term 
+Understand the concrete use cases of your customers and carefully check the
+trade-offs of your API design variants with a product mindset. Avoid short-term
 implementation optimizations at the expense of unnecessary client side
-obligations, and have a high attention on API quality and client
-developer experience.
+obligations, and have a high attention on API quality and client developer
+experience.
 
-API as a Product is closely related to our <<100,API First principle>>
-(see next chapter) which is more focused on how we engineer high quality APIs.
+API as a Product is closely related to our <<100,API First principle>> (see next
+chapter) which is more focused on how we engineer high quality APIs.
 
 
 [[api-first]]
 == API first 
 
-API First is one of our
-https://github.com/zalando/engineering-principles[engineering
-and architecture principles]. In a nutshell API First requires two
-aspects:
+IMPORTANT: Refer to Pon achitecture principles
+
+API First is one of our engineering and architecture principles. In a nutshell
+API First requires two aspects:
 
 * define APIs first, before coding its implementation, using a standard specification
 language

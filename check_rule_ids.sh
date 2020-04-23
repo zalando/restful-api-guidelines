@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+/#!/usr/bin/env bash
 # This script checks if any rule id has been used more than once; can be also used as a pre-commit git hook ;)
 
 CONTENT_DIR=chapters

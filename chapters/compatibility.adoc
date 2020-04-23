@@ -148,7 +148,7 @@ level data structures, since they don't support compatible, future extensions.
 Add example
 
 [#112]
-== {SHOULD} used open-ended list of values (`x-extensible-enum`) for enumerations
+== {STATUS-RFP} {SHOULD} refrain from using enumerations
 
 Enumerations are per definition closed sets of values, that are assumed to be
 complete and not intended for extension. This closed principle of enumerations
@@ -160,6 +160,7 @@ of an enumeration unless:
   does not depend on any external tool or interface, and
 2. the list of value is complete with respect to any thinkable and unthinkable
   future feature.
+3. the values must be enforced.
 
 To specify an open-ended list of values use the marker {x-extensible-enum} as
 follows:
@@ -180,12 +181,12 @@ most tools.
 See <<240>> about enum value naming conventions.
 
 [#113]
-== {SHOULD} avoid versioning
+== {STATUS-RFP} {SHOULD} avoid versioning
 
-When changing your RESTful APIs, do so in a compatible way and avoid generating
-additional API versions. Multiple versions can significantly complicate
-understanding, testing, maintaining, evolving, operating and releasing our
-systems
+When changing your APIs, do so in a compatible way and avoid generating
+additional API versions unless the API is non-functional or is degraded. 
+Multiple versions can significantly complicate understanding, testing, 
+maintaining, evolving, operating and releasing our systems
 (http://martinfowler.com/articles/enterpriseREST.html[supplementary
 reading]).
 
@@ -203,61 +204,16 @@ we strongly recommend to only use the first two approaches.
 
 
 [#114]
-== {MUST} use media type versioning
+== {STATUS-TODO} {MUST} API Versioning Has No "Right Way"
 
-However, when API versioning is unavoidable, you have to design your
-multi-version RESTful APIs using media type versioning (instead of URI
-versioning, see below). Media type versioning is less tightly coupled since
-it supports content negotiation and hence reduces complexity of release
-management.
-
-Media type versioning: Here, version information and media type are provided
-together via the HTTP Content-Type header — e.g.
-`application/x.zalando.cart+json;version=2`. For incompatible changes, a new
-media type version for the resource is created. To generate the new
-representation version, consumer and producer can do content negotiation using
-the HTTP Content-Type and Accept headers. Note: This versioning only applies to
-the request and response content schema, not to URI or method semantics.
-
-In this example, a client wants only the new version of the response:
-
-[source,http]
-----
-Accept: application/x.zalando.cart+json;version=2
-----
-
-A server responding to this, as well as a client sending a request with content
-should use the Content-Type header, declaring that one is sending the new
-version:
-
-[source,http]
-----
-Content-Type: application/x.zalando.cart+json;version=2
-----
-
-Using header versioning should:
-
-* include versions in request and response headers to increase visibility
-* include Content-Type in the Vary header to enable proxy caches to differ
-  between versions
-
-*Hint:* Until an incompatible change is necessary, it is recommended to stay
-with the standard `application/json` media type.
-
-Further reading: 
 https://blog.apisyouwonthate.com/api-versioning-has-no-right-way-f3c75457c0b7[API
 Versioning Has No "Right Way"] provides an overview on different versioning
 approaches to handle breaking changes without being opinionated. 
 
 
 [#115]
-== {MUST} not use URI versioning
+== {STATUS-RFP} {SHOULD} use URI versioning
 
 With URI versioning a (major) version number is included in the path, e.g.
 `/v1/customers`. The consumer has to wait until the provider has been released
-and deployed. If the consumer also supports hypermedia links — even in their
-APIs — to drive workflows (HATEOAS), this quickly becomes complex. So does
-coordinating version upgrades — especially with hyperlinked service
-dependencies — when using URL versioning. To avoid this tighter coupling and
-complexer release management we do not use URI versioning, and go instead with
-media type versioning and content negotiation (see above).
+and deployed.

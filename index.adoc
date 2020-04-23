@@ -5,6 +5,7 @@
 :leveloffset: +1
 :sectlinks:
 :sectnumlevels: 5
+:icons: font
 
 :creator: Pon Integration Guild
 :producer: Asciidoctor
@@ -251,6 +252,12 @@ include::chapters/deprecation.adoc[]
 :leveloffset: -1
 
 = Development guidelines
+
+:leveloffset: +1
+
+include::chapters/development.adoc[]
+
+:leveloffset: -1
 
 ++++
 <!-- Adds rule id as a postfix to all rule titles -->
