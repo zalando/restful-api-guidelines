@@ -24,7 +24,7 @@ enhance or build upon the source code - without involving the previous
 developer^<<245,245>>^ and taking into account the lifetime, security and
 business impact of the application
 
-The following chapters will further explain the ißntrications of this rule.
+The following chapters will further explain the intrications of this rule.
 
 [#244]
 == Coding rule: logical structured code
@@ -54,3 +54,7 @@ Refers to “_without involving the previous developer_”.
 All code is sufficiently documented in order to reduce the effort^<<244,244>>^
 required for updates and changes
 
+[#246]
+== Coding rule: solution design steps are template based
+
+Refers to “_taking into account the lifetime, security and business impact_”.

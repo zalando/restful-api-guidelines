@@ -7,9 +7,9 @@
 :sectnumlevels: 5
 :icons: font
 
-:creator: Pon Integration Guild
+:creator: Pon Integration Guild / Pon Developemnt Guild
 :producer: Asciidoctor
-:keywords: Pon, Guidelines, RESTful, API, Events, Schema
+:keywords: Pon, Guidelines, Development, API, Events, Schema
 :copyright: CC-BY-SA 4.0
 
 
@@ -209,8 +209,7 @@
 :RFC-cacheable: pass:[<a href="https://tools.ietf.org/html/rfc7231#section-4.2.3">cacheable</a>]
 
 
-= Pon Integration Guidlines
-Pon
+= Pon Integration and Development Guidelines
 
 image::assets/pon-logo.png[Pon Logo]
 
@@ -298,7 +297,7 @@ var title = document.createElement('div');
 title.id = 'toctitle';
 
 var link = document.createElement('a');
-link.innerText = 'API Guidelines';
+link.innerText = 'Integration / Development Guidelines';
 link.href = '#';
 
 title.append(link);
