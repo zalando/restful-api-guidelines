@@ -20,9 +20,9 @@ docker run -v ${SCRIPT_DIR}:/documents/ asciidoctor/docker-asciidoctor asciidoct
 
 cp models/money-1.0.0.yaml ${BUILD_DIR}/
 cp -r assets ${BUILD_DIR}/
-cp -r -n legacy/* ${BUILD_DIR}/
+# cp -r -n legacy/* ${BUILD_DIR}/
+
+./generate_rules_json.sh
 
 mv ${BUILD_DIR}/index.pdf ${BUILD_DIR}/pon-guidelines.pdf
 mv ${BUILD_DIR}/index.epub ${BUILD_DIR}/pon-guidelines.epub
-
-./generate_rules_json.sh
