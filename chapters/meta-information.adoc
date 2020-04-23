@@ -172,7 +172,5 @@ info:
 For details and more information on audience groups see the Pon internal
 documentation
 
-#
-TODO: add link to internal documentation regarding API audience
-https://github.com/PonDigitalSolutions/restful-api-guidelines/issues/2[issue 2]
-#
+#TODO: add link to internal documentation regarding API audience
+https://github.com/PonDigitalSolutions/restful-api-guidelines/issues/2[issue 2]#

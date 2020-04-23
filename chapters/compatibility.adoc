@@ -204,7 +204,7 @@ we strongly recommend to only use the first two approaches.
 
 
 [#114]
-== {STATUS-TODO} {MUST} API Versioning Has No "Right Way"
+== {STATUS-TODO} {MUST} API Versioning Has No “Right Way”
 
 https://blog.apisyouwonthate.com/api-versioning-has-no-right-way-f3c75457c0b7[API
 Versioning Has No "Right Way"] provides an overview on different versioning

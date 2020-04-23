@@ -69,11 +69,13 @@ which business object it represents. Along these lines, "items" is too general.
 
 
 [#228]
-== {MUST} use URL-friendly resource identifiers: [a-zA-Z0-9:._\-/]*
+== {MUST} use URL-friendly resource identifiers
 
 To simplify encoding of resource IDs in URLs, their representation must only
 consist of ASCII strings using letters, numbers, underscore, minus, colon,
-period, and - on rare occasions - slash.
+period, and - on rare occasions - slash. The corresponding regular expression is 
+
+[a-zA-Z0-9:._\-/]*
 
 **Note:** slashes are only allowed to build and signal resource identifiers
 consisting of <<241, compound keys>>.
