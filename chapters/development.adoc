@@ -1,7 +1,7 @@
 [[development-guidelines]]
 = General development guidelines
 
-[[heinlein-quote] ]
+[[heinlein-quote]]
 [quote, Robert A. Heinlein]     
 ____
 Progress is made by lazy men looking for easier ways to do things.
@@ -22,9 +22,13 @@ IMPORTANT: How much effort is required^<<244,244>>^ for another developer of
 compare experience to pick up where the previous developer left off to fix,
 enhance or build upon the source code - without involving the previous
 developer^<<245,245>>^ and taking into account the lifetime, security and
-business impact of the application
+business impact of the application.
 
-The following chapters will further explain the intrications of this rule.
+There is a clear relationship betwee the amount of bugs in the code and the
+development effort required, needlessly complex unlogical code will in itself be
+a source of new bugs.
+
+The following chapters will further explain the intricacies of this rule.
 
 [#244]
 == Coding rule: logical structured code
@@ -46,6 +50,18 @@ Good code will result in a single place to be updated. Clean code will result in
 easy to find code to be updated.
 ====
 
+[WARNING] 
+.Once and only once / don't repeat yourself (DRY)
+====
+The once and only once rule is one of the most fundamental principles of
+software development, it can be seen as a hallmark of good and clean code and
+will greatly reduce developer effort when applied corretly. But it is not the
+goal of software development; the goal is resolving challenges of the business
+under their conditions.
+
+DRY code is good, but it is always a choice.
+====
+
 [#245]
 == Coding rule: code is self explanatory
 
@@ -58,3 +74,11 @@ required for updates and changes
 == Coding rule: solution design steps are template based
 
 Refers to “_taking into account the lifetime, security and business impact_”.
+
+Solution design comes first, coding second. The solution design must address the
+following
+
+* Software lifetime
+* Required security
+* Business impact
+
