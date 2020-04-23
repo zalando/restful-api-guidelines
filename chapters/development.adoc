@@ -1,10 +1,56 @@
 [[development-guidelines]]
 = General development guidelines
 
-[#242]
-== {STATUS-RFP} {MUST} add comment to file
+[[heinlein-quote] ]
+[quote, Robert A. Heinlein]     
+____
+Progress is made by lazy men looking for easier ways to do things.
+____
 
-Each source must contain comment containing at least the following
+[[pon-development-introduction]]
+== Introduction
 
-* Purpose of the file
-* Author of the file
+This chapter is about coding, developing or anything related to using a
+programming language to solve a problem. A problem is defined as a resolution
+for a challenge the business is facing. The mission of a coder is to write ”
+good”, ”clean” and ”secure” code.  These terms are ill defined.
+
+At Pon we consider code ”good”, ”clean” and ”secure” based on the following rule
+of thumb
+
+IMPORTANT: How much effort is required^<<244,244>>^ for another developer of
+compare experience to pick up where the previous developer left off to fix,
+enhance or build upon the source code - without involving the previous
+developer^<<245,245>>^ and taking into account the lifetime, security and
+business impact of the application
+
+The following chapters will further explain the ißntrications of this rule.
+
+[#244]
+== Coding rule: logical structured code
+
+Refers to “_How much effort_”.
+
+The amount of effort required for a change should be on-par with the apparent
+complexity of the change.
+
+A logical structure, both for files and in the code itself, is essential.
+
+[TIP] 
+.Updating an IP address
+====
+Updating the IP address of the database; small apparent complexity, small
+effort required.
+
+Good code will result in a single place to be updated. Clean code will result in
+easy to find code to be updated.
+====
+
+[#245]
+== Coding rule: code is self explanatory
+
+Refers to “_without involving the previous developer_”.
+
+All code is sufficiently documented in order to reduce the effort^<<244,244>>^
+required for updates and changes
+

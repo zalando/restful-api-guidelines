@@ -1,0 +1,16 @@
+[[file-structure-and-naming]]
+= File structure and naming
+
+[#242]
+== {STATUS-RFP} {MUST} add comment to file
+
+Each source file <<245,is self explanatory>> and must contain comments showing
+at least the following
+
+* Purpose of the file in a concise description 
+* Author of the file
+
+[#243]
+== {STATUS-RFP} {MUST} filenames are either CamelCase or snake_case
+
+Filenames

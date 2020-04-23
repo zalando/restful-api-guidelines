@@ -62,6 +62,9 @@
 
 :STATUS-RFP: pass:[<span class="status-rfp-keyword"><strong>(RFP)</strong></span>]
 
+:INTEGRATION-GUILD: pass:[<span class="integration-guild-keyword"><strong>🔄Integration guild</strong></span>]
+:DEVELOPMENT-GUILD: pass:[<span class="development-guild-keyword"><strong>⚙️ Development guild</strong></span>]
+
 // Attributes to improvement design of common table elements.
 :NO: pass:[<span class="must-keyword">&#x2717;</span> No]
 :YES: pass:[<span class="may-keyword">&#x2714;</span> Yes]
@@ -256,6 +259,7 @@ include::chapters/deprecation.adoc[]
 :leveloffset: +1
 
 include::chapters/development.adoc[]
+include::chapters/development-files.adoc[]
 
 :leveloffset: -1
 
