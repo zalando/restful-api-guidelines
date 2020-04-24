@@ -259,7 +259,7 @@ include::chapters/deprecation.adoc[]
 //include::chapters/references.adoc[]
 //include::chapters/tooling.adoc[]
 //include::chapters/best-practices.adoc[]
-//include::chapters/changelog.adoc[]
+//
 
 :leveloffset: -1
 
@@ -274,6 +274,8 @@ include::chapters/development-testing.adoc[]
 include::chapters/development-environment.adoc[]
 
 :leveloffset: -1
+
+include::chapters/changelog.adoc[]
 
 ++++
 <!-- Adds rule id as a postfix to all rule titles -->

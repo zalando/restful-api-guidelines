@@ -12,7 +12,7 @@ these guidelines.
 == {STATUS-RFP} {SHOULD} have pre-defined development environment(s)
 
 There should be pre-defined development environments, including OS and IDE.
-These environments will ensure a smooth onboarding and will make groups of
+These environments will ensure a smooth onboarding and will make teams of
 developers more efficient.
 
 === {PATRON}
