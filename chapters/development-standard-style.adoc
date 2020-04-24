@@ -9,7 +9,29 @@ Based on <<standardJs>>
 [#253]
 == {SHOULD} use special quotes only to reduce complexity
 
+In most programming languages several options are available for the quoting of
+text, in the following examples Javascript style quoting is used which is
+applicable to a variety of other programming languages.
 
+For the following examples the key question is: can the readbility be improved
+to make the code more simple and concise?
+
+=== Example 1
+
+`text = "The quick brown fox jumped over the lazy dog"`
+
+Although the code is correct the double quotes have have no additional function,
+the following code is more concise by using single quotes:
+
+`text = 'The quick brown fox jumped over the lazy dog'`
+
+=== Example 2
+
+`text = "The quick brown \"fox\" jumped over the lazy dog"`
+
+The code is correct, but readbility is improved by switching to single quotes:
+
+`text = 'The quick brown "fox" jumped over the lazy dog'`
 
 [small]#Based on rule(s): <<254, code is simple and concise>>#
 
