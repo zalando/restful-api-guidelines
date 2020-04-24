@@ -261,6 +261,7 @@ include::chapters/development.adoc[]
 include::chapters/development-files.adoc[]
 include::chapters/development-version-control.adoc[]
 include::chapters/development-testing.adoc[]
+include::chapters/development-environment.adoc[]
 
 :leveloffset: -1
 
