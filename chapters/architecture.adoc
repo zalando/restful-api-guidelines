@@ -1,0 +1,9 @@
+[[solution-architecture]]
+= Solution architecture
+
+[[solution-architecture-repository]]
+== Solution architecture repository
+ 
+The Pon guilds supply a repository of approved tools, techniques and frameworks
+both to inspire and guide teams. It is essential this repository is consulted
+when desiging a solution architecture.

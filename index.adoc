@@ -1,7 +1,7 @@
 :stylesheet: pon.css
 :source-highlighter: coderay
 :toc: macro
-:toclevels: 5
+:toclevels: 3
 :leveloffset: +1
 :sectlinks:
 :sectnumlevels: 3
@@ -259,7 +259,6 @@ include::chapters/deprecation.adoc[]
 //include::chapters/references.adoc[]
 //include::chapters/tooling.adoc[]
 //include::chapters/best-practices.adoc[]
-//
 
 :leveloffset: -1
 
@@ -275,7 +274,15 @@ include::chapters/development-environment.adoc[]
 
 :leveloffset: -1
 
+= Appendices
+
+:leveloffset: +1
+
+include::chapters/development-standard-style.adoc[]
 include::chapters/changelog.adoc[]
+
+:leveloffset: -1
+
 
 ++++
 <!-- Adds rule id as a postfix to all rule titles -->

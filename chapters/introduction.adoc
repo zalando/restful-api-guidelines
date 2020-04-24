@@ -20,6 +20,9 @@ other teams’ APIs and our global architecture
 
 Ideally, all Pon APIs will look like the same author created them.
 
+== Attribution
+
+These guidelines are based on the link:https://github.com/zalando/restful-api-guidelines[Zalando restful api guidelines].
 
 [[conventions-used-in-these-guidelines]]
 == Conventions used in these guidelines
@@ -43,7 +46,7 @@ evolution via pull requests.
 These guidelines will, to some extent, remain work in progress as our work
 evolves, but teams can confidently follow and trust them.
 
-In case guidelines are changing, following rules apply:
+In case guidelines are changing, the following rules apply:
 
 * existing APIs don't have to be changed, but we recommend it 
 * clients of existing APIs have to cope with these APIs based on outdated rules 
@@ -51,5 +54,5 @@ In case guidelines are changing, following rules apply:
 
 Furthermore you should keep in mind that once an API becomes public externally
 available, it has to be re-reviewed and changed according to current guidelines
-- for sake of overall consistency.
+- for the sake of overall consistency.
 

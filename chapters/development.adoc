@@ -30,6 +30,7 @@ a source of new bugs.
 
 The following chapters will further explain the intricacies of this rule.
 
+
 [#248]
 == Definition: code quality
 
@@ -56,7 +57,8 @@ Refers to “_How much effort_”.
 The amount of effort required for a change should be on-par with the apparent
 complexity of the change.
 
-A logical structure, both for files and in the code itself, is essential.
+A logical structure, both for files and in the code itself, is essential. This
+also applies to the layout of the code itself, for example indents.
 
 [TIP] 
 .Updating an IP address
@@ -68,6 +70,14 @@ Good code will result in a single place to be updated. Clean code will result in
 easy to find code to be updated.
 ====
 
+[NOTE]
+.Code layout
+====
+Code layout may differ greatly between projects, but within the same project all
+files strictly adhere to the same code layout standards. Automated tools based
+on accepted code style standards are essential for enforcement.
+====
+
 [WARNING] 
 .Once and only once / don't repeat yourself (DRY)
 ====
@@ -76,9 +86,10 @@ software development, it can be seen as a hallmark of good and clean code and
 will greatly reduce developer effort when applied correctly. But it is not the
 goal of software development; the goal is resolving challenges of the business
 under their conditions.
-====
 
 DRY code is good, but it is always a choice.
+====
+
 
 [#245]
 == Coding rule: code and code changes are self-explanatory

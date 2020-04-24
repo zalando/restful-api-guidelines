@@ -1,0 +1,22 @@
+[[appendix-standard-style]]
+[appendix]
+= Pon Standard Style
+
+Based on <<standardJs>>
+
+[#251]
+== {SHOULD} use two spaces for indentation
+
+Using two spaces for indentation results in clear readable code without
+sacrificing too much screen real estate. Tabs should never be used.
+
+Based on rule(s): <<244, logical structured code>>
+
+
+
+[[references]]
+== References
+
+- [[standardJs]] standardJS https://standardjs.com/index.html
+
+

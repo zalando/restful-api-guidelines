@@ -1,2 +1,7 @@
 [[software-testing]]
 = Testing code
+
+[#252]
+== {MUST} use automated linter based on approved style template
+
+-----
