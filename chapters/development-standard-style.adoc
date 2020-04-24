@@ -13,7 +13,6 @@ sacrificing too much screen real estate. Tabs should never be used.
 Based on rule(s): <<244, logical structured code>>
 
 
-
 [[references]]
 == References
 

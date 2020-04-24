@@ -4,4 +4,7 @@
 [#252]
 == {MUST} use automated linter based on approved style template
 
------
+The linter configuration is selected from <<solution-architecture-repository,
+the solution architecture repository>>.
+
+
