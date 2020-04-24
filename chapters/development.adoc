@@ -26,7 +26,8 @@ and the business impact^<<246,246>>^ of the application.
 
 There is a clear relationship between the amount of bugs in the code and the
 development effort required, needlessly complex unlogical code will in itself be
-a source of new bugs.
+a source of new bugs. Moreover clear documentation and requirements from the
+business are the only solid foundation for software development.
 
 The following chapters will further explain the intricacies of this rule.
 
@@ -75,7 +76,8 @@ easy to find code to be updated.
 ====
 Code layout may differ greatly between projects, but within the same project all
 files strictly adhere to the same code layout standards. Automated tools based
-on accepted code style standards are essential for enforcement.
+on <<solution-architecture-repository,accepted code style standards>> are
+essential for enforcement.
 ====
 
 [WARNING] 
@@ -90,6 +92,24 @@ under their conditions.
 DRY code is good, but it is always a choice.
 ====
 
+[#254]
+== Coding rule: code is simple and concise 
+
+Refers to “_How much effort_”.
+
+Code is simple and concise in order to increase the readability <<praeng>>.
+Increasing performance by sacrificing readability is only an option if the
+performance increase is in-line with the business requirements.
+
+[NOTE]
+.Simple and concise
+====
+Based on the experience level of the developer simple and concise can easily
+shift to unreadable and complex. Code should not be overly simplified in order
+for all to understand, it is up to the lead developer to guide and train the
+less experienced developers in writing and understanding simple and concise
+code. 
+====
 
 [#245]
 == Coding rule: code and code changes are self-explanatory
@@ -97,11 +117,15 @@ DRY code is good, but it is always a choice.
 Refers to “_without involving the previous developer_”.
 
 All code is sufficiently documented in order to reduce the effort^<<244,244>>^
-required for updates and changes.
+required for updates and changes. Comments must explain the why, not the how
+<<praeng>>.
 
 * Code changes are documented and should contain a reference to an issue
 tracking system
 * Deviation from guidelines is always documented
+
+When readability is sacrificed for performance^<<254,254>>^ it is reflected in
+the comments.
 
 [#246]
 == Coding rule: solution design steps are template-based

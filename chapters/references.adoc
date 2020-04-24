@@ -1,17 +1,21 @@
-[[appendix-references]]
-[appendix]
-= References
+[[bibliography]]
+= Bibliography
 
-This section collects links to documents to which we refer, and base our guidelines on.
+[bibliography]
+[[blogs]]
+== Blogs
 
+* *http://restful-api-design.readthedocs.org/en/latest/[Lessons-learned blog: Thoughts on RESTful API Design]*
+* [[[praeng]]] *https://blog.pragmaticengineer.com/readable-code/[Pragmatic engineer blog: Readable Code]*
 
+[bibliography]
 [[openapi-specification]]
 == Open API specification
 
 * *https://github.com/OAI/OpenAPI-Specification/[Open API specification]*
 * *https://openapi-map.apihandyman.io/[Open API specification mind map]*
 
-
+[bibliography]
 [[publications-specifications-and-standards]]
 == Publications, specifications and standards
 
@@ -38,7 +42,7 @@ This section collects links to documents to which we refer, and base our guideli
 * *{ISO-4217}[ISO 4217]:* Currency codes
 * *{BCP47}[BCP 47]:* Tags for Identifying Languages
 
-
+[bibliography]
 [[dissertations]]
 == Dissertations
 
@@ -46,18 +50,12 @@ This section collects links to documents to which we refer, and base our guideli
   Fielding - Architectural Styles and the Design of Network-Based Software
   Architectures]:* This is the text which defines what REST is.
 
-
+[bibliography]
 [[books]]
 == Books
 
 * *http://www.amazon.de/REST-Practice-Hypermedia-Systems-Architecture/dp/0596805829[REST in Practice: Hypermedia and Systems Architecture]*
 * *https://leanpub.com/build-apis-you-wont-hate[Build APIs You Won't Hate]*
 * *http://www.infoq.com/minibooks/emag-web-api[InfoQ eBook - Web APIs: From Start to Finish]*
-
-
-[[blogs]]
-== Blogs
-
-* *http://restful-api-design.readthedocs.org/en/latest/[Lessons-learned blog: Thoughts on RESTful API Design]*
 
 

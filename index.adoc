@@ -228,6 +228,7 @@ include::chapters/introduction.adoc[]
 :leveloffset: +1
 
 include::chapters/onboarding.adoc[]
+include::chapters/architecture.adoc[]
 
 :leveloffset: -1
 
@@ -280,6 +281,8 @@ include::chapters/development-environment.adoc[]
 
 include::chapters/development-standard-style.adoc[]
 include::chapters/changelog.adoc[]
+
+include::chapters/references.adoc[]
 
 :leveloffset: -1
 

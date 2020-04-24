@@ -2,7 +2,16 @@
 [appendix]
 = Pon Standard Style
 
+Pon standard style can be applied when linters are not available.
+
 Based on <<standardJs>>
+
+[#253]
+== {SHOULD} use special quotes only to reduce complexity
+
+
+
+[small]#Based on rule(s): <<254, code is simple and concise>>#
 
 [#251]
 == {SHOULD} use two spaces for indentation
@@ -10,8 +19,7 @@ Based on <<standardJs>>
 Using two spaces for indentation results in clear readable code without
 sacrificing too much screen real estate. Tabs should never be used.
 
-Based on rule(s): <<244, logical structured code>>
-
+[small]#Based on rule(s): <<244, logical structured code>>#
 
 [[references]]
 == References
