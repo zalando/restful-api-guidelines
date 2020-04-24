@@ -1,0 +1,20 @@
+[[onboarding]]
+= Onboarding
+
+
+[#250]
+== {STATUS-RFP} {MUST} include guidelines in onboarding procedure
+
+The onboarding procedure for new developers must include familiarization with
+these guidelines.
+
+[#249]
+== {STATUS-RFP} {SHOULD} have pre-defined development environment(s)
+
+There should be pre-defined development environments, including OS and IDE.
+These environments will ensure a smooth onboarding and will make groups of
+developers more efficient.
+
+=== {PATRON}
+
+* Zeger Knops (zeger.knops@pon.com)

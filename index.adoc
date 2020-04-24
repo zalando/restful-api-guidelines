@@ -4,7 +4,7 @@
 :toclevels: 5
 :leveloffset: +1
 :sectlinks:
-:sectnumlevels: 5
+:sectnumlevels: 3
 :icons: font
 
 :creator: Pon Integration Guild / Pon Developemnt Guild
@@ -61,6 +61,8 @@
 :MUST-SHOULD: pass:[<span class="must-keyword"><strong>MUST</strong></span>/<span class="should-keyword"><strong>SHOULD</strong></span>]
 
 :STATUS-RFP: pass:[<span class="status-rfp-keyword"><strong>(RFP)</strong></span>]
+
+:PATRON: pass:[<span class="patron">Patron(s) 🤍</span>]
 
 :INTEGRATION-GUILD: pass:[<span class="integration-guild-keyword"><strong>🔄Integration guild</strong></span>]
 :DEVELOPMENT-GUILD: pass:[<span class="development-guild-keyword"><strong>⚙️ Development guild</strong></span>]
@@ -220,6 +222,14 @@ toc::[]
 :sectnums:
 
 include::chapters/introduction.adoc[]
+
+= Generic
+
+:leveloffset: +1
+
+include::chapters/onboarding.adoc[]
+
+:leveloffset: -1
 
 = Integration guidelines
 

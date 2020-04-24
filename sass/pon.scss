@@ -19,6 +19,10 @@
   color: $status-rfp-color;
 }
 
+.patron {
+  color: $patron-color;
+}
+
 .status-code, .status-code:link, .status-code:visited, .status-code:hover, .status-code:active {
   color: black;
   font-weight: bold;
