@@ -75,8 +75,8 @@ for switching to a replacement feature.
 
 [source,txt]
 ----
-Deprecation: Sun, 31 Dec 2024 23:59:59 GMT
-Sunset: Sun, 31 Dec 2025 23:59:59 GMT
+Deprecation: Tue, 31 Dec 2024 23:59:59 GMT
+Sunset: Wed, 31 Dec 2025 23:59:59 GMT
 ----
 
 If multiple elements are deprecated the {Deprecation} and {Sunset} headers are
