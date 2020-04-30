@@ -30,7 +30,7 @@ the following code is more concise by using single quotes:
 
 `text = "The quick brown \"fox\" jumped over the lazy dog"`
 
-The code is correct, but readbility is improved by switching to single quotes:
+The code is correct, but readability is improved by switching to single quotes:
 
 `text = 'The quick brown "fox" jumped over the lazy dog'`
 
@@ -54,8 +54,7 @@ sacrificing too much screen real estate. Tabs are never to be used.
 [%autowidth]
 [frame=none]
 |===
-| {LANG-JAVASCRIPT-ICON} | ✔️
-| {LANG-PHP-ICON} | ✔️
+| {LANG-JAVASCRIPT-ICON} | {LANG-PHP-ICON}
 |===
 
 === References
