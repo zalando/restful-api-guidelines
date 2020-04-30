@@ -4,7 +4,7 @@
 
 Pon standard style can be applied when linters are not available.
 
-Based on <<standardJs>>, <<googleStyleguideJs>>
+Based on <<standardJs>>, <<googleStyleguideJs>>, <<phpStandards>>
 
 
 [#253]
@@ -57,21 +57,49 @@ text = 'The quick brown "fox" jumped over the lazy dog'
 * <<development-rules-definitions>>, <<244>>
 * <<development-rules-definitions>>, <<254>>
 
+[#257]
+== {MUST} never use tabs for indentation
 
-[#251]
-== {MUST} use two spaces for indentation 
-
-Using two spaces for indentation results in clear readable code without
-sacrificing too much screen real estate. Tabs are never to be used.
+Tabs are never to be used for indentation.
 
 === Languages
 
-{LANG-JAVASCRIPT-ICON} {LANG-TYPESCRIPT-ICON} {LANG-PHP-ICON}
+{LANG-ALL-ICON}
 
 === References
 
-* <<googleStyleguideJs>>, link:https://google.github.io/styleguide/jsguide.html#whitespace-characters[Whitespace characters (2)]
+* <<googleStyleguideJs>>, link:https://google.github.io/styleguide/jsguide.html#whitespace-characters[whitespace characters (2)]
+* <<standardJs>>, Tabs should not be used
+* <<phpStandards>>, link:https://www.php-fig.org/psr/psr-12/#24-indenting[indenting]
+* <<development-rules-definitions>>, <<244>>
+* <<development-rules-definitions>>, <<254>>
+
+
+[#251]
+== {MUST} use predefined spacing for indentation 
+
+Using predefined spacing for indentation results in clear readable code without
+sacrificing too much screen real estate; <<257>>.
+
+When using multiple languages a single project it is perferred to use the same
+indent for all languagues involved.
+
+=== Languages
+
+==== {MUST} Spacing: 2
+{LANG-JAVASCRIPT-ICON} {LANG-TYPESCRIPT-ICON} 
+
+==== {SHOULD} Spacing: 2
+{LANG-PHP-ICON}
+
+==== {MAY} Spacing: 4
+{LANG-PHP-ICON}
+
+=== References
+
+* <<googleStyleguideJs>>, link:https://google.github.io/styleguide/jsguide.html#whitespace-characters[whitespace characters (2)]
 * <<standardJs>>, Use 2 spaces for indentation
+* <<phpStandards>>, link:https://www.php-fig.org/psr/psr-12/#24-indenting[indenting]
 * <<development-rules-definitions>>, <<244>>
 
 
@@ -100,6 +128,8 @@ the code.
 
 - [[standardJs]] standardJS https://standardjs.com/index.html
 - [[googleStyleguideJs]] Google Javascript styleguide https://google.github.io/styleguide/jsguide.html
+- [[phpStandards]] PHP Standards Recommendations https://www.php-fig.org/psr/
+
 
 
 
