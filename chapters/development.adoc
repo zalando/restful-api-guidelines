@@ -7,7 +7,7 @@ ____
 Progress is made by lazy men looking for easier ways to do things.
 ____
 
-[[pon-development-introduction]]
+[[development-introduction]]
 == Introduction
 
 This chapter is about coding, developing or anything related to using a
@@ -31,6 +31,10 @@ business are the only solid foundation for software development.
 
 The following chapters will further explain the intricacies of this rule.
 
+[[development-rules-definitions]]
+== Rules and definitions
+
+Rules and definition used in the development guidelines.
 
 [#248]
 == Definition: code quality

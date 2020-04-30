@@ -8,7 +8,7 @@ Based on <<standardJs>>, <<googleStyleguideJs>>
 
 
 [#253]
-== {SHOULD} use special quotes only to reduce complexity
+== {MUST} use special quotes only to reduce complexity
 
 In most programming languages several options are available for the quoting of
 text, in the following examples Javascript style quoting is used which is
@@ -19,35 +19,28 @@ to make the code more simple and concise?
 
 === Example 1
 
-`text = "The quick brown fox jumped over the lazy dog"`
+{CODE-START}
+text = "The quick brown fox jumped over the lazy dog"
+{CODE-END}
 
 Although the code is correct the double quotes have have no additional function,
 the following code is more concise by using single quotes:
 
-`text = 'The quick brown fox jumped over the lazy dog'`
+{CODE-START}
+text = 'The quick brown fox jumped over the lazy dog'
+{CODE-END}
 
 === Example 2
 
-`text = "The quick brown \"fox\" jumped over the lazy dog"`
+{CODE-START}
+text = "The quick brown \"fox\" jumped over the lazy dog"
+{CODE-END}
 
 The code is correct, but readability is improved by switching to single quotes:
 
-`text = 'The quick brown "fox" jumped over the lazy dog'`
-
-[small]#Based on rule(s): <<254, code is simple and concise>>#
-
-=== References
-
-* <<googleStyleguideJs>> link:https://google.github.io/styleguide/jsguide.html#features-strings-use-single-quotes[Use single quotes]
-* <<standardJs>> Use single quotes for strings 
-
-[#251]
-== {MUST} use two spaces for indentation 
-
-Using two spaces for indentation results in clear readable code without
-sacrificing too much screen real estate. Tabs are never to be used.
-
-[small]#Based on rule(s): <<244, logical structured code>>#
+{CODE-START}
+text = 'The quick brown "fox" jumped over the lazy dog'
+{CODE-END}
 
 === Languages
 
@@ -59,8 +52,56 @@ sacrificing too much screen real estate. Tabs are never to be used.
 
 === References
 
-* <<googleStyleguidJs>> link:https://google.github.io/styleguide/jsguide.html#whitespace-characters[Whitespace characters (2)]
-* <<standardJs>> Use 2 spaces for indentation
+* <<googleStyleguideJs>>, link:https://google.github.io/styleguide/jsguide.html#features-strings-use-single-quotes[Use single quotes]
+* <<standardJs>>, Use single quotes for strings 
+* <<development-rules-definitions>>, <<244>>
+* <<development-rules-definitions>>, <<254>>
+
+
+[#251]
+== {MUST} use two spaces for indentation 
+
+Using two spaces for indentation results in clear readable code without
+sacrificing too much screen real estate. Tabs are never to be used.
+
+=== Languages
+
+[%autowidth]
+[frame=none]
+|===
+| {LANG-JAVASCRIPT-ICON} | {LANG-PHP-ICON}
+|===
+
+=== References
+
+* <<googleStyleguideJs>>, link:https://google.github.io/styleguide/jsguide.html#whitespace-characters[Whitespace characters (2)]
+* <<standardJs>>, Use 2 spaces for indentation
+* <<development-rules-definitions>>, <<244>>
+
+
+[#256]
+== {MUST} not have unused variables
+
+All variables are in use, unused variables have no function and are cluttering
+the code.
+
+=== Languages
+
+[%autowidth]
+[frame=none]
+|===
+| {LANG-ALL-ICON}
+|===
+
+=== References
+
+* <<standardJs>>, No unused variables
+* <<development-rules-definitions>>, <<244>>
+
+
+
+
+
 
 [[references]]
 == References
