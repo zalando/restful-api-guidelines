@@ -84,18 +84,6 @@ on <<solution-architecture-repository,accepted code style standards>> are
 essential for enforcement.
 ====
 
-[WARNING] 
-.Once and only once / don't repeat yourself (DRY)
-====
-The once and only once rule is one of the most fundamental principles of
-software development, it can be seen as a hallmark of good and clean code and
-will greatly reduce developer effort when applied correctly. But it is not the
-goal of software development; the goal is resolving challenges of the business
-under their conditions.
-
-DRY code is good, but it is always a choice.
-====
-
 [#254]
 == Coding rule: code is simple and concise 
 
@@ -113,6 +101,39 @@ shift to unreadable and complex. Code should not be overly simplified in order
 for all to understand, it is up to the lead developer to guide and train the
 less experienced developers in writing and understanding simple and concise
 code. 
+====
+
+[#258] 
+== Coding rule: do not repeat yourself (DRY)
+
+Refers to "_How much effort_".
+
+[[wikipedia-quote-dry]]
+[quote, 'link:https://en.wikipedia.org/wiki/Don%27t_repeat_yourself[Wikipedia]']     
+____
+Don't repeat yourself (DRY, or sometimes do not repeat yourself) is a principle
+of software development aimed at reducing repetition of software patterns,
+replacing it with abstractions or using data normalization to avoid redundancy.
+
+The DRY principle is stated as "Every piece of knowledge must have a single,
+unambiguous, authoritative representation within a system". The principle has
+been formulated by Andy Hunt and Dave Thomas in their book The Pragmatic
+Programmer. They apply it quite broadly to include "database schemas, test
+plans, the build system, even documentation". When the DRY principle is
+applied successfully, a modification of any single element of a system does not
+require a change in other logically unrelated elements. Additionally, elements
+that are logically related all change predictably and uniformly, and are thus
+kept in sync.
+____
+
+
+[NOTE]
+====
+The once and only once rule is one of the most fundamental principles of
+software development, it can be seen as a hallmark of good and clean code and
+will greatly reduce developer effort when applied correctly. But it is not the
+goal of software development; the goal is resolving challenges of the business
+under their conditions.
 ====
 
 [#245]

@@ -81,8 +81,8 @@ Tabs are never to be used for indentation.
 Using predefined spacing for indentation results in clear readable code without
 sacrificing too much screen real estate; <<257>>.
 
-When using multiple languages a single project it is perferred to use the same
-indent for all languagues involved.
+When using multiple languages a single project it is preferred to use the same
+indent for all languages involved.
 
 === Languages
 
@@ -117,10 +117,6 @@ the code.
 
 * <<standardJs>>, No unused variables
 * <<development-rules-definitions>>, <<244>>
-
-
-
-
 
 
 [[references]]
