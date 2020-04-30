@@ -1,16 +1,19 @@
 [[version-control]]
 = Version control
 
+
 [#255]
 == {MUST} use review guidelines for version control
 
+All code must be reviewed according to documented and approved guidelines.
+Relates to <<244>>.
 
-=== Review guidelines, Pon.bike
+=== Review guidelines
 
-* Start reviewing only if the author approved the PR. 
-* A review will always result in an approved or declined PR. Decline when a PR
-contains breaking changes that MUST BE fixed. The author must re-create the PR
-when the changes are fixed. 
-* Write comments in a clear, conscise, constructive and unambiguous manner as
+* Start reviewing only if the author approved the pull request (PR). 
+* A review will always result in either an approved or declined PR.
+* A declined PR must be recreated, preferably by the author, when issues have
+been addressed. 
+* Write comments in a clear, concise, constructive and unambiguous manner as
 described in <<245>>.
 
