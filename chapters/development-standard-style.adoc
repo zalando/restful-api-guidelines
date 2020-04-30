@@ -6,6 +6,8 @@ Pon standard style can be applied when linters are not available.
 
 Based on <<standardJs>>
 
+https://google.github.io/styleguide/jsguide.html
+
 [#253]
 == {SHOULD} use special quotes only to reduce complexity
 
