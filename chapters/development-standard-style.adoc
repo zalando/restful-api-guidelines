@@ -4,9 +4,8 @@
 
 Pon standard style can be applied when linters are not available.
 
-Based on <<standardJs>>
+Based on <<standardJs>>, <<googleStyleguideJs>>
 
-https://google.github.io/styleguide/jsguide.html
 
 [#253]
 == {SHOULD} use special quotes only to reduce complexity
@@ -37,17 +36,38 @@ The code is correct, but readbility is improved by switching to single quotes:
 
 [small]#Based on rule(s): <<254, code is simple and concise>>#
 
+=== References
+
+* <<googleStyleguideJs>> link:https://google.github.io/styleguide/jsguide.html#features-strings-use-single-quotes[Use single quotes]
+* <<standardJs>> Use single quotes for strings 
+
 [#251]
-== {SHOULD} use two spaces for indentation
+== {MUST} use two spaces for indentation 
 
 Using two spaces for indentation results in clear readable code without
-sacrificing too much screen real estate. Tabs should never be used.
+sacrificing too much screen real estate. Tabs are never to be used.
 
 [small]#Based on rule(s): <<244, logical structured code>>#
+
+=== Languages
+
+[%autowidth]
+[frame=none]
+|===
+| {LANG-JAVASCRIPT-ICON} | ✔️
+| {LANG-PHP-ICON} | ✔️
+|===
+
+=== References
+
+* <<googleStyleguidJs>> link:https://google.github.io/styleguide/jsguide.html#whitespace-characters[Whitespace characters (2)]
+* <<standardJs>> Use 2 spaces for indentation
 
 [[references]]
 == References
 
 - [[standardJs]] standardJS https://standardjs.com/index.html
+- [[googleStyleguideJs]] Google Javascript styleguide https://google.github.io/styleguide/jsguide.html
+
 
 

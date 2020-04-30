@@ -67,6 +67,10 @@
 :INTEGRATION-GUILD: pass:[<span class="integration-guild-keyword"><strong>🔄Integration guild</strong></span>]
 :DEVELOPMENT-GUILD: pass:[<span class="development-guild-keyword"><strong>⚙️ Development guild</strong></span>]
 
+// Programming languages
+:LANG-JAVASCRIPT-ICON: image:assets/lang-javascript.svg[Javascript, 24, 24]
+:LANG-PHP-ICON: image:assets/lang-php.svg[PHP, 24, 24]
+
 // Attributes to improvement design of common table elements.
 :NO: pass:[<span class="must-keyword">&#x2717;</span> No]
 :YES: pass:[<span class="may-keyword">&#x2714;</span> Yes]
