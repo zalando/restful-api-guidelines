@@ -19,36 +19,36 @@ to make the code more simple and concise?
 
 === Example 1
 
-{CODE-START}
+[source,javascript]
+----
 text = "The quick brown fox jumped over the lazy dog"
-{CODE-END}
+----
 
 Although the code is correct the double quotes have have no additional function,
 the following code is more concise by using single quotes:
 
-{CODE-START}
+[source,javascript]
+----
 text = 'The quick brown fox jumped over the lazy dog'
-{CODE-END}
+----
 
 === Example 2
 
-{CODE-START}
+[source,javascript]
+----
 text = "The quick brown \"fox\" jumped over the lazy dog"
-{CODE-END}
+----
 
 The code is correct, but readability is improved by switching to single quotes:
 
-{CODE-START}
+[source,javascript]
+----
 text = 'The quick brown "fox" jumped over the lazy dog'
-{CODE-END}
+----
 
 === Languages
 
-[%autowidth]
-[frame=none]
-|===
-| {LANG-JAVASCRIPT-ICON} | {LANG-PHP-ICON}
-|===
+{LANG-JAVASCRIPT-ICON} {LANG-TYPESCRIPT-ICON} {LANG-PHP-ICON}
 
 === References
 
@@ -66,11 +66,7 @@ sacrificing too much screen real estate. Tabs are never to be used.
 
 === Languages
 
-[%autowidth]
-[frame=none]
-|===
-| {LANG-JAVASCRIPT-ICON} | {LANG-PHP-ICON}
-|===
+{LANG-JAVASCRIPT-ICON} {LANG-TYPESCRIPT-ICON} {LANG-PHP-ICON}
 
 === References
 
@@ -87,11 +83,7 @@ the code.
 
 === Languages
 
-[%autowidth]
-[frame=none]
-|===
-| {LANG-ALL-ICON}
-|===
+{LANG-ALL-ICON}
 
 === References
 

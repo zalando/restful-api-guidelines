@@ -69,6 +69,7 @@
 
 // Programming languages
 :LANG-JAVASCRIPT-ICON: image:assets/lang-javascript.svg[Javascript, 24, 24]
+:LANG-TYPESCRIPT-ICON: image:assets/lang-typescript.svg[Typescript, 24, 24]
 :LANG-PHP-ICON: image:assets/lang-php.svg[PHP, 24, 24]
 :LANG-ALL-ICON: ∀
 
