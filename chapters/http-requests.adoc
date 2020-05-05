@@ -165,7 +165,7 @@ forced by a <<106,backwards compatible change>>. In preference order:
 
 In practice {RFC-7396}[JSON Merge Patch] quickly turns out to be too limited,
 especially when trying to update single objects in large collections (as part
-of the resource). In this cases {RFC-6902}[JSON Patch] can shown its full
+of the resource). In such cases {RFC-6902}[JSON Patch] can show its full
 power while still showing readable patch requests (see also
 http://erosb.github.io/post/json-patch-vs-merge-patch[JSON patch vs. merge]).
 
