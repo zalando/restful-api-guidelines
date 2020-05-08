@@ -1,0 +1,18 @@
+[[software-monitoring]]
+= Monitoring & logging
+
+Logging and monitoring is essential for software, they business should always be
+able to confirm software is functioning correctly.
+
+[#259]
+== {SHOULD} use dedicated logging library and logging levels
+
+Logging directly to the console or command line is not recommended; it reduces
+the effectivess of debugging, monitoring and checking the operational status of
+the software. It increases the security risk because it is challenging to detect
+if senstive data is being logged.
+
+To effectively use the library logging levels (DEBUG, ERROR, NOTICE) should be
+used.
+
+
