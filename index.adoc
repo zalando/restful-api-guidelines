@@ -287,6 +287,8 @@ include::chapters/development-environment.adoc[]
 :leveloffset: +1
 
 include::chapters/development-standard-style.adoc[]
+include::chapters/development-standard-style-magento.adoc[]
+include::chapters/development-standard-style-wordpress.adoc[]
 include::chapters/changelog.adoc[]
 
 include::chapters/references.adoc[]
