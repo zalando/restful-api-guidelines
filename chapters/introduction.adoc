@@ -13,10 +13,12 @@ APIs. API First encompasses a set of quality-related standards and fosters a
 peer review culture including a lightweight review procedure. We encourage our
 teams to follow them to ensure that our APIs:
 
-* are easy to understand and learn * are general and abstracted from specific
-implementation and use cases * are robust and easy to use * have a common look
-and feel * follow a consistent RESTful style and syntax * are consistent with
-other teams’ APIs and our global architecture
+* are easy to understand and learn 
+* are general and abstracted from specific implementation and use cases 
+* are robust and easy to use 
+* have a common look and feel 
+* follow a consistent RESTful style and syntax 
+* are consistent with other teams’ APIs and our global architecture
 
 Ideally, all Pon APIs will look like the same author created them.
 
