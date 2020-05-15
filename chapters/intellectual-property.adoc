@@ -1,0 +1,13 @@
+[[intellectual-property]]
+= Intellectual property (IP)
+
+[#260]
+== {STATUS-RFP} {MUST} include project wide license file
+
+Each project must include a Pon approved license file.
+
+[#261]
+== {STATUS-RFP} {MUST} include copyright notice in each source file
+
+All applicable files must contain a Pon approved copyright notice and a
+reference to the project license file.

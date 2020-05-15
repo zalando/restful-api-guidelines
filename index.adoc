@@ -235,6 +235,7 @@ include::chapters/introduction.adoc[]
 
 include::chapters/onboarding.adoc[]
 include::chapters/architecture.adoc[]
+include::chapters/intellectual-property.adoc[]
 
 :leveloffset: -1
 
@@ -250,22 +251,23 @@ include::chapters/compatibility.adoc[]
 include::chapters/deprecation.adoc[]
 
 //include::chapters/json-guidelines.adoc[]
-//include::chapters/data-formats.adoc[]
-//include::chapters/common-data-types.adoc[]
-//include::chapters/naming.adoc[]
-//include::chapters/resources.adoc[]
-//include::chapters/http-requests.adoc[]
-//include::chapters/http-status-codes-and-errors.adoc[]
-//include::chapters/performance.adoc[]
-//include::chapters/pagination.adoc[]
-//include::chapters/hyper-media.adoc[]
-//include::chapters/common-headers.adoc[]
-//include::chapters/proprietary-headers.adoc[]
-//include::chapters/api-operation.adoc[]
-//include::chapters/events.adoc[]
-//include::chapters/references.adoc[]
-//include::chapters/tooling.adoc[]
-//include::chapters/best-practices.adoc[]
+
+include::chapters/data-formats.adoc[]
+include::chapters/common-data-types.adoc[]
+include::chapters/naming.adoc[]
+include::chapters/resources.adoc[]
+include::chapters/http-requests.adoc[]
+include::chapters/http-status-codes-and-errors.adoc[]
+include::chapters/performance.adoc[]
+include::chapters/pagination.adoc[]
+include::chapters/hyper-media.adoc[]
+include::chapters/common-headers.adoc[]
+include::chapters/proprietary-headers.adoc[]
+include::chapters/api-operation.adoc[]
+include::chapters/events.adoc[]
+include::chapters/references.adoc[]
+include::chapters/tooling.adoc[]
+include::chapters/best-practices.adoc[]
 
 :leveloffset: -1
 
@@ -297,6 +299,8 @@ include::chapters/references.adoc[]
 
 
 ++++
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <!-- Adds rule id as a postfix to all rule titles -->
 <script>
 var ruleIdRegEx = /(\d)+/;
@@ -364,12 +368,17 @@ for (var i = 1; i < h2headers.length; i++) {
 document.body.classList.add('toc2');
 document.body.classList.add('toc-left');
 nav.append(ul);
+
+$('ul.sectlevel1').clone().insertAfter($('#toctitle'));
+//$('#toc ul.sectlevel3').hide();
+
 header.prepend(nav);
 </script>
 
 <!-- Cookies Consent -->
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
+
 <script>
 window.addEventListener("load", function(){
 window.cookieconsent.initialise({
