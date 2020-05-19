@@ -96,7 +96,7 @@ No content - There is no response body.
 |[[status-code-207]]{207}|
 Multi-Status - The response body contains multiple status informations for
 different parts of a batch/bulk request (see <<152>>).
-|{POST}
+|{POST}, ({DELETE})
 |=======================================================================
 
 

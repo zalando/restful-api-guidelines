@@ -70,11 +70,12 @@
 // Attributes to improve Design and linking of HTTP methods.
 // Do not use in titles!! This is breaking references in asciidoctor - may be bug.
 :GET: pass:[<a href="#get"><code>GET</code></a>]
-:GET-with-Body: pass:[<a href="#get-with-body"><code>GET With Body</code></a>]
+:GET-with-Body: pass:[<a href="#get-with-body"><code>GET with body</code></a>]
 :PUT: pass:[<a href="#put"><code>PUT</code></a>]
 :POST: pass:[<a href="#post"><code>POST</code></a>]
 :PATCH: pass:[<a href="#patch"><code>PATCH</code></a>]
 :DELETE: pass:[<a href="#delete"><code>DELETE</code></a>]
+:DELETE-with-Body: pass:[<a href="#delete-with-body"><code>DELETE with body</code></a>]
 :HEAD: pass:[<a href="#head"><code>HEAD</code></a>]
 :OPTIONS: pass:[<a href="#options"><code>OPTIONS</code></a>]
 :TRACE: pass:[<a href="#trace"><code>TRACE</code></a>]
