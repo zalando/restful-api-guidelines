@@ -51,7 +51,7 @@ the URL. Request headers are reserved for general context information (see
 reliable and depend on clients, gateways, server, and actual settings. Thus,
 switching to headers does not solve the original problem.
 
-*Hint:* As {GET-with-body} is used to transport extensive query parameters,
+*Hint:* As {GET-with-Body} is used to transport extensive query parameters,
 the {cursor} cannot any longer be used to encode the query filters in case of
 <<160, cursor-based pagination>>. As a consequence, it is best practice to
 transport the query filters in the body, while using <<161, pagination links>>
@@ -185,12 +185,14 @@ options.
 {DELETE} requests are used to *delete* resources. The semantic is best
 described as _"please delete the resource identified by the URL"_.
 
-* {DELETE} requests are usually applied to single resources, not on collection
-resources, as this would imply deleting the entire collection
+* {DELETE} requests are usually applied to single resources, not on
+  collection resources, as this would imply deleting the entire collection.
+* {DELETE} request can be applied to multiple resources at once using query
+  parameters on the collection resource (see <<delete-with-query-params>>).
 * successful {DELETE} requests will usually generate {200} (if the deleted
-resource is returned) or {204} (if no content is returned)
+  resource is returned) or {204} (if no content is returned).
 * failed {DELETE} requests will usually generate {404} (if the resource cannot
-be found) or {410} (if the resource was already deleted before)
+  be found) or {410} (if the resource was already deleted before).
 
 *Important:* After deleting a resource with {DELETE}, a {GET} request on the
 resource is expected to either return {404} (not found) or {410} (gone)
@@ -198,6 +200,52 @@ depending on how the resource is represented after deletion. Under no
 circumstances the resource must be accessible after this operation on its
 endpoint.
 
+
+[[delete-with-query-params]]
+=== DELETE with query parameters
+
+{DELETE} request can have query parameters. Query parameters should be used as
+filter parameters on a resource and not for passing context information to
+control the operation behavior.
+
+[source, http]
+----
+DELETE /resources?param1=value1&param2=value2...&paramN=valueN
+----
+
+**Note:** When providing {DELETE} with query parameters, API designers must
+carefully document the behavior in case of (partial) failures to manage client
+expectations properly.
+
+The response status code of {DELETE} with query parameters requests should be
+similar to usual {DELETE} requests. In addition, it may return the status code
+{207} using a payload describing the operation results (see <<152>> for
+details).
+
+
+[[delete-with-body]]
+=== DELETE with body
+
+In rare cases {DELETE} may require additional information, that cannot be
+classified as filter parameters and thus should be transported via payload, to
+perform the operation. Since {RFC-7231}#section-4.3.5[RFC-7231] states, that
+{DELETE} has an undefined semantic for payloads, we recommend to utilize {POST}
+in this cases similar to {GET-with-Body}.
+
+In this case the endpoint must be documented with the hint {DELETE-with-Body}
+to transport the {DELETE} semantic of this call. The response status code of
+{DELETE-with-Body} requests should be similar to usual {DELETE} requests.
+
+[source, http]
+----
+POST /resources/{resource-id}
+
+{
+  "prop1": "value1",
+  ...
+  "propN": "valueN",
+}
+----
 
 [[head]]
 === HEAD
