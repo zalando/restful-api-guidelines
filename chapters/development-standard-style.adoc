@@ -154,7 +154,7 @@ is:
 text = "NL,DE,FR";
 
 if (text.indexOf('BE') != -1)
----
+----
 
 === Languages
 
