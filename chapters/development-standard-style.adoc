@@ -119,6 +119,48 @@ the code.
 * <<development-rules-definitions>>, <<244>>
 
 
+[#262]
+== {SHOULD} use < or > instead of <= or >=
+
+Using < is preferred over using <=, using > is preferred over using >=. It 
+improves readability and performance of code.
+
+=== Languages
+
+{LANG-ALL-ICON}
+
+
+[#263]
+== {SHOULD} use != instead of > or < when only a single value results in false
+
+If a return value always results in true except for a single value using != is
+preferred over using > or >=.
+
+=== Example 1
+
+[source,javascript]
+----
+text = "NL,DE,FR";
+
+if (text.indexOf('BE') >= 0)
+----
+
+The code is correct, but readability is reduced by using the >=, especially since
+the return of the indexOf function is counterintuitive, a more readable solution
+is:
+
+[source,javascript]
+----
+text = "NL,DE,FR";
+
+if (text.indexOf('BE') != -1)
+---
+
+=== Languages
+
+{LANG-ALL-ICON}
+
+
 [[references]]
 == References
 

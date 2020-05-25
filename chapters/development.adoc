@@ -134,6 +134,9 @@ software development, it can be seen as a hallmark of good and clean code and
 will greatly reduce developer effort when applied correctly. But it is not the
 goal of software development; the goal is resolving challenges of the business
 under their conditions.
+
+// Todo
+Ref: https://gtramontina.com/posts/do-repeat-yourself.html
 ====
 
 [#245]
