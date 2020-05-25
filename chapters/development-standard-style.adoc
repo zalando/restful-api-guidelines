@@ -120,9 +120,9 @@ the code.
 
 
 [#262]
-== {SHOULD} use < or > instead of <= or >=
+== {SHOULD} use < or > instead of +<=+ or >=
 
-Using < is preferred over using <=, using > is preferred over using >=. It 
+Using < is preferred over using +<=+, using > is preferred over using >=. It 
 improves readability and performance of code.
 
 === Languages
