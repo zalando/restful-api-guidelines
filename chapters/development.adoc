@@ -178,3 +178,28 @@ quality must be known.
 This rule does not state that code must be fully automatically tested and
 scoring 100/100 on quality. This rule states that the quality, as agreed upon
 beforehand with the business, is known and documented.
+
+
+[#264]
+== Coding rule: cyclomatic complexity is low
+
+Refers to “_How much effort_”.
+
+[[wikipedia-quote-cyclomatic-complexity]]
+[quote, 'link:https://en.wikipedia.org/wiki/Cyclomatic_complexity[Wikipedia]']     
+____
+
+The cyclomatic complexity of a section of source code is the number of linearly
+independent paths within it—where "linearly independent" means that each path
+has at least one edge that is not in one of the other paths. For instance, if
+the source code contained no control flow statements (conditionals or decision
+points), the complexity would be 1, since there would be only a single path
+through the code. If the code had one single-condition IF statement, there would
+be two paths through the code: one where the IF statement evaluates to TRUE and
+another one where it evaluates to FALSE, so the complexity would be 2. Two
+nested single-condition IFs, or one IF with two conditions, would produce a
+complexity of 3.
+____
+
+Only use an _else_ statement if required. Prefer a switch statement over
+multiple if-then-else constructs.
