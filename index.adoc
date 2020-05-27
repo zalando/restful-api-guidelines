@@ -296,6 +296,11 @@ include::chapters/development/testing.adoc[]
 include::chapters/development/monitoring.adoc[]
 include::chapters/development/environment.adoc[]
 
+include::chapters/development/standard-style.adoc[]
+include::chapters/development/standard-style-go.adoc[]
+include::chapters/development/standard-style-magento.adoc[]
+include::chapters/development/standard-style-wordpress.adoc[]
+
 :leveloffset: -1
 
 = Networking
@@ -320,10 +325,6 @@ include::chapters/data-formats/json-guidelines.adoc[]
 
 :leveloffset: +1
 
-include::chapters/development/standard-style.adoc[]
-include::chapters/development/standard-style-go.adoc[]
-include::chapters/development/standard-style-magento.adoc[]
-include::chapters/development/standard-style-wordpress.adoc[]
 include::chapters/changelog.adoc[]
 
 include::chapters/references.adoc[]
