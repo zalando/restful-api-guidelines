@@ -89,9 +89,26 @@ essential for enforcement.
 
 Refers to “_How much effort_”.
 
-Code is simple and concise in order to increase the readability <<praeng>>.
-Increasing performance by sacrificing readability is only an option if the
-performance increase is in-line with the business requirements.
+Code is simple and concise in order to increase the readability <<praeng>>, rule
+4 <<nasa-safety-code>>. Increasing performance by sacrificing readability is
+only an option if the performance increase is in-line with the business
+requirements.
+
+[[nasa-safety-code-rule-4]]
+[quote, '<<nasa-safety-code>> rule 4']
+____
+Rule: No function should be longer than what can be printed on a single sheet of
+paper in a standard reference format with one line per statement and one line
+per declaration. Typically, this means no more than about 60 lines of code per
+function.
+
+Rationale: Each function should be a logical unit in the code that is
+understandable and verifiable as a unit. It is much harder to understand a
+logical unit that spans multiple screens on a computer display or multiple pages
+when printed. Excessively long functions are often a sign of poorly structured
+code. 
+____
+
 
 [NOTE]
 .Simple and concise
@@ -184,6 +201,9 @@ beforehand with the business, is known and documented.
 == Coding rule: cyclomatic complexity is low
 
 Refers to “_How much effort_”.
+
+Keep the number of conditional statements to a minimum; rule 1 of
+<<nasa-safety-code>>. 
 
 [[wikipedia-quote-cyclomatic-complexity]]
 [quote, 'link:https://en.wikipedia.org/wiki/Cyclomatic_complexity[Wikipedia]']     

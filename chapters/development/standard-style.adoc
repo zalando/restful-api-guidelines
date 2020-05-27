@@ -103,6 +103,61 @@ indent for all languages involved.
 * <<development-rules-definitions>>, <<244>>
 
 
+[#265]
+== {SHOULD} check return types of non-void functions
+
+Return values of functions should not be ignored, especially if error return
+values must be propagated up the function call chain. By checking return types
+exception justification is enforced, which will result in increased code
+stability.
+
+=== Languages
+
+{LANG-ALL-ICON}
+
+== References
+
+* <<nasa-safety-code>>, Rule 7
+
+
+[#266]
+== {SHOULD} check the validity of parameters inside each function
+
+Input parameters should not be assumed to be valid; by checking the validity
+code stability is increased.
+
+=== Example 1
+
+[source,javascript,linenums]
+----
+// Lodash - startsWith.js  - https://github.com/lodash/lodash
+function startsWith(string, target, position) {
+  const { length } = string
+  position = position == null ? 0 : position
+  if (position < 0) {
+    position = 0
+  }
+  else if (position > length) {
+    position = length
+  }
+  target = `${target}`
+  return string.slice(position, position + target.length) == target
+}
+----
+
+Note the majority of the code in example 1 is about checking the input
+parameters. 
+
+=== Languages
+
+{LANG-ALL-ICON}
+
+=== References
+
+* <<nasa-safety-code>>, Rule 7
+* http://en.wikipedia.org/wiki/Robustness_principle[The Robustness Principle] 
+
+
 [#256]
 == {MUST} not have unused variables
 
@@ -159,6 +214,9 @@ if (text.indexOf('BE') != -1)
 === Languages
 
 {LANG-ALL-ICON}
+
+
+
 
 
 [[references]]
