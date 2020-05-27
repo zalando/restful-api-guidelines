@@ -1,0 +1,18 @@
+[[integration-solution-design]]
+= Solution design
+
+This section descibes the generic guidelines for integration solution design.
+
+== Microservices
+
+== Loosely coupled
+
+== Security
+
+== Monitoring
+
+== Documentation
+
+== Security
+
+

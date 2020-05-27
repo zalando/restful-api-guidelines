@@ -1,0 +1,4 @@
+[[documentation]]
+= Documentation
+
+This section descibes the generic guidelines for documentation.

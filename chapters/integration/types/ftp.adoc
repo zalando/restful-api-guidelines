@@ -1,0 +1,9 @@
+[[integration-type-ftp]]
+= FTP
+
+== Monitoring
+
+== Documentation
+
+== Security
+

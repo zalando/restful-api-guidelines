@@ -55,14 +55,3 @@ to include a link to the API user manual into the API specification using the
 `#/externalDocs/url` property.
 
 
-[#103]
-== {STATUS-RFP} {MUST} write all resources using U.S. English
-
-All resources, APIs, documentation, commments etc. must be written in U.S.
-English.
-
-=== Audience
-
-* {DEVELOPMENT-GUILD} 
-* {INTEGRATION-GUILD}
-

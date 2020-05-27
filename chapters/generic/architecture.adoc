@@ -7,3 +7,10 @@
 The Pon guilds supply a repository of approved tools, techniques and frameworks
 both to inspire and guide teams. It is essential this repository is consulted
 when desiging a solution architecture.
+
+[#103]
+== {STATUS-RFP} {MUST} write all resources using U.S. English
+
+All resources, APIs, documentation, commments etc. must be written in U.S.
+English.
+

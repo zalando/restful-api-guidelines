@@ -1,0 +1,4 @@
+[[privacy]]
+= Privacy
+
+This section descibes the generic guidelines for privacy.

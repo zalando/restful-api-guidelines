@@ -171,3 +171,4 @@ implications when supporting full counts. Especially, if the data set grows
 and requests become complex queries and filters drive full scans. While this
 is an implementation detail relative to the API, it is important to consider
 the ability to support serving counts over the life of a service.
+

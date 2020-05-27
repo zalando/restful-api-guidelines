@@ -1,10 +1,10 @@
 :stylesheet: pon.css
 :source-highlighter: coderay
 :toc: macro
-:toclevels: 3
+:toclevels: 4
 :leveloffset: +1
 :sectlinks:
-:sectnumlevels: 3
+:sectnumlevels: 4
 :icons: font
 
 :creator: Pon Integration Guild / Pon Developemnt Guild
@@ -233,12 +233,15 @@ include::chapters/introduction.adoc[]
 
 :leveloffset: +1
 
-include::chapters/guilds.adoc[]
-include::chapters/monitoring.adoc[]
+include::chapters/generic/guilds.adoc[]
+include::chapters/generic/monitoring.adoc[]
+include::chapters/generic/security.adoc[]
+include::chapters/generic/privacy.adoc[]
+include::chapters/generic/documentation.adoc[]
 
-include::chapters/onboarding.adoc[]
-include::chapters/architecture.adoc[]
-include::chapters/intellectual-property.adoc[]
+include::chapters/generic/onboarding.adoc[]
+include::chapters/generic/architecture.adoc[]
+include::chapters/generic/intellectual-property.adoc[]
 
 :leveloffset: -1
 
@@ -246,23 +249,31 @@ include::chapters/intellectual-property.adoc[]
 
 :leveloffset: +1
 
-include::chapters/design-principles.adoc[]
+include::chapters/integration/design-principles.adoc[]
+include::chapters/integration/solution-design.adoc[]
+
+include::chapters/integration/generic.adoc[]
+:leveloffset: +1
+include::chapters/integration/generic/pagination.adoc[]
+:leveloffset: -1
+
+include::chapters/integration/types.adoc[]
+:leveloffset: +1
+include::chapters/integration/types/ftp.adoc[]
+:leveloffset: -1
+
 include::chapters/general-guidelines.adoc[]
 include::chapters/meta-information.adoc[]
 include::chapters/security.adoc[]
 include::chapters/compatibility.adoc[]
 include::chapters/deprecation.adoc[]
 
-//include::chapters/json-guidelines.adoc[]
 
-include::chapters/data-formats.adoc[]
 include::chapters/common-data-types.adoc[]
 include::chapters/naming.adoc[]
 include::chapters/resources.adoc[]
-include::chapters/http-requests.adoc[]
-include::chapters/http-status-codes-and-errors.adoc[]
 include::chapters/performance.adoc[]
-include::chapters/pagination.adoc[]
+
 include::chapters/hyper-media.adoc[]
 include::chapters/common-headers.adoc[]
 include::chapters/proprietary-headers.adoc[]
@@ -278,12 +289,30 @@ include::chapters/best-practices.adoc[]
 
 :leveloffset: +1
 
-include::chapters/development.adoc[]
-include::chapters/development-files.adoc[]
-include::chapters/development-version-control.adoc[]
-include::chapters/development-testing.adoc[]
-include::chapters/development-monitoring.adoc[]
-include::chapters/development-environment.adoc[]
+include::chapters/development/development.adoc[]
+include::chapters/development/files.adoc[]
+include::chapters/development/version-control.adoc[]
+include::chapters/development/testing.adoc[]
+include::chapters/development/monitoring.adoc[]
+include::chapters/development/environment.adoc[]
+
+:leveloffset: -1
+
+= Networking
+
+:leveloffset: +1
+
+include::chapters/networking/http-requests.adoc[]
+include::chapters/networking/http-status-codes-and-errors.adoc[]
+
+:leveloffset: -1
+
+= Data formats
+
+:leveloffset: +1
+
+include::chapters/data-formats/data-formats.adoc[]
+include::chapters/data-formats/json-guidelines.adoc[]
 
 :leveloffset: -1
 
@@ -291,9 +320,10 @@ include::chapters/development-environment.adoc[]
 
 :leveloffset: +1
 
-include::chapters/development-standard-style.adoc[]
-include::chapters/development-standard-style-magento.adoc[]
-include::chapters/development-standard-style-wordpress.adoc[]
+include::chapters/development/standard-style.adoc[]
+include::chapters/development/standard-style-go.adoc[]
+include::chapters/development/standard-style-magento.adoc[]
+include::chapters/development/standard-style-wordpress.adoc[]
 include::chapters/changelog.adoc[]
 
 include::chapters/references.adoc[]
@@ -306,15 +336,19 @@ include::chapters/references.adoc[]
 
 <!-- Adds rule id as a postfix to all rule titles -->
 <script>
-var ruleIdRegEx = /(\d)+/;
-var ruleheaders = document.getElementsByTagName("h4");
-for (var i = 0; i < ruleheaders.length; i++) {
-    var header = ruleheaders[i];
-    if (header.id && header.id.match(ruleIdRegEx)) {
-        var a = header.getElementsByTagName("a")[0]
-        a.innerHTML += " [" + header.id + "]";
-    }
-}
+var ruleIdRegEx = /(\d){3}/;
+
+// Rules are either in h4 or in h5
+['h4','h5'].forEach(tag => {
+  var ruleheaders = document.getElementsByTagName(tag)
+  for (var i = 0; i < ruleheaders.length; i++) {
+      var header = ruleheaders[i];
+      if (header.id && header.id.match(ruleIdRegEx)) {
+          var a = header.getElementsByTagName("a")[0]
+          a.innerHTML += " [" + header.id + "]";
+      }
+  }
+}); 
 </script>
 
 <!-- Add table of contents anchor and remove document title -->
@@ -355,9 +389,9 @@ li.append(link);
 ul.append(li);
 
 var link, li;
-var h2headers = document.getElementsByTagName('h3');
-for (var i = 1; i < h2headers.length; i++) {
-    var a = h2headers[i].getElementsByTagName("a")[0];
+var headers = document.getElementsByTagName('h2');
+for (var i = 0; i < headers.length; i++) {
+    var a = headers[i].getElementsByTagName("a")[0];
     if (a !== undefined) {
         link = document.createElement('a');
         link.innerHTML = a.innerHTML;
@@ -366,6 +400,21 @@ for (var i = 1; i < h2headers.length; i++) {
         li.append(link);
         ul.append(li);
     }
+
+    var subUl = document.createElement('ul');
+    var subHeaders = headers[i].nextElementSibling.getElementsByTagName("h3");
+    for (var subI = 0; subI < subHeaders.length; subI++) {
+        var a = subHeaders[subI].getElementsByTagName("a")[0];
+
+        link = document.createElement('a');
+        link.innerHTML = a.innerHTML;
+        link.href = a.hash;
+        subLi = document.createElement('li');
+        subLi.append(link);
+        subUl.append(subLi);
+    }
+
+    li.append(subUl);
 }
 
 document.body.classList.add('toc2');
