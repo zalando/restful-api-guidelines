@@ -1,0 +1,4 @@
+[[monitoring]]
+= Monitoring
+
+This section descibes the generic guidelines for monitoring.

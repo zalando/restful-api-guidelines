@@ -233,6 +233,9 @@ include::chapters/introduction.adoc[]
 
 :leveloffset: +1
 
+include::chapters/guilds.adoc[]
+include::chapters/monitoring.adoc[]
+
 include::chapters/onboarding.adoc[]
 include::chapters/architecture.adoc[]
 include::chapters/intellectual-property.adoc[]

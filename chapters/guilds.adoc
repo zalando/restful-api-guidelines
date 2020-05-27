@@ -1,0 +1,16 @@
+[[guilds]]
+= Guilds
+
+This section descibes the Guilds structure and the way of working.
+
+== Communication
+
+This section describes the guilds WOW regarding communication
+
+=== Ad-hoc
+
+Go / no-go
+
+=== New rules updates
+
+How to handle rule updates and adding new rules.
