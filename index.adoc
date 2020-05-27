@@ -352,6 +352,15 @@ var ruleIdRegEx = /(\d){3}/;
 }); 
 </script>
 
+<!-- Add last modified to header -->
+<script>
+$('#footer-text')
+  .clone()
+  .attr('id', 'last-modified')
+  .attr( 'class', 'last-modified')
+  .insertAfter('#_pon_integration_and_development_guidelines');
+</script>
+
 <!-- Add table of contents anchor and remove document title -->
 <script>
 var toc = document.getElementById('toc');
