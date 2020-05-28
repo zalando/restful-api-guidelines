@@ -8,6 +8,7 @@
 * *http://restful-api-design.readthedocs.org/en/latest/[Lessons-learned blog: Thoughts on RESTful API Design]*
 * [[[praeng]]] *https://blog.pragmaticengineer.com/readable-code/[Pragmatic engineer blog: Readable Code]*
 * [[[nasa-safety-code]]] *http://pixelscommander.com/wp-content/uploads/2014/12/P10.pdf[The Power of Ten – Rules for Developing Safety Critical Code]*
+* [[[gnu-coding-standards]]] *http://www.gnu.org/prep/standards/standards.html[GNU Coding Standards]*
 
 [bibliography]
 [[openapi-specification]]

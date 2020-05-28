@@ -4,7 +4,49 @@
 
 Pon standard style can be applied when linters are not available.
 
-Based on <<standardJs>>, <<googleStyleguideJs>>, <<phpStandards>>
+Based on <<standardJs>>, <<googleStyleguideJs>>, <<phpStandards>>,
+<<nasa-safety-code>> and <<gnu-coding-standards>>.
+
+[#267]
+== {MUST} encapsulate body of if or else
+
+The body of an if or else must be encapsulated it increases readability and
+decreases the introduction of bugs.
+
+For single-line statements a ternary is preferred.
+
+=== Example 1
+
+[source,javascript]
+----
+if (a < b) 
+  test(c)
+load(b)
+
+if (a < b) 
+  //test(c)
+load(b)
+----
+
+Commenting out one line for debugging purposes resulted in the addition of a new
+bug, this can easily be avoid by using curly braces:
+
+[source,javascript]
+----
+if (a < b) {
+  test(c)
+}
+load(b)
+
+if (a < b) {
+  //test(c)
+}
+load(b)
+----
+
+=== Languages
+
+{LANG-JAVASCRIPT-ICON} {LANG-TYPESCRIPT-ICON} {LANG-PHP-ICON} {LANG-GO-ICON}
 
 
 [#253]
