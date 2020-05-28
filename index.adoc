@@ -1,5 +1,6 @@
 :stylesheet: pon.css
 :source-highlighter: coderay
+:coderay-linenums-mode: inline
 :toc: macro
 :toclevels: 4
 :leveloffset: +1
@@ -268,7 +269,6 @@ include::chapters/security.adoc[]
 include::chapters/compatibility.adoc[]
 include::chapters/deprecation.adoc[]
 
-
 include::chapters/common-data-types.adoc[]
 include::chapters/naming.adoc[]
 include::chapters/resources.adoc[]
@@ -326,7 +326,6 @@ include::chapters/data-formats/json-guidelines.adoc[]
 :leveloffset: +1
 
 include::chapters/changelog.adoc[]
-
 include::chapters/references.adoc[]
 
 :leveloffset: -1
@@ -354,11 +353,13 @@ var ruleIdRegEx = /(\d){3}/;
 
 <!-- Add last modified to header -->
 <script>
-$('#footer-text')
-  .clone()
-  .attr('id', 'last-modified')
-  .attr( 'class', 'last-modified')
-  .insertAfter('#_pon_integration_and_development_guidelines');
+$(function() {
+  $('#footer-text')
+    .clone()
+    .attr('id', 'last-modified')
+    .attr( 'class', 'last-modified')
+    .insertAfter('#_pon_integration_and_development_guidelines');
+}
 </script>
 
 <!-- Add table of contents anchor and remove document title -->
