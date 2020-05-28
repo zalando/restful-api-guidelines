@@ -69,8 +69,10 @@
 :DEVELOPMENT-GUILD: pass:[<span class="development-guild-keyword"><strong>⚙️ Development guild</strong></span>]
 
 // Programming languages
+// https://konpa.github.io/devicon/
 :LANG-JAVASCRIPT-ICON: image:assets/lang-javascript.svg[Javascript, 24, 24]
 :LANG-TYPESCRIPT-ICON: image:assets/lang-typescript.svg[Typescript, 24, 24]
+:LANG-GO-ICON: image:assets/lang-go.svg[Typescript, 24, 24]
 :LANG-PHP-ICON: image:assets/lang-php.svg[PHP, 24, 24]
 :LANG-ALL-ICON: ∀
 
