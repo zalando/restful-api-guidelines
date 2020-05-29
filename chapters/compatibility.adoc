@@ -174,7 +174,7 @@ prevents objects being extended in the future.
 
 Note that this guideline concentrates on default extensibility and does not
 exclude the use of `additionalProperties` with a schema as a value, which might
-be appropriate in some circumstances, e.g. see <<216>>. 
+be appropriate in some circumstances, e.g. see <<216>>.
 
 
 [#112]
@@ -242,42 +242,42 @@ it supports content negotiation and hence reduces complexity of release
 management.
 
 Media type versioning: Here, version information and media type are provided
-together via the HTTP Content-Type header — e.g.
-`application/x.zalando.cart+json;version=2`. For incompatible changes, a new
+together via the HTTP `Content-Type` header — e.g.
+`application/json;version=2`. For incompatible changes, a new
 media type version for the resource is created. To generate the new
 representation version, consumer and producer can do content negotiation using
-the HTTP Content-Type and Accept headers. Note: This versioning only applies to
+the HTTP `Content-Type` and `Accept` headers. Note: This versioning only applies to
 the request and response content schema, not to URI or method semantics.
 
 In this example, a client wants only the new version of the response:
 
 [source,http]
 ----
-Accept: application/x.zalando.cart+json;version=2
+Accept: application/json;version=2
 ----
 
 A server responding to this, as well as a client sending a request with content
-should use the Content-Type header, declaring that one is sending the new
+should use the `Content-Type` header, declaring that one is sending the new
 version:
 
 [source,http]
 ----
-Content-Type: application/x.zalando.cart+json;version=2
+Content-Type: application/json;version=2
 ----
 
 Using header versioning should:
 
 * include versions in request and response headers to increase visibility
-* include Content-Type in the Vary header to enable proxy caches to differ
+* include `Content-Type` in the `Vary` header to enable proxy caches to differ
   between versions
 
 *Hint:* Until an incompatible change is necessary, it is recommended to stay
 with the standard `application/json` media type.
 
-Further reading: 
+Further reading:
 https://blog.apisyouwonthate.com/api-versioning-has-no-right-way-f3c75457c0b7[API
 Versioning Has No "Right Way"] provides an overview on different versioning
-approaches to handle breaking changes without being opinionated. 
+approaches to handle breaking changes without being opinionated.
 
 
 [#115]
