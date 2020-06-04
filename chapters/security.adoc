@@ -55,8 +55,8 @@ Some examples for standard and resource-specific permissions:
 [cols="25%,20%,15%,40%",options="header",]
 |=======================================================================
 | Application ID | Resource ID | Access Type | Example
-| `order-management` | `sales_order` | `read` | `order-management.sales_order.read`
-| `order-management` | `shipment_order` | `read` | `order-management.shipment_order.read`
+| `order-management` | `sales-order` | `read` | `order-management.sales-order.read`
+| `order-management` | `shipment-order` | `read` | `order-management.shipment-order.read`
 | `fulfillment-order` | | `write` | `fulfillment-order.write`
 | `business-partner-service` | |`read` | `business-partner-service.read`
 |=======================================================================
@@ -75,7 +75,7 @@ Some examples for standard and resource-specific permissions:
 |=======================================================================
 | Application | Resource | Access Type | Example
 | business-partner-service | | - | read | z::business-partner-service.read
-| order-management | sales_order | write | z::order-management.sales_order.write
+| order-management | sales-order | write | z::order-management.sales-order.write
 |=======================================================================
 
 ////
