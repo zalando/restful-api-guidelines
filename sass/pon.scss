@@ -62,8 +62,14 @@ a > code {
   color: #364149;
 }
 
+.rule-standard {
+  padding-left: 10px solid $rule-standard-color;
+  margin-left: 10px;
+}
+
 .last-modified {
   font-size: 10px;
   font-weight: 600;
   float: right;
 }
+

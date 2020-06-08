@@ -8,7 +8,7 @@
 :sectnumlevels: 4
 :icons: font
 
-:creator: Pon Integration Guild / Pon Developemnt Guild
+:creator: Pon Integration Guild / Pon Development Guild
 :producer: Asciidoctor
 :keywords: Pon, Guidelines, Development, API, Events, Schema
 :copyright: CC-BY-SA 4.0
@@ -72,9 +72,9 @@
 // https://konpa.github.io/devicon/
 :LANG-JAVASCRIPT-ICON: image:assets/lang-javascript.svg[Javascript, 24, 24]
 :LANG-TYPESCRIPT-ICON: image:assets/lang-typescript.svg[Typescript, 24, 24]
-:LANG-GO-ICON: image:assets/lang-go.svg[Typescript, 24, 24]
+:LANG-GO-ICON: image:assets/lang-go.svg[Go, 24, 24]
 :LANG-PHP-ICON: image:assets/lang-php.svg[PHP, 24, 24]
-:LANG-ALL-ICON: ∀
+:LANG-ALL-ICON: image:assets/lang-all.svg[All, 24, 24]
 
 // Attributes to improvement design of common table elements.
 :NO: pass:[<span class="must-keyword">&#x2717;</span> No]
@@ -83,6 +83,7 @@
 
 :CODE-START: pass:[<span style="font-weight: bold; font-family: Consolas, Liberation Mono, Courier, monospace">]
 :CODE-END: pass:[</span>]
+
 
 // Attributes to improve Design and linking of HTTP methods.
 // Do not use in titles!! This is breaking references in asciidoctor - may be bug.
@@ -96,7 +97,6 @@
 :OPTIONS: pass:[<a href="#options"><code>OPTIONS</code></a>]
 :TRACE: pass:[<a href="#trace"><code>TRACE</code></a>]
 :ALL: pass:[<code>&lt;all&gt;</code>]
-
 
 
 // Attributes to improve design and linking of HTTP status codes
@@ -344,11 +344,18 @@ var ruleIdRegEx = /(\d){3}/;
 ['h4','h5'].forEach(tag => {
   var ruleheaders = document.getElementsByTagName(tag)
   for (var i = 0; i < ruleheaders.length; i++) {
-      var header = ruleheaders[i];
-      if (header.id && header.id.match(ruleIdRegEx)) {
-          var a = header.getElementsByTagName("a")[0]
-          a.innerHTML += " [" + header.id + "]";
+    var header = ruleheaders[i];
+    if (header.id && header.id.match(ruleIdRegEx)) {
+      var a = header.getElementsByTagName("a")[0]
+      a.innerHTML += " [" + header.id + "]";
+
+      /**
+       * If a rule is a standard it is appended with an "S"
+       */
+      if (header.id.includes('S')) {
+        $(a).parent().parent().addClass('rule-standard');
       }
+    }
   }
 }); 
 </script>

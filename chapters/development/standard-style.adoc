@@ -48,6 +48,35 @@ load(b)
 
 {LANG-JAVASCRIPT-ICON} {LANG-TYPESCRIPT-ICON} {LANG-PHP-ICON} {LANG-GO-ICON}
 
+[#253]
+== {SHOULD} order if statements by increased complexity
+
+If using if statements where the conditionals are related, they should be
+ordered by increased complexity when possible. Using this ordering will
+significantly improve readability.
+
+=== Example 1
+
+[source,javascript]
+----
+if (!invoicePaid && !email) {
+  sendInvoiceByMail();
+} else if (invoicePaid) {
+  closeOrder();
+}
+----
+
+By swapping the if statements the logic is more comfortable to follow:
+
+[source,javascript]
+----
+if (invoicePaid) {
+  closeOrder();
+} else if (!invoicePaid && !email) {
+  sendInvoiceByMail();
+}
+----
+
 
 [#253]
 == {MUST} use special quotes only to reduce complexity
@@ -237,9 +266,9 @@ preferred over using > or >=.
 
 [source,javascript]
 ----
-text = "NL,DE,FR";
+languages = ['NL', 'FR', 'BE'];
 
-if (text.indexOf('BE') >= 0)
+if (languages.indexOf('BE') >= 0)
 ----
 
 The code is correct, but readability is reduced by using the >=, especially since
@@ -248,26 +277,14 @@ is:
 
 [source,javascript]
 ----
-text = "NL,DE,FR";
+languages = ['NL', 'FR', 'BE'];
 
-if (text.indexOf('BE') != -1)
+if (languages.indexOf('BE') != -1)
 ----
 
 === Languages
 
 {LANG-ALL-ICON}
-
-
-
-
-
-[[references]]
-== References
-
-- [[standardJs]] standardJS https://standardjs.com/index.html
-- [[googleStyleguideJs]] Google Javascript styleguide https://google.github.io/styleguide/jsguide.html
-- [[phpStandards]] PHP Standards Recommendations https://www.php-fig.org/psr/
-
 
 
 

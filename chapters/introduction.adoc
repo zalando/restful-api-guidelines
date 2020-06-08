@@ -58,3 +58,12 @@ Furthermore you should keep in mind that once an API becomes public externally
 available, it has to be re-reviewed and changed according to current guidelines
 - for the sake of overall consistency.
 
+[[guidelines-and-standards]]
+=== Guideline or standard
+
+If a rule is a Pon standard is indicated by an additional "S" being added to the
+rule number and a green left margin.
+
+pass:[<div class="rule-standard">]
+Example standard
+pass:[</div>]

@@ -11,9 +11,19 @@ ____
 == Introduction
 
 This chapter is about coding, developing or anything related to using a
-programming language to solve a problem. A problem is defined as a resolution
-for a challenge the business is facing. The mission of a coder is to write ”
-good”, ”clean” and ”secure” code.  These terms are ill-defined.
+programming language to solve a problem. 
+
+[[pramatic-programmer-quote-collect-knowledge]]
+[quote, '<<pragmatic-programmer>> p61']
+____
+As programmers, we collect, organize, maintain, and harness knowledge. We
+document knowledge in specifications, we make it come alive in running code, and
+we use it to provide the checks needed during testing.
+____
+
+A problem is defined as a resolution for a challenge the business is facing. The
+mission of a coder is to write ”good”, ”clean” and ”secure” code.  These terms
+are ill-defined.
 
 At Pon we consider code ”good”, ”clean” and ”secure” based on the following rule
 of thumb
@@ -143,6 +153,18 @@ that are logically related all change predictably and uniformly, and are thus
 kept in sync.
 ____
 
+Or, simply put:
+
+[[pragmatic-programmer-quote-dry]]
+[quote, '<<pragmatic-programmer>> p62']
+____
+Every piece of knowledge must have a single, unambiguous, authoritative
+representation within a system.
+____
+
+However keep in mind that if two distinct pieces of knowledge result in the same
+code the DRY principle should be reviewed carefully as shown in
+<<accidental-doppelganger>>
 
 [NOTE]
 ====
@@ -171,6 +193,15 @@ tracking system
 
 When readability is sacrificed for performance^<<254,254>>^ it is reflected in
 the comments.
+
+[NOTE]
+====
+Remember: while comments are very important, the best code is self-documenting.
+Giving sensible names to types and variables is much better than using obscure
+names that you must then explain through comments 
+ 
+Ref: <<googleStyleguideCpp>>, #Comments
+====
 
 [#246]
 == Coding rule: solution design steps are template-based
