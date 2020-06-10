@@ -48,7 +48,7 @@ load(b)
 
 {LANG-JAVASCRIPT-ICON} {LANG-TYPESCRIPT-ICON} {LANG-PHP-ICON} {LANG-GO-ICON}
 
-[#253]
+[#269]
 == {SHOULD} order if statements by increased complexity
 
 If using if statements where the conditionals are related, they should be
