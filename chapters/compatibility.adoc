@@ -237,23 +237,25 @@ we strongly recommend to only use the first two approaches.
 
 However, when API versioning is unavoidable, you have to design your
 multi-version RESTful APIs using media type versioning (instead of URI
-versioning, see below). Media type versioning is less tightly coupled since
+versioning, see <<115>>). Media type versioning is less tightly coupled since
 it supports content negotiation and hence reduces complexity of release
 management.
 
-Media type versioning: Here, version information and media type are provided
+Version information and media type are provided
 together via the HTTP `Content-Type` header — e.g.
-`application/json;version=2`. For incompatible changes, a new
+`application/x.zalando.cart+json;version=2`. For incompatible changes, a new
 media type version for the resource is created. To generate the new
 representation version, consumer and producer can do content negotiation using
-the HTTP `Content-Type` and `Accept` headers. Note: This versioning only applies to
+the HTTP `Content-Type` and `Accept` headers.
+
+NOTE: This versioning only applies to
 the request and response content schema, not to URI or method semantics.
 
 In this example, a client wants only the new version of the response:
 
 [source,http]
 ----
-Accept: application/json;version=2
+Accept: application/x.zalando.cart+json;version=2
 ----
 
 A server responding to this, as well as a client sending a request with content
@@ -262,17 +264,23 @@ version:
 
 [source,http]
 ----
-Content-Type: application/json;version=2
+Content-Type: application/x.zalando.cart+json;version=2
 ----
 
-Using header versioning should:
+Using media type versioning should:
 
-* include versions in request and response headers to increase visibility
-* include `Content-Type` in the `Vary` header to enable proxy caches to differ
+* Use a custom media type, e.g. `application/x.zalando.cart+json`
+* Include versions in request and response headers to increase visibility
+* Include `Content-Type` in the `Vary` header to enable proxy caches to differ
   between versions
 
-*Hint:* Until an incompatible change is necessary, it is recommended to stay
-with the standard `application/json` media type.
+[source,http]
+----
+Vary: Content-Type
+----
+
+TIP: Until an incompatible change is necessary, it is recommended to stay
+with the standard `application/json` media type and do not use media type versioning.
 
 Further reading:
 https://blog.apisyouwonthate.com/api-versioning-has-no-right-way-f3c75457c0b7[API
