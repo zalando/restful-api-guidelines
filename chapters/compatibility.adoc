@@ -236,8 +236,8 @@ we strongly recommend to only use the first two approaches.
 == {MUST} use media type versioning
 
 However, when API versioning is unavoidable, you have to design your
-multi-version RESTful APIs using media type versioning (instead of URI
-versioning, see <<115>>). Media type versioning is less tightly coupled since
+multi-version RESTful APIs using media type versioning (see <<115>>).
+Media type versioning is less tightly coupled since
 it supports content negotiation and hence reduces complexity of release
 management.
 
@@ -250,6 +250,20 @@ the HTTP `Content-Type` and `Accept` headers.
 
 NOTE: This versioning only applies to
 the request and response content schema, not to URI or method semantics.
+
+=== Custom media type format
+
+Custom media type format should have the following pattern:
+
+[source,http]
+----
+application/x.<custom-media-type>+json;version=<version>
+----
+
+* `custom-media-type` is a custom type name, e.g. `zalando.cart`
+* `version` is a number, e.g. `2`
+
+=== Example
 
 In this example, a client wants only the new version of the response:
 
