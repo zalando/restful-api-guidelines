@@ -59,7 +59,7 @@ a request from a Business Partner hits the Zalando Platform.
 Sales channels are owned by retailers and represent a specific consumer segment
 being addressed with a specific product assortment that is offered via CFA
 retailer catalogs to consumers (see
-https://pages.github.bus.zalan.do/core-platform/docs/glossary/glossary.html[platform
+https://digital-experience.docs.zalando.net/glossary/glossary.html[platform
 glossary (internal link)])
 |52b96501-0f8d-43e7-82aa-8a96fab134d7
 
