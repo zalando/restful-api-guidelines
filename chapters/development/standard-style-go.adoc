@@ -3,3 +3,157 @@
 = Pon Standard Style - Go
 
 {PATRON} Dennis Verweij
+
+dennis.verweij@pon.com
+
+
+== {MUST} Single line declarations are not used
+For readability only one variable is declared in a single line
+
+=== Example 1 Invalid declaration
+
+[source,go]
+----
+var valid, found, required bool
+----
+=== Example 2 Valid declaration
+
+[source,go]
+----
+var valid bool
+var found bool
+var required bool
+----
+
+== {MUST} In Go we do not catch exceptions. Errors are values and we handle errors
+In some languages try/catch statements are used. Go does not have that method and we do not try to mimic it. Instead we handle the errors and the errors are just values. You need to assess the value and act upon it. 
+
+== {MUST} Errors are handle only once.
+We handle errors only once. 
+
+=== Don't do
+Double logs for the same error.
+[source,go]
+----
+func doSomething(val string) (string, error){
+    // Do something with val that results in a doneValue and an error value
+    if err != nil {
+        log.Error(err)
+        return doneValue,err
+    }
+    return doneValue, nil
+}
+
+func something(){
+    val := "some stuff"
+    result, err := doSomething(val)
+    if err != nil {
+        log.Error(err)
+        // Handle the error
+    }
+}
+----
+
+=== Better
+
+[source,go]
+----
+func doSomething(val string) (string, error){
+    // Do something with val that results in a doneValue and an error value
+    return doneValue, err
+}
+
+func something() {
+    val := "some stuff"
+    result, err := doSomething(val)
+    if err != nil {
+        log.Error(err)
+        // Handle the error
+    }
+}
+----
+
+=== We can also include the stacktrace in the logging
+The package github.com/pkg/errors gives more options than the default errors package. You can log the stacktrace.
+[source,go]
+----
+import (
+    "github.com/pkg/errors"
+    log "github.com/sirupsen/logrus"
+)
+func doSomething(val string) (string, error){
+    // Do something with val that results in a doneValue and an error value
+    return doneValue, err
+}
+
+func something() {
+    val := "some stuff"
+    result, err := doSomething(val)
+    if err != nil {
+        log.Errorf("%+v", err)
+        // Handle the error
+    }
+}
+
+----
+
+
+== {SHOULD} Add context to errors when they are meaningless in the context of the (final) receiver.
+When errors are passed it might eventualy be unclear what the origin of the error is. You can pass context to it, but be carefull with fmt.Errorf(), because that will override the initial error with just a string.
+
+=== Passing through context of the error with fmt.Errorf()
+Using fmt.ErrorF() overwrites the error and returns just a string. Sometimes it's just fine, but be aware of the consequences
+[source,go]
+----
+import (
+    log "github.com/sirupsen/logrus"
+)
+func doSomething(val string) (string, error){
+    // Do something with val that results in a doneValue and an error value
+    if err != nil {
+        err = fmt.Errorf("Something whent wrong processing %s: %v", val, err)
+    }
+    return doneValue, err
+}
+
+func something() {
+    val := "some stuff"
+    result, err := doSomething(val)
+    if err != nil {
+        log.Errorf("%+v", err)
+        // Handle the error
+    }
+}
+
+----
+
+This will return : ERRO[0000] overwritten error: test
+The stacktrace is gone
+
+=== Better -> Passing through context of the error with errors.Wrap() from the "github.com/pkg/errors" package
+Using errors.Wrap() adds your context to the error stack
+[source,go]
+----
+import (
+    "github.com/pkg/errors"
+    log "github.com/sirupsen/logrus"
+)
+func doSomething(val string) (string, error){
+    // Do something with val that results in a doneValue and an error value
+    if err != nil {
+        err = errors.Wrap(err, "Something whent wrong processing")
+    }
+    return doneValue, err
+}
+
+func something() {
+    val := "some stuff"
+    result, err := doSomething(val)
+    if err != nil {
+        log.Errorf("%+v", err)
+        // Handle the error
+    }
+}
+
+----
+
