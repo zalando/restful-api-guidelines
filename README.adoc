@@ -1,5 +1,7 @@
 = Developing APIs and integrations: A Comprehensive Set of Guidelines by Pon
 
+image:https://api.codacy.com/project/badge/Grade/0ea1c25803644664850c891ca9c3775f[link="https://app.codacy.com/gh/PonDigitalSolutions/restful-api-guidelines?utm_source=github.com&utm_medium=referral&utm_content=PonDigitalSolutions/restful-api-guidelines&utm_campaign=Badge_Grade_Dashboard"]
+
 Latest published version:
 https://github.com/PonDigitalSolutions/restful-api-guidelines[*HTML*],
 https://github.com/PonDigitalSolutions/restful-api-guidelines/pon-guidelines.pdf[*PDF*],
