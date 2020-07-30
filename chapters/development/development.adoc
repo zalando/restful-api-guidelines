@@ -1,10 +1,11 @@
 [[development-guidelines]]
 = General development guidelines
 
-[[heinlein-quote]]
-[quote, Robert A. Heinlein]     
-____
-Progress is made by lazy men looking for easier ways to do things.
+[[fowler-quote-01]]
+[quote, M. Fowler (1999)]     
+____ 
+Any fool can write code that a computer can understand. Good programmers write
+code that humans can understand.
 ____
 
 [[development-introduction]]
@@ -30,7 +31,7 @@ of thumb
 
 IMPORTANT: How much effort is required^<<244,244>>^ for another developer of
 comparable experience to pick up where the previous developer left off to fix,
-enhance or build upon the source code - without involving the previous
+enhance or build upon the source code - without involving the former
 developer^<<245,245>>^ and taking into account the lifetime, quality, security
 and the business impact^<<246,246>>^ of the application.
 
@@ -52,8 +53,8 @@ Rules and definition used in the development guidelines.
 [[wikipedia-quote-software-quality]]
 [quote, 'link:https://en.wikipedia.org/wiki/Software_quality[Wikipedia]']     
 ____
-* Software functional quality reflects how well it complies with or conforms to a
-given design, based on functional requirements or specifications.  That
+* Software functional quality reflects how well it complies with or conforms to
+a given design, based on functional requirements or specifications.  That
 attribute can also be described as the fitness for purpose of a piece of
 software or how it compares to competitors in the marketplace as a worthwhile
 product. It is the degree to which the correct software was produced.

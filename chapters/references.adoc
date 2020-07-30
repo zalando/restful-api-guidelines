@@ -69,5 +69,6 @@
 * *http://www.amazon.de/REST-Practice-Hypermedia-Systems-Architecture/dp/0596805829[REST in Practice: Hypermedia and Systems Architecture]*
 * *https://leanpub.com/build-apis-you-wont-hate[Build APIs You Won't Hate]*
 * *http://www.infoq.com/minibooks/emag-web-api[InfoQ eBook - Web APIs: From Start to Finish]*
+* [[[fowler-refactoring]]] *https://martinfowler.com/books/refactoring.html[Refactoring, Improving the Design of Existing Code, 2nd edition]*
 * [[[pragmatic-programmer]]] *https://pragprog.com/book/tpp20/the-pragmatic-programmer-20th-anniversary-edition[The pragmatic programmer, 20th anniversary edition]*
 

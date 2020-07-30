@@ -1,6 +1,42 @@
 [[introduction]]
 = Introduction
 
+[[heinlein-quote]]
+[quote, paraphrased; Robert A. Heinlein]     
+____
+Progress is made by lazy persons looking for more efficient ways to do things.
+____
+
+Software and software ecosystems are resolutions for business challenges, which
+in effect will result in a firm reliance of the business on the software and
+corresponding integrations. Moreover, our entrepreneurial mindset will be
+driving updates, changes, and additions to the software; software is very rarely
+"done" or "finished."
+
+The business challenges and corresponding software updates are where these
+guidelines come in. How can we, to a certain degree, guide the software
+development to ensure the software is stable, does what should do, secure and is
+updateable with reasonable effort.
+
+These guidelines and standards do not prescribe the "perfect" way to build
+software and software integrations since there is no "perfect" way. However, the
+consistency and structure of the code and integrations are specified: solve the
+same problem with the same solution.
+
+This document will enable the business to make informed decisions about software
+development: quantify the software's quality and robustness in an automated,
+consistent manner; be aware of the quality and robustness and decide the
+required level.
+
+Summarized: how much effort is required for another developer of comparable
+experience to pick up where the previous developer left off to fix, enhance or
+build upon the source code - without involving the former developer and taking
+into account the lifetime, quality, security and the business impact of the
+application. 
+
+
+== Software architecture
+
 Pon's software architecture centers around decoupled microservices that provide
 functionality via APIs. Small engineering teams own, deploy and operate these
 microservices. Our APIs most purely express what our systems do, and are
