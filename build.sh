@@ -14,9 +14,9 @@ docker pull asciidoctor/docker-asciidoctor
 
 ./check_rule_ids.sh
 
-docker run -v ${SCRIPT_DIR}:/documents/ asciidoctor/docker-asciidoctor asciidoctor -D /documents/output index.adoc
-docker run -v ${SCRIPT_DIR}:/documents/ asciidoctor/docker-asciidoctor asciidoctor-pdf -D /documents/output index.adoc
-docker run -v ${SCRIPT_DIR}:/documents/ asciidoctor/docker-asciidoctor asciidoctor-epub3 -D /documents/output index.adoc
+docker run -v ${SCRIPT_DIR}:/documents/ asciidoctor/docker-asciidoctor asciidoctor --verbose --trace -D /documents/output index.adoc
+docker run -v ${SCRIPT_DIR}:/documents/ asciidoctor/docker-asciidoctor asciidoctor-pdf --verbose --trace -D /documents/output index.adoc
+# docker run -v ${SCRIPT_DIR}:/documents/ asciidoctor/docker-asciidoctor asciidoctor-epub3 --verbose --trace -D /documents/output index.adoc
 
 cp models/money-1.0.0.yaml ${BUILD_DIR}/
 cp -r assets ${BUILD_DIR}/

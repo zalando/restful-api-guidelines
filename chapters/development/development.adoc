@@ -15,7 +15,7 @@ This chapter is about coding, developing or anything related to using a
 programming language to solve a problem. 
 
 [[pramatic-programmer-quote-collect-knowledge]]
-[quote, '<<pragmatic-programmer>> p61']
+[quote, Pragmatic Programmer, Page 61]
 ____
 As programmers, we collect, organize, maintain, and harness knowledge. We
 document knowledge in specifications, we make it come alive in running code, and
@@ -106,7 +106,7 @@ only an option if the performance increase is in-line with the business
 requirements.
 
 [[nasa-safety-code-rule-4]]
-[quote, '<<nasa-safety-code>> rule 4']
+[quote, Nasa coding rules, Rule 4]
 ____
 Rule: No function should be longer than what can be printed on a single sheet of
 paper in a standard reference format with one line per statement and one line
@@ -157,7 +157,7 @@ ____
 Or, simply put:
 
 [[pragmatic-programmer-quote-dry]]
-[quote, '<<pragmatic-programmer>> p62']
+[quote, Pragmatic Programmer, Page 62]
 ____
 Every piece of knowledge must have a single, unambiguous, authoritative
 representation within a system.

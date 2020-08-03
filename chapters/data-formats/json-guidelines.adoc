@@ -107,7 +107,7 @@ unknown.
 Open API 3.x allows to mark properties as `required` and as `nullable` to
 specify whether properties may be absent (`{}`) or `null` (`{"example":null}`).
 If a property is defined to be not `required` and `nullable` (see
-<<required-nullable-row-2, 2nd row in Table below>>), this rule demands
+2nd row in Table below), this rule demands
 that both cases must be handled in the exact same manner by specification.
 
 The following table shows all combinations and whether the examples are
@@ -118,7 +118,7 @@ valid:
 | {CODE-START}required{CODE-END} | {CODE-START}nullable{CODE-END}
 | {CODE-START}{}{CODE-END} | {CODE-START}{"example":null}{CODE-END}
 | `true`  |`true`   | {NO}  | {YES}
-| `false` | `true`  | {YES} | {YES} [[required-nullable-row-2]]
+| `false` | `true`  | {YES} | {YES} 
 | `true`  |`false`  | {NO}  | {NO}
 | `false` |`false`  | {YES} | {NO}
 |===========================================

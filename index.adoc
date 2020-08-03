@@ -79,7 +79,7 @@
 // Attributes to improvement design of common table elements.
 :NO: pass:[<span class="must-keyword">&#x2717;</span> No]
 :YES: pass:[<span class="may-keyword">&#x2714;</span> Yes]
-:AT: pass:[<span class="should-keyword">&#x26a0;&#xFE0F;</span>]
+:AT: pass:[<span class="should-keyword">&#x26a0;</span>]
 
 :CODE-START: pass:[<span style="font-weight: bold; font-family: Consolas, Liberation Mono, Courier, monospace">]
 :CODE-END: pass:[</span>]
@@ -281,7 +281,6 @@ include::chapters/common-headers.adoc[]
 include::chapters/proprietary-headers.adoc[]
 include::chapters/api-operation.adoc[]
 include::chapters/events.adoc[]
-include::chapters/references.adoc[]
 include::chapters/tooling.adoc[]
 include::chapters/best-practices.adoc[]
 
@@ -441,9 +440,10 @@ document.body.classList.add('toc2');
 document.body.classList.add('toc-left');
 nav.append(ul);
 
-$('ul.sectlevel1').clone().insertAfter($('#toctitle'));
+//$('ul.sectlevel1').clone().insertAfter($('#toctitle'));
 //$('#toc ul.sectlevel3').hide();
 
+// Add the left menu bar
 header.prepend(nav);
 </script>
 
