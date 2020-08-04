@@ -224,7 +224,8 @@
 
 image::assets/pon-logo.png[Pon Logo]
 
-Other formats: link:pon-guidelines.pdf[PDF], link:pon-guidelines.epub[EPUB3]
+Other formats: link:pon-guidelines.pdf[PDF]
+// , link:pon-guidelines.epub[EPUB3]
 
 toc::[]
 
