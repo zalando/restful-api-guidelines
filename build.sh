@@ -25,4 +25,4 @@ cp -r assets ${BUILD_DIR}/
 ./generate_rules_json.sh
 
 mv ${BUILD_DIR}/index.pdf ${BUILD_DIR}/pon-guidelines.pdf
-mv ${BUILD_DIR}/index.epub ${BUILD_DIR}/pon-guidelines.epub
+# mv ${BUILD_DIR}/index.epub ${BUILD_DIR}/pon-guidelines.epub
