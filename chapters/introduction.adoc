@@ -152,7 +152,8 @@ available, it has to be re-reviewed and changed according to current guidelines
 
 === Automated code style checking (linting)
 
-
+Digital Solutions will provide a preferred code style configuration per language
+which can be retrieved from the repository of this document.
 
 
 [[guidelines-and-standards]]
