@@ -94,7 +94,9 @@ timeframe.
 
 == Attribution
 
-These guidelines are based on the link:https://github.com/zalando/restful-api-guidelines[Zalando restful API guidelines].
+These guidelines are based on the
+link:https://github.com/zalando/restful-api-guidelines[Zalando restful API
+guidelines].
 
 [[conventions-used-in-these-guidelines]]
 == Conventions used in these guidelines
