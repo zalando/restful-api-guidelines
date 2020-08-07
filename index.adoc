@@ -224,6 +224,8 @@
 
 image::assets/pon-logo.png[Pon Logo]
 
+Document source files: link:https://github.com/PonDigitalSolutions/restful-api-guidelines[Github]
+
 Other formats: link:pon-guidelines.pdf[PDF]
 // , link:pon-guidelines.epub[EPUB3]
 

@@ -1278,4 +1278,8 @@ a > code { background-color: #f0f0f0; padding: .1em .4em .1em .4em !important; f
 
 .literalblock pre, .literalblock pre[class], .listingblock pre, .listingblock pre[class] { padding: .5em !important; }
 
+.rule-standard { border-left: 10px solid green; padding-left: 10px; }
+
+.last-modified { font-size: 10px; font-weight: 600; float: right; }
+
 #toc a { color: #364149; }

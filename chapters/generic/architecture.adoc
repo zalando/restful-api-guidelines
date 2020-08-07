@@ -6,7 +6,7 @@ functionality via APIs. Small engineering teams own, deploy and operate these
 microservices. Our APIs most purely express what our systems do, and are
 therefore highly valuable business assets.
 
-With this in mind, we’ve adopted "API First" as one of our key engineering
+With this in mind, we’ve adopted "API First" as one of our key engineerings
 principles. Microservices development begins with an API definition outside the
 code and ideally involves ample peer-review feedback to achieve high-quality
 APIs. API First encompasses a set of quality-related standards and fosters a
@@ -27,11 +27,11 @@ Ideally, all Pon APIs will look like the same author created them.
  
 The Pon guilds supply a repository of approved tools, techniques and frameworks
 both to inspire and guide teams. It is essential this repository is consulted
-when desiging a solution architecture.
+when designing a solution architecture.
 
 [#103]
 == {STATUS-RFP} {MUST} write all resources using U.S. English
 
-All resources, APIs, documentation, commments etc. must be written in U.S.
-English.
+All resources, APIs, documentation, comments etc. must be written in the U.S.
+English language
 

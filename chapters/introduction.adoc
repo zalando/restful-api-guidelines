@@ -49,7 +49,10 @@ addressed in these guidelines
 
 Establish the needs of the business to be resolved by software. This involves
 gathering the requirements and specifying the goals of the software to be met
-[link:https://en.wikipedia.org/wiki/Software_requirements[Wikipedia]]. 
+[link:https://en.wikipedia.org/wiki/Software_requirements[Wikipedia]].
+
+Next to the business requirements this document contains the minimal standards
+for software; including software license and source code management.
 
 === Software architecture and design
 
@@ -79,10 +82,10 @@ testing.
 === Software maintenance and support
 
 When the latest version of the software has been deployed there are two,
-continiously ongoing, tasks. Firstly: bug fixing, updates and new features; this
+continuously ongoing, tasks. Firstly: bug fixing, updates and new features; this
 requires the software to be flexible, adaptable and logically structured. Note
 there is an overlap with software development: clean quality code will require a
-lower effort to adjust or fix as opposed to ill structured low quality code.
+lower effort to adjust or fix as opposed to ill-structured low-quality code.
 
 Secondly: the level of availability and performance of the software; this
 requires the software to be monitorable and able to report about its own
@@ -90,6 +93,13 @@ wellbeing. Note there is overlap with software testing, a test to check if the
 software is adhering to a requirement can be reused in the live environment to
 check if the software is operational and responding within a predefined
 timeframe.
+
+
+== Document management
+
+This document is managed using Git. Git allows for controlled change approval,
+versioning and tracking of updates and changes. Moreover it is an open system
+allowing for community change suggestions.
 
 
 == Attribution
@@ -107,22 +117,32 @@ The requirement level keywords "MUST", "MUST NOT", "REQUIRED", "SHALL",
 interpreted as described in https://www.ietf.org/rfc/rfc2119.txt[RFC
 2119].
 
+[IMPORTANT]
+.Standards
+====
+MUST is by default a standard and not a guideline.
+====
 
 [[pon-specific-information]]
 == Pon specific information
 
+These guidelines apply to all software owned by Pon, build by Pon or build for
+Pon; more specifically where the IP is owned by Pon. Note this excludes SaaS
+solutions.
+ 
 The purpose of these guidelines is to define standards to successfully establish
 "consistent integration and development look and feel" quality. The integration
-guild drafted and owns this document. Teams are responsible to fulfill these
-guidelines during API development and are encouraged to contribute to guideline
-evolution via pull requests.
+and development guilds drafted and own this document. Teams are responsible to
+fulfill these guidelines during development and are encouraged to contribute to
+guideline evolution via pull requests.
 
 These guidelines will, to some extent, remain work in progress as our work
 evolves, but teams can confidently follow and trust them.
 
 In case guidelines are changing, the following rules apply:
 
-* existing APIs don't have to be changed, but we recommend it 
+* existing software and software integrations don't have to be changed, but we
+recommend it 
 * clients of existing APIs have to cope with these APIs based on outdated rules 
 * new APIs have to respect the current guidelines
 
@@ -130,12 +150,20 @@ Furthermore you should keep in mind that once an API becomes public externally
 available, it has to be re-reviewed and changed according to current guidelines
 - for the sake of overall consistency.
 
+=== Automated code style checking (linting)
+
+
+
+
 [[guidelines-and-standards]]
 === Guideline or standard
 
 If a rule is a Pon standard is indicated by an additional "S" being added to the
 rule number and green left margin.
 
-pass:c[<div class="rule-standard">]
-Example standard
-pass:c[</div>]
+[#271S]
+=== {MUST} comply to standards and guidelines
+Contracts relating to software development must indicate the signing party has
+taken knowledge of the guidelines and agrees to comply to the standards as
+indicated in this document.
+
