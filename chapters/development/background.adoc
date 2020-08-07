@@ -1,0 +1,8 @@
+[[development-background]]
+= Development background
+
+
+
+Apollo / NASA
+
+https://fermatslibrary.com/s/apollo-11-implementation-of-trigonometric-functions

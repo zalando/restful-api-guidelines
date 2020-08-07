@@ -2,7 +2,7 @@
 = Bibliography
 
 [bibliography]
-[[generic-bib]
+[[generic-bib]]
 == Generic
 
 * *http://restful-api-design.readthedocs.org/en/latest/[Lessons-learned blog: Thoughts on RESTful API Design]*
@@ -10,7 +10,7 @@
 * [[[accidental-doppelganger]]] *https://www.informit.com/articles/article.aspx?p=1313447*
 
 [bibliography]
-[[coding standards]]
+[[coding-standards]]
 == Coding standards
 
 * [[[nasa-safety-code]]] *http://pixelscommander.com/wp-content/uploads/2014/12/P10.pdf[The Power of Ten – Rules for Developing Safety Critical Code]*
@@ -69,5 +69,6 @@
 * *http://www.amazon.de/REST-Practice-Hypermedia-Systems-Architecture/dp/0596805829[REST in Practice: Hypermedia and Systems Architecture]*
 * *https://leanpub.com/build-apis-you-wont-hate[Build APIs You Won't Hate]*
 * *http://www.infoq.com/minibooks/emag-web-api[InfoQ eBook - Web APIs: From Start to Finish]*
+* [[[fowler-refactoring]]] *https://martinfowler.com/books/refactoring.html[Refactoring, Improving the Design of Existing Code, 2nd edition]*
 * [[[pragmatic-programmer]]] *https://pragprog.com/book/tpp20/the-pragmatic-programmer-20th-anniversary-edition[The pragmatic programmer, 20th anniversary edition]*
 
