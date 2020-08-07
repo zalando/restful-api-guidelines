@@ -1,6 +1,27 @@
 [[solution-architecture]]
 = Solution architecture
 
+Pon's software architecture centers around decoupled microservices that provide
+functionality via APIs. Small engineering teams own, deploy and operate these
+microservices. Our APIs most purely express what our systems do, and are
+therefore highly valuable business assets.
+
+With this in mind, we’ve adopted "API First" as one of our key engineering
+principles. Microservices development begins with an API definition outside the
+code and ideally involves ample peer-review feedback to achieve high-quality
+APIs. API First encompasses a set of quality-related standards and fosters a
+peer-review culture, including a lightweight review procedure. We encourage our
+teams to follow them to ensure that our APIs:
+
+* are easy to understand and learn 
+* are general and abstracted from specific implementation and use cases 
+* are robust and easy to use 
+* have a common look and feel 
+* follow a consistent RESTful style and syntax 
+* are consistent with other teams’ APIs and our global architecture
+
+Ideally, all Pon APIs will look like the same author created them.
+
 [[solution-architecture-repository]]
 == Solution architecture repository
  

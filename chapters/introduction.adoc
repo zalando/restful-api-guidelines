@@ -28,39 +28,73 @@ development: quantify the software's quality and robustness in an automated,
 consistent manner; be aware of the quality and robustness and decide upon the
 required level.
 
-Summarized: how much effort is required for another developer of comparable
-experience to pick up where the previous developer left off to fix, enhance or
-build upon the source code - without involving the former developer and taking
-into account the lifetime, quality, security and the business impact of the
-application. 
+In the following chapters software refers both to software and software
+integrations.
 
+== Software engineering
 
-== Software architecture
+In the mid-1960s the field of software engineering emerged, building software
+is about more than just writing instructions for a computer. In order for the
+business to actually be able to use the software, the following points are
+addressed in these guidelines
+[link:https://en.wikipedia.org/wiki/Software_engineering[Wikipedia]]:
 
-Pon's software architecture centers around decoupled microservices that provide
-functionality via APIs. Small engineering teams own, deploy and operate these
-microservices. Our APIs most purely express what our systems do, and are
-therefore highly valuable business assets.
+* Software requirements
+* Software architecture and design
+* Software development
+* Software testing
+* Software maintenance
 
-With this in mind, we’ve adopted "API First" as one of our key engineering
-principles. Microservices development begins with API definition outside the
-code and ideally involves ample peer-review feedback to achieve high-quality
-APIs. API First encompasses a set of quality-related standards and fosters a
-peer review culture including a lightweight review procedure. We encourage our
-teams to follow them to ensure that our APIs:
+=== Software requirements
 
-* are easy to understand and learn 
-* are general and abstracted from specific implementation and use cases 
-* are robust and easy to use 
-* have a common look and feel 
-* follow a consistent RESTful style and syntax 
-* are consistent with other teams’ APIs and our global architecture
+Establish the needs of the business to be resolved by software. This involves
+gathering the requirements and specifying the goals of the software to be met
+[link:https://en.wikipedia.org/wiki/Software_requirements[Wikipedia]]. 
 
-Ideally, all Pon APIs will look like the same author created them.
+=== Software architecture and design
+
+Architecture and design are where the Art of Building Software comes in, the
+architecture and design are the foundation of the software. This document will
+provide guidance towards selecting the architecture and creating the design.
+There are some specific don'ts and do's however it is up to the architect to
+create the optimal design by taking all business requirements into consideration
+[link:https://en.wikipedia.org/wiki/Software_design[Wikipedia]].
+
+=== Software development
+
+How much effort is required for another developer of comparable experience to
+pick up where the previous developer left off to fix, enhance or build upon the
+source code - without involving the former developer and taking into account the
+lifetime, quality, security and the business impact of the application. 
+
+=== Software testing
+
+The proof of the pudding is in the eating, a good cook will sample the dish
+before serving the guests. The software is build upon requirements and it is up
+to the software engineers to indicate the proven level of adherence to these
+requirements; preferably in an automated manner. It is up to the business to
+decide on the level of awareness regarding the software quality based on
+testing.
+
+=== Software maintenance and support
+
+When the latest version of the software has been deployed there are two,
+continiously ongoing, tasks. Firstly: bug fixing, updates and new features; this
+requires the software to be flexible, adaptable and logically structured. Note
+there is an overlap with software development: clean quality code will require a
+lower effort to adjust or fix as opposed to ill structured low quality code.
+
+Secondly: the level of availability and performance of the software; this
+requires the software to be monitorable and able to report about its own
+wellbeing. Note there is overlap with software testing, a test to check if the
+software is adhering to a requirement can be reused in the live environment to
+check if the software is operational and responding within a predefined
+timeframe.
+
 
 == Attribution
 
-These guidelines are based on the link:https://github.com/zalando/restful-api-guidelines[Zalando restful api guidelines].
+These guidelines are based on the link:https://github.com/zalando/restful-api-guidelines[Zalando restful API guidelines].
 
 [[conventions-used-in-these-guidelines]]
 == Conventions used in these guidelines
@@ -98,7 +132,7 @@ available, it has to be re-reviewed and changed according to current guidelines
 === Guideline or standard
 
 If a rule is a Pon standard is indicated by an additional "S" being added to the
-rule number and a green left margin.
+rule number and green left margin.
 
 pass:c[<div class="rule-standard">]
 Example standard
