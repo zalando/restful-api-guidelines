@@ -1,30 +1,112 @@
 [[introduction]]
 = Introduction
 
-Pon's software architecture centers around decoupled microservices that provide
-functionality via APIs. Small engineering teams own, deploy and operate these
-microservices. Our APIs most purely express what our systems do, and are
-therefore highly valuable business assets.
+[[heinlein-quote]]
+[quote, paraphrased; Robert A. Heinlein]     
+____
+Progress is made by lazy persons looking for more efficient ways to do things.
+____
 
-With this in mind, we’ve adopted "API First" as one of our key engineering
-principles. Microservices development begins with API definition outside the
-code and ideally involves ample peer-review feedback to achieve high-quality
-APIs. API First encompasses a set of quality-related standards and fosters a
-peer review culture including a lightweight review procedure. We encourage our
-teams to follow them to ensure that our APIs:
+Software and software ecosystems are resolutions for business challenges, which
+in effect will result in a firm reliance of the business on the software and
+corresponding integrations. Moreover, our entrepreneurial mindset will be
+driving updates, changes, and additions to the software; software is very rarely
+"done" or "finished."
 
-* are easy to understand and learn 
-* are general and abstracted from specific implementation and use cases 
-* are robust and easy to use 
-* have a common look and feel 
-* follow a consistent RESTful style and syntax 
-* are consistent with other teams’ APIs and our global architecture
+The business challenges and corresponding software updates are where these
+guidelines come in. How can we, to a certain degree, guide the software
+development to ensure the software is stable, does what it should do, secure and
+is updateable with reasonable effort.
 
-Ideally, all Pon APIs will look like the same author created them.
+These guidelines and standards do not prescribe the "perfect" way to build
+software and software integrations since there is no "perfect" way. However, the
+consistency and structure of the code and integrations are specified.
+Summarized: solve the same problem with the same solution.
+
+This document will enable the business to make informed decisions about software
+development: quantify the software's quality and robustness in an automated,
+consistent manner; be aware of the quality and robustness and decide upon the
+required level.
+
+In the following chapters software refers both to software and software
+integrations.
+
+== Software engineering
+
+In the mid-1960s the field of software engineering emerged, building software
+is about more than just writing instructions for a computer. In order for the
+business to actually be able to use the software, the following points are
+addressed in these guidelines
+[link:https://en.wikipedia.org/wiki/Software_engineering[Wikipedia]]:
+
+* Software requirements
+* Software architecture and design
+* Software development
+* Software testing
+* Software maintenance
+
+=== Software requirements
+
+Establish the needs of the business to be resolved by software. This involves
+gathering the requirements and specifying the goals of the software to be met
+[link:https://en.wikipedia.org/wiki/Software_requirements[Wikipedia]].
+
+Next to the business requirements this document contains the minimal standards
+for software; including software license and source code management.
+
+=== Software architecture and design
+
+Architecture and design are where the Art of Building Software comes in, the
+architecture and design are the foundation of the software. This document will
+provide guidance towards selecting the architecture and creating the design.
+There are some specific don'ts and do's however it is up to the architect to
+create the optimal design by taking all business requirements into consideration
+[link:https://en.wikipedia.org/wiki/Software_design[Wikipedia]].
+
+=== Software development
+
+How much effort is required for another developer of comparable experience to
+pick up where the previous developer left off to fix, enhance or build upon the
+source code - without involving the former developer and taking into account the
+lifetime, quality, security and the business impact of the application. 
+
+=== Software testing
+
+The proof of the pudding is in the eating, a good cook will sample the dish
+before serving the guests. The software is build upon requirements and it is up
+to the software engineers to indicate the proven level of adherence to these
+requirements; preferably in an automated manner. It is up to the business to
+decide on the level of awareness regarding the software quality based on
+testing.
+
+=== Software maintenance and support
+
+When the latest version of the software has been deployed there are two,
+continuously ongoing, tasks. Firstly: bug fixing, updates and new features; this
+requires the software to be flexible, adaptable and logically structured. Note
+there is an overlap with software development: clean quality code will require a
+lower effort to adjust or fix as opposed to ill-structured low-quality code.
+
+Secondly: the level of availability and performance of the software; this
+requires the software to be monitorable and able to report about its own
+wellbeing. Note there is overlap with software testing, a test to check if the
+software is adhering to a requirement can be reused in the live environment to
+check if the software is operational and responding within a predefined
+timeframe.
+
+
+== Document management
+
+This document is managed using Git. Git allows for controlled change approval,
+versioning and tracking of updates and changes. Moreover it is an open system
+allowing for community change suggestions.
+
 
 == Attribution
 
-These guidelines are based on the link:https://github.com/zalando/restful-api-guidelines[Zalando restful api guidelines].
+These guidelines are based on the
+link:https://github.com/zalando/restful-api-guidelines[Zalando restful API
+guidelines].
 
 [[conventions-used-in-these-guidelines]]
 == Conventions used in these guidelines
@@ -35,26 +117,54 @@ The requirement level keywords "MUST", "MUST NOT", "REQUIRED", "SHALL",
 interpreted as described in https://www.ietf.org/rfc/rfc2119.txt[RFC
 2119].
 
+[IMPORTANT]
+.Standards
+====
+MUST is by default a standard and not a guideline.
+====
 
 [[pon-specific-information]]
 == Pon specific information
 
+These guidelines apply to all software owned by Pon, build by Pon or build for
+Pon; more specifically where the IP is owned by Pon. Note this excludes SaaS
+solutions.
+ 
 The purpose of these guidelines is to define standards to successfully establish
 "consistent integration and development look and feel" quality. The integration
-guild drafted and owns this document. Teams are responsible to fulfill these
-guidelines during API development and are encouraged to contribute to guideline
-evolution via pull requests.
+and development guilds drafted and own this document. Teams are responsible to
+fulfill these guidelines during development and are encouraged to contribute to
+guideline evolution via pull requests.
 
 These guidelines will, to some extent, remain work in progress as our work
 evolves, but teams can confidently follow and trust them.
 
 In case guidelines are changing, the following rules apply:
 
-* existing APIs don't have to be changed, but we recommend it 
+* existing software and software integrations don't have to be changed, but we
+recommend it 
 * clients of existing APIs have to cope with these APIs based on outdated rules 
 * new APIs have to respect the current guidelines
 
 Furthermore you should keep in mind that once an API becomes public externally
 available, it has to be re-reviewed and changed according to current guidelines
 - for the sake of overall consistency.
+
+=== Automated code style checking (linting)
+
+Digital Solutions will provide a preferred code style configuration per language
+which can be retrieved from the repository of this document.
+
+
+[[guidelines-and-standards]]
+=== Guideline or standard
+
+If a rule is a Pon standard is indicated by an additional "S" being added to the
+rule number and green left margin.
+
+[#271S]
+=== {MUST} comply to standards and guidelines
+Contracts relating to software development must indicate the signing party has
+taken knowledge of the guidelines and agrees to comply to the standards as
+indicated in this document.
 

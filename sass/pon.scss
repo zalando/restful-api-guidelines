@@ -58,8 +58,9 @@ a > code {
   padding: .5em !important;
 }
 
-#toc a {
-  color: #364149;
+.rule-standard {
+  border-left: 10px solid $rule-standard-color;
+  padding-left: 10px;
 }
 
 .last-modified {
@@ -67,3 +68,8 @@ a > code {
   font-weight: 600;
   float: right;
 }
+
+#toc a {
+  color: #364149;
+}
+

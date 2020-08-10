@@ -1,7 +1,7 @@
 [[intellectual-property]]
 = Intellectual property (IP)
 
-[#260]
+[#260S]
 == {STATUS-RFP} {MUST} include project wide license file
 
 Each project must include a Pon approved license file.

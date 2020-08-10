@@ -1,0 +1,48 @@
+Middleware - Permission handling, if underlying system supports scoping and permission then do not add them to the API
+
+How to handle users used in API middleware -> multiple users or single user
+
+Is it oke to make an admin user and handle auth in middleware -> no
+
+
+Guilds
+Communication
+Ad-hoc 
+Go / No-go
+New rules / updates
+Monitoring
+Security https://ponintranet.com/profiel/security-privacy/
+Privacy https://ponintranet.com/profiel/security-privacy/
+Documentation	
+Integration guidelines
+Integration solution design
+Microservices
+Loosely coupled
+Security
+Monitoring
+Message tracing
+Documentation
+Security
+Generic
+Paging
+Integration types
+Rest API
+SOAP
+Monitoring
+Documentation
+Security
+FTP
+Monitoring [ref -> sol. Design. monit]
+Security
+SFTP
+GraphQL
+Development guidelines
+Monitoring
+Documentation
+Security
+Data formats
+JSON
+XML
+Version control
+Networking
+HTTP

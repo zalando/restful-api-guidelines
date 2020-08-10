@@ -1,26 +1,37 @@
 [[development-guidelines]]
 = General development guidelines
 
-[[heinlein-quote]]
-[quote, Robert A. Heinlein]     
-____
-Progress is made by lazy men looking for easier ways to do things.
+[[fowler-quote-01]]
+[quote, M. Fowler (1999)]     
+____ 
+Any fool can write code that a computer can understand. Good programmers write
+code that humans can understand.
 ____
 
 [[development-introduction]]
 == Introduction
 
 This chapter is about coding, developing or anything related to using a
-programming language to solve a problem. A problem is defined as a resolution
-for a challenge the business is facing. The mission of a coder is to write ”
-good”, ”clean” and ”secure” code.  These terms are ill-defined.
+programming language to solve a problem. 
+
+[[pramatic-programmer-quote-collect-knowledge]]
+[quote, Pragmatic Programmer, Page 61]
+____
+As programmers, we collect, organize, maintain, and harness knowledge. We
+document knowledge in specifications, we make it come alive in running code, and
+we use it to provide the checks needed during testing.
+____
+
+A problem is defined as a resolution for a challenge the business is facing. The
+mission of a coder is to write ”good”, ”clean” and ”secure” code.  These terms
+are ill-defined.
 
 At Pon we consider code ”good”, ”clean” and ”secure” based on the following rule
 of thumb
 
 IMPORTANT: How much effort is required^<<244,244>>^ for another developer of
 comparable experience to pick up where the previous developer left off to fix,
-enhance or build upon the source code - without involving the previous
+enhance or build upon the source code - without involving the former
 developer^<<245,245>>^ and taking into account the lifetime, quality, security
 and the business impact^<<246,246>>^ of the application.
 
@@ -42,8 +53,8 @@ Rules and definition used in the development guidelines.
 [[wikipedia-quote-software-quality]]
 [quote, 'link:https://en.wikipedia.org/wiki/Software_quality[Wikipedia]']     
 ____
-* Software functional quality reflects how well it complies with or conforms to a
-given design, based on functional requirements or specifications.  That
+* Software functional quality reflects how well it complies with or conforms to
+a given design, based on functional requirements or specifications.  That
 attribute can also be described as the fitness for purpose of a piece of
 software or how it compares to competitors in the marketplace as a worthwhile
 product. It is the degree to which the correct software was produced.
@@ -95,7 +106,7 @@ only an option if the performance increase is in-line with the business
 requirements.
 
 [[nasa-safety-code-rule-4]]
-[quote, '<<nasa-safety-code>> rule 4']
+[quote, Nasa coding rules, Rule 4]
 ____
 Rule: No function should be longer than what can be printed on a single sheet of
 paper in a standard reference format with one line per statement and one line
@@ -143,6 +154,18 @@ that are logically related all change predictably and uniformly, and are thus
 kept in sync.
 ____
 
+Or, simply put:
+
+[[pragmatic-programmer-quote-dry]]
+[quote, Pragmatic Programmer, Page 62]
+____
+Every piece of knowledge must have a single, unambiguous, authoritative
+representation within a system.
+____
+
+However keep in mind that if two distinct pieces of knowledge result in the same
+code the DRY principle should be reviewed carefully as shown in
+<<accidental-doppelganger>>
 
 [NOTE]
 ====
@@ -171,6 +194,15 @@ tracking system
 
 When readability is sacrificed for performance^<<254,254>>^ it is reflected in
 the comments.
+
+[NOTE]
+====
+Remember: while comments are very important, the best code is self-documenting.
+Giving sensible names to types and variables is much better than using obscure
+names that you must then explain through comments 
+ 
+Ref: <<googleStyleguideCpp>>, #Comments
+====
 
 [#246]
 == Coding rule: solution design steps are template-based

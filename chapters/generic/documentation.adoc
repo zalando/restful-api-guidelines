@@ -2,3 +2,19 @@
 = Documentation
 
 This section descibes the generic guidelines for documentation.
+
+[#268]
+== {MUST} include comment saying what the tool is for
+
+Every tool, program or integration must include a comment, either in a file or
+in the source briefly indicating the purpose.
+
+If the comment is included in the source, it is preferred to be included in the
+file containing the main function
+
+
+=== References
+
+* <<gnu-coding-standards>>, Chapter 5.2
+
+

@@ -812,7 +812,7 @@ defines a field to be of a different type that was already being
 emitted, or, is changing the type of an undefined field. Both of these
 are prevented by not using `additionalProperties`.
 
-See also rule <<111>> in the <<compatibility>> section for further guidelines 
+See also rule 111 in the <<compatibility>> section for further guidelines 
 on the use of `additionalProperties`.
 
 
