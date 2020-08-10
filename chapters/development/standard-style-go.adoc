@@ -7,15 +7,30 @@
 dennis.verweij@pon.com
 
 [#1000]
-== {MUST} We use tabs for indentation in Go
+== {MUST} for linting we use golint 
+
+[#1001]
+== {SHOULD} go Vet is used to check go code for correctness in the development process
+We preferably configure our IDE to run go Vet on every save operation.  
+
+[#1002]
+== {MUST} go Vet is used to check go code for correctness in the build pipeline
+No code may be build without a code check.  
+
+[#1003]
+== {MUST} use tabs for indentation in Go
 Unlike the development guidelines for other languages in Go we use tabs for indentation. To improve formatting of code we use gofmt to automatically format go code in de IDE. 
 
-== {MUST} Use gofmt in the IDE
+[#1004]
+== {MUST} use gofmt in the IDE for automatic formatting 
 In Go you don't worry about formatting yourself and use gofmt for automatic formating. Gofmt directions are leading. 
 
-== {SHALL NOT} 
+[#1005]
+== {SHALL} every function is commented
+In Go exported functions must be commented and is enforced by linting. Comments on unexported functions are not enforced by linting, but improve readablity of the code. 
 
-== {MUST} Single line multiple declarations are not used
+[#1006]
+== {MUST} single line multiple declarations are not used
 For readability only one variable is declared in a single line
 
 === Example 1 Invalid declaration
@@ -33,10 +48,12 @@ var found bool
 var required bool
 ----
 
-== {MUST} In Go we do not catch exceptions. Errors are values and we handle errors
+[#1007]
+== {MUST} we do not try and catch exceptions. Errors are values and we handle errors
 In some languages try/catch statements are used. Go does not have that method and we do not try to mimic it. Instead we handle the errors and the errors are just values. You need to assess the value and act upon it. 
 
-== {MUST} Errors are handle only once.
+[#1008]
+== {MUST} errors are handle only once.
 We handle errors only once. 
 
 === Don't do
@@ -106,7 +123,8 @@ func something() {
 ----
 
 
-== {SHOULD} Add context to errors when they are meaningless in the context of the (final) receiver.
+[#1009]
+== {SHOULD} add context to errors when they are meaningless in the context of the (final) receiver.
 When errors are passed it might eventualy be unclear what the origin of the error is. You can pass context to it, but be carefull with fmt.Errorf(), because that will override the initial error with just a string.
 
 === Passing through context of the error with fmt.Errorf()
