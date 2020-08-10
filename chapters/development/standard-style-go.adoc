@@ -6,8 +6,16 @@
 
 dennis.verweij@pon.com
 
+[#1000]
+== {MUST} We use tabs for indentation in Go
+Unlike the development guidelines for other languages in Go we use tabs for indentation. To improve formatting of code we use gofmt to automatically format go code in de IDE. 
 
-== {MUST} Single line declarations are not used
+== {MUST} Use gofmt in the IDE
+In Go you don't worry about formatting yourself and use gofmt for automatic formating. Gofmt directions are leading. 
+
+== {SHALL NOT} 
+
+== {MUST} Single line multiple declarations are not used
 For readability only one variable is declared in a single line
 
 === Example 1 Invalid declaration
