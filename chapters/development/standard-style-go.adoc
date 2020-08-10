@@ -153,7 +153,7 @@ func something() {
 
 ----
 
-This will return : ERRO[0000] overwritten error: test
+This will return : overwritten error: test
 The stacktrace is gone
 
 === Better -> Passing through context of the error with errors.Wrap() from the "github.com/pkg/errors" package
