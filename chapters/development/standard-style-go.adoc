@@ -6,30 +6,30 @@
 
 dennis.verweij@pon.com
 
-[#1000]
+[#270]
 == {MUST} for linting we use golint 
 
-[#1001]
+[#271]
 == {SHOULD} go Vet is used to check go code for correctness in the development process
 We preferably configure our IDE to run go Vet on every save operation.  
 
-[#1002]
+[#273]
 == {MUST} go Vet is used to check go code for correctness in the build pipeline
 No code may be build without a code check.  
 
-[#1003]
+[#274]
 == {MUST} use tabs for indentation in Go
 Unlike the development guidelines for other languages in Go we use tabs for indentation. To improve formatting of code we use gofmt to automatically format go code in de IDE. 
 
-[#1004]
+[#275]
 == {MUST} use gofmt in the IDE for automatic formatting 
 In Go you don't worry about formatting yourself and use gofmt for automatic formating. Gofmt directions are leading. 
 
-[#1005]
+[#276]
 == {SHALL} every function is commented
 In Go exported functions must be commented and is enforced by linting. Comments on unexported functions are not enforced by linting, but improve readablity of the code. 
 
-[#1006]
+[#277]
 == {MUST} single line multiple declarations are not used
 For readability only one variable is declared in a single line
 
@@ -48,11 +48,11 @@ var found bool
 var required bool
 ----
 
-[#1007]
+[#278]
 == {MUST} we do not try and catch exceptions. Errors are values and we handle errors
 In some languages try/catch statements are used. Go does not have that method and we do not try to mimic it. Instead we handle the errors and the errors are just values. You need to assess the value and act upon it. 
 
-[#1008]
+[#279]
 == {MUST} errors are handle only once.
 We handle errors only once. 
 
@@ -123,7 +123,7 @@ func something() {
 ----
 
 
-[#1009]
+[#280]
 == {SHOULD} add context to errors when they are meaningless in the context of the (final) receiver.
 When errors are passed it might eventualy be unclear what the origin of the error is. You can pass context to it, but be carefull with fmt.Errorf(), because that will override the initial error with just a string.
 
