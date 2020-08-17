@@ -1,7 +1,12 @@
 [[common-data-types]]
 = Common data types
 
-Definitions of data objects that are good candidates for wider usage:
+Definitions of data objects that are good candidates for wider usage. Below you can find a list of common data types
+used in the guideline:
+
+* <<173, Money object>>
+* <<176, Problem object>>
+* <<address-fields, Address object>>
 
 
 [#173]
@@ -111,8 +116,8 @@ There are some data fields that come up again and again in API data:
   object or the relationship to the referenced object followed by `_id` (e.g.
   `partner_id` not `partner_number`, or `parent_node_id` for the reference to a parent
   node from a child node, even if both have the type `Node`).
-  *Exception*: We use `customer_number` instead of `customer_id` for customer facing 
-  identification of customers due to legacy reasons. (Hint: `customer_id` used to be defined 
+  *Exception*: We use `customer_number` instead of `customer_id` for customer facing
+  identification of customers due to legacy reasons. (Hint: `customer_id` used to be defined
   as internal only, technical integer key, see
   https://apis.zalando.net/redirect/5675b6ec-8934-11ea-929e-68f728c1ba70[Naming
   Decision: `customer_number` vs `customer_id` [internal link]]).
@@ -135,7 +140,7 @@ Example JSON schema:
 ----
 tree_node:
   type: object
-  properties: 
+  properties:
     id:
       description: the identifier of this node
       type: string
@@ -204,7 +209,7 @@ defined as follows:
 ----
 ResponsePage:
   type: object
-  properties: 
+  properties:
     self:
       description: Pagination link pointing to the current page.
       type: string
