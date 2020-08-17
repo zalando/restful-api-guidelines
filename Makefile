@@ -1,4 +1,4 @@
-DOCKER := asciidoctor/docker-asciidoctor:1.1.0
+DOCKER := asciidoctor/docker-asciidoctor:latest
 DIRMOUNTS := /documents
 DIRCONTENTS := chapters
 DIRSCRIPTS := scripts
@@ -6,7 +6,7 @@ DIRBUILDS := output
 DIRWORK := $(shell pwd -P)
 
 .PHONY: all clean pull check assets
-.PHOMY: rules html pdf epub force
+.PHONY: rules html pdf epub force
 
 all: clean html pdf epub rules
 clean:
@@ -55,9 +55,9 @@ html: check assets pull
 pdf: check pull
 	docker run -v $(DIRWORK):$(DIRMOUNTS)/ ${DOCKER} asciidoctor-pdf \
 	  -D $(DIRMOUNTS)/$(DIRBUILDS) index.adoc;
-	mv $(DIRBUILDS)/index.pdf $(DIRBUILDS)/zalando-guidelines.pdf;
+	mv -f $(DIRBUILDS)/index.pdf $(DIRBUILDS)/zalando-guidelines.pdf;
 
 epub: check pull
 	docker run -v $(DIRWORK):$(DIRMOUNTS)/ ${DOCKER} asciidoctor-epub3 \
 	  -D $(DIRMOUNTS)/$(DIRBUILDS) index.adoc;
-	mv $(DIRBUILDS)/index.epub $(DIRBUILDS)/zalando-guidelines.epub;
+	mv -f $(DIRBUILDS)/index.epub $(DIRBUILDS)/zalando-guidelines.epub;
