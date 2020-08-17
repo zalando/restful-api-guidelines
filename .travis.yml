@@ -4,31 +4,22 @@ services:
   - docker                  
 
 before_install:            
-  - mkdir -p output
-  - docker pull asciidoctor/docker-asciidoctor
+  - make pull
 
 script:
-  - ./check_rule_ids.sh > check_rule_ids_result
-  - docker run -v $TRAVIS_BUILD_DIR:/documents/ --name asciidoc-to-html asciidoctor/docker-asciidoctor asciidoctor -D /documents/output index.adoc
-  - docker run -v $TRAVIS_BUILD_DIR:/documents/ --name asciidoc-to-pdf asciidoctor/docker-asciidoctor asciidoctor-pdf -D /documents/output index.adoc
-  - docker run -v $TRAVIS_BUILD_DIR:/documents/ --name asciidoctor-epub3 asciidoctor/docker-asciidoctor asciidoctor-epub3 -D /documents/output index.adoc
-  - cp -r assets output/
-  - cp -r models/* output/
-  - cp -r -n legacy/* output/
-  - ./generate_rules_json.sh output
-  - mv output/index.pdf output/zalando-guidelines.pdf
-  - mv output/index.epub output/zalando-guidelines.epub
+  - make check-rules > check-rule-ids.log
+  - make all
 
 after_error:
   - docker logs asciidoc-to-html
   - docker logs asciidoc-to-pdf
   - docker logs asciidoc-to-epub3
-  - cat check_rule_ids_result
+  - cat check-rule-ids.log
 
 after_failure:
   - docker logs asciidoc-to-html
   - docker logs asciidoc-to-pdf
   - docker logs asciidoc-to-epub3
-  - cat check_rule_ids_result
+  - cat check-rule-ids.log
 
-after_success: ./travis_deploy.sh
+after_success: scripts/deploy-travis.sh

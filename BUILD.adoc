@@ -3,7 +3,7 @@
 == Build HTML site, PDF and EPUB3 locally
 [source,bash]
 ----
-./build.sh
+make all
 ----
 
 == Generate Custom CSS
@@ -14,5 +14,5 @@ This script clones the factory repository, installs the dependencies and generat
 
 [source,bash]
 ----
-./build_css.sh
+.scripts/build-css.sh
 ----
