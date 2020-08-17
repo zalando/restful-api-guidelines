@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # Script to build Zalando RESTful Guidelines (static HTML, PDF)
 
+DOCKER_ASCIIDOCTOR=asciidoctor/docker-asciidoctor:1.1.0
+
 set -ex
 
 pushd `dirname $0` > /dev/null
@@ -10,13 +12,13 @@ BUILD_DIR=${SCRIPT_DIR}/output
 
 rm -rf ${BUILD_DIR}
 mkdir ${BUILD_DIR}
-docker pull asciidoctor/docker-asciidoctor
+docker pull ${DOCKER_ASCIIDOCTOR}
 
 ./check_rule_ids.sh
 
-docker run -v ${SCRIPT_DIR}:/documents/ asciidoctor/docker-asciidoctor asciidoctor -D /documents/output index.adoc
-docker run -v ${SCRIPT_DIR}:/documents/ asciidoctor/docker-asciidoctor asciidoctor-pdf -D /documents/output index.adoc
-docker run -v ${SCRIPT_DIR}:/documents/ asciidoctor/docker-asciidoctor asciidoctor-epub3 -D /documents/output index.adoc
+docker run -v ${SCRIPT_DIR}:/documents/ ${DOCKER_ASCIIDOCTOR} asciidoctor -D /documents/output index.adoc
+docker run -v ${SCRIPT_DIR}:/documents/ ${DOCKER_ASCIIDOCTOR} asciidoctor-pdf -D /documents/output index.adoc
+docker run -v ${SCRIPT_DIR}:/documents/ ${DOCKER_ASCIIDOCTOR} asciidoctor-epub3 -D /documents/output index.adoc
 
 cp models/money-1.0.0.yaml ${BUILD_DIR}/
 cp -r assets ${BUILD_DIR}/
