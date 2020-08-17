@@ -78,6 +78,10 @@ period, and - on rare occasions - slash.
 **Note:** slashes are only allowed to build and signal resource identifiers
 consisting of <<241, compound keys>>.
 
+**Note:** to prevent ambiguities of <<136, unnormalized paths>> resource
+identifiers must never be empty. Consequently, support of empty strings for
+path parameters is forbidden.
+
 
 [#143]
 == {MUST} identify resources and sub-resources via path segments

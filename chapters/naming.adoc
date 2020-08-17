@@ -151,10 +151,24 @@ https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#serve
 
 
 [#136]
-== {MUST} avoid trailing slashes
+== {MUST} normalize paths by removing duplicate and trailing slashes
 
-The trailing slash must not have specific semantics. Resource paths must
-deliver the same results whether they have the trailing slash or not.
+To prevent ambiguities and simplify API monitoring trailing and duplicate
+slashes must not have any specific semantics in paths. Consequently, requests
+to a resource must deliver the same result, whether they contain trailing or
+duplicate slashes in their path or not. E.g. the following requests are
+required to provide the same resource:
+
+[source,http]
+----
+GET /orders/{order-id}
+GET /orders/{order-id}/
+GET /orders//{order-id}
+----
+
+**Note:** path normalization is not supported by all framework out-of-the-box.
+API implementations are required to support at least the normalized path while
+rejecting all alternatives requests, if failing to deliver the same resource.
 
 
 [#137]
