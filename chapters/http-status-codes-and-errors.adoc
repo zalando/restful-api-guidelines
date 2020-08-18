@@ -374,19 +374,17 @@ very stable over longer periods because of organizational and documentation
 changes and descriptions might easily get out of sync.
 
 In order to stay compatible with {RFC-7807}[RFC 7807] we proposed to use
-https://tools.ietf.org/html/rfc3986#section-4.1[relative URI references] for
-custom problem `type` and `instance` fields:
+https://tools.ietf.org/html/rfc3986#section-4.1[relative URI references]
+usually defined by `absolute-path [ '?' query ] [ '#' fragment ]` as simplified
+identifiers in `type` and `instance` fields:
 
 * `/problems/out-of-stock`
 * `/problems/insufficient-funds`
 * `/problems/user-deactivated`
 * `/problems/connection-error#read-timeout`
 
-Examples of problem types that **do not** satisfy our criteria:
-
-* `https://docs.team.company.org/out-of-stock`
-* `https://en.wikipedia.org/wiki/Stockout`
-* `http://www.businessdictionary.com/definition/stockout.html`
+**Note:** The use of https://tools.ietf.org/html/rfc3986#section-4.3[absolute
+URIs] is not forbidden but strongly discouraged.
 
 
 [#177]

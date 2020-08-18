@@ -5,10 +5,10 @@ Problem:
       type: string
       format: uri
       description: >
-        A relative URI that uniquely identifies the problem type. Opposed to
-        the specification in RFC-7807, it is not required to be dereferencable
-        and point to a human-readable documentation for the problem type, e.g.
-        using HTML.
+        A relative URI reference that uniquely identifies the problem type.
+        Opposed to the specification in RFC-7807, it is not required to be
+        dereferencable and point to a human-readable documentation for the
+        problem type, e.g. using HTML.
       default: 'about:blank'
       example: '/problem/connection-error'
     title:
@@ -39,7 +39,8 @@ Problem:
       type: string
       format: uri
       description: >
-        An relative URI that identifies the specific occurrence of the problem,
-        e.g. by adding a fragment identifier or sub-path to the problem type.
-        May be used to locate the root of a problem in the source code.
+        An relative URI reference that identifies the specific occurrence of
+        the problem, e.g. by adding a fragment identifier or sub-path to the
+        problem type. May be used to locate the root of this problem in the
+        source code.
       example: '/problem/connection-error#token-info-read-timed-out'
