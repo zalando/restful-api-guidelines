@@ -5,10 +5,11 @@ Problem:
       type: string
       format: uri
       description: >
-        A relative URI reference that uniquely identifies the problem type.
-        Opposed to the specification in RFC-7807, it is not required to be
-        dereferencable and point to a human-readable documentation for the
-        problem type, e.g. using HTML.
+        A relative URI reference that uniquely identifies the problem type
+        only in the context of the provided API. Opposed to the specification
+        in RFC-7807, it is neither recommended to be dereferencable and point
+        to a human-readable documentation nor globally unique for the problem
+        type.
       default: 'about:blank'
       example: '/problem/connection-error'
     title:
@@ -32,7 +33,8 @@ Problem:
       type: string
       description: >
         A human readable explanation specific to this occurrence of the
-        problem. Written in english and readable for engineers, usually not
+        problem that is helpful to locate the problem and give advice on how
+        to proceed. Written in english and readable for engineers, usually not
         suited for non technical stakeholders and not localized.
       example: Connection to database timed out
     instance:
