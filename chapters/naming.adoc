@@ -151,13 +151,21 @@ https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#serve
 
 
 [#136]
-== {MUST} normalize paths by removing duplicate and trailing slashes
+== {MUST} use normalized paths without empty path segments and trailing slashes
 
-To prevent ambiguities and simplify API monitoring trailing and duplicate
-slashes must not have any specific semantics in paths. Consequently, requests
-to a resource must deliver the same result, whether they contain trailing or
-duplicate slashes in their path or not. E.g. the following requests are
-required to provide the same resource:
+You must not specify paths with duplicate or trailing slashes, e.g.
+`/customers//addresses` or `/customers/`. As a consequence, you must also not
+specify or use path variables with empty string values.
+
+*Reasoning:* Non standard paths have no clear semantics. As a result, behavior
+for non standard paths varies between different HTTP infrastructure components
+and libraries. This may leads to ambiguous and unexpected results during
+request handling and monitoring.
+
+We recommend to implement services robust against clients not following this
+rule. All services *should* https://en.wikipedia.org/wiki/URI_normalization[normalize]
+request paths before processing by removing duplicate and trailing slashes.
+Hence, the following requests should refer to the same resource:
 
 [source,http]
 ----
@@ -167,8 +175,8 @@ GET /orders//{order-id}
 ----
 
 **Note:** path normalization is not supported by all framework out-of-the-box.
-API implementations are required to support at least the normalized path while
-rejecting all alternatives requests, if failing to deliver the same resource.
+Services are required to support at least the normalized path while rejecting
+all alternatives paths, if failing to deliver the same resource.
 
 
 [#137]
