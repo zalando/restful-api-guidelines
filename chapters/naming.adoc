@@ -129,9 +129,11 @@ on HTTP headers.
 == {MUST} pluralize resource names
 
 Usually, a collection of resource instances is provided (at least API
-should be ready here). The special case of a resource singleton is a
-collection with cardinality 1.
+should be ready here). The special case of a _resource singleton_ is a
+collection with cardinality 1 --  to be highlighted in the resource 
+definition description.
 
+**Exception:** The 'pseudo identifier' `self` is the only exception --  see <<143>>.
 
 [#135]
 == {SHOULD} not use /api as base path
