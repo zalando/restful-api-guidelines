@@ -158,8 +158,7 @@ cognitive overhead. It consists of a simple URI value in combination with the
 corresponding {link-relations}[link relations], e.g. {next}, {prev}, {first},
 {last}, or {self}.
 
-See <<simple-hypertext-control-fields>> and <<161>> for examples and more
-information.
+See <<164>> and <<161>> for more information and examples.
 
 
 [#166]
