@@ -85,7 +85,7 @@ consisting of <<241, compound keys>>.
 Some API resources may contain or reference sub-resources. Embedded
 sub-resources, which are not top-level resources, are parts of a higher-level
 resource and cannot be used outside of its scope. Sub-resources should be
-referenced by their identifier and name in the path segments as follows:
+referenced by their name and identifier in the path segments as follows:
 
 [source,http]
 ----
@@ -107,15 +107,16 @@ then, in principle, also `/partners/{partner-id}/addresses`, `/partners/{partner
 ----
 
 **Note:** resource identifiers may be build of multiple other resource
-identifiers -- see <<241>>.
+identifiers (see <<241>>).
 
-**Exception:** In some situations the id information is not passed 
-as a path segment but via context information, e.g. the authorization token. 
+**Exception:** In some situations the resource identifier is not passed 
+as a path segment but  via the authorization information, e.g. an 
+authorization token or session cookie.
 Here, it is reasonable to use **`self`** as _pseudo-identifier_ path segment. 
-For instance, you may define `/employee/self` or `/employee/self/personal-details` 
+For instance, you may define `/employees/self` or `/employees/self/personal-details` 
 as resource paths --  and may additionally define endpoints that support 
-identifier passing in the resource path, like define `/employee/{id}` 
-or `/employee/{id}/personal-details`.
+identifier passing in the resource path, like define `/employees/{id}` 
+or `/employees/{id}/personal-details`.
 
 
 [#241]
