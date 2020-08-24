@@ -135,7 +135,7 @@ be modeled as a collection with cardinality 1 including definition of
 to make the cardinality constraint explicit.
 
 **Exception:** the _pseudo identifier_ `self` used to specify a resource endpoint 
-where the resource identifier provided by authorization information (see <<143>>).
+where the resource identifier is provided by authorization information (see <<143>>).
 
 
 [#135]
