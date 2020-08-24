@@ -14,7 +14,6 @@ clean:
 
 pull:
 	docker pull $(DOCKER);
-	mkdir -p $(DIRBUILDS);
 
 check: check-rules
 check-rules: check-rules-duplicates check-rules-incorrects
@@ -40,7 +39,8 @@ next-rule-id:
 	echo $$(($$(echo $${RULE_IDS[0]} | tr -d '\[' | tr -d '\]' | tr -d '#') + 1));
 
 assets:
-	cp -r assets $(DIRBUILDS);
+	mkdir -p $(DIRBUILDS);
+	cp -r assets $(DIRBUILDS)/assets;
 	cp -r models/* $(DIRBUILDS);
 	cp -r -n legacy/* $(DIRBUILDS);
 
