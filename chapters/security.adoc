@@ -119,7 +119,7 @@ standard header so to say implicitly defined via the security section.
 [#225]
 == {MUST} follow naming convention for permissions (scopes)
 
-As long as the <<223,functional naming>> is not supported for permissions,
+As long as the <<223,functional naming>> is not yet supported by our permission registry,
 permission names in APIs must conform to the following naming pattern:
 
 [source,bnf]
