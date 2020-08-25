@@ -36,7 +36,7 @@ Strings are a reasonable target for values that are by design enumerations.
 
 Enum values (using `enum` or {x-extensible-enum}) need to consistently use the upper-snake case format, e.g. `VALUE` or `YET_ANOTHER_VALUE`. This approach allows to clearly distinguish values from properties or other elements.
 
-This does not apply where the actual exact values are coming from some outside source, e.g. for language codes from {ISO-639-1}[ISO 639-1], or when declaring possible values for a #137[`sort` parameter].
+**Note:** This does not apply where the actual exact values are coming from some outside source, e.g. for language codes from {ISO-639-1}[ISO 639-1], or when declaring possible values for a #137[`sort` parameter].
 
 [#216]
 == {SHOULD} define maps using `additionalProperties`
