@@ -128,9 +128,14 @@ on HTTP headers.
 [#134]
 == {MUST} pluralize resource names
 
-Usually, a collection of resource instances is provided (at least API
-should be ready here). The special case of a resource singleton is a
-collection with cardinality 1.
+Usually, a collection of resource instances is provided (at least the API 
+should be ready here). The special case of a _resource singleton_ must 
+be modeled as a collection with cardinality 1 including definition of 
+`maxItems` = `minItems` = 1 for the returned `array` structure 
+to make the cardinality constraint explicit.
+
+**Exception:** the _pseudo identifier_ `self` used to specify a resource endpoint 
+where the resource identifier is provided by authorization information (see <<143>>).
 
 
 [#135]
