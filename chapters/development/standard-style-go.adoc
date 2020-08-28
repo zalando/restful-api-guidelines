@@ -8,7 +8,7 @@ dennis.verweij@pon.com
 
 [#270]
 == {MUST} for linting we use golangci-lint in our CI/CD system
-In our IDE and CI flow we use golangci-lint as linter. golangci-lint has integrations with various CI systems and IDE's. golangci-lint runs the most important code checks by default. For a list of default and optional settings go to https://golangci-lint.run/usage/linters/
+In our IDE and CI flow we use golangci-lint as linter. Follow the link:https://golangci-lint.run/usage/install/[installation] steps for you system. Golangci-lint has link:https://golangci-lint.run/usage/integrations/[integrations] with various CI systems and IDE's. golangci-lint runs the most important code checks by link:https://golangci-lint.run/usage/linters/[default].
 In our CI/CD the default lint settings of golangci-lint are mandatory. 
 
 === Example linter implementation in Git Actions
@@ -37,7 +37,7 @@ We preferably configure our IDE to run go Vet on every save operation.
 
 [#273]
 == {MUST} go Vet is used to check go code for correctness in the build pipeline
-No code may be build without a code check.  
+No code may be build without a code check. This is done by default when rule <<270,270>> is applied.
 
 [#274]
 == {MUST} use tabs for indentation in Go
