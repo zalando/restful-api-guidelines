@@ -22,7 +22,7 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       # Runs a single command using the runners shell
-      - name: List files
-        run: ls -la
-      - name: Run a one-line script
-        run: sh $GITHUB_WORKSPACE/build.sh
+      - name: Build documentation
+        uses: Analog-inc/asciidoctor-action@master
+        with:
+          shellcommand: "asciidoctor -D /documents/output index.adoc"
