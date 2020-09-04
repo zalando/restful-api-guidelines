@@ -16,13 +16,15 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
+    container:
+      image: asciidoctor/docker-asciidoctor
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       # Runs a single command using the runners shell
       - name: Build documentation
-        uses: Analog-inc/asciidoctor-action@master
-        with:
-          shellcommand: "asciidoctor -D /documents/output index.adoc"
+        run: |
+          asciidoctor -D /documents/output index.adoc
+          asciidoctor-pdf -D /documents/output index.adoc
+          asciidoctor-epub3 -D /documents/output index.adoc
