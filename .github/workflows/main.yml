@@ -23,6 +23,6 @@ jobs:
       - uses: actions/checkout@v2
       # Runs a single command using the runners shell
       - name: List files
-        run: ls
+        run: ls -la
       - name: Run a one-line script
         run: sh $GITHUB_WORKSPACE/build.sh
