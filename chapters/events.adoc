@@ -872,13 +872,15 @@ conform to the functional naming depending on the <<219, audience>> as follows:
 ----
 <event-type-name>       ::= <functional-event-name> | <application-event-name>
 
-<functional-event-name> ::= <functional-name>.<event-name>
+<functional-event-name> ::= <functional-name>.<event-name>[.<version>]
 
 <event-name>            ::= [a-z][a-z0-9-]* -- free event name (functional name)
+
+<version>               ::= V[0-9.]* -- major version of non compatible schemas
 ----
 
-The following application specific legacy convention is *only* allowed for
-<<223, internal>> event type names:
+*Hint:* The following convention (e.g. used by legacy STUPS infrastructure) is deprecated 
+and *only* allowed for <<223, internal>> event type names:
 
 [source,bnf]
 ----
