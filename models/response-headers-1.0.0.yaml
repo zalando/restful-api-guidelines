@@ -35,23 +35,3 @@ ETag:
   schema:
     type: string
     example: W/"xy", "5", "5db68c06-1a68-11e9-8341-68f728c1ba70"
-
-If-Match:
-  in: header
-  name: If-Match
-  description: >
-    The RFC7232 If-Match header field in a request requires the server to only operate on the resource
-    that matches at least one of the provided entity-tags.
-  schema:
-    type: string
-    example: "5", "7da7a728-f910-11e6-942a-68f728c1ba70"
-
-If-None-Match:
-  in: header
-  name: If-None-Match
-  description: >
-    The RFC7232 If-None-Match header field in a request requires the server to only operate on the
-    resource if it does not match any of the provided entity-tags
-  schema:
-    type: string
-    example: "7da7a728-f910-11e6-942a-68f728c1ba70", *

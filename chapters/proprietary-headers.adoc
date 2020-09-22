@@ -97,12 +97,21 @@ disables it in the settings for respective mobile platform.
 *Exception:* The only exception to this guideline are the conventional
 hop-by-hop `X-RateLimit-` headers which can be used as defined in <<153>>.
 
-All proprietary headers can also be referenced as pre defined parameters e.g.
+As part of the guidelines we sourced the OpenAPI definition of all proprietary headers;
+you can simply reference it when defining the API endpoint requests e.g.
 [source,yaml]
 ----
 parameters:
 - $ref: "https://opensource.zalando.com/restful-api-guidelines/models/request-headers-1.0.0.yaml#/X-Flow-ID"
 - $ref: "https://opensource.zalando.com/restful-api-guidelines/models/request-headers-1.0.0.yaml#/X-Tenant-ID"
+----
+
+Response headers can be referenced in the API endpoint e.g.
+[source,yaml]
+----
+parameters:
+- $ref: "https://opensource.zalando.com/restful-api-guidelines/models/response-headers-1.0.0.yaml#/ETag"
+- $ref: "https://opensource.zalando.com/restful-api-guidelines/models/response-headers-1.0.0.yaml#/Cache-Control"
 ----
 
 *Hint:* This guideline does not standardize proprietary headers for 
