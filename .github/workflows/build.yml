@@ -12,21 +12,11 @@ jobs:
   build_docs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    container:
-      image: asciidoctor/docker-asciidoctor
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - uses: actions/checkout@v2
       # Runs a single command using the runners shell
       - name: Build documentation
         run: |
-          asciidoctor -D output index.adoc
-          asciidoctor-pdf -D output index.adoc
-          asciidoctor-epub3 -D output index.adoc
-      - name: Copy files
-        run: |
-          cp models/money-1.0.0.yaml output/
-          cp -r assets output/
-          cp -r -n legacy/* output/
-      - name: Generate rules file
-        run: ./generate_rules_json.sh
+          make check-rules > check-rule-ids.log
+          make all
