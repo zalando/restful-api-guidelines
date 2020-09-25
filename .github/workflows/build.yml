@@ -1,5 +1,3 @@
-# This is a basic workflow to help you get started with Actions
-
 name: Build
 
 # Controls when the action will run. Triggers the workflow on push or pull request
@@ -11,7 +9,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build:
+  build_docs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     container:
@@ -25,3 +23,10 @@ jobs:
           asciidoctor -D output index.adoc
           asciidoctor-pdf -D output index.adoc
           asciidoctor-epub3 -D output index.adoc
+      - name: Copy files
+        run: |
+          cp models/money-1.0.0.yaml output/
+          cp -r assets output/
+          cp -r -n legacy/* output/
+      - name: Generate rules file
+        run: ./generate_rules_json.sh
