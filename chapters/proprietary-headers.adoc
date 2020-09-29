@@ -49,14 +49,14 @@ For more information see <<233>>.
 Identifies the tenant initiated the request
 to the multi tenant Zalando Platform. The {X-Tenant-ID} must be set 
 according to the Business Partner ID extracted from the OAuth token when 
-a request from a Business Partner hits the Zalando Platform. 
+a request from a Business Partner hits the Zalando Platform.
 |9f8b3ca3-4be5-436c-a847-9cd55460c495
 
 |[[x-sales-channel]]{X-Sales-Channel}|String|
 Sales channels are owned by retailers and represent a specific consumer segment
 being addressed with a specific product assortment that is offered via CFA
 retailer catalogs to consumers (see
-https://digital-experience.docs.zalando.net/glossary/glossary.html[fashion platform glossary (internal link)])
+https://digital-experience.docs.zalando.net/glossary/glossary.html[fashion platform glossary (internal link)]).
 |52b96501-0f8d-43e7-82aa-8a96fab134d7
 
 |[[c-frontend-type]]{X-Frontend-Type}|String|
@@ -64,7 +64,7 @@ Consumer facing applications (CFAs) provide business experience to their
 customers via different frontend application types, for instance, mobile app
 or browser. Info should be passed-through as generic aspect -- there are
 diverse concerns, e.g. pushing mobiles with specific coupons, that make use of
-it. Current range is mobile-app, browser, facebook-app, chat-app
+it. Current range is mobile-app, browser, facebook-app, chat-app.
 |mobile-app
 
 |[[x-device-type]]{X-Device-Type}|String|
@@ -96,6 +96,23 @@ disables it in the settings for respective mobile platform.
 
 *Exception:* The only exception to this guideline are the conventional
 hop-by-hop `X-RateLimit-` headers which can be used as defined in <<153>>.
+
+As part of the guidelines we sourced the OpenAPI definition of all proprietary headers;
+you can simply reference it when defining the API endpoint requests e.g.
+[source,yaml]
+----
+parameters:
+- $ref: "https://opensource.zalando.com/restful-api-guidelines/models/request-headers-1.0.0.yaml#/X-Flow-ID"
+- $ref: "https://opensource.zalando.com/restful-api-guidelines/models/request-headers-1.0.0.yaml#/X-Tenant-ID"
+----
+
+Response headers can be referenced in the API endpoint e.g.
+[source,yaml]
+----
+parameters:
+- $ref: "https://opensource.zalando.com/restful-api-guidelines/models/response-headers-1.0.0.yaml#/ETag"
+- $ref: "https://opensource.zalando.com/restful-api-guidelines/models/response-headers-1.0.0.yaml#/Cache-Control"
+----
 
 *Hint:* This guideline does not standardize proprietary headers for 
 our specific gateway components (2. use case above). 
