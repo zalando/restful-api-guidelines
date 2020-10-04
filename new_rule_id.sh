@@ -6,6 +6,6 @@ rule_ids=()
 
 
 IFS=$'\r\n' GLOBIGNORE='*' command eval "rule_ids=($(grep -r -h '^.*\[#[0-9]\{1,5\}.*$' ${CONTENT_DIR} | sort -r))"
-last_used_rule_id=`echo ${rule_ids[0]} | tr -d '\[' | tr -d '\]' | tr -d '#'`
+last_used_rule_id=`echo ${rule_ids[0]} | tr -d '\[' | tr -d '\]' | tr -d 'S' | tr -d '#'`
 
 echo $((last_used_rule_id +1 ))

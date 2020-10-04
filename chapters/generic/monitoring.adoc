@@ -1,4 +1,34 @@
 [[monitoring]]
 = Monitoring
 
-This section descibes the generic guidelines for monitoring.
+Monitoring of systems is based on KPIs set by the business
+
+[#275]
+== {STATUS-RFP} {MUST} have predefined monitoring based KPIs
+
+All systems must have predifined KPIs on which the monitoring is to be based.
+These KPIs are the foundation for the monitoring of the infrastructure
+components.
+
+For example: a website should have KPIs indicating response time and uptime. A
+low response time will require a fast scaling infrastructure and monitoring will
+have to be setup accordingly. A high uptime will require fast responding
+infrastructure monitoring.
+
+[#273]
+== {STATUS-RFP} {MUST} be able monitor operational state using automated tools
+
+All systems must have capabilities to allow itself to be monitored in an
+automated way and respond unambigous about the current operational state.
+
+[#274]
+== {STATUS-RFP} {SHOULD} be able to report detailed relevant operational states
+
+All systems should be able to report its operational state with enough detail
+for operational and support teams to take preventive measures. Basic reporting
+of "up" and "down" is not sufficient. 
+
+For example: system response time should be reported in milliseconds instead of
+"oke" and "not oke", allowing the business to set guidelines for the operational
+teams when to respond and take measures before the response time degrades to a
+level it will impact the effectiveness of its users.

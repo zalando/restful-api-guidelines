@@ -249,6 +249,8 @@ include::chapters/generic/onboarding.adoc[]
 include::chapters/generic/architecture.adoc[]
 include::chapters/generic/intellectual-property.adoc[]
 
+include::chapters/generic/checklist.adoc[]
+
 :leveloffset: -1
 
 = Integration guidelines
