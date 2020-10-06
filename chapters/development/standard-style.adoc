@@ -125,11 +125,12 @@ text = 'The quick brown "fox" jumped over the lazy dog'
 * <<development-rules-definitions>>, <<254>>
 
 [#257]
-== {MUST} never use tabs for indentation
+== {SHOULD} never use tabs for indentation
 
 {LANG-ALL-ICON}
 
-Tabs are never to be used for indentation.
+Tabs are hould never be used for indentation. A notable exception is Go where
+tabs are a language default.
 
 === References
 
