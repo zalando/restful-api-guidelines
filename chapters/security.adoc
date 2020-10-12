@@ -1,5 +1,5 @@
-[[security]]
-= Security
+[[security and privacy]]
+= Security and Privacy
 
 
 [#104]
@@ -170,5 +170,14 @@ permissions names of <<223, internal>> APIs:
 <application-id>      ::= [a-z][a-z0-9-]*  -- application identifier
 
 -----
-
 ////
+
+
+[#226]
+== {MUST} Not contain any personal data in the URL
+ 
+Personal data such as identifiers, names, addresses, order numbers, etc. as defined by GDPR
+regulations must not be part of any URL, either as part of the path or the GET parameter.
+URLs are sometimes logged for debugging, performance analysis, and other analytics purposes,
+which must not contain personal data. Instead of putting personal data in the URL, use the
+POST method to deliver the needed personal data to the endpoint.
