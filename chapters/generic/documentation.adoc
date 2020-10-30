@@ -4,7 +4,7 @@
 This section descibes the generic guidelines for documentation.
 
 [#268]
-== {MUST} include comment saying what the tool is for
+== {MUST} include documentation comment saying what the tool is for
 
 Every tool, program or integration must include a comment, either in a file or
 in the source briefly indicating the purpose.
@@ -12,6 +12,12 @@ in the source briefly indicating the purpose.
 If the comment is included in the source, it is preferred to be included in the
 file containing the main function
 
+[#272]
+== {MUST} include monitoring documentation
+
+Every tool, program or integration must include a comment, either in a file or
+in the source inidicating how the software operational state can be checked or
+monitored by automated systems.
 
 === References
 

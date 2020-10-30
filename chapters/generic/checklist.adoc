@@ -1,0 +1,9 @@
+[[checklist]]
+= Checklist
+
+- License files checked and added to project <<260S>>?
+- All resources in U.S. English <<103>>?
+- <<documentation,Documentation>> available?
+- <<security,Security>> guidelines and standards checked?
+- <<monitoring,Monitoring>> documented, KPIs discussed and setup with ops team?
+- <<testing,Testing>> automated and results readily available?

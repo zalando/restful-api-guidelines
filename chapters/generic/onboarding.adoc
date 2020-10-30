@@ -1,6 +1,8 @@
 [[onboarding]]
 = Onboarding
 
+Onboarding of new developers for Pon or onboarding for new developers in a
+project.
 
 [#250]
 == {STATUS-RFP} {MUST} include guidelines in onboarding procedure

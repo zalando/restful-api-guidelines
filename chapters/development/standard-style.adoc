@@ -10,6 +10,8 @@ Based on <<standardJs>>, <<googleStyleguideJs>>, <<phpStandards>>,
 [#267]
 == {MUST} encapsulate body of if or else
 
+{LANG-JAVASCRIPT-ICON} {LANG-TYPESCRIPT-ICON} {LANG-PHP-ICON} {LANG-GO-ICON}
+
 The body of an if or else must be encapsulated it increases readability and
 decreases the introduction of bugs.
 
@@ -44,10 +46,6 @@ if (a < b) {
 load(b)
 ----
 
-=== Languages
-
-{LANG-JAVASCRIPT-ICON} {LANG-TYPESCRIPT-ICON} {LANG-PHP-ICON} {LANG-GO-ICON}
-
 [#269]
 == {SHOULD} order if statements by increased complexity
 
@@ -80,6 +78,8 @@ if (invoicePaid) {
 
 [#253]
 == {MUST} use special quotes only to reduce complexity
+
+{LANG-JAVASCRIPT-ICON} {LANG-TYPESCRIPT-ICON} {LANG-PHP-ICON}
 
 In most programming languages several options are available for the quoting of
 text, in the following examples Javascript style quoting is used which is
@@ -117,10 +117,6 @@ The code is correct, but readability is improved by switching to single quotes:
 text = 'The quick brown "fox" jumped over the lazy dog'
 ----
 
-=== Languages
-
-{LANG-JAVASCRIPT-ICON} {LANG-TYPESCRIPT-ICON} {LANG-PHP-ICON}
-
 === References
 
 * <<googleStyleguideJs>>, link:https://google.github.io/styleguide/jsguide.html#features-strings-use-single-quotes[Use single quotes]
@@ -129,13 +125,12 @@ text = 'The quick brown "fox" jumped over the lazy dog'
 * <<development-rules-definitions>>, <<254>>
 
 [#257]
-== {MUST} never use tabs for indentation
-
-Tabs are never to be used for indentation.
-
-=== Languages
+== {SHOULD} never use tabs for indentation
 
 {LANG-ALL-ICON}
+
+Tabs are hould never be used for indentation. A notable exception is Go where
+tabs are a language default.
 
 === References
 
@@ -149,22 +144,13 @@ Tabs are never to be used for indentation.
 [#251]
 == {MUST} use predefined spacing for indentation 
 
+{LANG-ALL-ICON}
+
 Using predefined spacing for indentation results in clear readable code without
 sacrificing too much screen real estate; <<257>>.
 
 When using multiple languages a single project it is preferred to use the same
 indent for all languages involved.
-
-=== Languages
-
-==== {MUST} Spacing: 2
-{LANG-JAVASCRIPT-ICON} {LANG-TYPESCRIPT-ICON} 
-
-==== {SHOULD} Spacing: 2
-{LANG-PHP-ICON}
-
-==== {MAY} Spacing: 4
-{LANG-PHP-ICON}
 
 === References
 
@@ -177,14 +163,12 @@ indent for all languages involved.
 [#265]
 == {SHOULD} check return types of non-void functions
 
+{LANG-ALL-ICON}
+
 Return values of functions should not be ignored, especially if error return
 values must be propagated up the function call chain. By checking return types
 exception justification is enforced, which will result in increased code
 stability.
-
-=== Languages
-
-{LANG-ALL-ICON}
 
 == References
 
@@ -193,6 +177,8 @@ stability.
 
 [#266]
 == {SHOULD} check the validity of parameters inside each function
+
+{LANG-ALL-ICON}
 
 Input parameters should not be assumed to be valid; by checking the validity
 code stability is increased.
@@ -219,10 +205,6 @@ function startsWith(string, target, position) {
 Note the majority of the code in example 1 is about checking the input
 parameters. 
 
-=== Languages
-
-{LANG-ALL-ICON}
-
 === References
 
 * <<nasa-safety-code>>, Rule 7
@@ -232,12 +214,10 @@ parameters.
 [#256]
 == {MUST} not have unused variables
 
+{LANG-ALL-ICON}
+
 All variables are in use, unused variables have no function and are cluttering
 the code.
-
-=== Languages
-
-{LANG-ALL-ICON}
 
 === References
 
@@ -248,16 +228,16 @@ the code.
 [#262]
 == {SHOULD} use < or > instead of +<=+ or >=
 
+{LANG-ALL-ICON}
+
 Using < is preferred over using +<=+, using > is preferred over using >=. It 
 improves readability and performance of code.
-
-=== Languages
-
-{LANG-ALL-ICON}
 
 
 [#263]
 == {SHOULD} use != instead of > or < when only a single value results in false
+
+{LANG-ALL-ICON}
 
 If a return value always results in true except for a single value using != is
 preferred over using > or >=.
@@ -282,9 +262,6 @@ languages = ['NL', 'FR', 'BE'];
 if (languages.indexOf('BE') != -1)
 ----
 
-=== Languages
-
-{LANG-ALL-ICON}
 
 
 

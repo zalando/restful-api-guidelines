@@ -2,3 +2,46 @@
 = Security
 
 This section descibes the generic guidelines for security.
+
+Security and Privacy within Pon is being managed by the Pon Security & Privacy
+Office. All Pon Business Clusters have a dedicated Group
+https://ponintranet.com/profiel/security-privacy/security-privacy-whos-who/[Security
+and Privacy Manager]. 
+
+Additional resources
+
+- https://ponintranet.com/profiel/security-privacy/privacy-by-design/[Pon Security & Privacy by Design Process - Step by Step]
+- https://drive.google.com/drive/folders/1319i3ttsMzCbGk18u0D5ptkpCeacXYOG[Data classification and corresponding security measures]
+
+[#277S]
+== {STATUS-RFP} {MUST} be compliant with the Pon Security Policy and Principles
+
+All systems must be complaint with the
+https://ponintranet.com/en/about-pon/security-privacy/pon-security-policy/[Pon
+Security Policy and Principles]
+
+[#278S]
+== {STATUS-RFP} {MUST} be compliant with Binding Corporate Rules and local privacy legislation
+
+All systems must be compliant with
+https://www.youtube.com/watch?v=Dx4mlAuFp9Q&feature=youtu.be[Binding Corportate
+Rules] and local privacy legislation such as GDPR or CCPA.
+
+[#279S]
+== {STATUS-RFP} {MUST} have performed a Security & Privacy intake
+
+Must have have performed a Security & Privacy intake. When the requirements for
+the new system are clear, the Pon Security & Privacy by Design Process must be
+triggered via completing the
+https://ponintranet.com/en/about-pon/security-privacy/privacy-by-design/[Security
+& Privacy by Design Intake Form]. The intake process is there to help you create
+APIs that are secure and privacy compliant and friendly. Your Group Security and
+Privacy manager will contact you to discuss the intake.
+
+[#280S]
+
+== {STATUS-RFP} {MUST} have the agreed security and privacy measures approved
+
+Must have the agreed security and privacy measures approved by Security and/or
+Privacy Manager before going live
+ 
