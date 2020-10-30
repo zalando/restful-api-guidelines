@@ -241,6 +241,7 @@ include::chapters/introduction.adoc[]
 
 include::chapters/generic/guilds.adoc[]
 include::chapters/generic/monitoring.adoc[]
+include::chapters/generic/testing.adoc[]
 include::chapters/generic/security.adoc[]
 include::chapters/generic/privacy.adoc[]
 include::chapters/generic/documentation.adoc[]
@@ -248,6 +249,8 @@ include::chapters/generic/documentation.adoc[]
 include::chapters/generic/onboarding.adoc[]
 include::chapters/generic/architecture.adoc[]
 include::chapters/generic/intellectual-property.adoc[]
+
+include::chapters/generic/checklist.adoc[]
 
 :leveloffset: -1
 

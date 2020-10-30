@@ -28,6 +28,10 @@ development: quantify the software's quality and robustness in an automated,
 consistent manner; be aware of the quality and robustness and decide upon the
 required level.
 
+Moreover this document contains several standards regarding intellectual
+property (IP) and security. In order to assure correct undisputed ownership of
+the software and maintain a security baseline.
+
 In the following chapters software refers both to software and software
 integrations.
 
@@ -153,7 +157,9 @@ available, it has to be re-reviewed and changed according to current guidelines
 === Automated code style checking (linting)
 
 Digital Solutions will provide a preferred code style configuration per language
-which can be retrieved from the repository of this document.
+or application which can be retrieved from the repository of this document.
+
+Code styles are approved and maintained by the software development guild.
 
 
 [[guidelines-and-standards]]
