@@ -3,3 +3,205 @@
 = Pon Standard Style - Go
 
 {PATRON} Dennis Verweij
+
+dennis.verweij@pon.com
+
+[#270]
+== {MUST} for linting we use golangci-lint in our CI/CD system
+In our IDE and CI flow we use golangci-lint as linter. Follow the link:https://golangci-lint.run/usage/install/[installation] steps for you system. Golangci-lint has link:https://golangci-lint.run/usage/integrations/[integrations] with various CI systems and IDE's. golangci-lint runs the most important code checks by link:https://golangci-lint.run/usage/linters/[default].
+In our CI/CD the default lint settings of golangci-lint are mandatory. 
+
+=== Example linter implementation in Git Actions
+[source,yaml]
+----
+qacheck:
+    name: Run go tests
+    runs-on: ubuntu-latest
+    steps:
+    - name: Set up Go 1.x
+      uses: actions/setup-go@v2
+      with:
+        go-version: ^1.13
+      id: go
+    - name: Check out code into the Go module directory
+      uses: actions/checkout@v2
+    - name: golangci-lint
+      uses: golangci/golangci-lint-action@v1
+      with:
+        version: v1.29 
+----
+
+[#271]
+== {SHOULD} go Vet is used to check go code for correctness in the development process
+We preferably configure our IDE to run go Vet on every save operation.  
+
+[#273]
+== {MUST} go Vet is used to check go code for correctness in the build pipeline
+No code may be build without a code check. This is done by default when rule <<270,270>> is applied.
+
+[#274]
+== {MUST} use tabs for indentation in Go
+Unlike the development guidelines for other languages in Go we use tabs for indentation. To improve formatting of code we use gofmt to automatically format go code in de IDE. 
+
+[#275]
+== {MUST} use gofmt in the IDE for automatic formatting 
+In Go you don't worry about formatting yourself and use gofmt for automatic formating. Gofmt directions are leading. 
+
+[#276]
+== {SHALL} every function is commented
+In Go exported functions must be commented and is enforced by linting. Comments on unexported functions are not enforced by linting, but improve readablity of the code. 
+
+[#277]
+== {MUST} single line multiple declarations are not used
+For readability only one variable is declared in a single line
+
+=== Example 1 Invalid declaration
+
+[source,go]
+----
+var valid, found, required bool
+----
+=== Example 2 Valid declaration
+
+[source,go]
+----
+var valid bool
+var found bool
+var required bool
+----
+
+[#278]
+== {MUST} we do not try and catch exceptions. Errors are values and we handle errors
+In some languages try/catch statements are used. Go does not have that method and we do not try to mimic it. Instead we handle the errors and the errors are just values. You need to assess the value and act upon it. 
+
+[#279]
+== {MUST} errors are handle only once.
+We handle errors only once. 
+
+=== Don't do
+Double logs for the same error.
+[source,go]
+----
+func doSomething(val string) (string, error){
+    // Do something with val that results in a doneValue and an error value
+    if err != nil {
+        log.Error(err)
+        return doneValue,err
+    }
+    return doneValue, nil
+}
+
+func something(){
+    val := "some stuff"
+    result, err := doSomething(val)
+    if err != nil {
+        log.Error(err)
+        // Handle the error
+    }
+}
+----
+
+=== Better
+
+[source,go]
+----
+func doSomething(val string) (string, error){
+    // Do something with val that results in a doneValue and an error value
+    return doneValue, err
+}
+
+func something() {
+    val := "some stuff"
+    result, err := doSomething(val)
+    if err != nil {
+        log.Error(err)
+        // Handle the error
+    }
+}
+----
+
+=== We can also include the stacktrace in the logging
+The package github.com/pkg/errors gives more options than the default errors package. You can log the stacktrace.
+[source,go]
+----
+import (
+    "github.com/pkg/errors"
+    log "github.com/sirupsen/logrus"
+)
+func doSomething(val string) (string, error){
+    // Do something with val that results in a doneValue and an error value
+    return doneValue, err
+}
+
+func something() {
+    val := "some stuff"
+    result, err := doSomething(val)
+    if err != nil {
+        log.Errorf("%+v", err)
+        // Handle the error
+    }
+}
+
+----
+
+
+[#280]
+== {SHOULD} add context to errors when they are meaningless in the context of the (final) receiver.
+When errors are passed it might eventualy be unclear what the origin of the error is. You can pass context to it, but be carefull with fmt.Errorf(), because that will override the initial error with just a string.
+
+=== Passing through context of the error with fmt.Errorf()
+Using fmt.ErrorF() overwrites the error and returns just a string. Sometimes it's just fine, but be aware of the consequences
+[source,go]
+----
+import (
+    log "github.com/sirupsen/logrus"
+)
+func doSomething(val string) (string, error){
+    // Do something with val that results in a doneValue and an error value
+    if err != nil {
+        err = fmt.Errorf("Something whent wrong processing %s: %v", val, err)
+    }
+    return doneValue, err
+}
+
+func something() {
+    val := "some stuff"
+    result, err := doSomething(val)
+    if err != nil {
+        log.Errorf("%+v", err)
+        // Handle the error
+    }
+}
+
+----
+
+This will return : overwritten error: test
+The stacktrace is gone
+
+=== Better -> Passing through context of the error with errors.Wrap() from the "github.com/pkg/errors" package
+Using errors.Wrap() adds your context to the error stack
+[source,go]
+----
+import (
+    "github.com/pkg/errors"
+    log "github.com/sirupsen/logrus"
+)
+func doSomething(val string) (string, error){
+    // Do something with val that results in a doneValue and an error value
+    if err != nil {
+        err = errors.Wrap(err, "Something whent wrong processing")
+    }
+    return doneValue, err
+}
+
+func something() {
+    val := "some stuff"
+    result, err := doSomething(val)
+    if err != nil {
+        log.Errorf("%+v", err)
+        // Handle the error
+    }
+}
+
+----
+
