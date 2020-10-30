@@ -36,7 +36,7 @@ developer^<<245,245>>^ and taking into account the lifetime, quality, security
 and the business impact^<<246,246>>^ of the application.
 
 There is a clear relationship between the amount of bugs in the code and the
-development effort required, needlessly complex unlogical code will in itself be
+development effort required, needlessly complex illogical code will in itself be
 a source of new bugs. Moreover clear documentation and requirements from the
 business are the only solid foundation for software development.
 
