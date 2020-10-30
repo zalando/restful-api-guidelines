@@ -4,10 +4,31 @@
 [#260S]
 == {STATUS-RFP} {MUST} include project wide license file
 
-Each project must include a Pon approved license file.
+The source code of each project must include a Pon approved license file.
+
+{CODE-START}
+/**
+ * Copyright (C) Pon Holding - All Rights Reserved
+ */
+{CODE-END}
 
 [#261]
 == {STATUS-RFP} {MUST} include copyright notice in each source file
 
-All applicable files must contain a Pon approved copyright notice and a
-reference to the project license file.
+All applicable source files must contain a Pon approved copyright notice at the
+start of the file and a reference to the project license file.
+
+Example:
+
+{CODE-START}
+/**
+ * Copyright (C) Pon Holding - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential 
+ *
+ * This file is subject to the terms and conditions defined in
+ * file 'LICENSE.txt', which is part of this source code package.
+ *
+ * Written by Pon Employee <pon.employee@pon.com>, September 2020
+ */
+{CODE-END}

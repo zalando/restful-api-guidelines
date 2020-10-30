@@ -6,3 +6,4 @@
 - <<documentation,Documentation>> available?
 - <<security,Security>> guidelines and standards checked?
 - <<monitoring,Monitoring>> documented, KPIs discussed and setup with ops team?
+- <<testing,Testing>> automated and results readily available?
