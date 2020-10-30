@@ -7,4 +7,11 @@
 The linter configuration is selected from <<solution-architecture-repository,
 the solution architecture repository>>.
 
+[#284]
+== {MUST} use automated tests based on approved testing template
 
+Code changes must be covered by automated tests. When choosing how to cover your changes, pick the most lightweight (execution time wise) test type that will provide sufficient coverage. If you encounter an existing test that insufficiently covers your changes, you can delete that test but you must write a proper test to replace it. For example, a method that interacts with database has a unit test. You can replace it with an integration test.
+
+Be aware that while high-level tests may provide coverage to code, it is only indirect coverage. Tests with more direct usage of the changed code will likely still needs to be written to ensure that regardless of the which components are actually used in the black box, the individual components still have coverage.
+
+These tests must test the concrete implementation’s behavior in a way that can not be inadvertently changed outside of the test itself.

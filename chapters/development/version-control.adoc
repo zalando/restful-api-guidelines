@@ -10,7 +10,7 @@ Relates to <<244>>.
 
 === Review guidelines
 
-* Start reviewing only if the author approved the pull request (PR). 
+* Start reviewing only if the author approved the pull request (PR) and the pipeline passed the linting and automated tests.
 * A review will always result in either an approved or declined PR.
 * A declined PR must be recreated, preferably by the author, when issues have
 been addressed. 
