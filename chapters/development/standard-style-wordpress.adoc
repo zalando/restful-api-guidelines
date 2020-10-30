@@ -1,5 +1,5 @@
 [[appendix-standard-style-wordpress]]
 [appendix]
-= Pon Standard Style - Wordpress
+= Pon Standard Style - WordPress
 
 {PATRON} Roy van der Loo
