@@ -13,18 +13,14 @@ concluded and at least 2 reviewers gave their approvals.
 When your pull request does major changes, please also add an entry to
 the changelog.
 
-== Rule Id
+== Rule IDs
 
-Each of the rules has an unique Id. Rule Id is immutable and durable. It
-doesn't change until the content of the rule changes significantly.
+Each of the rules has an unique ID. A Rule ID is immutable and durable. It
+doesn't change until the content of the rule changes significantly so that
+it does not make sense to identify it with the old Rule ID.
 
-In order to ensure the uniqueness of the Ids you can use
-link:./check_uniqueness_of_rule_ids.sh[this script]. Preferably, you add this script
-as a `pre-commit` hook to your local repository:
+In order to ensure the uniqueness of the IDs you can use `make check-rules`.
+Preferably, you add this command as a `pre-commit` hook to your local
+repository.
 
-[source,bash]
-----
-cp check_uniqueness_of_rule_ids.sh .git/hooks/pre-commit
-----
-
-To generate a new unique (unused) Rule Id simply run `./new_rule_id.sh`.
+To generate a new unique Rule ID simply run `make next-rule-id`.
