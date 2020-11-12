@@ -29,7 +29,7 @@ published can then be validated against the overall structure of its
 event type and the schema for its custom data.
 
 The basic model described above was originally developed in the
-https://github.com/zalando/nakadi[Nakadi project], which acts as a
+https://github.com/cloudevents/spec/blob/v1.0/spec.md[CloudEvents], which acts as a
 reference implementation of the event type registry, and as a validating
 publish/subscribe broker for event producers and consumers.
 
@@ -166,152 +166,73 @@ EventType:
     fields are the minimum set the creator of an event type is expected to
     supply.
   required:
-    - name
-    - category
-    - owning_application
-    - schema
+    - specversion
+    - type
+    - source
+    - subject
   properties:
-    name:
+    specversion:
       description: |
-        Name of this EventType. The name must follow the functional naming
-        pattern `<functional-name>.<event-name>` to preserve global
-        uniqueness and readability.
+        The version of the CloudEvents specification which the event uses. This enables the interpretation of the context. 
+        Compliant event producers MUST use a value of '1.0' when referring to this version of the specification.
       type: string
-      pattern: '[a-z][a-z0-9-]*\.[a-z][a-z0-9-]*'
+      pattern: '[0-9].[0-9]'
       example: |
-        transactions.order.order-cancelled
-        customer.personal-data.email-changed
-    audience:
-      type: string
-      x-extensible-enum:
-        - component-internal
-        - business-unit-internal
-        - company-internal
-        - external-partner
-        - external-public
+        1.0
+        1.1
+        2.0
+    type: 
       description: |
-        Intended target audience of the event type, analogue to audience definition for REST APIs 
-        in rule #219 https://github.com/PonDigitalSolutions/restful-api-guidelines
-    owning_application:
+        timestamp
+      type: string
+      example: |
+        com.github.pull.create
+        exactonline.order.update
+        com.swapfiets.order.create
+        com.gazelle.delivery.update
+    source:
       description: |
-        Name of the application (eg, as would be used in infrastructure
-        application or service registry) owning this `EventType`.
+        timestamp
       type: string
-      example: price-service
-    category:
-      description: Defines the category of this EventType.
-      type: string
-      x-extensible-enum:
-        - data
-        - general
-    compatibility_mode:
+      example: |
+        https://github.com/pondigitalsolutions/spec/pull
+        https://api.products.gazelle.com/v2/product
+    subject:
       description: |
-        The compatibility mode to evolve the schema.
+        This describes the subject of the event in the context of the event producer (identified by the 'source'). 
+        Usually a Uniqueidentifier or a unique value to identify the object mentioned in the context.
       type: string
-      x-extensible-enum:
-        - compatible
-        - forward
-        - none
-      default: forward
-    schema:
-      description: The most recent payload schema for this EventType.
-      type: object
-      properties:
-        version:
-          description: Values are based on semantic versioning (eg "1.2.1").
-          type: string
-          default: '1.0.0'
-        created_at:
-          description: Creation timestamp of the schema.
-          type: string
-          readOnly: true
-          format: date-time
-          example: '1996-12-19T16:39:57-08:00'
-        type:
-          description: |
-             The schema language of schema definition. Currently only
-             json_schema (JSON Schema v04) syntax is defined, but in the
-             future there could be others.
-          type: string
-          x-extensible-enum:
-            - json_schema
-        schema:
-          description: |
-              The schema as string in the syntax defined in the field type.
-          type: string
-      required:
-        - type
-        - schema
-    ordering_key_fields:
-      type: array
+      example: |
+        54654348
+        product-1234
+        XV-st2315-M
+        10.7364-364.R
+    id:
       description: |
-        Indicates which field is used for application level ordering of events.
-        It is typically a single field, but also multiple fields for compound
-        ordering key are supported (first item is most significant).
-
-        This is an informational only event type attribute for specification of
-        application level ordering. Nakadi transportation layer is not affected,
-        where events are delivered to consumers in the order they were published.
-
-        Scope of the ordering is all events (of all partitions), unless it is
-        restricted to data instance scope in combination with
-        `ordering_instance_ids` attribute below.
-
-        This field can be modified at any moment, but event type owners are
-        expected to notify consumer in advance about the change.
-
-        *Background:* Event ordering is often created on application level using
-        ascending counters, and data providers/consumers do not need to rely on the
-        event publication order. A typical example are data instance change events
-        used to keep a slave data store replica in sync. Here you have an order
-        defined per instance using data object change counters (aka row update
-        version) and the order of event publication is not relevant, because
-        consumers for data synchronization skip older instance versions when they
-        reconstruct the data object replica state.
-
-      items:
-        type: string
-        description: |
-          Indicates a single ordering field. This is a JsonPointer, which is applied
-          onto the whole event object, including the contained metadata and data (in
-          case of a data change event) objects. It must point to a field of type
-          string or number/integer (as for those the ordering is obvious).
-
-          Indicates a single ordering field. It is a simple path (dot separated) to
-          the JSON leaf element of the whole event object, including the contained metadata and data (in
-          case of a data change event) objects. It must point to a field of type
-          string or number/integer (as for those the ordering is obvious), and must be
-          present in the schema.
-        example: "data.order_change_counter"
-    ordering_instance_ids:
-      type: array
+        This is the uniqueidentifier of the event message. 
+      type: string
+      example: |
+        1234-1324-1234-1234
+        A1342-376-97245-0.1
+    time: 
       description: |
-        Indicates which field represents the data instance identifier and scope in
-        which ordering_key_fields provides a strict order. It is typically a single
-        field, but multiple fields for compound identifier keys are also supported.
-
-        This is an informational only event type attribute without specific Nakadi
-        semantics for specification of application level ordering. It only can be
-        used in combination with `ordering_key_fields`.
-
-        This field can be modified at any moment, but event type owners are expected
-        to notify consumer in advance about the change.
-      items:
-        type: string
-        description: |
-          Indicates a single key field. It is a simple path (dot separated) to the JSON
-          leaf element of the whole event object, including the contained metadata and
-          data (in case of a data change event) objects, and it must be present in the
-          schema.
-       example: "data.order_number"
-    created_at:
-      description: When this event type was created.
+        OPTIONAL. This is the Timestamp of the created context. Can be used to compare events which have the same subject involved.
       type: string
-      pattern: date-time
-    updated_at:
-      description: When this event type was last updated.
+      example: |
+        2018-04-05T17:31:00Z
+    datacontenttype:
+      description: |
+        This defines the Content-Type of the data object in the context.
       type: string
-      pattern: date-time
+      example: |
+        text/xml
+        application/json
+    data:
+      description: |
+        This is the custom section of the event in the context. Here you can add a custom object to the context in the Content-Type defined by 'datacontenttype'.
+      type: string
+      example: |
+        <xml type="xmlns" />
 ----
 
 APIs such as registries supporting event types, may extend the model,
