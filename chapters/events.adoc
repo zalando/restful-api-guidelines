@@ -183,7 +183,7 @@ EventType:
         2.0
     type: 
       description: |
-        timestamp
+        Unique name or action description of the event. Most of the time its a string divided by '.' to specify the type of object and its action.
       type: string
       example: |
         com.github.pull.create
@@ -192,7 +192,7 @@ EventType:
         com.gazelle.delivery.update
     source:
       description: |
-        timestamp
+        A url or location where the event is coming from
       type: string
       example: |
         https://github.com/pondigitalsolutions/spec/pull
