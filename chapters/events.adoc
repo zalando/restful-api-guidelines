@@ -238,7 +238,7 @@ EventType:
 
 APIs such as registries supporting event types, may extend the model,
 including the set of supported categories and schema formats. For
-example the Nakadi API's event category registration also allows the
+example the https://nakadi.io/[Nakadi] API's event category registration also allows the
 declaration of validation and enrichment strategies for events, along
 with supplemental information, such as how events are partitioned in the
 stream (see <<204>>).
@@ -301,7 +301,7 @@ category's structure gets used for other kinds of events, hence the name
 has been generalized to reflect how teams are using it.
 * The General Event is still useful and recommended for the purpose of
 defining events that drive a business process.
-* The Nakadi broker still refers to the General Category as the Business
+* The https://nakadi.io/[Nakadi] broker still refers to the General Category as the Business
 Category and uses the keyword "business" for event type registration.
 Other than that, the JSON structures are identical.
 
@@ -440,7 +440,7 @@ EventMetadata:
 Please note than intermediaries acting between the producer of an event
 and its ultimate consumers, may perform operations like validation of
 events and enrichment of an event's <<event-metadata,metadata>>. For
-example brokers such as Nakadi, can validate and enrich events with
+example brokers such as https://nakadi.io/[Nakadi], can validate and enrich events with
 arbitrary additional fields that are not specified here and may set default
 or other values, if some of the specified fields are not supplied. How
 such systems work is outside the scope of these guidelines but producers
