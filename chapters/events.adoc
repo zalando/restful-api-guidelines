@@ -216,8 +216,9 @@ EventType:
         A1342-376-97245-0.1
     time: 
       description: |
-        OPTIONAL. This is the Timestamp of the created context. Can be used to compare events which have the same subject involved.
+        OPTIONAL. This is the DateTime formatted string representing the created date of the context. Can be used to compare events which have the same subject involved.
       type: string
+      format: date-time
       example: |
         2018-04-05T17:31:00Z
     datacontenttype:
