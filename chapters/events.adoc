@@ -169,7 +169,7 @@ EventType:
     - specversion
     - type
     - source
-    - subject
+    - id
   properties:
     specversion:
       description: |
