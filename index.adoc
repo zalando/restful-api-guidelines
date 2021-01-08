@@ -190,7 +190,7 @@
 :Preference-Applied: pass:[<a href="https://tools.ietf.org/html/rfc7240#section-3"><code>Preference-Applied</code></a>]
 
 :Sunset: pass:[<a href="https://tools.ietf.org/html/rfc8594"><code>Sunset</code></a>]
-:Deprecation: pass:[<a href="https://tools.ietf.org/html/draft-dalal-deprecation-header"><code>Deprecation</code></a>]
+:Deprecation: pass:[<a href="https://tools.ietf.org/html/draft-ietf-httpapi-deprecation-header"><code>Deprecation</code></a>]
 
 :Retry-After: pass:[<a href="https://tools.ietf.org/html/rfc7231#section-7.1.3"><code>Retry-After</code></a>]
 :Vary: pass:[<a href="https://tools.ietf.org/html/rfc7231#section-7.1.4"><code>Vary</code></a>]

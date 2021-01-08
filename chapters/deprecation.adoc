@@ -61,7 +61,7 @@ breaking effects on ongoing consumers. See also <<193>>.
 == {SHOULD} add `Deprecation` and `Sunset` header to responses
 
 During the deprecation phase, the producer should add a `Deprecation: <date-time>`
-(see https://tools.ietf.org/html/draft-dalal-deprecation-header[draft: RFC
+(see https://tools.ietf.org/html/draft-ietf-httpapi-deprecation-header[draft: RFC
 Deprecation HTTP Header]) and - if also planned - a `Sunset: <date-time>` (see
 {RFC-8594}#section-3[RFC 8594]) header on each response affected by a
 deprecated element (see <<187>>).
