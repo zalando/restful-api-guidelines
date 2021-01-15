@@ -38,9 +38,22 @@ following two options:
    information can either be provided via multiple query parameters or by a
    single structured URL encoded string.
 2. {POST} with body content: when a {GET} with URL encoded query parameters
-   is not possible, a {POST} with body content must be used. In this case the
-   endpoint must be documented with the hint {GET-with-Body} to transport the
-   {GET} semantic of this call.
+   is not possible, a {POST} with body content must be used, and explicitly 
+   documented with a hint like in the following example:
+
+[source,yaml]
+----
+paths:
+  /products:
+    post:
+      description: >
+        [GET with body](https://opensource.zalando.com/restful-api-guidelines/#get-with-body) - no resources created:
+        Returns all products matching the query passed as request input payload.
+      requestBody:
+        required: true
+        content:
+          ...
+----
 
 *Note:* It is no option to encode the lengthy structured request information
 using header parameters. From a conceptual point of view, the semantic of an
@@ -229,23 +242,11 @@ details).
 In rare cases {DELETE} may require additional information, that cannot be
 classified as filter parameters and thus should be transported via payload, to
 perform the operation. Since {RFC-7231}#section-4.3.5[RFC-7231] states, that
-{DELETE} has an undefined semantic for payloads, we recommend to utilize {POST}
-in this cases similar to {GET-with-Body}.
-
-In this case the endpoint must be documented with the hint {DELETE-with-Body}
-to transport the {DELETE} semantic of this call. The response status code of
+{DELETE} has an undefined semantic for payloads, we recommend to utilize {POST}. 
+In this case the POST endpoint must be documented with the hint {DELETE-with-Body} 
+analog to how it is defined for {GET-with-Body}. The response status code of
 {DELETE-with-Body} requests should be similar to usual {DELETE} requests.
 
-[source, http]
-----
-POST /resources/{resource-id}
-
-{
-  "prop1": "value1",
-  ...
-  "propN": "valueN",
-}
-----
 
 [[head]]
 === HEAD
