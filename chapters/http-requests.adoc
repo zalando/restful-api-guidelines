@@ -24,12 +24,12 @@ collection is empty) or {404} (if the collection is missing)
 
 
 [[get-with-body]]
-=== GET with body
+=== GET with body payload
 
 APIs sometimes face the problem, that they have to provide extensive structured
 request information with {GET}, that may conflict with the size limits of
 clients, load-balancers, and servers. As we require APIs to be standard conform
-(body in {GET} must be ignored on server side), API designers have to check the
+(request body payload in {GET} must be ignored on server side), API designers have to check the
 following two options:
 
 1. {GET} with URL encoded query parameters: when it is possible to encode the
@@ -37,8 +37,8 @@ following two options:
    clients, gateways, and servers, this should be the first choice. The request
    information can either be provided via multiple query parameters or by a
    single structured URL encoded string.
-2. {POST} with body content: when a {GET} with URL encoded query parameters
-   is not possible, a {POST} with body content must be used, and explicitly 
+2. {POST} with body payload content: when a {GET} with URL encoded query parameters
+   is not possible, a {POST} request with body payload must be used, and explicitly 
    documented with a hint like in the following example:
 
 [source,yaml]
@@ -47,7 +47,7 @@ paths:
   /products:
     post:
       description: >
-        [GET with body](https://opensource.zalando.com/restful-api-guidelines/#get-with-body) - no resources created:
+        [GET with body payload](https://opensource.zalando.com/restful-api-guidelines/#get-with-body) - no resources created:
         Returns all products matching the query passed as request input payload.
       requestBody:
         required: true
@@ -67,7 +67,7 @@ switching to headers does not solve the original problem.
 *Hint:* As {GET-with-Body} is used to transport extensive query parameters,
 the {cursor} cannot any longer be used to encode the query filters in case of
 <<160, cursor-based pagination>>. As a consequence, it is best practice to
-transport the query filters in the body, while using <<161, pagination links>>
+transport the query filters in the body payload, while using <<161, pagination links>>
 containing the {cursor} that is only encoding the page position and direction.
 To protect the pagination sequence the {cursor} may contain a hash over all
 applied query filters (See also <<161>>).
@@ -237,10 +237,10 @@ details).
 
 
 [[delete-with-body]]
-=== DELETE with body
+=== DELETE with body payload
 
 In rare cases {DELETE} may require additional information, that cannot be
-classified as filter parameters and thus should be transported via payload, to
+classified as filter parameters and thus should be transported via request body payload, to
 perform the operation. Since {RFC-7231}#section-4.3.5[RFC-7231] states, that
 {DELETE} has an undefined semantic for payloads, we recommend to utilize {POST}. 
 In this case the POST endpoint must be documented with the hint {DELETE-with-Body} 
