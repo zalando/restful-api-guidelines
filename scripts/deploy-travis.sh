@@ -26,14 +26,14 @@ deploy_gh_pages () {
 }
 
 create_zally_issue () {
-    local commit message count=0
-    while [ "${count}" -lt 30 ]; do
-	commit=$(curl -s "${GH_REPO_URL}/commits/${TRAVIS_COMMIT}");
-	message="$(echo "${commit}" | jq --raw-output '.message' || true)";
-	if [ "${message}" != "No commit found for SHA: ${TRAVIS_COMMIT}" ]; then
-	    break;
-	fi;
-	count=$((count + 1)); sleep 1;
+    local commit message count=0;
+    while [ "${count}" -lt 6 ]; do
+        commit=$(curl -s "${GH_REPO_URL}/commits/${TRAVIS_COMMIT}");
+        message="$(echo "${commit}" | jq --raw-output '.message' || true)";
+        if [ "${message}" != "No commit found for SHA: ${TRAVIS_COMMIT}" ]; then
+            break;
+        fi;
+        count=$((count + 1)); sleep 10;
     done;
 
     local files=($(echo "${commit}" | jq --raw-output '.files[].filename' || true))
@@ -42,24 +42,39 @@ create_zally_issue () {
         if [[ ${file} == chapters/* ]]; then chapters=true; break; fi;
     done;
     if [ ${chapters} = false ]; then
-	echo "No changes, aboring issue creation (${TRAVIS_COMMIT}}"; return;
+        echo "No changes, aborting issue creation (${TRAVIS_COMMIT}}"; return;
     fi;
 
-    local pulls="$(curl -s "-H Accept: application/vnd.github.groot-preview+json" \
-		       "${GH_REPO_URL}/commits/${TRAVIS_COMMIT}/pulls")";
-    local origin="$(echo "${pulls}" | jq --raw-output '.[0].number')";
-    if [ -n "${origin}" ]; then
-	local title="$(echo "${pulls}" | jq --raw-output '.[0].title' | sed "s/\"/\'/g" || true)";
-	local url="$(echo "${pulls}" | jq --raw-output '.[0].html_url' )";
-	local body="Please check if the PR ${url} introduces changes which are relevant to the Zally project.";
+    local pull origin count=0;
+    while [ "${count}" -lt 6 ]; do
+         pull="$(curl -s "-H Accept: application/vnd.github.groot-preview+json" \
+             "${GH_REPO_URL}/commits/${TRAVIS_COMMIT}/pulls"  | jq '.[0]')";
+         origin="$(echo "${pull}" | jq --raw-output '.number')";
+         if [ "${origin}" != "null" ]; then break; fi;
+         count=$((count + 1)); sleep 10;
+    done;
+
+    if [ "${origin}" == "null" ]; then
+        origin="$(echo "${commit}" | \
+            jq --raw-output '.commit.message | capture("#(?<n>[0-9]+)( |$)") | .n')";
+        pull="$(curl -s ${GH_REPO_URL}/pulls/${origin})";
+    fi;
+
+    local title url body;
+    if [ "${origin}" != "null" ]; then
+        title="$(echo "${pull}" | jq --raw-output '.title' | \
+            sed 's/"/'"'"'/g' || true)";
+        url="$(echo "${pull}" | jq --raw-output '.html_url' )";
+        body="Please check if the PR ${url} introduces changes which are relevant to the Zally project.";
     else
-	local title="$(echo "${commit}" | jq --raw-output '.commit.message' | head 1)";
-	local url="$(echo "${commit}" | jq --raw-output '.html_url')"
-	local body="Please check if the COMMIT ${url} introduces changes which are relevant to the Zally project.";
+        title="$(echo "${commit}" | jq --raw-output '.commit.message' | \
+            sed 's/"/'"'"'/g' | head -n 1)";
+        url="$(echo "${commit}" | jq --raw-output '.html_url')"
+        body="Please check if the COMMIT ${url} introduces changes which are relevant to the Zally project.";
     fi;
     local data="{\"title\":\"${title}\", \"body\": \"${body}\", \"labels\": [\"guidelines-update\"]}";
 
-    echo "Changes require zally issue reation (${TRAVIS_COMMIT}}";
+    echo "Changes require zally issue creation (${TRAVIS_COMMIT}}";
     curl -X POST --data "${data}" \
          -H 'Content-Type: application/json' \
          -H "Authorization: token ${GH_TOKEN}" \
