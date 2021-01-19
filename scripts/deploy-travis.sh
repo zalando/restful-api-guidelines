@@ -11,7 +11,6 @@ EMAIL="no-reply@zalando.de"
 DEPLOY_MESSAGE="auto-deployment to the gh-branch"
 GH_REPO="github.com/zalando/restful-api-guidelines.git"
 GH_REPO_URL="https://api.github.com/repos/zalando/restful-api-guidelines"
-GH_REPO_LINK="https://github.com/zalando/restful-api-guidelines"
 ZALLY_REPO_URL="https://api.github.com/repos/zalando/zally"
 
 deploy_gh_pages () {
@@ -27,32 +26,44 @@ deploy_gh_pages () {
 }
 
 create_zally_issue () {
-    local pr_number count=0
-    while [ -z "${pr_number}" -a "${count}" -lt 30 ]; do
-	pr_number=$(curl -s "${GH_REPO_URL}/commits/${TRAVIS_COMMIT}" | \
-            jq -r '.commit.message | capture("#(?<n>[0-9]+) ") | .n' || true)
-	count=$((count + 1)); sleep 1
-    done
-    local changed_files=($(curl -s "${GH_REPO_URL}/pulls/${pr_number}/files" | \
-        jq -r '.[] | .filename'))
+    local commit message count=0
+    while [ "${count}" -lt 30 ]; do
+	commit=$(curl -s "${GH_REPO_URL}/commits/${TRAVIS_COMMIT}");
+	message="$(echo "${commit}" | jq --raw-output '.message' || true)";
+	if [ "${message}" != "No commit found for SHA: ${TRAVIS_COMMIT}" ]; then
+	    break;
+	fi;
+	count=$((count + 1)); sleep 1;
+    done;
 
-    local content_changed=false
-    for f in "${changed_files[@]}"
-    do
-        if [[ $f == chapters/* ]]; then
-            content_changed=true
-        fi
-    done
+    local files=($(echo "${commit}" | jq --raw-output '.files[].filename' || true))
+    local chapters=false;
+    for file in "${files[@]}"; do
+        if [[ ${file} == chapters/* ]]; then chapters=true; break; fi;
+    done;
+    if [ ${chapters} = false ]; then
+	echo "No changes, aboring issue creation (${TRAVIS_COMMIT}}"; return;
+    fi;
 
-    if [ "$content_changed" = true ]; then
-        local title=$(curl -s ${GH_REPO_URL}/pulls/${pr_number} | jq -r '.title' | sed s/\"/\'/g)
-        local body="Please check if the PR ${GH_REPO_LINK}/pull/${pr_number} introduces changes which are relevant to the Zally project."
-        curl -X POST \
-            -H 'Content-Type: application/json' \
-            -H "Authorization: token ${GH_TOKEN}" \
-            --data "{\"title\":\"${title}\", \"body\": \"${body}\", \"labels\": [\"guidelines-update\"]}" \
-            "${ZALLY_REPO_URL}/issues"
-    fi
+    local pulls="$(curl -s "-H Accept: application/vnd.github.groot-preview+json" \
+		       "${GH_REPO_URL}/commits/${TRAVIS_COMMIT}/pulls")";
+    local origin="$(echo "${pulls}" | jq --raw-output '.[0].number')";
+    if [ -n "${origin}" ]; then
+	local title="$(echo "${pulls}" | jq --raw-output '.[0].title' | sed "s/\"/\'/g" || true)";
+	local url="$(echo "${pulls}" | jq --raw-output '.[0].html_url' )";
+	local body="Please check if the PR ${url} introduces changes which are relevant to the Zally project.";
+    else
+	local title="$(echo "${commit}" | jq --raw-output '.commit.message' | head 1)";
+	local url="$(echo "${commit}" | jq --raw-output '.html_url')"
+	local body="Please check if the COMMIT ${url} introduces changes which are relevant to the Zally project.";
+    fi;
+    local data="{\"title\":\"${title}\", \"body\": \"${body}\", \"labels\": [\"guidelines-update\"]}";
+
+    echo "Changes require zally issue reation (${TRAVIS_COMMIT}}";
+    curl -X POST --data "${data}" \
+         -H 'Content-Type: application/json' \
+         -H "Authorization: token ${GH_TOKEN}" \
+         "${ZALLY_REPO_URL}/issues";
 }
 
 if [[ "${TRAVIS}" = "true" && "${TRAVIS_SECURE_ENV_VARS}" = "true" && "${TRAVIS_PULL_REQUEST}" = "false" && "${TRAVIS_BRANCH}" = "master" ]]; then
