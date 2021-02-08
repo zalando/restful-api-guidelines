@@ -11,7 +11,6 @@ EMAIL="no-reply@zalando.de"
 DEPLOY_MESSAGE="auto-deployment to the gh-branch"
 GH_REPO="github.com/zalando/restful-api-guidelines.git"
 GH_REPO_URL="https://api.github.com/repos/zalando/restful-api-guidelines"
-GH_REPO_LINK="https://github.com/zalando/restful-api-guidelines"
 ZALLY_REPO_URL="https://api.github.com/repos/zalando/zally"
 
 deploy_gh_pages () {
@@ -27,32 +26,59 @@ deploy_gh_pages () {
 }
 
 create_zally_issue () {
-    local pr_number count=0
-    while [ -z "${pr_number}" -a "${count}" -lt 30 ]; do
-	pr_number=$(curl -s "${GH_REPO_URL}/commits/${TRAVIS_COMMIT}" | \
-            jq -r '.commit.message | capture("#(?<n>[0-9]+) ") | .n' || true)
-	count=$((count + 1)); sleep 1
-    done
-    local changed_files=($(curl -s "${GH_REPO_URL}/pulls/${pr_number}/files" | \
-        jq -r '.[] | .filename'))
+    local commit message count=0;
+    while [ "${count}" -lt 6 ]; do
+        commit=$(curl -s "${GH_REPO_URL}/commits/${TRAVIS_COMMIT}");
+        message="$(echo "${commit}" | jq --raw-output '.message' || true)";
+        if [ "${message}" != "No commit found for SHA: ${TRAVIS_COMMIT}" ]; then
+            break;
+        fi;
+        count=$((count + 1)); sleep 10;
+    done;
 
-    local content_changed=false
-    for f in "${changed_files[@]}"
-    do
-        if [[ $f == chapters/* ]]; then
-            content_changed=true
-        fi
-    done
+    local files=($(echo "${commit}" | jq --raw-output '.files[].filename' || true))
+    local chapters=false;
+    for file in "${files[@]}"; do
+        if [[ ${file} == chapters/* ]]; then chapters=true; break; fi;
+    done;
+    if [ ${chapters} = false ]; then
+        echo "No changes, aborting issue creation (${TRAVIS_COMMIT}}"; return;
+    fi;
 
-    if [ "$content_changed" = true ]; then
-        local title=$(curl -s ${GH_REPO_URL}/pulls/${pr_number} | jq -r '.title' | sed s/\"/\'/g)
-        local body="Please check if the PR ${GH_REPO_LINK}/pull/${pr_number} introduces changes which are relevant to the Zally project."
-        curl -X POST \
-            -H 'Content-Type: application/json' \
-            -H "Authorization: token ${GH_TOKEN}" \
-            --data "{\"title\":\"${title}\", \"body\": \"${body}\", \"labels\": [\"guidelines-update\"]}" \
-            "${ZALLY_REPO_URL}/issues"
-    fi
+    local pull origin count=0;
+    while [ "${count}" -lt 6 ]; do
+         pull="$(curl -s "-H Accept: application/vnd.github.groot-preview+json" \
+             "${GH_REPO_URL}/commits/${TRAVIS_COMMIT}/pulls"  | jq '.[0]')";
+         origin="$(echo "${pull}" | jq --raw-output '.number')";
+         if [ "${origin}" != "null" ]; then break; fi;
+         count=$((count + 1)); sleep 10;
+    done;
+
+    if [ "${origin}" == "null" ]; then
+        origin="$(echo "${commit}" | \
+            jq --raw-output '.commit.message | capture("#(?<n>[0-9]+)( |$)") | .n')";
+        pull="$(curl -s ${GH_REPO_URL}/pulls/${origin})";
+    fi;
+
+    local title url body;
+    if [ "${origin}" != "null" ]; then
+        title="$(echo "${pull}" | jq --raw-output '.title' | \
+            sed 's/"/'"'"'/g' || true)";
+        url="$(echo "${pull}" | jq --raw-output '.html_url' )";
+        body="Please check if the PR ${url} introduces changes which are relevant to the Zally project.";
+    else
+        title="$(echo "${commit}" | jq --raw-output '.commit.message' | \
+            sed 's/"/'"'"'/g' | head -n 1)";
+        url="$(echo "${commit}" | jq --raw-output '.html_url')"
+        body="Please check if the COMMIT ${url} introduces changes which are relevant to the Zally project.";
+    fi;
+    local data="{\"title\":\"${title}\", \"body\": \"${body}\", \"labels\": [\"guidelines-update\"]}";
+
+    echo "Changes require zally issue creation (${TRAVIS_COMMIT}}";
+    curl -X POST --data "${data}" \
+         -H 'Content-Type: application/json' \
+         -H "Authorization: token ${GH_TOKEN}" \
+         "${ZALLY_REPO_URL}/issues";
 }
 
 if [[ "${TRAVIS}" = "true" && "${TRAVIS_SECURE_ENV_VARS}" = "true" && "${TRAVIS_PULL_REQUEST}" = "false" && "${TRAVIS_BRANCH}" = "master" ]]; then

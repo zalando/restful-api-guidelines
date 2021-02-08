@@ -11,7 +11,7 @@ and specialized. In contrast, REST is centered around business (data)
 entities exposed as resources that are identified via URIs and can be
 manipulated via standardized CRUD-like methods using different
 representations, and hypermedia. RESTful APIs
-tend to be less use-case specific and comes with less rigid client /
+tend to be less use-case specific and come with less rigid client /
 server coupling and are more suitable for an ecosystem of (core) services 
 providing a platform of APIs to build diverse new business services. 
 We apply the RESTful web service principles to all kind of application 
@@ -38,6 +38,10 @@ Robustness Principle] (see also https://tools.ietf.org/html/rfc1122[RFC 1122]):
 
 _Readings:_ Some interesting reads on the RESTful API design style and service architecture:
 
+* Article:
+https://www.thoughtworks.com/de/insights/blog/rest-api-design-resource-modeling[REST API Design - Resource Modeling]
+* Article:
+https://martinfowler.com/articles/richardsonMaturityModel.html[Richardson Maturity Model -- Steps toward the glory of REST]
 * Book:
 https://www.amazon.de/Irresistible-APIs-Designing-that-developers/dp/1617292559[Irresistable
 APIs: Designing web APIs that developers will love]
@@ -46,11 +50,6 @@ http://www.amazon.de/REST-Practice-Hypermedia-Systems-Architecture/dp/0596805829
 in Practice: Hypermedia and Systems Architecture]
 * Book: https://leanpub.com/build-apis-you-wont-hate[Build APIs You
 Won't Hate]
-* InfoQ eBook: http://www.infoq.com/minibooks/emag-web-api[Web APIs:
-From Start to Finish]
-* Lessons-learned blog:
-http://restful-api-design.readthedocs.org/en/latest/[Thoughts on RESTful
-API Design]
 * Fielding Dissertation:
 http://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm[Architectural
 Styles and the Design of Network-Based Software Architectures]
@@ -77,8 +76,8 @@ make them irresistible for client engineers
 * Actively improve and maintain API consistency over the long term
 * Make use of customer feedback and provide service level support
 
-Embracing 'API as a Product' facilitates a service ecosystem which can 
-be evolved more easily, and used to experiment quickly with new business 
+Embracing 'API as a Product' facilitates a service ecosystem, which can 
+be evolved more easily and used to experiment quickly with new business 
 ideas by recombining core capabilities. 
 It makes the difference between agile, innovative product service 
 business built on a platform of APIs and ordinary enterprise integration business
@@ -145,11 +144,12 @@ include breaking changes for not yet productive features and as long as
 we have aligned the changes with the clients. Hence, API First does
 _not_ mean that you must have 100% domain and requirement understanding
 and can never produce code before you have defined the complete API and
-get it confirmed by peer review. On the other hand, API First obviously
-is in conflict with the bad practice of publishing API definition and
-asking for peer review after the service integration or even the service
-productive operation has started. It is crucial to request and get early
-feedback — as early as possible, but not before the API changes are
-comprehensive with focus to the next evolution step and have a certain
-quality (including API Guideline compliance), already confirmed via team
-internal reviews.
+get it confirmed by peer review. 
+
+On the other hand, API First obviously is in conflict with the bad 
+practice of publishing API definition and asking for peer review after 
+the service integration or even the service productive operation has 
+started. It is crucial to request and get early feedback — as early as 
+possible, but not before the API changes are comprehensive with focus 
+to the next evolution step and have a certain quality (including API 
+Guideline compliance), already confirmed via team internal reviews.
