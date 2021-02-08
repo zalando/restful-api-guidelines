@@ -16,7 +16,7 @@ To see a list of all changes, please have a look at the https://github.com/zalan
 [[rule-changes]]
 == Rule Changes
 
-* `2021-01-19`: more details for [[GET-with-body]] and [[DELETE-with-body]] (<<148>>).
+* `2021-01-19`: more details for {GET-with-Body} and {DELETE-with-Body} (<<148>>).
 * `2020-09-29`: include models for headers to be included by reference in API definitions (<<183>>)
 * `2020-09-08`: add exception for legacy host names to <<224>>
 * `2020-08-25`: change <<240>> from {MUST} to {SHOULD}, explain exceptions
@@ -35,7 +35,7 @@ To see a list of all changes, please have a look at the https://github.com/zalan
 * `2019-08-29`: new rules <<236>>, <<237>>
 * `2019-07-30`: new rule <<238>>
 * `2019-07-30`: change <<519>> from {SHOULD} to {MUST}
-* `2019-07-30`: change {SHOULD} Null values should have their fields removed to <<123>>.
+* `2019-07-30`: change "{SHOULD} Null values should have their fields removed to" <<123>>.
 * `2019-07-25`: new rule <<235>>.
 * `2019-07-18`: improved cursor guideline for {GET-with-Body}.
 * `2019-06-25`: change <<154>> from {SHOULD} to {MUST}, use OpenAPI 3 syntax
@@ -46,7 +46,7 @@ To see a list of all changes, please have a look at the https://github.com/zalan
 * `2019-01-24:` Improve guidance on caching (<<149>>, <<227>>).
 * `2019-01-21:` Improve guidance on idempotency, introduce idempotency-key (<<229>>, <<231>>).
 * `2019-01-16`: Change <<135>> from {MAY} to {SHOULD NOT}
-* `2018-10-19`: Add `ordering_key_field` to event type definition schema (<<197>>>, <<203>>)
+* `2018-10-19`: Add `ordering_key_field` to event type definition schema (<<197>>, <<203>>)
 * `2018-09-28`: New rule <<228>>
 * `2018-09-13`: replaced OpenAPI 2.0 syntax with OpenAPI 3.0 in the example snippets
 * `2018-08-10`: New rule <<226>>
