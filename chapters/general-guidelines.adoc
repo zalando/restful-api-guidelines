@@ -11,7 +11,7 @@ The titles are marked with the corresponding labels: {MUST},
 You must follow the <<api-first, API First Principle>>, more specifically: 
 
 * You must define APIs first, before coding its implementation, <<101, using
-  Open API as specification language>>
+  OpenAPI as specification language>>
 * You must design your APIs consistently with these guidelines; use our
   https://zally.zalando.net/[API Linter Service [internal link]] for automated
   rule checks. 
@@ -22,12 +22,12 @@ You must follow the <<api-first, API First Principle>>, more specifically:
 
 
 [#101]
-== {MUST} provide API specification using Open API
+== {MUST} provide API specification using OpenAPI
 
-We use the http://swagger.io/specification/[Open API specification] as standard
+We use the http://swagger.io/specification/[OpenAPI specification] as standard
 to define API specification files. API designers are required to provide the API
 specification using a single *self-contained YAML* file to improve readability.
-We encourage to use *Open API 3.0* version, but still support *Open API 2.0*
+We encourage to use *OpenAPI 3.0* version, but still support *OpenAPI 2.0*
 (a.k.a. Swagger 2).
 
 The API specification files should be subject to version control using a source
