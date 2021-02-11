@@ -64,7 +64,7 @@ Consumer facing applications (CFAs) provide business experience to their
 customers via different frontend application types, for instance, mobile app
 or browser. Info should be passed-through as generic aspect -- there are
 diverse concerns, e.g. pushing mobiles with specific coupons, that make use of
-it. Current range is mobile-app, browser, facebook-app, chat-app.
+it. Current range is mobile-app, browser, facebook-app, chat-app, email.
 |mobile-app
 
 |[[x-device-type]]{X-Device-Type}|String|
