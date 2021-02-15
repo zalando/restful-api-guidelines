@@ -339,17 +339,25 @@ number of requests made within a given window for each named entity.
 
 
 [#176]
-== {MUST} use problem JSON
+== {MUST} support problem JSON
 
-{RFC-7807}[RFC 7807] defines a Problem JSON object and  the media type
-`application/problem+json`. Operations should return it (together with a
-suitable status code) when any problem occurred during processing and you can
-give more details than the status code itself can supply, whether it be caused
-by the client or the server (i.e. both for {4xx} or {5xx} error codes).
+{RFC-7807}[RFC 7807] defines a Problem JSON object using the media type
+`application/problem+json` to provide an extensible human and machine readable
+failure information beyond the `status` to transports the failure kind (`type`
+/ `title`) and the failure cause and location (`instant` / `detail`). To make
+best use of this additional failure information, we expect that every endpoint
+is capable of returning a Problem JSON together with the status code, when a
+problem occurs during processing.
+
+**Note:** Clients **must not** rely on receiving a Problem JSON, since failure
+responses may be created by infrastructure components unaware of the API
+guidelines. In addition, clients usually need to setup the {Accept}-Header
+with `application/problem+json` to trigger delivery of the extended failure
+information.
 
 The Open API schema definition of the Problem JSON object can be found
-https://zalando.github.io/problem/schema.yaml[on github]. You can
-reference it by using:
+https://opensource.zalando.com/restful-api-guidelines/problem-1.0.1.yaml[on
+GitHub]. You can reference it by using:
 
 [source,yaml]
 ----
@@ -363,10 +371,11 @@ responses:
 ----
 
 You may define custom problem types as extensions of the Problem JSON object
-if your API needs to return specific, additional and detailed error information.
+if your API needs to return specific, additional, and more detailed error
+information.
 
-Problem `type` and `instance` identifiers in our APIs are not meant to be
-resolved. {RFC-7807}[RFC 7807] encourages that custom problem types are URI
+**Note:** Problem `type` and `instance` identifiers in our APIs are not meant
+to be resolved. {RFC-7807}[RFC 7807] encourages that problem types are URI
 references that point to human-readable documentation, **but** we deliberately
 decided against that, as all important parts of the API must be documented
 using <<101, OpenAPI>> anyway. In addition, URLs tend to be fragile and not
@@ -383,7 +392,7 @@ identifiers in `type` and `instance` fields:
 * `/problems/user-deactivated`
 * `/problems/connection-error#read-timeout`
 
-**Note:** The use of https://tools.ietf.org/html/rfc3986#section-4.3[absolute
+**Hint:** The use of https://tools.ietf.org/html/rfc3986#section-4.3[absolute
 URIs] is not forbidden but strongly discouraged. If you use absolute URIs,
 please reference https://opensource.zalando.com/restful-api-guidelines/problem-1.0.0.yaml#/Problem[problem-1.0.0.yaml#/Problem] instead.
 
