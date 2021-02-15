@@ -59,7 +59,7 @@ retailer catalogs to consumers (see
 https://digital-experience.docs.zalando.net/glossary/glossary.html[fashion platform glossary (internal link)]).
 |52b96501-0f8d-43e7-82aa-8a96fab134d7
 
-|[[c-frontend-type]]{X-Frontend-Type}|String|
+|[[x-frontend-type]]{X-Frontend-Type}|String|
 Consumer facing applications (CFAs) provide business experience to their
 customers via different frontend application types, for instance, mobile app
 or browser. Info should be passed-through as generic aspect -- there are
