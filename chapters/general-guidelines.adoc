@@ -74,10 +74,10 @@ service URLs:
 * `https://opensource.zalando.com/restful-api-guidelines/` (default guideline
   defined API fragments)
 
-For compatibility we support the following deprecated remote references:
-
-* `https://opensource.zalando.com/problem/` (alias for `Problem`, see <<176>>)
-* `https://zalando.github.io/problem/` (another alias for `Problem`, see <<176>>)
+*Hint:* The formerly used remote references to the `Problem` API fragment
+(aliases `https://opensource.zalando.com/problem/` and
+`https://zalando.github.io/problem/`) are deprecated, but still supported for
+compatibility (<<176>> on how to replace).
 
 As we control these URLs, we ensure that their content is *durable* and
 *immutable*. This allows to define API specifications by using fragments
