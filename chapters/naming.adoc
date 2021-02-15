@@ -213,7 +213,7 @@ paginating, you must stick to the following naming conventions:
   constructed by clients. It usually (encrypted) encodes the page position,
   i.e. the identifier of the first or last page element, the pagination
   direction, and the applied query filters to recreate the collection. See
-  <<160, pagination>> section below.
+  <<cursor-based-pagination>> or <<pagination>> section below.
 * [[limit]]{limit}: client suggested limit to restrict the number of entries on
   a page. See <<pagination>> section below.
 
