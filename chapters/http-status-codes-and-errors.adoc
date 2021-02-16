@@ -343,17 +343,22 @@ number of requests made within a given window for each named entity.
 
 {RFC-7807}[RFC 7807] defines a Problem JSON object using the media type
 `application/problem+json` to provide an extensible human and machine readable
-failure information beyond the `status` to transports the failure kind (`type`
-/ `title`) and the failure cause and location (`instant` / `detail`). To make
-best use of this additional failure information, we expect that every endpoint
-is capable of returning a Problem JSON together with the status code, when a
-problem occurs during processing.
+failure information beyond the HTTP response status code to transports the
+failure kind (`type` / `title`) and the failure cause and location (`instant` /
+`detail`). To make best use of this additional failure information, every
+endpoints must be capable of returning a Problem JSON on client usage errors
+({4xx} status codes) as well as server side processing errors ({5xx} status
+codes).
 
-**Note:** Clients **must not** rely on receiving a Problem JSON, since failure
-responses may be created by infrastructure components unaware of the API
-guidelines. In addition, clients usually need to setup the {Accept}-Header
-with `application/problem+json` to trigger delivery of the extended failure
-information.
+*Note:* Clients must be robust and *not rely* on a Problem JSON object
+being returned, since (a) failure responses may be created by infrastructure
+components not aware of this guideline or (b) service may be unable to comply
+with this guidelines in certain error situations.
+
+*Hint:* The media type `application/problem+json` is often not implemented as
+a subset of `application/json` by libraries and services! Thus clients need to
+include `application/problem+json` in the {Accept}-Header to trigger delivery
+of the extended failure information.
 
 The Open API schema definition of the Problem JSON object can be found
 https://opensource.zalando.com/restful-api-guidelines/problem-1.0.1.yaml[on
@@ -374,9 +379,9 @@ You may define custom problem types as extensions of the Problem JSON object
 if your API needs to return specific, additional, and more detailed error
 information.
 
-**Note:** Problem `type` and `instance` identifiers in our APIs are not meant
+*Note:* Problem `type` and `instance` identifiers in our APIs are not meant
 to be resolved. {RFC-7807}[RFC 7807] encourages that problem types are URI
-references that point to human-readable documentation, **but** we deliberately
+references that point to human-readable documentation, *but* we deliberately
 decided against that, as all important parts of the API must be documented
 using <<101, OpenAPI>> anyway. In addition, URLs tend to be fragile and not
 very stable over longer periods because of organizational and documentation
@@ -392,7 +397,7 @@ identifiers in `type` and `instance` fields:
 * `/problems/user-deactivated`
 * `/problems/connection-error#read-timeout`
 
-**Hint:** The use of https://tools.ietf.org/html/rfc3986#section-4.3[absolute
+*Hint:* The use of https://tools.ietf.org/html/rfc3986#section-4.3[absolute
 URIs] is not forbidden but strongly discouraged. If you use absolute URIs,
 please reference https://opensource.zalando.com/restful-api-guidelines/problem-1.0.0.yaml#/Problem[problem-1.0.0.yaml#/Problem] instead.
 
