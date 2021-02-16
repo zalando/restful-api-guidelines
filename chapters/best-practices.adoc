@@ -21,7 +21,7 @@ the data storage.
 The {cursor} itself is an opaque string, transmitted forth and back between
 service and clients, that must never be *inspected* or *constructed* by
 clients. Therefore, it is good practice to encode (encrypt) its content in a
-none-human-readable form.
+non-human-readable form.
 
 The {cursor} content usually consists of a pointer to the anchor element
 defining the page position in the collection, a flag whether the element is
@@ -31,7 +31,7 @@ the collection. It is important to note, that a {cursor} should be always
 defined in relation to the current page to anticipate all occurring changes
 when progressing.
 
-The {cursor} is usually defined as follows:
+The {cursor} is usually defined as an encoding of the following information:
 
 [source,yaml]
 ----
