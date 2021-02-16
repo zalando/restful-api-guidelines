@@ -63,22 +63,13 @@ the page position, i.e. the identifier of the first or last page element, the
 pagination direction, and the applied query filters - or a hash over these -
 to safely recreate the collection (see also <<cursor-based-pagination>>).
 
-*Note:* While you may support cursors for {next}, {prev}, {first}, {last}, and
-{self} (see <<pagination-fields>>), it is best practice to replace these with
-links in favor of <<161>>.
-
 
 [#161]
 == {SHOULD} use pagination links where applicable
 
 To simplify client design, APIs should support <<165, simplified hypertext
-controls>> for pagination over collections whenever applicable. Beside {next}
-this may comprise the support for {prev}, {first}, {last}, and {self} as
-{link-relations}[link relations] (see also <<pagination-fields>> for
-details).
-
-The page content is transported via {items}, while the {query} object may
-contain the query filters applied to the collection resource as follows:
+controls>> for paginating over collections whenever applicable as follows (see
+also <<pagination-fields>> for details):
 
 [source,json]
 ----

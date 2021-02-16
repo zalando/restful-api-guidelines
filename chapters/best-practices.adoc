@@ -89,10 +89,10 @@ Cursor:
 ----
 
 *Note:* In case of complex and long search requests, e.g. when {GET-with-body}
-is required, the {cursor} may not be able to encode the `query`. In this case
-the `query` filters should be transported via body - in the request as well as
-in the response, while the pagination consistency should be ensured via the
-`query_hash`.
+is already required, the {cursor} may not be able to include the `query` because
+of common HTTP parameter size restrictions. In this case the `query` filters
+should be transported via body - in the request as well as in the response,
+while the pagination consistency should be ensured via the `query_hash`.
 
 *Remark:* It is also important to check the efficiency of the data-access.
 You need to make sure that you have a fully ordered stable index, that allows

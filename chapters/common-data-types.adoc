@@ -173,12 +173,12 @@ names or value types for these fields across APIs.
 
 
 [[pagination-fields]]
-[[link-relation-fields]]
-=== Link relation and pagination fields
+=== Pagination fields
 
-To foster a consistent look and feel using simple hypertext controls or cursors
-for paginating and iterating over collection values the response objects should
-follow a common pattern using the below field semantics:
+For iterating over collections (result sets) we propose to either use cursors
+(see <<160>>) or simple hypertext controls (see <<161>>). To implement these
+in a consistent way, we have defined a response page object pattern with the
+following field semantics:
 
 * [[self]]{self}:the link or cursor in a pagination response or object
   pointing to the same collection object or page.
@@ -248,6 +248,10 @@ ResponsePage:
       items:
         type: ...
 ----
+
+*Note:* While you may support cursors for {next}, {prev}, {first}, {last}, and
+{self} (see <<pagination-fields>>), it is best practice to replace these with
+links in favor of <<161>>.
 
 The response page may contain additional metadata about the collection or the
 current page.
