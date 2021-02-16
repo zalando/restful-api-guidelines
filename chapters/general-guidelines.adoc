@@ -69,10 +69,10 @@ unexpected ways.
 However, you may use remote references to resources accessible by the following
 service URLs:
 
-* `https://infrastructure-api-repository.zalandoapis.com/`*—* used to refer
+* `https://infrastructure-api-repository.zalandoapis.com/` {dash} used to refer
   to user defined, immutable API specification revisions published via the
   internal API repository.
-* `https://opensource.zalando.com/restful-api-guidelines/{model.yaml}`*—*
+* `https://opensource.zalando.com/restful-api-guidelines/{model.yaml}` {dash}
   used to refer to guideline defined re-usable API fragments (see
   `{model.yaml}` files in https://github.com/zalando/restful-api-guidelines/tree/master/models[restful-api-guidelines/models]
   for details).
