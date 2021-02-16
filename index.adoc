@@ -11,6 +11,8 @@
 :keywords: Zalando, Guidelines, RESTful, API, Events, Schema
 :copyright: CC-BY-SA 4.0
 
+// Unified character short cut.
+:dash: pass:[<b>–</b>]
 
 // Some link short cuts.
 :RFC-1034: https://tools.ietf.org/html/rfc1034

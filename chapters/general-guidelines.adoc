@@ -67,11 +67,20 @@ The reason is, that the content referred to is _in general_ *not durable* and
 unexpected ways.
 
 However, you may use remote references to resources accessible by the following
-service URLs.
+service URLs:
 
-* `https://infrastructure-api-repository.zalandoapis.com/` (internal repository of APIs)
-* `https://opensource.zalando.com/problem/` (see <<176>>)
-* `https://zalando.github.io/problem/` (deprecated alias for <<176>>)
+* `https://infrastructure-api-repository.zalandoapis.com/` {dash} used to refer
+  to user defined, immutable API specification revisions published via the
+  internal API repository.
+* `https://opensource.zalando.com/restful-api-guidelines/{model.yaml}` {dash}
+  used to refer to guideline defined re-usable API fragments (see
+  `{model.yaml}` files in https://github.com/zalando/restful-api-guidelines/tree/master/models[restful-api-guidelines/models]
+  for details).
+
+*Hint:* The formerly used remote references to the `Problem` API fragment
+(aliases `https://opensource.zalando.com/problem/` and
+`https://zalando.github.io/problem/`) are deprecated, but still supported for
+compatibility (<<176>> on how to replace).
 
 As we control these URLs, we ensure that their content is *durable* and
 *immutable*. This allows to define API specifications by using fragments
