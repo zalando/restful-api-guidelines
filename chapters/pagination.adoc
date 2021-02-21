@@ -61,85 +61,15 @@ The {cursor} used for pagination is an opaque pointer to a page, that must
 never be *inspected* or *constructed* by clients. It usually encodes (encrypts)
 the page position, i.e. the identifier of the first or last page element, the
 pagination direction, and the applied query filters - or a hash over these -
-to safely recreate the collection. The {cursor} may be defined as follows:
-
-[source,yaml]
-----
-Cursor:
-  type: object
-  properties: 
-    position:
-      description: >
-        Object containing the identifier(s) pointing to the entity that is
-        defining the collection resource page - normally the position is
-        represented by the first or the last page element.
-      type: object
-      properties: ...
-
-    direction:
-      description: >
-        The pagination direction that is defining which elements to choose
-        from the collection resource starting from the page position.
-      type: string
-      enum: [ ASC, DESC ]
-
-    query:
-      description: >
-        Object containing the query filters applied to create the collection
-        resource that is represented by this cursor.
-      type: object
-      properties: ...
-
-    query_hash:
-      description: >
-        Stable hash calculated over all query filters applied to create the
-        collection resource that is represented by this cursor.
-      type: string
-
-  required:
-    - position
-    - direction
-----
-
-The page information for cursor-based pagination should consist of a {cursor}
-set, that besides {next} may provide support for {prev}, {first}, {last}, and
-{self} as follows (see also <<link-relation-fields>>):
-
-[source,json]
-----
-{
-  "cursors": {
-    "self": "...",
-    "first": "...",
-    "prev": "...",
-    "next": "...",
-    "last": "..."
-  },
-  "items": [... ]
-}
-----
-
-*Note:* The support of the {cursor} set may be dropped in favor of <<161>>.
-
-Further reading:
-
-* https://dev.twitter.com/rest/public/timelines[Twitter]
-* http://use-the-index-luke.com/no-offset[Use the Index, Luke]
-* https://www.citusdata.com/blog/1872-joe-nelson/409-five-ways-paginate-postgres-basic-exotic[Paging
-  in PostgreSQL]
+to safely recreate the collection (see also <<cursor-based-pagination>>).
 
 
 [#161]
 == {SHOULD} use pagination links where applicable
 
 To simplify client design, APIs should support <<165, simplified hypertext
-controls>> for pagination over collections whenever applicable. Beside {next}
-this may comprise the support for {prev}, {first}, {last}, and {self} as
-{link-relations}[link relations] (see also <<link-relation-fields>> for
-details).
-
-The page content is transported via {items}, while the {query} object may
-contain the query filters applied to the collection resource as follows:
+controls>> for paginating over collections whenever applicable as follows (see
+also <<pagination-fields>> for details):
 
 [source,json]
 ----
@@ -156,14 +86,6 @@ contain the query filters applied to the collection resource as follows:
   "items": [...]
 }
 ----
-
-*Note:* In case of complex search requests, e.g. when {GET-with-body} is
-required, the {cursor} may not be able to encode all query filters. In this
-case, it is best practice to encode only page position and direction in the
-{cursor} and transport the query filter in the body - in the request as well
-as in the response. To protect the pagination sequence, in this case it is
-recommended, that the {cursor} contains a hash over all applied query
-filters for pagination request validation.
 
 *Remark:* You should avoid providing a total count unless there is a clear
 need to do so. Very often, there are significant system and performance

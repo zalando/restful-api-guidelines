@@ -7,6 +7,107 @@ guidelines, but should provide guidance for common challenges we face when
 implementing RESTful APIs.
 
 
+[[cursor-based-pagination]]
+== Cursor-based pagination in RESTful APIs
+
+Cursor-based pagination is a very powerful and valuable technique (see also
+<<160>>, that allows to efficiently provide a stable view on changing data.
+This is obtained by using an anchor element that allows to retrieve all page
+elements directly via an ordering combined-index, usually based on `created_at`
+or `modified_at`. Simple said, the cursor is the information set needed to
+reconstruct the database query to retrieves the minimal page information from
+the data storage.
+
+The {cursor} itself is an opaque string, transmitted forth and back between
+service and clients, that must never be *inspected* or *constructed* by
+clients. Therefore, it is good practice to encode (encrypt) its content in a
+non-human-readable form.
+
+The {cursor} content usually consists of a pointer to the anchor element
+defining the page position in the collection, a flag whether the element is
+included or excluded into/from the page, the retrieval direction, and a hash
+over the applied query filters (or the query filter itself) to safely re-create
+the collection. It is important to note, that a {cursor} should be always
+defined in relation to the current page to anticipate all occurring changes
+when progressing.
+
+The {cursor} is usually defined as an encoding of the following information:
+
+[source,yaml]
+----
+Cursor:
+  descriptions: >
+    Cursor structure that contains all necessary information to efficiently
+    retrieve a page from the data store.
+  type: object
+  properties:
+    position:
+      description: >
+        Object containing the keys pointing to the anchor element that is
+        defining the collection resource page. Normally the position is given
+        by the first or the last page element. The position object contains all
+        values required to access the element efficiently via the ordered,
+        combined index, e.g `modified_at`, `id`.
+      type: object
+      properties: ...
+
+    element:
+      description: >
+        Flag whether the anchor element, which is pointed to by the `position`,
+        should be *included* or *excluded* from the result set. Normally, only
+        the current page includes the pointed to element, while all others are
+        exclude it.
+      type: string
+      enum: [ INCLUDED, EXCLUDED ]
+
+    direction:
+      description: >
+        Flag for the retrieval direction that is defining which elements to
+        choose from the collection resource starting from the anchor elements
+        position. It is either *ascending* or *descending* based on the
+        ordering combined index.
+      type: string
+      enum: [ ASCENDING, DESCENDING ]
+
+    query_hash:
+      description: >
+        Stable hash calculated over all query filters applied to create the
+        collection resource that is represented by this cursor.
+      type: string
+
+    query:
+      description: >
+        Object containing all query filters applied to create the collection
+        resource that is represented by this cursor.
+      type: object
+      properties: ...
+
+  required:
+    - position
+    - element
+    - direction
+----
+
+*Note:* In case of complex and long search requests, e.g. when {GET-with-body}
+is already required, the {cursor} may not be able to include the `query` because
+of common HTTP parameter size restrictions. In this case the `query` filters
+should be transported via body - in the request as well as in the response,
+while the pagination consistency should be ensured via the `query_hash`.
+
+*Remark:* It is also important to check the efficiency of the data-access.
+You need to make sure that you have a fully ordered stable index, that allows
+to efficiently resolve all elements of a page. If necessary, you need to
+provide a combined index that includes the `id` to ensure the full order and
+additional filter criteria to ensure efficiency.
+
+=== Further reading
+
+* https://dev.twitter.com/rest/public/timelines[Twitter]
+* http://use-the-index-luke.com/no-offset[Use the Index, Luke]
+* https://www.citusdata.com/blog/1872-joe-nelson/409-five-ways-paginate-postgres-basic-exotic[Paging
+  in PostgreSQL]
+
+
 [[optimistic-locking]]
 == Optimistic locking in RESTful APIs
 
