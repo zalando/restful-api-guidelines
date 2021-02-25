@@ -172,12 +172,13 @@ resources. There is very little utility for API consumers in having different
 names or value types for these fields across APIs.
 
 
-[[link-relation-fields]]
-=== Link relation fields
+[[pagination-fields]]
+=== Pagination fields
 
-To foster a consistent look and feel using simple hypertext controls for
-paginating and iterating over collection values the response objects should
-follow a common pattern using the below field semantics:
+For iterating over collections (result sets) we propose to either use cursors
+(see <<160>>) or simple hypertext controls (see <<161>>). To implement these
+in a consistent way, we have defined a response page object pattern with the
+following field semantics:
 
 * [[self]]{self}:the link or cursor in a pagination response or object
   pointing to the same collection object or page.
@@ -202,48 +203,55 @@ the following field (see also {GET-with-body}):
 * [[query]]{query}: object containing the query filters applied in the search
   request to filter the collection resource.
 
-As Result, the standard response page using <<161, pagination links>> is
-defined as follows:
+As Result, the standard response page using <<160, cursors>> or <<161,
+pagination links>> may be defined as follows:
 
 [source,yaml]
 ----
 ResponsePage:
   type: object
+  required:
+    - items
+    - next
   properties:
     self:
-      description: Pagination link pointing to the current page.
+      description: Pagination link|cursor pointing to the current page.
       type: string
-      format: uri
+      format: uri|cursor
     first:
-      description: Pagination link pointing to the first page.
+      description: Pagination link|cursor pointing to the first page.
       type: string
-      format: uri
+      format: uri|cursor
     prev:
-      description: Pagination link pointing to the previous page.
+      description: Pagination link|cursor pointing to the previous page.
       type: string
-      format: uri
+      format: uri|cursor
     next:
-      description: Pagination link pointing to the next page.
+      description: Pagination link|cursor pointing to the next page.
       type: string
-      format: uri
+      format: uri|cursor
     last:
-      description: Pagination link pointing to the last page.
+      description: Pagination link|cursor pointing to the last page.
       type: string
-      format: uri
+      format: uri|cursor
 
-     query:
-       description: >
-         Object containing the query filters applied to the collection resource.
-       type: object
-       properties: ...
+    query:
+      description: >
+        Object containing the query filters applied to the collection resource.
+      type: object
+      properties: ...
 
-     items:
-       description: Array of collection items.
-       type: array
-       required: false
-       items:
-         type: ...
+    items:
+      description: Array of collection items.
+      type: array
+      required: false
+      items:
+        type: ...
 ----
+
+*Note:* While you may support cursors for {next}, {prev}, {first}, {last}, and
+{self} (see <<pagination-fields>>), it is best practice to replace these with
+links in favor of <<161>>.
 
 The response page may contain additional metadata about the collection or the
 current page.
