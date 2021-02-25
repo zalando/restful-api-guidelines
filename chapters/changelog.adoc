@@ -10,11 +10,47 @@ The latter changes are additionally labeled with "Rule Change" here.
 
 To see a list of all changes, please have a look at the https://github.com/zalando/restful-api-guidelines/commits/master[commit list in Github].
 
+(Note that recent changes might be missing, as we update this list only occasionally,
+ not with each pull request, to avoid merge commits.)
+
 [[rule-changes]]
 == Rule Changes
 
-* `2019-01-24:` Improve guidance on caching (<<149>>, <<227>>). 
-* `2019-01-15:` Improve guidance on idempotency, introduce idempotency-key (<<229>>, <<231>>).
+* `2021-01-19`: more details for {GET-with-Body} and {DELETE-with-Body} (<<148>>).
+* `2020-09-29`: include models for headers to be included by reference in API definitions (<<183>>)
+* `2020-09-08`: add exception for legacy host names to <<224>>
+* `2020-08-25`: change <<240>> from {MUST} to {SHOULD}, explain exceptions
+* `2020-08-25`: add exception for `self` to <<143>> and <<134>>.
+* `2020-08-24`: change "{MUST} avoid trailing slashes" to <<136>>.
+* `2020-08-20`: change <<183>> from {MUST} to {SHOULD}, mention gateway-specific headers (which are not part of the public API).
+* `2020-06-30`: add details to <<114>>
+* `2020-05-19`: new sections about DELETE with query parameters and {DELETE-with-Body} in <<148>>.
+* `2020-02-06`: new rule <<241>>
+* `2020-02-05`: add Sunset header, clarify deprecation producedure (<<185>>, <<186>>, <<187>>, <<188>>, <<189>>, <<190>>, <<191>>)
+* `2020-01-21`: new rule <<240>> (as MUST, changed later to SHOULD)
+* `2020-01-15`: change "Warning" to "Deprecation" header in <<189>>, <<190>>.
+* `2019-10-10`: remove never-implemented rule "{MUST} Permissions on events must correspond to API permissions"
+* `2019-09-10`: remove duplicated rule "{MAY} Standards could be used for Language, Country and Currency", upgrade <<170>> from {MAY} to {SHOULD}.
+* `2019-08-29`: new rule <<239>>, extend <<167>> pointing to {RFC-7493}[RFC-7493]
+* `2019-08-29`: new rules <<236>>, <<237>>
+* `2019-07-30`: new rule <<238>>
+* `2019-07-30`: change <<519>> from {SHOULD} to {MUST}
+* `2019-07-30`: change "{SHOULD} Null values should have their fields removed to" <<123>>.
+* `2019-07-25`: new rule <<235>>.
+* `2019-07-18`: improved cursor guideline for {GET-with-Body}.
+* `2019-06-25`: change <<154>> from {SHOULD} to {MUST}, use OpenAPI 3 syntax
+* `2019-06-13`: remove `X-App-Domain` from <<183>>.
+* `2019-05-17`: add `X-Mobile-Advertising-Id` to <<183>>.
+* `2019-04-09` New rule <<234>>
+* `2019-02-19`: New rule <<233>> extracted + expanded from <<183>>.
+* `2019-01-24:` Improve guidance on caching (<<149>>, <<227>>).
+* `2019-01-21:` Improve guidance on idempotency, introduce idempotency-key (<<229>>, <<231>>).
+* `2019-01-16`: Change <<135>> from {MAY} to {SHOULD NOT}
+* `2018-10-19`: Add `ordering_key_field` to event type definition schema (<<197>>, <<203>>)
+* `2018-09-28`: New rule <<228>>
+* `2018-09-13`: replaced OpenAPI 2.0 syntax with OpenAPI 3.0 in the example snippets
+* `2018-08-10`: New rule <<226>>
+* `2018-07-12`: Add `audience` field to event type definition (<<197>>)
 * `2018-06-11:` Introduced new naming guidelines for host, permission, and event names.
 * `2018-01-10:` Moved meta information related aspects into new chapter <<meta-information>>.
 * `2018-01-09:` Changed publication requirements for API specifications (<<192>>).
