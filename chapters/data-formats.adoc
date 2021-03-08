@@ -3,7 +3,7 @@
 
 
 [#167]
-== {MUST} use JSON as standard format for the payload
+== {MUST} use JSON as payload standard format
 
 Use JSON ({RFC-7159}[RFC 7159]) to represent structured (resource) data 
 passed with HTTP requests and responses as body payload.
