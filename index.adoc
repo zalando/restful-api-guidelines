@@ -302,6 +302,7 @@ include::chapters/development/version-control.adoc[]
 include::chapters/development/testing.adoc[]
 include::chapters/development/monitoring.adoc[]
 include::chapters/development/environment.adoc[]
+include::chapters/development/background.adoc[]
 
 include::chapters/development/standard-style.adoc[]
 include::chapters/development/standard-style-go.adoc[]

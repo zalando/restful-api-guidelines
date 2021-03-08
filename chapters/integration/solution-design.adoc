@@ -24,7 +24,7 @@ the alert has been sent, reconnection attempts must continue until successful.
 === {STATUS-RFP} {SHOULD} have increasing reconnection intervals
 
 When reconnection strategies are deployed they should have increasing
-reconnecction intervals. For example: 1s, 2s, 4s etc.
+reconnection intervals. For example 1s, 2s, 4s etc.
 
 == Loosely coupled
 

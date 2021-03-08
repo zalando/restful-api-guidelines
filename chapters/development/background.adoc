@@ -1,6 +1,13 @@
 [[development-background]]
 = Development background
 
+This chapter further explores what it is to be a developer, it does not contain
+guidelines or standards per-se but it can be of guidance for developers.
+
+
+<<pragmatic-programmer,PP 25>>
+
+
 
 
 Apollo / NASA

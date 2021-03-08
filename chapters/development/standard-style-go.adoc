@@ -35,19 +35,19 @@ qacheck:
 == {SHOULD} go Vet is used to check go code for correctness in the development process
 We preferably configure our IDE to run go Vet on every save operation.  
 
-[#273]
+[#285]
 == {MUST} go Vet is used to check go code for correctness in the build pipeline
 No code may be build without a code check. This is done by default when rule <<270,270>> is applied.
 
-[#274]
+[#286]
 == {MUST} use tabs for indentation in Go
 Unlike the development guidelines for other languages in Go we use tabs for indentation. To improve formatting of code we use gofmt to automatically format go code in de IDE. 
 
-[#275]
+[#287]
 == {MUST} use gofmt in the IDE for automatic formatting 
 In Go you don't worry about formatting yourself and use gofmt for automatic formating. Gofmt directions are leading. 
 
-[#276]
+[#288]
 == {SHALL} every function is commented
 In Go exported functions must be commented and is enforced by linting. Comments on unexported functions are not enforced by linting, but improve readablity of the code. 
 

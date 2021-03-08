@@ -13,24 +13,24 @@ Additional resources
 - https://ponintranet.com/profiel/security-privacy/privacy-by-design/[Pon Security & Privacy by Design Process - Step by Step]
 - https://drive.google.com/drive/folders/1319i3ttsMzCbGk18u0D5ptkpCeacXYOG[Data classification and corresponding security measures]
 
-[#277S]
+[#289]
 == {STATUS-RFP} {MUST} be compliant with the Pon Security Policy and Principles
 
-All systems must be complaint with the
+All systems must be compliant with the
 https://ponintranet.com/en/about-pon/security-privacy/pon-security-policy/[Pon
 Security Policy and Principles]
 
-[#278S]
+[#290]
 == {STATUS-RFP} {MUST} be compliant with Binding Corporate Rules and local privacy legislation
 
 All systems must be compliant with
 https://www.youtube.com/watch?v=Dx4mlAuFp9Q&feature=youtu.be[Binding Corportate
 Rules] and local privacy legislation such as GDPR or CCPA.
 
-[#279S]
+[#291]
 == {STATUS-RFP} {MUST} have performed a Security & Privacy intake
 
-Must have have performed a Security & Privacy intake. When the requirements for
+Must have performed a Security & Privacy intake. When the requirements for
 the new system are clear, the Pon Security & Privacy by Design Process must be
 triggered via completing the
 https://ponintranet.com/en/about-pon/security-privacy/privacy-by-design/[Security
@@ -38,7 +38,7 @@ https://ponintranet.com/en/about-pon/security-privacy/privacy-by-design/[Securit
 APIs that are secure and privacy compliant and friendly. Your Group Security and
 Privacy manager will contact you to discuss the intake.
 
-[#280S]
+[#292]
 
 == {STATUS-RFP} {MUST} have the agreed security and privacy measures approved
 
