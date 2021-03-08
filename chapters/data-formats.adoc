@@ -3,15 +3,16 @@
 
 
 [#167]
-== {MUST} use JSON to encode structured data
+== {MUST} use JSON as standard format for the payload
 
-Use JSON-encoded body payload for transferring structured data. The JSON
-payload must follow {RFC-7159}[RFC 7159] using a JSON object as top-level data
+Use JSON ({RFC-7159}[RFC 7159]) to represent structured (resource) data 
+passed with HTTP requests and responses as body payload.
+The JSON payload must use a JSON object as top-level data 
 structure (if possible) to allow for future extension. This also applies to
-collection resources, where one naturally would assume an array. See also
+collection resources, where you ad-hoc would use an array -- see also
 <<110>>.
 
-Additionally, the JSON payload must comply to {RFC-7493}[RFC 7493]),
+Additionally, the JSON payload must comply to the more restrictive Internet JSON ({RFC-7493}[RFC 7493]),
 particularly
 
 * {RFC-7493}#section-2.1[Section 2.1] on encoding of characters, and
@@ -26,16 +27,32 @@ As a consequence, a JSON payload must
   names).
 
 
-[#168]
-== {MAY} use non JSON media types for binary data or alternative content representations
+[#172]
+== {SHOULD} prefer standard media type name `application/json`
 
-Other media types may be used in following cases:
+Use the standard media type name
+`application/json` (or `application/problem+json` for <<176>>)
+as content type (or accept header) information for JSON payload. 
+
+Hint: Previously, this guideline allowed the use of custom media types like 
+`application/x.zalando.article+json`. This usage is not recommended
+anymore and should be avoided, except where it is necessary for cases of
+<<114,media type versioning>>. 
+Custom media types beginning with `x` bring no advantage compared to the
+standard media type for JSON, and make automated processing more difficult.
+They are also {RFC-6838}#section-3.4[discouraged by RFC 6838].
+
+
+[#168]
+== {MAY} use non JSON media types for binary or other specific format data
+
+Non JSON media types may be used in following cases:
 
 * Transferring binary data or data whose structure is not relevant. This is
   the case if payload structure is not interpreted and consumed by clients as
-  is. Example of such use case is downloading images in formats JPG, PNG, GIF.
-* In addition to JSON version alternative data representations (e.g. in formats
-  PDF, DOC, XML) may be made available through content negotiation.
+  is. A typical example use case is downloading images in formats JPG, PNG, GIF.
+* Alternative specific data formats (e.g. PDF, DOC, XML) 
+  may be supported additionally to JSON format via content negotiation.
 
 
 [#239]
@@ -49,26 +66,15 @@ be embedded into the JSON document as a `base64url`-encoded string property
 following {RFC-7493}#section-4.4[RFC 7493 Section 4.4].
 
 
-[#172]
-== {SHOULD} prefer standard media type name `application/json`
-
-Previously, this guideline allowed the use of custom media types like 
-`application/x.zalando.article+json`. This usage is not recommended
-anymore and should be avoided, except where it is necessary for cases of
-<<114,media type versioning>>. Instead, just use the standard media type name
-`application/json` (or `application/problem+json` for <<176>>).
-
-Custom media types beginning with `x` bring no advantage compared to the
-standard media type for JSON, and make automated processing more difficult.
-They are also {RFC-6838}#section-3.4[discouraged by RFC 6838].
-
-
 [#238]
 == {SHOULD} use standardized property formats
 
-https://json-schema.org/understanding-json-schema/reference/string.html#format[JSON Schema] and https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#data-types[Open API] define several universally useful property formats. The following table contains some additional formats that are particularly useful in an e-commerce environment.
-
-Please notice that the list is not exhaustive and everyone is encouraged to propose additions.
+https://json-schema.org/understanding-json-schema/reference/string.html#format[JSON Schema] 
+and https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#data-types[Open API] 
+define several data formats (like `date`, `time`, `email`, `url` and others) using 
+standards from ISO and IETF. The following table lists the data formats and some additional 
+formats that are particularly useful in an e-commerce environment. 
+You should use these standard data formats, whenever applicable. 
 
 [cols="10%,25%,25%,40%",options="header",]
 |=====================================================================
@@ -100,6 +106,9 @@ Please notice that the list is not exhaustive and everyone is encouraged to prop
 | `string` | <<144, `uuid`>> | {RFC-4122}[RFC 4122] | `"e2ab873e-b295-11e9-9c02-..."`
 |=====================================================================
 
+Remark: Please note that this list of standard data formats is not exhaustive 
+and everyone is encouraged to propose additions.
+
 
 [#169]
 == {MUST} use standard date and time formats
@@ -125,12 +134,14 @@ Http headers including the proprietary headers use the
 Use the following standard formats for country, language and currency
 codes:
 
-* {ISO-3166-1-a2}[ISO 3166-1-alpha2 country codes]
-** (It is "GB", not "UK", even though "UK" has seen some use at Zalando)
-* {ISO-639-1}[ISO 639-1 language code]
-** {BCP47}[BCP 47] (based on {ISO-639-1}[ISO 639-1])
-   for language variants
-* {ISO-4217}[ISO 4217 currency codes]
+* Country codes: {ISO-3166-1-a2}[ISO 3166-1-alpha2] two letter country codes
+** Hint: It is "GB", not "UK", even though "UK" has seen some use at Zalando
+* Language codes: {ISO-639-1}[ISO 639-1] two letter language codes
+* Language variant tags: {BCP47}[BCP 47] 
+** It is a compatible extension of {ISO-639-1}[ISO 639-1], providing additional 
+   information for language usage, like region (using {ISO-3166-1-a2}[ISO 3166-1]), 
+   variant, script and others.
+* Currency codes:  {ISO-4217}[ISO 4217] three letter currency codes
 
 
 [#171]
