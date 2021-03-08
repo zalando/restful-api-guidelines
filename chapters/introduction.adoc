@@ -58,6 +58,14 @@ gathering the requirements and specifying the goals of the software to be met
 Next to the business requirements this document contains the minimal standards
 for software; including software license and source code management.
 
+[[little-prince-quote]]
+[quote, paraphrased; Antoine de Saint-Exupery]     
+____
+If you want to build an application, don’t herd people together to build
+code and don’t assign them tasks and work, but rather teach them to long 
+for the endless joy of happy efficient users.
+____
+
 === Software architecture and design
 
 Architecture and design are where the Art of Building Software comes in, the
