@@ -329,14 +329,13 @@ An _event category_ describes a generic class of event types. The
 guidelines define two such categories:
 
 * General Event: a general purpose category.
-* Data Change Event: a category used for describing changes to data
-entities used for data replication based data integration.
+* Data Change Event: a category used to inform about changes to data
+entities, and used for data replication based data integration.
 
-The set of categories is expected to evolve in the future.
-
-A category describes a predefined structure that event publishers must
-conform to along with standard information about that kind of event
-(such as the operation for a data change event).
+A category describes a predefined structure (e.g. consisting of event 
+metadata as part of the event payload) that event publishers must
+conform to along with standard information specific for the event category
+(e.g. the operation for data change events).
 
 
 === The general event category
@@ -352,8 +351,8 @@ GeneralEvent:
     custom schema payload as the top level of the document, with the
     "metadata" field being required and reserved for standard metadata. An
     instance of an event based on the event type thus conforms to both the
-    EventMetadata definition and the custom schema definition. Previously
-    this category was called the Business Category.
+    EventMetadata definition and the custom schema definition. 
+    Hint: In earlier versions this category was called the Business Category.
   required:
     - metadata
   properties:
@@ -373,14 +372,14 @@ schema:
 
 Note:
 
-* The General Event in a previous version of the guidelines was called a
-_Business Event_. Implementation experience has shown that the
+* The General Event was called a _Business Event_ in earlier versions of 
+the guidelines. Implementation experience has shown that the
 category's structure gets used for other kinds of events, hence the name
 has been generalized to reflect how teams are using it.
 * The General Event is still useful and recommended for the purpose of
 defining events that drive a business process.
 * The Nakadi broker still refers to the General Category as the Business
-Category and uses the keyword "business" for event type registration.
+Category and uses the keyword `business` for event type registration.
 Other than that, the JSON structures are identical.
 
 See <<201>> for more guidance on how to use the category.
@@ -432,17 +431,17 @@ DataChangeEvent:
 ----
 
 The Data Change Event Category is structurally different to the General
-Event Category. It defines a field called `data` for placing the custom
-payload information, as well as specific information related to data
+Event Category defining a field called `data` as container for the custom
+payload, as well as specific information related to data
 changes in the `data_type`. In the example fragment below, the fields
 `a` and `b` are part of the custom payload housed inside the `data`
 field:
 
-See the following guidelines for more guidance on how to use the Data
-Change Event Category:
+The following guidelines specifically apply to Data Change Events:
 
-* <<205>>
 * <<202>>
+* <<203>>
+* <<205>>
 * <<204>>
 
 
@@ -515,7 +514,7 @@ EventMetadata:
       example: '0'
 ----
 
-Please note than intermediaries acting between the producer of an event
+Please note that intermediaries acting between the producer of an event
 and its ultimate consumers, may perform operations like validation of
 events and enrichment of an event's <<event-metadata,metadata>>. For
 example brokers such as Nakadi, can validate and enrich events with
@@ -588,52 +587,66 @@ assessing each option and sticking to one for a given business process.
 [#202]
 == {MUST} use data change events to signal mutations
 
-When publishing events that represents created, updated, or deleted
-data, change event types must be based on the Data Change Event
-category.
+You _must_ use data change events to signal changes of stored entity instances 
+and facilitate e.g. change data capture (CDC), i.e. keeping datastore replicas 
+in sync with minimal delays sourced from events.  Data change events are 
+crucial e.g. for our data analytics integration architecture: They facilitate 
+the logical replication of the microservice application datastores into 
+transactional datasets as input for data analytics and AI. 
 
-* Change events must identify the changed entity to allow aggregation of
-all related events for the entity.
+* Use the Data Change Event category when publishing events that represent 
+created, updated, or deleted data.
+* Change events must provide the identifier of the changed entity instance 
+to allow aggregation of all related events for the entity.
 * Change events <<203>>.
 * Change events must be published reliably by the service.
 
 
 [#203]
-== {SHOULD} provide means for explicit event ordering
+== {MUST} provide explicit event ordering for data change events
 
-Some common error cases may require event consumers to reconstruct event
-streams or replay events from a position within the stream. Events
-_should_ therefore contain a way to restore their partial order of
-occurrence.
+All data change events _must_ be provided with the information about the business 
+transaction ordering of the events. In the event type definition, the `ordering_key_fields` 
+property must be used to indicate which field(s) contains the ordering key. 
+Additionally, the `ordering_instance_ids` property should be used to define 
+which field represents the data instance identifier and scope in which 
+`ordering_key_fields` provides a strict order. (If undefined, the ordering is 
+assumed to be provided in scope of all events.)
 
-This can be done – among other ways – by adding
+The ordering information defines the transactional data change order managed 
+by the application, and is used e.g. for analytics change data capture, i.e. 
+keeping transactional data in sync as source for analytics. The ordering 
+information is business knowledge located in the application's publisher and 
+typically is implemented in scope of event partitions or event entity instances 
+(but may also be implemented in scope of the event type for all events, if 
+scaling requirements are low). The order information differs from Nakadi 
+provided `occured_at` or `partition_offset` metadata, since application's event 
+creation may not reflect the transactional order and Nakadi is a distributed 
+concurrent system without ordered atomic event publication. While the order 
+information is mandatory for data change events, it is recommended to be also 
+provided for general (aka business) events. Providing explicitly the order of 
+business occurrence supports event consumers e.g. in error situations to 
+reconstruct event streams or replay events from a position within the stream. 
 
- * a strictly monotonically increasing entity version (e.g. as
-   created by a database) to allow for partial ordering of all
-   events for an entity, or
- * a strictly monotonically increasing message counter.
+The business ordering information can be provided – among other ways – by maintaining...
 
-In the event type definition, the `ordering_key_fields` property
-should be used to indicate which field(s) contains the ordering
-key, if any.
+ * a strictly monotonically increasing entity instance version (e.g. as created 
+   by a database) to allow for partial ordering of all events for an entity, or
+ * a strictly monotonically increasing sequence counter (per partition or events type).
 
-System timestamps are not necessarily a good choice, since exact
-synchronization of clocks in distributed systems is difficult, two
+Hint: System timestamps are not necessarily a good choice, since usually there 
+is no exact clock synchronization in distributed systems, and two
 events may occur in the same microsecond and system clocks may jump
 backward or forward to compensate drifts or leap-seconds. If you use
 system timestamps to indicate event ordering, you must carefully ensure
 that your designated event order is not messed up by these effects.
-
-Also, if using timestamps, the producer *must* make sure that they
+When using timestamps, the producer *must* make sure that they
 are formatted for all events in the UTC time zone, to allow for a
 simple string-based comparison.
 
-*Note* that basing events on data structures that can be converged upon
-in a distributed setting (such as
-https://en.wikipedia.org/wiki/Conflict-free_replicated_data_type[CRDTs],
-https://en.wikipedia.org/wiki/Logical_clock[logical clocks] and
-https://en.wikipedia.org/wiki/Vector_clock[vector clocks]) is outside
-the scope of this guidance.
+*Exception*: In situations where the transactional data is 'append only', 
+i.e. entity instances are only created, but never updated or deleted, the 
+ordering information needs to be provided.
 
 
 [#204]
