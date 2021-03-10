@@ -182,3 +182,11 @@ Contracts relating to software development must indicate the signing party has
 taken knowledge of the guidelines and agrees to comply to the standards as
 indicated in this document.
 
+
+[#103]
+=== {STATUS-RFP} {MUST} write all resources using U.S. English
+
+All resources, APIs, documentation, comments etc. must be written in the U.S.
+English language
+
+

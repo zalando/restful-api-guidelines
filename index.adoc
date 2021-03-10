@@ -14,7 +14,7 @@
 :copyright: CC-BY-SA 4.0
 
 
-// Some link short cuts.
+// Some link shortcuts.
 :RFC-1034: https://tools.ietf.org/html/rfc1034
 :RFC-2673: https://tools.ietf.org/html/rfc2673
 :RFC-3339: https://tools.ietf.org/html/rfc3339
@@ -55,7 +55,7 @@
 
 :SRE-Tracing: https://github.bus.zalan.do/SRE/opentracing
 
-// Attribute to improve design of key words in titles.
+// Attribute to improve the design of keywords in titles.
 :MUST: pass:[<span class="must-keyword"><strong>MUST</strong></span>]
 :SHOULD: pass:[<span class="should-keyword"><strong>SHOULD</strong></span>]
 :MAY: pass:[<span class="may-keyword"><strong>MAY</strong></span>]
@@ -76,7 +76,7 @@
 :LANG-PHP-ICON: image:assets/lang-php.svg[PHP, 24, 24]
 :LANG-ALL-ICON: image:assets/lang-all.svg[All, 24, 24]
 
-// Attributes to improvement design of common table elements.
+// Attributes to the improvement design of common table elements.
 :NO: pass:[<span class="must-keyword">&#x2717;</span> No]
 :YES: pass:[<span class="may-keyword">&#x2714;</span> Yes]
 :AT: pass:[<span class="should-keyword">&#x26a0;</span>]
@@ -266,6 +266,8 @@ include::chapters/integration/generic.adoc[]
 include::chapters/integration/generic/pagination.adoc[]
 :leveloffset: -1
 
+:leveloffset: -1
+
 include::chapters/integration/types.adoc[]
 :leveloffset: +1
 include::chapters/integration/types/ftp.adoc[]
@@ -286,7 +288,7 @@ include::chapters/hyper-media.adoc[]
 include::chapters/common-headers.adoc[]
 include::chapters/proprietary-headers.adoc[]
 include::chapters/api-operation.adoc[]
-include::chapters/events.adoc[]
+include::chapters/integration/events.adoc[]
 include::chapters/tooling.adoc[]
 include::chapters/best-practices.adoc[]
 
