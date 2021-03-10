@@ -622,11 +622,7 @@ typically is implemented in scope of event partitions or event entity instances
 scaling requirements are low). The order information differs from Nakadi 
 provided `occured_at` or `partition_offset` metadata, since application's event 
 creation may not reflect the transactional order and Nakadi is a distributed 
-concurrent system without ordered atomic event publication. While the order 
-information is mandatory for data change events, it is recommended to be also 
-provided for general (aka business) events. Providing explicitly the order of 
-business occurrence supports event consumers e.g. in error situations to 
-reconstruct event streams or replay events from a position within the stream. 
+concurrent system without ordered atomic event publication. 
 
 The business ordering information can be provided – among other ways – by maintaining...
 
@@ -647,6 +643,16 @@ simple string-based comparison.
 *Exception*: In situations where the transactional data is 'append only', 
 i.e. entity instances are only created, but never updated or deleted, the 
 ordering information needs to be provided.
+
+
+[#242]
+== {SHOULD} provide explicit event ordering for general events
+
+While the order information is mandatory for data change events, it _should_ be also 
+provided for general events (fka business events). Providing explicitly the order of 
+business occurrence supports event consumers e.g. in error situations to 
+reconstruct event streams or replay events from a position within the stream. 
+For further details, please check <<203>>.
 
 
 [#204]
