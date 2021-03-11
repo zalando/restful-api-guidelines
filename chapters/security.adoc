@@ -5,11 +5,20 @@
 [#104]
 == {MUST} secure endpoints with OAuth 2.0
 
-Every API endpoint needs to be secured using OAuth 2.0. Please refer to the
-https://swagger.io/docs/specification/authentication/[Authentication section] of the official
+Every API endpoint _must_ to be secured using OAuth 2.0. Please refer to the
+https://swagger.io/docs/specification/authentication/[Authentication section] of the 
 Open API specification on how to specify security definitions in your API.
 
-The following code snippet shows how to define the authorization scheme using
+Most of our services require authentication via a token being passed with the 
+`Authorization: Bearer <token>` header, and here you _should_ use the 
+https://swagger.io/docs/specification/authentication/bearer-authentication/[bearerAuth security scheme] 
+for HTTP authentication (originally created as part of OAuth 2.0). 
+In situations where the service supports specific OAuth2 flows 
+-- see https://tools.ietf.org/html/rfc6750[RFC 6750], like `implicit` with redirection to authorization server --
+you should use https://swagger.io/docs/specification/authentication/oauth2/[OAuth 2.0 security scheme] 
+exposing flow and authentication server details. 
+
+*Example*: The following code snippet shows how to define the authorization scheme using
 a bearer token (e.g. JWT token).
 
 [source,yaml]
