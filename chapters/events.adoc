@@ -329,8 +329,8 @@ An _event category_ describes a generic class of event types. The
 guidelines define two such categories:
 
 * General Event: a general purpose category.
-* Data Change Event: a category used to inform about changes to data
-entities, and used for data replication based data integration.
+* Data Change Event: a category to inform about data entity changes 
+  and used e.g. for data replication based data integration.
 
 A category describes a predefined structure (e.g. consisting of event 
 metadata as part of the event payload) that event publishers must
@@ -558,8 +558,7 @@ do other APIs), and this is fine.
 == {MUST} use the general event category to signal steps and arrival points in business processes
 
 When publishing events that represent steps in a business process, event
-types must be based on the General Event category.
-
+types *must* be based on the General Event category. 
 All your events of a single business process will conform to the
 following rules:
 
@@ -584,15 +583,56 @@ multiple event types to represent each step. For now we suggest
 assessing each option and sticking to one for a given business process.
 
 
+[#242]
+== {SHOULD} provide explicit event ordering for general events
+
+Event processing consumer applications need the order information to 
+reconstruct the business event stream, for instance, in order to replay 
+events in error situations, or to execute analytical use cases 
+outside the context of the original event stream consumption. 
+All general events (fka business events) *should* be provided with the explicit
+information about the business ordering of the events. To accomplish this 
+event ordering the event type definition
+
+* *must* specify a the `ordering_key_fields` property to indicate which
+  field(s) contain the ordering key, and
+* *should* specify the `ordering_instance_ids` property to define which
+  field(s) represents the business entity instance identifier.
+
+*Note:* The `ordering_instance_ids` restrict the scope in which the 
+`ordering_key_fields` provide the strict order. If undefined, the ordering is 
+assumed to be provided in scope of all events.
+
+The business ordering information can be provided – among other ways – by maintaining...
+
+ * a strictly monotonically increasing version of entity instances (e.g. created as
+   row update counter by a database), or
+ * a strictly monotonically increasing sequence counter (maintained per partition 
+   or event type).
+
+*Hint:* timestamps are often a bad choice, since in distributed systems events 
+may occur at the same time, or clocks are not exactly synchronized, or 
+jump forward and backward to compensate drifts or leap-seconds. If you use anyway
+timestamps to indicate event ordering, you _must_ carefully ensure that the designated 
+event order is not messed up by these effects and use UTC time zone format.
+
+*Note:* The `occured_at` and `partition_offset` metadata of Nakadi typically is 
+different from the business event ordering, since (i) Nakadi is a distributed concurrent 
+system without atomic, ordered event creation and (ii) the application's implementation
+of event publishing may not exactly reflect the business order. The business ordering 
+information is application knowledge, and implemented in the scope of event 
+partitions or specific entities, but may also comprise all events, if scaling 
+requirements are low.
+
+
 [#202]
 == {MUST} use data change events to signal mutations
 
-You _must_ use data change events to signal changes of stored entity instances 
-and facilitate e.g. change data capture (CDC), i.e. keeping datastore replicas 
-in sync with minimal delays sourced from events.  Data change events are 
-crucial e.g. for our data analytics integration architecture: They facilitate 
-the logical replication of the microservice application datastores into 
-transactional datasets as input for data analytics and AI. 
+You *must* use data change events to signal changes of stored entity instances
+and facilitate e.g. change data capture (CDC). Event sourced change data capture 
+is crucial for our data integration architecture as it supports the logical 
+replication (and reconstruction) of the application datastores into 
+transactional datasets used as input for data analytics and AI. 
 
 * Use the Data Change Event category when publishing events that represent 
 created, updated, or deleted data.
@@ -605,54 +645,18 @@ to allow aggregation of all related events for the entity.
 [#203]
 == {MUST} provide explicit event ordering for data change events
 
-All data change events _must_ be provided with the information about the business 
-transaction ordering of the events. In the event type definition, the `ordering_key_fields` 
-property must be used to indicate which field(s) contains the ordering key. 
-Additionally, the `ordering_instance_ids` property should be used to define 
-which field represents the data instance identifier and scope in which 
-`ordering_key_fields` provides a strict order. (If undefined, the ordering is 
-assumed to be provided in scope of all events.)
+While the order information is recommended for business events, it *must* be 
+provided for data change events. The ordering information defines the (create, 
+update, delete) change order of the data entity instances managed via the 
+application's transactional datastore. It is needed for change data capture 
+to keep transactional data replicas in sync as source for data analytics. 
 
-The ordering information defines the transactional data change order managed 
-by the application, and is used e.g. for analytics change data capture, i.e. 
-keeping transactional data in sync as source for analytics. The ordering 
-information is business knowledge located in the application's publisher and 
-typically is implemented in scope of event partitions or event entity instances 
-(but may also be implemented in scope of the event type for all events, if 
-scaling requirements are low). The order information differs from Nakadi 
-provided `occured_at` or `partition_offset` metadata, since application's event 
-creation may not reflect the transactional order and Nakadi is a distributed 
-concurrent system without ordered atomic event publication. 
-
-The business ordering information can be provided – among other ways – by maintaining...
-
- * a strictly monotonically increasing entity instance version (e.g. as created 
-   by a database) to allow for partial ordering of all events for an entity, or
- * a strictly monotonically increasing sequence counter (per partition or events type).
-
-Hint: System timestamps are not necessarily a good choice, since usually there 
-is no exact clock synchronization in distributed systems, and two
-events may occur in the same microsecond and system clocks may jump
-backward or forward to compensate drifts or leap-seconds. If you use
-system timestamps to indicate event ordering, you must carefully ensure
-that your designated event order is not messed up by these effects.
-When using timestamps, the producer *must* make sure that they
-are formatted for all events in the UTC time zone, to allow for a
-simple string-based comparison.
+For details about how to provide the data change ordering information, 
+please check <<242>>.
 
 *Exception*: In situations where the transactional data is 'append only', 
 i.e. entity instances are only created, but never updated or deleted, the 
-ordering information needs to be provided.
-
-
-[#242]
-== {SHOULD} provide explicit event ordering for general events
-
-While the order information is mandatory for data change events, it _should_ be also 
-provided for general events (fka business events). Providing explicitly the order of 
-business occurrence supports event consumers e.g. in error situations to 
-reconstruct event streams or replay events from a position within the stream. 
-For further details, please check <<203>>.
+ordering information may not be provided.
 
 
 [#204]
