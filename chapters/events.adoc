@@ -634,10 +634,10 @@ is crucial for our data integration architecture as it supports the logical
 replication (and reconstruction) of the application datastores into 
 transactional datasets used as input for data analytics and AI. 
 
-* Use the Data Change Event category when publishing events that represent 
-created, updated, or deleted data.
-* Change events must provide the identifier of the changed entity instance 
-to allow aggregation of all related events for the entity.
+* Change events must be provided when publishing events that represent created, 
+  updated, or deleted data.
+* Change events must provide the complete entity data including the identifier of 
+  the changed instance to allow aggregation of all related events for the entity.
 * Change events <<203>>.
 * Change events must be published reliably by the service.
 
