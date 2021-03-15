@@ -14,7 +14,7 @@ Most of our services require authentication via a token being passed with the
 https://swagger.io/docs/specification/authentication/bearer-authentication/[bearerAuth security scheme] 
 for HTTP authentication (originally created as part of OAuth 2.0). 
 In situations where the service supports specific OAuth2 flows 
--- see https://tools.ietf.org/html/rfc6750[RFC 6750], like `implicit` with redirection to authorization server --
+-- see {RFC-6750}[RFC 6750], like `implicit` with redirection to authorization server --
 you should use https://swagger.io/docs/specification/authentication/oauth2/[OAuth 2.0 security scheme] 
 exposing flow and authentication server details. 
 
