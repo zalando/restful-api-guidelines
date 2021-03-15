@@ -366,11 +366,7 @@ schema payload at the top-level of the document, with the
 information (the contents of <<event-metadata,metadata>> are
 described further down in this section).
 
-In the example fragment below, the reserved <<event-metadata,metadata>>
-field is shown with fields "a" and "b" being defined as part of the custom
-schema:
-
-Note:
+*Note:*
 
 * The General Event was called a _Business Event_ in earlier versions of 
 the guidelines. Implementation experience has shown that the
@@ -433,14 +429,12 @@ DataChangeEvent:
 The Data Change Event Category is structurally different to the General
 Event Category defining a field called `data` as container for the custom
 payload, as well as specific information related to data
-changes in the `data_type`. In the example fragment below, the fields
-`a` and `b` are part of the custom payload housed inside the `data`
-field:
+changes in the `data_type`. 
 
 The following guidelines specifically apply to Data Change Events:
 
 * <<202>>
-* <<203>>
+* <<242>>
 * <<205>>
 * <<204>>
 
