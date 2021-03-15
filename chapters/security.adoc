@@ -41,9 +41,12 @@ security:
   - BearerAuth: [ api-repository.read ]
 ----
 
-*Note:* If you need to support other OAuth2 authorizations flows as defined by
+*Note:* If you need to support specific OAuth2 authorizations flows as defined by
 {RFC-6750}[RFC 6750], please consult the https://swagger.io/docs/specification/authentication/oauth2/[Open
 API OAuth 2.0 Authentication] section for details on how to describe correctly.
+Do not use OAuth flows (e.g. `implicit`) if not directly supported by the service, because
+they make use of redirection and expose authentication server address details. 
+
 
 [#105]
 == {MUST} define and assign permissions (scopes)
