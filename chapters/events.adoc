@@ -583,7 +583,7 @@ multiple event types to represent each step. For now we suggest
 assessing each option and sticking to one for a given business process.
 
 
-[#242]
+[#203]
 == {SHOULD} provide explicit event ordering for general events
 
 Event processing consumer applications need the order information to 
@@ -616,9 +616,9 @@ jump forward and backward to compensate drifts or leap-seconds. If you use anywa
 timestamps to indicate event ordering, you _must_ carefully ensure that the designated 
 event order is not messed up by these effects and use UTC time zone format.
 
-*Note:* The `occured_at` and `partition_offset` metadata of Nakadi typically is 
-different from the business event ordering, since (i) Nakadi is a distributed concurrent 
-system without atomic, ordered event creation and (ii) the application's implementation
+*Note:* The `occurred_at` and `partition_offset` metadata set by Nakadi typically is 
+different from the business event ordering, since (1) Nakadi is a distributed concurrent 
+system without atomic, ordered event creation and (2) the application's implementation
 of event publishing may not exactly reflect the business order. The business ordering 
 information is application knowledge, and implemented in the scope of event 
 partitions or specific entities, but may also comprise all events, if scaling 
@@ -631,28 +631,28 @@ requirements are low.
 You *must* use data change events to signal changes of stored entity instances
 and facilitate e.g. change data capture (CDC). Event sourced change data capture 
 is crucial for our data integration architecture as it supports the logical 
-replication (and reconstruction) of the application datastores into 
-transactional datasets used as input for data analytics and AI. 
+replication (and reconstruction) of the application datastores 
+to the data analytics and AI platform as transactional source datasets. 
 
 * Change events must be provided when publishing events that represent created, 
   updated, or deleted data.
 * Change events must provide the complete entity data including the identifier of 
   the changed instance to allow aggregation of all related events for the entity.
-* Change events <<203>>.
+* Change events <<242>>.
 * Change events must be published reliably by the service.
 
 
-[#203]
+[#242]
 == {MUST} provide explicit event ordering for data change events
 
 While the order information is recommended for business events, it *must* be 
 provided for data change events. The ordering information defines the (create, 
 update, delete) change order of the data entity instances managed via the 
 application's transactional datastore. It is needed for change data capture 
-to keep transactional data replicas in sync as source for data analytics. 
+to keep transactional dataset replicas in sync as source for data analytics. 
 
 For details about how to provide the data change ordering information, 
-please check <<242>>.
+please check <<203>>.
 
 *Exception*: In situations where the transactional data is 'append only', 
 i.e. entity instances are only created, but never updated or deleted, the 
