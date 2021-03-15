@@ -34,7 +34,7 @@ To see a list of all changes, please have a look at the https://github.com/zalan
 * `2019-08-29`: new rule <<239>>, extend <<167>> pointing to {RFC-7493}[RFC-7493]
 * `2019-08-29`: new rules <<236>>, <<237>>
 * `2019-07-30`: new rule <<238>>
-* `2019-07-30`: change <<519>> from {SHOULD} to {MUST}
+* `2019-07-30`: change <<173>> from {SHOULD} to {MUST}
 * `2019-07-30`: change "{SHOULD} Null values should have their fields removed to" <<123>>.
 * `2019-07-25`: new rule <<235>>.
 * `2019-07-18`: improved cursor guideline for {GET-with-Body}.
