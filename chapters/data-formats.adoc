@@ -3,7 +3,7 @@
 
 
 [#167]
-== {MUST} use JSON as payload standard format
+== {MUST} use JSON as payload data interchange format
 
 Use JSON ({RFC-7159}[RFC 7159]) to represent structured (resource) data 
 passed with HTTP requests and responses as body payload.
@@ -34,7 +34,7 @@ Use the standard media type name
 `application/json` (or `application/problem+json` for <<176>>)
 as content type (or accept header) information for JSON payload. 
 
-Hint: Previously, this guideline allowed the use of custom media types like 
+*Hint:* Previously, this guideline allowed the use of custom media types like 
 `application/x.zalando.article+json`. This usage is not recommended
 anymore and should be avoided, except where it is necessary for cases of
 <<114,media type versioning>>. 
@@ -44,15 +44,15 @@ They are also {RFC-6838}#section-3.4[discouraged by RFC 6838].
 
 
 [#168]
-== {MAY} use non JSON media types for binary or other specific format data
+== {MAY} pass non-JSON media types using data specific standard formats
 
-Non JSON media types may be used in following cases:
+Non-JSON media types may by supported, if you stick to a business object specific standard 
+format for the payload data, for instance, image data format (JPG, PNG, GIF), document 
+format (PDF, DOC, ODF, PPT), or archive format (TAR, ZIP). 
 
-* Transferring binary data or data whose structure is not relevant. This is
-  the case if payload structure is not interpreted and consumed by clients as
-  is. A typical example use case is downloading images in formats JPG, PNG, GIF.
-* Alternative specific data formats (e.g. PDF, DOC, XML) 
-  may be supported additionally to JSON format via content negotiation.
+Generic structured data interchange formats other than JSON (e.g. XML, CSV) 
+may be provided, but only additionally to JSON as default format using content negotiation, 
+for specific use cases where clients may not interpret the payload structure.
 
 
 [#239]
@@ -71,10 +71,9 @@ following {RFC-7493}#section-4.4[RFC 7493 Section 4.4].
 
 https://json-schema.org/understanding-json-schema/reference/string.html#format[JSON Schema] 
 and https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#data-types[Open API] 
-define several data formats (like `date`, `time`, `email`, `url` and others) using 
-standards from ISO and IETF. The following table lists the data formats and some additional 
-formats that are particularly useful in an e-commerce environment. 
-You should use these standard data formats, whenever applicable. 
+define several data formats, e.g. `date`, `time`, `email`, and `url`, based on ISO and IETF standards.
+The following table lists these formats including additional formats useful in an e-commerce environment. 
+You *should* use these formats, whenever applicable.
 
 [cols="10%,25%,25%,40%",options="header",]
 |=====================================================================
@@ -106,7 +105,7 @@ You should use these standard data formats, whenever applicable.
 | `string` | <<144, `uuid`>> | {RFC-4122}[RFC 4122] | `"e2ab873e-b295-11e9-9c02-..."`
 |=====================================================================
 
-Remark: Please note that this list of standard data formats is not exhaustive 
+*Remark:* Please note that this list of standard data formats is not exhaustive 
 and everyone is encouraged to propose additions.
 
 
