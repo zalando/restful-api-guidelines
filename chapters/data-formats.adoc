@@ -46,7 +46,7 @@ They are also {RFC-6838}#section-3.4[discouraged by RFC 6838].
 [#168]
 == {MAY} pass non-JSON media types using data specific standard formats
 
-Non-JSON media types may by supported, if you stick to a business object specific standard 
+Non-JSON media types may be supported, if you stick to a business object specific standard 
 format for the payload data, for instance, image data format (JPG, PNG, GIF), document 
 format (PDF, DOC, ODF, PPT), or archive format (TAR, ZIP). 
 
