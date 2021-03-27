@@ -28,9 +28,9 @@ deploy_gh_pages () {
 create_zally_issue () {
     local commit message count=0;
     while [ "${count}" -lt 6 ]; do
-        commit=$(curl -s "${GH_REPO_URL}/commits/${TRAVIS_COMMIT}");
+        commit=$(curl -s "${GH_REPO_URL}/commits/${GITHUB_SHA}");
         message="$(echo "${commit}" | jq --raw-output '.message' || true)";
-        if [ "${message}" != "No commit found for SHA: ${TRAVIS_COMMIT}" ]; then
+        if [ "${message}" != "No commit found for SHA: ${GITHUB_SHA}" ]; then
             break;
         fi;
         count=$((count + 1)); sleep 10;
@@ -81,9 +81,9 @@ create_zally_issue () {
          "${ZALLY_REPO_URL}/issues";
 }
 
-if [[ "${TRAVIS}" = "true" && "${TRAVIS_SECURE_ENV_VARS}" = "true" && "${TRAVIS_PULL_REQUEST}" = "false" && "${TRAVIS_BRANCH}" = "master" ]]; then
-    deploy_gh_pages
-    create_zally_issue
-else
-    echo "It's not an update of the master branch, skipping the deployment"
-fi
+# if [[ "${TRAVIS}" = "true" && "${TRAVIS_SECURE_ENV_VARS}" = "true" && "${TRAVIS_PULL_REQUEST}" = "false" && "${TRAVIS_BRANCH}" = "master" ]]; then
+    # deploy_gh_pages
+create_zally_issue
+# else
+    # echo "It's not an update of the master branch, skipping the deployment"
+# fi
