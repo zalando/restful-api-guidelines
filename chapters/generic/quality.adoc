@@ -1,6 +1,39 @@
 [[quality]]
 = Quality
 
+[#294]
+== {STATUS_RFP} {SHOULD} have seperate environments for development, testing, acceptance and production
+
+In order to maintain software or integration quality the setup of an DTAP
+environment is preferred. This setup allows for an atomized way of working on
+features and bug fixes.
+
+This environment consists of four parts:
+
+=== Development
+
+The development environment is used for the actual development or for example
+bug fixing.
+
+=== Testing
+
+The testing environment is the first step for quality assurance, in this
+environment the automated or manual tests are done to confirm new
+functionalities or bug fixes. Note there can be several testing environments,
+eg: an environment for the testing of an operational bug and an environment for
+the testing of a new feature.
+
+=== Acceptance
+
+The acceptance environment is the second step for quality assurance, this
+environment allows for the customer to confirm new functionalities or bug fixes.
+In this environment several updates can be combined to prepare for a deployment
+to the production systems.
+
+This environment allows for the customer to sign of on the development.
+
+=== 
+
 [#276]
 == {STATUS-RFP} {MUST} have predefined tests
 
