@@ -35,6 +35,20 @@ Use http://en.wikipedia.org/wiki/List_of_HTTP_header_fields[this list] and
 mention its support in your Open API definition.
 
 
+[#180]
+== {SHOULD} use `Location` header instead of `Content-Location` header
+
+As the correct usage of {Content-Location} response header (see below) with respect 
+to caching and its method specific semantics is difficult, we _discourage_ the use 
+of {Content-Location}. 
+In most cases it is sufficient to inform clients about the resource location 
+in create or re-direct responses by using the {Location} header while avoiding  
+the {Content-Location} specific ambiguities and complexities.
+
+More details in RFC 7231 {RFC-7231}#section-7.1.2[7.1.2 Location],
+{RFC-7231}#section-3.1.4.2[3.1.4.2 Content-Location]
+
+
 [#179]
 == {MAY} use `Content-Location` header
 
@@ -68,19 +82,6 @@ HTTP/1.1 200 OK
 Content-Type: image/png
 Content-Location: /products/123/images?format=raw
 ----
-
-
-[#180]
-== {SHOULD} use `Location` header instead of `Content-Location` header
-
-As the correct usage of {Content-Location} with respect to semantics and
-caching is difficult, we _discourage_ the use of {Content-Location}. In most
-cases it is sufficient to direct clients to the resource location by using
-the {Location} header instead without hitting the {Content-Location} specific
-ambiguities and complexities.
-
-More details in RFC 7231 {RFC-7231}#section-7.1.2[7.1.2 Location],
-{RFC-7231}#section-3.1.4.2[3.1.4.2 Content-Location]
 
 
 [#181]
