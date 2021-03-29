@@ -241,7 +241,7 @@ include::chapters/introduction.adoc[]
 
 include::chapters/generic/guilds.adoc[]
 include::chapters/generic/monitoring.adoc[]
-include::chapters/generic/testing.adoc[]
+include::chapters/generic/quality.adoc[]
 include::chapters/generic/security.adoc[]
 include::chapters/generic/privacy.adoc[]
 include::chapters/generic/documentation.adoc[]

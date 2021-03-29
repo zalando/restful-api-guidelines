@@ -1,5 +1,5 @@
-[[testing]]
-= Testing
+[[quality]]
+= Quality
 
 [#276]
 == {STATUS-RFP} {MUST} have predefined tests
