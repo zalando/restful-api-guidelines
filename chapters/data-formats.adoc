@@ -55,138 +55,72 @@ may be provided, but only additionally to JSON as default format using content n
 for specific use cases where clients may not interpret the payload structure.
 
 
+[#128]
+[#169]
+[#170]
+[#171]
 [#239]
-=== {SHOULD} encode embedded binary data in `base64url`
-
-Exposing binary data using an alternative media type is generally preferred.
-See <<168,the rule above>>.
-
-If an alternative content representation is not desired then binary data should
-be embedded into the JSON document as a `base64url`-encoded string property
-following {RFC-7493}#section-4.4[RFC 7493 Section 4.4].
-
-
 [#238]
-== {SHOULD} use standardized property formats
+== {MUST} use standard data formats
 
-https://json-schema.org/understanding-json-schema/reference/string.html#format[JSON Schema] 
-and https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#data-types[Open API] 
-define several data formats, e.g. `date`, `time`, `email`, and `url`, based on ISO and IETF standards.
-The following table lists these formats including additional formats useful in an e-commerce environment. 
-You *should* use these formats, whenever applicable.
+https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#data-types[Open API] 
+(based on https://json-schema.org/understanding-json-schema/reference/string.html#format[JSON Schema])
+defines formats from ISO and IETFF standards for date/time, integers/numbers and binary data.
+You *must* use these formats, whenever applicable:
 
-[cols="10%,25%,25%,40%",options="header",]
+[cols="10%,10%,40%,40%",options="header",]
 |=====================================================================
-| `type` | `format` | Specification | Example
-| `integer` | <<171, `int32`>> |  | `7721071004`
-| `integer` | <<171, `int64`>> |  | `772107100456824`
-| `integer` | <<171, `bigint`>> |  | `77210710045682438959`
-| `number` | <<171, `float`>> | {IEEE-754-2008}[IEEE 754-2008] | `3.1415927`
-| `number` | <<171, `double`>> | {IEEE-754-2008}[IEEE 754-2008] | `3.141592653589793`
-| `number` | <<171, `decimal`>> |  | `3.141592653589793238462643383279`
-| `string` | <<170, `bcp47`>> | {BCP47}[BCP 47] | `"en-DE"`
-| `string` | `byte` | {RFC-7493}[RFC 7493] | `"dGVzdA=="`
-| `string` | <<126, `date`>> | {RFC-3339}[RFC 3339] | `"2019-07-30"`
-| `string` | <<126, `date-time`>> | {RFC-3339}[RFC 3339] |`"2019-07-30T06:43:40.252Z"`
+| `OpenAPI type` | `OpenAPI format` | Specification | Example
+| `integer` | `int32` | 4 byte signed integer -- see https://en.wikipedia.org/wiki/Integer_(computer_science)[Wiki:Integer] | `7721071004`
+| `integer` | `int64` | 8 byte signed integer -- see https://en.wikipedia.org/wiki/Integer_(computer_science)[Wiki:Integer]  | `772107100456824`
+| `integer` | `bigint` | >8 byte signed integer range -- see e.g. https://docs.oracle.com/javase/8/docs/api/java/math/BigInteger.html[Java Doc] | `77210710045682438959`
+| `number` | `float` | `binary32` single precision decimal number -- see {IEEE-754-2008}[IEEE 754-2008/ISO 60559:2011] | `3.1415927`
+| `number` | `double` | `binary64` double precision decimal number -- see {IEEE-754-2008}[IEEE 754-2008/ISO 60559:2011] | `3.141592653589793`
+| `number` | `decimal` | >`binary64` double precision decimal number | `3.141592653589793238462643383279`
+| `string` | `byte` | `base64url` encoded byte following {RFC-7493}#section-4.4[RFC 7493 Section 4.4] | `"VA=="`
+| `string` | `binary` | `base64url` encoded byte sequence following {RFC-7493}#section-4.4[RFC 7493 Section 4.4]  | `"VGVzdA=="`
+| `string` | `date` | {RFC-3339}[RFC 3339] internet profile -- subset of https://tools.ietf.org/html/rfc3339#ref-ISO8601[ISO 8601] | `"2019-07-30"`
+| `string` | `date-time` | {RFC-3339}[RFC 3339] internet profile -- subset of https://tools.ietf.org/html/rfc3339#ref-ISO8601[ISO 8601] |`"2019-07-30T06:43:40.252Z"`
+| `string` | `time` | {RFC-3339}[RFC 3339] internet profile -- subset of https://tools.ietf.org/html/rfc3339#ref-ISO8601[ISO 8601] | `"06:43:40.252Z"`
+| `string` | `password` |  | `"secret"`
+|=====================================================================
+
+*Exception:* For passing date/time information via standard protocol headers,
+HTTP https://tools.ietf.org/html/rfc7231#section-7.1.1.1[RFC 7231] requires to 
+follow the date and time specification used by the Internet Message Format 
+https://tools.ietf.org/html/rfc5322[RFC 5322]. 
+
+*Note:* Formats `bigint`, `decimal` and `time` have been added to the OpenAPI defined formats. 
+As an implication, the precision *must* always be provided via the format whenever 
+an API defines a property of type `number` or `integer`. By this we prevent clients from 
+guessing the precision incorrectly, and thereby changing the value unintentionally. The precision 
+must be translated by clients and servers into the most specific language types, for instance, 
+in Java `number` type with `decimal` format will translate into `BigDecimal` and `integer` 
+type with `int32` format will translate to `int` or `Integer` Java types.
+
+
+We add further OpenAPI formats that are useful especially in an e-commerce environment 
+e.g. `language code`, `country code`, `currency`, `email` based other ISO and IETFF standards.
+You *must* use these formats, whenever applicable:
+
+[cols="10%,10%,40%,40%",options="header",]
+|=====================================================================
+| `OpenAPI type` | `format` | Specification | Example
+| `string` | `iso-639` | two letter language code -- see {ISO-639-1}[ISO 639-1] | `"en"`
+| `string` | `bcp47` | multi letter language tag -- see {BCP47}[BCP 47]. It is a compatible extension of {ISO-639-1}[ISO 639-1] optionally with additional information for language usage, like region, variant, script. | `"en-DE"`
+| `string` | `iso-3166` | two letter country code -- see {ISO-3166-1-a2}[ISO 3166-1 alpha-2] | `"GB"`  *Hint:* It is `"GB"`, not `"UK"`, even though `"UK"` has seen some use at Zalando.
+| `string` | `iso-4217` | three letter currency code -- see {ISO-4217}[ISO 4217] | `"EUR"`
+| `string` | `gtin-13` | Global Trade Item Number -- see {GTIN}[GTIN] | `"5710798389878"`
 | `string` | `email` | {RFC-5322}[RFC 5322] | `"example@zalando.de"`
-| `string` | `gtin-13` | {GTIN}[GTIN] | `"5710798389878"`
 | `string` | `hostname` | {RFC-1034}[RFC 1034] | `"www.zalando.de"`
 | `string` | `ipv4` | {RFC-2673}[RFC 2673] | `"104.75.173.179"`
 | `string` | `ipv6` | {RFC-2673}[RFC 2673] | `"2600:1401:2::8a"`
-| `string` | <<170, `iso-3166`>> | {ISO-3166-1-a2}[ISO 3166-1 alpha-2] | `"DE"`
-| `string` | <<173, `iso-4217`>> | {ISO-4217}[ISO 4217] | `"EUR"`
-| `string` | <<170, `iso-639`>> | {ISO-639-1}[ISO 639-1] | `"de"`
-| `string` | `json-pointer` | {RFC-6901}[RFC 6901] | `"/items/0/id"`
-| `string` | `password` |  | `"secret"`
-| `string` | `regex` | {ECMA-262}[ECMA 262] | `"^[a-z0-9]+$"`
-| `string` | <<126, `time`>> | {RFC-3339}[RFC 3339] | `"06:43:40.252Z"`
 | `string` | `uri` | {RFC-3986}[RFC 3986] | `"https://www.zalando.de/"`
 | `string` | `uri-template` | {RFC-6570}[RFC 6570] | `"/users/\{id\}"`
 | `string` | <<144, `uuid`>> | {RFC-4122}[RFC 4122] | `"e2ab873e-b295-11e9-9c02-..."`
+| `string` | `json-pointer` | {RFC-6901}[RFC 6901] | `"/items/0/id"`
+| `string` | `regex` | regular expressions as defined in {ECMA-262}[ECMA 262] | `"^[a-z0-9]+$"`
 |=====================================================================
 
 *Remark:* Please note that this list of standard data formats is not exhaustive 
 and everyone is encouraged to propose additions.
-
-
-[#169]
-== {MUST} use standard date and time formats
-
-
-[[json-payload]]
-=== JSON payload
-
-Read more about date and time format in <<126>>.
-
-
-[[http-headers]]
-=== HTTP headers
-
-Http headers including the proprietary headers use the
-{RFC-7231}#section-7.1.1.1[HTTP date format defined in RFC 7231].
-
-
-[#128]
-[#170]
-== {SHOULD} use standards for country, language and currency codes
-
-Use the following standard formats for country, language and currency
-codes:
-
-* Country codes: {ISO-3166-1-a2}[ISO 3166-1-alpha2] two letter country codes
-** Hint: It is "GB", not "UK", even though "UK" has seen some use at Zalando
-* Language codes: {ISO-639-1}[ISO 639-1] two letter language codes
-* Language variant tags: {BCP47}[BCP 47] 
-** It is a compatible extension of {ISO-639-1}[ISO 639-1], providing additional 
-   information for language usage, like region (using {ISO-3166-1-a2}[ISO 3166-1]), 
-   variant, script and others.
-* Currency codes:  {ISO-4217}[ISO 4217] three letter currency codes
-
-
-[#171]
-== {MUST} define format for number and integer types
-
-Whenever an API defines a property of type `number` or `integer`, the
-precision must be defined by the format as follows to prevent clients
-from guessing the precision incorrectly, and thereby changing the value
-unintentionally:
-
-[cols="15%,15%,70%",options="header",]
-|=====================================================================
-|type |format |specified value range
-|integer |int32 |integer between pass:[-2<sup>31</sup>] and pass:[2<sup>31</sup>]-1
-|integer |int64 |integer between pass:[-2<sup>63</sup>] and pass:[2<sup>63</sup>]-1
-|integer |bigint |arbitrarily large signed integer number
-|number |float |{IEEE-754-2008}[IEEE 754-2008/ISO 60559:2011] binary32 decimal number
-|number |double |{IEEE-754-2008}[IEEE 754-2008/ISO 60559:2011] binary64 decimal number
-|number |decimal |arbitrarily precise signed decimal number
-|=====================================================================
-
-The precision must be translated by clients and servers into the most
-specific language types. E.g. for the following definitions the most
-specific language types in Java will translate to `BigDecimal` for
-`Money.amount` and `int` or `Integer` for the `OrderList.page_size`:
-
-[source,yaml]
-----
-components:
-  schemas:
-    Money:
-      type: object
-      properties:
-        amount:
-          type: number
-          description: Amount expressed as a decimal number of major currency units
-          format: decimal
-          example: 99.95
-       ...
-    
-    OrderList:
-      type: object
-      properties:
-        page_size:
-          type: integer
-          description: Number of orders in list
-          format: int32
-          example: 42
-----
