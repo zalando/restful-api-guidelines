@@ -71,4 +71,5 @@
 * *http://www.infoq.com/minibooks/emag-web-api[InfoQ eBook - Web APIs: From Start to Finish]*
 * [[[fowler-refactoring]]] *https://martinfowler.com/books/refactoring.html[Refactoring, Improving the Design of Existing Code, 2nd edition]*
 * [[[pragmatic-programmer]]] *https://pragprog.com/book/tpp20/the-pragmatic-programmer-20th-anniversary-edition[The pragmatic programmer, 20th anniversary edition]*
+* [[[building-secure-and-reliable-systems]]] *https://sre.google/static/pdf/building_secure_and_reliable_systems.pdf[Building secure & reliable systems]
 

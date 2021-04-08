@@ -5,7 +5,9 @@
 [#104]
 == {STATUS-RFP} {MUST} secure endpoints
 
-Every API endpoint should be secured, peferably using OAuth 2.0.
+Every API endpoint should be secured, also for anonymous access. The preferred
+authentication method is OAuth 2.0. For anonymous access <<rfc6749-4.4, the
+client credentials grant>> is preferred.
 
 The following code snippet shows how to define the authorization scheme using
 a bearer token (e.g. JWT token).
@@ -20,14 +22,24 @@ components:
       bearerFormat: JWT
 ----
 
-The next code snippet applies this security scheme to all API endpoints. The bearer
-token of the client must have additionally the scopes scope_1 and scope_2.
+The next code snippet applies this security scheme to all API endpoints. The
+bearer token of the client must have additionally the scopes "scope_1" and
+"scope_2".
 
 [source,yaml]
 ----
 security:
   - BearerAuth: [ scope_1, scope_2 ]
 ----
+
+=== References
+
+* https://oauth.net/2/grant-types/client-credentials/[OAuth.net - Client Credentials Grant]
+* https://support.okta.com/help/s/question/0D51Y0000ALnukj/using-okta-for-server-to-server-authorization?language=en_US[OKTA - Server to server auth]
+* https://cloud.ibm.com/docs/appid?topic=appid-anonymous[IBM - Anonymous authentication]
+* [[rfc6749-4.4]] https://tools.ietf.org/html/rfc6749#section-4.4[RFC6749 - Client credentials grant]
+
+
 
 [#105]
 == {STATUS-RFP} {SHOULD} define and assign permissions (scopes)
