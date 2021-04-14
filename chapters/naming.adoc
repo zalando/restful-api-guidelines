@@ -97,6 +97,17 @@ parameters. For example `{shipment_order_id}` would be ok as a path
 parameter.
 
 
+[#130]
+== {MUST} use snake_case (never camelCase) for query parameters
+
+Examples:
+
+[source]
+----
+customer_number, order_id, billing_address
+----
+
+
 [#134]
 == {MUST} pluralize resource names
 
