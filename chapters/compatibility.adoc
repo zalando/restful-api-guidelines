@@ -61,7 +61,7 @@ services in a backward-compatible way:
 
 
 [#108]
-== {MUST} prepare clients accept compatible API extensions
+== {MUST} prepare clients to accept compatible API extensions
 
 Service clients should apply the robustness principle:
 
