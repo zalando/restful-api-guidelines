@@ -14,8 +14,8 @@ ones about values.
 [#120]
 == {SHOULD} pluralize array names
 
-To indicate they contain multiple values prefer to pluralize array
-names. This implies that object names should in turn be singular.
+Names of arrays should be pluralized to indicate that they contain multiple values.
+This implies in turn that object names should be singular.
 
 
 [#118]
@@ -35,9 +35,10 @@ as if it came from the same hand.
 
 [#125]
 [#240]
-== {SHOULD} declare enum values using UPPER_SNAKE_CASE string format
+== {SHOULD} declare enum values using UPPER_SNAKE_CASE string 
 
-Enumerations should be represented as `string` typed OpenAPI component schemas. 
+Enumerations should be represented as `string` typed OpenAPI definitions of 
+request parameters or model properties.
 Enum values (using `enum` or {x-extensible-enum}) need to consistently use 
 the upper-snake case format, e.g. `VALUE` or `YET_ANOTHER_VALUE`. 
 This approach allows to clearly distinguish values from properties or other elements.
