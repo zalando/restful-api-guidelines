@@ -534,7 +534,7 @@ is authorized to access.
 Implicit filtering could be done on:
 
 * the collection of resources being returned on a {GET} request
-* the fields returned for the resource's detail information
+* the fields returned for the detail information of the resource
 
 In such cases, the fact that implicit filtering is applied must be documented 
 in the API specification's endpoint description. Consider <<227,caching aspects>> 
