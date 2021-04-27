@@ -1,4 +1,5 @@
 [[common-headers]]
+[[standard-headers]]
 = Standard headers
 
 This section describes a handful of standard headers, which we found raising the most
