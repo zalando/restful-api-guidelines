@@ -124,13 +124,13 @@ been updated), {201} (if resources have been created), {202} (if the request
 was accepted but has not been finished yet), and exceptionally {204} with
 {Location} header (if the actual resource is not returned).
 
-Note, by using POST to create resources the resource ID must not be passed as 
+*Note:* By using {POST} to create resources the resource ID must not be passed as 
 request input date by the client, but created and maintained by the service and 
 returned with the response payload. 
 
 Apart from resource creation, {POST} should be also used for scenarios that cannot 
 be covered by the other methods sufficiently. However, in such cases make sure to 
-document the fact that {POST} is used as a workaround (see {GET-with-Body}). 
+document the fact that {POST} is used as a workaround (see e.g. {GET-with-Body}). 
 
 *Hint:* Posting the same resource twice is *not* required to be <<idempotent>>
 (check <<149>>) and may result in multiple resources. However, you <<229>> to
