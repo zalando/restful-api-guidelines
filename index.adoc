@@ -16,10 +16,12 @@
 
 // Some link short cuts.
 :RFC-1034: https://tools.ietf.org/html/rfc1034
+:RFC-2616: https://tools.ietf.org/html/rfc2616
 :RFC-2673: https://tools.ietf.org/html/rfc2673
 :RFC-3339: https://tools.ietf.org/html/rfc3339
 :RFC-3986: https://tools.ietf.org/html/rfc3986
 :RFC-4122: https://tools.ietf.org/html/rfc4122
+:RFC-4229: https://tools.ietf.org/html/rfc4229
 :RFC-4627: https://tools.ietf.org/html/rfc4627
 :RFC-4648: https://tools.ietf.org/html/rfc4648
 :RFC-5322: https://tools.ietf.org/html/rfc5322

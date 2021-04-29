@@ -1,9 +1,36 @@
 [[common-headers]]
-= Common headers
+[[standard-headers]]
+= Standard headers
 
-This section describes a handful of headers, which we found raised the most
+This section describes a handful of standard headers, which we found raising the most
 questions in our daily usage, or which are useful in particular circumstances
 but not widely known.
+
+
+[#133]
+== {MAY} use standardized headers
+
+Use http://en.wikipedia.org/wiki/List_of_HTTP_header_fields[this list] and
+explicitly mention its support in your Open API definition.
+
+
+[#132]
+== {SHOULD} use uppercase separate words with hyphens for HTTP headers
+
+This convention is followed by most standard headers e.g. as defined in 
+{RFC-2616}[RFC 2616] and {RFC-4229}[RFC 4229]. Examples:
+
+[source,http]
+----
+If-Modified-Since
+Accept-Encoding
+Content-ID
+Language
+----
+
+Note, HTTP standard defines headers as case-insensitive ({RFC-7230}#page-22[RFC 7230, p.22]). 
+However, for sake of readability and consistency you should follow the convention when 
+using standard or proprietary headers. Exceptions are common abbreviations like `ID`. 
 
 
 [#178]
@@ -26,13 +53,6 @@ limited to:
 * {Content-Range} is used in responses to range requests to indicate which part
   of the requested resource representation is delivered with the body.
 * {Content-Type} indicates the media type of the body content.
-
-
-[#133]
-== {MAY} use standardized headers
-
-Use http://en.wikipedia.org/wiki/List_of_HTTP_header_fields[this list] and
-mention its support in your Open API definition.
 
 
 [#180]

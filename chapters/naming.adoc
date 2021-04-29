@@ -108,29 +108,6 @@ customer_number, order_id, billing_address
 ----
 
 
-[#132]
-== {SHOULD} prefer hyphenated-pascal-case for HTTP header fields
-
-This is for consistency in your documentation (most other headers follow
-this convention). Avoid camelCase (without hyphens). Exceptions are
-common abbreviations like "ID."
-
-Examples:
-
-[source,http]
-----
-Accept-Encoding
-Apply-To-Redirect-Ref
-Disposition-Notification-Options
-Original-Message-ID
-----
-
-See also: {RFC-7230}#page-22[HTTP Headers are case-insensitive (RFC 7230)].
-
-See <<common-headers>> and <<proprietary-headers>> sections for more guidance
-on HTTP headers.
-
-
 [#134]
 == {MUST} pluralize resource names
 
