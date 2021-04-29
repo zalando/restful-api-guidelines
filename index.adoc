@@ -207,7 +207,7 @@
 :RFC-cacheable: pass:[<a href="https://tools.ietf.org/html/rfc7231#section-4.2.3">cacheable</a>]
 
 
-= Zalando RESTful API and Event Scheme Guidelines
+= Zalando RESTful API and Event Guidelines
 link:https://github.com/zalando/restful-api-guidelines[Github Repository], link:https://opensource.zalando.com/[Zalando SE Opensource]
 
 image::assets/api-zalando-small.jpg[API Guild Logo]

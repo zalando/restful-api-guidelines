@@ -1,5 +1,5 @@
 [[http-requests]]
-= HTTP requests
+= HTTP requests and responses
 
 
 [#148]
@@ -533,15 +533,12 @@ is authorized to access.
 
 Implicit filtering could be done on:
 
-* the collection of resources being return on a parent {GET} request
-* the fields returned for the resource's detail
+* the collection of resources being returned on a {GET} request
+* the fields returned for the detail information of the resource
 
-In such cases, the implicit filtering must be in the API specification (in
-its description).
-
-Consider <<227,caching considerations>> when implicitly filtering.
-
-Example:
+In such cases, the fact that implicit filtering is applied must be documented 
+in the API specification's endpoint description. Consider <<227,caching aspects>> 
+when implicit filtering is provided. Example:
 
 If an employee of the company _Foo_ accesses one of our business-to-business
 service and performs a `{GET} /business-partners`, it must, for legal reasons,
