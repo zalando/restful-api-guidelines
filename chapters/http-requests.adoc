@@ -76,7 +76,7 @@ applied query filters (See also <<161>>).
 [[put]]
 === PUT
 
-{PUT} requests are used to *update* (in rare cases to create) *entire*
+{PUT} requests are used to *update* (and sometimes to create) *entire*
 resources – single or collection resources. The semantic is best described
 as _"please put the enclosed representation at the resource mentioned by
 the URL, replacing any existing resource."_.
@@ -84,7 +84,7 @@ the URL, replacing any existing resource."_.
 * {PUT} requests are usually applied to single resources, and not to collection
 resources, as this would imply replacing the entire collection
 * {PUT} requests are usually robust against non-existence of resources by
-implicitly creating before updating
+implicitly creating the resource before updating
 * on successful {PUT} requests, the server will *replace the entire resource*
 addressed by the URL with the representation passed in the payload (subsequent
 reads will deliver the same payload)
@@ -92,12 +92,10 @@ reads will deliver the same payload)
 resource was updated – with or without actual content returned), and {201} (if
 the resource was created)
 
-*Important:* It is best practice to prefer {POST} over {PUT} for creation of
-(at least top-level) resources. This leaves the resource ID under control of
-the service and allows to concentrate on the update semantic using {PUT} as
-follows.
-
-*Note:* In the rare cases where {PUT} is although used for resource creation,
+*Important:* It is good practice to prefer {POST} over {PUT} for creation of
+(at least top-level) resources. This leaves the resource ID management under 
+control of the service and not the client, and focus {PUT} on its usage for updates.
+However, in situations where {PUT} is used for resource creation,
 the resource IDs are maintained by the client and passed as a URL path segment.
 Putting the same resource twice is required to be <<idempotent>> and to result
 in the same single resource instance (see <<149>>).
@@ -115,7 +113,9 @@ details and options.
 collection resource endpoint, but other semantics on single resources endpoint
 are equally possible. The semantic for collection endpoints is best described
 as _"please add the enclosed representation to the collection resource
-identified by the URL"_.
+identified by the URL"_. The semantic for single resource endpoints is best described 
+as _"please execute the given well specified request on the resource identified 
+by the URL"_.
 
 * on a successful {POST} request, the server will create one or multiple new
 resources and provide their URI/URLs in the response
@@ -124,16 +124,13 @@ been updated), {201} (if resources have been created), {202} (if the request
 was accepted but has not been finished yet), and exceptionally {204} with
 {Location} header (if the actual resource is not returned).
 
-The semantic for single resource endpoints is best described as _"please
-execute the given well specified request on the resource identified by the
-URL"_.
+*Note:* By using {POST} to create resources the resource ID must not be passed as 
+request input date by the client, but created and maintained by the service and 
+returned with the response payload. 
 
-*Generally:* {POST} should be used for scenarios that cannot be covered by the
-other methods sufficiently. In such cases, make sure to document the fact that
-{POST} is used as a workaround (see {GET-with-Body}). 
-
-*Note:* Resource IDs with respect to {POST} requests are created and maintained
-by server and returned with response payload.
+Apart from resource creation, {POST} should be also used for scenarios that cannot 
+be covered by the other methods sufficiently. However, in such cases make sure to 
+document the fact that {POST} is used as a workaround (see e.g. {GET-with-Body}). 
 
 *Hint:* Posting the same resource twice is *not* required to be <<idempotent>>
 (check <<149>>) and may result in multiple resources. However, you <<229>> to
