@@ -24,3 +24,9 @@ monitored by automated systems.
 * <<gnu-coding-standards>>, Chapter 5.2
 
 
+[#293] 
+== {MUST} document deployment procedures
+
+Deployment of the tool, program or integration must be documented. This
+documentation describes the deployment procedures and required resources.
+Enabling an engineer to deploy without any support from the developers.

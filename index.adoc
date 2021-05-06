@@ -241,7 +241,7 @@ include::chapters/introduction.adoc[]
 
 include::chapters/generic/guilds.adoc[]
 include::chapters/generic/monitoring.adoc[]
-include::chapters/generic/testing.adoc[]
+include::chapters/generic/quality.adoc[]
 include::chapters/generic/security.adoc[]
 include::chapters/generic/privacy.adoc[]
 include::chapters/generic/documentation.adoc[]
@@ -264,8 +264,6 @@ include::chapters/integration/solution-design.adoc[]
 include::chapters/integration/generic.adoc[]
 :leveloffset: +1
 include::chapters/integration/generic/pagination.adoc[]
-:leveloffset: -1
-
 :leveloffset: -1
 
 include::chapters/integration/types.adoc[]
@@ -305,6 +303,7 @@ include::chapters/development/testing.adoc[]
 include::chapters/development/monitoring.adoc[]
 include::chapters/development/environment.adoc[]
 include::chapters/development/background.adoc[]
+include::chapters/development/date-time.adoc[]
 
 include::chapters/development/standard-style.adoc[]
 include::chapters/development/standard-style-go.adoc[]

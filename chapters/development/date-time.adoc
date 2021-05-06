@@ -1,0 +1,23 @@
+[[date-time]]
+= Date and time handling
+
+Date and time handling guidelines, including time intervals and durations.
+
+[#296]
+== {STATUS-RFP} {MUST} use ISO 8601 for time and date encoding
+
+The international standard {ISO-8601}[ISO 8601] must be used for time and date
+encoding unless not feasible due to technical constraints.
+
+[#295]
+== {STATUS-RFP} {MUST} date time manipulation must be handled by a library
+
+Date and time manipulation is very complex and involves many one-offs and thus 
+very error prone. Date and time manipulation must be handled by a dedicated
+library, which is available for all main development languages.
+
+[#127]
+== {SHOULD} define time durations and intervals properties conform to ISO 8601
+
+Schema based JSON properties that are by design durations and intervals could
+be strings formatted as recommended by {ISO-8601}[ISO 8601]({RFC-3339}#appendix-A[Appendix A of RFC 3339 contains a grammar] for durations).
