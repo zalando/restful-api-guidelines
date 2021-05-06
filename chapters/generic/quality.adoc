@@ -6,7 +6,8 @@
 
 In order to maintain software or integration quality the setup of an DTAP
 environment is preferred. This setup allows for an atomized way of working on
-features and bug fixes.
+features and bug fixes. These environments should be available before starting
+development.
 
 This environment consists of four parts:
 
@@ -32,7 +33,10 @@ to the production systems.
 
 This environment allows for the customer to sign of on the development.
 
-=== 
+=== Production
+
+The primary environment for production. This environment can only be updated
+after a signoff of which the requirements are specified beforehand.
 
 [#276]
 == {STATUS-RFP} {MUST} have predefined tests
