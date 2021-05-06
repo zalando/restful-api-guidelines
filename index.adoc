@@ -266,8 +266,6 @@ include::chapters/integration/generic.adoc[]
 include::chapters/integration/generic/pagination.adoc[]
 :leveloffset: -1
 
-:leveloffset: -1
-
 include::chapters/integration/types.adoc[]
 :leveloffset: +1
 include::chapters/integration/types/ftp.adoc[]
@@ -305,6 +303,7 @@ include::chapters/development/testing.adoc[]
 include::chapters/development/monitoring.adoc[]
 include::chapters/development/environment.adoc[]
 include::chapters/development/background.adoc[]
+include::chapters/development/date-time.adoc[]
 
 include::chapters/development/standard-style.adoc[]
 include::chapters/development/standard-style-go.adoc[]
