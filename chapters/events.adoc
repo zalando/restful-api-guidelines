@@ -469,8 +469,11 @@ EventMetadata:
       example: 'example.important-business-event'
     occurred_at:
       description: |
-         Timestamp of when the event was created by the producer application. 
-         (Typically, it differs from when the event is posted by the producer and received by Nakadi via the API.)
+         Timestamp of when the event was processed and created by the producer application. 
+         (Remark: `created_at` or `processed_at` would be even more precise namings.)
+         The timestamp may differ from when the actual business event happened, e.g. 'packet delivered to the customer'. 
+         In these situations we expect that the information is passed via an additional event type specific attribute e.g. 'delivered_at'. 
+         (Hint: `occurred_at` timestamp also typically differs from when the event is posted by the producer and received by Nakadi via the API.) 
       type: string
       format: date-time
       example: '1996-12-19T16:39:57-08:00'
