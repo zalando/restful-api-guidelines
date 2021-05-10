@@ -471,16 +471,17 @@ EventMetadata:
       description: |
          Timestamp of when the event was processed and created by the producer application. 
          (Remark: `created_at` or `processed_at` would be even more precise namings.)
-         The timestamp may differ from when the actual business event happened, e.g. 'packet delivered to the customer'. 
-         In these situations we expect that the information is passed via an additional event type specific attribute e.g. 'delivered_at'. 
-         (Hint: `occurred_at` timestamp also typically differs from when the event is posted by the producer and received by Nakadi via the API.) 
+         This timestamp may differ from when the actual business event happened, for instance, when the packet was delivered to the customer. 
+         In these situations we expect that the information is passed via an additional attribute in the event type e.g. `delivered_at`. 
+         Hint: Depending on the producer implementation, this `occurred_at` timestamp typically is some milliseconds earlier than 
+         the event publication and receival by Nakadi servers via the API post endpoints -- see below.
       type: string
       format: date-time
       example: '1996-12-19T16:39:57-08:00'
     received_at:
       description: |
         Timestamp of when the event was received by Nakadi via the event post endpoints. 
-        It is automatically enriched, and events will be rejected if set by the Event producer.
+        It is automatically enriched, and events will be rejected if set by the event producer.
       type: string
       readOnly: true
       format: date-time
