@@ -27,22 +27,6 @@ As a consequence, a JSON payload must
   names).
 
 
-[#172]
-== {SHOULD} prefer standard media type name `application/json`
-
-Use the standard media type name
-`application/json` (or `application/problem+json` for <<176>>)
-as content type (or accept header) information for JSON payload. 
-
-*Hint:* Previously, this guideline allowed the use of custom media types like 
-`application/x.zalando.article+json`. This usage is not recommended
-anymore and should be avoided, except where it is necessary for cases of
-<<114,media type versioning>>. 
-Custom media types beginning with `x` bring no advantage compared to the
-standard media type for JSON, and make automated processing more difficult.
-They are also {RFC-6838}#section-3.4[discouraged by RFC 6838].
-
-
 [#168]
 == {MAY} pass non-JSON media types using data specific standard formats
 
@@ -53,6 +37,24 @@ format (PDF, DOC, ODF, PPT), or archive format (TAR, ZIP).
 Generic structured data interchange formats other than JSON (e.g. XML, CSV) 
 may be provided, but only additionally to JSON as default format using content negotiation, 
 for specific use cases where clients may not interpret the payload structure.
+
+
+[#172]
+== {SHOULD} use standard media types
+
+You should use standard media types (defined in 
+https://www.iana.org/assignments/media-types/media-types.xhtml[media type registry] 
+of Internet Assigned Numbers Authority (IANA)) as `content-type` (or `accept`) header 
+information. More specifically, for JSON payload you should use the standard media type 
+`application/json` (or `application/problem+json` for <<176>>).
+
+You should avoid using customer media types like `application/x.zalando.article+json`. 
+Custom media types beginning with `x` bring no advantage compared to the
+standard media type for JSON, and make automated processing more difficult.
+They are also {RFC-6838}#section-3.4[discouraged by RFC 6838].
+
+*Exception:* Custom media type should be only used in situations where you need to provide 
+<<114, API endpoint versioning>> (with content negotiation) due to incompatible changes.   
 
 
 [#239]
