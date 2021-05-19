@@ -4,7 +4,7 @@
 This section shares definitions of proprietary headers that should be
 named consistently because they address overarching service-related
 concerns. Whether services support these concerns or not is optional;
-therefore, the Open API specification is the right place to make this
+therefore, the OpenAPI specification is the right place to make this
 explicitly visible. Use the parameter definitions of the resource HTTP
 methods.
 
@@ -94,7 +94,7 @@ disables it in the settings for respective mobile platform.
 
 |=======================================================================
 
-CAUTION: The only exception to this guideline are the conventional
+*Exception:* The only exception to this guideline are the conventional
 hop-by-hop `X-RateLimit-` headers which can be used as defined in <<153>>.
 
 As part of the guidelines we sourced the OpenAPI definition of all proprietary headers;
@@ -114,15 +114,12 @@ parameters:
 - $ref: "https://opensource.zalando.com/restful-api-guidelines/models/response-headers-1.0.0.yaml#/Cache-Control"
 ----
 
-[NOTE]
-====
-This guideline does not standardize proprietary headers for 
+*Hint:* This guideline does not standardize proprietary headers for 
 our specific gateway components (2. use case above). 
 This include, for instance, non pass-through headers `X-Zalando-Client-ID`, `X-Zalando-Request-Host`, 
 `X-Zalando-Request-URI` defined by Fashion Shop API (RKeep), or `X-Consumer`, `X-Consumer-Signature`, 
 `X-Consumer-Key-ID` defined by Merchant API gateway. 
 All these proprietary headers are whitelisted in the API Linter (Zally) checking this rule.
-====
 
 [#184]
 == {MUST} propagate proprietary headers
@@ -175,16 +172,12 @@ The following formats are allowed:
 * `base64url` ({RFC-4648}#section-5[RFC-4648 Section 5])
 * Random unique string restricted to the character set `[a-zA-Z0-9/+_-=]` maximal of 128 characters.
 
-[NOTE]
-====
-If a legacy subsystem can only process `Flow-IDs` with a specific
+*Note:* If a legacy subsystem can only process `Flow-IDs` with a specific
 format or length, it must define this restrictions in its API specification,
 and be generous and remove invalid characters or cut the length to the
 supported limit.
-====
 
-[TIP]
-====
+*Hint:*
 In case distributed tracing is supported by {SRE-Tracing}[OpenTracing
 (internal link)] you should ensure that created _spans_ are tagged using
 `flow_id` — see
@@ -192,7 +185,6 @@ In case distributed tracing is supported by {SRE-Tracing}[OpenTracing
 to Connect Log Output with OpenTracing Using Flow-IDs (internal link)] or
 {SRE-Tracing}/blob/master/wg-semantic-conventions/best-practices.md[Best
 practises (internal link)].
-====
 
 === Service Guidance
 
@@ -201,7 +193,7 @@ practises (internal link)].
 ** Event listeners *must* support the metadata `flow-id` from events.
 
 +
-NOTE: API-Clients *must* provide {Flow-ID} when calling a service or
+*Note:* API-Clients *must* provide {Flow-ID} when calling a service or
 producing events. If no {Flow-ID} is provided in a request or event, the
 service must create a new {Flow-ID}.
 
@@ -210,6 +202,6 @@ with API calls or consumed events as...
 ** input for all API called and events published during processing
 ** data field written for logging and tracing
 
-NOTE: This rule also applies to application internal interfaces and events
+*Note:* This rule also applies to application internal interfaces and events
 not published via Nakadi (but e.g. via AWS SQS, Kinesis or service specific
 DB solutions).
