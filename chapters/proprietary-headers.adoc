@@ -177,8 +177,7 @@ format or length, it must define this restrictions in its API specification,
 and be generous and remove invalid characters or cut the length to the
 supported limit.
 
-*Hint:*
-In case distributed tracing is supported by {SRE-Tracing}[OpenTracing
+*Hint:* In case distributed tracing is supported by {SRE-Tracing}[OpenTracing
 (internal link)] you should ensure that created _spans_ are tagged using
 `flow_id` — see
 {SRE-Tracing}/blob/master/wg-semantic-conventions/best-practices/flowid.md[How
@@ -202,6 +201,6 @@ with API calls or consumed events as...
 ** input for all API called and events published during processing
 ** data field written for logging and tracing
 
-*Note:* This rule also applies to application internal interfaces and events
+*Hint:* This rule also applies to application internal interfaces and events
 not published via Nakadi (but e.g. via AWS SQS, Kinesis or service specific
 DB solutions).
