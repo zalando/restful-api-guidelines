@@ -6,7 +6,7 @@
 == {MUST} secure endpoints with OAuth 2.0
 
 Every API endpoint *must* be secured using OAuth 2.0. Please refer to the
-https://swagger.io/docs/specification/authentication/[Open API Authentication]
+https://swagger.io/docs/specification/authentication/[OpenAPI Authentication]
 section on how to specify security definitions in your API.
 
 *Example*: Most of our services require a simple authentication using the

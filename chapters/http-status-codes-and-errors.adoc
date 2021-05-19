@@ -360,7 +360,7 @@ a subset of `application/json` by libraries and services! Thus clients need to
 include `application/problem+json` in the {Accept}-Header to trigger delivery
 of the extended failure information.
 
-The Open API schema definition of the Problem JSON object can be found
+The OpenAPI schema definition of the Problem JSON object can be found
 https://opensource.zalando.com/restful-api-guidelines/problem-1.0.1.yaml[on
 GitHub]. You can reference it by using:
 

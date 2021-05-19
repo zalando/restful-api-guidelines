@@ -11,7 +11,7 @@ but not widely known.
 == {MAY} use standardized headers
 
 Use http://en.wikipedia.org/wiki/List_of_HTTP_header_fields[this list] and
-explicitly mention its support in your Open API definition.
+explicitly mention its support in your OpenAPI definition.
 
 
 [#132]

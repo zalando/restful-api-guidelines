@@ -104,7 +104,7 @@ payload object. For instance, `(name)` returns `users` root object with only
 the `name` field, and `(name,friends(name))` returns the `name` and the nested
 `friends` object with only its `name` field.
 
-Open API doesn't support you in formally specifying different return object
+OpenAPI doesn't support you in formally specifying different return object
 schemes depending on a parameter. When you define the field parameter, we
 recommend to provide the following description: `Endpoint supports filtering
 of return object fields as described in

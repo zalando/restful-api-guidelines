@@ -6,10 +6,10 @@ This section collects links to documents to which we refer, and base our guideli
 
 
 [[openapi-specification]]
-== Open API specification
+== OpenAPI specification
 
-* *https://github.com/OAI/OpenAPI-Specification/[Open API specification]*
-* *https://openapi-map.apihandyman.io/[Open API specification mind map]*
+* *https://github.com/OAI/OpenAPI-Specification/[OpenAPI specification]*
+* *https://openapi-map.apihandyman.io/[OpenAPI specification mind map]*
 
 
 [[publications-specifications-and-standards]]

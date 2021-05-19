@@ -70,7 +70,7 @@ following {RFC-7493}#section-4.4[RFC 7493 Section 4.4].
 == {SHOULD} use standardized property formats
 
 https://json-schema.org/understanding-json-schema/reference/string.html#format[JSON Schema] 
-and https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#data-types[Open API] 
+and https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#data-types[OpenAPI] 
 define several data formats, e.g. `date`, `time`, `email`, and `url`, based on ISO and IETF standards.
 The following table lists these formats including additional formats useful in an e-commerce environment. 
 You *should* use these formats, whenever applicable.

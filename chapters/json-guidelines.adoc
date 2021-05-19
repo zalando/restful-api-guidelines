@@ -52,7 +52,7 @@ declaring possible values for a <<137,rule 137>> [`sort` parameter].
 
 A "map" here is a mapping from string keys to some other type. In JSON this is
 represented as an object, the key-value pairs being represented by property
-names and property values. In Open API schema (as well as in JSON schema) they
+names and property values. In OpenAPI schema (as well as in JSON schema) they
 should be represented using additionalProperties with a schema defining the
 value type. Such an object should normally have no other defined properties.
 
@@ -113,7 +113,7 @@ unknown.
 [#123]
 == {MUST} use same semantics for `null` and absent properties
 
-Open API 3.x allows to mark properties as `required` and as `nullable` to
+OpenAPI 3.x allows to mark properties as `required` and as `nullable` to
 specify whether properties may be absent (`{}`) or `null` (`{"example":null}`).
 If a property is defined to be not `required` and `nullable` (see
 <<required-nullable-row-2, 2nd row in Table below>>), this rule demands
@@ -196,7 +196,7 @@ example `2015-05-28T14:07:17Z`
 Note that the
 https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types[Open
 API format] "date-time" corresponds to "date-time" in the RFC) and `2015-05-28`
-for a date (note that the Open API format "date" corresponds to "full-date" in
+for a date (note that the OpenAPI format "date" corresponds to "full-date" in
 the RFC). Both are specific profiles, a subset of the international standard
 {ISO-8601}[ISO 8601].
 
