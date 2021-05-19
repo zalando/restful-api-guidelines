@@ -48,7 +48,7 @@ of Internet Assigned Numbers Authority (IANA)) as `content-type` (or `accept`) h
 information. More specifically, for JSON payload you should use the standard media type 
 `application/json` (or `application/problem+json` for <<176>>).
 
-You should avoid using customer media types like `application/x.zalando.article+json`. 
+You should avoid using custom media types like `application/x.zalando.article+json`. 
 Custom media types beginning with `x` bring no advantage compared to the
 standard media type for JSON, and make automated processing more difficult.
 They are also {RFC-6838}#section-3.4[discouraged by RFC 6838].
