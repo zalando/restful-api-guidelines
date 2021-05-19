@@ -51,7 +51,6 @@ information. More specifically, for JSON payload you should use the standard med
 You should avoid using custom media types like `application/x.zalando.article+json`. 
 Custom media types beginning with `x` bring no advantage compared to the
 standard media type for JSON, and make automated processing more difficult.
-They are also {RFC-6838}#section-3.4[discouraged by RFC 6838].
 
 *Exception:* Custom media type should be only used in situations where you need to provide 
 <<114, API endpoint versioning>> (with content negotiation) due to incompatible changes.   
