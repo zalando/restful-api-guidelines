@@ -42,8 +42,7 @@ for specific use cases where clients may not interpret the payload structure.
 [#172]
 == {SHOULD} use standard media types
 
-You should use standard media types (defined in 
-https://www.iana.org/assignments/media-types/media-types.xhtml[media type registry] 
+You should use standard media types (defined in {media-types}[media type registry] 
 of Internet Assigned Numbers Authority (IANA)) as `content-type` (or `accept`) header 
 information. More specifically, for JSON payload you should use the standard media type 
 `application/json` (or `application/problem+json` for <<176>>).
