@@ -150,8 +150,8 @@ level data structures, since they don't support compatible, future extensions.
 
 The OpenAPI specification is not very specific on default extensibility
 of objects, and redefines JSON-Schema keywords related to extensibility, like
-`additionalProperties`. Following our compatibility guidelines, Open
-API object definitions are considered open for extension by default as per
+`additionalProperties`. Following our compatibility guidelines, OpenAPI 
+object definitions are considered open for extension by default as per
 http://json-schema.org/latest/json-schema-validation.html#rfc.section.5.18[Section
 5.18 "additionalProperties"] of JSON-Schema.
 
