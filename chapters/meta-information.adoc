@@ -4,7 +4,7 @@
 
 [#218]
 == {MUST} contain API meta information
-API specifications must contain the following Open API meta information
+API specifications must contain the following OpenAPI meta information
 to allow for API management:
 
 - `#/info/title` as (unique) identifying, functional descriptive name of the API
@@ -13,7 +13,7 @@ to allow for API management:
 - `#/info/description` containing a proper description of the API
 - `#/info/contact/{name,url,email}` containing the responsible team
 
-Following Open API extension properties *must* be provided in addition:
+Following OpenAPI extension properties *must* be provided in addition:
 
 - `#/info/x-api-id` unique identifier of the API (<<215, see rule 215>>)
 - `#/info/x-audience` intended target audience of the API (<<219, see rule 219>>)
@@ -22,7 +22,7 @@ Following Open API extension properties *must* be provided in addition:
 [#116]
 == {MUST} use semantic versioning
 
-Open API allows to specify the API specification version in
+OpenAPI allows to specify the API specification version in
 `#/info/version`. To share a common semantic of version information we
 expect API designers to comply to http://semver.org/spec/v2.0.0.html[
 Semantic Versioning 2.0] rules `1` to `8` and `11` restricted to the format
@@ -64,7 +64,7 @@ info:
 
 Each API specification must be provisioned with a globally unique and
 immutable API identifier. The API identifier is defined in the `info`-block
-of the Open API specification and must conform to the following definition:
+of the OpenAPI specification and must conform to the following definition:
 
 [source,yaml]
 ----
@@ -78,7 +78,7 @@ of the Open API specification and must conform to the following definition:
     as a sequence of versions.
 ----
 
-API specifications will evolve and any aspect of an Open API specification 
+API specifications will evolve and any aspect of an OpenAPI specification 
 may change. We require API identifiers because we want  to support API clients
 and providers with API lifecycle management features, like change trackability
 and history or automated backward compatibility checks. The immutable API
@@ -137,7 +137,7 @@ groups with clear organisational and legal boundaries:
 and thus does not need to be declared additionally.
 
 The API audience is provided as API meta information in the `info`-block of
-the Open API specification and must conform to the following specification:
+the OpenAPI specification and must conform to the following specification:
 
 [source,yaml]
 ----

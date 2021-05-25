@@ -409,7 +409,7 @@ multiple times with different values as follows:
 | {RFC-6570}#section-3.2.8[RFC 6570 Section 3.2.8]
 |=========================================================================
 
-As Open API does not support both schemas at once, an API specification must
+As OpenAPI does not support both schemas at once, an API specification must
 explicitly define the collection format to guide consumers as follows:
 
 [,cols="14%,40%,46%",options="header",]
@@ -472,7 +472,7 @@ Aspects that set those APIs apart from the rest include but are not limited to:
 * Free choice of operators, e.g. `and`, `or` and `not`
 
 APIs that qualify for a specific, complex query language are encouraged to
-use nested JSON data structures and define them using Open API directly. The
+use nested JSON data structures and define them using OpenAPI directly. The
 provides the following benefits:
 
 * Data structures are easy to use for clients
@@ -482,7 +482,7 @@ provides the following benefits:
 ** No special tokenizers needed
 ** Semantics are attached to data structures rather than text tokens
 * Consistent with other HTTP methods
-* API is defined in Open API completely
+* API is defined in OpenAPI completely
 ** No external documents or grammars needed
 ** Existing means are familiar to everyone
 

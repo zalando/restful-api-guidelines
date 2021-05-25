@@ -3,14 +3,14 @@
 
 
 [#192]
-== {MUST} publish Open API specification
+== {MUST} publish OpenAPI specification
 
-All service applications must publish Open API specifications of their external
+All service applications must publish OpenAPI specifications of their external
 APIs. While this is optional for internal APIs, i.e. APIs marked with the
 *component-internal* <<219, API audience>> group, we still recommend to do so
 to profit from the API management infrastructure.
 
-An API is published by copying its *Open API specification* into the reserved
+An API is published by copying its *OpenAPI specification* into the reserved
 */zalando-apis* directory of the *deployment artifact* used to deploy the
 provisioning service. The directory must only contain *self-contained YAML*
 *files* that each describe one API (exception see <<234>>). We prefer this
