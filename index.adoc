@@ -45,6 +45,7 @@
 :RFC-8594: https://tools.ietf.org/html/rfc8594
 
 :link-relations: http://www.iana.org/assignments/link-relations
+:media-types: https://www.iana.org/assignments/media-types/media-types.xhtml
 
 :BCP47: https://tools.ietf.org/html/bcp47
 :ECMA-262: http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf
