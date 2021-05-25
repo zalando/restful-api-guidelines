@@ -29,7 +29,6 @@
 :RFC-6585: https://tools.ietf.org/html/rfc6585
 :RFC-6648: https://tools.ietf.org/html/rfc6648
 :RFC-6750: https://tools.ietf.org/html/rfc6750
-:RFC-6838: https://tools.ietf.org/html/rfc6838
 :RFC-6901: https://tools.ietf.org/html/rfc6901
 :RFC-6902: https://tools.ietf.org/html/rfc6902
 :RFC-7159: https://tools.ietf.org/html/rfc7159
@@ -46,6 +45,7 @@
 :RFC-8594: https://tools.ietf.org/html/rfc8594
 
 :link-relations: http://www.iana.org/assignments/link-relations
+:media-types: https://www.iana.org/assignments/media-types/media-types.xhtml
 
 :BCP47: https://tools.ietf.org/html/bcp47
 :ECMA-262: http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf
