@@ -1,0 +1,78 @@
+X-Flow-ID:
+  name: X-Flow-ID
+  description: |
+      A custom header that will be passed onto any further requests and can be used for investigation in error cases.
+  in: header
+  schema:
+    type: string
+    example: GKY7oDhpSiKY_gAAAABZ_A
+
+X-Mobile-Advertising-ID:
+  in: header
+  name: X-Mobile-Advertising-ID
+  description: >
+    It is a unique, customer-resettable identifier provided by mobile device’s operating system to faciliate
+    personalized advertising, and usually passed by mobile apps via http header when calling backend services.
+    It is either the [IDFA](https://developer.apple.com/documentation/adsupport/asidentifiermanager)
+    (Apple Identifier for mobile Advertising) for iOS, or the
+    [GAID](https://support.google.com/googleplay/android-developer/answer/6048248) (Google mobile Advertising Identifier)
+     for Android.
+  schema:
+    type: string
+    example: cdda802e-fb9c-47ad-0794d394c912
+
+X-Tenant-ID:
+  name: X-Tenant-ID
+  description: |
+    Identifies the tenant initiated the request to the multi tenant Zalando Platform. The X-Tenant-ID must be set
+     according to the Business Partner ID extracted from the OAuth token when a request from a Business Partner
+     hits the Zalando Platform.
+  in: header
+  schema:
+    type: string
+    example: 9f8b3ca3-4be5-436c-a847-9cd55460c495
+
+X-Sales-Channel:
+  name: X-Sales-Channel
+  description: |
+    Sales channels are owned by retailers and represent a specific consumer segment being addressed with a
+    specific product assortment that is offered via CFA retailer catalogs to consumers (see fashion platform
+    glossary (internal link))
+  in: header
+  schema:
+    type: string
+    example: 52b96501-0f8d-43e7-82aa-8a96fab134d7
+
+X-Frontend-Type:
+  name: X-Frontend-Type
+  description: |
+    Consumer facing applications (CFAs) provide business experience to their customers via different
+    frontend application types, for instance, mobile app or browser. Info should be passed-through as
+    generic aspect — there are diverse concerns, e.g. pushing mobiles with specific coupons, that make use
+    of it. Current range is mobile-app, browser, facebook-app, chat-app, email.
+  in: header
+  schema:
+    type: string
+    example: mobile-app
+
+X-device-Type:
+  name: X-device-Type
+  description: |
+    There are also use cases for steering customer experience (incl. features and content) depending on
+    device type. Via this header info should be passed-through as generic aspect. Current range is
+    smartphone, tablet, desktop, other.
+  in: header
+  schema:
+    type: string
+    example: tablet
+
+X-device-OS:
+  name: X-device-OS
+  description: |
+    On top of device type above, we even want to differ between device platform, e.g. smartphone
+    Android vs. iOS. Via this header info should be passed-through as generic aspect.
+    Current range is iOS, Android, Windows, Linux, MacOS.
+  in: header
+  schema:
+    type: string
+    example: Android

@@ -1,0 +1,46 @@
+X-Flow-ID:
+  name: X-Flow-ID
+  description: |
+      A custom header that will be passed onto any further requests and can be used for investigation in error cases.
+  in: header
+  schema:
+    type: string
+    example: GKY7oDhpSiKY_gAAAABZ_A
+
+Cache-Control:
+  in: header
+  name: Cache-Control
+  description: >
+    The RFC 7234 Cache-Control header field is providing directives to control how proxies and clients are
+    allowed to cache responses results for performance.
+  schema:
+    type: string
+    example: "private, must-revalidate, max-age=3600"
+
+Vary:
+  in: header
+  name: Vary
+  description: >
+    The "Vary" header field in a response describes what parts of a
+    request message, aside from the method, Host header field, and
+    request target, might influence the origin server's process for
+    selecting and representing this response.  The value consists of
+    either a single asterisk ("*") or a list of header field names
+    (case-insensitive).
+  schema:
+    type: string
+    example: "accept-encoding, accept-language"
+
+ETag:
+  in: header
+  name: ETag
+  description: >
+    The RFC 7232 ETag header field in a response provides the entity-tag of
+    a selected resource. The entity-tag is an opaque identifier for versions
+    and representations of the same resource over time, regardless whether
+    multiple versions are valid at the same time. An entity-tag consists of
+    an opaque quoted string, possibly prefixed by a weakness indicator (see
+    [RFC 7232 Section 2.3](https://tools.ietf.org/html/rfc7232#section-2.3).
+  schema:
+    type: string
+    example: W/"xy", "5", "5db68c06-1a68-11e9-8341-68f728c1ba70"
