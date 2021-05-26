@@ -4,7 +4,7 @@
 This section shares definitions of proprietary headers that should be
 named consistently because they address overarching service-related
 concerns. Whether services support these concerns or not is optional;
-therefore, the OpenAPI specification is the right place to make this
+therefore, the OpenAPI API specification is the right place to make this
 explicitly visible. Use the parameter definitions of the resource HTTP
 methods.
 

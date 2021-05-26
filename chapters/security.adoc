@@ -6,7 +6,7 @@
 == {MUST} secure endpoints with OAuth 2.0
 
 Every API endpoint *must* be secured using OAuth 2.0. Please refer to the
-https://swagger.io/docs/specification/authentication/[Open API Authentication]
+https://swagger.io/docs/specification/authentication/[OpenAPI Authentication]
 section on how to specify security definitions in your API.
 
 *Example*: Most of our services require a simple authentication using the
@@ -42,8 +42,9 @@ security:
 ----
 
 *Note:* If you need to support specific OAuth2 authorizations flows as defined by
-{RFC-6750}[RFC 6750], please consult the https://swagger.io/docs/specification/authentication/oauth2/[Open
-API OAuth 2.0 Authentication] section for details on how to describe correctly.
+{RFC-6750}[RFC 6750], please consult the 
+https://swagger.io/docs/specification/authentication/oauth2/[OpenAPI OAuth 2.0 Authentication] 
+section for details on how to describe correctly.
 Do not use OAuth flows (e.g. `implicit`) if not directly supported by the service, because
 they make use of redirection and expose authentication server address details. 
 
@@ -93,8 +94,8 @@ or write is sufficient.
 
 The defined permissions are than assigned to each API endpoint based on the
 security schema (see example in <<104, previous section>>) by specifying the
-https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#securityRequirementObject[security
-requirement] as follows:
+https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#securityRequirementObject[security requirement] 
+as follows:
 
 [source,yaml]
 ----

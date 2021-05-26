@@ -61,7 +61,7 @@ services in a backward-compatible way:
 
 
 [#108]
-== {MUST} prepare clients accept compatible API extensions
+== {MUST} prepare clients to accept compatible API extensions
 
 Service clients should apply the robustness principle:
 
@@ -146,16 +146,16 @@ level data structures, since they don't support compatible, future extensions.
 
 
 [#111]
-== {MUST} treat Open API specification as open for extension by default
+== {MUST} treat OpenAPI specification as open for extension by default
 
-The Open API 2.0 specification is not very specific on default extensibility
+The OpenAPI specification is not very specific on default extensibility
 of objects, and redefines JSON-Schema keywords related to extensibility, like
-`additionalProperties`. Following our overall compatibility guidelines, Open
-API object definitions are considered open for extension by default as per
+`additionalProperties`. Following our compatibility guidelines, OpenAPI 
+object definitions are considered open for extension by default as per
 http://json-schema.org/latest/json-schema-validation.html#rfc.section.5.18[Section
 5.18 "additionalProperties"] of JSON-Schema.
 
-When it comes to Open API 2.0, this means an `additionalProperties` declaration
+When it comes to OpenAPI, this means an `additionalProperties` declaration
 is not required to make an object definition extensible:
 
 * API clients consuming data must not assume that objects are closed for

@@ -52,21 +52,21 @@ schema as well as the event type definition available for review.
 
 
 [#196]
-== {MUST} ensure event schema conforms to Open API schema object
+== {MUST} ensure event schema conforms to OpenAPI schema object
 
 To align the event schema specifications to API specifications, we use
-the Schema Object as defined by the Open API Specifications to define event
+the Schema Object as defined by the OpenAPI Specifications to define event
 schemas. This is particularly useful for events that represent data changes
 about resources also used in other APIs.
 
-The https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#schemaObject[Open
-API Schema Object] is an **extended subset** of
+The https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#schemaObject[OpenAPI Schema Object] 
+is an **extended subset** of
 http://json-schema.org/[JSON Schema Draft 4]. For convenience,
 we highlight some important differences below. Please refer to the
-https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#schemaObject[Open
-API Schema Object specification] for details.
+https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#schemaObject[OpenAPI Schema Object specification] 
+for details.
 
-As the Open API Schema Object specification _removes_ some JSON Schema
+As the OpenAPI Schema Object specification _removes_ some JSON Schema
 keywords, the following properties *must not* be used in event schemas:
 
 * `additionalItems`
@@ -155,7 +155,7 @@ MINOR level change.
 * All other changes are considered MAJOR level, such as renaming or
 removing fields, or adding new required fields.
 
-The core Event Type structure is shown below as an Open API object
+The core Event Type structure is shown below as an OpenAPI object
 definition:
 
 [source,yaml]
@@ -340,8 +340,8 @@ conform to along with standard information specific for the event category
 
 === The general event category
 
-The structure of the _General Event Category_ is shown below as an Open
-API Schema Object definition:
+The structure of the _General Event Category_ is shown below as an OpenAPI 
+Schema Object definition:
 
 [source,yaml]
 ----
@@ -383,7 +383,7 @@ See <<201>> for more guidance on how to use the category.
 
 === The data change event category
 
-The _Data Change Event Category_ structure is shown below as an Open API
+The _Data Change Event Category_ structure is shown below as an OpenAPI
 Schema Object:
 
 [source,yaml]
@@ -443,7 +443,7 @@ The following guidelines specifically apply to Data Change Events:
 === Event metadata
 
 The General and Data Change event categories share a common structure
-for _metadata_. The metadata structure is shown below as an Open API
+for _metadata_. The metadata structure is shown below as an OpenAPI
 Schema Object:
 
 [source,yaml]

@@ -16,10 +16,12 @@
 
 // Some link short cuts.
 :RFC-1034: https://tools.ietf.org/html/rfc1034
+:RFC-2616: https://tools.ietf.org/html/rfc2616
 :RFC-2673: https://tools.ietf.org/html/rfc2673
 :RFC-3339: https://tools.ietf.org/html/rfc3339
 :RFC-3986: https://tools.ietf.org/html/rfc3986
 :RFC-4122: https://tools.ietf.org/html/rfc4122
+:RFC-4229: https://tools.ietf.org/html/rfc4229
 :RFC-4627: https://tools.ietf.org/html/rfc4627
 :RFC-4648: https://tools.ietf.org/html/rfc4648
 :RFC-5322: https://tools.ietf.org/html/rfc5322
@@ -27,7 +29,6 @@
 :RFC-6585: https://tools.ietf.org/html/rfc6585
 :RFC-6648: https://tools.ietf.org/html/rfc6648
 :RFC-6750: https://tools.ietf.org/html/rfc6750
-:RFC-6838: https://tools.ietf.org/html/rfc6838
 :RFC-6901: https://tools.ietf.org/html/rfc6901
 :RFC-6902: https://tools.ietf.org/html/rfc6902
 :RFC-7159: https://tools.ietf.org/html/rfc7159
@@ -44,6 +45,7 @@
 :RFC-8594: https://tools.ietf.org/html/rfc8594
 
 :link-relations: http://www.iana.org/assignments/link-relations
+:media-types: https://www.iana.org/assignments/media-types/media-types.xhtml
 
 :BCP47: https://tools.ietf.org/html/bcp47
 :ECMA-262: http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf
@@ -208,7 +210,7 @@
 :RFC-cacheable: pass:[<a href="https://tools.ietf.org/html/rfc7231#section-4.2.3">cacheable</a>]
 
 
-= Zalando RESTful API and Event Scheme Guidelines
+= Zalando RESTful API and Event Guidelines
 link:https://github.com/zalando/restful-api-guidelines[Github Repository], link:https://opensource.zalando.com/[Zalando SE Opensource]
 
 image::assets/api-zalando-small.jpg[API Guild Logo]

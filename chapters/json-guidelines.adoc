@@ -11,6 +11,13 @@ The first some of the following guidelines are about property names, the later
 ones about values.
 
 
+[#120]
+== {SHOULD} pluralize array names
+
+Names of arrays should be pluralized to indicate that they contain multiple values.
+This implies in turn that object names should be singular.
+
+
 [#118]
 == {MUST} property names must be ASCII snake_case (and never camelCase): `^[a-z_][a-z_0-9]*$`
 
@@ -27,23 +34,25 @@ essential to establish a consistent look and feel such that JSON looks
 as if it came from the same hand.
 
 [#125]
-== {SHOULD} represent enumerations as strings
-
-Strings are a reasonable target for values that are by design enumerations.
-
 [#240]
-== {SHOULD} declare enum values using UPPER_SNAKE_CASE format
+== {SHOULD} declare enum values using UPPER_SNAKE_CASE string 
 
-Enum values (using `enum` or {x-extensible-enum}) need to consistently use the upper-snake case format, e.g. `VALUE` or `YET_ANOTHER_VALUE`. This approach allows to clearly distinguish values from properties or other elements.
+Enumerations should be represented as `string` typed OpenAPI definitions of 
+request parameters or model properties.
+Enum values (using `enum` or {x-extensible-enum}) need to consistently use 
+the upper-snake case format, e.g. `VALUE` or `YET_ANOTHER_VALUE`. 
+This approach allows to clearly distinguish values from properties or other elements.
 
-**Note:** This does not apply where the actual exact values are coming from some outside source, e.g. for language codes from {ISO-639-1}[ISO 639-1], or when declaring possible values for a #137[`sort` parameter].
+**Exception:** This rule does not apply for case sensitive values sourced from outside 
+API definition scope, e.g. for language codes from {ISO-639-1}[ISO 639-1], or when 
+declaring possible values for a <<137,rule 137>> [`sort` parameter].
 
 [#216]
 == {SHOULD} define maps using `additionalProperties`
 
 A "map" here is a mapping from string keys to some other type. In JSON this is
 represented as an object, the key-value pairs being represented by property
-names and property values. In Open API schema (as well as in JSON schema) they
+names and property values. In OpenAPI schema (as well as in JSON schema) they
 should be represented using additionalProperties with a schema defining the
 value type. Such an object should normally have no other defined properties.
 
@@ -89,13 +98,6 @@ An actual JSON object described by this might then look like this:
 ```
 
 
-[#120]
-== {SHOULD} pluralize array names
-
-To indicate they contain multiple values prefer to pluralize array
-names. This implies that object names should in turn be singular.
-
-
 [#122]
 == {MUST} not use `null` for boolean properties
 
@@ -111,7 +113,7 @@ unknown.
 [#123]
 == {MUST} use same semantics for `null` and absent properties
 
-Open API 3.x allows to mark properties as `required` and as `nullable` to
+OpenAPI 3.x allows to mark properties as `required` and as `nullable` to
 specify whether properties may be absent (`{}`) or `null` (`{"example":null}`).
 If a property is defined to be not `required` and `nullable` (see
 <<required-nullable-row-2, 2nd row in Table below>>), this rule demands
@@ -192,9 +194,9 @@ Use the date and time formats defined by {RFC-3339}#section-5.6[RFC 3339]:
 example `2015-05-28T14:07:17Z`
 
 Note that the
-https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types[Open
-API format] "date-time" corresponds to "date-time" in the RFC) and `2015-05-28`
-for a date (note that the Open API format "date" corresponds to "full-date" in
+https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types[OpenAPI format] 
+"date-time" corresponds to "date-time" in the RFC) and `2015-05-28`
+for a date (note that the OpenAPI format "date" corresponds to "full-date" in
 the RFC). Both are specific profiles, a subset of the international standard
 {ISO-8601}[ISO 8601].
 
@@ -222,4 +224,5 @@ ambiguity.
 == {SHOULD} define time durations and intervals properties conform to ISO 8601
 
 Schema based JSON properties that are by design durations and intervals could
-be strings formatted as recommended by {ISO-8601}[ISO 8601]({RFC-3339}#appendix-A[Appendix A of RFC 3339 contains a grammar] for durations).
+be strings formatted as recommended by {ISO-8601}[ISO 8601]
+({RFC-3339}#appendix-A[Appendix A of RFC 3339 contains a grammar] for durations).
