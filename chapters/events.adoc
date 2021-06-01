@@ -468,13 +468,22 @@ EventMetadata:
       type: string
       example: 'example.important-business-event'
     occurred_at:
-      description: When the event was created according to the producer.
+      description: |
+         Technical timestamp of when the event object was created during processing of the
+         business event by the producer application. Note, it may differ from the timestamp 
+         when the related real-world business event happened (e.g. when the packet was handed 
+         over to the customer), which should be passed separately via an event type specific 
+         attribute. 
+         Depending on the producer implementation, the timestamp is typically some milliseconds  
+         earlier than when the event is published and received by the API event post endpoint 
+         server -- see below.
       type: string
       format: date-time
       example: '1996-12-19T16:39:57-08:00'
     received_at:
       description: |
-        When the event was seen by an intermediary such as a broker.
+        Timestamp of when the event was received via the API event post endpoints. 
+        It is automatically enriched, and events will be rejected if set by the event producer.
       type: string
       readOnly: true
       format: date-time
@@ -610,7 +619,7 @@ jump forward and backward to compensate drifts or leap-seconds. If you use anywa
 timestamps to indicate event ordering, you _must_ carefully ensure that the designated 
 event order is not messed up by these effects and use UTC time zone format.
 
-*Note:* The `occurred_at` and `partition_offset` metadata set by Nakadi typically is 
+*Note:* The `received_at` and `partition_offset` metadata set by Nakadi typically is 
 different from the business event ordering, since (1) Nakadi is a distributed concurrent 
 system without atomic, ordered event creation and (2) the application's implementation
 of event publishing may not exactly reflect the business order. The business ordering 
