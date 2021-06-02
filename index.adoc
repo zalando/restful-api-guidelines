@@ -28,6 +28,7 @@
 :RFC-6570: https://tools.ietf.org/html/rfc6570
 :RFC-6585: https://tools.ietf.org/html/rfc6585
 :RFC-6648: https://tools.ietf.org/html/rfc6648
+:RFC-6749: https://tools.ietf.org/html/rfc6749
 :RFC-6750: https://tools.ietf.org/html/rfc6750
 :RFC-6901: https://tools.ietf.org/html/rfc6901
 :RFC-6902: https://tools.ietf.org/html/rfc6902
