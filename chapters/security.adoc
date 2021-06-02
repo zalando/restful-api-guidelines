@@ -3,23 +3,20 @@
 
 
 [#104]
-== {MUST} secure endpoints with OAuth 2.0
+== {MUST} secure endpoints 
 
-Every API endpoint *must* be secured using OAuth 2.0. Please refer to the
-https://swagger.io/docs/specification/authentication/[OpenAPI Authentication]
-section on how to specify security definitions in your API.
+Every API endpoint must be protected and armed with authentication and authorization. 
+As part of the API definition you must specify how you protect your API using 
+one of the security schemes defined in the
+https://swagger.io/docs/specification/authentication/[OpenAPI Authentication Specification].
 
-*Example*: Most of our services require a simple authentication using the
-https://swagger.io/docs/specification/authentication/bearer-authentication/[Bearer
-Authentication] pattern originally created as part of {RFC-6750}[RFC 6750]
-using JWT tokens provided in each request by:
-
-[source,http]
----
-Auhorization: Bearer <token>
----
-
-The following code snippet shows how to define the security scheme.
+The majority of our APIs (especially the company internal APIs) are protected 
+using JWT tokens provided by the platform IAM token service. In these situations 
+you should use the 
+https://swagger.io/docs/specification/authentication/bearer-authentication/[Bearer Authentication]
+security scheme -- it is based on {RFC-6750}[RFC 6750] defining the standard header 
+`Auhorization: Bearer <token>`. 
+The following code snippet shows how to define the bearer security scheme.
 
 [source,yaml]
 ----
@@ -31,7 +28,7 @@ components:
       bearerFormat: JWT
 ----
 
-The security schema can than be applied to all API endpoints, e.g. requiring
+The bearer security schema can than be applied to all API endpoints, e.g. requiring
 the token to have `api-repository.read` scope for permission as follows (see
 also <<105>>):
 
@@ -41,12 +38,16 @@ security:
   - BearerAuth: [ api-repository.read ]
 ----
 
-*Note:* If you need to support specific OAuth2 authorizations flows as defined by
-{RFC-6750}[RFC 6750], please consult the 
+
+In other, more specific situations e.g. with customer and partner facing APIs we 
+may use other OAuth 2.0 authorization flows as defined by {RFC-6749}[RFC 6749]. 
+Please consult the 
 https://swagger.io/docs/specification/authentication/oauth2/[OpenAPI OAuth 2.0 Authentication] 
-section for details on how to describe correctly.
-Do not use OAuth flows (e.g. `implicit`) if not directly supported by the service, because
-they make use of redirection and expose authentication server address details. 
+section for details on how to define correctly.
+
+*Note:* Do not use OpenAPI OAuth security scheme type and flows (e.g. `implicit`) 
+if your service does not fully support it and implements a simple bearer token scheme, 
+because it exposes authentication server address details and may make use of redirection.
 
 
 [#105]
