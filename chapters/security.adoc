@@ -12,9 +12,9 @@ https://swagger.io/docs/specification/authentication/[OpenAPI Authentication Spe
 
 The majority of our APIs (especially the company internal APIs) are protected 
 using JWT tokens provided by the platform IAM token service. In these situations 
-you should use the 
+you should use the `http` typed
 https://swagger.io/docs/specification/authentication/bearer-authentication/[Bearer Authentication]
-security scheme -- it is based on {RFC-6750}[RFC 6750] defining the standard header 
+security scheme -- it is based on OAuth2.0 {RFC-6750}[RFC 6750] defining the standard header 
 `Auhorization: Bearer <token>`. 
 The following code snippet shows how to define the bearer security scheme.
 
@@ -43,7 +43,7 @@ In other, more specific situations e.g. with customer and partner facing APIs we
 may use other OAuth 2.0 authorization flows as defined by {RFC-6749}[RFC 6749]. 
 Please consult the 
 https://swagger.io/docs/specification/authentication/oauth2/[OpenAPI OAuth 2.0 Authentication] 
-section for details on how to define correctly.
+section for details on how to define `oauth2` typed security schemes correctly.
 
 *Note:* Do not use OpenAPI OAuth security scheme type and flows (e.g. `implicit`) 
 if your service does not fully support it and implements a simple bearer token scheme, 
