@@ -33,7 +33,7 @@ jobs:
         env:
           GH_TOKEN: ${{ steps.get-gh-token.outputs.gh_access_token }}
         run: |
-          scripts/deploy-travis.sh
+          scripts/create-zally-issue.sh
 
       - name: Deploy to GitHub Pages
         if: ${{ github.ref == 'refs/heads/master' }}

@@ -1,29 +1,10 @@
 #!/usr/bin/env bash
-# This script runs on Travis CI and does the following things:
-# 1. deploys generated files to gh-pages branch of the repository
-# 2. creates a new issue in the Zally project if guideline content has been changed
-# Both happens only on master branch update
 
 set -ex
 
-USER="ZalandoGhPages"
-EMAIL="no-reply@zalando.de"
-DEPLOY_MESSAGE="auto-deployment to the gh-branch"
 GH_REPO="github.com/zalando/restful-api-guidelines.git"
 GH_REPO_URL="https://api.github.com/repos/zalando/restful-api-guidelines"
 ZALLY_REPO_URL="https://api.github.com/repos/zalando/zally"
-
-deploy_gh_pages () {
-    echo "Deploying to gh-pages branch"
-    cd output
-    git init
-    git config user.name "${USER}"
-    git config user.email "${EMAIL}"
-    git add -A
-    git commit -m "${DEPLOY_MESSAGE}"
-    git push --force --quiet "https://${GH_TOKEN}@${GH_REPO}" master:gh-pages
-    echo "Deployed successfully to gh-pages branch"
-}
 
 create_zally_issue () {
     local commit message count=0;
@@ -42,13 +23,13 @@ create_zally_issue () {
         if [[ ${file} == chapters/* ]]; then chapters=true; break; fi;
     done;
     if [ ${chapters} = false ]; then
-        echo "No changes, aborting issue creation (${TRAVIS_COMMIT}}"; return;
+        echo "No changes, aborting issue creation (${GITHUB_SHA}}"; return;
     fi;
 
     local pull origin count=0;
     while [ "${count}" -lt 6 ]; do
          pull="$(curl -s "-H Accept: application/vnd.github.groot-preview+json" \
-             "${GH_REPO_URL}/commits/${TRAVIS_COMMIT}/pulls"  | jq '.[0]')";
+             "${GH_REPO_URL}/commits/${GITHUB_SHA}/pulls"  | jq '.[0]')";
          origin="$(echo "${pull}" | jq --raw-output '.number')";
          if [ "${origin}" != "null" ]; then break; fi;
          count=$((count + 1)); sleep 10;
@@ -74,16 +55,12 @@ create_zally_issue () {
     fi;
     local data="{\"title\":\"${title}\", \"body\": \"${body}\", \"labels\": [\"guidelines-update\"]}";
 
-    echo "Changes require zally issue creation (${TRAVIS_COMMIT}}";
+    echo "Changes require zally issue creation (${GITHUB_SHA}}";
     curl -X POST --data "${data}" \
          -H 'Content-Type: application/json' \
          -H "Authorization: token ${GH_TOKEN}" \
          "${ZALLY_REPO_URL}/issues";
 }
 
-# if [[ "${TRAVIS}" = "true" && "${TRAVIS_SECURE_ENV_VARS}" = "true" && "${TRAVIS_PULL_REQUEST}" = "false" && "${TRAVIS_BRANCH}" = "master" ]]; then
-    # deploy_gh_pages
 create_zally_issue
-# else
-    # echo "It's not an update of the master branch, skipping the deployment"
-# fi
+
