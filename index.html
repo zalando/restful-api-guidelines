@@ -1436,7 +1436,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 </li>
 <li><a href="#security">5. Security</a>
 <ul class="sectlevel2">
-<li><a href="#104"><span class="must-keyword"><strong>MUST</strong></span> secure endpoints with OAuth 2.0</a></li>
+<li><a href="#104"><span class="must-keyword"><strong>MUST</strong></span> secure endpoints</a></li>
 <li><a href="#105"><span class="must-keyword"><strong>MUST</strong></span> define and assign permissions (scopes)</a></li>
 <li><a href="#225"><span class="must-keyword"><strong>MUST</strong></span> follow naming convention for permissions (scopes)</a></li>
 </ul>
@@ -2374,27 +2374,21 @@ API Audience narrative (internal link)</a>.</p>
 <h2 id="security"><a class="link" href="#security">5. Security</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="104"><a class="link" href="#104"><span class="must-keyword"><strong>MUST</strong></span> secure endpoints with OAuth 2.0</a></h3>
+<h3 id="104"><a class="link" href="#104"><span class="must-keyword"><strong>MUST</strong></span> secure endpoints</a></h3>
 <div class="paragraph">
-<p>Every API endpoint <strong>must</strong> be secured using OAuth 2.0. Please refer to the
-<a href="https://swagger.io/docs/specification/authentication/">OpenAPI Authentication</a>
-section on how to specify security definitions in your API.</p>
-</div>
-<div class="paragraph">
-<p><strong>Example</strong>: Most of our services require a simple authentication using the
-<a href="https://swagger.io/docs/specification/authentication/bearer-authentication/">Bearer
-Authentication</a> pattern originally created as part of <a href="https://tools.ietf.org/html/rfc6750">RFC 6750</a>
-using JWT tokens provided in each request by:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="http">---
-Auhorization: Bearer &lt;token&gt;
----</code></pre>
-</div>
+<p>Every API endpoint must be protected and armed with authentication and authorization.
+As part of the API definition you must specify how you protect your API using
+either the <code>http</code> typed <code>bearer</code> or <code>oauth2</code> typed security schemes defined in the
+<a href="https://swagger.io/docs/specification/authentication/">OpenAPI Authentication Specification</a>.</p>
 </div>
 <div class="paragraph">
-<p>The following code snippet shows how to define the security scheme.</p>
+<p>The majority of our APIs (especially the company internal APIs) are protected
+using JWT tokens provided by the platform IAM token service. In these situations
+you should use the <code>http</code> typed
+<a href="https://swagger.io/docs/specification/authentication/bearer-authentication/">Bearer Authentication</a>
+security scheme&#8201;&#8212;&#8201;it is based on OAuth2.0 <a href="https://tools.ietf.org/html/rfc6750">RFC 6750</a> defining the standard header
+<code>Auhorization: Bearer &lt;token&gt;</code>.
+The following code snippet shows how to define the bearer security scheme.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2407,7 +2401,7 @@ Auhorization: Bearer &lt;token&gt;
 </div>
 </div>
 <div class="paragraph">
-<p>The security schema can than be applied to all API endpoints, e.g. requiring
+<p>The bearer security schema can than be applied to all API endpoints, e.g. requiring
 the token to have <code>api-repository.read</code> scope for permission as follows (see
 also <a href="#105"><span class="must-keyword"><strong>MUST</strong></span> define and assign permissions (scopes)</a>):</p>
 </div>
@@ -2418,12 +2412,16 @@ also <a href="#105"><span class="must-keyword"><strong>MUST</strong></span> defi
 </div>
 </div>
 <div class="paragraph">
-<p><strong>Note:</strong> If you need to support specific OAuth2 authorizations flows as defined by
-<a href="https://tools.ietf.org/html/rfc6750">RFC 6750</a>, please consult the
+<p>In other, more specific situations e.g. with customer and partner facing APIs you
+may use other OAuth 2.0 authorization flows as defined by <a href="https://tools.ietf.org/html/rfc6749">RFC 6749</a>.
+Please consult the
 <a href="https://swagger.io/docs/specification/authentication/oauth2/">OpenAPI OAuth 2.0 Authentication</a>
-section for details on how to describe correctly.
-Do not use OAuth flows (e.g. <code>implicit</code>) if not directly supported by the service, because
-they make use of redirection and expose authentication server address details.</p>
+section for details on how to define <code>oauth2</code> typed security schemes correctly.</p>
+</div>
+<div class="paragraph">
+<p><strong>Note:</strong> Do not use OpenAPI <code>oauth2</code> typed security scheme flows (e.g. <code>implicit</code>)
+if your service does not fully support it and implements a simple bearer token scheme,
+because it exposes authentication server address details and may make use of redirection.</p>
 </div>
 </div>
 <div class="sect2">
@@ -10030,7 +10028,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-06-03 11:08:41 UTC
+Last updated 2021-06-03 11:32:28 UTC
 </div>
 </div>
 </body>
