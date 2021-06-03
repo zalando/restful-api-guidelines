@@ -3,7 +3,7 @@
 
 
 [#104]
-== {MUST} secure endpoints 
+== {MUST} secure endpoints
 
 Every API endpoint must be protected and armed with authentication and authorization. 
 As part of the API definition you must specify how you protect your API using 
