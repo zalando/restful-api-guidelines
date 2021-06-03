@@ -7,7 +7,7 @@
 
 Every API endpoint must be protected and armed with authentication and authorization. 
 As part of the API definition you must specify how you protect your API using 
-one of the security schemes defined in the
+either the `http` typed `bearer` or `oauth2` typed security schemes defined in the
 https://swagger.io/docs/specification/authentication/[OpenAPI Authentication Specification].
 
 The majority of our APIs (especially the company internal APIs) are protected 
@@ -39,13 +39,13 @@ security:
 ----
 
 
-In other, more specific situations e.g. with customer and partner facing APIs we 
+In other, more specific situations e.g. with customer and partner facing APIs you 
 may use other OAuth 2.0 authorization flows as defined by {RFC-6749}[RFC 6749]. 
 Please consult the 
 https://swagger.io/docs/specification/authentication/oauth2/[OpenAPI OAuth 2.0 Authentication] 
 section for details on how to define `oauth2` typed security schemes correctly.
 
-*Note:* Do not use OpenAPI OAuth security scheme type and flows (e.g. `implicit`) 
+*Note:* Do not use OpenAPI `oauth2` typed security scheme flows (e.g. `implicit`) 
 if your service does not fully support it and implements a simple bearer token scheme, 
 because it exposes authentication server address details and may make use of redirection.
 
