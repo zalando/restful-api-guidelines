@@ -98,8 +98,9 @@ referenced by their name and identifier in the path segments as follows:
 
 In order to improve the consumer experience, you should aim for intuitively
 understandable URLs, where each sub-path is a valid reference to a resource or
-a set of resources. For instance, if `/partners/{partner-id}/addresses/{address-id}` is valid,
-then, in principle, also `/partners/{partner-id}/addresses`, `/partners/{partner-id}` and
+a set of resources. For instance, if
+`/partners/{partner-id}/addresses/{address-id}` is valid, then, in principle,
+also `/partners/{partner-id}/addresses`, `/partners/{partner-id}` and
 `/partners` must be valid. Examples of concrete url paths:
 
 [source,http]
@@ -113,14 +114,13 @@ then, in principle, also `/partners/{partner-id}/addresses`, `/partners/{partner
 **Note:** resource identifiers may be build of multiple other resource
 identifiers (see <<241>>).
 
-**Exception:** In some situations the resource identifier is not passed 
-as a path segment but  via the authorization information, e.g. an 
-authorization token or session cookie.
-Here, it is reasonable to use **`self`** as _pseudo-identifier_ path segment. 
-For instance, you may define `/employees/self` or `/employees/self/personal-details` 
-as resource paths --  and may additionally define endpoints that support 
-identifier passing in the resource path, like define `/employees/{id}` 
-or `/employees/{id}/personal-details`.
+**Exception:** In some situations the resource identifier is not passed as a
+path segment but  via the authorization information, e.g. an authorization
+token or session cookie. Here, it is reasonable to use **`self`** as
+_pseudo-identifier_ path segment. For instance, you may define `/employees/self`
+or `/employees/self/personal-details` as resource paths --  and may additionally
+define endpoints that support identifier passing in the resource path, like
+define `/employees/{empl-id}` or `/employees/{empl-id}/personal-details`.
 
 
 [#241]
