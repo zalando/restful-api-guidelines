@@ -4664,8 +4664,9 @@ referenced by their name and identifier in the path segments as follows:</p>
 <div class="paragraph">
 <p>In order to improve the consumer experience, you should aim for intuitively
 understandable URLs, where each sub-path is a valid reference to a resource or
-a set of resources. For instance, if <code>/partners/{partner-id}/addresses/{address-id}</code> is valid,
-then, in principle, also <code>/partners/{partner-id}/addresses</code>, <code>/partners/{partner-id}</code> and
+a set of resources. For instance, if
+<code>/partners/{partner-id}/addresses/{address-id}</code> is valid, then, in principle,
+also <code>/partners/{partner-id}/addresses</code>, <code>/partners/{partner-id}</code> and
 <code>/partners</code> must be valid. Examples of concrete url paths:</p>
 </div>
 <div class="listingblock">
@@ -4681,14 +4682,13 @@ then, in principle, also <code>/partners/{partner-id}/addresses</code>, <code>/p
 identifiers (see <a href="#241"><span class="may-keyword"><strong>MAY</strong></span> expose compound keys as resource identifiers</a>).</p>
 </div>
 <div class="paragraph">
-<p><strong>Exception:</strong> In some situations the resource identifier is not passed
-as a path segment but  via the authorization information, e.g. an
-authorization token or session cookie.
-Here, it is reasonable to use <strong><code>self</code></strong> as <em>pseudo-identifier</em> path segment.
-For instance, you may define <code>/employees/self</code> or <code>/employees/self/personal-details</code>
-as resource paths&#8201;&#8212;&#8201; and may additionally define endpoints that support
-identifier passing in the resource path, like define <code>/employees/<a href="#id"><code>id</code></a></code>
-or <code>/employees/<a href="#id"><code>id</code></a>/personal-details</code>.</p>
+<p><strong>Exception:</strong> In some situations the resource identifier is not passed as a
+path segment but  via the authorization information, e.g. an authorization
+token or session cookie. Here, it is reasonable to use <strong><code>self</code></strong> as
+<em>pseudo-identifier</em> path segment. For instance, you may define <code>/employees/self</code>
+or <code>/employees/self/personal-details</code> as resource paths&#8201;&#8212;&#8201; and may additionally
+define endpoints that support identifier passing in the resource path, like
+define <code>/employees/{empl-id}</code> or <code>/employees/{empl-id}/personal-details</code>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -10028,7 +10028,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-06-03 14:45:12 UTC
+Last updated 2021-06-07 09:51:43 UTC
 </div>
 </div>
 </body>
