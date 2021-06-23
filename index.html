@@ -1476,8 +1476,6 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#123"><span class="must-keyword"><strong>MUST</strong></span> use same semantics for <code>null</code> and absent properties</a></li>
 <li><a href="#124"><span class="should-keyword"><strong>SHOULD</strong></span> not use <code>null</code> for empty arrays</a></li>
 <li><a href="#235"><span class="should-keyword"><strong>SHOULD</strong></span> name date/time properties with <code>_at</code> suffix</a></li>
-<li><a href="#126"><span class="should-keyword"><strong>SHOULD</strong></span> define dates properties compliant with RFC 3339</a></li>
-<li><a href="#127"><span class="should-keyword"><strong>SHOULD</strong></span> define time durations and intervals properties conform to ISO 8601</a></li>
 </ul>
 </li>
 <li><a href="#data-formats">9. Data formats</a>
@@ -1485,10 +1483,11 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#167"><span class="must-keyword"><strong>MUST</strong></span> use JSON as payload data interchange format</a></li>
 <li><a href="#168"><span class="may-keyword"><strong>MAY</strong></span> pass non-JSON media types using data specific standard formats</a></li>
 <li><a href="#172"><span class="should-keyword"><strong>SHOULD</strong></span> use standard media types</a></li>
-<li><a href="#238"><span class="should-keyword"><strong>SHOULD</strong></span> use standardized property formats</a></li>
-<li><a href="#169"><span class="must-keyword"><strong>MUST</strong></span> use standard date and time formats</a></li>
-<li><a href="#170"><span class="should-keyword"><strong>SHOULD</strong></span> use standards for country, language and currency codes</a></li>
-<li><a href="#171"><span class="must-keyword"><strong>MUST</strong></span> define format for number and integer types</a></li>
+<li><a href="#238"><span class="must-keyword"><strong>MUST</strong></span> use standard data formats</a></li>
+<li><a href="#171"><span class="must-keyword"><strong>MUST</strong></span> define a format for number and integer types</a></li>
+<li><a href="#169"><span class="must-keyword"><strong>MUST</strong></span> use standard formats for date and time properties</a></li>
+<li><a href="#127"><span class="should-keyword"><strong>SHOULD</strong></span> use standard formats for time duration and interval properties</a></li>
+<li><a href="#170"><span class="must-keyword"><strong>MUST</strong></span> use standard formats for country, language and currency properties</a></li>
 </ul>
 </li>
 <li><a href="#common-data-types">10. Common data types</a>
@@ -1576,7 +1575,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 </li>
 <li><a href="#standard-headers">18. Standard headers</a>
 <ul class="sectlevel2">
-<li><a href="#133"><span class="may-keyword"><strong>MAY</strong></span> use standardized headers</a></li>
+<li><a href="#133"><span class="may-keyword"><strong>MAY</strong></span> use standard headers</a></li>
 <li><a href="#132"><span class="should-keyword"><strong>SHOULD</strong></span> use uppercase separate words with hyphens for HTTP headers</a></li>
 <li><a href="#178"><span class="must-keyword"><strong>MUST</strong></span> use <code>Content-*</code> headers correctly</a></li>
 <li><a href="#180"><span class="should-keyword"><strong>SHOULD</strong></span> use <code>Location</code> header instead of <code>Content-Location</code> header</a></li>
@@ -3375,62 +3374,6 @@ names:</p>
 guideline and are therefore still accepted for APIs that predate this rule.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="126"><a class="link" href="#126"><span class="should-keyword"><strong>SHOULD</strong></span> define dates properties compliant with RFC 3339</a></h3>
-<div class="paragraph">
-<p>Use the date and time formats defined by <a href="https://tools.ietf.org/html/rfc3339#section-5.6">RFC 3339</a>:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>for "date" use strings matching
-<code>date-fullyear "-" date-month "-" date-mday</code>, for example: <code>2015-05-28</code></p>
-</li>
-<li>
-<p>for "date-time" use strings matching <code>full-date "T" full-time</code>, for
-example <code>2015-05-28T14:07:17Z</code></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Note that the
-<a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types">OpenAPI format</a>
-"date-time" corresponds to "date-time" in the RFC) and <code>2015-05-28</code>
-for a date (note that the OpenAPI format "date" corresponds to "full-date" in
-the RFC). Both are specific profiles, a subset of the international standard
-<a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>.</p>
-</div>
-<div class="paragraph">
-<p>A zone offset may be used (both, in request and responses)&#8201;&#8212;&#8201;this is simply
-defined by the standards. However, we encourage restricting dates to UTC and
-without offsets. For example <code>2015-05-28T14:07:17Z</code> rather than
-<code>2015-05-28T14:07:17+00:00</code>. From experience we have learned that zone offsets
-are not easy to understand and often not correctly handled. Note also that
-zone offsets are different from local times that might be including daylight
-saving time. Localization of dates should be done by the services that provide
-user interfaces, if required.</p>
-</div>
-<div class="paragraph">
-<p>When it comes to storage, all dates should be consistently stored in UTC
-without a zone offset. Localization should be done locally by the services that
-provide user interfaces, if required.</p>
-</div>
-<div class="paragraph">
-<p>Sometimes it can seem data is naturally represented using numerical timestamps,
-but this can introduce interpretation issues with precision, e.g. whether to
-represent a timestamp as 1460062925, 1460062925000 or 1460062925.000. Date
-strings, though more verbose and requiring more effort to parse, avoid this
-ambiguity.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="127"><a class="link" href="#127"><span class="should-keyword"><strong>SHOULD</strong></span> define time durations and intervals properties conform to ISO 8601</a></h3>
-<div class="paragraph">
-<p>Schema based JSON properties that are by design durations and intervals could
-be strings formatted as recommended by <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>
-(<a href="https://tools.ietf.org/html/rfc3339#appendix-A">Appendix A of RFC 3339 contains a grammar</a> for durations).</p>
-</div>
-</div>
 </div>
 </div>
 <div class="sect1">
@@ -3509,39 +3452,26 @@ standard media type for JSON, and make automated processing more difficult.</p>
 <p><strong>Exception:</strong> Custom media type should be only used in situations where you need to provide
 <a href="#114">API endpoint versioning</a> (with content negotiation) due to incompatible changes.</p>
 </div>
-<div class="sect3">
-<h4 id="239"><a class="link" href="#239"><span class="should-keyword"><strong>SHOULD</strong></span> encode embedded binary data in <code>base64url</code></a></h4>
-<div class="paragraph">
-<p>Exposing binary data using an alternative media type is generally preferred.
-See <a href="#168">the rule above</a>.</p>
-</div>
-<div class="paragraph">
-<p>If an alternative content representation is not desired then binary data should
-be embedded into the JSON document as a <code>base64url</code>-encoded string property
-following <a href="https://tools.ietf.org/html/rfc7493#section-4.4">RFC 7493 Section 4.4</a>.</p>
-</div>
-</div>
 </div>
 <div class="sect2">
-<h3 id="238"><a class="link" href="#238"><span class="should-keyword"><strong>SHOULD</strong></span> use standardized property formats</a></h3>
+<h3 id="238"><a class="link" href="#238"><span class="must-keyword"><strong>MUST</strong></span> use standard data formats</a></h3>
 <div class="paragraph">
-<p><a href="https://json-schema.org/understanding-json-schema/reference/string.html#format">JSON Schema</a>
-and <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#data-types">OpenAPI</a>
-define several data formats, e.g. <code>date</code>, <code>time</code>, <code>email</code>, and <code>url</code>, based on ISO and IETF standards.
-The following table lists these formats including additional formats useful in an e-commerce environment.
-You <strong>should</strong> use these formats, whenever applicable.</p>
+<p><a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#data-types">Open API</a>
+(based on <a href="https://json-schema.org/understanding-json-schema/reference/string.html#format">JSON Schema</a>)
+defines formats from ISO and IETFF standards for date/time, integers/numbers and binary data.
+You <strong>must</strong> use these formats, whenever applicable:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 10%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
+<col style="width: 10%;">
+<col style="width: 40%;">
 <col style="width: 40%;">
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top"><code>type</code></th>
-<th class="tableblock halign-left valign-top"><code>format</code></th>
+<th class="tableblock halign-left valign-top"><code>OpenAPI type</code></th>
+<th class="tableblock halign-left valign-top"><code>OpenAPI format</code></th>
 <th class="tableblock halign-left valign-top">Specification</th>
 <th class="tableblock halign-left valign-top">Example</th>
 </tr>
@@ -3549,75 +3479,137 @@ You <strong>should</strong> use these formats, whenever applicable.</p>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>integer</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#171"><code>int32</code></a></p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>int32</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 byte signed integer between -2<sup>31</sup> and 2<sup>31</sup>-1</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>7721071004</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>integer</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#171"><code>int64</code></a></p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>int64</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8 byte signed integer between -2<sup>63</sup> and 2<sup>63</sup>-1</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>772107100456824</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>integer</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#171"><code>bigint</code></a></p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>bigint</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">arbitrarily large signed integer number</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>77210710045682438959</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>number</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#171"><code>float</code></a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://en.wikipedia.org/wiki/IEEE_754">IEEE 754-2008</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>float</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>binary32</code> single precision decimal number&#8201;&#8212;&#8201;see <a href="https://en.wikipedia.org/wiki/IEEE_754">IEEE 754-2008/ISO 60559:2011</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>3.1415927</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>number</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#171"><code>double</code></a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://en.wikipedia.org/wiki/IEEE_754">IEEE 754-2008</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>double</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>binary64</code> double precision decimal number&#8201;&#8212;&#8201;see <a href="https://en.wikipedia.org/wiki/IEEE_754">IEEE 754-2008/ISO 60559:2011</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>3.141592653589793</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>number</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#171"><code>decimal</code></a></p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>decimal</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">arbitrarily precise signed decimal number</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>3.141592653589793238462643383279</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#170"><code>bcp47</code></a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://tools.ietf.org/html/bcp47">BCP 47</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"en-DE"</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>byte</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://tools.ietf.org/html/rfc7493">RFC 7493</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"dGVzdA=="</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>base64url</code> encoded byte following <a href="https://tools.ietf.org/html/rfc7493#section-4.4">RFC 7493 Section 4.4</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"VA=="</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#126"><code>date</code></a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://tools.ietf.org/html/rfc3339">RFC 3339</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>binary</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>base64url</code> encoded byte sequence following <a href="https://tools.ietf.org/html/rfc7493#section-4.4">RFC 7493 Section 4.4</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"VGVzdA=="</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>date</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://tools.ietf.org/html/rfc3339">RFC 3339</a> internet profile&#8201;&#8212;&#8201;subset of <a href="https://tools.ietf.org/html/rfc3339#ref-ISO8601">ISO 8601</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>"2019-07-30"</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#126"><code>date-time</code></a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://tools.ietf.org/html/rfc3339">RFC 3339</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>date-time</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://tools.ietf.org/html/rfc3339">RFC 3339</a> internet profile&#8201;&#8212;&#8201;subset of <a href="https://tools.ietf.org/html/rfc3339#ref-ISO8601">ISO 8601</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>"2019-07-30T06:43:40.252Z"</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>time</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://tools.ietf.org/html/rfc3339">RFC 3339</a> internet profile&#8201;&#8212;&#8201;subset of <a href="https://tools.ietf.org/html/rfc3339#ref-ISO8601">ISO 8601</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"06:43:40.252Z"</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>password</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"secret"</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Note:</strong> Formats <code>bigint</code>, <code>decimal</code> and <code>time</code> have been added to the OpenAPI defined formats&#8201;&#8212;&#8201;see also <a href="#171"><span class="must-keyword"><strong>MUST</strong></span> define a format for number and integer types</a> and <a href="#169"><span class="must-keyword"><strong>MUST</strong></span> use standard formats for date and time properties</a> below.</p>
+</div>
+<div class="paragraph">
+<p>We add further OpenAPI formats that are useful especially in an e-commerce environment
+e.g. <code>language code</code>, <code>country code</code>, <code>currency</code>, <code>email</code> based other ISO and IETFF standards.
+You <strong>must</strong> use these formats, whenever applicable:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 10%;">
+<col style="width: 10%;">
+<col style="width: 40%;">
+<col style="width: 40%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><code>OpenAPI type</code></th>
+<th class="tableblock halign-left valign-top"><code>format</code></th>
+<th class="tableblock halign-left valign-top">Specification</th>
+<th class="tableblock halign-left valign-top">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>iso-639</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">two letter language code&#8201;&#8212;&#8201;see <a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">ISO 639-1</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"en"</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>bcp47</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">multi letter language tag&#8201;&#8212;&#8201;see <a href="https://tools.ietf.org/html/bcp47">BCP 47</a>. It is a compatible extension of <a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">ISO 639-1</a> optionally with additional information for language usage, like region, variant, script.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"en-DE"</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>iso-3166</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">two letter country code&#8201;&#8212;&#8201;see <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"GB"</code>  <strong>Hint:</strong> It is <code>"GB"</code>, not <code>"UK"</code>, even though <code>"UK"</code> has seen some use at Zalando.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>iso-4217</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">three letter currency code&#8201;&#8212;&#8201;see <a href="https://en.wikipedia.org/wiki/ISO_4217">ISO 4217</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"EUR"</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>gtin-13</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Global Trade Item Number&#8201;&#8212;&#8201;see <a href="https://en.wikipedia.org/wiki/Global_Trade_Item_Number">GTIN</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"5710798389878"</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>email</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://tools.ietf.org/html/rfc5322">RFC 5322</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>"<a href="mailto:example@zalando.de">example@zalando.de</a>"</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>gtin-13</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://en.wikipedia.org/wiki/Global_Trade_Item_Number">GTIN</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"5710798389878"</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
@@ -3639,48 +3631,6 @@ You <strong>should</strong> use these formats, whenever applicable.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#170"><code>iso-3166</code></a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"DE"</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#173"><code>iso-4217</code></a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://en.wikipedia.org/wiki/ISO_4217">ISO 4217</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"EUR"</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#170"><code>iso-639</code></a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">ISO 639-1</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"de"</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>json-pointer</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://tools.ietf.org/html/rfc6901">RFC 6901</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"/items/0/id"</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>password</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"secret"</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>regex</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf">ECMA 262</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"^[a-z0-9]+$"</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#126"><code>time</code></a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://tools.ietf.org/html/rfc3339">RFC 3339</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"06:43:40.252Z"</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>uri</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://tools.ietf.org/html/rfc3986">RFC 3986</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>"https://www.zalando.de/"</code></p></td>
@@ -3697,6 +3647,18 @@ You <strong>should</strong> use these formats, whenever applicable.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://tools.ietf.org/html/rfc4122">RFC 4122</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>"e2ab873e-b295-11e9-9c02-&#8230;&#8203;"</code></p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>json-pointer</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://tools.ietf.org/html/rfc6901">RFC 6901</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"/items/0/id"</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>regex</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">regular expressions as defined in <a href="http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf">ECMA 262</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"^[a-z0-9]+$"</code></p></td>
+</tr>
 </tbody>
 </table>
 <div class="paragraph">
@@ -3705,143 +3667,95 @@ and everyone is encouraged to propose additions.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="169"><a class="link" href="#169"><span class="must-keyword"><strong>MUST</strong></span> use standard date and time formats</a></h3>
-<div class="sect3">
-<h4 id="json-payload"><a class="link" href="#json-payload">JSON payload</a></h4>
+<h3 id="171"><a class="link" href="#171"><span class="must-keyword"><strong>MUST</strong></span> define a format for number and integer types</a></h3>
 <div class="paragraph">
-<p>Read more about date and time format in <a href="#126"><span class="should-keyword"><strong>SHOULD</strong></span> define dates properties compliant with RFC 3339</a>.</p>
+<p>In <a href="#238"><span class="must-keyword"><strong>MUST</strong></span> use standard data formats</a> we added <code>bigint</code> and <code>decimal</code> to the OpenAPI defined formats.
+As an implication, you must always provide one of the formats <code>int32</code>, <code>int64</code>, <code>bigint</code>
+or <code>float</code>, <code>double</code>, <code>decimal</code> when you define an API property of
+JSON type <code>number</code> or <code>integer</code>.</p>
 </div>
+<div class="paragraph">
+<p>By this we prevent clients from guessing the precision incorrectly, and thereby
+changing the value unintentionally. The precision must be translated by clients
+and servers into the most specific language types; in Java, for instance, the <code>number</code>
+type with <code>decimal</code> format will translate into <code>BigDecimal</code> and <code>integer</code> type with
+<code>int32</code> format will translate to <code>int</code> or <code>Integer</code> Java types.</p>
 </div>
 <div class="sect3">
-<h4 id="http-headers"><a class="link" href="#http-headers">HTTP headers</a></h4>
+<h4 id="239"><a class="link" href="#239"><span class="must-keyword"><strong>MUST</strong></span> encode binary data in <code>base64url</code></a></h4>
 <div class="paragraph">
-<p>Http headers including the proprietary headers use the
-<a href="https://tools.ietf.org/html/rfc7231#section-7.1.1.1">HTTP date format defined in RFC 7231</a>.</p>
+<p>You may expose binary data. You must use a standard media type and data format,
+if applicable&#8201;&#8212;&#8201;see <a href="#168">Rule 168</a>. If no standard is available, you must define
+the binary data as <code>string</code> typed property with <code>binary</code> format using <code>base64url</code>
+encoding&#8201;&#8212;&#8201;as also described in <a href="#238"><span class="must-keyword"><strong>MUST</strong></span> use standard data formats</a>.</p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="170"><a class="link" href="#170"><span class="should-keyword"><strong>SHOULD</strong></span> use standards for country, language and currency codes</a></h3>
+<h3 id="169"><a class="link" href="#169"><span class="must-keyword"><strong>MUST</strong></span> use standard formats for date and time properties</a></h3>
 <div class="paragraph">
-<p>Use the following standard formats for country, language and currency
-codes:</p>
+<p>As a specific case of <a href="#238"><span class="must-keyword"><strong>MUST</strong></span> use standard data formats</a>, you must use the <code>string</code> typed formats
+<code>date</code>, <code>date-time</code> or <code>time</code> for the definition of date and time properties.
+The formats are based on the standard <a href="https://tools.ietf.org/html/rfc3339">RFC 3339</a> internet profile -- a
+subset of <a href="https://tools.ietf.org/html/rfc3339#ref-ISO8601">ISO 8601</a></p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>Country codes: <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1-alpha2</a> two letter country codes</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Hint: It is "GB", not "UK", even though "UK" has seen some use at Zalando</p>
-</li>
-</ul>
+<div class="paragraph">
+<p><strong>Exception:</strong> For passing date/time information via standard protocol headers,
+HTTP <a href="https://tools.ietf.org/html/rfc7231#section-7.1.1.1">RFC 7231</a> requires to
+follow the date and time specification used by the Internet Message Format
+<a href="https://tools.ietf.org/html/rfc5322">RFC 5322</a>.</p>
 </div>
-</li>
-<li>
-<p>Language codes: <a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">ISO 639-1</a> two letter language codes</p>
-</li>
-<li>
-<p>Language variant tags: <a href="https://tools.ietf.org/html/bcp47">BCP 47</a></p>
-<div class="ulist">
-<ul>
-<li>
-<p>It is a compatible extension of <a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">ISO 639-1</a>, providing additional
-information for language usage, like region (using <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1</a>),
-variant, script and others.</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>As defined by the standard, time zone offset may be used, however, we recommend
+to only use times based on UTC without local offsets. For example <code>2015-05-28T14:07:17Z</code>
+rather than <code>2015-05-28T14:07:17+00:00</code>. From experience we have learned that zone
+offsets are not easy to understand and often not correctly handled. Note also that
+zone offsets are different from local times which may include daylight saving time.
+When it comes to storage, all dates should be consistently stored in UTC without
+a zone offset. Localization should be done locally by the services that provide
+user interfaces, if required.</p>
 </div>
-</li>
-<li>
-<p>Currency codes:  <a href="https://en.wikipedia.org/wiki/ISO_4217">ISO 4217</a> three letter currency codes</p>
-</li>
-</ul>
+<div class="paragraph">
+<p><strong>Hint:</strong> We discourage using numerical timestamps. It typically creates
+issues with precision, e.g. whether to represent a timestamp as 1460062925,
+1460062925000 or 1460062925.000. Date strings, though more verbose and requiring
+more effort to parse, avoid this ambiguity.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="171"><a class="link" href="#171"><span class="must-keyword"><strong>MUST</strong></span> define format for number and integer types</a></h3>
+<h3 id="127"><a class="link" href="#127"><span class="should-keyword"><strong>SHOULD</strong></span> use standard formats for time duration and interval properties</a></h3>
 <div class="paragraph">
-<p>Whenever an API defines a property of type <code>number</code> or <code>integer</code>, the
-precision must be defined by the format as follows to prevent clients
-from guessing the precision incorrectly, and thereby changing the value
-unintentionally:</p>
+<p>Schema based JSON properties that are by design durations and intervals could
+be strings formatted as defined by <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>
+(<a href="https://tools.ietf.org/html/rfc3339#appendix-A">Appendix A of RFC 3339 contains a grammar</a> for durations).</p>
 </div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 15%;">
-<col style="width: 15%;">
-<col style="width: 70%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">type</th>
-<th class="tableblock halign-left valign-top">format</th>
-<th class="tableblock halign-left valign-top">specified value range</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">integer</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">int32</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">integer between -2<sup>31</sup> and 2<sup>31</sup>-1</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">integer</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">int64</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">integer between -2<sup>63</sup> and 2<sup>63</sup>-1</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">integer</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">bigint</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">arbitrarily large signed integer number</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">number</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">float</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://en.wikipedia.org/wiki/IEEE_754">IEEE 754-2008/ISO 60559:2011</a> binary32 decimal number</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">number</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">double</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://en.wikipedia.org/wiki/IEEE_754">IEEE 754-2008/ISO 60559:2011</a> binary64 decimal number</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">number</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">decimal</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">arbitrarily precise signed decimal number</p></td>
-</tr>
-</tbody>
-</table>
+</div>
+<div class="sect2">
+<h3 id="170"><a class="link" href="#170"><span class="must-keyword"><strong>MUST</strong></span> use standard formats for country, language and currency properties</a></h3>
 <div class="paragraph">
-<p>The precision must be translated by clients and servers into the most
-specific language types. E.g. for the following definitions the most
-specific language types in Java will translate to <code>BigDecimal</code> for
-<code>Money.amount</code> and <code>int</code> or <code>Integer</code> for the <code>OrderList.page_size</code>:</p>
+<p>As a specific case of <a href="#238"><span class="must-keyword"><strong>MUST</strong></span> use standard data formats</a> you must use the following standard formats:</p>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="yaml"><span class="key">components</span>:
-  <span class="key">schemas</span>:
-    <span class="key">Money</span>:
-      <span class="key">type</span>: <span class="string"><span class="content">object</span></span>
-      <span class="key">properties</span>:
-        <span class="key">amount</span>:
-          <span class="key">type</span>: <span class="string"><span class="content">number</span></span>
-          <span class="key">description</span>: <span class="string"><span class="content">Amount expressed as a decimal number of major currency units</span></span>
-          <span class="key">format</span>: <span class="string"><span class="content">decimal</span></span>
-          <span class="key">example</span>: <span class="string"><span class="content">99.95</span></span>
-       <span class="error">...</span>
-
-    <span class="key">OrderList</span>:
-      <span class="key">type</span>: <span class="string"><span class="content">object</span></span>
-      <span class="key">properties</span>:
-        <span class="key">page_size</span>:
-          <span class="key">type</span>: <span class="string"><span class="content">integer</span></span>
-          <span class="key">description</span>: <span class="string"><span class="content">Number of orders in list</span></span>
-          <span class="key">format</span>: <span class="string"><span class="content">int32</span></span>
-          <span class="key">example</span>: <span class="string"><span class="content">42</span></span></code></pre>
-</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Country codes: <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1-alpha2</a> two letter country codes
+indicated via OpenAPI format <code>iso-3166</code></p>
+</li>
+<li>
+<p>Language codes: <a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">ISO 639-1</a> two letter language codes
+indicated via OpenAPI format <code>iso-639</code></p>
+</li>
+<li>
+<p>Language variant tags: <a href="https://tools.ietf.org/html/bcp47">BCP 47</a> multi letter language tag
+indicated via OpenAPI format <code>bcp47</code>. (It is a compatible extension of
+<a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">ISO 639-1</a> with additional optional
+information for language usage, like region, variant, script)</p>
+</li>
+<li>
+<p>Currency codes:  <a href="https://en.wikipedia.org/wiki/ISO_4217">ISO 4217</a> three letter currency codes
+indicated via OpenAPI format <code>iso-4217</code></p>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -7155,7 +7069,7 @@ questions in our daily usage, or which are useful in particular circumstances
 but not widely known.</p>
 </div>
 <div class="sect2">
-<h3 id="133"><a class="link" href="#133"><span class="may-keyword"><strong>MAY</strong></span> use standardized headers</a></h3>
+<h3 id="133"><a class="link" href="#133"><span class="may-keyword"><strong>MAY</strong></span> use standard headers</a></h3>
 <div class="paragraph">
 <p>Use <a href="http://en.wikipedia.org/wiki/List_of_HTTP_header_fields">this list</a> and
 explicitly mention its support in your OpenAPI definition.</p>
@@ -9714,6 +9628,39 @@ The latter changes are additionally labeled with "Rule Change" here.</p>
 <div class="ulist">
 <ul>
 <li>
+<p><code>2021-06-22</code>: <a href="#238"><span class="must-keyword"><strong>MUST</strong></span> use standard data formats</a> changed from <span class="should-keyword"><strong>SHOULD</strong></span> to <span class="must-keyword"><strong>MUST</strong></span>; consistency for rules around standards for data.</p>
+</li>
+<li>
+<p><code>2021-06-03</code>: <a href="#104"><span class="must-keyword"><strong>MUST</strong></span> secure endpoints</a> with clear distinction of OpenAPI security schemes, favoring <code>bearer</code> to <code>oauth2</code>.</p>
+</li>
+<li>
+<p><code>2021-06-01</code>: resolve uncertainties around 'occurred_at' semantics of <a href="#event-metadata">event metadata</a>.</p>
+</li>
+<li>
+<p><code>2021-05-25</code>: <a href="#172"><span class="should-keyword"><strong>SHOULD</strong></span> use standard media types</a> with <a href="#114">API endpoint versioning</a> as only custom media type usage exception.</p>
+</li>
+<li>
+<p><code>2021-05-05</code>: define usage on resource-ids in <a href="#put"><code>PUT</code></a> and <a href="#post"><code>POST</code></a> in <a href="#148"><span class="must-keyword"><strong>MUST</strong></span> use HTTP methods correctly</a>.</p>
+</li>
+<li>
+<p><code>2021-04-29</code>: improve clarity of <a href="#133"><span class="may-keyword"><strong>MAY</strong></span> use standard headers</a>.</p>
+</li>
+<li>
+<p><code>2021-03-19</code>: clarity on <a href="#167"><span class="must-keyword"><strong>MUST</strong></span> use JSON as payload data interchange format</a>.</p>
+</li>
+<li>
+<p><code>2021-03-15</code>: <a href="#242"><span class="must-keyword"><strong>MUST</strong></span> provide explicit event ordering for data change events</a> changed from <span class="should-keyword"><strong>SHOULD</strong></span> to <span class="must-keyword"><strong>MUST</strong></span>; improve clarity around <a href="#203">event ordering</a>.</p>
+</li>
+<li>
+<p><code>2021-03-19</code>: best practice section <a href="#cursor-based-pagination">Cursor-based pagination in RESTful APIs</a></p>
+</li>
+<li>
+<p><code>2021-02-16</code>: define how to reference models outside the api in <a href="#234"><span class="must-keyword"><strong>MUST</strong></span> only use durable and immutable remote references</a>.</p>
+</li>
+<li>
+<p><code>2021-02-15</code>: improve guideline <a href="#176"><span class="must-keyword"><strong>MUST</strong></span> support problem JSON</a>&#8201;&#8212;&#8201;clients must be prepared to not recieve problem return objects.</p>
+</li>
+<li>
 <p><code>2021-01-19</code>: more details for <a href="#get-with-body"><code>GET with body</code></a> and <a href="#delete-with-body"><code>DELETE with body</code></a> (<a href="#148"><span class="must-keyword"><strong>MUST</strong></span> use HTTP methods correctly</a>).</p>
 </li>
 <li>
@@ -9756,16 +9703,16 @@ The latter changes are additionally labeled with "Rule Change" here.</p>
 <p><code>2019-10-10</code>: remove never-implemented rule "<span class="must-keyword"><strong>MUST</strong></span> Permissions on events must correspond to API permissions"</p>
 </li>
 <li>
-<p><code>2019-09-10</code>: remove duplicated rule "<span class="may-keyword"><strong>MAY</strong></span> Standards could be used for Language, Country and Currency", upgrade <a href="#170"><span class="should-keyword"><strong>SHOULD</strong></span> use standards for country, language and currency codes</a> from <span class="may-keyword"><strong>MAY</strong></span> to <span class="should-keyword"><strong>SHOULD</strong></span>.</p>
+<p><code>2019-09-10</code>: remove duplicated rule "<span class="may-keyword"><strong>MAY</strong></span> Standards could be used for Language, Country and Currency", upgrade <a href="#170"><span class="must-keyword"><strong>MUST</strong></span> use standard formats for country, language and currency properties</a> from <span class="may-keyword"><strong>MAY</strong></span> to <span class="should-keyword"><strong>SHOULD</strong></span>.</p>
 </li>
 <li>
-<p><code>2019-08-29</code>: new rule <a href="#239"><span class="should-keyword"><strong>SHOULD</strong></span> encode embedded binary data in <code>base64url</code></a>, extend <a href="#167"><span class="must-keyword"><strong>MUST</strong></span> use JSON as payload data interchange format</a> pointing to <a href="https://tools.ietf.org/html/rfc7493">RFC-7493</a></p>
+<p><code>2019-08-29</code>: new rule <a href="#239"><span class="must-keyword"><strong>MUST</strong></span> encode binary data in <code>base64url</code></a>, extend <a href="#167"><span class="must-keyword"><strong>MUST</strong></span> use JSON as payload data interchange format</a> pointing to <a href="https://tools.ietf.org/html/rfc7493">RFC-7493</a></p>
 </li>
 <li>
 <p><code>2019-08-29</code>: new rules <a href="#236"><span class="should-keyword"><strong>SHOULD</strong></span> design simple query languages using query parameters</a>, <a href="#237"><span class="should-keyword"><strong>SHOULD</strong></span> design complex query languages using JSON</a></p>
 </li>
 <li>
-<p><code>2019-07-30</code>: new rule <a href="#238"><span class="should-keyword"><strong>SHOULD</strong></span> use standardized property formats</a></p>
+<p><code>2019-07-30</code>: new rule <a href="#238"><span class="must-keyword"><strong>MUST</strong></span> use standard data formats</a></p>
 </li>
 <li>
 <p><code>2019-07-30</code>: change <a href="#173"><span class="must-keyword"><strong>MUST</strong></span> use the common money object</a> from <span class="should-keyword"><strong>SHOULD</strong></span> to <span class="must-keyword"><strong>MUST</strong></span></p>
@@ -10028,7 +9975,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-06-07 09:51:43 UTC
+Last updated 2021-06-23 14:34:17 UTC
 </div>
 </div>
 </body>

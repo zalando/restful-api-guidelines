@@ -94,15 +94,15 @@
     },
     {
       "id": "#126",
-      "title": "SHOULD define dates properties compliant with RFC 3339"
+      "title": "MUST use standard formats for date and time properties"
     },
     {
       "id": "#127",
-      "title": "SHOULD define time durations and intervals properties conform to ISO 8601"
+      "title": "SHOULD use standard formats for time duration and interval properties"
     },
     {
       "id": "#128",
-      "title": "SHOULD use standards for country, language and currency codes"
+      "title": "MUST use standard formats for country, language and currency properties"
     },
     {
       "id": "#129",
@@ -118,7 +118,7 @@
     },
     {
       "id": "#133",
-      "title": "MAY use standardized headers"
+      "title": "MAY use standard headers"
     },
     {
       "id": "#134",
@@ -262,15 +262,15 @@
     },
     {
       "id": "#169",
-      "title": "MUST use standard date and time formats"
+      "title": "MUST use standard formats for date and time properties"
     },
     {
       "id": "#170",
-      "title": "SHOULD use standards for country, language and currency codes"
+      "title": "MUST use standard formats for country, language and currency properties"
     },
     {
       "id": "#171",
-      "title": "MUST define format for number and integer types"
+      "title": "MUST define a format for number and integer types"
     },
     {
       "id": "#172",
@@ -518,11 +518,11 @@
     },
     {
       "id": "#238",
-      "title": "SHOULD use standardized property formats"
+      "title": "MUST use standard data formats"
     },
     {
       "id": "#239",
-      "title": "SHOULD encode embedded binary data in `base64url`"
+      "title": "MUST encode binary data in `base64url`"
     },
     {
       "id": "#240",
