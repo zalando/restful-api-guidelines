@@ -16,6 +16,17 @@ To see a list of all changes, please have a look at the https://github.com/zalan
 [[rule-changes]]
 == Rule Changes
 
+* `2021-06-22`: <<238>> changed from {SHOULD} to {MUST}; consistency for rules around standards for data.
+* `2021-06-03`: <<104>> with clear distinction of OpenAPI security schemes, favoring `bearer` to `oauth2`.
+* `2021-06-01`: resolve uncertainties around 'occurred_at' semantics of <<event-metadata, event metadata>>.
+* `2021-05-25`: <<172>> with <<114, API endpoint versioning>> as only custom media type usage exception.
+* `2021-05-05`: define usage on resource-ids in {PUT} and {POST} in <<148>>.
+* `2021-04-29`: improve clarity of <<133>>.
+* `2021-03-19`: clarity on <<167>>.
+* `2021-03-15`: <<242>> changed from {SHOULD} to {MUST}; improve clarity around <<203, event ordering>>.
+* `2021-03-19`: best practice section <<cursor-based-pagination>>
+* `2021-02-16`: define how to reference models outside the api in <<234>>.
+* `2021-02-15`: improve guideline <<176>> -- clients must be prepared to not recieve problem return objects. 
 * `2021-01-19`: more details for {GET-with-Body} and {DELETE-with-Body} (<<148>>).
 * `2020-09-29`: include models for headers to be included by reference in API definitions (<<183>>)
 * `2020-09-08`: add exception for legacy host names to <<224>>
