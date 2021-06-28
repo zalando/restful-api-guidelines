@@ -1,3 +1,4 @@
+SHELL := /bin/bash 
 DOCKER := asciidoctor/docker-asciidoctor:latest
 DIRMOUNTS := /documents
 DIRCONTENTS := chapters
@@ -5,12 +6,20 @@ DIRSCRIPTS := scripts
 DIRBUILDS := output
 DIRWORK := $(shell pwd -P)
 
-.PHONY: all clean pull check assets
-.PHONY: rules html pdf epub force
+.PHONY: all clean install lint format pull assets rules html pdf epub force
+.PHONY: check check-rules check-rules-duplicates check-rules-incorrects
+.PHONY: next-rule-id
 
 all: clean html pdf epub rules
 clean:
 	rm -rf $(DIRBUILDS);
+
+install:
+	npm install -g markdownlint-cli;
+lint:
+	markdownlint --config linter.yaml chapters/*.adoc;
+format:
+	markdownlint --config linter.yaml --fix chapters/*.adoc;
 
 pull:
 	docker pull $(DOCKER);
@@ -41,7 +50,8 @@ next-rule-id:
 assets:
 	mkdir -p $(DIRBUILDS);
 	cp -r assets $(DIRBUILDS)/assets;
-	cp -r models/* $(DIRBUILDS);
+	cp -r models $(DIRBUILDS)/models;
+	cp -r models/{problem-1.0.{0,1},money-1.0.0}.yaml $(DIRBUILDS);
 	cp -r -n legacy/* $(DIRBUILDS);
 
 rules: check-rules
