@@ -7433,7 +7433,7 @@ when domain-specific generic context information&#8230;&#8203;</p>
 <li>
 <p>needs to be passed end to end along the service call chain (even if
 not all called services use it as input for steering service behavior
-e.g. <code>x-sales-channel</code> header) and/or&#8230;&#8203;</p>
+e.g. <a href="#x-sales-channel"><code>X-Sales-Channel</code></a> header) and/or&#8230;&#8203;</p>
 </li>
 <li>
 <p>is provided by specific gateway components, for instance, our
@@ -7526,7 +7526,7 @@ as generic aspect. Current range is iOS, Android, Windows, Linux, MacOS.</p></td
 <a href="https://support.google.com/googleplay/android-developer/answer/6048248">GAID</a>
 (Google mobile Advertising Identifier) for Android. It is a unique,
 customer-resettable identifier provided by mobile device’s operating system
-to faciliate personalized advertising, and usually passed by mobile apps via http header
+to facilitate personalized advertising, and usually passed by mobile apps via http header
 when calling backend services. Called services should be ready to pass this
 parameter through when calling other services. It is not sent if the customer
 disables it in the settings for respective mobile platform.</p></td>
@@ -7562,9 +7562,9 @@ you can simply reference it when defining the API endpoint requests e.g.</p>
 <div class="paragraph">
 <p><strong>Hint:</strong> This guideline does not standardize proprietary headers for
 our specific gateway components (2. use case above).
-This include, for instance, non pass-through headers <code>x-zalando-client-id</code>, <code>x-zalando-request-host</code>,
-<code>x-zalando-request-uri</code> defined by Fashion Shop API (RKeep), or <code>x-consumer</code>, <code>x-consumer-signature</code>,
-<code>x-consumer-key-id</code> defined by Merchant API gateway.
+This include, for instance, non pass-through headers <code>X-Zalando-Client-ID</code>, <code>X-Zalando-Request-Host</code>,
+<code>X-Zalando-Request-URI</code> defined by Fashion Shop API (RKeep), or <code>X-Consumer</code>, <code>X-Consumer-Signature</code>,
+<code>X-Consumer-Key-ID</code> defined by Merchant API gateway.
 All these proprietary headers are whitelisted in the API Linter (Zally) checking this rule.</p>
 </div>
 </div>
@@ -7577,7 +7577,7 @@ and must be propagated to the services down the call
 chain. The header names and values must remain unchanged.</p>
 </div>
 <div class="paragraph">
-<p>For example, the values of the custom headers like <code>X-Device-Type</code> can affect
+<p>For example, the values of the custom headers like <a href="#x-device-type"><code>X-device-Type</code></a> can affect
 the results of queries by using device type information to influence
 recommendation results. Besides, the values of the custom headers can influence
 the results of the queries (e.g. the device type information influences the
@@ -7591,21 +7591,21 @@ information.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="233"><a class="link" href="#233"><span class="must-keyword"><strong>MUST</strong></span> support <code>X-Flow-ID</code></a></h3>
+<h3 id="233"><a class="link" href="#233"><span class="must-keyword"><strong>MUST</strong></span> support <a href="#x-flow-id"><code>X-Flow-ID</code></a></a></h3>
 <div class="paragraph">
-<p>The <em>Flow-ID</em> is a generic parameter to be passed through service APIs and
+<p>The <a href="#flow-id"><code>Flow-ID</code></a> is a generic parameter to be passed through service APIs and
 events and written into log files and traces. A consequent usage of the
-<em>Flow-ID</em> facilitates the tracking of call flows through our system and allows
+<a href="#flow-id"><code>Flow-ID</code></a> facilitates the tracking of call flows through our system and allows
 the correlation of service activities initiated by a specific call. This is
 extremely helpful for operational troubleshooting and log analysis. Main use
-case of <em>Flow-ID</em> is to track service calls of our SaaS fashion commerce
+case of <a href="#flow-id"><code>Flow-ID</code></a> is to track service calls of our SaaS fashion commerce
 platform and initiated internal processing flows (executed synchronously via
 APIs or asynchronously via published events).</p>
 </div>
 <div class="sect3">
 <h4 id="_data_definition"><a class="link" href="#_data_definition">Data Definition</a></h4>
 <div class="paragraph">
-<p>The <em>Flow-ID</em> must be passed through:</p>
+<p>The <a href="#flow-id"><code>Flow-ID</code></a> must be passed through:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -7637,7 +7637,7 @@ APIs or asynchronously via published events).</p>
 </ul>
 </div>
 <div class="paragraph">
-<p><strong>Note:</strong> If a legacy subsystem can only process <em>Flow-IDs</em> with a specific
+<p><strong>Note:</strong> If a legacy subsystem can only process <code>Flow-IDs</code> with a specific
 format or length, it must define this restrictions in its API specification,
 and be generous and remove invalid characters or cut the length to the
 supported limit.</p>
@@ -7657,7 +7657,7 @@ practises (internal link)</a>.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Services <strong>must</strong> support <em>Flow-ID</em> as generic input, i.e.</p>
+<p>Services <strong>must</strong> support <a href="#flow-id"><code>Flow-ID</code></a> as generic input, i.e.</p>
 <div class="ulist">
 <ul>
 <li>
@@ -7669,14 +7669,14 @@ practises (internal link)</a>.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p><strong>Note:</strong>  API-Clients <strong>must</strong> provide <em>Flow-ID</em> when calling a service or
-producing events. If no <em>Flow-ID</em> is provided in a request or event, the
-service must create a new <em>Flow-ID</em>.</p>
+<p><strong>Note:</strong> API-Clients <strong>must</strong> provide <a href="#flow-id"><code>Flow-ID</code></a> when calling a service or
+producing events. If no <a href="#flow-id"><code>Flow-ID</code></a> is provided in a request or event, the
+service must create a new <a href="#flow-id"><code>Flow-ID</code></a>.</p>
 </div>
 </li>
 <li>
-<p>Services <strong>must</strong> propagate <em>Flow-ID</em>, i.e. use <em>Flow-ID</em> received
-with API-Calls or consumed events as&#8230;&#8203;</p>
+<p>Services <strong>must</strong> propagate <a href="#flow-id"><code>Flow-ID</code></a>, i.e. use <a href="#flow-id"><code>Flow-ID</code></a> received
+with API calls or consumed events as&#8230;&#8203;</p>
 <div class="ulist">
 <ul>
 <li>
@@ -9975,7 +9975,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-06-28 16:34:34 UTC
+Last updated 2021-06-29 08:55:08 UTC
 </div>
 </div>
 </body>
