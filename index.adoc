@@ -203,6 +203,7 @@
 :Cache-Control: pass:[<a href="https://tools.ietf.org/html/rfc7234#section-5.2"><code>Cache-Control</code></a>]
 :Cache-Control-no-store: pass:[<a href="https://tools.ietf.org/html/rfc7234#section-5.2.2.2"><code>Cache-Control: no-store</code></a>]
 :Expires: pass:[<a href="https://tools.ietf.org/html/rfc7234#section-5.3"><code>Expires</code></a>]
+:Flow-ID: pass:[<a href="#flow-id"><code>Flow-ID</code></a>]
 
 // Attributes to improve design and linking of RFC key words.
 :RFC-safe: pass:[<a href="https://tools.ietf.org/html/rfc7231#section-4.2.1">safe</a>]

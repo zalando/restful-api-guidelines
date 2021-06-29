@@ -25,7 +25,7 @@ when domain-specific generic context information...
 
 . needs to be passed end to end along the service call chain (even if 
 not all called services use it as input for steering service behavior 
-e.g. `x-sales-channel` header) and/or...
+e.g. {X-Sales-Channel} header) and/or...
 . is provided by specific gateway components, for instance, our 
 Fashion Shop API or Merchant API gateway. 
 
@@ -86,7 +86,7 @@ https://developer.apple.com/documentation/adsupport/asidentifiermanager[IDFA]
 https://support.google.com/googleplay/android-developer/answer/6048248[GAID] 
 (Google mobile Advertising Identifier) for Android. It is a unique, 
 customer-resettable identifier provided by mobile device’s operating system 
-to faciliate personalized advertising, and usually passed by mobile apps via http header 
+to facilitate personalized advertising, and usually passed by mobile apps via http header 
 when calling backend services. Called services should be ready to pass this 
 parameter through when calling other services. It is not sent if the customer 
 disables it in the settings for respective mobile platform.
@@ -116,11 +116,10 @@ parameters:
 
 *Hint:* This guideline does not standardize proprietary headers for 
 our specific gateway components (2. use case above). 
-This include, for instance, non pass-through headers `x-zalando-client-id`, `x-zalando-request-host`, 
-`x-zalando-request-uri` defined by Fashion Shop API (RKeep), or `x-consumer`, `x-consumer-signature`, 
-`x-consumer-key-id` defined by Merchant API gateway. 
+This include, for instance, non pass-through headers `X-Zalando-Client-ID`, `X-Zalando-Request-Host`, 
+`X-Zalando-Request-URI` defined by Fashion Shop API (RKeep), or `X-Consumer`, `X-Consumer-Signature`, 
+`X-Consumer-Key-ID` defined by Merchant API gateway. 
 All these proprietary headers are whitelisted in the API Linter (Zally) checking this rule.
-
 
 [#184]
 == {MUST} propagate proprietary headers
@@ -134,7 +133,7 @@ only.]
 and must be propagated to the services down the call
 chain. The header names and values must remain unchanged.
 
-For example, the values of the custom headers like `X-Device-Type` can affect
+For example, the values of the custom headers like {X-Device-Type} can affect
 the results of queries by using device type information to influence
 recommendation results. Besides, the values of the custom headers can influence
 the results of the queries (e.g. the device type information influences the
@@ -147,21 +146,21 @@ information.
 
 
 [#233]
-== {MUST} support `X-Flow-ID`
+== {MUST} support {X-Flow-ID}
 
-The _Flow-ID_ is a generic parameter to be passed through service APIs and
+The {Flow-ID} is a generic parameter to be passed through service APIs and
 events and written into log files and traces. A consequent usage of the
-_Flow-ID_ facilitates the tracking of call flows through our system and allows
+{Flow-ID} facilitates the tracking of call flows through our system and allows
 the correlation of service activities initiated by a specific call. This is
 extremely helpful for operational troubleshooting and log analysis. Main use
-case of _Flow-ID_ is to track service calls of our SaaS fashion commerce
+case of {Flow-ID} is to track service calls of our SaaS fashion commerce
 platform and initiated internal processing flows (executed synchronously via
 APIs or asynchronously via published events).
 
 
 === Data Definition
 
-The _Flow-ID_ must be passed through:
+The {Flow-ID} must be passed through:
 
 * RESTful API requests via {X-Flow-ID} proprietary header (see <<184>>)
 * Published events via `flow_id` event field (see <<event-metadata, metadata>>)
@@ -173,7 +172,7 @@ The following formats are allowed:
 * `base64url` ({RFC-4648}#section-5[RFC-4648 Section 5])
 * Random unique string restricted to the character set `[a-zA-Z0-9/+_-=]` maximal of 128 characters.
 
-*Note:* If a legacy subsystem can only process _Flow-IDs_ with a specific
+*Note:* If a legacy subsystem can only process `Flow-IDs` with a specific
 format or length, it must define this restrictions in its API specification,
 and be generous and remove invalid characters or cut the length to the
 supported limit.
@@ -186,20 +185,19 @@ to Connect Log Output with OpenTracing Using Flow-IDs (internal link)] or
 {SRE-Tracing}/blob/master/wg-semantic-conventions/best-practices.md[Best
 practises (internal link)].
 
-
 === Service Guidance
 
-* Services *must* support _Flow-ID_ as generic input, i.e.
+* Services *must* support {Flow-ID} as generic input, i.e.
 ** RESTful API endpoints *must* support {X-Flow-ID} header in requests
 ** Event listeners *must* support the metadata `flow-id` from events.
 
 +
-*Note:*  API-Clients *must* provide _Flow-ID_ when calling a service or
-producing events. If no _Flow-ID_ is provided in a request or event, the
-service must create a new _Flow-ID_.
+*Note:* API-Clients *must* provide {Flow-ID} when calling a service or
+producing events. If no {Flow-ID} is provided in a request or event, the
+service must create a new {Flow-ID}.
 
-* Services *must* propagate _Flow-ID_, i.e. use _Flow-ID_ received
-with API-Calls or consumed events as...
+* Services *must* propagate {Flow-ID}, i.e. use {Flow-ID} received
+with API calls or consumed events as...
 ** input for all API called and events published during processing
 ** data field written for logging and tracing
 
