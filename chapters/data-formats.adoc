@@ -58,8 +58,8 @@ standard media type for JSON, and make automated processing more difficult.
 [#238]
 == {MUST} use standard data formats
 
-https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#data-types[Open API] 
-(based on https://json-schema.org/understanding-json-schema/reference/string.html#format[JSON Schema])
+https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#data-types[Open API]
+(based on https://tools.ietf.org/html/draft-bhutton-json-schema-validation-00#section-7.3[JSON Schema Validation vocabulary])
 defines formats from ISO and IETF standards for date/time, integers/numbers and binary data.
 You *must* use these formats, whenever applicable:
 
@@ -77,14 +77,30 @@ You *must* use these formats, whenever applicable:
 | `string` | `date` | {RFC-3339}[RFC 3339] internet profile -- subset of https://tools.ietf.org/html/rfc3339#ref-ISO8601[ISO 8601] | `"2019-07-30"`
 | `string` | `date-time` | {RFC-3339}[RFC 3339] internet profile -- subset of https://tools.ietf.org/html/rfc3339#ref-ISO8601[ISO 8601] |`"2019-07-30T06:43:40.252Z"`
 | `string` | `time` | {RFC-3339}[RFC 3339] internet profile -- subset of https://tools.ietf.org/html/rfc3339#ref-ISO8601[ISO 8601] | `"06:43:40.252Z"`
+| `string` | `duration` | {RFC-3339}[RFC 3339] internet profile -- subset of https://tools.ietf.org/html/rfc3339#ref-ISO8601[ISO 8601] | `"P1DT30H4S"`
+| `string` | `period` | {RFC-3339}[RFC 3339] internet profile -- subset of https://tools.ietf.org/html/rfc3339#ref-ISO8601[ISO 8601] | `"2019-07-30T06:43:40.252Z/PT3H"`
 | `string` | `password` |  | `"secret"`
+| `string` | `email` | {RFC-5322}[RFC 5322] | `"example@zalando.de"`
+| `string` | `idn-email` | {RFC-6531}[RFC 6531] | `"hello@bücher.example"`
+| `string` | `hostname` | {RFC-1034}[RFC 1034] | `"www.zalando.de"`
+| `string` | `idn-hostname` | {RFC-5890}[RFC 5890] | `"bücher.example"`
+| `string` | `ipv4` | {RFC-2673}[RFC 2673] | `"104.75.173.179"`
+| `string` | `ipv6` | {RFC-2673}[RFC 2673] | `"2600:1401:2::8a"`
+| `string` | `uri` | {RFC-3986}[RFC 3986] | `"https://www.zalando.de/"`
+| `string` | `uri-reference` | {RFC-3986}[RFC 3986] | `"/clothing/"`
+| `string` | `uri-template` | {RFC-6570}[RFC 6570] | `"/users/\{id\}"`
+| `string` | `iri` | {RFC-3987}[RFC 3987] | `"https://bücher.example/"`
+| `string` | `iri-reference` | {RFC-3987}[RFC 3987] | `"/damenbekleidung-jacken-mäntel/"`
+| `string` | <<144, `uuid`>> | {RFC-4122}[RFC 4122] | `"e2ab873e-b295-11e9-9c02-..."`
+| `string` | `json-pointer` | {RFC-6901}[RFC 6901] | `"/items/0/id"`
+| `string` | `relative-json-pointer` | https://tools.ietf.org/html/draft-handrews-relative-json-pointer[Relative JSON pointers] | `"1/id"`
 |=====================================================================
 
-*Note:* Formats `bigint`, `decimal` and `time` have been added to the OpenAPI defined formats --
+*Note:* Formats `bigint` and `decimal` have been added to the OpenAPI defined formats --
 see also <<171>> and <<169>> below. 
 
 We add further OpenAPI formats that are useful especially in an e-commerce environment 
-e.g. `language code`, `country code`, `currency`, `email` based other ISO and IETF standards.
+e.g. `language code`, `country code`, and `currency` based other ISO and IETF standards.
 You *must* use these formats, whenever applicable:
 
 [cols="10%,10%,40%,40%",options="header",]
@@ -95,14 +111,6 @@ You *must* use these formats, whenever applicable:
 | `string` | `iso-3166` | two letter country code -- see {ISO-3166-1-a2}[ISO 3166-1 alpha-2] | `"GB"`  *Hint:* It is `"GB"`, not `"UK"`, even though `"UK"` has seen some use at Zalando.
 | `string` | `iso-4217` | three letter currency code -- see {ISO-4217}[ISO 4217] | `"EUR"`
 | `string` | `gtin-13` | Global Trade Item Number -- see {GTIN}[GTIN] | `"5710798389878"`
-| `string` | `email` | {RFC-5322}[RFC 5322] | `"example@zalando.de"`
-| `string` | `hostname` | {RFC-1034}[RFC 1034] | `"www.zalando.de"`
-| `string` | `ipv4` | {RFC-2673}[RFC 2673] | `"104.75.173.179"`
-| `string` | `ipv6` | {RFC-2673}[RFC 2673] | `"2600:1401:2::8a"`
-| `string` | `uri` | {RFC-3986}[RFC 3986] | `"https://www.zalando.de/"`
-| `string` | `uri-template` | {RFC-6570}[RFC 6570] | `"/users/\{id\}"`
-| `string` | <<144, `uuid`>> | {RFC-4122}[RFC 4122] | `"e2ab873e-b295-11e9-9c02-..."`
-| `string` | `json-pointer` | {RFC-6901}[RFC 6901] | `"/items/0/id"`
 | `string` | `regex` | regular expressions as defined in {ECMA-262}[ECMA 262] | `"^[a-z0-9]+$"`
 |=====================================================================
 
@@ -139,7 +147,7 @@ encoding -- as also described in <<238>>.
 == {MUST} use standard formats for date and time properties
 
 As a specific case of <<238>>, you must use the `string` typed formats 
-`date`, `date-time` or `time` for the definition of date and time properties. 
+`date`, `date-time`, `time`, `duration`, or `period` for the definition of date and time properties.
 The formats are based on the standard {RFC-3339}[RFC 3339] internet profile -- a 
 subset of https://tools.ietf.org/html/rfc3339#ref-ISO8601[ISO 8601]
 
