@@ -671,7 +671,7 @@ should be added to. Partitions are useful as they allow supporting
 systems to scale their throughput while provide local ordering for event
 entities.
 
-The `hash` option is particulary useful for data changes as it allows
+The `hash` option is particularly useful for data changes as it allows
 all related events for an entity to be consistently assigned to a
 partition, providing a relative ordered stream of events for that
 entity. This is because while each partition has a total ordering,

@@ -60,7 +60,7 @@ standard media type for JSON, and make automated processing more difficult.
 
 https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#data-types[Open API] 
 (based on https://json-schema.org/understanding-json-schema/reference/string.html#format[JSON Schema])
-defines formats from ISO and IETFF standards for date/time, integers/numbers and binary data.
+defines formats from ISO and IETF standards for date/time, integers/numbers and binary data.
 You *must* use these formats, whenever applicable:
 
 [cols="10%,10%,40%,40%",options="header",]
@@ -84,7 +84,7 @@ You *must* use these formats, whenever applicable:
 see also <<171>> and <<169>> below. 
 
 We add further OpenAPI formats that are useful especially in an e-commerce environment 
-e.g. `language code`, `country code`, `currency`, `email` based other ISO and IETFF standards.
+e.g. `language code`, `country code`, `currency`, `email` based other ISO and IETF standards.
 You *must* use these formats, whenever applicable:
 
 [cols="10%,10%,40%,40%",options="header",]

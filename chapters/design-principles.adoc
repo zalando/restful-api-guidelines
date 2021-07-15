@@ -43,7 +43,7 @@ https://www.thoughtworks.com/de/insights/blog/rest-api-design-resource-modeling[
 * Article:
 https://martinfowler.com/articles/richardsonMaturityModel.html[Richardson Maturity Model -- Steps toward the glory of REST]
 * Book:
-https://www.amazon.de/Irresistible-APIs-Designing-that-developers/dp/1617292559[Irresistable
+https://www.amazon.de/Irresistible-APIs-Designing-that-developers/dp/1617292559[Irresistible
 APIs: Designing web APIs that developers will love]
 * Book:
 http://www.amazon.de/REST-Practice-Hypermedia-Systems-Architecture/dp/0596805829[REST

@@ -53,7 +53,7 @@ are upcoming new ones, e.g.
 https://tools.ietf.org/html/draft-tbray-http-legally-restricted-status-05[draft
 legally-restricted-status]. See overview on all error codes on
 https://en.wikipedia.org/wiki/List_of_HTTP_status_codes[Wikipedia] or
-via https://httpstatuses.com/) also inculding 'unofficial codes', e.g. used
+via https://httpstatuses.com/) also including 'unofficial codes', e.g. used
 by popular web servers like Nginx.
 
 Below we list the most commonly used and best understood HTTP status codes,
