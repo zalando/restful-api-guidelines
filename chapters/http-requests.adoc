@@ -94,11 +94,12 @@ the resource was created)
 
 *Important:* It is good practice to prefer {POST} over {PUT} for creation of
 (at least top-level) resources. This leaves the resource ID management under 
-control of the service and not the client, and focus {PUT} on its usage for updates.
-However, in situations where {PUT} is used for resource creation,
-the resource IDs are maintained by the client and passed as a URL path segment.
+control of the service and not the client, and focuses {PUT} on its usage for updates.
+However, in situations where all resource attributes including the resource id (!) 
+are under control of the client as input for the resource creation you should use 
+{PUT} and pass the resource id as an URL path segment.
 Putting the same resource twice is required to be <<idempotent>> and to result
-in the same single resource instance (see <<149>>).
+in the same single resource instance (see <<149>>) without data duplication in case of repetition.
 
 *Hint:* To prevent unnoticed concurrent updates and duplicate creations when
 using {PUT}, you <<182>> to allow the server to react on stricter demands that
