@@ -44,17 +44,16 @@ service client and provider performance.
 [#150]
 == {MUST} use standard HTTP status codes
 
-You must only use standardized HTTP status codes consistently with their
-intended semantics. You must not invent new HTTP status codes.
+You must only use official HTTP status codes standardized by RFCs consistently 
+with their intended semantics. 
 
-RFC standards define ~60 different HTTP status codes with specific semantics 
-(mainly {RFC-7231}#section-6[RFC7231] and {RFC-6585}[RFC 6585]) — and there
-are upcoming new ones, e.g.
-https://tools.ietf.org/html/draft-tbray-http-legally-restricted-status-05[draft
-legally-restricted-status]. See overview on all error codes on
-https://en.wikipedia.org/wiki/List_of_HTTP_status_codes[Wikipedia] or
-via https://httpstatuses.com/) also inculding 'unofficial codes', e.g. used
-by popular web servers like Nginx.
+RFC standards define ~60 HTTP status codes with specific semantics all registered in the 
+https://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml[IANA Status Code Registry].
+Main standards are {RFC-7231}#section-6[RFC7231] and {RFC-6585}[RFC 6585] (and there are upcoming new ones, e.g. 
+https://tools.ietf.org/html/draft-tbray-http-legally-restricted-status-05[draft legally-restricted-status]).
+See an overview on all official error codes e.g. on
+https://en.wikipedia.org/wiki/List_of_HTTP_status_codes[Wikipedia] 
+(which also lists some unofficial codes e.g. defined by popular web servers like Nginx).
 
 Below we list the most commonly used and best understood HTTP status codes,
 consistent with their semantic in the RFCs. APIs should only use these to
