@@ -11,7 +11,7 @@ X-Mobile-Advertising-ID:
   in: header
   name: X-Mobile-Advertising-ID
   description: >
-    It is a unique, customer-resettable identifier provided by mobile device’s operating system to faciliate
+    It is a unique, customer-resettable identifier provided by mobile device’s operating system to facilitate
     personalized advertising, and usually passed by mobile apps via http header when calling backend services.
     It is either the [IDFA](https://developer.apple.com/documentation/adsupport/asidentifiermanager)
     (Apple Identifier for mobile Advertising) for iOS, or the
