@@ -3456,8 +3456,8 @@ standard media type for JSON, and make automated processing more difficult.</p>
 <div class="sect2">
 <h3 id="238"><a class="link" href="#238"><span class="must-keyword"><strong>MUST</strong></span> use standard data formats</a></h3>
 <div class="paragraph">
-<p><a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#data-types">Open API</a>
-(based on <a href="https://json-schema.org/understanding-json-schema/reference/string.html#format">JSON Schema</a>)
+<p><a href="https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#data-types">Open API</a>
+(based on <a href="https://tools.ietf.org/html/draft-bhutton-json-schema-validation-00#section-7.3">JSON Schema Validation vocabulary</a>)
 defines formats from ISO and IETF standards for date/time, integers/numbers and binary data.
 You <strong>must</strong> use these formats, whenever applicable:</p>
 </div>
@@ -3545,18 +3545,114 @@ You <strong>must</strong> use these formats, whenever applicable:</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>duration</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://tools.ietf.org/html/rfc3339">RFC 3339</a> internet profile&#8201;&#8212;&#8201;subset of <a href="https://tools.ietf.org/html/rfc3339#ref-ISO8601">ISO 8601</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"P1DT30H4S"</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>period</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://tools.ietf.org/html/rfc3339">RFC 3339</a> internet profile&#8201;&#8212;&#8201;subset of <a href="https://tools.ietf.org/html/rfc3339#ref-ISO8601">ISO 8601</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"2019-07-30T06:43:40.252Z/PT3H"</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>password</code></p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>"secret"</code></p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>email</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://tools.ietf.org/html/rfc5322">RFC 5322</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"<a href="mailto:example@zalando.de">example@zalando.de</a>"</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>idn-email</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://tools.ietf.org/html/rfc6531">RFC 6531</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"hello@bücher.example"</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>hostname</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://tools.ietf.org/html/rfc1034">RFC 1034</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"www.zalando.de"</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>idn-hostname</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://tools.ietf.org/html/rfc5890">RFC 5890</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"bücher.example"</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ipv4</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://tools.ietf.org/html/rfc2673">RFC 2673</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"104.75.173.179"</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ipv6</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://tools.ietf.org/html/rfc2673">RFC 2673</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"2600:1401:2::8a"</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>uri</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://tools.ietf.org/html/rfc3986">RFC 3986</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"https://www.zalando.de/"</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>uri-reference</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://tools.ietf.org/html/rfc3986">RFC 3986</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"/clothing/"</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>uri-template</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://tools.ietf.org/html/rfc6570">RFC 6570</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"/users/{id}"</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>iri</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://tools.ietf.org/html/rfc3987">RFC 3987</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"https://bücher.example/"</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>iri-reference</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://tools.ietf.org/html/rfc3987">RFC 3987</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"/damenbekleidung-jacken-mäntel/"</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#144"><code>uuid</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://tools.ietf.org/html/rfc4122">RFC 4122</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"e2ab873e-b295-11e9-9c02-&#8230;&#8203;"</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>json-pointer</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://tools.ietf.org/html/rfc6901">RFC 6901</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"/items/0/id"</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>relative-json-pointer</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://tools.ietf.org/html/draft-handrews-relative-json-pointer">Relative JSON pointers</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"1/id"</code></p></td>
+</tr>
 </tbody>
 </table>
 <div class="paragraph">
-<p><strong>Note:</strong> Formats <code>bigint</code>, <code>decimal</code> and <code>time</code> have been added to the OpenAPI defined formats&#8201;&#8212;&#8201;see also <a href="#171"><span class="must-keyword"><strong>MUST</strong></span> define a format for number and integer types</a> and <a href="#169"><span class="must-keyword"><strong>MUST</strong></span> use standard formats for date and time properties</a> below.</p>
+<p><strong>Note:</strong> Formats <code>bigint</code> and <code>decimal</code> have been added to the OpenAPI defined formats&#8201;&#8212;&#8201;see also <a href="#171"><span class="must-keyword"><strong>MUST</strong></span> define a format for number and integer types</a> and <a href="#169"><span class="must-keyword"><strong>MUST</strong></span> use standard formats for date and time properties</a> below.</p>
 </div>
 <div class="paragraph">
 <p>We add further OpenAPI formats that are useful especially in an e-commerce environment
-e.g. <code>language code</code>, <code>country code</code>, <code>currency</code>, <code>email</code> based other ISO and IETF standards.
+e.g. <code>language code</code>, <code>country code</code>, and <code>currency</code> based other ISO and IETF standards.
 You <strong>must</strong> use these formats, whenever applicable:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
@@ -3607,54 +3703,6 @@ You <strong>must</strong> use these formats, whenever applicable:</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>email</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://tools.ietf.org/html/rfc5322">RFC 5322</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"<a href="mailto:example@zalando.de">example@zalando.de</a>"</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>hostname</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://tools.ietf.org/html/rfc1034">RFC 1034</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"www.zalando.de"</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ipv4</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://tools.ietf.org/html/rfc2673">RFC 2673</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"104.75.173.179"</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ipv6</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://tools.ietf.org/html/rfc2673">RFC 2673</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"2600:1401:2::8a"</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>uri</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://tools.ietf.org/html/rfc3986">RFC 3986</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"https://www.zalando.de/"</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>uri-template</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://tools.ietf.org/html/rfc6570">RFC 6570</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"/users/{id}"</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#144"><code>uuid</code></a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://tools.ietf.org/html/rfc4122">RFC 4122</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"e2ab873e-b295-11e9-9c02-&#8230;&#8203;"</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>json-pointer</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://tools.ietf.org/html/rfc6901">RFC 6901</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"/items/0/id"</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>regex</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">regular expressions as defined in <a href="http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf">ECMA 262</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>"^[a-z0-9]+$"</code></p></td>
@@ -3695,7 +3743,7 @@ encoding&#8201;&#8212;&#8201;as also described in <a href="#238"><span class="mu
 <h3 id="169"><a class="link" href="#169"><span class="must-keyword"><strong>MUST</strong></span> use standard formats for date and time properties</a></h3>
 <div class="paragraph">
 <p>As a specific case of <a href="#238"><span class="must-keyword"><strong>MUST</strong></span> use standard data formats</a>, you must use the <code>string</code> typed formats
-<code>date</code>, <code>date-time</code> or <code>time</code> for the definition of date and time properties.
+<code>date</code>, <code>date-time</code>, <code>time</code>, <code>duration</code>, or <code>period</code> for the definition of date and time properties.
 The formats are based on the standard <a href="https://tools.ietf.org/html/rfc3339">RFC 3339</a> internet profile -- a
 subset of <a href="https://tools.ietf.org/html/rfc3339#ref-ISO8601">ISO 8601</a></p>
 </div>
@@ -9975,7 +10023,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-08-10 14:34:03 UTC
+Last updated 2021-08-17 09:07:55 UTC
 </div>
 </div>
 </body>
