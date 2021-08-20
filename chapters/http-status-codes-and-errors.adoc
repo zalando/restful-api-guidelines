@@ -41,8 +41,8 @@ API specification. This can reduce service support tasks and contribute to
 service client and provider performance.
 
 
-[#150]
-== {MUST} use standard HTTP status codes
+[#243]
+== {MUST} use official HTTP status codes
 
 You must only use official HTTP status codes consistently with their intended semantics. 
 Official HTTP status codes are defined via RFC standards and registered in the 
@@ -53,9 +53,13 @@ An overview on the official error codes e.g. provides
 https://en.wikipedia.org/wiki/List_of_HTTP_status_codes[Wikipedia: HTTP status codes] 
 (which also lists some unofficial codes e.g. defined by popular web servers like Nginx).
 
-Below we list the subset of official codes that is _most commonly used_ and _best understood_,
-consistent with their semantic in the RFCs. You should only use these HTTP status codes to
-prevent misconceptions that often arise from less commonly used codes.
+[#150]
+== {SHOULD} only use most common HTTP status codes
+
+The most commonly used codes are best understood and listed below as subset of 
+the official HTTP status codes and consistent with their semantics in the RFCs. 
+We avoid less commonly used codes that easily create misconceptions due to 
+less familar semantics and API specific interpretations. 
 
 **Important:** As long as your HTTP status code usage is well covered by the
 semantic defined here, you should not describe it to avoid an overload with
@@ -63,7 +67,6 @@ common sense information and the risk of inconsistent definitions. Only if the
 HTTP status code is not in the list below or its usage requires additional
 information aside the well defined semantic, the API specification must provide
 a clear description of the HTTP status code in the response.
-
 
 [[success-codes]]
 === Success codes
