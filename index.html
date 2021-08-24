@@ -5004,12 +5004,13 @@ the resource was created)</p>
 </div>
 <div class="paragraph">
 <p><strong>Important:</strong> It is good practice to prefer <a href="#post"><code>POST</code></a> over <a href="#put"><code>PUT</code></a> for creation of
-(at least top-level) resources. This leaves the resource ID management under
-control of the service and not the client, and focus <a href="#put"><code>PUT</code></a> on its usage for updates.
-However, in situations where <a href="#put"><code>PUT</code></a> is used for resource creation,
-the resource IDs are maintained by the client and passed as a URL path segment.
+(at least top-level) resources. This leaves the resource identifier management under
+control of the service and not the client, and focuses <a href="#put"><code>PUT</code></a> on its usage for updates.
+However, in situations where all resource attributes including the identifier
+are under control of the client as input for the resource creation you should use
+<a href="#put"><code>PUT</code></a> and pass the resource identifier via the URL path.
 Putting the same resource twice is required to be <a href="#idempotent">idempotent</a> and to result
-in the same single resource instance (see <a href="#149"><span class="must-keyword"><strong>MUST</strong></span> fulfill common method properties</a>).</p>
+in the same single resource instance (see <a href="#149"><span class="must-keyword"><strong>MUST</strong></span> fulfill common method properties</a>) without data duplication in case of repetition.</p>
 </div>
 <div class="paragraph">
 <p><strong>Hint:</strong> To prevent unnoticed concurrent updates and duplicate creations when
@@ -10023,7 +10024,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-08-17 09:07:55 UTC
+Last updated 2021-08-24 12:34:48 UTC
 </div>
 </div>
 </body>
