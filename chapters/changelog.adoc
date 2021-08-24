@@ -26,7 +26,7 @@ To see a list of all changes, please have a look at the https://github.com/zalan
 * `2021-03-15`: <<242>> changed from {SHOULD} to {MUST}; improve clarity around <<203, event ordering>>.
 * `2021-03-19`: best practice section <<cursor-based-pagination>>
 * `2021-02-16`: define how to reference models outside the api in <<234>>.
-* `2021-02-15`: improve guideline <<176>> -- clients must be prepared to not recieve problem return objects. 
+* `2021-02-15`: improve guideline <<176>> -- clients must be prepared to not receive problem return objects.
 * `2021-01-19`: more details for {GET-with-Body} and {DELETE-with-Body} (<<148>>).
 * `2020-09-29`: include models for headers to be included by reference in API definitions (<<183>>)
 * `2020-09-08`: add exception for legacy host names to <<224>>
