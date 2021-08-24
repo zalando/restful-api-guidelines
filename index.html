@@ -1539,7 +1539,8 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#http-status-codes-and-errors">14. HTTP status codes and errors</a>
 <ul class="sectlevel2">
 <li><a href="#151"><span class="must-keyword"><strong>MUST</strong></span> specify success and error responses</a></li>
-<li><a href="#150"><span class="must-keyword"><strong>MUST</strong></span> use standard HTTP status codes</a></li>
+<li><a href="#243"><span class="must-keyword"><strong>MUST</strong></span> use official HTTP status codes</a></li>
+<li><a href="#150"><span class="should-keyword"><strong>SHOULD</strong></span> only use most common HTTP status codes</a></li>
 <li><a href="#220"><span class="must-keyword"><strong>MUST</strong></span> use most specific HTTP status codes</a></li>
 <li><a href="#152"><span class="must-keyword"><strong>MUST</strong></span> use code 207 for batch or bulk requests</a></li>
 <li><a href="#153"><span class="must-keyword"><strong>MUST</strong></span> use code 429 with headers for rate limits</a></li>
@@ -5885,25 +5886,27 @@ service client and provider performance.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="150"><a class="link" href="#150"><span class="must-keyword"><strong>MUST</strong></span> use standard HTTP status codes</a></h3>
+<h3 id="243"><a class="link" href="#243"><span class="must-keyword"><strong>MUST</strong></span> use official HTTP status codes</a></h3>
 <div class="paragraph">
-<p>You must only use standardized HTTP status codes consistently with their
-intended semantics. You must not invent new HTTP status codes.</p>
-</div>
-<div class="paragraph">
-<p>RFC standards define ~60 different HTTP status codes with specific semantics
-(mainly <a href="https://tools.ietf.org/html/rfc7231#section-6">RFC7231</a> and <a href="https://tools.ietf.org/html/rfc6585">RFC 6585</a>) — and there
-are upcoming new ones, e.g.
+<p>You must only use official HTTP status codes consistently with their intended
+semantics. Official HTTP status codes are defined via RFC standards and
+registered in the <a href="https://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml">IANA
+Status Code Registry</a>. Main RFC standards are <a href="https://tools.ietf.org/html/rfc7231#section-6">RFC7231</a>
+and <a href="https://tools.ietf.org/html/rfc6585">RFC 6585</a> (and there are upcoming new ones, e.g.
 <a href="https://tools.ietf.org/html/draft-tbray-http-legally-restricted-status-05">draft
-legally-restricted-status</a>. See overview on all error codes on
-<a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">Wikipedia</a> or
-via <a href="https://httpstatuses.com/" class="bare">https://httpstatuses.com/</a>) also including 'unofficial codes', e.g. used
-by popular web servers like Nginx.</p>
+legally-restricted-status</a>). An overview on the official error codes provides
+<a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">Wikipedia: HTTP status
+codes</a> (which also lists some unofficial status codes, e.g. defined by popular
+web servers like Nginx, that we do not suggest to use).</p>
 </div>
+</div>
+<div class="sect2">
+<h3 id="150"><a class="link" href="#150"><span class="should-keyword"><strong>SHOULD</strong></span> only use most common HTTP status codes</a></h3>
 <div class="paragraph">
-<p>Below we list the most commonly used and best understood HTTP status codes,
-consistent with their semantic in the RFCs. APIs should only use these to
-prevent misconceptions that arise from less commonly used HTTP status codes.</p>
+<p>The most commonly used codes are best understood and listed below as subset of
+the official HTTP status codes and consistent with their semantics in the RFCs.
+We avoid less commonly used codes that easily create misconceptions due to
+less familar semantics and API specific interpretations.</p>
 </div>
 <div class="paragraph">
 <p><strong>Important:</strong> As long as your HTTP status code usage is well covered by the
@@ -6920,7 +6923,7 @@ by many rules throughout these guidelines, e.g.:</p>
 <p><a href="#148"><span class="must-keyword"><strong>MUST</strong></span> use HTTP methods correctly</a></p>
 </li>
 <li>
-<p><a href="#150"><span class="must-keyword"><strong>MUST</strong></span> use standard HTTP status codes</a></p>
+<p><a href="#150"><span class="should-keyword"><strong>SHOULD</strong></span> only use most common HTTP status codes</a></p>
 </li>
 </ul>
 </div>
@@ -10024,7 +10027,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-08-24 12:34:48 UTC
+Last updated 2021-08-24 17:08:32 UTC
 </div>
 </div>
 </body>

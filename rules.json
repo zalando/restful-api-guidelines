@@ -186,7 +186,7 @@
     },
     {
       "id": "#150",
-      "title": "MUST use standard HTTP status codes"
+      "title": "SHOULD only use most common HTTP status codes"
     },
     {
       "id": "#151",
@@ -535,6 +535,10 @@
     {
       "id": "#242",
       "title": "MUST provide explicit event ordering for data change events"
+    },
+    {
+      "id": "#243",
+      "title": "MUST use official HTTP status codes"
     }
   ]
 }
