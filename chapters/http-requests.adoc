@@ -87,7 +87,7 @@ resources, as this would imply replacing the entire collection
 implicitly creating the resource before updating
 * on successful {PUT} requests, the server will *replace the entire resource*
 addressed by the URL with the representation passed in the payload (subsequent
-reads will deliver the same payload)
+reads will deliver the same payload, plus possibly server-generated fields like `modified_at`)
 * successful {PUT} requests will usually generate {200} or {204} (if the
 resource was updated – with or without actual content returned), and {201} (if
 the resource was created)
