@@ -41,24 +41,28 @@ API specification. This can reduce service support tasks and contribute to
 service client and provider performance.
 
 
-[#150]
-== {MUST} use standard HTTP status codes
+[#243]
+== {MUST} use official HTTP status codes
 
-You must only use standardized HTTP status codes consistently with their
-intended semantics. You must not invent new HTTP status codes.
-
-RFC standards define ~60 different HTTP status codes with specific semantics 
-(mainly {RFC-7231}#section-6[RFC7231] and {RFC-6585}[RFC 6585]) — and there
-are upcoming new ones, e.g.
+You must only use official HTTP status codes consistently with their intended
+semantics. Official HTTP status codes are defined via RFC standards and
+registered in the https://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml[IANA
+Status Code Registry]. Main RFC standards are {RFC-7231}#section-6[RFC7231]
+and {RFC-6585}[RFC 6585] (and there are upcoming new ones, e.g.
 https://tools.ietf.org/html/draft-tbray-http-legally-restricted-status-05[draft
-legally-restricted-status]. See overview on all error codes on
-https://en.wikipedia.org/wiki/List_of_HTTP_status_codes[Wikipedia] or
-via https://httpstatuses.com/) also including 'unofficial codes', e.g. used
-by popular web servers like Nginx.
+legally-restricted-status]). An overview on the official error codes provides
+https://en.wikipedia.org/wiki/List_of_HTTP_status_codes[Wikipedia: HTTP status
+codes] (which also lists some unofficial status codes, e.g. defined by popular
+web servers like Nginx, that we do not suggest to use).
 
-Below we list the most commonly used and best understood HTTP status codes,
-consistent with their semantic in the RFCs. APIs should only use these to
-prevent misconceptions that arise from less commonly used HTTP status codes.
+
+[#150]
+== {SHOULD} only use most common HTTP status codes
+
+The most commonly used codes are best understood and listed below as subset of
+the official HTTP status codes and consistent with their semantics in the RFCs.
+We avoid less commonly used codes that easily create misconceptions due to
+less familar semantics and API specific interpretations.
 
 **Important:** As long as your HTTP status code usage is well covered by the
 semantic defined here, you should not describe it to avoid an overload with
