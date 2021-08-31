@@ -104,7 +104,7 @@ Examples:
 
 [source]
 ----
-customer_number, order_id, billing_address
+customer_number, sales_order_number, billing_address
 ----
 
 
