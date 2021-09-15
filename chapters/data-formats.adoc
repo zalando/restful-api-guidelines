@@ -196,3 +196,14 @@ As a specific case of <<238>> you must use the following standard formats:
 * Currency codes:  {ISO-4217}[ISO 4217] three letter currency codes
    indicated via OpenAPI format `iso-4217`
 
+[#244]
+== {SHOULD} use content negotiation, if clients may choose from different resource representations
+
+In some situations the API supports serving different representations of a specific resource, 
+for instance, JSON, PDF, TEXT, HTML representations for an invoice resource. 
+You should use https://en.wikipedia.org/wiki/Content_negotiation[content negotiation] 
+to support clients specifying via the standard HTTP headers 
+`Accept`, `Accept-Language`, `Accept-Encoding` which representation is best suited for their use case, 
+for example, which language of a document, representation / content format, or content encoding. 
+You <<172>> like `application/json` or `application/pdf` for defining the content 
+format in the `Accept` header. 
