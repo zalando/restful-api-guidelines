@@ -5,7 +5,9 @@
 [#148]
 == {MUST} use HTTP methods correctly
 
-Be compliant with the standardized HTTP method semantics summarized as follows:
+Be compliant with the standardized HTTP method semantics 
+(see HTTP/1 {RFC-7230}[RFC-7230] and {RFC-7231}[RFC-7230] updates from 2014)
+summarized as follows:
 
 
 [[get]]
@@ -141,12 +143,15 @@ prevent this.
 [[patch]]
 === PATCH
 
-{PATCH} requests are used to *update parts* of single resources, i.e. where only
-a specific subset of resource fields should be replaced. The semantic is best
+{PATCH} method extends HTTP via {RFC-5789}[RFC-5789] standard to update parts 
+of the resource objects where e.g. in contrast to {PUT} only a specific subset 
+of resource fields should be changed. The set of changes is represented 
+in a format called a "patch document" passed as payload and identified by a 
+specific media type. The semantic is best 
 described as _"please change the resource identified by the URL according to my
-change request"_. The semantic of the change request is not defined in the HTTP
-standard and must be described in the API specification by using suitable media
-types.
+patch document"_. The syntax and semantics of the patch document is not 
+defined in {RFC-5789}[RFC-5789] and must be described in the API specification 
+by using specific media types.
 
 * {PATCH} requests are usually applied to single resources as patching entire
 collection is challenging
@@ -158,27 +163,28 @@ addressed by the URL as defined by the change request in the payload
 resources have been updated with or without updated content returned)
 
 *Note:* since implementing {PATCH} correctly is a bit tricky, we strongly suggest
-to choose one and only one of the following patterns per endpoint, unless
-forced by a <<106,backwards compatible change>>. In preference order:
+to choose one and only one of the following patterns per endpoint (unless
+forced by a <<106,backwards compatible change>>). In preference order:
 
 1. use {PUT} with complete objects to update a resource as long as feasible
-  (i.e. do not use {PATCH} at all).
-2. use {PATCH} with partial objects to only update parts of a resource,
-   whenever possible. (This is basically {RFC-7396}[JSON Merge Patch], a
-   specialized media type `application/merge-patch+json` that is a partial
-   resource representation.)
-3. use {PATCH} with {RFC-6902}[JSON Patch], a specialized media type
+   (i.e. do not use {PATCH} at all).
+2. use {PATCH} with {RFC-7396}[JSON Merge Patch] standard, a 
+   specialized media type `application/merge-patch+json` for partial
+   resource representation to update parts of resource objects.
+3. use {PATCH} with {RFC-6902}[JSON Patch] standard, a specialized media type
    `application/json-patch+json` that includes instructions on how to change
    the resource.
 4. use {POST} (with a proper description of what is happening) instead of
    {PATCH}, if the request does not modify the resource in a way defined by
-   the semantics of the media type.
+   the semantics of the standard media types above.
 
 In practice {RFC-7396}[JSON Merge Patch] quickly turns out to be too limited,
 especially when trying to update single objects in large collections (as part
-of the resource). In this cases {RFC-6902}[JSON Patch] can shown its full
-power while still showing readable patch requests (see also
+of the resource). In this cases {RFC-6902}[JSON Patch] is more powerful
+while still showing readable patch requests (see also
 http://erosb.github.io/post/json-patch-vs-merge-patch[JSON patch vs. merge]).
+JSON Patch supports changing of array elements identified via its index, but 
+not via (key) fields of the elements as typically needed for collections.
 
 *Note:* Patching the same resource twice is *not* required to be <<idempotent>>
 (check <<149>>) and may result in a changing result. However, you <<229>> to
