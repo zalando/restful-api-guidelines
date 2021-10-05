@@ -35,7 +35,7 @@ format for the payload data, for instance, image data format (JPG, PNG, GIF), do
 format (PDF, DOC, ODF, PPT), or archive format (TAR, ZIP). 
 
 Generic structured data interchange formats other than JSON (e.g. XML, CSV) 
-may be provided, but only additionally to JSON as default format using content negotiation, 
+may be provided, but only additionally to JSON as default format using <<244, content negotiation>>, 
 for specific use cases where clients may not interpret the payload structure.
 
 
