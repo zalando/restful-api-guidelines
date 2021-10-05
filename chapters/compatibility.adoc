@@ -245,7 +245,7 @@ Version information and media type are provided
 together via the HTTP `Content-Type` header — e.g.
 `application/x.zalando.cart+json;version=2`. For incompatible changes, a new
 media type version for the resource is created. To generate the new
-representation version, consumer and producer can do content negotiation using
+representation version, consumer and producer can do <<244, content negotiation>> using
 the HTTP `Content-Type` and `Accept` headers.
 
 NOTE: This versioning only applies to
@@ -303,13 +303,13 @@ approaches to handle breaking changes without being opinionated.
 
 
 [#115]
-== {MUST} not use URI versioning
+== {MUST} not use URL versioning
 
-With URI versioning a (major) version number is included in the path, e.g.
+With URL versioning a (major) version number is included in the path, e.g.
 `/v1/customers`. The consumer has to wait until the provider has been released
 and deployed. If the consumer also supports hypermedia links — even in their
 APIs — to drive workflows (HATEOAS), this quickly becomes complex. So does
 coordinating version upgrades — especially with hyperlinked service
 dependencies — when using URL versioning. To avoid this tighter coupling and
-complexer release management we do not use URI versioning, and go instead with
-media type versioning and content negotiation (see above).
+complexer release management we do not use URL versioning, instead we <<114>>
+with content negotiation.
