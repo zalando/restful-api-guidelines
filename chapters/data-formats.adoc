@@ -199,8 +199,8 @@ As a specific case of <<238>> you must use the following standard formats:
 [#244]
 == {SHOULD} use content negotiation, if clients may choose from different resource representations
 
-In some situations the API supports serving different representations of a specific resource (at the same URI), 
-for instance, JSON, PDF, TEXT, HTML representations for an invoice resource. 
+In some situations the API supports serving different representations of a specific resource (at the same URL)
+e.g. JSON, PDF, TEXT, or HTML representations for an invoice resource. 
 You should use https://en.wikipedia.org/wiki/Content_negotiation[content negotiation] 
 to support clients specifying via the standard HTTP headers 
 `Accept`, `Accept-Language`, `Accept-Encoding` which representation is best suited for their use case, 
