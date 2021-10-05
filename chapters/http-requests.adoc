@@ -146,7 +146,7 @@ prevent this.
 {PATCH} method extends HTTP via {RFC-5789}[RFC-5789] standard to update parts 
 of the resource objects where e.g. in contrast to {PUT} only a specific subset 
 of resource fields should be changed. The set of changes is represented 
-in a format called a "patch document" passed as payload and identified by a 
+in a format called a _patch document_ passed as payload and identified by a 
 specific media type. The semantic is best 
 described as _"please change the resource identified by the URL according to my
 patch document"_. The syntax and semantics of the patch document is not 
