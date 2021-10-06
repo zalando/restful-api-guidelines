@@ -85,9 +85,9 @@ The API Linter maintains a whitelist for this exceptions (including e.g.
 [#129]
 == {MUST} use kebab-case for path segments
 
-Path segments are restricted to ASCII kebab-case strings matching regex `^[a-z\-][a-z\-0-9]*$`. 
-The first character must be a lower case letter, or a dash(`-`), and subsequent
-characters can be a letter, a dash, or a number.
+Path segments are restricted to ASCII kebab-case strings matching regex `^[a-z][a-z\-0-9]*$`. 
+The first character must be a lower case letter, and subsequent
+characters can be a letter, or a dash(`-`), or a number.
 
 Example:
 
