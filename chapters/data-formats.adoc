@@ -203,7 +203,7 @@ In some situations the API supports serving different representations of a speci
 e.g. JSON, PDF, TEXT, or HTML representations for an invoice resource. 
 You should use https://en.wikipedia.org/wiki/Content_negotiation[content negotiation] 
 to support clients specifying via the standard HTTP headers 
-`Accept`, `Accept-Language`, `Accept-Encoding` which representation is best suited for their use case, 
+{Accept}, {Accept-Language}, {Accept-Encoding} which representation is best suited for their use case, 
 for example, which language of a document, representation / content format, or content encoding. 
 You <<172>> like `application/json` or `application/pdf` for defining the content 
 format in the `Accept` header. 
