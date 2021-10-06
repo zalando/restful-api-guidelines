@@ -81,7 +81,7 @@ and to update their local copy when receiving a response with this header.
 The Content-Location header can be used to support the following use cases:
 
 * For reading operations {GET} and {HEAD}, a different location than the
-  requested URI can be used to indicate that the returned resource is subject
+  requested URL can be used to indicate that the returned resource is subject
   to <<244, content negotiations>>, and that the value provides a more specific
   identifier of the resource.
 * For writing operations {PUT} and {PATCH}, an identical location to the
