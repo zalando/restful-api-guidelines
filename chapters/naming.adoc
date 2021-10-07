@@ -93,11 +93,10 @@ Example:
 
 [source,http]
 ----
-/shipment-orders/{shipment_order_id}
+/shipment-orders/{shipment-order-id}
 ----
 
-*Hint:* kebab-case applies to concrete path segments and not necessarily the names of path
-parameters as shown in the example. 
+*Hint:* kebab-case applies to concrete path segments and not necessarily the names of path parameters. 
 
 
 [#130]
