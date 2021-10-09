@@ -1500,7 +1500,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <ul class="sectlevel2">
 <li><a href="#223"><span class="must-keyword"><strong>MUST</strong></span>/<span class="should-keyword"><strong>SHOULD</strong></span> use functional naming schema</a></li>
 <li><a href="#224"><span class="must-keyword"><strong>MUST</strong></span> follow naming convention for hostnames</a></li>
-<li><a href="#129"><span class="must-keyword"><strong>MUST</strong></span> use lowercase separate words with hyphens for path segments</a></li>
+<li><a href="#129"><span class="must-keyword"><strong>MUST</strong></span> use kebab-case for path segments</a></li>
 <li><a href="#130"><span class="must-keyword"><strong>MUST</strong></span> use snake_case (never camelCase) for query parameters</a></li>
 <li><a href="#134"><span class="must-keyword"><strong>MUST</strong></span> pluralize resource names</a></li>
 <li><a href="#135"><span class="should-keyword"><strong>SHOULD</strong></span> not use /api as base path</a></li>
@@ -4384,7 +4384,12 @@ The API Linter maintains a whitelist for this exceptions (including e.g.
 </div>
 </div>
 <div class="sect2">
-<h3 id="129"><a class="link" href="#129"><span class="must-keyword"><strong>MUST</strong></span> use lowercase separate words with hyphens for path segments</a></h3>
+<h3 id="129"><a class="link" href="#129"><span class="must-keyword"><strong>MUST</strong></span> use kebab-case for path segments</a></h3>
+<div class="paragraph">
+<p>Path segments are restricted to ASCII kebab-case strings matching regex <code>^[a-z][a-z\-0-9]*$</code>.
+The first character must be a lower case letter, and subsequent
+characters can be a letter, or a dash(<code>-</code>), or a number.</p>
+</div>
 <div class="paragraph">
 <p>Example:</p>
 </div>
@@ -4394,20 +4399,13 @@ The API Linter maintains a whitelist for this exceptions (including e.g.
 </div>
 </div>
 <div class="paragraph">
-<p>This applies to concrete path segments and not the names of path
-parameters. For example <code>{shipment_order_id}</code> would be ok as a path
-parameter.</p>
+<p><strong>Hint:</strong> kebab-case applies to concrete path segments and not necessarily the names of path parameters.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="130"><a class="link" href="#130"><span class="must-keyword"><strong>MUST</strong></span> use snake_case (never camelCase) for query parameters</a></h3>
 <div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code>customer_number, sales_order_number, billing_address</code></pre>
-</div>
+<p>See also <a href="#118"><span class="must-keyword"><strong>MUST</strong></span> property names must be ASCII snake_case (and never camelCase): <code>^[a-z_][a-z_0-9]*$</code></a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -10027,7 +10025,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-10-05 12:51:16 UTC
+Last updated 2021-10-09 10:57:26 UTC
 </div>
 </div>
 </body>

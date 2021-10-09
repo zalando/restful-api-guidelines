@@ -106,7 +106,7 @@
     },
     {
       "id": "#129",
-      "title": "MUST use lowercase separate words with hyphens for path segments"
+      "title": "MUST use kebab-case for path segments"
     },
     {
       "id": "#130",
