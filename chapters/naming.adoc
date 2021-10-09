@@ -83,7 +83,11 @@ The API Linter maintains a whitelist for this exceptions (including e.g.
 
 
 [#129]
-== {MUST} use lowercase separate words with hyphens for path segments
+== {MUST} use kebab-case for path segments
+
+Path segments are restricted to ASCII kebab-case strings matching regex `^[a-z][a-z\-0-9]*$`. 
+The first character must be a lower case letter, and subsequent
+characters can be a letter, or a dash(`-`), or a number.
 
 Example:
 
@@ -92,21 +96,13 @@ Example:
 /shipment-orders/{shipment-order-id}
 ----
 
-This applies to concrete path segments and not the names of path
-parameters. For example `{shipment_order_id}` would be ok as a path
-parameter.
+*Hint:* kebab-case applies to concrete path segments and not necessarily the names of path parameters. 
 
 
 [#130]
 == {MUST} use snake_case (never camelCase) for query parameters
 
-Examples:
-
-[source]
-----
-customer_number, sales_order_number, billing_address
-----
-
+See also <<118>>.
 
 [#134]
 == {MUST} pluralize resource names
