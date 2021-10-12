@@ -4885,7 +4885,9 @@ than 2000 characters.)</p>
 <div class="sect2">
 <h3 id="148"><a class="link" href="#148"><span class="must-keyword"><strong>MUST</strong></span> use HTTP methods correctly</a></h3>
 <div class="paragraph">
-<p>Be compliant with the standardized HTTP method semantics summarized as follows:</p>
+<p>Be compliant with the standardized HTTP method semantics
+(see HTTP/1 <a href="https://tools.ietf.org/html/rfc7230">RFC-7230</a> and <a href="https://tools.ietf.org/html/rfc7231">RFC-7230</a> updates from 2014)
+summarized as follows:</p>
 </div>
 <div class="sect3">
 <h4 id="get"><a class="link" href="#get">GET</a></h4>
@@ -5062,12 +5064,15 @@ prevent this.</p>
 <div class="sect3">
 <h4 id="patch"><a class="link" href="#patch">PATCH</a></h4>
 <div class="paragraph">
-<p><a href="#patch"><code>PATCH</code></a> requests are used to <strong>update parts</strong> of single resources, i.e. where only
-a specific subset of resource fields should be replaced. The semantic is best
+<p><a href="#patch"><code>PATCH</code></a> method extends HTTP via <a href="https://tools.ietf.org/html/rfc5789">RFC-5789</a> standard to update parts
+of the resource objects where e.g. in contrast to <a href="#put"><code>PUT</code></a> only a specific subset
+of resource fields should be changed. The set of changes is represented
+in a format called a <em>patch document</em> passed as payload and identified by a
+specific media type. The semantic is best
 described as <em>"please change the resource identified by the URL according to my
-change request"</em>. The semantic of the change request is not defined in the HTTP
-standard and must be described in the API specification by using suitable media
-types.</p>
+patch document"</em>. The syntax and semantics of the patch document is not
+defined in <a href="https://tools.ietf.org/html/rfc5789">RFC-5789</a> and must be described in the API specification
+by using specific media types.</p>
 </div>
 <div class="ulist">
 <ul>
@@ -5091,8 +5096,8 @@ resources have been updated with or without updated content returned)</p>
 </div>
 <div class="paragraph">
 <p><strong>Note:</strong> since implementing <a href="#patch"><code>PATCH</code></a> correctly is a bit tricky, we strongly suggest
-to choose one and only one of the following patterns per endpoint, unless
-forced by a <a href="#106">backwards compatible change</a>. In preference order:</p>
+to choose one and only one of the following patterns per endpoint (unless
+forced by a <a href="#106">backwards compatible change</a>). In preference order:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -5101,29 +5106,30 @@ forced by a <a href="#106">backwards compatible change</a>. In preference order:
 (i.e. do not use <a href="#patch"><code>PATCH</code></a> at all).</p>
 </li>
 <li>
-<p>use <a href="#patch"><code>PATCH</code></a> with partial objects to only update parts of a resource,
-whenever possible. (This is basically <a href="https://tools.ietf.org/html/rfc7396">JSON Merge Patch</a>, a
-specialized media type <code>application/merge-patch+json</code> that is a partial
-resource representation.)</p>
+<p>use <a href="#patch"><code>PATCH</code></a> with <a href="https://tools.ietf.org/html/rfc7396">JSON Merge Patch</a> standard, a
+specialized media type <code>application/merge-patch+json</code> for partial
+resource representation to update parts of resource objects.</p>
 </li>
 <li>
-<p>use <a href="#patch"><code>PATCH</code></a> with <a href="https://tools.ietf.org/html/rfc6902">JSON Patch</a>, a specialized media type
+<p>use <a href="#patch"><code>PATCH</code></a> with <a href="https://tools.ietf.org/html/rfc6902">JSON Patch</a> standard, a specialized media type
 <code>application/json-patch+json</code> that includes instructions on how to change
 the resource.</p>
 </li>
 <li>
 <p>use <a href="#post"><code>POST</code></a> (with a proper description of what is happening) instead of
 <a href="#patch"><code>PATCH</code></a>, if the request does not modify the resource in a way defined by
-the semantics of the media type.</p>
+the semantics of the standard media types above.</p>
 </li>
 </ol>
 </div>
 <div class="paragraph">
 <p>In practice <a href="https://tools.ietf.org/html/rfc7396">JSON Merge Patch</a> quickly turns out to be too limited,
 especially when trying to update single objects in large collections (as part
-of the resource). In this cases <a href="https://tools.ietf.org/html/rfc6902">JSON Patch</a> can shown its full
-power while still showing readable patch requests (see also
-<a href="http://erosb.github.io/post/json-patch-vs-merge-patch">JSON patch vs. merge</a>).</p>
+of the resource). In this cases <a href="https://tools.ietf.org/html/rfc6902">JSON Patch</a> is more powerful
+while still showing readable patch requests (see also
+<a href="http://erosb.github.io/post/json-patch-vs-merge-patch">JSON patch vs. merge</a>).
+JSON Patch supports changing of array elements identified via its index, but
+not via (key) fields of the elements as typically needed for collections.</p>
 </div>
 <div class="paragraph">
 <p><strong>Note:</strong> Patching the same resource twice is <strong>not</strong> required to be <a href="#idempotent">idempotent</a>
@@ -10025,7 +10031,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-10-09 10:57:26 UTC
+Last updated 2021-10-12 07:51:22 UTC
 </div>
 </div>
 </body>
