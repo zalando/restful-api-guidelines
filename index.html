@@ -1452,7 +1452,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#112"><span class="should-keyword"><strong>SHOULD</strong></span> used open-ended list of values (<code>x-extensible-enum</code>) for enumerations</a></li>
 <li><a href="#113"><span class="should-keyword"><strong>SHOULD</strong></span> avoid versioning</a></li>
 <li><a href="#114"><span class="must-keyword"><strong>MUST</strong></span> use media type versioning</a></li>
-<li><a href="#115"><span class="must-keyword"><strong>MUST</strong></span> not use URI versioning</a></li>
+<li><a href="#115"><span class="must-keyword"><strong>MUST</strong></span> not use URL versioning</a></li>
 </ul>
 </li>
 <li><a href="#deprecation">7. Deprecation</a>
@@ -1469,7 +1469,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#json-guidelines">8. JSON guidelines</a>
 <ul class="sectlevel2">
 <li><a href="#120"><span class="should-keyword"><strong>SHOULD</strong></span> pluralize array names</a></li>
-<li><a href="#118"><span class="must-keyword"><strong>MUST</strong></span> property names must be ASCII snake_case (and never camelCase): <code>^[a-z_][a-z_0-9]*$</code></a></li>
+<li><a href="#118"><span class="must-keyword"><strong>MUST</strong></span> property names must be snake_case (and never camelCase)</a></li>
 <li><a href="#240"><span class="should-keyword"><strong>SHOULD</strong></span> declare enum values using UPPER_SNAKE_CASE string</a></li>
 <li><a href="#216"><span class="should-keyword"><strong>SHOULD</strong></span> define maps using <code>additionalProperties</code></a></li>
 <li><a href="#122"><span class="must-keyword"><strong>MUST</strong></span> not use <code>null</code> for boolean properties</a></li>
@@ -1488,6 +1488,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#169"><span class="must-keyword"><strong>MUST</strong></span> use standard formats for date and time properties</a></li>
 <li><a href="#127"><span class="should-keyword"><strong>SHOULD</strong></span> use standard formats for time duration and interval properties</a></li>
 <li><a href="#170"><span class="must-keyword"><strong>MUST</strong></span> use standard formats for country, language and currency properties</a></li>
+<li><a href="#244"><span class="should-keyword"><strong>SHOULD</strong></span> use content negotiation, if clients may choose from different resource representations</a></li>
 </ul>
 </li>
 <li><a href="#common-data-types">10. Common data types</a>
@@ -2884,7 +2885,7 @@ we strongly recommend to only use the first two approaches.</p>
 <h3 id="114"><a class="link" href="#114"><span class="must-keyword"><strong>MUST</strong></span> use media type versioning</a></h3>
 <div class="paragraph">
 <p>However, when API versioning is unavoidable, you have to design your
-multi-version RESTful APIs using media type versioning (see <a href="#115"><span class="must-keyword"><strong>MUST</strong></span> not use URI versioning</a>).
+multi-version RESTful APIs using media type versioning (see <a href="#115"><span class="must-keyword"><strong>MUST</strong></span> not use URL versioning</a>).
 Media type versioning is less tightly coupled since
 it supports content negotiation and hence reduces complexity of release
 management.</p>
@@ -2894,7 +2895,7 @@ management.</p>
 together via the HTTP <code>Content-Type</code> header — e.g.
 <code>application/x.zalando.cart+json;version=2</code>. For incompatible changes, a new
 media type version for the resource is created. To generate the new
-representation version, consumer and producer can do content negotiation using
+representation version, consumer and producer can do <a href="#244">content negotiation</a> using
 the HTTP <code>Content-Type</code> and <code>Accept</code> headers.</p>
 </div>
 <div class="admonitionblock note">
@@ -2995,16 +2996,16 @@ approaches to handle breaking changes without being opinionated.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="115"><a class="link" href="#115"><span class="must-keyword"><strong>MUST</strong></span> not use URI versioning</a></h3>
+<h3 id="115"><a class="link" href="#115"><span class="must-keyword"><strong>MUST</strong></span> not use URL versioning</a></h3>
 <div class="paragraph">
-<p>With URI versioning a (major) version number is included in the path, e.g.
+<p>With URL versioning a (major) version number is included in the path, e.g.
 <code>/v1/customers</code>. The consumer has to wait until the provider has been released
 and deployed. If the consumer also supports hypermedia links — even in their
 APIs — to drive workflows (HATEOAS), this quickly becomes complex. So does
 coordinating version upgrades — especially with hyperlinked service
 dependencies — when using URL versioning. To avoid this tighter coupling and
-complexer release management we do not use URI versioning, and go instead with
-media type versioning and content negotiation (see above).</p>
+complexer release management we do not use URL versioning, instead we <a href="#114"><span class="must-keyword"><strong>MUST</strong></span> use media type versioning</a>
+with content negotiation.</p>
 </div>
 </div>
 </div>
@@ -3152,14 +3153,19 @@ This implies in turn that object names should be singular.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="118"><a class="link" href="#118"><span class="must-keyword"><strong>MUST</strong></span> property names must be ASCII snake_case (and never camelCase): <code>^[a-z_][a-z_0-9]*$</code></a></h3>
+<h3 id="118"><a class="link" href="#118"><span class="must-keyword"><strong>MUST</strong></span> property names must be snake_case (and never camelCase)</a></h3>
 <div class="paragraph">
-<p>Property names are restricted to ASCII strings. The first
-character must be a letter, or an underscore, and subsequent
+<p>Property names are restricted to ASCII snake_case strings matching regex <code>^[a-z_][a-z_0-9]*$</code>.
+The first character must be a lower case letter, or an underscore, and subsequent
 characters can be a letter, an underscore, or a number.</p>
 </div>
 <div class="paragraph">
-<p>(It is recommended to use <code>_</code> at the start of property names only for keywords like <code>_links</code>.)</p>
+<p>Examples:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>customer_number, sales_order_number, billing_address</code></pre>
+</div>
 </div>
 <div class="paragraph">
 <p>Rationale: No established industry standard exists, but many popular Internet
@@ -3432,7 +3438,7 @@ format (PDF, DOC, ODF, PPT), or archive format (TAR, ZIP).</p>
 </div>
 <div class="paragraph">
 <p>Generic structured data interchange formats other than JSON (e.g. XML, CSV)
-may be provided, but only additionally to JSON as default format using content negotiation,
+may be provided, but only additionally to JSON as default format using <a href="#244">content negotiation</a>,
 for specific use cases where clients may not interpret the payload structure.</p>
 </div>
 </div>
@@ -3805,6 +3811,19 @@ information for language usage, like region, variant, script)</p>
 indicated via OpenAPI format <code>iso-4217</code></p>
 </li>
 </ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="244"><a class="link" href="#244"><span class="should-keyword"><strong>SHOULD</strong></span> use content negotiation, if clients may choose from different resource representations</a></h3>
+<div class="paragraph">
+<p>In some situations the API supports serving different representations of a specific resource (at the same URL)
+e.g. JSON, PDF, TEXT, or HTML representations for an invoice resource.
+You should use <a href="https://en.wikipedia.org/wiki/Content_negotiation">content negotiation</a>
+to support clients specifying via the standard HTTP headers
+<a href="https://tools.ietf.org/html/rfc7231#section-5.3.2"><code>Accept</code></a>, <a href="https://tools.ietf.org/html/rfc7231#section-5.3.5"><code>Accept-Language</code></a>, <a href="https://tools.ietf.org/html/rfc7231#section-5.3.4"><code>Accept-Encoding</code></a> which representation is best suited for their use case,
+for example, which language of a document, representation / content format, or content encoding.
+You <a href="#172"><span class="should-keyword"><strong>SHOULD</strong></span> use standard media types</a> like <code>application/json</code> or <code>application/pdf</code> for defining the content
+format in the <a href="https://tools.ietf.org/html/rfc7231#section-5.3.2"><code>Accept</code></a> header.</p>
 </div>
 </div>
 </div>
@@ -4405,7 +4424,7 @@ characters can be a letter, or a dash(<code>-</code>), or a number.</p>
 <div class="sect2">
 <h3 id="130"><a class="link" href="#130"><span class="must-keyword"><strong>MUST</strong></span> use snake_case (never camelCase) for query parameters</a></h3>
 <div class="paragraph">
-<p>See also <a href="#118"><span class="must-keyword"><strong>MUST</strong></span> property names must be ASCII snake_case (and never camelCase): <code>^[a-z_][a-z_0-9]*$</code></a>.</p>
+<p>See also <a href="#118"><span class="must-keyword"><strong>MUST</strong></span> property names must be snake_case (and never camelCase)</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -7208,7 +7227,7 @@ the <a href="https://tools.ietf.org/html/rfc7231#section-3.1.4.2"><code>Content-
 <div class="sect2">
 <h3 id="179"><a class="link" href="#179"><span class="may-keyword"><strong>MAY</strong></span> use <code>Content-Location</code> header</a></h3>
 <div class="paragraph">
-<p>The <a href="https://tools.ietf.org/html/rfc7231#section-3.1.4.2"><code>Content-Location</code></a> header is <em>optional</em> and can be used in successful write
+<p><a href="https://tools.ietf.org/html/rfc7231#section-3.1.4.2"><code>Content-Location</code></a> is an <em>optional</em> response header that can be used in successful write
 operations (<a href="#put"><code>PUT</code></a>, <a href="#post"><code>POST</code></a>, or <a href="#patch"><code>PATCH</code></a>) or read operations (<a href="#get"><code>GET</code></a>, <a href="#head"><code>HEAD</code></a>) to
 guide caching and signal a receiver the actual location of the resource
 transmitted in the response body. This allows clients to identify the resource
@@ -7221,13 +7240,13 @@ and to update their local copy when receiving a response with this header.</p>
 <ul>
 <li>
 <p>For reading operations <a href="#get"><code>GET</code></a> and <a href="#head"><code>HEAD</code></a>, a different location than the
-requested URI can be used to indicate that the returned resource is subject
-to content negotiations, and that the value provides a more specific
+requested URL can be used to indicate that the returned resource is subject
+to <a href="#244">content negotiations</a>, and that the value provides a more specific
 identifier of the resource.</p>
 </li>
 <li>
 <p>For writing operations <a href="#put"><code>PUT</code></a> and <a href="#patch"><code>PATCH</code></a>, an identical location to the
-requested URI can be used to explicitly indicate that the returned resource
+requested URL can be used to explicitly indicate that the returned resource
 is the current representation of the newly created or updated resource.</p>
 </li>
 <li>
@@ -10031,7 +10050,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-10-12 07:51:22 UTC
+Last updated 2021-10-18 13:42:37 UTC
 </div>
 </div>
 </body>

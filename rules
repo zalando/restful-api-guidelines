@@ -62,7 +62,7 @@
     },
     {
       "id": "#115",
-      "title": "MUST not use URI versioning"
+      "title": "MUST not use URL versioning"
     },
     {
       "id": "#116",
@@ -70,7 +70,7 @@
     },
     {
       "id": "#118",
-      "title": "MUST property names must be ASCII snake_case (and never camelCase): `^[a-z_][a-z_0-9]*$`"
+      "title": "MUST property names must be snake_case (and never camelCase)"
     },
     {
       "id": "#120",
@@ -539,6 +539,10 @@
     {
       "id": "#243",
       "title": "MUST use official HTTP status codes"
+    },
+    {
+      "id": "#244",
+      "title": "SHOULD use content negotiation, if clients may choose from different resource representations"
     }
   ]
 }
