@@ -19,13 +19,18 @@ This implies in turn that object names should be singular.
 
 
 [#118]
-== {MUST} property names must be ASCII snake_case (and never camelCase): `^[a-z_][a-z_0-9]*$`
+== {MUST} property names must be snake_case (and never camelCase)
 
-Property names are restricted to ASCII strings. The first
-character must be a letter, or an underscore, and subsequent
+Property names are restricted to ASCII snake_case strings matching regex `^[a-z_][a-z_0-9]*$`. 
+The first character must be a lower case letter, or an underscore, and subsequent
 characters can be a letter, an underscore, or a number.
 
-(It is recommended to use `_` at the start of property names only for keywords like `_links`.)
+Examples:
+
+[source]
+----
+customer_number, sales_order_number, billing_address
+----
 
 Rationale: No established industry standard exists, but many popular Internet
 companies prefer snake_case: e.g. GitHub, Stack Exchange, Twitter.

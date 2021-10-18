@@ -72,7 +72,7 @@ More details in RFC 7231 {RFC-7231}#section-7.1.2[7.1.2 Location],
 [#179]
 == {MAY} use `Content-Location` header
 
-The {Content-Location} header is _optional_ and can be used in successful write
+{Content-Location} is an _optional_ response header that can be used in successful write
 operations ({PUT}, {POST}, or {PATCH}) or read operations ({GET}, {HEAD}) to
 guide caching and signal a receiver the actual location of the resource
 transmitted in the response body. This allows clients to identify the resource
@@ -81,11 +81,11 @@ and to update their local copy when receiving a response with this header.
 The Content-Location header can be used to support the following use cases:
 
 * For reading operations {GET} and {HEAD}, a different location than the
-  requested URI can be used to indicate that the returned resource is subject
-  to content negotiations, and that the value provides a more specific
+  requested URL can be used to indicate that the returned resource is subject
+  to <<244, content negotiations>>, and that the value provides a more specific
   identifier of the resource.
 * For writing operations {PUT} and {PATCH}, an identical location to the
-  requested URI can be used to explicitly indicate that the returned resource
+  requested URL can be used to explicitly indicate that the returned resource
   is the current representation of the newly created or updated resource.
 * For writing operations {POST} and {DELETE}, a content location can be used to
   indicate that the body contains a status report resource in response to the
