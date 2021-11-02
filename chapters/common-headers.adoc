@@ -1,7 +1,8 @@
-[[common-headers]]
 [[standard-headers]]
 = Standard headers
 
+[[common-headers]] 
+// hint: anchor positioned here, since acsciidoc does not support two anchor definitions in sequence
 This section describes a handful of standard headers, which we found raising the most
 questions in our daily usage, or which are useful in particular circumstances
 but not widely known.

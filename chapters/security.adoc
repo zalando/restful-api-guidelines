@@ -1,5 +1,5 @@
 [[security]]
-= Security
+= REST - Security
 
 
 [#104]

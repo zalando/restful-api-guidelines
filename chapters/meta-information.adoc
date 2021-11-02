@@ -1,5 +1,5 @@
 [[meta-information]]
-= Meta information
+= REST - Meta information
 
 
 [#218]
@@ -179,3 +179,84 @@ info:
 For details and more information on audience groups see the
 https://apis.zalando.net/redirect/85ee93a3-7a78-4461-8bf1-08ffdaebcd18[
 API Audience narrative (internal link)].
+
+
+[#223]
+== {MUST-SHOULD} use functional naming schema
+
+Functional naming is a powerful, yet easy way to align global resources as
+_host_, _permission_, and _event names_ within an the application landscape. It
+helps to preserve uniqueness of names while giving readers meaningful context
+information about the addressed component. Besides, the most important aspect
+is, that it allows to keep APIs stable in the case of technical and
+organizational changes (Zalando for example maintains an internal naming convention).
+
+A unique `functional-name` is assigned to each functional component serving an API. 
+It is built of the domain name of the functional group the component is belonging 
+to and a unique a short identifier for the functional component itself:
+
+[source,bnf]
+----
+<functional-name>      ::= <functional-domain>-<functional-component>
+<functional-domain>    ::= [a-z][a-z0-9-]* -- managed functional group of components
+<functional-component> ::= [a-z][a-z0-9-]* -- name of API owning functional component
+----
+
+Depending on the <<219, API audience>>, you *must/should/may* follow the functional 
+naming schema for <<224, hostnames>> and <<213, event names>> 
+(and also <<225, permission names>>, in future) as follows:
+
+[cols="25%,75%,options="header"]
+|=========================================================
+| *Functional Naming* | *Audience*
+| *must*   | external-public, external-partner
+| *should* | company-internal, business-unit-internal
+| *may*    | component-internal
+|=========================================================
+
+Please see the following rules for detailed functional naming patterns:
+* <<224>>
+* <<213>>
+// * <<225>>
+
+
+*Internal Guideance*:  You _must_ use the simple 
+https://github.bus.zalan.do/team-architecture/functional-component-registry[functional
+name registry (internal link)] to register your functional name before using
+it. The registry is a centralized infrastructure service to ensure uniqueness
+of your functional names (and available domains -- including subdomains) and 
+to support hostname DNS resolution. +
+_Hint:_ Due to lexicalic restrictions of DNS names there is no specific separator 
+to split a functional name into (sub) domain and component; this knowledge is only 
+managed in the registry.
+
+
+[#224]
+== {MUST} follow naming convention for hostnames
+
+Hostnames in APIs must, respectively should conform to the functional naming
+depending on the <<219, audience>> as follows (see <<223>> for details and
+`<functional-name>` definition):
+
+[source,bnf]
+-----
+<hostname>             ::= <functional-hostname> | <application-hostname>
+
+<functional-hostname>  ::= <functional-name>.zalandoapis.com
+-----
+
+*Hint:* The following convention (e.g. used by legacy STUPS infrastructure) is deprecated 
+and *only* allowed for hostnames of <<219, component-internal>> APIs:
+
+[source,bnf]
+-----
+<application-hostname> ::= <application-id>.<organization-unit>.zalan.do
+<application-id>       ::= [a-z][a-z0-9-]*  -- application identifier
+<organization-id>      ::= [a-z][a-z0-9-]*  -- organization unit identifier, e.g. team identifier
+-----
+
+*Exception:* There are legacy hostnames used for APIs with `external-partner` audience 
+which may not follow this rule due to backward compatibility constraints. 
+The API Linter maintains a whitelist for this exceptions (including e.g. 
+`api.merchants.zalando.com` and `api-sandbox.merchants.zalando.com`).
+
