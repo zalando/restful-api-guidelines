@@ -6,9 +6,9 @@
 :sectlinks:
 :sectnumlevels: 1
 
-:creator: Zalando SE
+:creator: DailyPay Inc.
 :producer: Asciidoctor
-:keywords: Zalando, Guidelines, RESTful, API, Events, Schema
+:keywords: DailyPay, Guidelines, RESTful, API, Events, Schema
 :copyright: CC-BY-SA 4.0
 
 // Unified character short cut.
@@ -215,12 +215,12 @@
 :RFC-cacheable: pass:[<a href="https://tools.ietf.org/html/rfc7231#section-4.2.3">cacheable</a>]
 
 
-= Zalando RESTful API and Event Guidelines
-link:https://github.com/zalando/restful-api-guidelines[Github Repository], link:https://opensource.zalando.com/[Zalando SE Opensource]
+= DailyPay RESTful API and Event Guidelines
+link:https://github.com/dailypay/restful-api-guidelines[Github Repository]
 
-image::assets/api-zalando-small.jpg[API Guild Logo]
+image::assets/api-dailypay-small.png[API Guild Logo]
 
-Other formats: link:zalando-guidelines.pdf[PDF], link:zalando-guidelines.epub[EPUB3] +
+Other formats: link:dailypay-guidelines.pdf[PDF], link:dailypay-guidelines.epub[EPUB3] +
 
 ifndef::ebook-format[]
 toc::[]
