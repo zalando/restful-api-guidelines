@@ -65,9 +65,9 @@ html: check assets pull
 pdf: check pull
 	docker run -v $(DIRWORK):$(DIRMOUNTS)/ ${DOCKER} asciidoctor-pdf \
 	  -D $(DIRMOUNTS)/$(DIRBUILDS) index.adoc;
-	mv -f $(DIRBUILDS)/index.pdf $(DIRBUILDS)/zalando-guidelines.pdf;
+	mv -f $(DIRBUILDS)/index.pdf $(DIRBUILDS)/dailypay-guidelines.pdf;
 
 epub: check pull
 	docker run -v $(DIRWORK):$(DIRMOUNTS)/ ${DOCKER} asciidoctor-epub3 \
 	  -D $(DIRMOUNTS)/$(DIRBUILDS) index.adoc;
-	mv -f $(DIRBUILDS)/index.epub $(DIRBUILDS)/zalando-guidelines.epub;
+	mv -f $(DIRBUILDS)/index.epub $(DIRBUILDS)/dailypay-guidelines.epub;
