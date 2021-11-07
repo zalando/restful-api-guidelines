@@ -35,7 +35,7 @@ code management system - best together with the implementing sources.
 
 You <<192, must / should publish>> the component <<219, external / internal>>
 API specification with the deployment of the implementing service, and, hence,
-make it discoverable for the group via our https://apis.zalando.net/[API Portal
+make it discoverable for the group via our https://developer.dailypay.com/[API Portal
 [internal link]].
 
 *Hint:* A good way to explore *OpenAPI 3.0/2.0* is to navigate through the
@@ -43,7 +43,7 @@ https://openapi-map.apihandyman.io/[OpenAPI specification mind map] and use
 our https://plugins.jetbrains.com/search?search=swagger+Monte[Swagger Plugin
 for IntelliJ IDEA] to create your first API. To explore and validate/evaluate
 existing APIs the https://editor.swagger.io/[Swagger Editor] or our
-https://apis.zalando.net[API Portal] may be a good starting point.
+https://developer.dailypay.com[API Portal] may be a good starting point.
 
 *Hint:* We do not yet provide guidelines for https://graphql.org/[GraphQL]. 
 Following our https://techradar.zalando.net/languages/graphql.html[Zalando
@@ -72,9 +72,9 @@ service URLs:
 * `https://infrastructure-api-repository.zalandoapis.com/` {dash} used to refer
   to user defined, immutable API specification revisions published via the
   internal API repository.
-* `https://opensource.zalando.com/restful-api-guidelines/{model.yaml}` {dash}
+* `https://opensource.dailypay.com/restful-api-guidelines/{model.yaml}` {dash}
   used to refer to guideline defined re-usable API fragments (see
-  `{model.yaml}` files in https://github.com/zalando/restful-api-guidelines/tree/master/models[restful-api-guidelines/models]
+  `{model.yaml}` files in https://github.com/dailypay/restful-api-guidelines/tree/master/models[restful-api-guidelines/models]
   for details).
 
 *Hint:* The formerly used remote references to the `Problem` API fragment

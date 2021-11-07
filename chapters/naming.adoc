@@ -10,7 +10,7 @@ _host_, _permission_, and _event names_ within an the application landscape. It
 helps to preserve uniqueness of names while giving readers meaningful context
 information about the addressed component. Besides, the most important aspect
 is, that it allows to keep APIs stable in the case of technical and
-organizational changes (Zalando for example maintains an internal naming convention).
+organizational changes (DailyPay for example maintains an internal naming convention).
 
 A unique `functional-name` is assigned to each functional component serving an API. 
 It is built of the domain name of the functional group the component is belonging 
@@ -79,7 +79,7 @@ and *only* allowed for hostnames of <<219, component-internal>> APIs:
 *Exception:* There are legacy hostnames used for APIs with `external-partner` audience 
 which may not follow this rule due to backward compatibility constraints. 
 The API Linter maintains a whitelist for this exceptions (including e.g. 
-`api.merchants.zalando.com` and `api-sandbox.merchants.zalando.com`).
+`api.dailypay.com` and `api.dailypayuat.com`).
 
 
 [#129]

@@ -10,7 +10,7 @@ methods.
 
 
 [#183]
-== {SHOULD} use only the specified proprietary Zalando headers
+== {SHOULD} use only the specified proprietary DailyPay headers
 
 As a general rule, proprietary HTTP headers should be avoided. 
 From a conceptual point of view, the business semantics and intent of an
@@ -47,9 +47,9 @@ For more information see <<233>>.
 
 |[[x-tenant-id]]{X-Tenant-ID}|String|
 Identifies the tenant initiated the request
-to the multi tenant Zalando Platform. The {X-Tenant-ID} must be set 
+to the multi tenant DailyPay Platform. The {X-Tenant-ID} must be set 
 according to the Business Partner ID extracted from the OAuth token when 
-a request from a Business Partner hits the Zalando Platform.
+a request from a Business Partner hits the DailyPay Platform.
 |9f8b3ca3-4be5-436c-a847-9cd55460c495
 
 |[[x-sales-channel]]{X-Sales-Channel}|String|
@@ -102,29 +102,29 @@ you can simply reference it when defining the API endpoint requests e.g.
 [source,yaml]
 ----
 parameters:
-- $ref: "https://opensource.zalando.com/restful-api-guidelines/models/request-headers-1.0.0.yaml#/X-Flow-ID"
-- $ref: "https://opensource.zalando.com/restful-api-guidelines/models/request-headers-1.0.0.yaml#/X-Tenant-ID"
+- $ref: "https://opensource.dailypay.com/restful-api-guidelines/models/request-headers-1.0.0.yaml#/X-Flow-ID"
+- $ref: "https://opensource.dailypay.com/restful-api-guidelines/models/request-headers-1.0.0.yaml#/X-Tenant-ID"
 ----
 
 Response headers can be referenced in the API endpoint e.g.
 [source,yaml]
 ----
 parameters:
-- $ref: "https://opensource.zalando.com/restful-api-guidelines/models/response-headers-1.0.0.yaml#/ETag"
-- $ref: "https://opensource.zalando.com/restful-api-guidelines/models/response-headers-1.0.0.yaml#/Cache-Control"
+- $ref: "https://opensource.dailypay.com/restful-api-guidelines/models/response-headers-1.0.0.yaml#/ETag"
+- $ref: "https://opensource.dailypay.com/restful-api-guidelines/models/response-headers-1.0.0.yaml#/Cache-Control"
 ----
 
 *Hint:* This guideline does not standardize proprietary headers for 
 our specific gateway components (2. use case above). 
-This include, for instance, non pass-through headers `X-Zalando-Client-ID`, `X-Zalando-Request-Host`, 
-`X-Zalando-Request-URI` defined by Fashion Shop API (RKeep), or `X-Consumer`, `X-Consumer-Signature`, 
+This include, for instance, non pass-through headers `X-DailyPay-Client-ID`, `X-DailyPay-Request-Host`, 
+`X-DailyPay-Request-URI` defined by Fashion Shop API (RKeep), or `X-Consumer`, `X-Consumer-Signature`, 
 `X-Consumer-Key-ID` defined by Merchant API gateway. 
 All these proprietary headers are whitelisted in the API Linter (Zally) checking this rule.
 
 [#184]
 == {MUST} propagate proprietary headers
 
-All Zalando's proprietary headers listed above are end-to-end headers
+All DailyPay's proprietary headers listed above are end-to-end headers
 footnote:header-types[HTTP/1.1 standard ({RFC-7230}#section-6.1[RFC 7230])
 defines two types of headers: end-to-end and hop-by-hop headers. End-to-end
 headers must be transmitted to the ultimate recipient of a request or response.

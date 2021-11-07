@@ -1,10 +1,10 @@
 [[json-guidelines]]
 = JSON guidelines
 
-These guidelines provides recommendations for defining JSON data at Zalando.
+These guidelines provides recommendations for defining JSON data at DailyPay.
 JSON here refers to {RFC-7159}[RFC 7159] (which updates {RFC-4627}[RFC 4627]),
 the "application/json" media type and custom JSON media types defined for APIs.
-The guidelines clarifies some specific cases to allow Zalando JSON data to have
+The guidelines clarifies some specific cases to allow DailyPay JSON data to have
 an idiomatic form across teams and services.
 
 The first some of the following guidelines are about property names, the later

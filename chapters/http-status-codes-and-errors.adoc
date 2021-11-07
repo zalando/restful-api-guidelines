@@ -31,7 +31,7 @@ responses:
     content:
       "application/problem+json":
         schema:
-          $ref: 'https://opensource.zalando.com/restful-api-guidelines/models/problem-1.0.1.yaml#/Problem'
+          $ref: 'https://opensource.dailypay.com/restful-api-guidelines/models/problem-1.0.1.yaml#/Problem'
 ----
 
 API designers should also think about a **troubleshooting board** as part of
@@ -365,7 +365,7 @@ include `application/problem+json` in the {Accept}-Header to trigger delivery
 of the extended failure information.
 
 The OpenAPI schema definition of the Problem JSON object can be found
-https://opensource.zalando.com/restful-api-guidelines/models/problem-1.0.1.yaml[on
+https://opensource.dailypay.com/restful-api-guidelines/models/problem-1.0.1.yaml[on
 GitHub]. You can reference it by using:
 
 [source,yaml]
@@ -376,7 +376,7 @@ responses:
     content:
       "application/problem+json":
         schema:
-          $ref: 'https://opensource.zalando.com/restful-api-guidelines/models/problem-1.0.1.yaml#/Problem'
+          $ref: 'https://opensource.dailypay.com/restful-api-guidelines/models/problem-1.0.1.yaml#/Problem'
 ----
 
 You may define custom problem types as extensions of the Problem JSON object
@@ -403,7 +403,7 @@ identifiers in `type` and `instance` fields:
 
 *Hint:* The use of https://tools.ietf.org/html/rfc3986#section-4.3[absolute
 URIs] is not forbidden but strongly discouraged. If you use absolute URIs,
-please reference https://opensource.zalando.com/restful-api-guidelines/models/problem-1.0.0.yaml#/Problem[problem-1.0.0.yaml#/Problem] instead.
+please reference https://opensource.dailypay.com/restful-api-guidelines/models/problem-1.0.0.yaml#/Problem[problem-1.0.0.yaml#/Problem] instead.
 
 
 [#177]

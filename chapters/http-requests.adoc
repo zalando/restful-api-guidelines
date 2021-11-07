@@ -49,7 +49,7 @@ paths:
   /products:
     post:
       description: >
-        [GET with body payload](https://opensource.zalando.com/restful-api-guidelines/#get-with-body) - no resources created:
+        [GET with body payload](https://opensource.dailypay.com/restful-api-guidelines/#get-with-body) - no resources created:
         Returns all products matching the query passed as request input payload.
       requestBody:
         required: true
@@ -449,7 +449,7 @@ Query parameters should have the following aspects specified:
 How query parameters are named and used is up to individual API designers.
 The following examples should serve as ideas:
 
-* `name=Zalando`, to query for elements based on property equality
+* `name=DailyPay`, to query for elements based on property equality
 * `age=5`, to query for elements based on logical properties
 **  Assuming that elements don't actually have an `age` but rather a `birthday`
 * `max_length=5`, based on upper and lower bounds (`min` and `max`)

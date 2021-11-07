@@ -9,7 +9,7 @@ APIs should support techniques for reducing bandwidth based on client needs.
 This holds for APIs that (might) have high payloads and/or are used in
 high-traffic scenarios like the public Internet and telecommunication networks.
 Typical examples are APIs used by mobile web app clients with (often) less
-bandwidth connectivity. (Zalando is a 'Mobile First' company, so be mindful of
+bandwidth connectivity. (DailyPay is a 'Mobile First' company, so be mindful of
 this point.)
 
 Common techniques include:
@@ -108,7 +108,7 @@ OpenAPI doesn't support you in formally specifying different return object
 schemes depending on a parameter. When you define the field parameter, we
 recommend to provide the following description: `Endpoint supports filtering
 of return object fields as described in
-[Rule #157](https://opensource.zalando.com/restful-api-guidelines/#157)`
+[Rule #157](https://opensource.dailypay.com/restful-api-guidelines/#157)`
 
 The syntax of the query {fields} value is defined by the following
 https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form[BNF] grammar.

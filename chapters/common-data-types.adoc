@@ -26,7 +26,7 @@ APIs are encouraged to include a reference to the global schema for Money.
 SalesOrder:
   properties:
     grand_total:
-      $ref: 'https://opensource.zalando.com/restful-api-guidelines/models/money-1.0.0.yaml#/Money'
+      $ref: 'https://opensource.dailypay.com/restful-api-guidelines/models/money-1.0.0.yaml#/Money'
 ----
 
 Please note that APIs have to treat Money as a closed data type, i.e. it's not meant to be used in an inheritance hierarchy. That means the following usage is not allowed:
@@ -119,7 +119,7 @@ There are some data fields that come up again and again in API data:
   *Exception*: We use `customer_number` instead of `customer_id` for customer facing
   identification of customers due to legacy reasons. (Hint: `customer_id` used to be defined
   as internal only, technical integer key, see
-  https://apis.zalando.net/redirect/5675b6ec-8934-11ea-929e-68f728c1ba70[Naming
+  https://api.dailypay.com/redirect/5675b6ec-8934-11ea-929e-68f728c1ba70[Naming
   Decision: `customer_number` vs `customer_id` [internal link]]).
 * [[created_at]]{created_at}: when the object was created. If used, this must
   be a `date-time` construct. Originally named [[created]]{created} before
@@ -167,7 +167,7 @@ tree_node:
 ----
 
 These properties are not always strictly necessary, but making them idiomatic
-allows API client developers to build up a common understanding of Zalando's
+allows API client developers to build up a common understanding of DailyPay's
 resources. There is very little utility for API consumers in having different
 names or value types for these fields across APIs.
 

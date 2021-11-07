@@ -58,11 +58,10 @@ Styles and the Design of Network-Based Software Architectures]
 [[api-as-a-product]]
 == API as a product
 
-As mentioned above, Zalando is transforming from an online shop into an
-expansive fashion platform comprising a rich set of products following a
-Software as a Platform (SaaP) model for our business partners. As a
-company we want to deliver products to our (internal and external)
-customers which can be consumed like a service.
+DailyPay is expanding its business through channel partners, embedded
+applications and white label products. As a company we want to deliver
+products to our (internal and external) customers which can be consumed
+like a service.
 
 Platform products provide their functionality via (public) APIs; hence,
 the design of our APIs should be based on the API as a Product

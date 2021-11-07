@@ -111,7 +111,7 @@ paths:
 In some cases a whole API or selected API endpoints may not require speciifc
 permissions, e.g. if information is public or protected by object level
 authorization. To make this explicit you should assign the `uid` pseudo
-permission, that is always available as OAuth2 default scope in Zalando.
+permission, that is always available as OAuth2 default scope in DailyPay.
 
 [source,yaml]
 ----

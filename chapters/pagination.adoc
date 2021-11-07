@@ -74,11 +74,11 @@ also <<pagination-fields>> for details):
 [source,json]
 ----
 {
-  "self": "http://my-service.zalandoapis.com/resources?cursor=<self-position>",
-  "first": "http://my-service.zalandoapis.com/resources?cursor=<first-position>",
-  "prev": "http://my-service.zalandoapis.com/resources?cursor=<previous-position>",
-  "next": "http://my-service.zalandoapis.com/resources?cursor=<next-position>",
-  "last": "http://my-service.zalandoapis.com/resources?cursor=<last-position>",
+  "self": "http://api.dailypay.com/resources?cursor=<self-position>",
+  "first": "http://api.dailypay.com/resources?cursor=<first-position>",
+  "prev": "http://api.dailypay.com/resources?cursor=<previous-position>",
+  "next": "http://api.dailypay.com/resources?cursor=<next-position>",
+  "last": "http://api.dailypay.com/resources?cursor=<last-position>",
   "query": {
     "query-param-<1>": ...,
     "query-param-<n>": ...
