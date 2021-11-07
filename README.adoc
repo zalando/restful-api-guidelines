@@ -1,11 +1,11 @@
-= Developing Restful APIs: A Comprehensive Set of Guidelines by Zalando
+= Developing Restful APIs: A Comprehensive Set of Guidelines by DailyPay
 
 
-https://github.com/zalando/restful-api-guidelines/actions/[image:https://github.com/zalando/restful-api-guidelines/actions/workflows/build.yml/badge.svg[Build status]]
+https://github.com/dailypay/restful-api-guidelines/actions/[image:https://github.com/dailypay/restful-api-guidelines/actions/workflows/build.yml/badge.svg[Build status]]
 Latest published version:
-http://zalando.github.io/restful-api-guidelines/[*HTML*],
-http://zalando.github.io/restful-api-guidelines/zalando-guidelines.pdf[*PDF*],
-http://zalando.github.io/restful-api-guidelines/zalando-guidelines.epub[*EPUB3*]
+https://github.com/dailypay/restful-api-guidelines/[*HTML*],
+https://github.com/dailypay/restful-api-guidelines/dailypay-guidelines.pdf[*PDF*],
+https://github.com/dailypay/restful-api-guidelines/gailypay-guidelines.epub[*EPUB3*]
 
 == Purpose
 
@@ -13,7 +13,7 @@ Great RESTful APIs look like they were designed by a single team. This
 promotes API adoption, reduces friction, and enables clients to use them
 properly. To build APIs that meet this standard, and to answer many
 common questions encountered along the way of RESTful API development,
-the Zalando Tech team has created this comprehensive set of guidelines.
+the DailyPay Tech team has created this comprehensive set of guidelines.
 We have shared it with you to inspire additional discussion and
 refinement within and among your teams, and contribute our learnings and
 suggestions to the tech community at large.
@@ -27,6 +27,16 @@ living, evolving document. We will revise and update based on our
 learnings and experiences.
 
 See link:BUILD.adoc[BUILD documentation] for technical details.
+
+== Attribution
+
+This Guideline has been adapted and modified from source material created by
+https://corporate.zalando.com[Zalando SE]. Thank you to the
+https://opensource.zalando.com[Zalando Open Source Team]
+for sharing their
+https://opensource.zalando.com/restful-api-guidelines[Zalando API Guidelines].
+This Guideline is derived from their work and DailyPay appreciates their
+contribution and willingness to share.
 
 == License
 
