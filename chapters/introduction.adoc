@@ -55,12 +55,12 @@ work evolves, but teams can confidently follow and trust them.
 
 In case guidelines are changing, following rules apply:
 
-* existing APIs don't have to be changed, but we recommend it
-* clients of existing APIs have to cope with these APIs based on
+* it is RECOMMENDED that the existing APIs be changed
+* clients of existing APIs MUST cope with these APIs based on
 outdated rules
-* new APIs have to respect the current guidelines
+* new APIs MUST respect the current guidelines
 
 Furthermore you should keep in mind that once an API becomes public
-externally available, it has to be re-reviewed and changed according to
-current guidelines - for sake of overall consistency.
+externally available, it MUST be re-reviewed and changed according to
+current guidelines - for the sake of overall consistency.
 
