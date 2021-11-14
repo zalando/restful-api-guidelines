@@ -855,12 +855,15 @@ events within a given event type's stream must have unique identifiers.
 This allows consumers to process the `eid` to assert the event is unique
 and use it as an idempotency check.
 
-Note that uniqueness checking of the `eid` might be not enforced by
-systems consuming events and it is the responsibility of the producer to
-ensure event identifiers do in fact distinctly identify events. A
-straightforward way to create a unique identifier for an event is to
-generate a UUID value.
+It is the responsibility of the producer to ensure event identifiers do
+in fact distinctly identify events. A straightforward way to create a
+unique identifier for an event is to generate a UUID value. However, due
+to "at-least-once" delivery guarantees that most message brokers provide,
+event producers need to ensure that subsequent attempts to publish an
+event do use the same identifier as the initial (possibly failed) attempt.
 
+Considerations for event consumers are further detailed in <<212>> and
+<<214>>. 
 
 [#212]
 == {SHOULD} design for idempotent out-of-order processing
@@ -935,4 +938,3 @@ leads to two identical events in the event bus which have to be
 processed by the consumers. Similar conditions can appear on consumer
 side: an event has been processed successfully, but the consumer fails
 to confirm the processing.
-
