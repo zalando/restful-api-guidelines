@@ -856,14 +856,15 @@ This allows consumers to process the `eid` to assert the event is unique
 and use it as an idempotency check.
 
 It is the responsibility of the producer to ensure event identifiers do
-in fact distinctly identify events. A straightforward way to create a
-unique identifier for an event is to generate a UUID value. However, due
-to "at-least-once" delivery guarantees that most message brokers provide,
-event producers need to ensure that subsequent attempts to publish an
-event do use the same identifier as the initial (possibly failed) attempt.
+in fact distinctly identify events published for a specific event type.
+A straightforward way to create a unique identifier for an event is to
+generate a UUID value. However, due to "at-least-once" delivery guarantees
+that most message brokers provide, event producers need to ensure that
+subsequent attempts to publish an event do use the same identifier as the
+initial (possibly failed) attempt.
 
-Considerations for event consumers are further detailed in <<212>> and
-<<214>>. 
+Event identifiers facilitate event duplicate detection by event consumers --
+see <<214>>.
 
 [#212]
 == {SHOULD} design for idempotent out-of-order processing
