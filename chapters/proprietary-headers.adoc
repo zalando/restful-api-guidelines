@@ -173,7 +173,7 @@ The following formats are allowed:
 * Random unique string restricted to the character set `[a-zA-Z0-9/+_-=]` maximal of 128 characters.
 
 *Note:* If a legacy subsystem can only process `Flow-IDs` with a specific
-format or length, it must define this restrictions in its API specification,
+format or length, it must define this restriction in its API specification,
 and be generous and remove invalid characters or cut the length to the
 supported limit.
 

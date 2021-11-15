@@ -276,7 +276,7 @@ components:
         string with enough entropy to avoid collisions.
 
         Idempotency keys expire after 24 hours. Clients are responsible to stay
-        within this limits, if they require idempotent behavior.
+        within this limit, if they require idempotent behavior.
 
       type: string
       format: uuid

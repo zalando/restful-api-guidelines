@@ -146,7 +146,7 @@ PATCH or MINOR version revision. MAJOR breaking changes are not allowed.
 * Changing an event type with compatibility mode `none` can lead to
 PATCH, MINOR or MAJOR level changes.
 
-The following examples illustrate this relations:
+The following examples illustrate these relations:
 
 * Changes to the event type's `title` or `description` are considered
 PATCH level.

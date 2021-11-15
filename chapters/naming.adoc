@@ -6,7 +6,7 @@
 == {MUST-SHOULD} use functional naming schema
 
 Functional naming is a powerful, yet easy way to align global resources as
-_host_, _permission_, and _event names_ within an the application landscape. It
+_host_, _permission_, and _event names_ within an application landscape. It
 helps to preserve uniqueness of names while giving readers meaningful context
 information about the addressed component. Besides, the most important aspect
 is, that it allows to keep APIs stable in the case of technical and
@@ -78,7 +78,7 @@ and *only* allowed for hostnames of <<219, component-internal>> APIs:
 
 *Exception:* There are legacy hostnames used for APIs with `external-partner` audience 
 which may not follow this rule due to backward compatibility constraints. 
-The API Linter maintains a whitelist for this exceptions (including e.g. 
+The API Linter maintains a whitelist for these exceptions (including e.g.
 `api.merchants.zalando.com` and `api-sandbox.merchants.zalando.com`).
 
 
