@@ -1,5 +1,5 @@
 [[meta-information]]
-= REST - Meta information
+= REST Basics - Meta information
 
 
 [#218]

@@ -1,5 +1,5 @@
 [[json-guidelines]]
-= REST - JSON payload
+= REST Basics - JSON payload
 
 These guidelines provides recommendations for defining JSON data at Zalando.
 JSON here refers to {RFC-7159}[RFC 7159] (which updates {RFC-4627}[RFC 4627]),
@@ -7,8 +7,58 @@ the "application/json" media type and custom JSON media types defined for APIs.
 The guidelines clarifies some specific cases to allow Zalando JSON data to have
 an idiomatic form across teams and services.
 
-The first some of the following guidelines are about property names, the later
-ones about values.
+
+[#167]
+== {MUST} use JSON as payload data interchange format
+
+Use JSON ({RFC-7159}[RFC 7159]) to represent structured (resource) data 
+passed with HTTP requests and responses as body payload.
+The JSON payload must use a JSON object as top-level data 
+structure (if possible) to allow for future extension. This also applies to
+collection resources, where you ad-hoc would use an array -- see also
+<<110>>.
+
+Additionally, the JSON payload must comply to the more restrictive Internet JSON ({RFC-7493}[RFC 7493]),
+particularly
+
+* {RFC-7493}#section-2.1[Section 2.1] on encoding of characters, and
+* {RFC-7493}#section-2.3[Section 2.3] on object constraints.
+
+As a consequence, a JSON payload must
+
+* use {RFC-7493}#section-2.1[`UTF-8` encoding]
+* consist of {RFC-7493}#section-2.1[valid Unicode strings], i.e. must not
+  contain non-characters or surrogates, and
+* contain only {RFC-7493}#section-2.3[unique member names] (no duplicate
+  names).
+
+
+[#168]
+== {MAY} pass non-JSON media types using data specific standard formats
+
+Non-JSON media types may be supported, if you stick to a business object specific standard 
+format for the payload data, for instance, image data format (JPG, PNG, GIF), document 
+format (PDF, DOC, ODF, PPT), or archive format (TAR, ZIP). 
+
+Generic structured data interchange formats other than JSON (e.g. XML, CSV) 
+may be provided, but only additionally to JSON as default format using <<244, content negotiation>>, 
+for specific use cases where clients may not interpret the payload structure.
+
+
+[#172]
+== {SHOULD} use standard media types
+
+You should use standard media types (defined in {media-types}[media type registry] 
+of Internet Assigned Numbers Authority (IANA)) as `content-type` (or `accept`) header 
+information. More specifically, for JSON payload you should use the standard media type 
+`application/json` (or `application/problem+json` for <<176>>).
+
+You should avoid using custom media types like `application/x.zalando.article+json`. 
+Custom media types beginning with `x` bring no advantage compared to the
+standard media type for JSON, and make automated processing more difficult.
+
+*Exception:* Custom media type should be only used in situations where you need to provide 
+<<114, API endpoint versioning>> (with content negotiation) due to incompatible changes.   
 
 
 [#120]
@@ -38,6 +88,7 @@ Others, like Google and Amazon, use both - but not only camelCase. It’s
 essential to establish a consistent look and feel such that JSON looks
 as if it came from the same hand.
 
+
 [#125]
 [#240]
 == {SHOULD} declare enum values using UPPER_SNAKE_CASE string 
@@ -51,6 +102,23 @@ This approach allows to clearly distinguish values from properties or other elem
 **Exception:** This rule does not apply for case sensitive values sourced from outside 
 API definition scope, e.g. for language codes from {ISO-639-1}[ISO 639-1], or when 
 declaring possible values for a <<137,rule 137>> [`sort` parameter].
+
+
+[#235]
+== {SHOULD} name date/time properties with `_at` suffix
+
+Dates and date-time properties should end with `_at` to distinguish them from
+boolean properties which otherwise would have very similar or even identical
+names:
+
+- {created_at} rather than {created},
+- {modified_at} rather than {modified},
+- `occurred_at` rather than `occurred`, and
+- `returned_at` rather than `returned`.
+
+**Note:** {created} and {modified} were mentioned in an earlier version of the
+guideline and are therefore still accepted for APIs that predate this rule.
+
 
 [#216]
 == {SHOULD} define maps using `additionalProperties`
@@ -172,29 +240,170 @@ ignored, i.e. not modified.
 Empty array values can unambiguously be represented as the empty list, `[]`.
 
 
-[#235]
-== {SHOULD} name date/time properties with `_at` suffix
+[#174]
+== {MUST} use common field names and semantics
 
-Dates and date-time properties should end with `_at` to distinguish them from
-boolean properties which otherwise would have very similar or even identical
-names:
+[[generic-fields]]
+You must use common field names and semantics whenever applicable.
+Common fields are idiomatic, create consistency across APIs and 
+support common understanding for API consumers.  
 
-- {created_at} rather than {created},
-- {modified_at} rather than {modified},
-- `occurred_at` rather than `occurred`, and
-- `returned_at` rather than `returned`.
+We define the following common field names: 
 
-**Note:** {created} and {modified} were mentioned in an earlier version of the
-guideline and are therefore still accepted for APIs that predate this rule.
+* [[id]]{id}: the identity of the object. If used, IDs must be opaque strings
+  and not numbers. IDs are unique within some documented context, are stable
+  and don't change for a given object once assigned, and are never recycled
+  cross entities.
+* [[xyz_id]]{xyz_id}: an attribute within one object holding the identifier of
+  another object must use a name that corresponds to the type of the referenced
+  object or the relationship to the referenced object followed by `_id` (e.g.
+  `partner_id` not `partner_number`, or `parent_node_id` for the reference to a parent
+  node from a child node, even if both have the type `Node`).
+  *Exception*: We use `customer_number` instead of `customer_id` for customer facing
+  identification of customers due to legacy reasons. (Hint: `customer_id` used to be defined
+  as internal only, technical integer key, see
+  https://apis.zalando.net/redirect/5675b6ec-8934-11ea-929e-68f728c1ba70[Naming
+  Decision: `customer_number` vs `customer_id` [internal link]]).
+* [[type]]{type}: the kind of thing this object is. If used, the type of this
+  field should be a string. Types allow runtime information on the entity
+  provided that otherwise requires examining the OpenAPI file.
+* [[etag]]{etag}: the <<182, ETag>> of an <<158, embedded sub-resource>>. It
+  may be used to carry the {ETag} for subsequent {PUT}/{PATCH} calls (see
+  <<etag-in-result-entities>>).
+
+Further common fields are defined in <<235>>.
+The following guidelines define standard objects and fields:
+
+* <<248>>
+* <<249>>
+* <<173>>
 
 
-[[common-data-types]]
-Definitions of data objects that are good candidates for wider usage. Below you can find a list of common data types
-used in the guideline:
+Example JSON schema:
 
-* <<173, Money object>>
-* <<176, Problem object>>
-* <<address-fields, Address object>>
+[source,yaml]
+----
+tree_node:
+  type: object
+  properties:
+    id:
+      description: the identifier of this node
+      type: string
+    created_at:
+      description: when got this node created
+      type: string
+      format: 'date-time'
+    modified_at:
+      description: when got this node last updated
+      type: string
+      format: 'date-time'
+    type:
+      type: string
+      enum: [ 'LEAF', 'NODE' ]
+    parent_node_id:
+      description: the identifier of the parent node of this node
+      type: string
+  example:
+    id: '123435'
+    created_at: '2017-04-12T23:20:50.52Z'
+    modified_at: '2017-04-12T23:20:50.52Z'
+    type: 'LEAF'
+    parent_node_id: '534321'
+----
+
+
+[#249]
+== {MUST} use the common address fields
+
+[[address-fields]]
+Address structures play a role in different business and use-case
+contexts, including country variances. All attributes that relate to
+address information must follow the naming and semantics defined
+below.
+
+[source,yaml]
+----
+addressee:
+  description: a (natural or legal) person that gets addressed
+  type: object
+  properties:
+    salutation:
+      description: |
+        a salutation and/or title used for personal contacts to some
+        addressee; not to be confused with the gender information!
+      type: string
+      example: Mr
+    first_name:
+      description: |
+        given name(s) or first name(s) of a person; may also include the
+        middle names.
+      type: string
+      example: Hans Dieter
+    last_name:
+      description: |
+        family name(s) or surname(s) of a person
+      type: string
+      example: Mustermann
+    business_name:
+      description: |
+        company name of the business organization. Used when a business is
+        the actual addressee; for personal shipments to office addresses, use
+        `care_of` instead.
+      type: string
+      example: Consulting Services GmbH
+  required:
+    - first_name
+    - last_name
+
+address:
+  description:
+    an address of a location/destination
+  type: object
+  properties:
+    care_of:
+      description: |
+        (aka c/o) the person that resides at the address, if different from
+        addressee. E.g. used when sending a personal parcel to the
+        office /someone else's home where the addressee resides temporarily
+      type: string
+      example: Consulting Services GmbH
+    street:
+      description: |
+        the full street address including house number and street name
+      type: string
+      example: Schönhauser Allee 103
+    additional:
+      description: |
+        further details like building name, suite, apartment number, etc.
+      type: string
+      example: 2. Hinterhof rechts
+    city:
+      description: |
+        name of the city / locality
+      type: string
+      example: Berlin
+    zip:
+      description: |
+        zip code or postal code
+      type: string
+      example: 14265
+    country_code:
+      description: |
+        the country code according to
+        [iso-3166-1-alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
+      type: string
+      example: DE
+  required:
+    - street
+    - city
+    - zip
+    - country_code
+----
+
+Grouping and cardinality of fields in specific data types may vary based
+on the specific use case (e.g. combining addressee and address fields
+into a single type when modeling an address label vs distinct addressee
+and address types when modeling users and their addresses).
 
 
 [#173]
@@ -283,256 +492,3 @@ format. It is not a standard OpenAPI format, but should help us to avoid parsing
 numbers as float / doubles.
 
 
-[#174]
-== {MUST} use common field names and semantics
-
-There exist a variety of field types that are required in multiple places. To
-achieve consistency across all API implementations, you must use common field
-names and semantics whenever applicable.
-
-[[generic-fields]]
-=== Generic fields
-
-There are some data fields that come up again and again in API data:
-
-* [[id]]{id}: the identity of the object. If used, IDs must be opaque strings
-  and not numbers. IDs are unique within some documented context, are stable
-  and don't change for a given object once assigned, and are never recycled
-  cross entities.
-* [[xyz_id]]{xyz_id}: an attribute within one object holding the identifier of
-  another object must use a name that corresponds to the type of the referenced
-  object or the relationship to the referenced object followed by `_id` (e.g.
-  `partner_id` not `partner_number`, or `parent_node_id` for the reference to a parent
-  node from a child node, even if both have the type `Node`).
-  *Exception*: We use `customer_number` instead of `customer_id` for customer facing
-  identification of customers due to legacy reasons. (Hint: `customer_id` used to be defined
-  as internal only, technical integer key, see
-  https://apis.zalando.net/redirect/5675b6ec-8934-11ea-929e-68f728c1ba70[Naming
-  Decision: `customer_number` vs `customer_id` [internal link]]).
-* [[created_at]]{created_at}: when the object was created. If used, this must
-  be a `date-time` construct. Originally named [[created]]{created} before
-  adding the <<235, naming conventions for date/time properties>>.
-* [[modified_at]]{modified_at}: when the object was updated. If used, this must
-  be a `date-time` construct. Originally named [[modified]]{modified} before
-  adding the <<235, naming conventions for date/time properties>>.
-* [[type]]{type}: the kind of thing this object is. If used, the type of this
-  field should be a string. Types allow runtime information on the entity
-  provided that otherwise requires examining the OpenAPI file.
-* [[etag]]{etag}: the <<182, ETag>> of an <<158, embedded sub-resource>>. It
-  may be used to carry the {ETag} for subsequent {PUT}/{PATCH} calls (see
-  <<etag-in-result-entities>>).
-
-Example JSON schema:
-
-[source,yaml]
-----
-tree_node:
-  type: object
-  properties:
-    id:
-      description: the identifier of this node
-      type: string
-    created_at:
-      description: when got this node created
-      type: string
-      format: 'date-time'
-    modified_at:
-      description: when got this node last updated
-      type: string
-      format: 'date-time'
-    type:
-      type: string
-      enum: [ 'LEAF', 'NODE' ]
-    parent_node_id:
-      description: the identifier of the parent node of this node
-      type: string
-  example:
-    id: '123435'
-    created_at: '2017-04-12T23:20:50.52Z'
-    modified_at: '2017-04-12T23:20:50.52Z'
-    type: 'LEAF'
-    parent_node_id: '534321'
-----
-
-These properties are not always strictly necessary, but making them idiomatic
-allows API client developers to build up a common understanding of Zalando's
-resources. There is very little utility for API consumers in having different
-names or value types for these fields across APIs.
-
-
-[[pagination-fields]]
-=== Pagination fields
-
-For iterating over collections (result sets) we propose to either use cursors
-(see <<160>>) or simple hypertext controls (see <<161>>). To implement these
-in a consistent way, we have defined a response page object pattern with the
-following field semantics:
-
-* [[self]]{self}:the link or cursor in a pagination response or object
-  pointing to the same collection object or page.
-* [[first]]{first}: the link or cursor in a pagination response or object
-  pointing to the first collection object or page.
-* [[prev]]{prev}: the link or cursor in a pagination response or object
-  pointing to the previous collection object or page.
-* [[next]]{next}: the link or cursor in a pagination response or object
-  pointing to the next collection object or page.
-* [[last]]{last}: the link or cursor in a pagination response or object
-  pointing to the last collection object or page.
-
-Pagination responses should contain the following additional array field to
-transport the page content:
-
-* [[items]]{items}: array of resources, holding all the items of the current
-  page ({items} may be replaced by a resource name).
-
-To simplify user experience, the applied query filters may be returned using
-the following field (see also {GET-with-body}):
-
-* [[query]]{query}: object containing the query filters applied in the search
-  request to filter the collection resource.
-
-As Result, the standard response page using <<160, cursors>> or <<161,
-pagination links>> may be defined as follows:
-
-[source,yaml]
-----
-ResponsePage:
-  type: object
-  required:
-    - items
-    - next
-  properties:
-    self:
-      description: Pagination link|cursor pointing to the current page.
-      type: string
-      format: uri|cursor
-    first:
-      description: Pagination link|cursor pointing to the first page.
-      type: string
-      format: uri|cursor
-    prev:
-      description: Pagination link|cursor pointing to the previous page.
-      type: string
-      format: uri|cursor
-    next:
-      description: Pagination link|cursor pointing to the next page.
-      type: string
-      format: uri|cursor
-    last:
-      description: Pagination link|cursor pointing to the last page.
-      type: string
-      format: uri|cursor
-
-    query:
-      description: >
-        Object containing the query filters applied to the collection resource.
-      type: object
-      properties: ...
-
-    items:
-      description: Array of collection items.
-      type: array
-      required: false
-      items:
-        type: ...
-----
-
-*Note:* While you may support cursors for {next}, {prev}, {first}, {last}, and
-{self} (see <<pagination-fields>>), it is best practice to replace these with
-links in favor of <<161>>.
-
-The response page may contain additional metadata about the collection or the
-current page.
-
-
-[[address-fields]]
-=== Address fields
-
-Address structures play a role in different functional and use-case
-contexts, including country variances. All attributes that relate to
-address information should follow the naming and semantics defined
-below.
-
-[source,yaml]
-----
-addressee:
-  description: a (natural or legal) person that gets addressed
-  type: object
-  properties:
-    salutation:
-      description: |
-        a salutation and/or title used for personal contacts to some
-        addressee; not to be confused with the gender information!
-      type: string
-      example: Mr
-    first_name:
-      description: |
-        given name(s) or first name(s) of a person; may also include the
-        middle names.
-      type: string
-      example: Hans Dieter
-    last_name:
-      description: |
-        family name(s) or surname(s) of a person
-      type: string
-      example: Mustermann
-    business_name:
-      description: |
-        company name of the business organization. Used when a business is
-        the actual addressee; for personal shipments to office addresses, use
-        `care_of` instead.
-      type: string
-      example: Consulting Services GmbH
-  required:
-    - first_name
-    - last_name
-
-address:
-  description:
-    an address of a location/destination
-  type: object
-  properties:
-    care_of:
-      description: |
-        (aka c/o) the person that resides at the address, if different from
-        addressee. E.g. used when sending a personal parcel to the
-        office /someone else's home where the addressee resides temporarily
-      type: string
-      example: Consulting Services GmbH
-    street:
-      description: |
-        the full street address including house number and street name
-      type: string
-      example: Schönhauser Allee 103
-    additional:
-      description: |
-        further details like building name, suite, apartment number, etc.
-      type: string
-      example: 2. Hinterhof rechts
-    city:
-      description: |
-        name of the city / locality
-      type: string
-      example: Berlin
-    zip:
-      description: |
-        zip code or postal code
-      type: string
-      example: 14265
-    country_code:
-      description: |
-        the country code according to
-        [iso-3166-1-alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
-      type: string
-      example: DE
-  required:
-    - street
-    - city
-    - zip
-    - country_code
-----
-
-Grouping and cardinality of fields in specific data types may vary based
-on the specific use case (e.g. combining addressee and address fields
-into a single type when modeling an address label vs distinct addressee
-and address types when modeling users and their addresses).

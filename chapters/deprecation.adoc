@@ -1,5 +1,5 @@
 [[deprecation]]
-= Deprecation
+= REST Design - Deprecation
 
 Sometimes it is necessary to phase out an API endpoint, an API version, or an
 API feature, e.g. if a field or parameter is no longer supported or a whole
@@ -9,6 +9,20 @@ are breaking changes and not allowed. To progress the following deprecation
 rules have to be applied to make sure that the necessary consumer changes and
 actions are well communicated and aligned using _deprecation_ and _sunset_
 dates.
+
+
+[#187]
+== {MUST} reflect deprecation in API specifications
+
+The API deprecation must be part of the API specification.
+
+If an API endpoint (operation object), an input argument (parameter object),
+an in/out data object (schema object), or on a more fine grained level, a
+schema attribute or property should be deprecated, the producers must set
+`deprecated: true` for the affected element and add further explanation to the
+`description` section of the API specification. If a future shut down is
+planned, the producer must provide a sunset date and document in details
+what consumers should use instead and how to migrate.
 
 
 [#185]
@@ -32,20 +46,6 @@ announced deprecation. All external partners must state consent with this
 after-deprecation-life-span, i.e. the minimum time span between official
 deprecation and first possible sunset, *before* they are allowed to use the
 API.
-
-
-[#187]
-== {MUST} reflect deprecation in API specifications
-
-The API deprecation must be part of the API specification.
-
-If an API endpoint (operation object), an input argument (parameter object),
-an in/out data object (schema object), or on a more fine grained level, a
-schema attribute or property should be deprecated, the producers must set
-`deprecated: true` for the affected element and add further explanation to the
-`description` section of the API specification. If a future shut down is
-planned, the producer must provide a sunset date and document in details
-what consumers should use instead and how to migrate.
 
 
 [#188]

@@ -1,5 +1,5 @@
 [[security]]
-= REST - Security
+= REST Basics - Security
 
 
 [#104]

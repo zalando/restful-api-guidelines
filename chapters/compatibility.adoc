@@ -1,5 +1,5 @@
 [[compatibility]]
-= Compatibility
+= REST Design - Compatibility
 
 
 [#106]
@@ -60,34 +60,6 @@ services in a backward-compatible way:
 * Support redirection in case an URL has to change {301} (Moved Permanently).
 
 
-[#108]
-== {MUST} prepare clients to accept compatible API extensions
-
-Service clients should apply the robustness principle:
-
-* Be conservative with API requests and data passed as input, e.g. avoid to
-  exploit definition deficits like passing megabytes of strings with
-  unspecified maximum length.
-* Be tolerant in processing and reading data of API responses, more
-  specifically...
-
-Service clients must be prepared for compatible API extensions of service
-providers:
-
-* Be tolerant with unknown fields in the payload (see also Fowler’s
-  http://martinfowler.com/bliki/TolerantReader.html["TolerantReader"] post),
-  i.e. ignore new fields but do not eliminate them from payload if needed for
-  subsequent {PUT} requests.
-* Be prepared that {x-extensible-enum} return parameter may deliver new values;
-  either be agnostic or provide default behavior for unknown values.
-* Be prepared to handle HTTP status codes not explicitly specified in endpoint
-  definitions. Note also, that status codes are extensible. Default handling is
-  how you would treat the corresponding {x00} code (see
-  {RFC-7231}#section-6[RFC 7231 Section 6]).
-* Follow the redirect when the server returns HTTP status code {301} (Moved
-  Permanently).
-
-
 [#109]
 == {SHOULD} design APIs conservatively
 
@@ -132,17 +104,32 @@ can be removed from the API definition as long as the server ignores this
 specific parameter.
 
 
-[#110]
-== {MUST} always return JSON objects as top-level data structures
+[#108]
+== {MUST} prepare clients to accept compatible API extensions
 
-In a response body, you must always return a JSON object (and not e.g. an
-array) as a top level data structure to support future extensibility. JSON
-objects support compatible extension by additional attributes. This allows you
-to easily extend your response and e.g. add pagination later, without breaking
-backwards compatibility. See <<161>> for an example.
+Service clients should apply the robustness principle:
 
-Maps (see <<216>>), even though technically objects, are also forbidden as top
-level data structures, since they don't support compatible, future extensions.
+* Be conservative with API requests and data passed as input, e.g. avoid to
+  exploit definition deficits like passing megabytes of strings with
+  unspecified maximum length.
+* Be tolerant in processing and reading data of API responses, more
+  specifically...
+
+Service clients must be prepared for compatible API extensions of service
+providers:
+
+* Be tolerant with unknown fields in the payload (see also Fowler’s
+  http://martinfowler.com/bliki/TolerantReader.html["TolerantReader"] post),
+  i.e. ignore new fields but do not eliminate them from payload if needed for
+  subsequent {PUT} requests.
+* Be prepared that {x-extensible-enum} return parameter may deliver new values;
+  either be agnostic or provide default behavior for unknown values.
+* Be prepared to handle HTTP status codes not explicitly specified in endpoint
+  definitions. Note also, that status codes are extensible. Default handling is
+  how you would treat the corresponding {x00} code (see
+  {RFC-7231}#section-6[RFC 7231 Section 6]).
+* Follow the redirect when the server returns HTTP status code {301} (Moved
+  Permanently).
 
 
 [#111]
@@ -176,38 +163,6 @@ Note that this guideline concentrates on default extensibility and does not
 exclude the use of `additionalProperties` with a schema as a value, which might
 be appropriate in some circumstances, e.g. see <<216>>.
 
-
-[#112]
-== {SHOULD} used open-ended list of values (`x-extensible-enum`) for enumerations
-
-Enumerations are per definition closed sets of values, that are assumed to be
-complete and not intended for extension. This closed principle of enumerations
-imposes compatibility issues when an enumeration must be extended. To avoid
-these issues, we strongly recommend to use an open-ended list of values instead
-of an enumeration unless:
-
-1. the API has full control of the enumeration values, i.e. the list of values
-  does not depend on any external tool or interface, and
-2. the list of value is complete with respect to any thinkable and unthinkable
-  future feature.
-
-To specify an open-ended list of values use the marker {x-extensible-enum} as
-follows:
-
-[source,yaml]
-----
-delivery_methods:
-  type: string
-  x-extensible-enum:
-    - PARCEL
-    - LETTER
-    - EMAIL
-----
-
-*Note:* {x-extensible-enum} is not JSON Schema conform but will be ignored by
-most tools.
-
-See <<240>> about enum value naming conventions.
 
 [#113]
 == {SHOULD} avoid versioning
@@ -313,3 +268,49 @@ coordinating version upgrades — especially with hyperlinked service
 dependencies — when using URL versioning. To avoid this tighter coupling and
 complexer release management we do not use URL versioning, instead we <<114>>
 with content negotiation.
+
+
+[#110]
+== {MUST} always return JSON objects as top-level data structures
+
+In a response body, you must always return a JSON object (and not e.g. an
+array) as a top level data structure to support future extensibility. JSON
+objects support compatible extension by additional attributes. This allows you
+to easily extend your response and e.g. add pagination later, without breaking
+backwards compatibility. See <<161>> for an example.
+
+Maps (see <<216>>), even though technically objects, are also forbidden as top
+level data structures, since they don't support compatible, future extensions.
+
+
+[#112]
+== {SHOULD} used open-ended list of values (`x-extensible-enum`) for enumerations
+
+Enumerations are per definition closed sets of values, that are assumed to be
+complete and not intended for extension. This closed principle of enumerations
+imposes compatibility issues when an enumeration must be extended. To avoid
+these issues, we strongly recommend to use an open-ended list of values instead
+of an enumeration unless:
+
+1. the API has full control of the enumeration values, i.e. the list of values
+  does not depend on any external tool or interface, and
+2. the list of value is complete with respect to any thinkable and unthinkable
+  future feature.
+
+To specify an open-ended list of values use the marker {x-extensible-enum} as
+follows:
+
+[source,yaml]
+----
+delivery_methods:
+  type: string
+  x-extensible-enum:
+    - PARCEL
+    - LETTER
+    - EMAIL
+----
+
+*Note:* {x-extensible-enum} is not JSON Schema conform but will be ignored by
+most tools.
+
+See <<240>> about enum value naming conventions.

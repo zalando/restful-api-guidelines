@@ -1,5 +1,5 @@
 [[http-status-codes-and-errors]]
-= HTTP status codes and errors
+= REST Basics - HTTP status codes
 
 
 [#151]
