@@ -858,10 +858,15 @@ and use it as an idempotency check.
 It is the responsibility of the producer to ensure event identifiers do
 in fact distinctly identify events published for a specific event type.
 A straightforward way to create a unique identifier for an event is to
-generate a UUID value. However, due to "at-least-once" delivery guarantees
-that most message brokers provide, event producers need to ensure that
-subsequent attempts to publish an event do use the same identifier as the
-initial (possibly failed) attempt.
+generate a UUID value. However, event producers need to ensure that
+retried attempts to publish an event, e.g. as a mitigation of temporary
+Nakadi or network failures, use the same event identifier as the initial
+(possibly failed) attempt.
+
+*Hint:* Using the same `eid` for retries can be ensured, e.g. by
+deterministic UUID computation functions, which are only based on event
+attributes (producing UUIDs without random components), or some form of
+intermediate persistence, like the dead letter queues.
 
 Event identifiers facilitate event duplicate detection by event consumers --
 see <<214>>.
