@@ -551,10 +551,9 @@ DataChangeEvent:
         - S: A snapshot of an entity at a point in time.
 ----
 
-The Data Change Event Category is structurally different to the General
-Event Category defining a field called `data` as container for the custom
-payload, as well as specific information related to data
-changes in the `data_type`. 
+The Data Change Event Category is structurally different to the General Event Category 
+by defining a field called `data` as container for the custom payload, as well as 
+specific information related to data changes in the `data_op`. 
 
 The following guidelines specifically apply to Data Change Events:
 
