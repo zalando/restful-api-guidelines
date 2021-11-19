@@ -170,14 +170,13 @@ However, they also come with some disadvantages:
   conventions that might be helpful for pragmatic reasons, e.g. we learned to
   use names for product attributes, instead of UUIDs
 * less usable, because...
-* cannot be memorized and easily communicated by humans
-* harder to use in debugging and logging analysis
-* less convenient for consumer facing usage
+** cannot be memorized and easily communicated by humans
+** harder to use in debugging and logging analysis
+** less convenient for consumer facing usage
 * quite long: readable representation requires 36 characters and comes with
   higher memory and bandwidth consumption
 * not ordered along their creation history and no indication of used id volume
-* may be in conflict with additional backward compatibility support of legacy
-  ids
+* may be in conflict with additional backward compatibility support of legacy ids
 
 UUIDs should be avoided when not needed for large scale id generation. Instead,
 for instance, server side support with id generation can be preferred ({POST}

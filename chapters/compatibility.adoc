@@ -113,22 +113,20 @@ Service clients should apply the robustness principle:
   exploit definition deficits like passing megabytes of strings with
   unspecified maximum length.
 * Be tolerant in processing and reading data of API responses, more
-  specifically...
+  specifically srvice clients must be prepared for compatible API extensions 
+  of response data:
 
-Service clients must be prepared for compatible API extensions of service
-providers:
-
-* Be tolerant with unknown fields in the payload (see also Fowler’s
+** Be tolerant with unknown fields in the payload (see also Fowler’s
   http://martinfowler.com/bliki/TolerantReader.html["TolerantReader"] post),
   i.e. ignore new fields but do not eliminate them from payload if needed for
   subsequent {PUT} requests.
-* Be prepared that {x-extensible-enum} return parameter may deliver new values;
+** Be prepared that {x-extensible-enum} return parameter may deliver new values;
   either be agnostic or provide default behavior for unknown values.
-* Be prepared to handle HTTP status codes not explicitly specified in endpoint
+** Be prepared to handle HTTP status codes not explicitly specified in endpoint
   definitions. Note also, that status codes are extensible. Default handling is
   how you would treat the corresponding {x00} code (see
   {RFC-7231}#section-6[RFC 7231 Section 6]).
-* Follow the redirect when the server returns HTTP status code {301} (Moved
+** Follow the redirect when the server returns HTTP status code {301} (Moved
   Permanently).
 
 
