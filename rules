@@ -114,7 +114,7 @@
     },
     {
       "id": "#132",
-      "title": "SHOULD use uppercase separate words with hyphens for HTTP headers"
+      "title": "SHOULD use kebab-case with uppercase separate words for HTTP headers"
     },
     {
       "id": "#133",
@@ -166,7 +166,7 @@
     },
     {
       "id": "#145",
-      "title": "MAY consider using (non-)nested URLs"
+      "title": "MAY consider using (non-) nested URLs"
     },
     {
       "id": "#146",
@@ -370,11 +370,11 @@
     },
     {
       "id": "#197",
-      "title": "MUST ensure that events are registered as event types"
+      "title": "MUST specify and register events as event types"
     },
     {
       "id": "#198",
-      "title": "MUST ensure that events conform to a well-known event category"
+      "title": "MUST ensure that events conform to an event category"
     },
     {
       "id": "#199",
@@ -386,7 +386,7 @@
     },
     {
       "id": "#201",
-      "title": "MUST use the general event category to signal steps and arrival points in business processes"
+      "title": "MUST use general events to signal steps in business processes"
     },
     {
       "id": "#202",
@@ -410,7 +410,7 @@
     },
     {
       "id": "#208",
-      "title": "MUST define event payloads compliant with overall API guidelines"
+      "title": "MUST define events compliant with overall API guidelines"
     },
     {
       "id": "#209",
@@ -418,7 +418,7 @@
     },
     {
       "id": "#210",
-      "title": "SHOULD avoid `additionalProperties` in event type definitions"
+      "title": "SHOULD avoid `additionalProperties` in event type schemas"
     },
     {
       "id": "#211",
@@ -446,7 +446,7 @@
     },
     {
       "id": "#217",
-      "title": "MUST use full, absolute URI"
+      "title": "MUST use full, absolute URI for resource identification"
     },
     {
       "id": "#218",
@@ -474,7 +474,7 @@
     },
     {
       "id": "#226",
-      "title": "MUST document implicit filtering"
+      "title": "MUST document implicit response filtering"
     },
     {
       "id": "#227",
@@ -482,7 +482,7 @@
     },
     {
       "id": "#228",
-      "title": "MUST use URL-friendly resource identifiers: [a-zA-Z0-9:._\\-/]*"
+      "title": "MUST use URL-friendly resource identifiers"
     },
     {
       "id": "#229",
@@ -543,6 +543,26 @@
     {
       "id": "#244",
       "title": "SHOULD use content negotiation, if clients may choose from different resource representations"
+    },
+    {
+      "id": "#245",
+      "title": "MUST carefully define the compatibility mode "
+    },
+    {
+      "id": "#246",
+      "title": "MUST use semantic versioning of event type schemas "
+    },
+    {
+      "id": "#247",
+      "title": "MUST provide mandatory event metadata"
+    },
+    {
+      "id": "#248",
+      "title": "SHOULD use pagination response page object"
+    },
+    {
+      "id": "#249",
+      "title": "MUST use the common address fields"
     }
   ]
 }
