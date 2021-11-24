@@ -1,5 +1,5 @@
 [[pagination]]
-= Pagination
+= REST Design - Pagination
 
 
 [#159]
@@ -62,6 +62,88 @@ never be *inspected* or *constructed* by clients. It usually encodes (encrypts)
 the page position, i.e. the identifier of the first or last page element, the
 pagination direction, and the applied query filters - or a hash over these -
 to safely recreate the collection (see also <<cursor-based-pagination>>).
+
+
+[#248]
+== {SHOULD} use pagination response page object
+
+[[pagination-fields]]
+For iterating over collections (result sets) we propose to either use cursors
+(see <<160>>) or simple hypertext controls (see <<161>>). To implement these
+in a consistent way, we have defined a response page object pattern with the
+following field semantics:
+
+* [[self]]{self}:the link or cursor in a pagination response or object
+  pointing to the same collection object or page.
+* [[first]]{first}: the link or cursor in a pagination response or object
+  pointing to the first collection object or page.
+* [[prev]]{prev}: the link or cursor in a pagination response or object
+  pointing to the previous collection object or page.
+* [[next]]{next}: the link or cursor in a pagination response or object
+  pointing to the next collection object or page.
+* [[last]]{last}: the link or cursor in a pagination response or object
+  pointing to the last collection object or page.
+
+Pagination responses should contain the following additional array field to
+transport the page content:
+
+* [[items]]{items}: array of resources, holding all the items of the current
+  page ({items} may be replaced by a resource name).
+
+To simplify user experience, the applied query filters may be returned using
+the following field (see also {GET-with-body}):
+
+* [[query]]{query}: object containing the query filters applied in the search
+  request to filter the collection resource.
+
+As Result, the standard response page using <<160, cursors>> or <<161,
+pagination links>> may be defined as follows:
+
+[source,yaml]
+----
+ResponsePage:
+  type: object
+  required:
+    - items
+    - next
+  properties:
+    self:
+      description: Pagination link|cursor pointing to the current page.
+      type: string
+      format: uri|cursor
+    first:
+      description: Pagination link|cursor pointing to the first page.
+      type: string
+      format: uri|cursor
+    prev:
+      description: Pagination link|cursor pointing to the previous page.
+      type: string
+      format: uri|cursor
+    next:
+      description: Pagination link|cursor pointing to the next page.
+      type: string
+      format: uri|cursor
+    last:
+      description: Pagination link|cursor pointing to the last page.
+      type: string
+      format: uri|cursor
+
+    query:
+      description: >
+        Object containing the query filters applied to the collection resource.
+      type: object
+      properties: ...
+
+    items:
+      description: Array of collection items.
+      type: array
+      required: false
+      items:
+        type: ...
+----
+
+*Note:* While you may support cursors for {next}, {prev}, {first}, {last}, and
+{self}, it is best practice to replace these with links in favor of <<161>>.
 
 
 [#161]

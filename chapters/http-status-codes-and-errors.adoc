@@ -1,5 +1,5 @@
 [[http-status-codes-and-errors]]
-= HTTP status codes and errors
+= REST Basics - HTTP status codes
 
 
 [#151]
@@ -85,7 +85,7 @@ OK - this is the standard success response
 |[[status-code-201]]{201}|
 Created - Returned on successful entity creation. You are
 free to return either an empty response or the created resource in conjunction
-with the Location header. (More details found in the <<common-headers>>.)
+with the Location header. (More details found in the <<standard-headers>>.)
 _Always_ set the Location header.
 |{POST}, {PUT}
 
