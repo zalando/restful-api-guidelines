@@ -62,7 +62,7 @@ web servers like Nginx, that we do not suggest to use).
 The most commonly used codes are best understood and listed below as subset of
 the official HTTP status codes and consistent with their semantics in the RFCs.
 We avoid less commonly used codes that easily create misconceptions due to
-less familar semantics and API specific interpretations.
+less familiar semantics and API specific interpretations.
 
 **Important:** As long as your HTTP status code usage is well covered by the
 semantic defined here, you should not describe it to avoid an overload with
@@ -238,7 +238,7 @@ about your request processing status or error situations.
 Some APIs are required to provide either _batch_ or _bulk_ requests using
 {POST} for performance reasons, i.e. for communication and processing
 efficiency. In this case services may be in need to signal multiple response
-codes for each part of an batch or bulk request. As HTTP does not provide
+codes for each part of a batch or bulk request. As HTTP does not provide
 proper guidance for handling batch/bulk requests and responses, we herewith
 define the following approach:
 
@@ -357,7 +357,7 @@ codes).
 *Note:* Clients must be robust and *not rely* on a Problem JSON object
 being returned, since (a) failure responses may be created by infrastructure
 components not aware of this guideline or (b) service may be unable to comply
-with this guidelines in certain error situations.
+with this guideline in certain error situations.
 
 *Hint:* The media type `application/problem+json` is often not implemented as
 a subset of `application/json` by libraries and services! Thus clients need to

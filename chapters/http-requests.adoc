@@ -180,7 +180,7 @@ forced by a <<106,backwards compatible change>>). In preference order:
 
 In practice {RFC-7396}[JSON Merge Patch] quickly turns out to be too limited,
 especially when trying to update single objects in large collections (as part
-of the resource). In this cases {RFC-6902}[JSON Patch] is more powerful
+of the resource). In this case {RFC-6902}[JSON Patch] is more powerful
 while still showing readable patch requests (see also
 http://erosb.github.io/post/json-patch-vs-merge-patch[JSON patch vs. merge]).
 JSON Patch supports changing of array elements identified via its index, but 
@@ -293,7 +293,7 @@ Request methods in RESTful services can be...
   returning the same response or status code.
 * [[cacheable, cacheable]]{RFC-cacheable} - to indicate that responses are
   allowed to be stored for future reuse. In general, requests to safe methods
-  are cachable, if it does not require a current or authoritative response
+  are cacheable, if it does not require a current or authoritative response
   from the server.
 
 *Note:* The above definitions, of _intended (side) effect_ allows the server

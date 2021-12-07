@@ -108,4 +108,4 @@ compatibility (<<176>> on how to replace).
 
 As we control these URLs, we ensure that their content is *durable* and
 *immutable*. This allows to define API specifications by using fragments
-published via this sources, as suggested in <<151>>.
+published via these sources, as suggested in <<151>>.

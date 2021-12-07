@@ -29,7 +29,7 @@ Semantic Versioning 2.0] rules `1` to `8` and `11` restricted to the format
 <MAJOR>.<MINOR>.<PATCH> for versions as follows:
 
 * Increment the **MAJOR** version when you make incompatible API changes
-after having aligned this changes with consumers,
+after having aligned the changes with consumers,
 * Increment the **MINOR** version when you add new functionality in a
 backwards-compatible manner, and
 * Optionally increment the **PATCH** version when you make
@@ -185,7 +185,7 @@ API Audience narrative (internal link)].
 == {MUST-SHOULD} use functional naming schema
 
 Functional naming is a powerful, yet easy way to align global resources as
-_host_, _permission_, and _event names_ within an the application landscape. It
+_host_, _permission_, and _event names_ within an application landscape. It
 helps to preserve uniqueness of names while giving readers meaningful context
 information about the addressed component. Besides, the most important aspect
 is, that it allows to keep APIs stable in the case of technical and
@@ -257,6 +257,6 @@ and *only* allowed for hostnames of <<219, component-internal>> APIs:
 
 *Exception:* There are legacy hostnames used for APIs with `external-partner` audience 
 which may not follow this rule due to backward compatibility constraints. 
-The API Linter maintains a whitelist for this exceptions (including e.g. 
+The API Linter maintains an allow-list for these exceptions (including e.g. 
 `api.merchants.zalando.com` and `api-sandbox.merchants.zalando.com`).
 
