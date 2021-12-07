@@ -1,5 +1,5 @@
 [[http-requests]]
-= HTTP requests and responses
+= REST Basics - HTTP requests
 
 
 [#148]
@@ -529,7 +529,7 @@ Feel free to also get some inspiration from:
 
 
 [#226]
-== {MUST} document implicit filtering
+== {MUST} document implicit response filtering
 
 Sometimes certain collection resources or queries will not list all the
 possible elements they have, but only those for which the current client 

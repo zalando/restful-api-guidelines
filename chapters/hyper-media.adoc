@@ -1,5 +1,5 @@
 [[hypermedia]]
-= Hypermedia
+= REST Design - Hypermedia
 
 
 [#162]
@@ -65,19 +65,6 @@ its additional complexity. If you use HATEOAS please share experience and
 present your findings in the
 https://confluence.zalando.net/display/GUL/API+Guild[API Guild [internal
 link]].
-
-
-[#217]
-== {MUST} use full, absolute URI
-
-Links to other resource must always use full, absolute URI.
-
-*Motivation*: Exposing any form of relative URI (no matter if the relative
-URI uses an absolute or relative path) introduces avoidable client side
-complexity. It also requires clarity on the base URI, which might not be given
-when using features like embedding subresources. The primary advantage of
-non-absolute URI is reduction of the payload size, which is better achievable
-by following the recommendation to use <<156,gzip compression>>
 
 
 [#164]
@@ -159,6 +146,19 @@ corresponding {link-relations}[link relations], e.g. {next}, {prev}, {first},
 {last}, or {self}.
 
 See <<164>> and <<161>> for more information and examples.
+
+
+[#217]
+== {MUST} use full, absolute URI for resource identification
+
+Links to other resource must always use full, absolute URI.
+
+*Motivation*: Exposing any form of relative URI (no matter if the relative
+URI uses an absolute or relative path) introduces avoidable client side
+complexity. It also requires clarity on the base URI, which might not be given
+when using features like embedding subresources. The primary advantage of
+non-absolute URI is reduction of the payload size, which is better achievable
+by following the recommendation to use <<156,gzip compression>>
 
 
 [#166]

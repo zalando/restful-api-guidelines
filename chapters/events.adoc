@@ -1,13 +1,10 @@
 [[events]]
-= Events
+= EVENT Basics - Event Types
 
 Zalando’s architecture centers around decoupled microservices and in
 that context we favour asynchronous event driven approaches. The
-guidelines in this section focus on how to design and publish events
+guidelines focus on how to design and publish events
 intended to be shared for others to consume.
-
-
-== Events, event types, and categories
 
 Events are defined using an item called an _Event Type_. The Event Type
 allows events to have their structure declared with a schema by
@@ -30,8 +27,37 @@ event type and the schema for its custom data.
 
 The basic model described above was originally developed in the
 https://github.com/zalando/nakadi[Nakadi project], which acts as a
-reference implementation of the event type registry, and as a validating
+reference implementation (see also 
+https://apis.zalando.net/apis/nakadi-event-bus-api-definition/ui[Nakadi API[internal link]])
+of the event type registry, and as a validating
 publish/subscribe broker for event producers and consumers.
+
+ 
+[#208]
+== {MUST} define events compliant with overall API guidelines
+
+Events must be consistent with other API data and the API Guidelines in
+general (as far as applicable).
+
+Everything expressed in the <<introduction>> to
+these Guidelines is applicable to event data interchange between
+services. This is because our events, just like our APIs, represent a
+commitment to express what our systems do and designing high-quality,
+useful events allows us to develop new and interesting products and
+services.
+
+What distinguishes events from other kinds of data is the delivery style
+used, asynchronous publish-subscribe messaging. But there is no reason
+why they could not be made available using a REST API, for example via a
+search request or as a paginated feed, and it will be common to base
+events on the models created for the service’s REST API.
+
+The following existing guideline sections are applicable to events:
+
+* <<general-guidelines>>
+* <<data-formats>>
+* <<json-guidelines>>
+* <<hypermedia>>
 
 
 [#194]
@@ -51,55 +77,8 @@ Services publishing event data for use by others must make the event
 schema as well as the event type definition available for review.
 
 
-[#196]
-== {MUST} ensure event schema conforms to OpenAPI schema object
-
-To align the event schema specifications to API specifications, we use
-the Schema Object as defined by the OpenAPI Specifications to define event
-schemas. This is particularly useful for events that represent data changes
-about resources also used in other APIs.
-
-The https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#schemaObject[OpenAPI Schema Object] 
-is an **extended subset** of
-http://json-schema.org/[JSON Schema Draft 4]. For convenience,
-we highlight some important differences below. Please refer to the
-https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#schemaObject[OpenAPI Schema Object specification] 
-for details.
-
-As the OpenAPI Schema Object specification _removes_ some JSON Schema
-keywords, the following properties *must not* be used in event schemas:
-
-* `additionalItems`
-* `contains`
-* `patternProperties`
-* `dependencies`
-* `propertyNames`
-* `const`
-* `not`
-* `oneOf`
-
-On the other side Schema Object _redefines_ some JSON Schema keywords:
-
-* `additionalProperties`: For event types that declare compatibility
-guarantees, there are recommended constraints around the use of this
-field. See the guideline <<210>> for details.
-
-Finally, the Schema Object _extends_ JSON Schema with some keywords:
-
-* `readOnly`: events are logically immutable, so `readOnly` can be
-considered redundant, but harmless.
-* `discriminator`: to support polymorphism, as an alternative to `oneOf`.
-* `^x-`: patterned objects in the form of
-https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#vendorExtensions[vendor
-extensions] can be used in event type schema, but it might be the case
-that general purpose validators do not understand them to enforce a
-validation check, and fall back to must-ignore processing. A future
-version of the guidelines may define well known vendor extensions for
-events.
-
-
 [#197]
-== {MUST} ensure that events are registered as event types
+== {MUST} specify and register events as event types
 
 In Zalando's architecture, events are registered using a structure
 called an _Event Type_. The Event Type declares standard information as
@@ -115,46 +94,6 @@ category.
 
 Event Types allow easier discovery of event information and ensure that
 information is well-structured, consistent, and can be validated.
-
-Event type owners must pay attention to the choice of compatibility
-mode. The mode provides a means to evolve the schema. The range of
-modes are designed to be flexible enough so that producers can evolve
-schemas while not inadvertently breaking existing consumers:
-
-* `none`: Any schema modification is accepted, even if it might break
-existing producers or consumers. When validating events, undefined
-properties are accepted unless declared in the schema.
-* `forward`: A schema `S1` is forward compatible if the previously
-registered schema, `S0` can read events defined by `S1` - that is,
-consumers can read events tagged with the latest schema version using
-the previous version as long as consumers follow the robustness
-principle described in the guideline's <<api-design-principles>>.
-* `compatible`: This means changes are fully compatible. A new schema,
-`S1`, is fully compatible when every event published since the first
-schema version will validate against the latest schema. In compatible
-mode, only the addition of new optional properties and definitions to an
-existing schema is allowed. Other changes are forbidden.
-
-The compatibility mode interact with revision numbers in the schema
-`version` field, which follows semantic versioning (MAJOR.MINOR.PATCH):
-
-* Changing an event type with compatibility mode `compatible` can lead
-to a PATCH or MINOR version revision. MAJOR breaking changes are not
-allowed.
-* Changing an event type with compatibility mode `forward` can lead to a
-PATCH or MINOR version revision. MAJOR breaking changes are not allowed.
-* Changing an event type with compatibility mode `none` can lead to
-PATCH, MINOR or MAJOR level changes.
-
-The following examples illustrate this relations:
-
-* Changes to the event type's `title` or `description` are considered
-PATCH level.
-* Adding new optional fields to an event type's schema is considered a
-MINOR level change.
-* All other changes are considered MAJOR level, such as renaming or
-removing fields, or adding new required fields.
-
 The core Event Type structure is shown below as an OpenAPI object
 definition:
 
@@ -322,8 +261,190 @@ with supplemental information, such as how events are partitioned in the
 stream (see <<204>>).
 
 
-[#198]
-== {MUST} ensure that events conform to a well-known event category
+[#213]
+== {MUST} follow naming convention for event type names
+
+Event type names must (or should, see <<223>> for details and definition)
+conform to the functional naming depending on the <<219, audience>> as follows:
+
+[source,bnf]
+----
+<event-type-name>       ::= <functional-event-name> | <application-event-name>
+
+<functional-event-name> ::= <functional-name>.<event-name>[.<version>]
+
+<event-name>            ::= [a-z][a-z0-9-]* -- free event name (functional name)
+
+<version>               ::= V[0-9.]* -- major version of non compatible schemas
+----
+
+*Hint:* The following convention (e.g. used by legacy STUPS infrastructure) is deprecated 
+and *only* allowed for <<223, internal>> event type names:
+
+[source,bnf]
+----
+<application-event-name> ::= [<organization-id>.]<application-id>.<event-name>
+<organization-id>  ::= [a-z][a-z0-9-]* -- organization identifier, e.g. team identifier
+<application-id>   ::= [a-z][a-z0-9-]* -- application identifier
+----
+
+**Note:** consistent naming should be used whenever the same entity is exposed
+by a data change event and a RESTful API.
+
+
+[#207]
+== {MUST} indicate ownership of event types
+
+Event definitions must have clear ownership - this can be indicated via
+the `owning_application` field of the EventType.
+
+Typically there is one producer application, which owns the EventType
+and is responsible for its definition, akin to how RESTful API
+definitions are managed. However, the owner may also be a particular
+service from a set of multiple services that are producing the same kind
+of event.
+
+
+[#245]
+== {MUST} carefully define the compatibility mode 
+
+Event type owners must pay attention to the choice of compatibility
+mode. The mode provides a means to evolve the schema. The range of
+modes are designed to be flexible enough so that producers can evolve
+schemas while not inadvertently breaking existing consumers:
+
+* `none`: Any schema modification is accepted, even if it might break
+existing producers or consumers. When validating events, undefined
+properties are accepted unless declared in the schema.
+* `forward`: A schema `S1` is forward compatible if the previously
+registered schema, `S0` can read events defined by `S1` - that is,
+consumers can read events tagged with the latest schema version using
+the previous version as long as consumers follow the robustness
+principle described in the guideline's <<api-design-principles>>.
+* `compatible`: This means changes are fully compatible. A new schema,
+`S1`, is fully compatible when every event published since the first
+schema version will validate against the latest schema. In compatible
+mode, only the addition of new optional properties and definitions to an
+existing schema is allowed. Other changes are forbidden.
+
+
+[#196]
+== {MUST} ensure event schema conforms to OpenAPI schema object
+
+To align the event schema specifications to API specifications, we use
+the Schema Object as defined by the OpenAPI Specifications to define event
+schemas. This is particularly useful for events that represent data changes
+about resources also used in other APIs.
+
+The https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#schemaObject[OpenAPI Schema Object] 
+is an **extended subset** of
+http://json-schema.org/[JSON Schema Draft 4]. For convenience,
+we highlight some important differences below. Please refer to the
+https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#schemaObject[OpenAPI Schema Object specification] 
+for details.
+
+As the OpenAPI Schema Object specification _removes_ some JSON Schema
+keywords, the following properties *must not* be used in event schemas:
+
+* `additionalItems`
+* `contains`
+* `patternProperties`
+* `dependencies`
+* `propertyNames`
+* `const`
+* `not`
+* `oneOf`
+
+On the other side Schema Object _redefines_ some JSON Schema keywords:
+
+* `additionalProperties`: For event types that declare compatibility
+guarantees, there are recommended constraints around the use of this
+field. See the guideline <<210>> for details.
+
+Finally, the Schema Object _extends_ JSON Schema with some keywords:
+
+* `readOnly`: events are logically immutable, so `readOnly` can be
+considered redundant, but harmless.
+* `discriminator`: to support polymorphism, as an alternative to `oneOf`.
+* `^x-`: patterned objects in the form of
+https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#vendorExtensions[vendor
+extensions] can be used in event type schema, but it might be the case
+that general purpose validators do not understand them to enforce a
+validation check, and fall back to must-ignore processing. A future
+version of the guidelines may define well known vendor extensions for
+events.
+
+
+[#210]
+== {SHOULD} avoid `additionalProperties` in event type schemas
+
+Event type schema should avoid using `additionalProperties`
+declarations, in order to support schema evolution.
+
+Events are often intermediated by publish/subscribe systems and are
+commonly captured in logs or long term storage to be read later. In
+particular, the schemas used by publishers and consumers can +
+drift over time. As a result, compatibility and extensibility issues
+that happen less frequently with client-server style APIs become
+important and regular considerations for event design. The guidelines
+recommend the following to enable event schema evolution:
+
+* Publishers who intend to provide compatibility and allow their schemas
+to evolve safely over time *must not* declare an `additionalProperties`
+field with a value of `true` (i.e., a wildcard extension point). Instead
+they must define new optional fields and update their schemas in advance
+of publishing those fields.
+* Consumers *must* ignore fields they cannot process and not raise
+errors. This can happen if they are processing events with an older copy
+of the event schema than the one containing the new definitions
+specified by the publishers.
+
+The above constraint does not mean fields can never be added in future
+revisions of an event type schema - additive compatible changes are
+allowed, only that the new schema for an event type must define the
+field first before it is published within an event. By the same turn the
+consumer must ignore fields it does not know about from its copy of the
+schema, just as they would as an API client - that is, they cannot treat
+the absence of an `additionalProperties` field as though the event type
+schema was closed for extension.
+
+Requiring event publishers to define their fields ahead of publishing
+avoids the problem of _field redefinition_. This is when a publisher
+defines a field to be of a different type that was already being
+emitted, or, is changing the type of an undefined field. Both of these
+are prevented by not using `additionalProperties`.
+
+See also rule <<111>> in the <<compatibility>> section for further guidelines 
+on the use of `additionalProperties`.
+
+
+[#246]
+== {MUST} use semantic versioning of event type schemas 
+
+Event schemas must be versioned -- analog to <<116>> for REST API definitions. 
+The compatibility mode interact with revision numbers in the schema
+`version` field, which follows semantic versioning (MAJOR.MINOR.PATCH):
+
+* Changing an event type with compatibility mode `compatible` or `forward` 
+can lead to a PATCH or MINOR version revision. 
+MAJOR breaking changes are not allowed.
+* Changing an event type with compatibility mode `none` can lead to
+PATCH, MINOR or MAJOR level changes.
+
+The following examples illustrate this relations:
+
+* Changes to the event type's `title` or `description` are considered
+PATCH level.
+* Adding new optional fields to an event type's schema is considered a
+MINOR level change.
+* All other changes are considered MAJOR level, such as renaming or
+removing fields, or adding new required fields.
+
+
+//========================================================================================
+
+[[event-categories]]
+= EVENT Basics - Event Catagories 
 
 An _event category_ describes a generic class of event types. The
 guidelines define two such categories:
@@ -332,7 +453,11 @@ guidelines define two such categories:
 * Data Change Event: a category to inform about data entity changes 
   and used e.g. for data replication based data integration.
 
-A category describes a predefined structure (e.g. consisting of event 
+
+[#198]
+== {MUST} ensure that events conform to an event category
+
+A category describes a predefined structure (e.g. including event 
 metadata as part of the event payload) that event publishers must
 conform to along with standard information specific for the event category
 (e.g. the operation for data change events).
@@ -426,10 +551,9 @@ DataChangeEvent:
         - S: A snapshot of an entity at a point in time.
 ----
 
-The Data Change Event Category is structurally different to the General
-Event Category defining a field called `data` as container for the custom
-payload, as well as specific information related to data
-changes in the `data_type`. 
+The Data Change Event Category is structurally different to the General Event Category 
+by defining a field called `data` as container for the custom payload, as well as 
+specific information related to data changes in the `data_op`. 
 
 The following guidelines specifically apply to Data Change Events:
 
@@ -442,9 +566,14 @@ The following guidelines specifically apply to Data Change Events:
 [#event-metadata]
 === Event metadata
 
-The General and Data Change event categories share a common structure
-for _metadata_. The metadata structure is shown below as an OpenAPI
-Schema Object:
+[#247]
+== {MUST} provide mandatory event metadata
+
+The General and Data Change event categories share a common structure for _metadata_
+representing generic event information. Parts of the metadata is provided by the 
+Nakadi event messaging platform, but event identifier (eid) and event creation 
+timestamp (occured_at) have to be provided by the event producers. 
+The metadata structure is defined below as an OpenAPI Schema Object:
 
 [source,yaml]
 ----
@@ -469,21 +598,22 @@ EventMetadata:
       example: 'example.important-business-event'
     occurred_at:
       description: |
-         Technical timestamp of when the event object was created during processing of the
-         business event by the producer application. Note, it may differ from the timestamp 
-         when the related real-world business event happened (e.g. when the packet was handed 
-         over to the customer), which should be passed separately via an event type specific 
-         attribute. 
-         Depending on the producer implementation, the timestamp is typically some milliseconds  
-         earlier than when the event is published and received by the API event post endpoint 
-         server -- see below.
+         Technical timestamp of when the event object was created during processing 
+         of the business event by the producer application. Note, it may differ from 
+         the timestamp when the related real-world business event happened (e.g. when 
+         the packet was handed over to the customer), which should be passed separately 
+         via an event type specific attribute. 
+         Depending on the producer implementation, the timestamp is typically some 
+         milliseconds earlier than when the event is published and received by the 
+         API event post endpoint server -- see below.
       type: string
       format: date-time
       example: '1996-12-19T16:39:57-08:00'
     received_at:
       description: |
         Timestamp of when the event was received via the API event post endpoints. 
-        It is automatically enriched, and events will be rejected if set by the event producer.
+        It is automatically enriched, and events will be rejected if set by the 
+        event producer.
       type: string
       readOnly: true
       format: date-time
@@ -528,37 +658,38 @@ and consumers working with such systems should look into their documentation
 for additional information.
 
 
-[#199]
-== {MUST} ensure that events define useful business resources
+[#211]
+== {MUST} use unique event identifiers
 
-Events are intended to be used by other services including business
-process/data analytics and monitoring. They should be based around the
-resources and business processes you have defined for your service
-domain and adhere to its natural lifecycle (see also <<139>> and <<140>>).
+The `eid` (event identifier) value of an event must be unique.
 
-As there is a cost in creating an explosion of event types and topics,
-prefer to define event types that are abstract/generic enough to be
-valuable for multiple use cases, and avoid publishing event types
-without a clear need.
+The `eid` property is part of the standard <<event-metadata,metadata>>
+for an event and gives the event an identifier. Producing clients must
+generate this value when sending an event and it must be guaranteed to
+be unique from the perspective of the owning application. In particular
+events within a given event type's stream must have unique identifiers.
+This allows consumers to process the `eid` to assert the event is unique
+and use it as an idempotency check.
 
+It is the responsibility of the producer to ensure event identifiers do
+in fact distinctly identify events published for a specific event type.
+A straightforward way to create a unique identifier for an event is to
+generate a UUID value. However, event producers need to ensure that
+retried attempts to publish an event, e.g. as a mitigation of temporary
+Nakadi or network failures, use the same event identifier as the initial
+(possibly failed) attempt.
 
-[#200]
-== {MUST} ensure that events do not provide sensitive data
+*Hint:* Using the same `eid` for retries can be ensured, e.g. by
+deterministic UUID computation functions, which are only based on event
+attributes (producing UUIDs without random components), or some form of
+intermediate persistence, like the dead letter queues.
 
-Similar to API permission scopes, there will be event type permissions
-passed via an OAuth token supported in near future. In the meantime,
-teams are asked to note the following:
-
-* Sensitive data, such as (e-mail addresses, phone numbers, etc) are
-subject to strict access and data protection controls.
-* Event type owners *must not* publish sensitive information unless it's
-mandatory or necessary to do so. For example, events sometimes need to
-provide personal data, such as delivery addresses in shipment orders (as
-do other APIs), and this is fine.
+Event identifiers facilitate event duplicate detection by event consumers --
+see <<214>>.
 
 
 [#201]
-== {MUST} use the general event category to signal steps and arrival points in business processes
+== {MUST} use general events to signal steps in business processes
 
 When publishing events that represent steps in a business process, event
 types *must* be based on the General Event category. 
@@ -692,6 +823,84 @@ are a "should", they can be read as "must, unless you have a very good
 reason".
 
 
+//========================================================================================
+
+[[events-design]]
+= EVENT Design
+
+[#200]
+== {MUST} ensure that events do not provide sensitive data
+
+Similar to API permission scopes, there will be event type permissions
+passed via an OAuth token supported in near future. In the meantime,
+teams are asked to note the following:
+
+* Sensitive data, such as (e-mail addresses, phone numbers, etc) are
+subject to strict access and data protection controls.
+* Event type owners *must not* publish sensitive information unless it's
+mandatory or necessary to do so. For example, events sometimes need to
+provide personal data, such as delivery addresses in shipment orders (as
+do other APIs), and this is fine.
+
+
+[#214]
+== {MUST} prepare event consumers for duplicate events
+
+Event consumers must be able to process duplicate events.
+
+Most message brokers and data streaming systems offer "at-least-once"
+delivery. That is, one particular event is delivered to the consumers
+one or more times. Other circumstances can also cause duplicate events.
+
+For example, these situations occur if the publisher sends an event and
+doesn't receive the acknowledgment (e.g. due to a network issue). In
+this case, the publisher will try to send the same event again. This
+leads to two identical events in the event bus which have to be
+processed by the consumers. Similar conditions can appear on consumer
+side: an event has been processed successfully, but the consumer fails
+to confirm the processing.
+
+
+[#212]
+== {SHOULD} design for idempotent out-of-order processing
+
+Events that are designed for <<149,idempotent>> out-of-order
+processing allow for extremely resilient systems: If processing an event
+fails, consumers and producers can skip/delay/retry it without stopping
+the world or corrupting the processing result.
+
+To enable this freedom of processing, you must explicitly design for
+idempotent out-of-order processing: Either your events must contain
+enough information to infer their original order during consumption or
+your domain must be designed in a way that order becomes irrelevant.
+
+As common example similar to data change events, idempotent out-of-order
+processing can be supported by sending the following information:
+
+* the process/resource/entity identifier,
+* a <<203,monotonically increasing ordering key>> and
+* the process/resource state after the change.
+
+A receiver that is interested in the current state can then ignore
+events that are older than the last processed event of each resource. A
+receiver interested in the history of a resource can use the ordering
+key to recreate a (partially) ordered sequence of events.
+
+
+[#199]
+== {MUST} ensure that events define useful business resources
+
+Events are intended to be used by other services including business
+process/data analytics and monitoring. They should be based around the
+resources and business processes you have defined for your service
+domain and adhere to its natural lifecycle (see also <<139>> and <<140>>).
+
+As there is a cost in creating an explosion of event types and topics,
+prefer to define event types that are abstract/generic enough to be
+valuable for multiple use cases, and avoid publishing event types
+without a clear need.
+
+
 [#205]
 == {SHOULD} ensure that data change events match the APIs resources
 
@@ -719,47 +928,6 @@ representation than that defined for an API
 * Events that are the result of a computation, such as a matching
 algorithm, or the generation of enriched data, and which might not be
 stored as entity by the service.
-
-
-[#207]
-== {MUST} indicate ownership of event types
-
-Event definitions must have clear ownership - this can be indicated via
-the `owning_application` field of the EventType.
-
-Typically there is one producer application, which owns the EventType
-and is responsible for its definition, akin to how RESTful API
-definitions are managed. However, the owner may also be a particular
-service from a set of multiple services that are producing the same kind
-of event.
-
-
-[#208]
-== {MUST} define event payloads compliant with overall API guidelines
-
-Events must be consistent with other API data and the API Guidelines in
-general.
-
-Everything expressed in the <<introduction>> to
-these Guidelines is applicable to event data interchange between
-services. This is because our events, just like our APIs, represent a
-commitment to express what our systems do and designing high-quality,
-useful events allows us to develop new and interesting products and
-services.
-
-What distinguishes events from other kinds of data is the delivery style
-used, asynchronous publish-subscribe messaging. But there is no reason
-why they could not be made available using a REST API, for example via a
-search request or as a paginated feed, and it will be common to base
-events on the models created for the service’s REST API.
-
-The following existing guideline sections are applicable to events:
-
-* <<general-guidelines>>
-* <<api-naming>>
-* <<data-formats>>
-* <<common-data-types>>
-* <<hypermedia>>
 
 
 [#209]
@@ -797,150 +965,3 @@ known as a tuple).
 field (also known as a co-occurrence constraint).
 * Adding a value to an enumeration (note that <<112,`x-extensible-enum`>>
 is not available in JSON Schema)
-
-
-[#210]
-== {SHOULD} avoid `additionalProperties` in event type definitions
-
-Event type schema should avoid using `additionalProperties`
-declarations, in order to support schema evolution.
-
-Events are often intermediated by publish/subscribe systems and are
-commonly captured in logs or long term storage to be read later. In
-particular, the schemas used by publishers and consumers can +
-drift over time. As a result, compatibility and extensibility issues
-that happen less frequently with client-server style APIs become
-important and regular considerations for event design. The guidelines
-recommend the following to enable event schema evolution:
-
-* Publishers who intend to provide compatibility and allow their schemas
-to evolve safely over time *must not* declare an `additionalProperties`
-field with a value of `true` (i.e., a wildcard extension point). Instead
-they must define new optional fields and update their schemas in advance
-of publishing those fields.
-* Consumers *must* ignore fields they cannot process and not raise
-errors. This can happen if they are processing events with an older copy
-of the event schema than the one containing the new definitions
-specified by the publishers.
-
-The above constraint does not mean fields can never be added in future
-revisions of an event type schema - additive compatible changes are
-allowed, only that the new schema for an event type must define the
-field first before it is published within an event. By the same turn the
-consumer must ignore fields it does not know about from its copy of the
-schema, just as they would as an API client - that is, they cannot treat
-the absence of an `additionalProperties` field as though the event type
-schema was closed for extension.
-
-Requiring event publishers to define their fields ahead of publishing
-avoids the problem of _field redefinition_. This is when a publisher
-defines a field to be of a different type that was already being
-emitted, or, is changing the type of an undefined field. Both of these
-are prevented by not using `additionalProperties`.
-
-See also rule <<111>> in the <<compatibility>> section for further guidelines 
-on the use of `additionalProperties`.
-
-
-[#211]
-== {MUST} use unique event identifiers
-
-The `eid` (event identifier) value of an event must be unique.
-
-The `eid` property is part of the standard <<event-metadata,metadata>>
-for an event and gives the event an identifier. Producing clients must
-generate this value when sending an event and it must be guaranteed to
-be unique from the perspective of the owning application. In particular
-events within a given event type's stream must have unique identifiers.
-This allows consumers to process the `eid` to assert the event is unique
-and use it as an idempotency check.
-
-It is the responsibility of the producer to ensure event identifiers do
-in fact distinctly identify events published for a specific event type.
-A straightforward way to create a unique identifier for an event is to
-generate a UUID value. However, event producers need to ensure that
-retried attempts to publish an event, e.g. as a mitigation of temporary
-Nakadi or network failures, use the same event identifier as the initial
-(possibly failed) attempt.
-
-*Hint:* Using the same `eid` for retries can be ensured, e.g. by
-deterministic UUID computation functions, which are only based on event
-attributes (producing UUIDs without random components), or some form of
-intermediate persistence, like the dead letter queues.
-
-Event identifiers facilitate event duplicate detection by event consumers --
-see <<214>>.
-
-[#212]
-== {SHOULD} design for idempotent out-of-order processing
-
-Events that are designed for <<149,idempotent>> out-of-order
-processing allow for extremely resilient systems: If processing an event
-fails, consumers and producers can skip/delay/retry it without stopping
-the world or corrupting the processing result.
-
-To enable this freedom of processing, you must explicitly design for
-idempotent out-of-order processing: Either your events must contain
-enough information to infer their original order during consumption or
-your domain must be designed in a way that order becomes irrelevant.
-
-As common example similar to data change events, idempotent out-of-order
-processing can be supported by sending the following information:
-
-* the process/resource/entity identifier,
-* a <<203,monotonically increasing ordering key>> and
-* the process/resource state after the change.
-
-A receiver that is interested in the current state can then ignore
-events that are older than the last processed event of each resource. A
-receiver interested in the history of a resource can use the ordering
-key to recreate a (partially) ordered sequence of events.
-
-
-[#213]
-== {MUST} follow naming convention for event type names
-
-Event type names must (or should, see <<223>> for details and definition)
-conform to the functional naming depending on the <<219, audience>> as follows:
-
-[source,bnf]
-----
-<event-type-name>       ::= <functional-event-name> | <application-event-name>
-
-<functional-event-name> ::= <functional-name>.<event-name>[.<version>]
-
-<event-name>            ::= [a-z][a-z0-9-]* -- free event name (functional name)
-
-<version>               ::= V[0-9.]* -- major version of non compatible schemas
-----
-
-*Hint:* The following convention (e.g. used by legacy STUPS infrastructure) is deprecated 
-and *only* allowed for <<223, internal>> event type names:
-
-[source,bnf]
-----
-<application-event-name> ::= [<organization-id>.]<application-id>.<event-name>
-<organization-id>  ::= [a-z][a-z0-9-]* -- organization identifier, e.g. team identifier
-<application-id>   ::= [a-z][a-z0-9-]* -- application identifier
-----
-
-**Note:** consistent naming should be used whenever the same entity is exposed
-by a data change event and a RESTful API.
-
-
-[#214]
-== {MUST} prepare event consumers for duplicate events
-
-Event consumers must be able to process duplicate events.
-
-Most message brokers and data streaming systems offer "at-least-once"
-delivery. That is, one particular event is delivered to the consumers
-one or more times. Other circumstances can also cause duplicate events.
-
-For example, these situations occur if the publisher sends an event and
-doesn't receive the acknowledgment (e.g. due to a network issue). In
-this case, the publisher will try to send the same event again. This
-leads to two identical events in the event bus which have to be
-processed by the consumers. Similar conditions can appear on consumer
-side: an event has been processed successfully, but the consumer fails
-to confirm the processing.

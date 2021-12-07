@@ -1,58 +1,5 @@
 [[data-formats]] 
-= Data formats
-
-
-[#167]
-== {MUST} use JSON as payload data interchange format
-
-Use JSON ({RFC-7159}[RFC 7159]) to represent structured (resource) data 
-passed with HTTP requests and responses as body payload.
-The JSON payload must use a JSON object as top-level data 
-structure (if possible) to allow for future extension. This also applies to
-collection resources, where you ad-hoc would use an array -- see also
-<<110>>.
-
-Additionally, the JSON payload must comply to the more restrictive Internet JSON ({RFC-7493}[RFC 7493]),
-particularly
-
-* {RFC-7493}#section-2.1[Section 2.1] on encoding of characters, and
-* {RFC-7493}#section-2.3[Section 2.3] on object constraints.
-
-As a consequence, a JSON payload must
-
-* use {RFC-7493}#section-2.1[`UTF-8` encoding]
-* consist of {RFC-7493}#section-2.1[valid Unicode strings], i.e. must not
-  contain non-characters or surrogates, and
-* contain only {RFC-7493}#section-2.3[unique member names] (no duplicate
-  names).
-
-
-[#168]
-== {MAY} pass non-JSON media types using data specific standard formats
-
-Non-JSON media types may be supported, if you stick to a business object specific standard 
-format for the payload data, for instance, image data format (JPG, PNG, GIF), document 
-format (PDF, DOC, ODF, PPT), or archive format (TAR, ZIP). 
-
-Generic structured data interchange formats other than JSON (e.g. XML, CSV) 
-may be provided, but only additionally to JSON as default format using <<244, content negotiation>>, 
-for specific use cases where clients may not interpret the payload structure.
-
-
-[#172]
-== {SHOULD} use standard media types
-
-You should use standard media types (defined in {media-types}[media type registry] 
-of Internet Assigned Numbers Authority (IANA)) as `content-type` (or `accept`) header 
-information. More specifically, for JSON payload you should use the standard media type 
-`application/json` (or `application/problem+json` for <<176>>).
-
-You should avoid using custom media types like `application/x.zalando.article+json`. 
-Custom media types beginning with `x` bring no advantage compared to the
-standard media type for JSON, and make automated processing more difficult.
-
-*Exception:* Custom media type should be only used in situations where you need to provide 
-<<114, API endpoint versioning>> (with content negotiation) due to incompatible changes.   
+= REST Basics - Data formats
 
 
 [#238]
@@ -207,3 +154,49 @@ to support clients specifying via the standard HTTP headers
 for example, which language of a document, representation / content format, or content encoding. 
 You <<172>> like `application/json` or `application/pdf` for defining the content 
 format in the {Accept} header. 
+
+
+[#144]
+== {SHOULD} only use UUIDs if necessary
+
+Generating IDs can be a scaling problem in high frequency and near real time
+use cases. UUIDs solve this problem, as they can be generated without
+collisions in a distributed, non-coordinated way and without additional server
+round trips.
+
+However, they also come with some disadvantages:
+
+* pure technical key without meaning; not ready for naming or name scope
+  conventions that might be helpful for pragmatic reasons, e.g. we learned to
+  use names for product attributes, instead of UUIDs
+* less usable, because...
+** cannot be memorized and easily communicated by humans
+** harder to use in debugging and logging analysis
+** less convenient for consumer facing usage
+* quite long: readable representation requires 36 characters and comes with
+  higher memory and bandwidth consumption
+* not ordered along their creation history and no indication of used id volume
+* may be in conflict with additional backward compatibility support of legacy ids
+
+UUIDs should be avoided when not needed for large scale id generation. Instead,
+for instance, server side support with id generation can be preferred ({POST}
+on id resource, followed by idempotent {PUT} on entity resource). Usage of
+UUIDs is especially discouraged as primary keys of master and configuration
+data, like brand-ids or attribute-ids which have low id volume but widespread
+steering functionality.
+
+Please be aware that sequential, strictly monotonically increasing numeric
+identifiers may reveal critical, confidential business information, like order
+volume, to non-privileged clients.
+
+In any case, we should always use string rather than number type for
+identifiers. This gives us more flexibility to evolve the identifier naming
+scheme. Accordingly, if used as identifiers, UUIDs should not be qualified
+using a format property.
+
+Hint: Usually, random UUID is used - see UUID version 4 in {RFC-4122}[RFC 4122].
+Though UUID version 1 also contains leading timestamps it is not reflected by
+its lexicographic sorting. This deficit is addressed by
+https://github.com/alizain/ulid[ULID] (Universally Unique Lexicographically
+Sortable Identifier). You may favour ULID instead of UUID, for instance, for
+pagination use cases ordered along creation time.
