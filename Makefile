@@ -49,8 +49,8 @@ next-rule-id:
 
 assets:
 	mkdir -p $(DIRBUILDS);
-	cp -r assets $(DIRBUILDS)/assets;
-	cp -r models $(DIRBUILDS)/models;
+	cp -r assets $(DIRBUILDS)/;
+	cp -r models $(DIRBUILDS)/;
 	cp -r models/{problem-1.0.{0,1},money-1.0.0}.yaml $(DIRBUILDS);
 	cp -r -n legacy/* $(DIRBUILDS);
 
