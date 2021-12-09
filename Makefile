@@ -29,9 +29,9 @@ check-rules: check-rules-duplicates check-rules-incorrects
 check-rules-duplicates:
 	@DUPLICATED="$$(grep -roE "\[#[0-9]+]" $(DIRCONTENTS) | sort |uniq -d)"; \
 	if [ -n "$${DUPLICATED}" ]; then \
-    	echo "Duplicated Rule IDs: $$(echo "$${DUPLICATED}" | tr -d '\n')"; \
-    	echo "Please make sure the Rule ID anchors are unique"; \
-    	exit 1; \
+	    echo "Duplicated Rule IDs: $$(echo "$${DUPLICATED}" | tr -d '\n')"; \
+	    echo "Please make sure the Rule ID anchors are unique"; \
+	    exit 1; \
 	fi;
 
 check-rules-incorrects:
