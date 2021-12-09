@@ -671,11 +671,21 @@ events within a given event type's stream must have unique identifiers.
 This allows consumers to process the `eid` to assert the event is unique
 and use it as an idempotency check.
 
-Note that uniqueness checking of the `eid` might be not enforced by
-systems consuming events and it is the responsibility of the producer to
-ensure event identifiers do in fact distinctly identify events. A
-straightforward way to create a unique identifier for an event is to
-generate a UUID value.
+It is the responsibility of the producer to ensure event identifiers do
+in fact distinctly identify events published for a specific event type.
+A straightforward way to create a unique identifier for an event is to
+generate a UUID value. However, event producers need to ensure that
+retried attempts to publish an event, e.g. as a mitigation of temporary
+Nakadi or network failures, use the same event identifier as the initial
+(possibly failed) attempt.
+
+*Hint:* Using the same `eid` for retries can be ensured, e.g. by
+deterministic UUID computation functions, which are only based on event
+attributes (producing UUIDs without random components), or some form of
+intermediate persistence, like the dead letter queues.
+
+Event identifiers facilitate event duplicate detection by event consumers --
+see <<214>>.
 
 
 [#201]
@@ -955,4 +965,3 @@ known as a tuple).
 field (also known as a co-occurrence constraint).
 * Adding a value to an enumeration (note that <<112,`x-extensible-enum`>>
 is not available in JSON Schema)
-
