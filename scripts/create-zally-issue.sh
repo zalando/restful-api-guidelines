@@ -28,8 +28,7 @@ create_zally_issue () {
 
     local pull origin count=0;
     while [ "${count}" -lt 6 ]; do
-         pull="$(curl -s "-H Accept: application/vnd.github.groot-preview+json" \
-             "${GH_REPO_URL}/commits/${GITHUB_SHA}/pulls"  | jq '.[0]')";
+         pull="$(curl -s "${GH_REPO_URL}/commits/${GITHUB_SHA}/pulls" | jq '.[0]')";
          origin="$(echo "${pull}" | jq --raw-output '.number')";
          if [ "${origin}" != "null" ]; then break; fi;
          count=$((count + 1)); sleep 10;
