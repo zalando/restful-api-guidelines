@@ -1548,7 +1548,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#156"><span class="should-keyword"><strong>SHOULD</strong></span> use <code>gzip</code> compression</a></li>
 <li><a href="#157"><span class="should-keyword"><strong>SHOULD</strong></span> support partial responses via filtering</a></li>
 <li><a href="#158"><span class="should-keyword"><strong>SHOULD</strong></span> allow optional embedding of sub-resources</a></li>
-<li><a href="#227"><span class="must-keyword"><strong>MUST</strong></span> document cachable <code>GET</code>, <code>HEAD</code>, and <code>POST</code> endpoints</a></li>
+<li><a href="#227"><span class="must-keyword"><strong>MUST</strong></span> document cacheable <code>GET</code>, <code>HEAD</code>, and <code>POST</code> endpoints</a></li>
 </ul>
 </li>
 <li><a href="#pagination">14. REST Design - Pagination</a>
@@ -2123,7 +2123,7 @@ compatibility (<a href="#176"><span class="must-keyword"><strong>MUST</strong></
 <div class="paragraph">
 <p>As we control these URLs, we ensure that their content is <strong>durable</strong> and
 <strong>immutable</strong>. This allows to define API specifications by using fragments
-published via this sources, as suggested in <a href="#151"><span class="must-keyword"><strong>MUST</strong></span> specify success and error responses</a>.</p>
+published via these sources, as suggested in <a href="#151"><span class="must-keyword"><strong>MUST</strong></span> specify success and error responses</a>.</p>
 </div>
 </div>
 </div>
@@ -2181,7 +2181,7 @@ Semantic Versioning 2.0</a> rules <code>1</code> to <code>8</code> and <code>11<
 <ul>
 <li>
 <p>Increment the <strong>MAJOR</strong> version when you make incompatible API changes
-after having aligned this changes with consumers,</p>
+after having aligned the changes with consumers,</p>
 </li>
 <li>
 <p>Increment the <strong>MINOR</strong> version when you add new functionality in a
@@ -2373,7 +2373,7 @@ API Audience narrative (internal link)</a>.</p>
 <h3 id="223"><a class="link" href="#223"><span class="must-keyword"><strong>MUST</strong></span>/<span class="should-keyword"><strong>SHOULD</strong></span> use functional naming schema</a></h3>
 <div class="paragraph">
 <p>Functional naming is a powerful, yet easy way to align global resources as
-<em>host</em>, <em>permission</em>, and <em>event names</em> within an the application landscape. It
+<em>host</em>, <em>permission</em>, and <em>event names</em> within an application landscape. It
 helps to preserve uniqueness of names while giving readers meaningful context
 information about the addressed component. Besides, the most important aspect
 is, that it allows to keep APIs stable in the case of technical and
@@ -2465,7 +2465,7 @@ and <strong>only</strong> allowed for hostnames of <a href="#219">component-inte
 <div class="paragraph">
 <p><strong>Exception:</strong> There are legacy hostnames used for APIs with <code>external-partner</code> audience
 which may not follow this rule due to backward compatibility constraints.
-The API Linter maintains a whitelist for this exceptions (including e.g.
+The API Linter maintains an allow-list for these exceptions (including e.g.
 <code>api.merchants.zalando.com</code> and <code>api-sandbox.merchants.zalando.com</code>).</p>
 </div>
 </div>
@@ -4423,7 +4423,7 @@ the semantics of the standard media types above.</p>
 <div class="paragraph">
 <p>In practice <a href="https://tools.ietf.org/html/rfc7396">JSON Merge Patch</a> quickly turns out to be too limited,
 especially when trying to update single objects in large collections (as part
-of the resource). In this cases <a href="https://tools.ietf.org/html/rfc6902">JSON Patch</a> is more powerful
+of the resource). In this case <a href="https://tools.ietf.org/html/rfc6902">JSON Patch</a> is more powerful
 while still showing readable patch requests (see also
 <a href="http://erosb.github.io/post/json-patch-vs-merge-patch">JSON patch vs. merge</a>).
 JSON Patch supports changing of array elements identified via its index, but
@@ -4572,7 +4572,7 @@ returning the same response or status code.</p>
 <li>
 <p><a id="cacheable"></a><a href="https://tools.ietf.org/html/rfc7231#section-4.2.3">cacheable</a> - to indicate that responses are
 allowed to be stored for future reuse. In general, requests to safe methods
-are cachable, if it does not require a current or authoritative response
+are cacheable, if it does not require a current or authoritative response
 from the server.</p>
 </li>
 </ul>
@@ -4655,7 +4655,7 @@ to <a href="https://tools.ietf.org/html/rfc7231">RFC 7231</a>:</p>
 </tbody>
 </table>
 <div class="paragraph">
-<p><strong>Note:</strong> <a href="#227"><span class="must-keyword"><strong>MUST</strong></span> document cachable <code>GET</code>, <code>HEAD</code>, and <code>POST</code> endpoints</a>.</p>
+<p><strong>Note:</strong> <a href="#227"><span class="must-keyword"><strong>MUST</strong></span> document cacheable <code>GET</code>, <code>HEAD</code>, and <code>POST</code> endpoints</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -5208,7 +5208,7 @@ web servers like Nginx, that we do not suggest to use).</p>
 <p>The most commonly used codes are best understood and listed below as subset of
 the official HTTP status codes and consistent with their semantics in the RFCs.
 We avoid less commonly used codes that easily create misconceptions due to
-less familar semantics and API specific interpretations.</p>
+less familiar semantics and API specific interpretations.</p>
 </div>
 <div class="paragraph">
 <p><strong>Important:</strong> As long as your HTTP status code usage is well covered by the
@@ -5454,7 +5454,7 @@ about your request processing status or error situations.</p>
 <p>Some APIs are required to provide either <em>batch</em> or <em>bulk</em> requests using
 <a href="#post"><code>POST</code></a> for performance reasons, i.e. for communication and processing
 efficiency. In this case services may be in need to signal multiple response
-codes for each part of an batch or bulk request. As HTTP does not provide
+codes for each part of a batch or bulk request. As HTTP does not provide
 proper guidance for handling batch/bulk requests and responses, we herewith
 define the following approach:</p>
 </div>
@@ -5603,7 +5603,7 @@ codes).</p>
 <p><strong>Note:</strong> Clients must be robust and <strong>not rely</strong> on a Problem JSON object
 being returned, since (a) failure responses may be created by infrastructure
 components not aware of this guideline or (b) service may be unable to comply
-with this guidelines in certain error situations.</p>
+with this guideline in certain error situations.</p>
 </div>
 <div class="paragraph">
 <p><strong>Hint:</strong> The media type <code>application/problem+json</code> is often not implemented as
@@ -6004,7 +6004,7 @@ choose your expiration time:</p>
         string with enough entropy to avoid collisions.
 
         Idempotency keys expire after 24 hours. Clients are responsible to stay
-        within this limits, if they require idempotent behavior.
+        within this limit, if they require idempotent behavior.
 
       type: string
       format: uuid
@@ -6252,7 +6252,7 @@ APIs or asynchronously via published events).</p>
 </div>
 <div class="paragraph">
 <p><strong>Note:</strong> If a legacy subsystem can only process <code>Flow-IDs</code> with a specific
-format or length, it must define this restrictions in its API specification,
+format or length, it must define this restriction in its API specification,
 and be generous and remove invalid characters or cut the length to the
 supported limit.</p>
 </div>
@@ -6564,7 +6564,7 @@ processing requirements of clients (see <a href="#181"><span class="may-keyword"
 </li>
 <li>
 <p>caching of master data items, i.e. resources that change rarely or not
-at all after creation (see <a href="#227"><span class="must-keyword"><strong>MUST</strong></span> document cachable <code>GET</code>, <code>HEAD</code>, and <code>POST</code> endpoints</a>).</p>
+at all after creation (see <a href="#227"><span class="must-keyword"><strong>MUST</strong></span> document cacheable <code>GET</code>, <code>HEAD</code>, and <code>POST</code> endpoints</a>).</p>
 </li>
 </ul>
 </div>
@@ -6726,7 +6726,7 @@ resource has its order items as sub-resource (/order/{orderId}/items):</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="227"><a class="link" href="#227"><span class="must-keyword"><strong>MUST</strong></span> document cachable <code>GET</code>, <code>HEAD</code>, and <code>POST</code> endpoints</a></h3>
+<h3 id="227"><a class="link" href="#227"><span class="must-keyword"><strong>MUST</strong></span> document cacheable <code>GET</code>, <code>HEAD</code>, and <code>POST</code> endpoints</a></h3>
 <div class="paragraph">
 <p>Caching has to take many aspects into account, e.g. general <a href="#cacheable">cacheability</a> of response information, our guideline to protect endpoints
 using SSL and <a href="#104">OAuth authorization</a>, resource update and invalidation
@@ -9792,7 +9792,7 @@ The latter changes are additionally labeled with "Rule Change" here.</p>
 <p><code>2019-02-19</code>: New rule <a href="#233"><span class="must-keyword"><strong>MUST</strong></span> support <code>X-Flow-ID</code></a> extracted + expanded from <a href="#183"><span class="should-keyword"><strong>SHOULD</strong></span> use only the specified proprietary Zalando headers</a>.</p>
 </li>
 <li>
-<p><code>2019-01-24:</code> Improve guidance on caching (<a href="#149"><span class="must-keyword"><strong>MUST</strong></span> fulfill common method properties</a>, <a href="#227"><span class="must-keyword"><strong>MUST</strong></span> document cachable <code>GET</code>, <code>HEAD</code>, and <code>POST</code> endpoints</a>).</p>
+<p><code>2019-01-24:</code> Improve guidance on caching (<a href="#149"><span class="must-keyword"><strong>MUST</strong></span> fulfill common method properties</a>, <a href="#227"><span class="must-keyword"><strong>MUST</strong></span> document cacheable <code>GET</code>, <code>HEAD</code>, and <code>POST</code> endpoints</a>).</p>
 </li>
 <li>
 <p><code>2019-01-21:</code> Improve guidance on idempotency, introduce idempotency-key (<a href="#229"><span class="should-keyword"><strong>SHOULD</strong></span> consider to design <code>POST</code> and <code>PATCH</code> idempotent</a>, <a href="#231"><span class="should-keyword"><strong>SHOULD</strong></span> use secondary key for idempotent <code>POST</code> design</a>).</p>
@@ -10025,7 +10025,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-11-24 17:26:05 UTC
+Last updated 2021-12-09 14:58:14 UTC
 </div>
 </div>
 </body>

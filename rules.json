@@ -478,7 +478,7 @@
     },
     {
       "id": "#227",
-      "title": "MUST document cachable `GET`, `HEAD`, and `POST` endpoints"
+      "title": "MUST document cacheable `GET`, `HEAD`, and `POST` endpoints"
     },
     {
       "id": "#228",
