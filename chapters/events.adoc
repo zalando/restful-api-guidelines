@@ -431,7 +431,7 @@ MAJOR breaking changes are not allowed.
 * Changing an event type with compatibility mode `none` can lead to
 PATCH, MINOR or MAJOR level changes.
 
-The following examples illustrate this relations:
+The following examples illustrate these relations:
 
 * Changes to the event type's `title` or `description` are considered
 PATCH level.
@@ -444,7 +444,7 @@ removing fields, or adding new required fields.
 //========================================================================================
 
 [[event-categories]]
-= EVENT Basics - Event Catagories 
+= EVENT Basics - Event Categories
 
 An _event category_ describes a generic class of event types. The
 guidelines define two such categories:
@@ -572,7 +572,7 @@ The following guidelines specifically apply to Data Change Events:
 The General and Data Change event categories share a common structure for _metadata_
 representing generic event information. Parts of the metadata is provided by the 
 Nakadi event messaging platform, but event identifier (eid) and event creation 
-timestamp (occured_at) have to be provided by the event producers. 
+timestamp (occurred_at) have to be provided by the event producers.
 The metadata structure is defined below as an OpenAPI Schema Object:
 
 [source,yaml]
