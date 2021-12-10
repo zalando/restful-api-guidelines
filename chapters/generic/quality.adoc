@@ -72,4 +72,4 @@ Unit / feature / e2e tests need to be available.
 [#298]
 ==== {STATUS-RFP} {MUST} have a pre-defined code-coverage percentage
 
-A microservice must have a pre-defined level of code-coverage. This tells something about how well the code is tested and if all code paths have been checked.
+An API must have a pre-defined level of code-coverage. This tells something about how well the code is tested and if all code paths have been checked.
