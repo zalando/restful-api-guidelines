@@ -2,7 +2,7 @@
 = Quality
 
 [#294]
-== {STATUS_RFP} {SHOULD} have seperate environments for development, testing, acceptance and production
+== {STATUS-RFP} {SHOULD} have seperate environments for development, testing, acceptance and production
 
 In order to maintain software or integration quality the setup of an DTAP
 environment is preferred. This setup allows for an atomized way of working on
