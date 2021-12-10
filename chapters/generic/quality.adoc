@@ -62,7 +62,7 @@ A GUI project should have some tests defined, for example; a webshop should be a
 
 === API's
 
-Microservices need to have a certain quality level what can be observed.
+API's need to have a certain quality level what can be observed.
 
 [#276]
 ==== {STATUS-RFP} {MUST} have predefined tests
