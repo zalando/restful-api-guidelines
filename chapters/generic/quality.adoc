@@ -40,18 +40,18 @@ after a signoff of which the requirements are specified beforehand.
 
 == Code Quality
 
-The quality of the code should be known, but we diffrentiate between frontends and microservices. GUI are more difficult to test, because you'll need to automate the click flow through the frontend/GUI and therefor more labour intensive to maintain.
+The quality of the code should be known, but we diffrentiate between frontends and api's. GUI are more difficult to test, because you'll need to automate the click flow through the frontend/GUI and therefor more labour intensive to maintain.
 
-All tests should be configured in the pipeline so the developer receives instant feedback of the commit.
+All tests and checks should be configured in the pipeline so the developer receives instant feedback of the commit.
 
 [#299]
-=== {STATUS-RFP} {MUST} have duplication tests defined
+=== {STATUS-RFP} {MUST} have code duplication checks
 
 A software project must have something in place to detect duplicated code.
 
 [#300]
 ==== {STATUS-RFP} {MUST} have vulnerability checks
-When running in the pipline a vulnerability check must happen, so comprimised libraries are not taken into production.
+When running in the pipeline a vulnerability check must happen, so compromised libraries are not taken into production (because the pipeline is blocked).
 
 === GUI and Websites
 
@@ -62,12 +62,12 @@ A GUI project should have some tests defined, for example; a webshop should be a
 
 === API's
 
-API's need to have a certain quality level what can be observed.
+API's need to have a certain quality level which can be observed.
 
 [#276]
 ==== {STATUS-RFP} {MUST} have predefined tests
 
-Unit / feature / e2e tests need to be available.
+An API must have Unit / feature / e2e tests available. This tells something about how well you can trust what to expect from your code.
 
 [#298]
 ==== {STATUS-RFP} {MUST} have a pre-defined code-coverage percentage
