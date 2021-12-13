@@ -5,17 +5,17 @@
 [#104]
 == {MUST} secure endpoints
 
-Every API endpoint must be protected and armed with authentication and authorization. 
-As part of the API definition you must specify how you protect your API using 
+Every API endpoint must be protected and armed with authentication and authorization.
+As part of the API definition you must specify how you protect your API using
 either the `http` typed `bearer` or `oauth2` typed security schemes defined in the
 https://swagger.io/docs/specification/authentication/[OpenAPI Authentication Specification].
 
-The majority of our APIs (especially the company internal APIs) are protected 
-using JWT tokens provided by the platform IAM token service. In these situations 
+The majority of our APIs (especially the company internal APIs) are protected
+using JWT tokens provided by the platform IAM token service. In these situations
 you should use the `http` typed
 https://swagger.io/docs/specification/authentication/bearer-authentication/[Bearer Authentication]
-security scheme -- it is based on OAuth2.0 {RFC-6750}[RFC 6750] defining the standard header 
-`Auhorization: Bearer <token>`. 
+security scheme -- it is based on OAuth2.0 {RFC-6750}[RFC 6750] defining the standard header
+`Auhorization: Bearer <token>`.
 The following code snippet shows how to define the bearer security scheme.
 
 [source,yaml]
@@ -39,14 +39,14 @@ security:
 ----
 
 
-In other, more specific situations e.g. with customer and partner facing APIs you 
-may use other OAuth 2.0 authorization flows as defined by {RFC-6749}[RFC 6749]. 
-Please consult the 
-https://swagger.io/docs/specification/authentication/oauth2/[OpenAPI OAuth 2.0 Authentication] 
+In other, more specific situations e.g. with customer and partner facing APIs you
+may use other OAuth 2.0 authorization flows as defined by {RFC-6749}[RFC 6749].
+Please consult the
+https://swagger.io/docs/specification/authentication/oauth2/[OpenAPI OAuth 2.0 Authentication]
 section for details on how to define `oauth2` typed security schemes correctly.
 
-*Note:* Do not use OpenAPI `oauth2` typed security scheme flows (e.g. `implicit`) 
-if your service does not fully support it and implements a simple bearer token scheme, 
+*Note:* Do not use OpenAPI `oauth2` typed security scheme flows (e.g. `implicit`)
+if your service does not fully support it and implements a simple bearer token scheme,
 because it exposes authentication server address details and may make use of redirection.
 
 
@@ -75,7 +75,7 @@ designing permission names and see the following examples.
 [cols="15%,15%,15%,15%,40%",options="header",]
 |=======================================================================
 | Domain | Component | Resource | Access Type | Example
-| finance | exchange-rate | - | write | z::finance.exchange-rate.write 
+| finance | exchange-rate | - | write | z::finance.exchange-rate.write
 | transactions | order | - | read | z::transactions.order.read
 | customer | address | shipment-address | read  | z::customer.address.shipment-address.read
 |=======================================================================
@@ -95,7 +95,7 @@ or write is sufficient.
 
 The defined permissions are than assigned to each API endpoint based on the
 security schema (see example in <<104, previous section>>) by specifying the
-https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#securityRequirementObject[security requirement] 
+https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#securityRequirementObject[security requirement]
 as follows:
 
 [source,yaml]
@@ -118,7 +118,7 @@ permission, that is always available as OAuth2 default scope in Zalando.
 paths:
   /public-information:
     get:
-      summary: Provides public information about ... 
+      summary: Provides public information about ...
                Accessible by any user; no permissions needed.
       security:
         - BearerAuth: [ uid ]

@@ -14,7 +14,7 @@ this point.)
 
 Common techniques include:
 
-* compression of request and response bodies (see <<156>>) 
+* compression of request and response bodies (see <<156>>)
 * querying field filters to retrieve a subset of resource attributes (see
   <<157>> below)
 * {ETag} and {If-Match}/{If-None-Match} headers to avoid re-fetching of
@@ -120,7 +120,7 @@ https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form[BNF] grammar.
 <field_items>       ::= <field> [ "," <field_items> ]
 <field>             ::= <field_name> | <fields_substruct>
 <fields_substruct>  ::= <field_name> <fields_struct>
-<field_name>        ::= <dash_letter_digit> [ <field_name> ] 
+<field_name>        ::= <dash_letter_digit> [ <field_name> ]
 <dash_letter_digit> ::= <dash> | <letter> | <digit>
 <dash>              ::= "-" | "_"
 <letter>            ::= "A" | ... | "Z" | "a" | ... | "z"

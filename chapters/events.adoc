@@ -27,12 +27,12 @@ event type and the schema for its custom data.
 
 The basic model described above was originally developed in the
 https://github.com/zalando/nakadi[Nakadi project], which acts as a
-reference implementation (see also 
+reference implementation (see also
 https://apis.zalando.net/apis/nakadi-event-bus-api-definition/ui[Nakadi API[internal link]])
 of the event type registry, and as a validating
 publish/subscribe broker for event producers and consumers.
 
- 
+
 [#208]
 == {MUST} define events compliant with overall API guidelines
 
@@ -87,7 +87,7 @@ follows:
 * A well known event category, such as a general or data change
 category.
 * The name of the event type.
-* The definition of the <<219,event target audience>>. 
+* The definition of the <<219,event target audience>>.
 * An owning application, and by implication, an owning team.
 * A schema defining the event payload.
 * The compatibility mode for the type.
@@ -129,7 +129,7 @@ EventType:
         - external-partner
         - external-public
       description: |
-        Intended target audience of the event type, analogue to audience definition for REST APIs 
+        Intended target audience of the event type, analogue to audience definition for REST APIs
         in rule #219 -- see https://opensource.zalando.com/restful-api-guidelines/#219
     owning_application:
       description: |
@@ -278,7 +278,7 @@ conform to the functional naming depending on the <<219, audience>> as follows:
 <version>               ::= V[0-9.]* -- major version of non compatible schemas
 ----
 
-*Hint:* The following convention (e.g. used by legacy STUPS infrastructure) is deprecated 
+*Hint:* The following convention (e.g. used by legacy STUPS infrastructure) is deprecated
 and *only* allowed for <<223, internal>> event type names:
 
 [source,bnf]
@@ -306,7 +306,7 @@ of event.
 
 
 [#245]
-== {MUST} carefully define the compatibility mode 
+== {MUST} carefully define the compatibility mode
 
 Event type owners must pay attention to the choice of compatibility
 mode. The mode provides a means to evolve the schema. The range of
@@ -336,11 +336,11 @@ the Schema Object as defined by the OpenAPI Specifications to define event
 schemas. This is particularly useful for events that represent data changes
 about resources also used in other APIs.
 
-The https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#schemaObject[OpenAPI Schema Object] 
+The https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#schemaObject[OpenAPI Schema Object]
 is an **extended subset** of
 http://json-schema.org/[JSON Schema Draft 4]. For convenience,
 we highlight some important differences below. Please refer to the
-https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#schemaObject[OpenAPI Schema Object specification] 
+https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#schemaObject[OpenAPI Schema Object specification]
 for details.
 
 As the OpenAPI Schema Object specification _removes_ some JSON Schema
@@ -414,19 +414,19 @@ defines a field to be of a different type that was already being
 emitted, or, is changing the type of an undefined field. Both of these
 are prevented by not using `additionalProperties`.
 
-See also rule <<111>> in the <<compatibility>> section for further guidelines 
+See also rule <<111>> in the <<compatibility>> section for further guidelines
 on the use of `additionalProperties`.
 
 
 [#246]
-== {MUST} use semantic versioning of event type schemas 
+== {MUST} use semantic versioning of event type schemas
 
-Event schemas must be versioned -- analog to <<116>> for REST API definitions. 
+Event schemas must be versioned -- analog to <<116>> for REST API definitions.
 The compatibility mode interact with revision numbers in the schema
 `version` field, which follows semantic versioning (MAJOR.MINOR.PATCH):
 
-* Changing an event type with compatibility mode `compatible` or `forward` 
-can lead to a PATCH or MINOR version revision. 
+* Changing an event type with compatibility mode `compatible` or `forward`
+can lead to a PATCH or MINOR version revision.
 MAJOR breaking changes are not allowed.
 * Changing an event type with compatibility mode `none` can lead to
 PATCH, MINOR or MAJOR level changes.
@@ -450,14 +450,14 @@ An _event category_ describes a generic class of event types. The
 guidelines define two such categories:
 
 * General Event: a general purpose category.
-* Data Change Event: a category to inform about data entity changes 
+* Data Change Event: a category to inform about data entity changes
   and used e.g. for data replication based data integration.
 
 
 [#198]
 == {MUST} ensure that events conform to an event category
 
-A category describes a predefined structure (e.g. including event 
+A category describes a predefined structure (e.g. including event
 metadata as part of the event payload) that event publishers must
 conform to along with standard information specific for the event category
 (e.g. the operation for data change events).
@@ -465,7 +465,7 @@ conform to along with standard information specific for the event category
 
 === The general event category
 
-The structure of the _General Event Category_ is shown below as an OpenAPI 
+The structure of the _General Event Category_ is shown below as an OpenAPI
 Schema Object definition:
 
 [source,yaml]
@@ -476,7 +476,7 @@ GeneralEvent:
     custom schema payload as the top level of the document, with the
     "metadata" field being required and reserved for standard metadata. An
     instance of an event based on the event type thus conforms to both the
-    EventMetadata definition and the custom schema definition. 
+    EventMetadata definition and the custom schema definition.
     Hint: In earlier versions this category was called the Business Category.
   required:
     - metadata
@@ -493,7 +493,7 @@ described further down in this section).
 
 *Note:*
 
-* The General Event was called a _Business Event_ in earlier versions of 
+* The General Event was called a _Business Event_ in earlier versions of
 the guidelines. Implementation experience has shown that the
 category's structure gets used for other kinds of events, hence the name
 has been generalized to reflect how teams are using it.
@@ -551,9 +551,9 @@ DataChangeEvent:
         - S: A snapshot of an entity at a point in time.
 ----
 
-The Data Change Event Category is structurally different to the General Event Category 
-by defining a field called `data` as container for the custom payload, as well as 
-specific information related to data changes in the `data_op`. 
+The Data Change Event Category is structurally different to the General Event Category
+by defining a field called `data` as container for the custom payload, as well as
+specific information related to data changes in the `data_op`.
 
 The following guidelines specifically apply to Data Change Events:
 
@@ -570,8 +570,8 @@ The following guidelines specifically apply to Data Change Events:
 == {MUST} provide mandatory event metadata
 
 The General and Data Change event categories share a common structure for _metadata_
-representing generic event information. Parts of the metadata is provided by the 
-Nakadi event messaging platform, but event identifier (eid) and event creation 
+representing generic event information. Parts of the metadata is provided by the
+Nakadi event messaging platform, but event identifier (eid) and event creation
 timestamp (occurred_at) have to be provided by the event producers.
 The metadata structure is defined below as an OpenAPI Schema Object:
 
@@ -598,21 +598,21 @@ EventMetadata:
       example: 'example.important-business-event'
     occurred_at:
       description: |
-         Technical timestamp of when the event object was created during processing 
-         of the business event by the producer application. Note, it may differ from 
-         the timestamp when the related real-world business event happened (e.g. when 
-         the packet was handed over to the customer), which should be passed separately 
-         via an event type specific attribute. 
-         Depending on the producer implementation, the timestamp is typically some 
-         milliseconds earlier than when the event is published and received by the 
+         Technical timestamp of when the event object was created during processing
+         of the business event by the producer application. Note, it may differ from
+         the timestamp when the related real-world business event happened (e.g. when
+         the packet was handed over to the customer), which should be passed separately
+         via an event type specific attribute.
+         Depending on the producer implementation, the timestamp is typically some
+         milliseconds earlier than when the event is published and received by the
          API event post endpoint server -- see below.
       type: string
       format: date-time
       example: '1996-12-19T16:39:57-08:00'
     received_at:
       description: |
-        Timestamp of when the event was received via the API event post endpoints. 
-        It is automatically enriched, and events will be rejected if set by the 
+        Timestamp of when the event was received via the API event post endpoints.
+        It is automatically enriched, and events will be rejected if set by the
         event producer.
       type: string
       readOnly: true
@@ -692,7 +692,7 @@ see <<214>>.
 == {MUST} use general events to signal steps in business processes
 
 When publishing events that represent steps in a business process, event
-types *must* be based on the General Event category. 
+types *must* be based on the General Event category.
 All your events of a single business process will conform to the
 following rules:
 
@@ -720,12 +720,12 @@ assessing each option and sticking to one for a given business process.
 [#203]
 == {SHOULD} provide explicit event ordering for general events
 
-Event processing consumer applications need the order information to 
-reconstruct the business event stream, for instance, in order to replay 
-events in error situations, or to execute analytical use cases 
-outside the context of the original event stream consumption. 
+Event processing consumer applications need the order information to
+reconstruct the business event stream, for instance, in order to replay
+events in error situations, or to execute analytical use cases
+outside the context of the original event stream consumption.
 All general events (fka business events) *should* be provided with the explicit
-information about the business ordering of the events. To accomplish this 
+information about the business ordering of the events. To accomplish this
 event ordering the event type definition
 
 * *must* specify a the `ordering_key_fields` property to indicate which
@@ -733,29 +733,29 @@ event ordering the event type definition
 * *should* specify the `ordering_instance_ids` property to define which
   field(s) represents the business entity instance identifier.
 
-*Note:* The `ordering_instance_ids` restrict the scope in which the 
-`ordering_key_fields` provide the strict order. If undefined, the ordering is 
+*Note:* The `ordering_instance_ids` restrict the scope in which the
+`ordering_key_fields` provide the strict order. If undefined, the ordering is
 assumed to be provided in scope of all events.
 
 The business ordering information can be provided – among other ways – by maintaining...
 
  * a strictly monotonically increasing version of entity instances (e.g. created as
    row update counter by a database), or
- * a strictly monotonically increasing sequence counter (maintained per partition 
+ * a strictly monotonically increasing sequence counter (maintained per partition
    or event type).
 
-*Hint:* timestamps are often a bad choice, since in distributed systems events 
-may occur at the same time, or clocks are not exactly synchronized, or 
+*Hint:* timestamps are often a bad choice, since in distributed systems events
+may occur at the same time, or clocks are not exactly synchronized, or
 jump forward and backward to compensate drifts or leap-seconds. If you use anyway
-timestamps to indicate event ordering, you _must_ carefully ensure that the designated 
+timestamps to indicate event ordering, you _must_ carefully ensure that the designated
 event order is not messed up by these effects and use UTC time zone format.
 
-*Note:* The `received_at` and `partition_offset` metadata set by Nakadi typically is 
-different from the business event ordering, since (1) Nakadi is a distributed concurrent 
+*Note:* The `received_at` and `partition_offset` metadata set by Nakadi typically is
+different from the business event ordering, since (1) Nakadi is a distributed concurrent
 system without atomic, ordered event creation and (2) the application's implementation
-of event publishing may not exactly reflect the business order. The business ordering 
-information is application knowledge, and implemented in the scope of event 
-partitions or specific entities, but may also comprise all events, if scaling 
+of event publishing may not exactly reflect the business order. The business ordering
+information is application knowledge, and implemented in the scope of event
+partitions or specific entities, but may also comprise all events, if scaling
 requirements are low.
 
 
@@ -763,14 +763,14 @@ requirements are low.
 == {MUST} use data change events to signal mutations
 
 You *must* use data change events to signal changes of stored entity instances
-and facilitate e.g. change data capture (CDC). Event sourced change data capture 
-is crucial for our data integration architecture as it supports the logical 
-replication (and reconstruction) of the application datastores 
-to the data analytics and AI platform as transactional source datasets. 
+and facilitate e.g. change data capture (CDC). Event sourced change data capture
+is crucial for our data integration architecture as it supports the logical
+replication (and reconstruction) of the application datastores
+to the data analytics and AI platform as transactional source datasets.
 
-* Change events must be provided when publishing events that represent created, 
+* Change events must be provided when publishing events that represent created,
   updated, or deleted data.
-* Change events must provide the complete entity data including the identifier of 
+* Change events must provide the complete entity data including the identifier of
   the changed instance to allow aggregation of all related events for the entity.
 * Change events <<242>>.
 * Change events must be published reliably by the service.
@@ -779,17 +779,17 @@ to the data analytics and AI platform as transactional source datasets.
 [#242]
 == {MUST} provide explicit event ordering for data change events
 
-While the order information is recommended for business events, it *must* be 
-provided for data change events. The ordering information defines the (create, 
-update, delete) change order of the data entity instances managed via the 
-application's transactional datastore. It is needed for change data capture 
-to keep transactional dataset replicas in sync as source for data analytics. 
+While the order information is recommended for business events, it *must* be
+provided for data change events. The ordering information defines the (create,
+update, delete) change order of the data entity instances managed via the
+application's transactional datastore. It is needed for change data capture
+to keep transactional dataset replicas in sync as source for data analytics.
 
-For details about how to provide the data change ordering information, 
+For details about how to provide the data change ordering information,
 please check <<203>>.
 
-*Exception*: In situations where the transactional data is 'append only', 
-i.e. entity instances are only created, but never updated or deleted, the 
+*Exception*: In situations where the transactional data is 'append only',
+i.e. entity instances are only created, but never updated or deleted, the
 ordering information may not be provided.
 
 

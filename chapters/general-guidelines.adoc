@@ -8,17 +8,17 @@ The titles are marked with the corresponding labels: {MUST},
 [#100]
 == {MUST} follow API first principle
 
-You must follow the <<api-first, API First Principle>>, more specifically: 
+You must follow the <<api-first, API First Principle>>, more specifically:
 
 * You must define APIs first, before coding its implementation, <<101, using
   OpenAPI as specification language>>
 * You must design your APIs consistently with these guidelines; use our
   https://zally.zalando.net/[API Linter Service [internal link]] for automated
-  rule checks. 
-* You must call for early review feedback from peers and client developers, 
-  and apply https://github.bus.zalan.do/ApiGuild/ApiReviewProcedure[our 
+  rule checks.
+* You must call for early review feedback from peers and client developers,
+  and apply https://github.bus.zalan.do/ApiGuild/ApiReviewProcedure[our
   lightweight API review process [internal link]] for all component external
-  APIs, i.e. all apis with `x-api-audience =/= component-internal` (see <<219>>). 
+  APIs, i.e. all apis with `x-api-audience =/= component-internal` (see <<219>>).
 
 
 [#101]
@@ -31,7 +31,7 @@ We encourage to use *OpenAPI 3.0* version, but still support *OpenAPI 2.0*
 (a.k.a. Swagger 2).
 
 The API specification files should be subject to version control using a source
-code management system - best together with the implementing sources. 
+code management system - best together with the implementing sources.
 
 You <<192, must / should publish>> the component <<219, external / internal>>
 API specification with the deployment of the implementing service, and, hence,
@@ -45,7 +45,7 @@ for IntelliJ IDEA] to create your first API. To explore and validate/evaluate
 existing APIs the https://editor.swagger.io/[Swagger Editor] or our
 https://apis.zalando.net[API Portal] may be a good starting point.
 
-*Hint:* We do not yet provide guidelines for https://graphql.org/[GraphQL]. 
+*Hint:* We do not yet provide guidelines for https://graphql.org/[GraphQL].
 Following our https://techradar.zalando.net/languages/graphql.html[Zalando
 Tech Radar [internal link]], we focus on resource oriented HTTP/REST API style
 (and related tooling and infrastructure support) for general purpose
@@ -53,7 +53,7 @@ peer-to-peer microservice communication. Here, we think that GraphQL has no
 major benefits, but a couple of downsides compared to REST. However, GraphQL
 can provide a lot of value for specific target domain problems, especially
 backends for frontends (BFF) and mobile clients, and here we already make use
-of GraphQL as API technology for our DX Interface Framework. 
+of GraphQL as API technology for our DX Interface Framework.
 
 
 [#102]
