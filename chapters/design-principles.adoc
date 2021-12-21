@@ -39,7 +39,7 @@ Robustness Principle] (see also https://tools.ietf.org/html/rfc1122[RFC 1122]):
 _Readings:_ Some interesting reads on the RESTful API design style and service architecture:
 
 * Article:
-https://www.thoughtworks.com/de/insights/blog/rest-api-design-resource-modeling[REST API Design - Resource Modeling]
+https://www.thoughtworks.com/insights/blog/rest-api-design-resource-modeling[REST API Design - Resource Modeling]
 * Article:
 https://martinfowler.com/articles/richardsonMaturityModel.html[Richardson Maturity Model -- Steps toward the glory of REST]
 * Book:
