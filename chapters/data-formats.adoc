@@ -1,4 +1,4 @@
-[[data-formats]] 
+[[data-formats]]
 = REST Basics - Data formats
 
 
@@ -44,9 +44,9 @@ You *must* use these formats, whenever applicable:
 |=====================================================================
 
 *Note:* Formats `bigint` and `decimal` have been added to the OpenAPI defined formats --
-see also <<171>> and <<169>> below. 
+see also <<171>> and <<169>> below.
 
-We add further OpenAPI formats that are useful especially in an e-commerce environment 
+We add further OpenAPI formats that are useful especially in an e-commerce environment
 e.g. `language code`, `country code`, and `currency` based other ISO and IETF standards.
 You *must* use these formats, whenever applicable:
 
@@ -61,30 +61,30 @@ You *must* use these formats, whenever applicable:
 | `string` | `regex` | regular expressions as defined in {ECMA-262}[ECMA 262] | `"^[a-z0-9]+$"`
 |=====================================================================
 
-*Remark:* Please note that this list of standard data formats is not exhaustive 
+*Remark:* Please note that this list of standard data formats is not exhaustive
 and everyone is encouraged to propose additions.
 
 
 [#171]
 == {MUST} define a format for number and integer types
 
-In <<238>> we added `bigint` and `decimal` to the OpenAPI defined formats. 
-As an implication, you must always provide one of the formats `int32`, `int64`, `bigint` 
-or `float`, `double`, `decimal` when you define an API property of 
-JSON type `number` or `integer`. 
+In <<238>> we added `bigint` and `decimal` to the OpenAPI defined formats.
+As an implication, you must always provide one of the formats `int32`, `int64`, `bigint`
+or `float`, `double`, `decimal` when you define an API property of
+JSON type `number` or `integer`.
 
-By this we prevent clients from guessing the precision incorrectly, and thereby 
-changing the value unintentionally. The precision must be translated by clients 
-and servers into the most specific language types; in Java, for instance, the `number` 
-type with `decimal` format will translate into `BigDecimal` and `integer` type with 
+By this we prevent clients from guessing the precision incorrectly, and thereby
+changing the value unintentionally. The precision must be translated by clients
+and servers into the most specific language types; in Java, for instance, the `number`
+type with `decimal` format will translate into `BigDecimal` and `integer` type with
 `int32` format will translate to `int` or `Integer` Java types.
 
 
 [#239]
 === {MUST} encode binary data in `base64url`
 
-You may expose binary data. You must use a standard media type and data format, 
-if applicable -- see <<168, Rule 168>>. If no standard is available, you must define 
+You may expose binary data. You must use a standard media type and data format,
+if applicable -- see <<168, Rule 168>>. If no standard is available, you must define
 the binary data as `string` typed property with `binary` format using `base64url`
 encoding -- as also described in <<238>>.
 
@@ -93,28 +93,28 @@ encoding -- as also described in <<238>>.
 [#169]
 == {MUST} use standard formats for date and time properties
 
-As a specific case of <<238>>, you must use the `string` typed formats 
+As a specific case of <<238>>, you must use the `string` typed formats
 `date`, `date-time`, `time`, `duration`, or `period` for the definition of date and time properties.
-The formats are based on the standard {RFC-3339}[RFC 3339] internet profile -- a 
+The formats are based on the standard {RFC-3339}[RFC 3339] internet profile -- a
 subset of https://tools.ietf.org/html/rfc3339#ref-ISO8601[ISO 8601]
 
 *Exception:* For passing date/time information via standard protocol headers,
-HTTP https://tools.ietf.org/html/rfc7231#section-7.1.1.1[RFC 7231] requires to 
-follow the date and time specification used by the Internet Message Format 
-https://tools.ietf.org/html/rfc5322[RFC 5322]. 
+HTTP https://tools.ietf.org/html/rfc7231#section-7.1.1.1[RFC 7231] requires to
+follow the date and time specification used by the Internet Message Format
+https://tools.ietf.org/html/rfc5322[RFC 5322].
 
-As defined by the standard, time zone offset may be used, however, we recommend 
-to only use times based on UTC without local offsets. For example `2015-05-28T14:07:17Z` 
-rather than `2015-05-28T14:07:17+00:00`. From experience we have learned that zone 
+As defined by the standard, time zone offset may be used, however, we recommend
+to only use times based on UTC without local offsets. For example `2015-05-28T14:07:17Z`
+rather than `2015-05-28T14:07:17+00:00`. From experience we have learned that zone
 offsets are not easy to understand and often not correctly handled. Note also that
-zone offsets are different from local times which may include daylight saving time. 
-When it comes to storage, all dates should be consistently stored in UTC without 
-a zone offset. Localization should be done locally by the services that provide 
+zone offsets are different from local times which may include daylight saving time.
+When it comes to storage, all dates should be consistently stored in UTC without
+a zone offset. Localization should be done locally by the services that provide
 user interfaces, if required.
 
-*Hint:* We discourage using numerical timestamps. It typically creates 
-issues with precision, e.g. whether to represent a timestamp as 1460062925, 
-1460062925000 or 1460062925.000. Date strings, though more verbose and requiring 
+*Hint:* We discourage using numerical timestamps. It typically creates
+issues with precision, e.g. whether to represent a timestamp as 1460062925,
+1460062925000 or 1460062925.000. Date strings, though more verbose and requiring
 more effort to parse, avoid this ambiguity.
 
 
@@ -137,8 +137,8 @@ As a specific case of <<238>> you must use the following standard formats:
 * Language codes: {ISO-639-1}[ISO 639-1] two letter language codes
   indicated via OpenAPI format `iso-639`
 * Language variant tags: {BCP47}[BCP 47] multi letter language tag
-  indicated via OpenAPI format `bcp47`. (It is a compatible extension of 
-  {ISO-639-1}[ISO 639-1] with additional optional 
+  indicated via OpenAPI format `bcp47`. (It is a compatible extension of
+  {ISO-639-1}[ISO 639-1] with additional optional
   information for language usage, like region, variant, script)
 * Currency codes:  {ISO-4217}[ISO 4217] three letter currency codes
    indicated via OpenAPI format `iso-4217`
@@ -147,13 +147,13 @@ As a specific case of <<238>> you must use the following standard formats:
 == {SHOULD} use content negotiation, if clients may choose from different resource representations
 
 In some situations the API supports serving different representations of a specific resource (at the same URL)
-e.g. JSON, PDF, TEXT, or HTML representations for an invoice resource. 
-You should use https://en.wikipedia.org/wiki/Content_negotiation[content negotiation] 
-to support clients specifying via the standard HTTP headers 
-{Accept}, {Accept-Language}, {Accept-Encoding} which representation is best suited for their use case, 
-for example, which language of a document, representation / content format, or content encoding. 
-You <<172>> like `application/json` or `application/pdf` for defining the content 
-format in the {Accept} header. 
+e.g. JSON, PDF, TEXT, or HTML representations for an invoice resource.
+You should use https://en.wikipedia.org/wiki/Content_negotiation[content negotiation]
+to support clients specifying via the standard HTTP headers
+{Accept}, {Accept-Language}, {Accept-Encoding} which representation is best suited for their use case,
+for example, which language of a document, representation / content format, or content encoding.
+You <<172>> like `application/json` or `application/pdf` for defining the content
+format in the {Accept} header.
 
 
 [#144]

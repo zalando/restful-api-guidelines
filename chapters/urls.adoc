@@ -12,7 +12,7 @@ public API, and therefore should be made available under the root "/"
 base path.
 
 If the service should also support non-public, internal APIs
-— for specific operational support functions, for example — we encourage 
+— for specific operational support functions, for example — we encourage
 you to maintain two different API specifications and provide
 <<219, API audience>>. For both APIs, you should not use `/api` as base path.
 
@@ -24,20 +24,20 @@ https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#serve
 [#134]
 == {MUST} pluralize resource names
 
-Usually, a collection of resource instances is provided (at least the API 
-should be ready here). The special case of a _resource singleton_ must 
-be modeled as a collection with cardinality 1 including definition of 
-`maxItems` = `minItems` = 1 for the returned `array` structure 
+Usually, a collection of resource instances is provided (at least the API
+should be ready here). The special case of a _resource singleton_ must
+be modeled as a collection with cardinality 1 including definition of
+`maxItems` = `minItems` = 1 for the returned `array` structure
 to make the cardinality constraint explicit.
 
-**Exception:** the _pseudo identifier_ `self` used to specify a resource endpoint 
+**Exception:** the _pseudo identifier_ `self` used to specify a resource endpoint
 where the resource identifier is provided by authorization information (see <<143>>).
 
 
 [#228]
 == {MUST} use URL-friendly resource identifiers
 
-To simplify encoding of resource IDs in URLs they must match the regex `[a-zA-Z0-9:._\-/]*`. 
+To simplify encoding of resource IDs in URLs they must match the regex `[a-zA-Z0-9:._\-/]*`.
 Resource IDs only consist of ASCII strings using letters, numbers, underscore, minus, colon,
 period, and - on rare occasions - slash.
 
@@ -52,7 +52,7 @@ path parameters is forbidden.
 [#129]
 == {MUST} use kebab-case for path segments
 
-Path segments are restricted to ASCII kebab-case strings matching regex `^[a-z][a-z\-0-9]*$`. 
+Path segments are restricted to ASCII kebab-case strings matching regex `^[a-z][a-z\-0-9]*$`.
 The first character must be a lower case letter, and subsequent
 characters can be a letter, or a dash(`-`), or a number.
 
@@ -63,7 +63,7 @@ Example:
 /shipment-orders/{shipment-order-id}
 ----
 
-*Hint:* kebab-case applies to concrete path segments and not necessarily the names of path parameters. 
+*Hint:* kebab-case applies to concrete path segments and not necessarily the names of path parameters.
 
 
 [#136]

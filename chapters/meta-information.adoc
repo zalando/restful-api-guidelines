@@ -74,18 +74,18 @@ of the OpenAPI specification and must conform to the following definition:
   pattern: ^[a-z0-9][a-z0-9-:.]{6,62}[a-z0-9]$
   description: |
     Mandatory globally unique and immutable API identifier. The API
-    id allows to track the evolution and history of an API specification 
+    id allows to track the evolution and history of an API specification
     as a sequence of versions.
 ----
 
-API specifications will evolve and any aspect of an OpenAPI specification 
+API specifications will evolve and any aspect of an OpenAPI specification
 may change. We require API identifiers because we want  to support API clients
 and providers with API lifecycle management features, like change trackability
 and history or automated backward compatibility checks. The immutable API
 identifier allows the identification of all API specification versions of an
 API evolution. By using  <<116, API semantic version information>> or <<192,
 API publishing date>> as order criteria you get the *version* or
-*publication history* as a sequence of API specifications. 
+*publication history* as a sequence of API specifications.
 
 *Note*: While it is nice to use human readable API identifiers based on
 self-managed URNs, it is recommend to stick to UUIDs to relief API designers
@@ -110,15 +110,15 @@ Each API must be classified with respect to the intended target *audience*
 supposed to consume the API, to facilitate differentiated standards on APIs
 for discoverability, changeability, quality of design and documentation, as
 well as permission granting. We differentiate the following API audience
-groups with clear organisational and legal boundaries: 
+groups with clear organisational and legal boundaries:
 
 *component-internal*::
   This is often referred to as a _team internal API_ or a _product internal API_.
   The API consumers with this audience are restricted to applications of the
-  same *functional component* which typically represents a specific *product* 
+  same *functional component* which typically represents a specific *product*
   with clear functional scope and ownership.
   All services of a functional component / product are owned by a specific dedicated owner
-  and engineering team(s). Typical examples of component-internal APIs are APIs 
+  and engineering team(s). Typical examples of component-internal APIs are APIs
   being used by internal helper and worker services or that support service operation.
 *business-unit-internal*::
   The API consumers with this audience are restricted to applications of a
@@ -191,8 +191,8 @@ information about the addressed component. Besides, the most important aspect
 is, that it allows to keep APIs stable in the case of technical and
 organizational changes (Zalando for example maintains an internal naming convention).
 
-A unique `functional-name` is assigned to each functional component serving an API. 
-It is built of the domain name of the functional group the component is belonging 
+A unique `functional-name` is assigned to each functional component serving an API.
+It is built of the domain name of the functional group the component is belonging
 to and a unique a short identifier for the functional component itself:
 
 [source,bnf]
@@ -202,8 +202,8 @@ to and a unique a short identifier for the functional component itself:
 <functional-component> ::= [a-z][a-z0-9-]* -- name of API owning functional component
 ----
 
-Depending on the <<219, API audience>>, you *must/should/may* follow the functional 
-naming schema for <<224, hostnames>> and <<213, event names>> 
+Depending on the <<219, API audience>>, you *must/should/may* follow the functional
+naming schema for <<224, hostnames>> and <<213, event names>>
 (and also <<225, permission names>>, in future) as follows:
 
 [cols="25%,75%,options="header"]
@@ -220,14 +220,14 @@ Please see the following rules for detailed functional naming patterns:
 // * <<225>>
 
 
-*Internal Guideance*:  You _must_ use the simple 
+*Internal Guideance*:  You _must_ use the simple
 https://github.bus.zalan.do/team-architecture/functional-component-registry[functional
 name registry (internal link)] to register your functional name before using
 it. The registry is a centralized infrastructure service to ensure uniqueness
-of your functional names (and available domains -- including subdomains) and 
+of your functional names (and available domains -- including subdomains) and
 to support hostname DNS resolution. +
-_Hint:_ Due to lexicalic restrictions of DNS names there is no specific separator 
-to split a functional name into (sub) domain and component; this knowledge is only 
+_Hint:_ Due to lexicalic restrictions of DNS names there is no specific separator
+to split a functional name into (sub) domain and component; this knowledge is only
 managed in the registry.
 
 
@@ -245,7 +245,7 @@ depending on the <<219, audience>> as follows (see <<223>> for details and
 <functional-hostname>  ::= <functional-name>.zalandoapis.com
 -----
 
-*Hint:* The following convention (e.g. used by legacy STUPS infrastructure) is deprecated 
+*Hint:* The following convention (e.g. used by legacy STUPS infrastructure) is deprecated
 and *only* allowed for hostnames of <<219, component-internal>> APIs:
 
 [source,bnf]
@@ -255,8 +255,8 @@ and *only* allowed for hostnames of <<219, component-internal>> APIs:
 <organization-id>      ::= [a-z][a-z0-9-]*  -- organization unit identifier, e.g. team identifier
 -----
 
-*Exception:* There are legacy hostnames used for APIs with `external-partner` audience 
-which may not follow this rule due to backward compatibility constraints. 
-The API Linter maintains an allow-list for these exceptions (including e.g. 
+*Exception:* There are legacy hostnames used for APIs with `external-partner` audience
+which may not follow this rule due to backward compatibility constraints.
+The API Linter maintains an allow-list for these exceptions (including e.g.
 `api.merchants.zalando.com` and `api-sandbox.merchants.zalando.com`).
 

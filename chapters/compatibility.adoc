@@ -113,7 +113,7 @@ Service clients should apply the robustness principle:
   exploit definition deficits like passing megabytes of strings with
   unspecified maximum length.
 * Be tolerant in processing and reading data of API responses, more
-  specifically srvice clients must be prepared for compatible API extensions 
+  specifically service clients must be prepared for compatible API extensions
   of response data:
 
 ** Be tolerant with unknown fields in the payload (see also Fowler’s
@@ -135,7 +135,7 @@ Service clients should apply the robustness principle:
 
 The OpenAPI specification is not very specific on default extensibility
 of objects, and redefines JSON-Schema keywords related to extensibility, like
-`additionalProperties`. Following our compatibility guidelines, OpenAPI 
+`additionalProperties`. Following our compatibility guidelines, OpenAPI
 object definitions are considered open for extension by default as per
 http://json-schema.org/latest/json-schema-validation.html#rfc.section.5.18[Section
 5.18 "additionalProperties"] of JSON-Schema.

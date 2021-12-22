@@ -3,13 +3,13 @@
 
 [[standard-headers]]
 // hint: legacy anchor positioned here - acsciidoc does not support two anchors in sequence
-We describe a handful of standard HTTP headers, which we found raising the most questions in 
+We describe a handful of standard HTTP headers, which we found raising the most questions in
 our daily usage, or which are useful in particular circumstances but not widely known.
 
 Though we generally discourage usage of proprietary headers, they are useful to pass generic,
-service independent, overarching information relevant for our specific application architecture. 
-We consistently define these proprietary headers in this section below. Whether services support 
-these concerns or not is optional. Therefore, the OpenAPI API specification is the right place 
+service independent, overarching information relevant for our specific application architecture.
+We consistently define these proprietary headers in this section below. Whether services support
+these concerns or not is optional. Therefore, the OpenAPI API specification is the right place
 to make this explicitly visible -- use the parameter definitions of the resource HTTP methods.
 
 
@@ -23,7 +23,7 @@ explicitly mention its support in your OpenAPI definition.
 [#132]
 == {SHOULD} use kebab-case with uppercase separate words for HTTP headers
 
-This convention is followed by (most of) the standard headers e.g. as defined in 
+This convention is followed by (most of) the standard headers e.g. as defined in
 {RFC-2616}[RFC 2616] and {RFC-4229}[RFC 4229]. Examples:
 
 [source,http]
@@ -34,9 +34,9 @@ Content-ID
 Language
 ----
 
-Note, HTTP standard defines headers as case-insensitive ({RFC-7230}#page-22[RFC 7230, p.22]). 
-However, for sake of readability and consistency you should follow the convention when 
-using standard or proprietary headers. Exceptions are common abbreviations like `ID`. 
+Note, HTTP standard defines headers as case-insensitive ({RFC-7230}#page-22[RFC 7230, p.22]).
+However, for sake of readability and consistency you should follow the convention when
+using standard or proprietary headers. Exceptions are common abbreviations like `ID`.
 
 
 [#178]
@@ -64,11 +64,11 @@ limited to:
 [#180]
 == {SHOULD} use `Location` header instead of `Content-Location` header
 
-As the correct usage of {Content-Location} response header (see below) with respect 
-to caching and its method specific semantics is difficult, we _discourage_ the use 
-of {Content-Location}. 
-In most cases it is sufficient to inform clients about the resource location 
-in create or re-direct responses by using the {Location} header while avoiding  
+As the correct usage of {Content-Location} response header (see below) with respect
+to caching and its method specific semantics is difficult, we _discourage_ the use
+of {Content-Location}.
+In most cases it is sufficient to inform clients about the resource location
+in create or re-direct responses by using the {Location} header while avoiding
 the {Content-Location} specific ambiguities and complexities.
 
 More details in RFC 7231 {RFC-7231}#section-7.1.2[7.1.2 Location],
@@ -201,7 +201,7 @@ components:
       type: string
       required: false
       example: W/"xy", "5", "5db68c06-1a68-11e9-8341-68f728c1ba70"
-    
+
   - If-Match:
       description: |
         The RFC7232 If-Match header field in a request requires the server to
@@ -214,7 +214,7 @@ components:
       type: string
       required: false
       example: "5", "7da7a728-f910-11e6-942a-68f728c1ba70"
-    
+
   - If-None-Match:
       description: |
         The RFC7232 If-None-Match header field in a request requires the server
@@ -222,7 +222,7 @@ components:
         entity-tags. If the provided entity-tag is `*`, it is required that the
         resource does not exist at all (see [RFC 7232 Section
         3.2](https://tools.ietf.org/html/rfc7232#section-3.2).
-    
+
       type: string
       required: false
       example: "7da7a728-f910-11e6-942a-68f728c1ba70", *
@@ -296,38 +296,38 @@ size.
 
 *Note:* The {Idempotency-Key} header unlike other headers in this section
 is not standardized in an RFC. Our only reference are the usage in the
-https://stripe.com/docs/api/idempotent_requests[Stripe API]. 
-However, we do not want to change the header name and semantic, and 
-do not name it like the proprietry headers below. 
-The header addresses a generic REST concern and is different from the 
-Zalando landscape specific proprietary headers. 
+https://stripe.com/docs/api/idempotent_requests[Stripe API].
+However, we do not want to change the header name and semantic, and
+do not name it like the proprietry headers below.
+The header addresses a generic REST concern and is different from the
+Zalando landscape specific proprietary headers.
 
 
 [#183]
 == {SHOULD} use only the specified proprietary Zalando headers
 
-As a general rule, proprietary HTTP headers should be avoided. 
+As a general rule, proprietary HTTP headers should be avoided.
 From a conceptual point of view, the business semantics and intent of an
 operation should always be expressed via the URLs path and query parameters,
 the method, and the content, but not via proprietary headers.
 Headers are typically used to implement protocol processing aspects, such as flow control,
-content negotiation, and authentication, and represent business agnostic 
+content negotiation, and authentication, and represent business agnostic
 request modifiers that provide generic context information ({RFC-7231}#section-5[RFC 7231]).
 
-However, the exceptional usage of proprietary headers is still helpful 
+However, the exceptional usage of proprietary headers is still helpful
 when domain-specific generic context information...
 
-. needs to be passed end to end along the service call chain (even if 
-not all called services use it as input for steering service behavior 
+. needs to be passed end to end along the service call chain (even if
+not all called services use it as input for steering service behavior
 e.g. {X-Sales-Channel} header) and/or...
-. is provided by specific gateway components, for instance, our 
-Fashion Shop API or Merchant API gateway. 
+. is provided by specific gateway components, for instance, our
+Fashion Shop API or Merchant API gateway.
 
-Below, we explicitly define the list of proprietary header exceptions usable for 
-all services for passing through generic context information of our fashion domain (use case 1). 
+Below, we explicitly define the list of proprietary header exceptions usable for
+all services for passing through generic context information of our fashion domain (use case 1).
 
-Per convention, non standardized, proprietary header names are prefixed with  `X-`. 
-(Due to backward compatibility, we do not follow the Internet Engineering Task Force’s 
+Per convention, non standardized, proprietary header names are prefixed with  `X-`.
+(Due to backward compatibility, we do not follow the Internet Engineering Task Force’s
 recommendation in {RFC-6648}[RFC 6648] to deprecate usage of  `X-` headers.)
 Remember that HTTP header field names are not case-sensitive:
 
@@ -341,8 +341,8 @@ For more information see <<233>>.
 
 |[[x-tenant-id]]{X-Tenant-ID}|String|
 Identifies the tenant initiated the request
-to the multi tenant Zalando Platform. The {X-Tenant-ID} must be set 
-according to the Business Partner ID extracted from the OAuth token when 
+to the multi tenant Zalando Platform. The {X-Tenant-ID} must be set
+according to the Business Partner ID extracted from the OAuth token when
 a request from a Business Partner hits the Zalando Platform.
 |9f8b3ca3-4be5-436c-a847-9cd55460c495
 
@@ -374,15 +374,15 @@ as generic aspect. Current range is iOS, Android, Windows, Linux, MacOS.
 |Android
 
 |[[x-mobile-advertising-id]]{X-Mobile-Advertising-Id}|String|
-It is either the 
-https://developer.apple.com/documentation/adsupport/asidentifiermanager[IDFA] 
-(Apple Identifier for mobile Advertising) for iOS, or the 
-https://support.google.com/googleplay/android-developer/answer/6048248[GAID] 
-(Google mobile Advertising Identifier) for Android. It is a unique, 
-customer-resettable identifier provided by mobile device’s operating system 
-to facilitate personalized advertising, and usually passed by mobile apps via http header 
-when calling backend services. Called services should be ready to pass this 
-parameter through when calling other services. It is not sent if the customer 
+It is either the
+https://developer.apple.com/documentation/adsupport/asidentifiermanager[IDFA]
+(Apple Identifier for mobile Advertising) for iOS, or the
+https://support.google.com/googleplay/android-developer/answer/6048248[GAID]
+(Google mobile Advertising Identifier) for Android. It is a unique,
+customer-resettable identifier provided by mobile device’s operating system
+to facilitate personalized advertising, and usually passed by mobile apps via http header
+when calling backend services. Called services should be ready to pass this
+parameter through when calling other services. It is not sent if the customer
 disables it in the settings for respective mobile platform.
 |b89fadce-1f42-46aa-9c83-b7bc49e76e1f
 
@@ -409,10 +409,10 @@ parameters:
 ----
 
 *Hint:* This guideline does not standardize proprietary headers for 
-our specific gateway components (2. use case above). 
+our specific gateway components (2. use case above).
 This include, for instance, non pass-through headers `X-Zalando-Client-ID`, `X-Zalando-Request-Host`, 
 `X-Zalando-Request-URI` defined by Fashion Shop API (RKeep), or `X-Consumer`, `X-Consumer-Signature`, 
-`X-Consumer-Key-ID` defined by Merchant API gateway. 
+`X-Consumer-Key-ID` defined by Merchant API gateway.
 All these proprietary headers are allowlisted in the API Linter (Zally) checking this rule.
 
 [#184]
