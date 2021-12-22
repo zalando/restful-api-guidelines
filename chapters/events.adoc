@@ -202,7 +202,7 @@ EventType:
         *Background:* Event ordering is often created on application level using
         ascending counters, and data providers/consumers do not need to rely on the
         event publication order. A typical example are data instance change events
-        used to keep a slave data store replica in sync. Here you have an order
+        used to keep a data store replica in sync. Here you have an order
         defined per instance using data object change counters (aka row update
         version) and the order of event publication is not relevant, because
         consumers for data synchronization skip older instance versions when they
