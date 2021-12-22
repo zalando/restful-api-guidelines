@@ -12,11 +12,11 @@ entities exposed as resources that are identified via URIs and can be
 manipulated via standardized CRUD-like methods using different
 representations, and hypermedia. RESTful APIs
 tend to be less use-case specific and come with less rigid client /
-server coupling and are more suitable for an ecosystem of (core) services 
-providing a platform of APIs to build diverse new business services. 
-We apply the RESTful web service principles to all kind of application 
-(micro-) service components, independently from whether they provide 
-functionality via the internet or intranet. 
+server coupling and are more suitable for an ecosystem of (core) services
+providing a platform of APIs to build diverse new business services.
+We apply the RESTful web service principles to all kind of application
+(micro-) service components, independently from whether they provide
+functionality via the internet or intranet.
 
 * We prefer REST-based APIs with JSON payloads
 * We prefer systems to be truly RESTful
@@ -76,16 +76,16 @@ make them irresistible for client engineers
 * Actively improve and maintain API consistency over the long term
 * Make use of customer feedback and provide service level support
 
-Embracing 'API as a Product' facilitates a service ecosystem, which can 
-be evolved more easily and used to experiment quickly with new business 
-ideas by recombining core capabilities. 
-It makes the difference between agile, innovative product service 
+Embracing 'API as a Product' facilitates a service ecosystem, which can
+be evolved more easily and used to experiment quickly with new business
+ideas by recombining core capabilities.
+It makes the difference between agile, innovative product service
 business built on a platform of APIs and ordinary enterprise integration business
 where APIs are provided as "appendix" of existing products to support system integration
-and optimised for local server-side realization. 
+and optimised for local server-side realization.
 
-Understand the concrete use cases of your customers and carefully check 
-the trade-offs of your API design variants with a product mindset. Avoid short-term 
+Understand the concrete use cases of your customers and carefully check
+the trade-offs of your API design variants with a product mindset. Avoid short-term
 implementation optimizations at the expense of unnecessary client side
 obligations, and have a high attention on API quality and client
 developer experience.
@@ -95,7 +95,7 @@ API as a Product is closely related to our <<100,API First principle>>
 
 
 [[api-first]]
-== API first 
+== API first
 
 API First is one of our
 https://github.com/zalando/engineering-principles[engineering
@@ -126,7 +126,7 @@ of a contract between service provider and client users
 * infrastructure tooling for API discovery, API GUIs, API documents,
 automated quality checks
 
-Elements of API First are also this API Guidelines and a standardized 
+Elements of API First are also this API Guidelines and a standardized
 API review process as to get early review feedback from
 peers and client developers. Peer review is important for us to get high
 quality APIs, to enable architectural and design alignment and to
@@ -144,12 +144,12 @@ include breaking changes for not yet productive features and as long as
 we have aligned the changes with the clients. Hence, API First does
 _not_ mean that you must have 100% domain and requirement understanding
 and can never produce code before you have defined the complete API and
-get it confirmed by peer review. 
+get it confirmed by peer review.
 
-On the other hand, API First obviously is in conflict with the bad 
-practice of publishing API definition and asking for peer review after 
-the service integration or even the service productive operation has 
-started. It is crucial to request and get early feedback — as early as 
-possible, but not before the API changes are comprehensive with focus 
-to the next evolution step and have a certain quality (including API 
+On the other hand, API First obviously is in conflict with the bad
+practice of publishing API definition and asking for peer review after
+the service integration or even the service productive operation has
+started. It is crucial to request and get early feedback — as early as
+possible, but not before the API changes are comprehensive with focus
+to the next evolution step and have a certain quality (including API
 Guideline compliance), already confirmed via team internal reviews.

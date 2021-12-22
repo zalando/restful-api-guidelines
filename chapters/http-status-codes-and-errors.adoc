@@ -12,7 +12,7 @@ define how an API is used correctly.
 Therefore, you must define **all** success and service specific error
 responses in your API specification. Both are part of the interface definition
 and provide important information for service clients to handle standard as
-well as exceptional situations. 
+well as exceptional situations.
 
 
 **Hint:** In most cases it is not useful to document all technical errors,
@@ -121,8 +121,8 @@ See Other - The response to the request can be found under another URI using a
 |{POST}, {PUT}, {PATCH}, {DELETE}
 
 |[[status-code-304]]{304}|
-Not Modified - indicates that a conditional GET or HEAD request would have 
-resulted in 200 response if it were not for the fact that the condition evaluated 
+Not Modified - indicates that a conditional GET or HEAD request would have
+resulted in 200 response if it were not for the fact that the condition evaluated
 to false, i.e. resource has not been modified since the date or version passed
 via request headers If-Modified-Since or If-None-Match.
 |{GET}, {HEAD}
@@ -228,7 +228,7 @@ should wait by setting the {Retry-After} header.
 [#220]
 == {MUST} use most specific HTTP status codes
 
-You must use the most specific HTTP status code when returning information 
+You must use the most specific HTTP status code when returning information
 about your request processing status or error situations.
 
 
@@ -286,7 +286,7 @@ BatchOrBulkResponse:
               Response status value. A number or extensible enum describing
               the execution status of the batch or bulk request items.
             type: string
-            x-extensible-enum: [...] 
+            x-extensible-enum: [...]
           description:
             description: >
               Human readable status description and containing additional

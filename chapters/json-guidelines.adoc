@@ -11,9 +11,9 @@ an idiomatic form across teams and services.
 [#167]
 == {MUST} use JSON as payload data interchange format
 
-Use JSON ({RFC-7159}[RFC 7159]) to represent structured (resource) data 
+Use JSON ({RFC-7159}[RFC 7159]) to represent structured (resource) data
 passed with HTTP requests and responses as body payload.
-The JSON payload must use a JSON object as top-level data 
+The JSON payload must use a JSON object as top-level data
 structure (if possible) to allow for future extension. This also applies to
 collection resources, where you ad-hoc would use an array -- see also
 <<110>>.
@@ -36,29 +36,29 @@ As a consequence, a JSON payload must
 [#168]
 == {MAY} pass non-JSON media types using data specific standard formats
 
-Non-JSON media types may be supported, if you stick to a business object specific standard 
-format for the payload data, for instance, image data format (JPG, PNG, GIF), document 
-format (PDF, DOC, ODF, PPT), or archive format (TAR, ZIP). 
+Non-JSON media types may be supported, if you stick to a business object specific standard
+format for the payload data, for instance, image data format (JPG, PNG, GIF), document
+format (PDF, DOC, ODF, PPT), or archive format (TAR, ZIP).
 
-Generic structured data interchange formats other than JSON (e.g. XML, CSV) 
-may be provided, but only additionally to JSON as default format using <<244, content negotiation>>, 
+Generic structured data interchange formats other than JSON (e.g. XML, CSV)
+may be provided, but only additionally to JSON as default format using <<244, content negotiation>>,
 for specific use cases where clients may not interpret the payload structure.
 
 
 [#172]
 == {SHOULD} use standard media types
 
-You should use standard media types (defined in {media-types}[media type registry] 
-of Internet Assigned Numbers Authority (IANA)) as `content-type` (or `accept`) header 
-information. More specifically, for JSON payload you should use the standard media type 
+You should use standard media types (defined in {media-types}[media type registry]
+of Internet Assigned Numbers Authority (IANA)) as `content-type` (or `accept`) header
+information. More specifically, for JSON payload you should use the standard media type
 `application/json` (or `application/problem+json` for <<176>>).
 
-You should avoid using custom media types like `application/x.zalando.article+json`. 
+You should avoid using custom media types like `application/x.zalando.article+json`.
 Custom media types beginning with `x` bring no advantage compared to the
 standard media type for JSON, and make automated processing more difficult.
 
-*Exception:* Custom media type should be only used in situations where you need to provide 
-<<114, API endpoint versioning>> (with content negotiation) due to incompatible changes.   
+*Exception:* Custom media type should be only used in situations where you need to provide
+<<114, API endpoint versioning>> (with content negotiation) due to incompatible changes.
 
 
 [#120]
@@ -71,7 +71,7 @@ This implies in turn that object names should be singular.
 [#118]
 == {MUST} property names must be snake_case (and never camelCase)
 
-Property names are restricted to ASCII snake_case strings matching regex `^[a-z_][a-z_0-9]*$`. 
+Property names are restricted to ASCII snake_case strings matching regex `^[a-z_][a-z_0-9]*$`.
 The first character must be a lower case letter, or an underscore, and subsequent
 characters can be a letter, an underscore, or a number.
 
@@ -91,16 +91,16 @@ as if it came from the same hand.
 
 [#125]
 [#240]
-== {SHOULD} declare enum values using UPPER_SNAKE_CASE string 
+== {SHOULD} declare enum values using UPPER_SNAKE_CASE string
 
-Enumerations should be represented as `string` typed OpenAPI definitions of 
+Enumerations should be represented as `string` typed OpenAPI definitions of
 request parameters or model properties.
-Enum values (using `enum` or {x-extensible-enum}) need to consistently use 
-the upper-snake case format, e.g. `VALUE` or `YET_ANOTHER_VALUE`. 
+Enum values (using `enum` or {x-extensible-enum}) need to consistently use
+the upper-snake case format, e.g. `VALUE` or `YET_ANOTHER_VALUE`.
 This approach allows to clearly distinguish values from properties or other elements.
 
-**Exception:** This rule does not apply for case sensitive values sourced from outside 
-API definition scope, e.g. for language codes from {ISO-639-1}[ISO 639-1], or when 
+**Exception:** This rule does not apply for case sensitive values sourced from outside
+API definition scope, e.g. for language codes from {ISO-639-1}[ISO 639-1], or when
 declaring possible values for a <<137,rule 137>> [`sort` parameter].
 
 
@@ -245,10 +245,10 @@ Empty array values can unambiguously be represented as the empty list, `[]`.
 
 [[generic-fields]]
 You must use common field names and semantics whenever applicable.
-Common fields are idiomatic, create consistency across APIs and 
-support common understanding for API consumers.  
+Common fields are idiomatic, create consistency across APIs and
+support common understanding for API consumers.
 
-We define the following common field names: 
+We define the following common field names:
 
 * [[id]]{id}: the identity of the object. If used, IDs must be opaque strings
   and not numbers. IDs are unique within some documented context, are stable

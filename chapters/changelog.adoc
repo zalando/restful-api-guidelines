@@ -16,7 +16,7 @@ To see a list of all changes, please have a look at the https://github.com/zalan
 [[rule-changes]]
 == Rule Changes
 
-* `2021-11-02`: document restructuring 
+* `2021-11-02`: document restructuring
 * `2021-06-22`: <<238>> changed from {SHOULD} to {MUST}; consistency for rules around standards for data.
 * `2021-06-03`: <<104>> with clear distinction of OpenAPI security schemes, favoring `bearer` to `oauth2`.
 * `2021-06-01`: resolve uncertainties around 'occurred_at' semantics of <<event-metadata, event metadata>>.
