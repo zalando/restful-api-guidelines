@@ -6175,7 +6175,7 @@ our specific gateway components (2. use case above).
 This include, for instance, non pass-through headers <code>X-Zalando-Client-ID</code>, <code>X-Zalando-Request-Host</code>,
 <code>X-Zalando-Request-URI</code> defined by Fashion Shop API (RKeep), or <code>X-Consumer</code>, <code>X-Consumer-Signature</code>,
 <code>X-Consumer-Key-ID</code> defined by Merchant API gateway.
-All these proprietary headers are whitelisted in the API Linter (Zally) checking this rule.</p>
+All these proprietary headers are allowlisted in the API Linter (Zally) checking this rule.</p>
 </div>
 </div>
 <div class="sect2">
@@ -8014,7 +8014,7 @@ definition:</p>
         *Background:* Event ordering is often created on application level using
         ascending counters, and data providers/consumers do not need to rely on the
         event publication order. A typical example are data instance change events
-        used to keep a slave data store replica in sync. Here you have an order
+        used to keep a data store replica in sync. Here you have an order
         defined per instance using data object change counters (aka row update
         version) and the order of event publication is not relevant, because
         consumers for data synchronization skip older instance versions when they
@@ -10031,7 +10031,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-12-22 11:17:45 UTC
+Last updated 2021-12-22 11:28:54 UTC
 </div>
 </div>
 </body>
