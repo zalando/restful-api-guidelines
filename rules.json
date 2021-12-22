@@ -90,7 +90,7 @@
     },
     {
       "id": "#125",
-      "title": "SHOULD declare enum values using UPPER_SNAKE_CASE string "
+      "title": "SHOULD declare enum values using UPPER_SNAKE_CASE string"
     },
     {
       "id": "#126",
@@ -526,7 +526,7 @@
     },
     {
       "id": "#240",
-      "title": "SHOULD declare enum values using UPPER_SNAKE_CASE string "
+      "title": "SHOULD declare enum values using UPPER_SNAKE_CASE string"
     },
     {
       "id": "#241",
@@ -546,11 +546,11 @@
     },
     {
       "id": "#245",
-      "title": "MUST carefully define the compatibility mode "
+      "title": "MUST carefully define the compatibility mode"
     },
     {
       "id": "#246",
-      "title": "MUST use semantic versioning of event type schemas "
+      "title": "MUST use semantic versioning of event type schemas"
     },
     {
       "id": "#247",
