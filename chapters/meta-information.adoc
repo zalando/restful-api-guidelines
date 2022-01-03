@@ -160,8 +160,7 @@ reason a smaller audience group is intentionally included in the wider group
 and thus does not need to be declared additionally. If parts of your API have
 a different target audience, we recommend to split API specifications along
 the target audience — even if this creates redundancies
-(https://apis.zalando.net/redirect/85ee93a3-7a78-4461-8bf1-08ffdaebcd18[rationale
-(internal link)]).
+(https://apis.zalando.net/redirect/85ee93a3-7a78-4461-8bf1-08ffdaebcd18[rationale (internal link)]).
 
 Example:
 
@@ -177,8 +176,7 @@ info:
 ----
 
 For details and more information on audience groups see the
-https://apis.zalando.net/redirect/85ee93a3-7a78-4461-8bf1-08ffdaebcd18[
-API Audience narrative (internal link)].
+https://apis.zalando.net/redirect/85ee93a3-7a78-4461-8bf1-08ffdaebcd18[API Audience narrative (internal link)].
 
 
 [#223]
@@ -221,8 +219,8 @@ Please see the following rules for detailed functional naming patterns:
 
 
 *Internal Guideance*:  You _must_ use the simple
-https://github.bus.zalan.do/team-architecture/functional-component-registry[functional
-name registry (internal link)] to register your functional name before using
+https://github.bus.zalan.do/team-architecture/functional-component-registry[functional name registry (internal link)] 
+to register your functional name before using
 it. The registry is a centralized infrastructure service to ensure uniqueness
 of your functional names (and available domains -- including subdomains) and
 to support hostname DNS resolution. +

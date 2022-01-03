@@ -471,13 +471,12 @@ format or length, it must define this restriction in its API specification,
 and be generous and remove invalid characters or cut the length to the
 supported limit.
 
-*Hint:* In case distributed tracing is supported by {SRE-Tracing}[OpenTracing
-(internal link)] you should ensure that created _spans_ are tagged using
-`flow_id` — see
-{SRE-Tracing}/blob/master/wg-semantic-conventions/best-practices/flowid.md[How
-to Connect Log Output with OpenTracing Using Flow-IDs (internal link)] or
-{SRE-Tracing}/blob/master/wg-semantic-conventions/best-practices.md[Best
-practises (internal link)].
+*Hint:* In case distributed tracing is supported by 
+https://github.bus.zalan.do/SRE/opentracing[OpenTracing (internal link)] 
+you should ensure that created _spans_ are tagged using `flow_id` — see
+https://github.bus.zalan.do/SRE/opentracing/blob/master/wg-semantic-conventions/best-practices/flowid.md[How to Connect Log Output with OpenTracing Using Flow-IDs (internal link)] 
+or
+https://github.bus.zalan.do/SRE/opentracing/blob/master/wg-semantic-conventions/best-practices.md[Best practises (internal link)].
 
 === Service Guidance
 

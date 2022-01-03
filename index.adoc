@@ -61,8 +61,6 @@
 :ISO-639-1: https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
 :ISO-4217: https://en.wikipedia.org/wiki/ISO_4217
 
-:SRE-Tracing: https://github.bus.zalan.do/SRE/opentracing
-
 // Attribute to improve design of key words in titles.
 :MUST: pass:[<span class="must-keyword"><strong>MUST</strong></span>]
 :SHOULD: pass:[<span class="should-keyword"><strong>SHOULD</strong></span>]
