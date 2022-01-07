@@ -15,6 +15,7 @@
 :dash: pass:[<b>–</b>]
 
 // Some link short cuts.
+// links to RFCs and standards:
 :RFC-1034: https://tools.ietf.org/html/rfc1034
 :RFC-2616: https://tools.ietf.org/html/rfc2616
 :RFC-2673: https://tools.ietf.org/html/rfc2673
@@ -49,9 +50,8 @@
 :RFC-8288: https://tools.ietf.org/html/rfc8288
 :RFC-8594: https://tools.ietf.org/html/rfc8594
 
-:link-relations: http://www.iana.org/assignments/link-relations
-:media-types: https://www.iana.org/assignments/media-types/media-types.xhtml
-
+:iana-link-relations: http://www.iana.org/assignments/link-relations
+:iana-media-types: https://www.iana.org/assignments/media-types/media-types.xhtml
 :BCP47: https://tools.ietf.org/html/bcp47
 :ECMA-262: http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf
 :GTIN: https://en.wikipedia.org/wiki/Global_Trade_Item_Number
@@ -60,6 +60,20 @@
 :ISO-3166-1-a2: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
 :ISO-639-1: https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
 :ISO-4217: https://en.wikipedia.org/wiki/ISO_4217
+
+// links to internal 
+:api-guild: https://api.docs.zalando.net/
+:nakadi-api: https://apis.zalando.net/apis/nakadi-event-bus-api-definition/ui
+:api-audience-narrative: https://apis.zalando.net/redirect/85ee93a3-7a78-4461-8bf1-08ffdaebcd18
+:functional-name-registry: https://github.bus.zalan.do/team-architecture/functional-component-registry
+:customer-naming-decision: https://apis.zalando.net/redirect/5675b6ec-8934-11ea-929e-68f728c1ba70
+:zally-ui: https://zally.zalando.net/
+:api-review-proc: https://api.docs.zalando.net/howto/request-review/
+:api-portal: https://apis.zalando.net/
+:techradar-public: https://techradar.zalando.net/languages/graphql.html
+:api-repository: https://infrastructure-api-repository.zalandoapis.com/
+:glossary: https://digital-experience.docs.zalando.net/glossary/glossary.html
+:SRE-open-tracing: https://github.bus.zalan.do/SRE/opentracing
 
 // Attribute to improve design of key words in titles.
 :MUST: pass:[<span class="must-keyword"><strong>MUST</strong></span>]
@@ -88,7 +102,6 @@
 :OPTIONS: pass:[<a href="#options"><code>OPTIONS</code></a>]
 :TRACE: pass:[<a href="#trace"><code>TRACE</code></a>]
 :ALL: pass:[<code>&lt;all&gt;</code>]
-
 
 
 // Attributes to improve design and linking of HTTP status codes

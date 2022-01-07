@@ -48,7 +48,7 @@ for specific use cases where clients may not interpret the payload structure.
 [#172]
 == {SHOULD} use standard media types
 
-You should use standard media types (defined in {media-types}[media type registry]
+You should use standard media types (defined in {iana-media-types}[media type registry]
 of Internet Assigned Numbers Authority (IANA)) as `content-type` (or `accept`) header
 information. More specifically, for JSON payload you should use the standard media type
 `application/json` (or `application/problem+json` for <<176>>).
@@ -262,7 +262,7 @@ We define the following common field names:
   *Exception*: We use `customer_number` instead of `customer_id` for customer facing
   identification of customers due to legacy reasons. (Hint: `customer_id` used to be defined
   as internal only, technical integer key, see
-  https://apis.zalando.net/redirect/5675b6ec-8934-11ea-929e-68f728c1ba70[Naming Decision: `customer_number` vs `customer_id` [internal link]]).
+  {customer-naming-decision}[Naming Decision: `customer_number` vs `customer_id` [internal_link]]).
 * [[type]]{type}: the kind of thing this object is. If used, the type of this
   field should be a string. Types allow runtime information on the entity
   provided that otherwise requires examining the OpenAPI file.

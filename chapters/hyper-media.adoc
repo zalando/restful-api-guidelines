@@ -62,8 +62,7 @@ HATEOAS] and others for a detailed discussion):
 However, we do not forbid HATEOAS; you could use it, if you checked its
 limitations and still see clear value for your usage scenario that justifies
 its additional complexity. If you use HATEOAS please share experience and
-present your findings in the
-https://api.docs.zalando.net/[API Guild [internal link]].
+present your findings in the {api-guild}[API Guild (internal_link)].
 
 
 [#164]
@@ -95,9 +94,9 @@ HttpLink:
 ----
 
 The name of an attribute holding such a `HttpLink` object specifies the
-relation between the object that contains the link and the linked
-resource. Implementations should use names from the {link-relations}[IANA
-Link Relation Registry] whenever appropriate. As IANA link relation
+relation between the object that contains the link and the linked resource. 
+Implementations should use names from the {iana-link-relations}[IANA Link Relation Registry] 
+whenever appropriate. As IANA link relation
 names use hyphen-case notation, while this guide enforces snake_case
 notation for attribute names, hyphens in IANA names have to be replaced
 with underscores (e.g. the IANA link relation type `version-history`
@@ -141,7 +140,7 @@ understandability and usability of an API.
 For pagination and self-references a simplified form of the <<164, extensible
 common hypertext controls>> should be used to reduce the specification and
 cognitive overhead. It consists of a simple URI value in combination with the
-corresponding {link-relations}[link relations], e.g. {next}, {prev}, {first},
+corresponding {iana-link-relations}[link relations], e.g. {next}, {prev}, {first},
 {last}, or {self}.
 
 See <<164>> and <<161>> for more information and examples.

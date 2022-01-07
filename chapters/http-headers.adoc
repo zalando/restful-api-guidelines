@@ -349,8 +349,7 @@ a request from a Business Partner hits the Zalando Platform.
 |[[x-sales-channel]]{X-Sales-Channel}|String|
 Sales channels are owned by retailers and represent a specific consumer segment
 being addressed with a specific product assortment that is offered via CFA
-retailer catalogs to consumers (see
-https://digital-experience.docs.zalando.net/glossary/glossary.html[fashion platform glossary (internal link)]).
+retailer catalogs to consumers (see {glossary}[fashion platform glossary (internal_link)]).
 |52b96501-0f8d-43e7-82aa-8a96fab134d7
 
 |[[x-frontend-type]]{X-Frontend-Type}|String|
@@ -472,11 +471,11 @@ and be generous and remove invalid characters or cut the length to the
 supported limit.
 
 *Hint:* In case distributed tracing is supported by 
-https://github.bus.zalan.do/SRE/opentracing[OpenTracing (internal link)] 
+{SRE-open-tracing}[OpenTracing (internal_link)] 
 you should ensure that created _spans_ are tagged using `flow_id` — see
-https://github.bus.zalan.do/SRE/opentracing/blob/master/wg-semantic-conventions/best-practices/flowid.md[How to Connect Log Output with OpenTracing Using Flow-IDs (internal link)] 
+{SRE-open-tracing}/blob/master/wg-semantic-conventions/best-practices/flowid.md[How to Connect Log Output with OpenTracing Using Flow-IDs (internal_link)] 
 or
-https://github.bus.zalan.do/SRE/opentracing/blob/master/wg-semantic-conventions/best-practices.md[Best practises (internal link)].
+{SRE-open-tracing}/blob/master/wg-semantic-conventions/best-practices.md[Best practises (internal_link)].
 
 === Service Guidance
 
