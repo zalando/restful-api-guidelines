@@ -95,7 +95,7 @@ or write is sufficient.
 
 The defined permissions are than assigned to each API endpoint based on the
 security schema (see example in <<104, previous section>>) by specifying the
-https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#securityRequirementObject[security requirement]
+https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#securityRequirementObject[security requirement]
 as follows:
 
 [source,yaml]
