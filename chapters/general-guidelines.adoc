@@ -88,7 +88,7 @@ should not contain references to local or remote content, e.g. `../fragment.yaml
 `$ref: 'https://github.com/zalando/zally/blob/master/server/src/main/resources/api/zally-api.yaml#/schemas/LintingRequest'`.
 The reason is, that the content referred to is _in general_ *not durable* and
 *not immutable*. As a consequence, the semantic of an API may change in
-unexpected ways.
+unexpected ways. (For example, the second link is already outdated due to code restructuring, it would now need to be `$ref: 'https://github.com/zalando/zally/blob/main/server/zally-server/src/main/resources/api/zally-api.yaml#/schemas/LintingRequest'`.)
 
 However, you may use remote references to resources accessible by the following
 service URLs:
@@ -98,7 +98,7 @@ service URLs:
   internal API repository.
 * `https://opensource.zalando.com/restful-api-guidelines/{model.yaml}` {dash}
   used to refer to guideline defined re-usable API fragments (see
-  `{model.yaml}` files in https://github.com/zalando/restful-api-guidelines/tree/master/models[restful-api-guidelines/models]
+  `{model.yaml}` files in https://github.com/zalando/restful-api-guidelines/tree/main/models[restful-api-guidelines/models]
   for details).
 
 *Hint:* The formerly used remote references to the `Problem` API fragment
