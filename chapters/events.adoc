@@ -335,11 +335,11 @@ the Schema Object as defined by the OpenAPI Specifications to define event
 schemas. This is particularly useful for events that represent data changes
 about resources also used in other APIs.
 
-The https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#schemaObject[OpenAPI Schema Object]
+The https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#schemaObject[OpenAPI Schema Object]
 is an **extended subset** of
 http://json-schema.org/[JSON Schema Draft 4]. For convenience,
 we highlight some important differences below. Please refer to the
-https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#schemaObject[OpenAPI Schema Object specification]
+https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#schemaObject[OpenAPI Schema Object specification]
 for details.
 
 As the OpenAPI Schema Object specification _removes_ some JSON Schema
@@ -366,7 +366,7 @@ Finally, the Schema Object _extends_ JSON Schema with some keywords:
 considered redundant, but harmless.
 * `discriminator`: to support polymorphism, as an alternative to `oneOf`.
 * `^x-`: patterned objects in the form of
-https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#vendorExtensions[vendor
+https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#vendorExtensions[vendor
 extensions] can be used in event type schema, but it might be the case
 that general purpose validators do not understand them to enforce a
 validation check, and fall back to must-ignore processing. A future

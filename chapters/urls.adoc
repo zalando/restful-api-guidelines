@@ -18,7 +18,7 @@ you to maintain two different API specifications and provide
 
 We see API's base path as a part of deployment variant configuration.
 Therefore, this information has to be declared in the
-https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#server-object[server object].
+https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.2.md#server-object[server object].
 
 
 [#134]
