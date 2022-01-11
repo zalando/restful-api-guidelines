@@ -2088,7 +2088,7 @@ should not contain references to local or remote content, e.g. <code>../fragment
 <code>$ref: 'https://github.com/zalando/zally/blob/master/server/src/main/resources/api/zally-api.yaml#/schemas/LintingRequest'</code>.
 The reason is, that the content referred to is <em>in general</em> <strong>not durable</strong> and
 <strong>not immutable</strong>. As a consequence, the semantic of an API may change in
-unexpected ways.</p>
+unexpected ways. (For example, the second link is already outdated due to code restructuring.)</p>
 </div>
 <div class="paragraph">
 <p>However, you may use remote references to resources accessible by the following
@@ -2098,13 +2098,13 @@ service URLs:</p>
 <ul>
 <li>
 <p><code><a href="https://infrastructure-api-repository.zalandoapis.com/" class="bare">https://infrastructure-api-repository.zalandoapis.com/</a> (internal_link)</code> <b>–</b> used
-to refer to user defined, immutable API specification revisions published via the
+to refer to user-defined, immutable API specification revisions published via the
 internal API repository.</p>
 </li>
 <li>
 <p><code><a href="https://opensource.zalando.com/restful-api-guidelines/{model.yaml}" class="bare">https://opensource.zalando.com/restful-api-guidelines/{model.yaml}</a></code> <b>–</b> used
-to refer to guideline defined re-usable API fragments (see <code>{model.yaml}</code> files in
-<a href="https://github.com/zalando/restful-api-guidelines/tree/master/models">restful-api-guidelines/models</a>
+to refer to guideline-defined re-usable API fragments (see <code>{model.yaml}</code> files in
+<a href="https://github.com/zalando/restful-api-guidelines/tree/main/models">restful-api-guidelines/models</a>
 for details).</p>
 </li>
 </ul>
@@ -2579,7 +2579,7 @@ or write is sufficient.</p>
 <div class="paragraph">
 <p>The defined permissions are than assigned to each API endpoint based on the
 security schema (see example in <a href="#104">previous section</a>) by specifying the
-<a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#securityRequirementObject">security requirement</a>
+<a href="https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#securityRequirementObject">security requirement</a>
 as follows:</p>
 </div>
 <div class="listingblock">
@@ -3109,7 +3109,7 @@ you to maintain two different API specifications and provide
 <div class="paragraph">
 <p>We see API&#8217;s base path as a part of deployment variant configuration.
 Therefore, this information has to be declared in the
-<a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#server-object">server object</a>.</p>
+<a href="https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.2.md#server-object">server object</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -8153,11 +8153,11 @@ schemas. This is particularly useful for events that represent data changes
 about resources also used in other APIs.</p>
 </div>
 <div class="paragraph">
-<p>The <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#schemaObject">OpenAPI Schema Object</a>
+<p>The <a href="https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#schemaObject">OpenAPI Schema Object</a>
 is an <strong>extended subset</strong> of
 <a href="http://json-schema.org/">JSON Schema Draft 4</a>. For convenience,
 we highlight some important differences below. Please refer to the
-<a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#schemaObject">OpenAPI Schema Object specification</a>
+<a href="https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#schemaObject">OpenAPI Schema Object specification</a>
 for details.</p>
 </div>
 <div class="paragraph">
@@ -8218,7 +8218,7 @@ considered redundant, but harmless.</p>
 </li>
 <li>
 <p><code>^x-</code>: patterned objects in the form of
-<a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#vendorExtensions">vendor
+<a href="https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#vendorExtensions">vendor
 extensions</a> can be used in event type schema, but it might be the case
 that general purpose validators do not understand them to enforce a
 validation check, and fall back to must-ignore processing. A future
@@ -10022,7 +10022,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-01-11 16:24:49 UTC
+Last updated 2022-01-11 16:26:51 UTC
 </div>
 </div>
 </body>
