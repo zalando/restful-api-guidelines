@@ -681,7 +681,7 @@ Nakadi or network failures, use the same event identifier as the initial
 *Hint:* Using the same `eid` for retries can be ensured, e.g. by
 deterministic UUID computation functions, which are only based on event
 attributes (producing UUIDs without random components), or some form of
-intermediate persistence, like the dead letter queues.
+intermediate persistence, like an event publishing retry queue.
 
 Event identifiers facilitate event duplicate detection by event consumers --
 see <<214>>.
