@@ -17,7 +17,7 @@ to see a list of all changes.
 [[rule-changes]]
 == Rule Changes
 
-* `2021-12-09`: event id must not change in retry situations when produers <<211>>.
+* `2021-12-09`: event id must not change in retry situations when producers <<211>>.
 * `2021-11-24`: restructuring of the document and some rules.
 * `2021-10-18`: new rule <<244>>.
 * `2021-10-12`: improve clarity on {PATCH} usage in rule <<148>>.
