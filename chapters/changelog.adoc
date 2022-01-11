@@ -2,21 +2,28 @@
 [appendix]
 = Changelog
 
-This change log only contains major changes made after October 2016.
+This change log only contains major changes and lists major changes since October 2016.
 
-Non-major changes are editorial-only changes or minor changes of existing guidelines, e.g. adding new error code.
+Non-major changes are editorial-only changes or minor changes of existing guidelines, e.g. adding new error code or specific example. 
 Major changes are changes that come with additional obligations, or even change an existing guideline obligation.
-The latter changes are additionally labeled with "Rule Change" here.
+Major changes are listed as "Rule Changes" below.
 
-To see a list of all changes, please have a look at the https://github.com/zalando/restful-api-guidelines/commits/master[commit list in Github].
-
-(Note that recent changes might be missing, as we update this list only occasionally,
- not with each pull request, to avoid merge commits.)
+*Hint:* Most recent major changes might be missing in the list since we update it 
+only occasionally, not with each pull request, to avoid merge commits.
+Please have a look at the 
+https://github.com/zalando/restful-api-guidelines/commits/master[commit list in Github]
+to see a list of all changes.
 
 [[rule-changes]]
 == Rule Changes
 
-* `2021-11-02`: document restructuring
+* `2021-12-09`: event id must not change in retry situations when produers <<211>>.
+* `2021-11-24`: restructuring of the document and some rules.
+* `2021-10-18`: new rule <<244>>.
+* `2021-10-12`: improve clarity on {PATCH} usage in rule <<148>>.
+* `2021-08-24`: improve clarity on {PUT} usage in rule <<148>>.
+* `2021-08-24`: only use codes registered via IANA in rule <<243>>.
+* `2021-08-17`: update formats per OpenAPI 3.1 in <<238>>. 
 * `2021-06-22`: <<238>> changed from {SHOULD} to {MUST}; consistency for rules around standards for data.
 * `2021-06-03`: <<104>> with clear distinction of OpenAPI security schemes, favoring `bearer` to `oauth2`.
 * `2021-06-01`: resolve uncertainties around 'occurred_at' semantics of <<event-metadata, event metadata>>.
