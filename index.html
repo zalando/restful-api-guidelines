@@ -1716,8 +1716,8 @@ interpreted as described in <a href="https://www.ietf.org/rfc/rfc2119.txt">RFC
 <div class="paragraph">
 <p>The purpose of our "RESTful API guidelines" is to define standards to
 successfully establish "consistent API look and feel" quality. The
-<a href="https://confluence.zalando.net/display/GUL/API+Guild">API Guild [internal
-link</a>] drafted and owns this document. Teams are responsible to fulfill
+<a href="https://api.docs.zalando.net/">API Guild (internal_link)</a>
+drafted and owns this document. Teams are responsible to fulfill
 these guidelines during API development and are encouraged to contribute
 to guideline evolution via pull requests.</p>
 </div>
@@ -1994,14 +1994,14 @@ OpenAPI as specification language</a></p>
 </li>
 <li>
 <p>You must design your APIs consistently with these guidelines; use our
-<a href="https://zally.zalando.net/">API Linter Service [internal link</a>] for automated
-rule checks.</p>
+<a href="https://zally.zalando.net/">API Linter Service (internal_link)</a>
+for automated rule checks.</p>
 </li>
 <li>
-<p>You must call for early review feedback from peers and client developers,
-and apply <a href="https://github.bus.zalan.do/ApiGuild/ApiReviewProcedure">our
-lightweight API review process [internal link</a>] for all component external
-APIs, i.e. all apis with <code>x-api-audience =/= component-internal</code> (see <a href="#219"><span class="must-keyword"><strong>MUST</strong></span> provide API audience</a>).</p>
+<p>You must call for early review feedback from peers and client developers, and apply
+<a href="https://api.docs.zalando.net/howto/request-review/">our lightweight API review process (internal_link)</a>
+for all component external APIs, i.e. all apis
+with <code>x-api-audience =/= component-internal</code> (see <a href="#219"><span class="must-keyword"><strong>MUST</strong></span> provide API audience</a>).</p>
 </li>
 </ul>
 </div>
@@ -2022,8 +2022,7 @@ code management system - best together with the implementing sources.</p>
 <div class="paragraph">
 <p>You <a href="#192">must / should publish</a> the component <a href="#219">external / internal</a>
 API specification with the deployment of the implementing service, and, hence,
-make it discoverable for the group via our <a href="https://apis.zalando.net/">API Portal
-[internal link</a>].</p>
+make it discoverable for the group via our <a href="https://apis.zalando.net/">API Portal (internal_link)</a>.</p>
 </div>
 <div class="paragraph">
 <p><strong>Hint:</strong> A good way to explore <strong>OpenAPI 3.0/2.0</strong> is to navigate through the
@@ -2035,8 +2034,8 @@ existing APIs the <a href="https://editor.swagger.io/">Swagger Editor</a> or our
 </div>
 <div class="paragraph">
 <p><strong>Hint:</strong> We do not yet provide guidelines for <a href="https://graphql.org/">GraphQL</a>.
-Following our <a href="https://techradar.zalando.net/languages/graphql.html">Zalando
-Tech Radar [internal link</a>], we focus on resource oriented HTTP/REST API style
+Following our <a href="https://techradar.zalando.net/languages/graphql.html">Zalando Tech Radar (internal_link)</a>,
+we focus on resource oriented HTTP/REST API style
 (and related tooling and infrastructure support) for general purpose
 peer-to-peer microservice communication. Here, we think that GraphQL has no
 major benefits, but a couple of downsides compared to REST. However, GraphQL
@@ -2098,14 +2097,14 @@ service URLs:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code><a href="https://infrastructure-api-repository.zalandoapis.com/" class="bare">https://infrastructure-api-repository.zalandoapis.com/</a></code> <b>–</b> used to refer
-to user defined, immutable API specification revisions published via the
+<p><code><a href="https://infrastructure-api-repository.zalandoapis.com/" class="bare">https://infrastructure-api-repository.zalandoapis.com/</a> (internal_link)</code> <b>–</b> used
+to refer to user defined, immutable API specification revisions published via the
 internal API repository.</p>
 </li>
 <li>
-<p><code><a href="https://opensource.zalando.com/restful-api-guidelines/{model.yaml}" class="bare">https://opensource.zalando.com/restful-api-guidelines/{model.yaml}</a></code> <b>–</b>
-used to refer to guideline defined re-usable API fragments (see
-<code>{model.yaml}</code> files in <a href="https://github.com/zalando/restful-api-guidelines/tree/master/models">restful-api-guidelines/models</a>
+<p><code><a href="https://opensource.zalando.com/restful-api-guidelines/{model.yaml}" class="bare">https://opensource.zalando.com/restful-api-guidelines/{model.yaml}</a></code> <b>–</b> used
+to refer to guideline defined re-usable API fragments (see <code>{model.yaml}</code> files in
+<a href="https://github.com/zalando/restful-api-guidelines/tree/master/models">restful-api-guidelines/models</a>
 for details).</p>
 </li>
 </ul>
@@ -2342,8 +2341,7 @@ reason a smaller audience group is intentionally included in the wider group
 and thus does not need to be declared additionally. If parts of your API have
 a different target audience, we recommend to split API specifications along
 the target audience — even if this creates redundancies
-(<a href="https://apis.zalando.net/redirect/85ee93a3-7a78-4461-8bf1-08ffdaebcd18">rationale
-(internal link)</a>).</p>
+(<a href="https://apis.zalando.net/redirect/85ee93a3-7a78-4461-8bf1-08ffdaebcd18">rationale (internal_link)</a>).</p>
 </div>
 <div class="paragraph">
 <p>Example:</p>
@@ -2361,8 +2359,7 @@ the target audience — even if this creates redundancies
 </div>
 <div class="paragraph">
 <p>For details and more information on audience groups see the
-<a href="https://apis.zalando.net/redirect/85ee93a3-7a78-4461-8bf1-08ffdaebcd18">
-API Audience narrative (internal link)</a>.</p>
+<a href="https://apis.zalando.net/redirect/85ee93a3-7a78-4461-8bf1-08ffdaebcd18">API Audience narrative (internal_link)</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -2423,8 +2420,8 @@ naming schema for <a href="#224">hostnames</a> and <a href="#213">event names</a
 </div>
 <div class="paragraph">
 <p><strong>Internal Guideance</strong>:  You <em>must</em> use the simple
-<a href="https://github.bus.zalan.do/team-architecture/functional-component-registry">functional
-name registry (internal link)</a> to register your functional name before using
+<a href="https://github.bus.zalan.do/team-architecture/functional-component-registry">functional name registry (internal_link)</a>
+to register your functional name before using
 it. The registry is a centralized infrastructure service to ensure uniqueness
 of your functional names (and available domains&#8201;&#8212;&#8201;including subdomains) and
 to support hostname DNS resolution.<br>
@@ -3863,8 +3860,7 @@ node from a child node, even if both have the type <code>Node</code>).
 <strong>Exception</strong>: We use <code>customer_number</code> instead of <code>customer_id</code> for customer facing
 identification of customers due to legacy reasons. (Hint: <code>customer_id</code> used to be defined
 as internal only, technical integer key, see
-<a href="https://apis.zalando.net/redirect/5675b6ec-8934-11ea-929e-68f728c1ba70">Naming
-Decision: <code>customer_number</code> vs <code>customer_id</code> [internal link</a>]).</p>
+<a href="https://apis.zalando.net/redirect/5675b6ec-8934-11ea-929e-68f728c1ba70">Naming Decision: <code>customer_number</code> vs <code>customer_id</code> [internal_link</a>]).</p>
 </li>
 <li>
 <p><a id="type"></a><a href="#type"><code>type</code></a>: the kind of thing this object is. If used, the type of this
@@ -6097,8 +6093,7 @@ a request from a Business Partner hits the Zalando Platform.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Sales channels are owned by retailers and represent a specific consumer segment
 being addressed with a specific product assortment that is offered via CFA
-retailer catalogs to consumers (see
-<a href="https://digital-experience.docs.zalando.net/glossary/glossary.html">fashion platform glossary (internal link)</a>).</p></td>
+retailer catalogs to consumers (see <a href="https://digital-experience.docs.zalando.net/glossary/glossary.html">fashion platform glossary (internal_link)</a>).</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">52b96501-0f8d-43e7-82aa-8a96fab134d7</p></td>
 </tr>
 <tr>
@@ -6253,13 +6248,12 @@ and be generous and remove invalid characters or cut the length to the
 supported limit.</p>
 </div>
 <div class="paragraph">
-<p><strong>Hint:</strong> In case distributed tracing is supported by <a href="https://github.bus.zalan.do/SRE/opentracing">OpenTracing
-(internal link)</a> you should ensure that created <em>spans</em> are tagged using
-<code>flow_id</code> — see
-<a href="https://github.bus.zalan.do/SRE/opentracing/blob/master/wg-semantic-conventions/best-practices/flowid.md">How
-to Connect Log Output with OpenTracing Using Flow-IDs (internal link)</a> or
-<a href="https://github.bus.zalan.do/SRE/opentracing/blob/master/wg-semantic-conventions/best-practices.md">Best
-practises (internal link)</a>.</p>
+<p><strong>Hint:</strong> In case distributed tracing is supported by
+<a href="https://github.bus.zalan.do/SRE/opentracing">OpenTracing (internal_link)</a>
+you should ensure that created <em>spans</em> are tagged using <code>flow_id</code> — see
+<a href="https://github.bus.zalan.do/SRE/opentracing/blob/master/wg-semantic-conventions/best-practices/flowid.md">How to Connect Log Output with OpenTracing Using Flow-IDs (internal_link)</a>
+or
+<a href="https://github.bus.zalan.do/SRE/opentracing/blob/master/wg-semantic-conventions/best-practices.md">Best practises (internal_link)</a>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -6399,9 +6393,7 @@ target resources without 'discovering' them.</p>
 <p>However, we do not forbid HATEOAS; you could use it, if you checked its
 limitations and still see clear value for your usage scenario that justifies
 its additional complexity. If you use HATEOAS please share experience and
-present your findings in the
-<a href="https://confluence.zalando.net/display/GUL/API+Guild">API Guild [internal
-link</a>].</p>
+present your findings in the <a href="https://api.docs.zalando.net/">API Guild (internal_link)</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -6441,9 +6433,9 @@ reserved for usage within hypertext controls.</p>
 </div>
 <div class="paragraph">
 <p>The name of an attribute holding such a <code>HttpLink</code> object specifies the
-relation between the object that contains the link and the linked
-resource. Implementations should use names from the <a href="http://www.iana.org/assignments/link-relations">IANA
-Link Relation Registry</a> whenever appropriate. As IANA link relation
+relation between the object that contains the link and the linked resource.
+Implementations should use names from the <a href="http://www.iana.org/assignments/link-relations">IANA Link Relation Registry</a>
+whenever appropriate. As IANA link relation
 names use hyphen-case notation, while this guide enforces snake_case
 notation for attribute names, hyphens in IANA names have to be replaced
 with underscores (e.g. the IANA link relation type <code>version-history</code>
@@ -7810,8 +7802,7 @@ event type and the schema for its custom data.</p>
 <div class="paragraph">
 <p>The basic model described above was originally developed in the
 <a href="https://github.com/zalando/nakadi">Nakadi project</a>, which acts as a
-reference implementation (see also
-<a href="https://apis.zalando.net/apis/nakadi-event-bus-api-definition/ui">Nakadi API[internal link</a>])
+reference implementation (see also <a href="https://apis.zalando.net/apis/nakadi-event-bus-api-definition/ui">Nakadi API (internal_link)</a>)
 of the event type registry, and as a validating
 publish/subscribe broker for event producers and consumers.</p>
 </div>
@@ -10031,7 +10022,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-01-10 11:48:34 UTC
+Last updated 2022-01-11 13:13:34 UTC
 </div>
 </div>
 </body>
