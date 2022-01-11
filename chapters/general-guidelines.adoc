@@ -88,7 +88,7 @@ should not contain references to local or remote content, e.g. `../fragment.yaml
 `$ref: 'https://github.com/zalando/zally/blob/master/server/src/main/resources/api/zally-api.yaml#/schemas/LintingRequest'`.
 The reason is, that the content referred to is _in general_ *not durable* and
 *not immutable*. As a consequence, the semantic of an API may change in
-unexpected ways. (For example, the second link is already outdated due to code restructuring, it would now need to be `$ref: 'https://github.com/zalando/zally/blob/main/server/zally-server/src/main/resources/api/zally-api.yaml#/schemas/LintingRequest'`.)
+unexpected ways. (For example, the second link is already outdated due to code restructuring.)
 
 However, you may use remote references to resources accessible by the following
 service URLs:
