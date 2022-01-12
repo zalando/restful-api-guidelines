@@ -9653,26 +9653,44 @@ not perfectly in sync, the locking could potentially fail</p>
 <h2 id="appendix-changelog"><a class="link" href="#appendix-changelog">Appendix C: Changelog</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This change log only contains major changes made after October 2016.</p>
+<p>This change log only contains major changes and lists major changes since October 2016.</p>
 </div>
 <div class="paragraph">
-<p>Non-major changes are editorial-only changes or minor changes of existing guidelines, e.g. adding new error code.
+<p>Non-major changes are editorial-only changes or minor changes of existing guidelines, e.g. adding new error code or specific example.
 Major changes are changes that come with additional obligations, or even change an existing guideline obligation.
-The latter changes are additionally labeled with "Rule Change" here.</p>
+Major changes are listed as "Rule Changes" below.</p>
 </div>
 <div class="paragraph">
-<p>To see a list of all changes, please have a look at the <a href="https://github.com/zalando/restful-api-guidelines/commits/master">commit list in Github</a>.</p>
-</div>
-<div class="paragraph">
-<p>(Note that recent changes might be missing, as we update this list only occasionally,
- not with each pull request, to avoid merge commits.)</p>
+<p><strong>Hint:</strong> Most recent major changes might be missing in the list since we update it
+only occasionally, not with each pull request, to avoid merge commits.
+Please have a look at the
+<a href="https://github.com/zalando/restful-api-guidelines/commits/master">commit list in Github</a>
+to see a list of all changes.</p>
 </div>
 <div class="sect2">
 <h3 id="rule-changes"><a class="link" href="#rule-changes">Rule Changes</a></h3>
 <div class="ulist">
 <ul>
 <li>
-<p><code>2021-11-02</code>: document restructuring</p>
+<p><code>2021-12-09</code>: event id must not change in retry situations when producers <a href="#211"><span class="must-keyword"><strong>MUST</strong></span> use unique event identifiers</a>.</p>
+</li>
+<li>
+<p><code>2021-11-24</code>: restructuring of the document and some rules.</p>
+</li>
+<li>
+<p><code>2021-10-18</code>: new rule <a href="#244"><span class="should-keyword"><strong>SHOULD</strong></span> use content negotiation, if clients may choose from different resource representations</a>.</p>
+</li>
+<li>
+<p><code>2021-10-12</code>: improve clarity on <a href="#patch"><code>PATCH</code></a> usage in rule <a href="#148"><span class="must-keyword"><strong>MUST</strong></span> use HTTP methods correctly</a>.</p>
+</li>
+<li>
+<p><code>2021-08-24</code>: improve clarity on <a href="#put"><code>PUT</code></a> usage in rule <a href="#148"><span class="must-keyword"><strong>MUST</strong></span> use HTTP methods correctly</a>.</p>
+</li>
+<li>
+<p><code>2021-08-24</code>: only use codes registered via IANA in rule <a href="#243"><span class="must-keyword"><strong>MUST</strong></span> use official HTTP status codes</a>.</p>
+</li>
+<li>
+<p><code>2021-08-17</code>: update formats per OpenAPI 3.1 in <a href="#238"><span class="must-keyword"><strong>MUST</strong></span> use standard data formats</a>.</p>
 </li>
 <li>
 <p><code>2021-06-22</code>: <a href="#238"><span class="must-keyword"><strong>MUST</strong></span> use standard data formats</a> changed from <span class="should-keyword"><strong>SHOULD</strong></span> to <span class="must-keyword"><strong>MUST</strong></span>; consistency for rules around standards for data.</p>
@@ -10022,7 +10040,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-01-11 16:26:51 UTC
+Last updated 2022-01-12 16:31:05 UTC
 </div>
 </div>
 </body>
