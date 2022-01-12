@@ -367,4 +367,3 @@ paginating, you must stick to the following naming conventions:
   <<cursor-based-pagination>> or <<pagination>> section below.
 * [[limit]]{limit}: client suggested limit to restrict the number of entries on
   a page. See <<pagination>> section below.
-

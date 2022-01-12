@@ -1,4 +1,3 @@
-
 [[appendix-references]]
 [appendix]
 = References
