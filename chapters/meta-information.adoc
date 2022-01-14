@@ -257,4 +257,3 @@ and *only* allowed for hostnames of <<219, component-internal>> APIs:
 which may not follow this rule due to backward compatibility constraints.
 The API Linter maintains an allow-list for these exceptions (including e.g.
 `api.merchants.zalando.com` and `api-sandbox.merchants.zalando.com`).
-
