@@ -13,7 +13,8 @@ consumers that cannot be broken via unilateral decisions.
 There are two techniques to change APIs without breaking them:
 
 * follow rules for compatible extensions
-* introduce new API versions and still support older versions
+* introduce new API versions and still support older versions with 
+  https://opensource.zalando.com/restful-api-guidelines/#deprecation[deprecation]
 
 We strongly encourage using compatible API extensions and discourage versioning
 (see <<113>> and <<114>> below). The following guidelines for service providers
