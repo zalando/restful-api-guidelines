@@ -227,7 +227,8 @@
 
 
 = Zalando RESTful API and Event Guidelines
-link:https://github.com/zalando/restful-api-guidelines[Github Repository], link:https://opensource.zalando.com/[Zalando SE Opensource]
+link:https://github.com/zalando/restful-api-guidelines[Github Repository] as part of 
+link:https://opensource.zalando.com/[Zalando SE Opensource]
 
 image::assets/api-zalando-small.jpg[API Guild Logo]
 
