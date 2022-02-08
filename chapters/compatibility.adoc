@@ -13,7 +13,8 @@ consumers that cannot be broken via unilateral decisions.
 There are two techniques to change APIs without breaking them:
 
 * follow rules for compatible extensions
-* introduce new API versions and still support older versions
+* introduce new API versions and still support older versions with 
+  https://opensource.zalando.com/restful-api-guidelines/#deprecation[deprecation]
 
 We strongly encourage using compatible API extensions and discourage versioning
 (see <<113>> and <<114>> below). The following guidelines for service providers
@@ -284,7 +285,7 @@ level data structures, since they don't support compatible, future extensions.
 [#112]
 == {SHOULD} used open-ended list of values (`x-extensible-enum`) for enumerations
 
-Enumerations are per definition closed sets of values, that are assumed to be
+Enumerations are per definition closed sets of values that are assumed to be
 complete and not intended for extension. This closed principle of enumerations
 imposes compatibility issues when an enumeration must be extended. To avoid
 these issues, we strongly recommend to use an open-ended list of values instead
@@ -292,7 +293,7 @@ of an enumeration unless:
 
 1. the API has full control of the enumeration values, i.e. the list of values
   does not depend on any external tool or interface, and
-2. the list of value is complete with respect to any thinkable and unthinkable
+2. the list of values is complete with respect to any thinkable and unthinkable
   future feature.
 
 To specify an open-ended list of values use the marker {x-extensible-enum} as
@@ -312,3 +313,10 @@ delivery_methods:
 most tools.
 
 See <<240>> about enum value naming conventions.
+
+*Important:* Clients must be prepared for extensions of enums returned with server responses, i.e. 
+must implement a fallback / default behavior to handle unknown new enum values -- see <<108>>. 
+API owners must take care to extend enums in a compatible way that does not change the 
+semantics of already existing enum values, for instance, do not split an old enum value 
+into two new enum values. 
+
