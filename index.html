@@ -3868,13 +3868,8 @@ as internal only, technical integer key, see
 <a href="https://apis.zalando.net/redirect/5675b6ec-8934-11ea-929e-68f728c1ba70">Naming Decision: <code>customer_number</code> vs <code>customer_id</code> [internal_link</a>]).</p>
 </li>
 <li>
-<p><a id="type"></a><a href="#type"><code>type</code></a>: the kind of thing this object is. If used, the type of this
-field should be a string. Types allow runtime information on the entity
-provided that otherwise requires examining the OpenAPI file.</p>
-</li>
-<li>
 <p><a id="etag"></a><a href="https://tools.ietf.org/html/rfc7232#section-2.3"><code>ETag</code></a>: the <a href="#182">ETag</a> of an <a href="#158">embedded sub-resource</a>. It
-may be used to carry the <a href="https://tools.ietf.org/html/rfc7232#section-2.3"><code>ETag</code></a> for subsequent <a href="#put"><code>PUT</code></a>/<a href="#patch"><code>PATCH</code></a> calls (see
+typically is used to carry the <a href="https://tools.ietf.org/html/rfc7232#section-2.3"><code>ETag</code></a> for subsequent <a href="#put"><code>PUT</code></a>/<a href="#patch"><code>PATCH</code></a> calls (see
 <a href="#etag-in-result-entities"><code>ETags</code> in result entities</a>).</p>
 </li>
 </ul>
@@ -3907,6 +3902,9 @@ The following guidelines define standard objects and fields:</p>
     <span class="key">id</span>:
       <span class="key">description</span>: <span class="string"><span class="content">the identifier of this node</span></span>
       <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
+    <span class="key">parent_node_id</span>:
+      <span class="key">description</span>: <span class="string"><span class="content">the identifier of the parent node of this node</span></span>
+      <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
     <span class="key">created_at</span>:
       <span class="key">description</span>: <span class="string"><span class="content">when got this node created</span></span>
       <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
@@ -3915,18 +3913,11 @@ The following guidelines define standard objects and fields:</p>
       <span class="key">description</span>: <span class="string"><span class="content">when got this node last updated</span></span>
       <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
       <span class="key">format</span>: <span class="string"><span class="content">'date-time'</span></span>
-    <span class="key">type</span>:
-      <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
-      <span class="key">enum</span>: <span class="string"><span class="content">[ 'LEAF', 'NODE' ]</span></span>
-    <span class="key">parent_node_id</span>:
-      <span class="key">description</span>: <span class="string"><span class="content">the identifier of the parent node of this node</span></span>
-      <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
   <span class="key">example</span>:
     <span class="key">id</span>: <span class="string"><span class="content">'123435'</span></span>
+    <span class="key">parent_node_id</span>: <span class="string"><span class="content">'534321'</span></span>
     <span class="key">created_at</span>: <span class="string"><span class="content">'2017-04-12T23:20:50.52Z'</span></span>
-    <span class="key">modified_at</span>: <span class="string"><span class="content">'2017-04-12T23:20:50.52Z'</span></span>
-    <span class="key">type</span>: <span class="string"><span class="content">'LEAF'</span></span>
-    <span class="key">parent_node_id</span>: <span class="string"><span class="content">'534321'</span></span></code></pre>
+    <span class="key">modified_at</span>: <span class="string"><span class="content">'2017-04-12T23:20:50.52Z'</span></span></code></pre>
 </div>
 </div>
 </div>
@@ -10055,7 +10046,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-02-08 14:28:17 UTC
+Last updated 2022-02-08 14:29:38 UTC
 </div>
 </div>
 </body>
