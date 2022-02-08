@@ -1390,7 +1390,8 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <h2 id="_zalando_restful_api_and_event_guidelines"><a class="link" href="#_zalando_restful_api_and_event_guidelines">Zalando RESTful API and Event Guidelines</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="https://github.com/zalando/restful-api-guidelines">Github Repository</a>, <a href="https://opensource.zalando.com/">Zalando SE Opensource</a></p>
+<p><a href="https://github.com/zalando/restful-api-guidelines">Github Repository</a> as part of
+<a href="https://opensource.zalando.com/">Zalando SE Opensource</a></p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -7166,7 +7167,8 @@ consumers that cannot be broken via unilateral decisions.</p>
 <p>follow rules for compatible extensions</p>
 </li>
 <li>
-<p>introduce new API versions and still support older versions</p>
+<p>introduce new API versions and still support older versions with
+<a href="https://opensource.zalando.com/restful-api-guidelines/#deprecation">deprecation</a></p>
 </li>
 </ul>
 </div>
@@ -7562,7 +7564,7 @@ level data structures, since they don&#8217;t support compatible, future extensi
 <div class="sect2">
 <h3 id="112"><a class="link" href="#112"><span class="should-keyword"><strong>SHOULD</strong></span> used open-ended list of values (<code>x-extensible-enum</code>) for enumerations</a></h3>
 <div class="paragraph">
-<p>Enumerations are per definition closed sets of values, that are assumed to be
+<p>Enumerations are per definition closed sets of values that are assumed to be
 complete and not intended for extension. This closed principle of enumerations
 imposes compatibility issues when an enumeration must be extended. To avoid
 these issues, we strongly recommend to use an open-ended list of values instead
@@ -7575,7 +7577,7 @@ of an enumeration unless:</p>
 does not depend on any external tool or interface, and</p>
 </li>
 <li>
-<p>the list of value is complete with respect to any thinkable and unthinkable
+<p>the list of values is complete with respect to any thinkable and unthinkable
 future feature.</p>
 </li>
 </ol>
@@ -7600,6 +7602,13 @@ most tools.</p>
 </div>
 <div class="paragraph">
 <p>See <a href="#240"><span class="should-keyword"><strong>SHOULD</strong></span> declare enum values using UPPER_SNAKE_CASE string</a> about enum value naming conventions.</p>
+</div>
+<div class="paragraph">
+<p><strong>Important:</strong> Clients must be prepared for extensions of enums returned with server responses, i.e.
+must implement a fallback / default behavior to handle unknown new enum values&#8201;&#8212;&#8201;see <a href="#108"><span class="must-keyword"><strong>MUST</strong></span> prepare clients to accept compatible API extensions</a>.
+API owners must take care to extend enums in a compatible way that does not change the
+semantics of already existing enum values, for instance, do not split an old enum value
+into two new enum values.</p>
 </div>
 </div>
 </div>
@@ -10046,7 +10055,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-01-14 10:29:06 UTC
+Last updated 2022-02-08 14:28:17 UTC
 </div>
 </div>
 </body>
