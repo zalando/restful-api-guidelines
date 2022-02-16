@@ -16,7 +16,7 @@ There are two well known page iteration techniques:
   pagination]: numeric offset identifies the first page entry
 * https://dev.twitter.com/overview/api/cursoring[Cursor/Limit-based] — aka
   key-based — pagination: a unique key element identifies the first page entry
-  (see also https://developers.facebook.com/docs/graph-api/using-graph-api/v2.4#paging[Facebook’s
+  (see also https://developers.facebook.com/docs/graph-api/results[Facebook’s
   guide])
 
 The technical conception of pagination should also consider user experience
