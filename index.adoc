@@ -43,6 +43,7 @@
 :RFC-7232: https://tools.ietf.org/html/rfc7232
 :RFC-7233: https://tools.ietf.org/html/rfc7233
 :RFC-7234: https://tools.ietf.org/html/rfc7234
+:RFC-7235: https://tools.ietf.org/html/rfc7235
 :RFC-7240: https://tools.ietf.org/html/rfc7240
 :RFC-7396: https://tools.ietf.org/html/rfc7396
 :RFC-7493: https://tools.ietf.org/html/rfc7493
