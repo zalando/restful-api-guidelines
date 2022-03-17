@@ -116,6 +116,8 @@ names:
 - `occurred_at` rather than `occurred`, and
 - `returned_at` rather than `returned`.
 
+**Hint:** Typically define `format: date-time` as required in <<238>>.
+
 **Note:** {created} and {modified} were mentioned in an earlier version of the
 guideline and are therefore still accepted for APIs that predate this rule.
 
