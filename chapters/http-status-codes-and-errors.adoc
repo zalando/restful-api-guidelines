@@ -8,9 +8,9 @@
 You must only use official HTTP status codes consistently with their intended
 semantics. Official HTTP status codes are defined via RFC standards and
 registered in the https://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml[IANA
-Status Code Registry]. Main RFC standards are {RFC-7231}#section-6[RFC7231]
-{RFC-7235}#page-6[RFC7235]
-and {RFC-6585}[RFC 6585] (and there are upcoming new ones, e.g.
+Status Code Registry]. Main RFC standards are {RFC-7231}#section-6[RFC7231 - HTTP/1.1: Semantics]
+(or {RFC-7235}#page-6[RFC7235 - HTTP/1.1: Authentication]) 
+and {RFC-6585}[RFC 6585 - HTTP: Additional Status Codes] (and there are upcoming new ones, e.g.
 https://tools.ietf.org/html/draft-tbray-http-legally-restricted-status-05[draft
 legally-restricted-status]). An overview on the official error codes provides
 https://en.wikipedia.org/wiki/List_of_HTTP_status_codes[Wikipedia: HTTP status
@@ -139,12 +139,13 @@ via request headers If-Modified-Since or If-None-Match.
 |[[status-code-400]]{400}|
 Bad request - unspecific client error indicating that the server cannot process the request 
 due to something that is perceived to be a client error (e.g. malformed request syntax, invalid request).
-Should also be delivered in case of input payload fails business logic / semantic validation
-(instead of using status code 422). 
+Should also be delivered in case of input payload fails business logic / semantic 
+validation (instead of using status code 422). 
 |{ALL}
 
 |[[status-code-401]]{401}|
-Unauthorized - the users must log in (this often means "Unauthenticated").
+Unauthorized - actually "Unauthenticated": credentials 
+are not valid for the target resource. User must log in. 
 |{ALL}
 
 |[[status-code-403]]{403}|
