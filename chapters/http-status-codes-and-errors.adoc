@@ -9,7 +9,7 @@ APIs should define the functional, business view and abstract from
 implementation aspects. Success and error responses are a vital part to
 define how an API is used correctly.
 
-Therefore, you must define **all** success and service specific error 
+Therefore, you must define **all** success and service specific error
 responses in your API specification. Both are part of the interface definition
 and provide important information for service clients to handle standard as
 well as exceptional situations.
