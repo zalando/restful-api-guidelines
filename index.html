@@ -1486,8 +1486,8 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#240"><span class="should-keyword"><strong>SHOULD</strong></span> declare enum values using UPPER_SNAKE_CASE string</a></li>
 <li><a href="#235"><span class="should-keyword"><strong>SHOULD</strong></span> name date/time properties with <code>_at</code> suffix</a></li>
 <li><a href="#216"><span class="should-keyword"><strong>SHOULD</strong></span> define maps using <code>additionalProperties</code></a></li>
-<li><a href="#122"><span class="must-keyword"><strong>MUST</strong></span> not use <code>null</code> for boolean properties</a></li>
 <li><a href="#123"><span class="must-keyword"><strong>MUST</strong></span> use same semantics for <code>null</code> and absent properties</a></li>
+<li><a href="#122"><span class="must-keyword"><strong>MUST</strong></span> not use <code>null</code> for boolean properties</a></li>
 <li><a href="#124"><span class="should-keyword"><strong>SHOULD</strong></span> not use <code>null</code> for empty arrays</a></li>
 <li><a href="#174"><span class="must-keyword"><strong>MUST</strong></span> use common field names and semantics</a></li>
 <li><a href="#249"><span class="must-keyword"><strong>MUST</strong></span> use the common address fields</a></li>
@@ -3671,6 +3671,9 @@ names:</p>
 </ul>
 </div>
 <div class="paragraph">
+<p><strong>Hint:</strong> Use <code>format: date-time</code> (or as <code>format: date</code>) as required in <a href="#238"><span class="must-keyword"><strong>MUST</strong></span> use standard data formats</a>.</p>
+</div>
+<div class="paragraph">
 <p><strong>Note:</strong> <a href="#created"><code>created</code></a> and <a href="#modified"><code>modified</code></a> were mentioned in an earlier version of the
 guideline and are therefore still accepted for APIs that predate this rule.</p>
 </div>
@@ -3730,18 +3733,6 @@ this in the description of the map object&#8217;s schema.</p>
   }
 }</code></pre>
 </div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="122"><a class="link" href="#122"><span class="must-keyword"><strong>MUST</strong></span> not use <code>null</code> for boolean properties</a></h3>
-<div class="paragraph">
-<p>Schema based JSON properties that are by design booleans must not be
-presented as nulls. A boolean is essentially a closed enumeration of two
-values, true and false. If the content has a meaningful null value,
-strongly prefer to replace the boolean with enumeration of named values
-or statuses - for example accepted_terms_and_conditions with true or
-false can be replaced with terms_and_conditions with values yes, no and
-unknown.</p>
 </div>
 </div>
 <div class="sect2">
@@ -3830,6 +3821,17 @@ purpose.</p>
 <p>The only exception to this rule is JSON Merge Patch <a href="https://tools.ietf.org/html/rfc7396">RFC 7396</a>) which
 uses <code>null</code> to explicitly indicate property deletion while absent properties are
 ignored, i.e. not modified.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="122"><a class="link" href="#122"><span class="must-keyword"><strong>MUST</strong></span> not use <code>null</code> for boolean properties</a></h3>
+<div class="paragraph">
+<p>Schema based JSON properties that are by design booleans must not be
+presented as nulls. A boolean is essentially a closed enumeration of two
+values, true and false. If the content has a meaningful null value, we
+strongly prefer to replace the boolean with enumeration of named values
+or statuses - for example accepted_terms_and_conditions with enumeration values
+YES, NO, UNDEFINED.</p>
 </div>
 </div>
 <div class="sect2">
@@ -10046,7 +10048,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-02-16 20:03:55 UTC
+Last updated 2022-03-22 13:13:34 UTC
 </div>
 </div>
 </body>
