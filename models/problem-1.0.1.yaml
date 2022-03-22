@@ -10,7 +10,7 @@ Problem:
         it is neither recommended to be dereferenceable and point to a
         human-readable documentation nor globally unique for the problem type.
       default: 'about:blank'
-      example: '/some/uri-reference'   
+      example: '/some/uri-reference'
     title:
       type: string
       description: >
