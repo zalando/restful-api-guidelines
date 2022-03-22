@@ -118,7 +118,7 @@ EventType:
       pattern: '[a-z][a-z0-9-]*\.[a-z][a-z0-9-]*(\.[Vv][0-9.]+)?'
       example: |
         transactions-order.order-cancelled
-        customer-personal-data.email-changed.V2
+        customer-personal-data.email-changed.v2
     audience:
       type: string
       x-extensible-enum:
