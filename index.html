@@ -1508,8 +1508,8 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 </li>
 <li><a href="#http-status-codes-and-errors">10. REST Basics - HTTP status codes</a>
 <ul class="sectlevel2">
-<li><a href="#151"><span class="must-keyword"><strong>MUST</strong></span> specify success and error responses</a></li>
 <li><a href="#243"><span class="must-keyword"><strong>MUST</strong></span> use official HTTP status codes</a></li>
+<li><a href="#151"><span class="must-keyword"><strong>MUST</strong></span> specify success and error responses</a></li>
 <li><a href="#150"><span class="should-keyword"><strong>SHOULD</strong></span> only use most common HTTP status codes</a></li>
 <li><a href="#220"><span class="must-keyword"><strong>MUST</strong></span> use most specific HTTP status codes</a></li>
 <li><a href="#152"><span class="must-keyword"><strong>MUST</strong></span> use code 207 for batch or bulk requests</a></li>
@@ -5137,6 +5137,22 @@ also with company <em>Bar</em>.</p>
 <h2 id="http-status-codes-and-errors"><a class="link" href="#http-status-codes-and-errors">10. REST Basics - HTTP status codes</a></h2>
 <div class="sectionbody">
 <div class="sect2">
+<h3 id="243"><a class="link" href="#243"><span class="must-keyword"><strong>MUST</strong></span> use official HTTP status codes</a></h3>
+<div class="paragraph">
+<p>You must only use official HTTP status codes consistently with their intended
+semantics. Official HTTP status codes are defined via RFC standards and
+registered in the <a href="https://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml">IANA
+Status Code Registry</a>. Main RFC standards are <a href="https://tools.ietf.org/html/rfc7231#section-6">RFC7231 - HTTP/1.1: Semantics</a>
+(or <a href="https://tools.ietf.org/html/rfc7235#page-6">RFC7235 - HTTP/1.1: Authentication</a>)
+and <a href="https://tools.ietf.org/html/rfc6585">RFC 6585 - HTTP: Additional Status Codes</a> (and there are upcoming new ones, e.g.
+<a href="https://tools.ietf.org/html/draft-tbray-http-legally-restricted-status-05">draft
+legally-restricted-status</a>). An overview on the official error codes provides
+<a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">Wikipedia: HTTP status
+codes</a> (which also lists some unofficial status codes, e.g. defined by popular
+web servers like Nginx, that we do not suggest to use).</p>
+</div>
+</div>
+<div class="sect2">
 <h3 id="151"><a class="link" href="#151"><span class="must-keyword"><strong>MUST</strong></span> specify success and error responses</a></h3>
 <div class="paragraph">
 <p>APIs should define the functional, business view and abstract from
@@ -5175,21 +5191,6 @@ the associated online API documentation. It provides information and handling
 guidance on application-specific errors and is referenced via links from the
 API specification. This can reduce service support tasks and contribute to
 service client and provider performance.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="243"><a class="link" href="#243"><span class="must-keyword"><strong>MUST</strong></span> use official HTTP status codes</a></h3>
-<div class="paragraph">
-<p>You must only use official HTTP status codes consistently with their intended
-semantics. Official HTTP status codes are defined via RFC standards and
-registered in the <a href="https://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml">IANA
-Status Code Registry</a>. Main RFC standards are <a href="https://tools.ietf.org/html/rfc7231#section-6">RFC7231</a>
-and <a href="https://tools.ietf.org/html/rfc6585">RFC 6585</a> (and there are upcoming new ones, e.g.
-<a href="https://tools.ietf.org/html/draft-tbray-http-legally-restricted-status-05">draft
-legally-restricted-status</a>). An overview on the official error codes provides
-<a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">Wikipedia: HTTP status
-codes</a> (which also lists some unofficial status codes, e.g. defined by popular
-web servers like Nginx, that we do not suggest to use).</p>
 </div>
 </div>
 <div class="sect2">
@@ -5313,13 +5314,16 @@ via request headers If-Modified-Since or If-None-Match.</p></td>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="status-code-400"></a><a href="#status-code-400" class="status-code">400</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Bad request - generic / unknown error.  Should also be delivered in case of
-input payload fails business logic validation.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bad request - unspecific client error indicating that the server cannot process the request
+due to something that is perceived to be a client error (e.g. malformed request syntax, invalid request).
+Should also be delivered in case of input payload fails business logic / semantic
+validation (instead of using status code 422).</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>&lt;all&gt;</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="status-code-401"></a><a href="#status-code-401" class="status-code">401</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Unauthorized - the users must log in (this often means "Unauthenticated").</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unauthorized - actually "Unauthenticated": credentials
+are not valid for the target resource. User must log in.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>&lt;all&gt;</code></p></td>
 </tr>
 <tr>
@@ -5350,8 +5354,9 @@ to the Accept headers sent in the request.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="status-code-409"></a><a href="#status-code-409" class="status-code">409</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Conflict - request cannot be completed due to conflict, e.g. when two clients
-try to create the same resource or if there are concurrent, conflicting updates.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conflict - request cannot be completed due to conflict with the current state of the target resource.
+For instance, in situations where two clients try to create the same resource or if there are
+concurrent, conflicting updates.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#post"><code>POST</code></a>, <a href="#put"><code>PUT</code></a>, <a href="#patch"><code>PATCH</code></a>, <a href="#delete"><code>DELETE</code></a></p></td>
 </tr>
 <tr>
@@ -10048,7 +10053,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-03-22 13:13:34 UTC
+Last updated 2022-03-22 13:18:29 UTC
 </div>
 </div>
 </body>
