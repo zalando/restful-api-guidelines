@@ -115,10 +115,10 @@ EventType:
         pattern `<functional-name>.<event-name>` to preserve global
         uniqueness and readability.
       type: string
-      pattern: '[a-z][a-z0-9-]*\.[a-z][a-z0-9-]*'
+      pattern: '[a-z][a-z0-9-]*\.[a-z][a-z0-9-]*(\.V[0-9.]+)?'
       example: |
-        transactions.order.order-cancelled
-        customer.personal-data.email-changed
+        transactions-order.order-cancelled
+        customer-personal-data.email-changed.V2
     audience:
       type: string
       x-extensible-enum:
