@@ -116,6 +116,8 @@ names:
 - `occurred_at` rather than `occurred`, and
 - `returned_at` rather than `returned`.
 
+**Hint:** Use `format: date-time` (or as `format: date`) as required in <<238>>.
+
 **Note:** {created} and {modified} were mentioned in an earlier version of the
 guideline and are therefore still accepted for APIs that predate this rule.
 
@@ -171,18 +173,6 @@ An actual JSON object described by this might then look like this:
 ```
 
 
-[#122]
-== {MUST} not use `null` for boolean properties
-
-Schema based JSON properties that are by design booleans must not be
-presented as nulls. A boolean is essentially a closed enumeration of two
-values, true and false. If the content has a meaningful null value,
-strongly prefer to replace the boolean with enumeration of named values
-or statuses - for example accepted_terms_and_conditions with true or
-false can be replaced with terms_and_conditions with values yes, no and
-unknown.
-
-
 [#123]
 == {MUST} use same semantics for `null` and absent properties
 
@@ -232,6 +222,17 @@ purpose.
 The only exception to this rule is JSON Merge Patch {RFC-7396}[RFC 7396]) which
 uses `null` to explicitly indicate property deletion while absent properties are
 ignored, i.e. not modified.
+
+
+[#122]
+== {MUST} not use `null` for boolean properties
+
+Schema based JSON properties that are by design booleans must not be
+presented as nulls. A boolean is essentially a closed enumeration of two
+values, true and false. If the content has a meaningful null value, we
+strongly prefer to replace the boolean with enumeration of named values
+or statuses - for example accepted_terms_and_conditions with enumeration values
+YES, NO, UNDEFINED.
 
 
 [#124]
