@@ -29,14 +29,24 @@ Therefore, you must define **all** success and service specific error
 responses in your API specification. Both are part of the interface definition
 and provide important information for service clients to handle standard as
 well as exceptional situations.
+Error code response descriptions should provide information about the specific 
+conditions that lead to the error, especially if these conditions can be 
+changed by how the endpoint is used by the clients. 
 
+API designers should also think about a **troubleshooting board** as part of
+the associated online API documentation. It provides information and handling
+guidance on application-specific errors and is referenced via links from the
+API specification. This can reduce service support tasks and contribute to
+service client and provider performance.
 
-**Hint:** In most cases it is not useful to document all technical errors,
-especially if they are not under control of the service provider. Thus unless
-a response code conveys application-specific functional semantics or is used
-in a none standard way that requires additional explanation, multiple error
-response specifications can be combined using the following pattern
-(see also <<#234>>):
+**Exception:** Standard errors, especially for client side error codes 
+like 401 (unauthenticated), 403 (unauthorized) or 404 (not found) that can be 
+inferred straightforwardly from the specific endpoint definition need not to be 
+individually defined. Instead you can combine multiple error response specifications 
+with the default pattern below. However, you should not use it and explicitly 
+define the error code as soon as it provides endpoint specific indications 
+for clients of how to avoid calling the endpoint in the wrong way,
+or be prepared to react on specific error situation.
 
 [source,yaml]
 ----
@@ -49,12 +59,6 @@ responses:
         schema:
           $ref: 'https://opensource.zalando.com/restful-api-guidelines/models/problem-1.0.1.yaml#/Problem'
 ----
-
-API designers should also think about a **troubleshooting board** as part of
-the associated online API documentation. It provides information and handling
-guidance on application-specific errors and is referenced via links from the
-API specification. This can reduce service support tasks and contribute to
-service client and provider performance.
 
 
 [#150]
