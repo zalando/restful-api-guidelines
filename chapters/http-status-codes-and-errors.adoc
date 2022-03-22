@@ -25,7 +25,7 @@ service client and provider performance.
 
 **Exception:** Standard errors, especially for client side error codes 
 like 401 (unauthenticated), 403 (unauthorized) or 404 (not found) that can be 
-straightforward inferred from the specific endpoint definition need not to be 
+inferred straightforwardly from the specific endpoint definition need not to be 
 individually defined. Instead you can combine multiple error response specifications 
 with the default pattern below. However, you should not use it and explicitly 
 define the error code as soon as it provides endpoint specific indications 
