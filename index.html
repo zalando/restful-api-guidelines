@@ -7935,10 +7935,10 @@ definition:</p>
         pattern `&lt;functional-name&gt;.&lt;event-name&gt;` to preserve global
         uniqueness and readability.</span></span>
       <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
-      <span class="key">pattern</span>: <span class="string"><span class="content">'[a-z][a-z0-9-]*\.[a-z][a-z0-9-]*'</span></span>
+      <span class="key">pattern</span>: <span class="string"><span class="content">'[a-z][a-z0-9-]*\.[a-z][a-z0-9-]*(\.[Vv][0-9.]+)?'</span></span>
       <span class="key">example</span>: <span class="string"><span class="delimiter">|</span><span class="content">
-        transactions.order.order-cancelled
-        customer.personal-data.email-changed</span></span>
+        transactions-order.order-cancelled
+        customer-personal-data.email-changed.v2</span></span>
     <span class="key">audience</span>:
       <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
       <span class="key">x-extensible-enum</span>:
@@ -8095,7 +8095,7 @@ conform to the functional naming depending on the <a href="#219">audience</a> as
 
 &lt;event-name&gt;            ::= [a-z][a-z0-9-]* -- free event name (functional name)
 
-&lt;version&gt;               ::= V[0-9.]* -- major version of non compatible schemas</code></pre>
+&lt;version&gt;               ::= [Vv][0-9.]* -- major version of non compatible schemas</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -10058,7 +10058,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-03-22 13:40:13 UTC
+Last updated 2022-04-05 12:01:31 UTC
 </div>
 </div>
 </body>
