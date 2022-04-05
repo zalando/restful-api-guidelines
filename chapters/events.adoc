@@ -115,10 +115,10 @@ EventType:
         pattern `<functional-name>.<event-name>` to preserve global
         uniqueness and readability.
       type: string
-      pattern: '[a-z][a-z0-9-]*\.[a-z][a-z0-9-]*'
+      pattern: '[a-z][a-z0-9-]*\.[a-z][a-z0-9-]*(\.[Vv][0-9.]+)?'
       example: |
-        transactions.order.order-cancelled
-        customer.personal-data.email-changed
+        transactions-order.order-cancelled
+        customer-personal-data.email-changed.v2
     audience:
       type: string
       x-extensible-enum:
@@ -274,7 +274,7 @@ conform to the functional naming depending on the <<219, audience>> as follows:
 
 <event-name>            ::= [a-z][a-z0-9-]* -- free event name (functional name)
 
-<version>               ::= V[0-9.]* -- major version of non compatible schemas
+<version>               ::= [Vv][0-9.]* -- major version of non compatible schemas
 ----
 
 *Hint:* The following convention (e.g. used by legacy STUPS infrastructure) is deprecated
