@@ -21,7 +21,7 @@ then
     docker run -v "${SCRIPT_DIR}:/documents/" asciidoctor/docker-asciidoctor asciidoctor-pdf --verbose --trace -D /documents/output index.adoc
     # docker run -v ${SCRIPT_DIR}:/documents/ asciidoctor/docker-asciidoctor asciidoctor-epub3 --verbose --trace -D /documents/output index.adoc
 else
-    apt-get install -y asciidoctor
+    gem install asciidoctor
     gem install asciidoctor-pdf
 
     asciidoctor --verbose --trace -D ${BUILD_DIR} index.adoc

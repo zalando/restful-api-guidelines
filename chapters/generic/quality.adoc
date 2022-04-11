@@ -2,7 +2,7 @@
 = Quality
 
 [#294]
-== {STATUS_RFP} {SHOULD} have seperate environments for development, testing, acceptance and production
+== {STATUS-RFP} {SHOULD} have seperate environments for development, testing, acceptance and production
 
 In order to maintain software or integration quality the setup of an DTAP
 environment is preferred. This setup allows for an atomized way of working on
@@ -38,6 +38,38 @@ This environment allows for the customer to sign of on the development.
 The primary environment for production. This environment can only be updated
 after a signoff of which the requirements are specified beforehand.
 
-[#276]
-== {STATUS-RFP} {MUST} have predefined tests
+== Code Quality
 
+The quality of the code should be known, but we diffrentiate between frontends and api's. GUI are more difficult to test, because you'll need to automate the click flow through the frontend/GUI and therefor more labour intensive to maintain.
+
+All tests and checks should be configured in the pipeline so the developer receives instant feedback of the commit.
+
+[#299]
+=== {STATUS-RFP} {MUST} have code duplication checks
+
+A software project must have something in place to detect duplicated code.
+
+[#300]
+==== {STATUS-RFP} {MUST} have vulnerability checks
+When running in the pipeline a vulnerability check must happen, so compromised libraries are not taken into production (because the pipeline is blocked).
+
+=== GUI and Websites
+
+[#297]
+==== {STATUS-RFP} {SHOULD} have predefined tests
+A GUI project should have some tests defined, for example; a webshop should be able to have an item in the cart and finalize the checkout.
+
+
+=== API's
+
+API's need to have a certain quality level which can be observed.
+
+[#276]
+==== {STATUS-RFP} {MUST} have predefined tests
+
+An API must have Unit / feature / e2e tests available. This tells something about how well you can trust what to expect from your code.
+
+[#298]
+==== {STATUS-RFP} {MUST} have a pre-defined code-coverage percentage
+
+An API must have a pre-defined level of code-coverage. This tells something about how well the code is tested and if all code paths have been checked.
