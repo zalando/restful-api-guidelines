@@ -21,11 +21,11 @@ then
     docker run -v "${SCRIPT_DIR}:/documents/" asciidoctor/docker-asciidoctor asciidoctor-pdf --verbose --trace -D /documents/output index.adoc
     # docker run -v ${SCRIPT_DIR}:/documents/ asciidoctor/docker-asciidoctor asciidoctor-epub3 --verbose --trace -D /documents/output index.adoc
 else
-    sudo apt-get install -y asciidoctor
-    sudo gem install asciidoctor-pdf
+    apt-get install -y asciidoctor
+    gem install asciidoctor-pdf
 
-    sudo asciidoctor --verbose --trace -D ${BUILD_DIR} index.adoc
-    sudo asciidoctor-pdf --verbose --trace -D ${BUILD_DIR} index.adoc
+    asciidoctor --verbose --trace -D ${BUILD_DIR} index.adoc
+    asciidoctor-pdf --verbose --trace -D ${BUILD_DIR} index.adoc
 fi
 
 cp models/money-1.0.0.yaml "${BUILD_DIR}/"
