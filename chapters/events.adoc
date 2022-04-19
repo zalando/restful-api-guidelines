@@ -829,12 +829,12 @@ reason".
 
 [#200]
 == {SHOULD} avoid writing sensitive data to events
-Event data security is supported by Nakadi Event Bus mechanisms 
-for access control and authorization of publishing or consuming events. 
-However, we avoid writing sensitive data (e.g. personal data like e-mail or address) 
-to events unless it is needed for the business. 
-Sensitive data create additional obligations for access control and compliance and 
-generally increases data protection risks.
+
+Event data security is supported by Nakadi Event Bus mechanisms for access
+control and authorization of publishing or consuming events.  However, we avoid
+writing sensitive data (e.g. personal data like e-mail or address) to events unless
+it is needed for the business. Sensitive data create additional obligations for
+access control and compliance and generally increases data protection risks.
 
 
 [#214]
