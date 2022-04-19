@@ -382,7 +382,7 @@
     },
     {
       "id": "#200",
-      "title": "MUST ensure that events do not provide sensitive data"
+      "title": "SHOULD avoid writing sensitive data to events"
     },
     {
       "id": "#201",

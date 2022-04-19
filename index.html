@@ -1619,7 +1619,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 </li>
 <li><a href="#events-design">20. EVENT Design</a>
 <ul class="sectlevel2">
-<li><a href="#200"><span class="must-keyword"><strong>MUST</strong></span> ensure that events do not provide sensitive data</a></li>
+<li><a href="#200"><span class="should-keyword"><strong>SHOULD</strong></span> avoid writing sensitive data to events</a></li>
 <li><a href="#214"><span class="must-keyword"><strong>MUST</strong></span> prepare event consumers for duplicate events</a></li>
 <li><a href="#212"><span class="should-keyword"><strong>SHOULD</strong></span> design for idempotent out-of-order processing</a></li>
 <li><a href="#199"><span class="must-keyword"><strong>MUST</strong></span> ensure that events define useful business resources</a></li>
@@ -8814,25 +8814,13 @@ reason".</p>
 <h2 id="events-design"><a class="link" href="#events-design">20. EVENT Design</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="200"><a class="link" href="#200"><span class="must-keyword"><strong>MUST</strong></span> ensure that events do not provide sensitive data</a></h3>
+<h3 id="200"><a class="link" href="#200"><span class="should-keyword"><strong>SHOULD</strong></span> avoid writing sensitive data to events</a></h3>
 <div class="paragraph">
-<p>Similar to API permission scopes, there will be event type permissions
-passed via an OAuth token supported in near future. In the meantime,
-teams are asked to note the following:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Sensitive data, such as (e-mail addresses, phone numbers, etc) are
-subject to strict access and data protection controls.</p>
-</li>
-<li>
-<p>Event type owners <strong>must not</strong> publish sensitive information unless it&#8217;s
-mandatory or necessary to do so. For example, events sometimes need to
-provide personal data, such as delivery addresses in shipment orders (as
-do other APIs), and this is fine.</p>
-</li>
-</ul>
+<p>Event data security is supported by Nakadi Event Bus mechanisms for access
+control and authorization of publishing or consuming events.  However, we avoid
+writing sensitive data (e.g. personal data like e-mail or address) to events unless
+it is needed for the business. Sensitive data create additional obligations for
+access control and compliance and generally increases data protection risks.</p>
 </div>
 </div>
 <div class="sect2">
@@ -10058,7 +10046,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-04-05 12:01:31 UTC
+Last updated 2022-04-19 12:21:40 UTC
 </div>
 </div>
 </body>
