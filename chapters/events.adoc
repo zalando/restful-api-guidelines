@@ -828,18 +828,13 @@ reason".
 = EVENT Design
 
 [#200]
-== {MUST} ensure that events do not provide sensitive data
+== {SHOULD} avoid writing sensitive data to events
 
-Similar to API permission scopes, there will be event type permissions
-passed via an OAuth token supported in near future. In the meantime,
-teams are asked to note the following:
-
-* Sensitive data, such as (e-mail addresses, phone numbers, etc) are
-subject to strict access and data protection controls.
-* Event type owners *must not* publish sensitive information unless it's
-mandatory or necessary to do so. For example, events sometimes need to
-provide personal data, such as delivery addresses in shipment orders (as
-do other APIs), and this is fine.
+Event data security is supported by Nakadi Event Bus mechanisms for access
+control and authorization of publishing or consuming events.  However, we avoid
+writing sensitive data (e.g. personal data like e-mail or address) to events unless
+it is needed for the business. Sensitive data create additional obligations for
+access control and compliance and generally increases data protection risks.
 
 
 [#214]
