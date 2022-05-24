@@ -50,26 +50,26 @@ All tests and checks should be configured in the pipeline so the developer recei
 A software project must have something in place to detect duplicated code.
 
 [#300]
-==== {STATUS-RFP} {MUST} have vulnerability checks
+=== {STATUS-RFP} {MUST} have vulnerability checks
 When running in the pipeline a vulnerability check must happen, so compromised libraries are not taken into production (because the pipeline is blocked).
 
-=== GUI and Websites
+== GUI and websites quality
 
 [#297]
-==== {STATUS-RFP} {SHOULD} have predefined tests
+=== {STATUS-RFP} {SHOULD} have predefined tests
 A GUI project should have some tests defined, for example; a webshop should be able to have an item in the cart and finalize the checkout.
 
 
-=== API's
+== API quality
 
 API's need to have a certain quality level which can be observed.
 
 [#276]
-==== {STATUS-RFP} {MUST} have predefined tests
+=== {STATUS-RFP} {MUST} have predefined tests
 
 An API must have Unit / feature / e2e tests available. This tells something about how well you can trust what to expect from your code.
 
 [#298]
-==== {STATUS-RFP} {MUST} have a pre-defined code-coverage percentage
+=== {STATUS-RFP} {MUST} have a pre-defined code-coverage percentage
 
 An API must have a pre-defined level of code-coverage. This tells something about how well the code is tested and if all code paths have been checked.
