@@ -69,20 +69,17 @@ to safely recreate the collection (see also <<cursor-based-pagination>>).
 
 [[pagination-fields]]
 For iterating over collections (result sets) we propose to either use cursors
-(see <<160>>) or simple hypertext controls (see <<161>>). To implement these
+(see <<160>>) or simple hypertext control links (see <<161>>). To implement these
 in a consistent way, we have defined a response page object pattern with the
 following field semantics:
 
-* [[self]]{self}:the link or cursor in a pagination response or object
-  pointing to the same collection object or page.
-* [[first]]{first}: the link or cursor in a pagination response or object
-  pointing to the first collection object or page.
-* [[prev]]{prev}: the link or cursor in a pagination response or object
-  pointing to the previous collection object or page.
-* [[next]]{next}: the link or cursor in a pagination response or object
-  pointing to the next collection object or page.
-* [[last]]{last}: the link or cursor in a pagination response or object
-  pointing to the last collection object or page.
+* [[self]]{self}:the link or cursor pointing to the same page.
+* [[first]]{first}: the link or cursor pointing to the first page.
+* [[prev]]{prev}: the link or cursor pointing to the previous page. 
+It is not provided, if it is the first page. 
+* [[next]]{next}: the link or cursor pointing to the next page.
+It is not provided, if it is the last page. 
+* [[last]]{last}: the link or cursor pointing to the last page.
 
 Pagination responses should contain the following additional array field to
 transport the page content:
@@ -105,7 +102,6 @@ ResponsePage:
   type: object
   required:
     - items
-    - next
   properties:
     self:
       description: Pagination link|cursor pointing to the current page.
