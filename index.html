@@ -7013,31 +7013,28 @@ to safely recreate the collection (see also <a href="#cursor-based-pagination">C
 <h3 id="248"><a class="link" href="#248"><span class="should-keyword"><strong>SHOULD</strong></span> use pagination response page object</a></h3>
 <div id="pagination-fields" class="paragraph">
 <p>For iterating over collections (result sets) we propose to either use cursors
-(see <a href="#160"><span class="should-keyword"><strong>SHOULD</strong></span> prefer cursor-based pagination, avoid offset-based pagination</a>) or simple hypertext controls (see <a href="#161"><span class="should-keyword"><strong>SHOULD</strong></span> use pagination links where applicable</a>). To implement these
+(see <a href="#160"><span class="should-keyword"><strong>SHOULD</strong></span> prefer cursor-based pagination, avoid offset-based pagination</a>) or simple hypertext control links (see <a href="#161"><span class="should-keyword"><strong>SHOULD</strong></span> use pagination links where applicable</a>). To implement these
 in a consistent way, we have defined a response page object pattern with the
 following field semantics:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><a id="self"></a><a href="#self"><code>self</code></a>:the link or cursor in a pagination response or object
-pointing to the same collection object or page.</p>
+<p><a id="self"></a><a href="#self"><code>self</code></a>:the link or cursor pointing to the same page.</p>
 </li>
 <li>
-<p><a id="first"></a><a href="#first"><code>first</code></a>: the link or cursor in a pagination response or object
-pointing to the first collection object or page.</p>
+<p><a id="first"></a><a href="#first"><code>first</code></a>: the link or cursor pointing to the first page.</p>
 </li>
 <li>
-<p><a id="prev"></a><a href="#prev"><code>prev</code></a>: the link or cursor in a pagination response or object
-pointing to the previous collection object or page.</p>
+<p><a id="prev"></a><a href="#prev"><code>prev</code></a>: the link or cursor pointing to the previous page.
+It is not provided, if it is the first page.</p>
 </li>
 <li>
-<p><a id="next"></a><a href="#next"><code>next</code></a>: the link or cursor in a pagination response or object
-pointing to the next collection object or page.</p>
+<p><a id="next"></a><a href="#next"><code>next</code></a>: the link or cursor pointing to the next page.
+It is not provided, if it is the last page.</p>
 </li>
 <li>
-<p><a id="last"></a><a href="#last"><code>last</code></a>: the link or cursor in a pagination response or object
-pointing to the last collection object or page.</p>
+<p><a id="last"></a><a href="#last"><code>last</code></a>: the link or cursor pointing to the last page.</p>
 </li>
 </ul>
 </div>
@@ -7074,7 +7071,6 @@ request to filter the collection resource.</p>
   <span class="key">type</span>: <span class="string"><span class="content">object</span></span>
   <span class="key">required</span>:
     - <span class="string"><span class="content">items</span></span>
-    - <span class="string"><span class="content">next</span></span>
   <span class="key">properties</span>:
     <span class="key">self</span>:
       <span class="key">description</span>: <span class="string"><span class="content">Pagination link|cursor pointing to the current page.</span></span>
@@ -10046,7 +10042,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-05-24 08:56:04 UTC
+Last updated 2022-05-24 10:06:05 UTC
 </div>
 </div>
 </body>
