@@ -28,7 +28,7 @@ components:
       bearerFormat: JWT
 ----
 
-The bearer security schema can than be applied to all API endpoints, e.g. requiring
+The bearer security schema can then be applied to all API endpoints, e.g. requiring
 the token to have `api-repository.read` scope for permission as follows (see
 also <<105>>):
 
