@@ -103,7 +103,7 @@ No content - There is no response body.
 |{PUT}, {PATCH}, {DELETE}
 
 |[[status-code-207]]{207}|
-Multi-Status - The response body contains multiple status informations for
+Multi-Status - The response body contains status information for multiple
 different parts of a batch/bulk request (see <<152>>).
 |{POST}, ({DELETE})
 |=======================================================================

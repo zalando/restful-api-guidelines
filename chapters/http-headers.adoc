@@ -298,7 +298,7 @@ size.
 is not standardized in an RFC. Our only reference are the usage in the
 https://stripe.com/docs/api/idempotent_requests[Stripe API].
 However, we do not want to change the header name and semantic, and
-do not name it like the proprietry headers below.
+do not name it like the proprietary headers below.
 The header addresses a generic REST concern and is different from the
 Zalando landscape specific proprietary headers.
 
