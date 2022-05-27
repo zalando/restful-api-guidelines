@@ -147,7 +147,7 @@ Example paths:
 /article-size-advices/{sku}/{sales-channel}
 ----
 
-**Warning:** Exposing a compound key as described above limits ability to
+*Note*: Exposing a compound key as described above limits ability to
 evolve the structure of the resource identifier as it is no longer opaque.
 
 To compensate for this drawback, APIs must apply a compound key abstraction

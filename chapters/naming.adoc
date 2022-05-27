@@ -168,7 +168,7 @@ You must not specify paths with duplicate or trailing slashes, e.g.
 `/customers//addresses` or `/customers/`. As a consequence, you must also not
 specify or use path variables with empty string values.
 
-*Reasoning:* Non standard paths have no clear semantics. As a result, behavior
+*Note*: Non standard paths have no clear semantics. As a result, behavior
 for non standard paths varies between different HTTP infrastructure components
 and libraries. This may leads to ambiguous and unexpected results during
 request handling and monitoring.
