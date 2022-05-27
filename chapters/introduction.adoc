@@ -37,10 +37,10 @@ integrations.
 
 == Software engineering
 
-In the mid-1960s the field of software engineering emerged, building software
-is about more than just writing instructions for a computer. In order for the
-business to actually be able to use the software, the following points are
-addressed in these guidelines
+In the mid-1960s, the field of software engineering emerged; building 
+software is about more than just writing instructions for a computer. For 
+the business to be able to use the software, these guidelines address 
+the following points
 [link:https://en.wikipedia.org/wiki/Software_engineering[Wikipedia]]:
 
 * Software requirements
@@ -55,64 +55,64 @@ Establish the needs of the business to be resolved by software. This involves
 gathering the requirements and specifying the goals of the software to be met
 [link:https://en.wikipedia.org/wiki/Software_requirements[Wikipedia]].
 
-Next to the business requirements this document contains the minimal standards
-for software; including software license and source code management.
+Next to the business requirements, this document contains the minimal 
+standards for software, including software license and source code management.
 
 [[little-prince-quote]]
 [quote, paraphrased; Antoine de Saint-Exupery]     
 ____
-If you want to build an application, don’t herd people together to build
-code and don’t assign them tasks and work, but rather teach them to long 
-for the endless joy of happy efficient users.
+If you want to build an application, don't herd people together to build code 
+and don't assign them tasks and work, but rather teach them to long for the 
+endless joy of happy, efficient users.
 ____
 
 === Software architecture and design
 
-Architecture and design are where the Art of Building Software comes in, the
-architecture and design are the foundation of the software. This document will
-provide guidance towards selecting the architecture and creating the design.
-There are some specific don'ts and do's however it is up to the architect to
-create the optimal design by taking all business requirements into consideration
+Architecture and design are where the Art of Building Software comes in; 
+the architecture and design are the foundation of the software. 
+This document will guide towards selecting the architecture and creating 
+the design. There are some specific don'ts and do's; however, it is up to 
+the architect to create the optimal design by considering all business 
+requirements
 [link:https://en.wikipedia.org/wiki/Software_design[Wikipedia]].
 
 === Software development
 
-How much effort is required for another developer of comparable experience to
-pick up where the previous developer left off to fix, enhance or build upon the
-source code - without involving the former developer and taking into account the
-lifetime, quality, security and the business impact of the application. 
+How much effort is required for another developer of comparable experience 
+to pick up where the previous developer left off to fix, enhance or build 
+upon the source code - without involving the former developer and 
+considering the lifetime, quality, security, and the business impact 
+of the application.
 
 === Software testing
 
-The proof of the pudding is in the eating, a good cook will sample the dish
-before serving the guests. The software is build upon requirements and it is up
-to the software engineers to indicate the proven level of adherence to these
-requirements; preferably in an automated manner. It is up to the business to
-decide on the level of awareness regarding the software quality based on
-testing.
+The proof of the pudding is in the eating; a good cook will sample the 
+dish before serving the guests. The software builds upon requirements, 
+and it is up to the software engineers to indicate the proven level of 
+adherence to these requirements, preferably in an automated manner. 
+It is up to the business to decide on the level of awareness regarding 
+the software quality based on testing.
 
 === Software maintenance and support
 
-When the latest version of the software has been deployed there are two,
-continuously ongoing, tasks. Firstly: bug fixing, updates and new features; this
-requires the software to be flexible, adaptable and logically structured. Note
-there is an overlap with software development: clean quality code will require a
-lower effort to adjust or fix as opposed to ill-structured low-quality code.
+When deploying the latest version of the software, there are two 
+continuously ongoing tasks. Firstly: bug fixing, updates, and new 
+features; require the software to be flexible, adaptable, and logically 
+structured. Note there is an overlap with software development: clean 
+quality code will require a lower effort to adjust or fix instead of 
+ill-structured low-quality code.
 
-Secondly: the level of availability and performance of the software; this
-requires the software to be monitorable and able to report about its own
-wellbeing. Note there is overlap with software testing, a test to check if the
-software is adhering to a requirement can be reused in the live environment to
-check if the software is operational and responding within a predefined
-timeframe.
-
+Secondly: the software's level of availability and performance; requires 
+the software to be monitorable and report its well-being. There is 
+overlap with software testing: checking if the software is adhering to 
+requirements can also be reused in the live environment to check if the 
+software is operational and responding within a predefined timeframe.
 
 == Document management
 
-This document is managed using Git. Git allows for controlled change approval,
-versioning and tracking of updates and changes. Moreover it is an open system
-allowing for community change suggestions.
-
+This document is managed using Git. Git allows for controlled change 
+approval, versioning, and tracking of updates and changes. Moreover, 
+it is an open system allowing for community change suggestions.
 
 == Attribution
 
@@ -138,18 +138,18 @@ MUST is by default a standard and not a guideline.
 [[pon-specific-information]]
 == Pon specific information
 
-These guidelines apply to all software owned by Pon, build by Pon or build for
-Pon; more specifically where the IP is owned by Pon. Note this excludes SaaS
+These guidelines apply to all software owned by Pon, built by Pon, or made 
+for Pon, specifically, where Pon owns the IP. Note that this excludes SaaS 
 solutions.
  
-The purpose of these guidelines is to define standards to successfully establish
-"consistent integration and development look and feel" quality. The integration
-and development guilds drafted and own this document. Teams are responsible to
-fulfill these guidelines during development and are encouraged to contribute to
-guideline evolution via pull requests.
+The purpose of these guidelines is to define standards to successfully 
+establish "consistent integration and development look and feel" quality. 
+The integration and development guilds draft and own this document. Teams 
+are responsible for fulfilling these guidelines during development and are 
+encouraged to contribute to guideline evolution via pull requests.
 
-These guidelines will, to some extent, remain work in progress as our work
-evolves, but teams can confidently follow and trust them.
+These guidelines will, to some extent, remain a work in progress as our 
+profession evolves, but teams can confidently follow and trust them.
 
 In case guidelines are changing, the following rules apply:
 
@@ -158,35 +158,34 @@ recommend it
 * clients of existing APIs have to cope with these APIs based on outdated rules 
 * new APIs have to respect the current guidelines
 
-Furthermore you should keep in mind that once an API becomes public externally
-available, it has to be re-reviewed and changed according to current guidelines
-- for the sake of overall consistency.
+Furthermore, you should keep in mind that once an API becomes publicly available, 
+it has to be re-reviewed and changed according to current guidelines for overall 
+consistency.
 
 === Automated code style checking (linting)
 
-Digital Solutions will provide a preferred code style configuration per language
-or application which can be retrieved from the repository of this document.
+Digital Solutions will provide a preferred code style configuration per language 
+or application that is retrievable from this document's repository.
 
 Code styles are approved and maintained by the software development guild.
-
 
 [[guidelines-and-standards]]
 === Guideline or standard
 
-If a rule is a Pon standard is indicated by an additional "S" being added to the
-rule number and green left margin.
+An additional "S" to the rule number and green left margin indicates a Pon 
+standard.
 
 [#271S]
-=== {MUST} comply to standards and guidelines
-Contracts relating to software development must indicate the signing party has
-taken knowledge of the guidelines and agrees to comply to the standards as
-indicated in this document.
+=== {MUST} comply with standards and guidelines
 
+Contracts relating to software development must indicate that the signing party 
+has knowledge of the guidelines and agrees to comply with the standards as 
+shown in this document.
 
 [#103]
 === {STATUS-RFP} {MUST} write all resources using U.S. English
 
-All resources, APIs, documentation, comments etc. must be written in the U.S.
-English language
+All resources, APIs, documentation, comments, etc., must be written in the U.S.
+English language.
 
 
