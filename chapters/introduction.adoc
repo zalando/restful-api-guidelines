@@ -7,16 +7,16 @@ ____
 Progress is made by lazy persons looking for more efficient ways to do things.
 ____
 
-Software and software ecosystems are resolutions for business challenges, which
-in effect will result in a firm reliance of the business on the software and
-corresponding integrations. Moreover, our entrepreneurial mindset will be
-driving updates, changes, and additions to the software; software is very rarely
+Software and software ecosystems are resolutions for business challenges, 
+which in effect will result in a firm reliance of the business on the software 
+and corresponding integrations. Moreover, our entrepreneurial mindset will 
+drive updates, changes, and additions to the software; software is rarely 
 "done" or "finished."
 
-The business challenges and corresponding software updates are where these
-guidelines come in. How can we, to a certain degree, guide the software
-development to ensure the software is stable, does what it should do, secure and
-is updateable with reasonable effort.
+The business challenges and corresponding software updates are where these 
+guidelines come in. To a certain degree, how can we guide the software 
+development to ensure the software is stable, does what it should do, is 
+secure, and is updateable with reasonable effort.
 
 These guidelines and standards do not prescribe the "perfect" way to build
 software and software integrations since there is no "perfect" way. However, the
@@ -28,11 +28,11 @@ development: quantify the software's quality and robustness in an automated,
 consistent manner; be aware of the quality and robustness and decide upon the
 required level.
 
-Moreover this document contains several standards regarding intellectual
-property (IP) and security. In order to assure correct undisputed ownership of
-the software and maintain a security baseline.
+Moreover, this document contains several standards regarding intellectual 
+property (IP) and security. To assure correct undisputed ownership of the 
+software and maintain a security baseline.
 
-In the following chapters software refers both to software and software
+In the following chapters, software refers both to software and software 
 integrations.
 
 == Software engineering
