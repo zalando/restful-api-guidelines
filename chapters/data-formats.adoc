@@ -32,7 +32,7 @@ You *must* use these formats, whenever applicable:
 | `string` | `hostname` | {RFC-1034}[RFC 1034] | `"www.zalando.de"`
 | `string` | `idn-hostname` | {RFC-5890}[RFC 5890] | `"bücher.example"`
 | `string` | `ipv4` | {RFC-2673}[RFC 2673] | `"104.75.173.179"`
-| `string` | `ipv6` | {RFC-2673}[RFC 2673] | `"2600:1401:2::8a"`
+| `string` | `ipv6` | {RFC-4291}[RFC 4291] | `"2600:1401:2::8a"`
 | `string` | `uri` | {RFC-3986}[RFC 3986] | `"https://www.zalando.de/"`
 | `string` | `uri-reference` | {RFC-3986}[RFC 3986] | `"/clothing/"`
 | `string` | `uri-template` | {RFC-6570}[RFC 6570] | `"/users/\{id\}"`
