@@ -7443,8 +7443,8 @@ the HTTP <code>Content-Type</code> and <code>Accept</code> headers.</p>
 <div class="title">Note</div>
 </td>
 <td class="content">
-This versioning only applies to
-the request and response content schema, not to URI or method semantics.
+This versioning method only applies to
+the request and response payload schema, not to URI or method semantics.
 </td>
 </tr>
 </table>
@@ -7462,10 +7462,10 @@ the request and response content schema, not to URI or method semantics.
 <div class="ulist">
 <ul>
 <li>
-<p><code>custom-media-type</code> is a custom type name, e.g. <code>zalando.cart</code></p>
+<p><code>&lt;custom-media-type&gt;</code> is a custom type name, e.g. <code>x.zalando.cart</code></p>
 </li>
 <li>
-<p><code>version</code> is a number, e.g. <code>2</code></p>
+<p><code>&lt;version&gt;</code> is a (sequence) number, e.g. <code>2</code></p>
 </li>
 </ul>
 </div>
@@ -7491,7 +7491,7 @@ version:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Using media type versioning should:</p>
+<p>Media type versioning should&#8230;&#8203;</p>
 </div>
 <div class="ulist">
 <ul>
@@ -7499,7 +7499,7 @@ version:</p>
 <p>Use a custom media type, e.g. <code>application/x.zalando.cart+json</code></p>
 </li>
 <li>
-<p>Include versions in request and response headers to increase visibility</p>
+<p>Include media type versions in request and response headers to increase visibility</p>
 </li>
 <li>
 <p>Include <code>Content-Type</code> in the <code>Vary</code> header to enable proxy caches to differ
@@ -7512,15 +7512,15 @@ between versions</p>
 <pre class="CodeRay highlight"><code data-lang="http">Vary: Content-Type</code></pre>
 </div>
 </div>
-<div class="admonitionblock tip">
+<div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
-<div class="title">Tip</div>
+<div class="title">Note</div>
 </td>
 <td class="content">
 Until an incompatible change is necessary, it is recommended to stay
-with the standard <code>application/json</code> media type and do not use media type versioning.
+with the standard <code>application/json</code> media type without versioning.
 </td>
 </tr>
 </table>
@@ -10042,7 +10042,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-05-24 10:06:05 UTC
+Last updated 2022-06-14 18:14:52 UTC
 </div>
 </div>
 </body>
