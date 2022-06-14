@@ -202,8 +202,8 @@ media type version for the resource is created. To generate the new
 representation version, consumer and producer can do <<244, content negotiation>> using
 the HTTP `Content-Type` and `Accept` headers.
 
-NOTE: This versioning only applies to
-the request and response content schema, not to URI or method semantics.
+NOTE: This versioning method only applies to
+the request and response payload schema, not to URI or method semantics.
 
 === Custom media type format
 
@@ -214,8 +214,8 @@ Custom media type format should have the following pattern:
 application/x.<custom-media-type>+json;version=<version>
 ----
 
-* `custom-media-type` is a custom type name, e.g. `zalando.cart`
-* `version` is a number, e.g. `2`
+* `<custom-media-type>` is a custom type name, e.g. `x.zalando.cart`
+* `<version>` is a (sequence) number, e.g. `2`
 
 === Example
 
@@ -235,10 +235,10 @@ version:
 Content-Type: application/x.zalando.cart+json;version=2
 ----
 
-Using media type versioning should:
+Media type versioning should...
 
 * Use a custom media type, e.g. `application/x.zalando.cart+json`
-* Include versions in request and response headers to increase visibility
+* Include media type versions in request and response headers to increase visibility
 * Include `Content-Type` in the `Vary` header to enable proxy caches to differ
   between versions
 
@@ -247,8 +247,8 @@ Using media type versioning should:
 Vary: Content-Type
 ----
 
-TIP: Until an incompatible change is necessary, it is recommended to stay
-with the standard `application/json` media type and do not use media type versioning.
+NOTE: Until an incompatible change is necessary, it is recommended to stay
+with the standard `application/json` media type without versioning.
 
 Further reading:
 https://blog.apisyouwonthate.com/api-versioning-has-no-right-way-f3c75457c0b7[API
