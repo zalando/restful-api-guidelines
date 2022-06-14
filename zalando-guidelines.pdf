@@ -5,8 +5,8 @@
 /Keywords (Zalando, Guidelines, RESTful, API, Events, Schema)
 /Creator (Asciidoctor PDF 2.1.0, based on Prawn 2.4.0)
 /Producer (Asciidoctor PDF 2.1.0, based on Prawn 2.4.0)
-/ModDate (D:20220614181452+00'00')
-/CreationDate (D:20220614181511+00'00')
+/ModDate (D:20220614181733+00'00')
+/CreationDate (D:20220614181749+00'00')
 >>
 endobj
 2 0 obj
@@ -30967,7 +30967,7 @@ S
 BT
 151.0 651.696 Td
 /F1.0 10.5 Tf
-<5246432032363733> Tj
+<5246432034323931> Tj
 ET
 
 0.0 0.0 0.0 SCN
@@ -33399,7 +33399,7 @@ endobj
 << /Border [0 0 0]
 /A << /Type /Action
 /S /URI
-/URI (https://tools.ietf.org/html/rfc2673)
+/URI (https://tools.ietf.org/html/rfc4291)
 >>
 /Subtype /Link
 /Rect [151 648.63 196.696 662.91]
