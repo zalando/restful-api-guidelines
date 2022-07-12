@@ -53,9 +53,9 @@ You *must* use these formats, whenever applicable:
 [cols="10%,10%,40%,40%",options="header",]
 |=====================================================================
 | `OpenAPI type` | `format` | Specification | Example
-| `string` | `iso-639` | two letter language code -- see {ISO-639-1}[ISO 639-1] | `"en"`
+| `string` | `iso-639-1` | two letter language code -- see {ISO-639-1}[ISO 639-1] | `"en"`
 | `string` | `bcp47` | multi letter language tag -- see {BCP47}[BCP 47]. It is a compatible extension of {ISO-639-1}[ISO 639-1] optionally with additional information for language usage, like region, variant, script. | `"en-DE"`
-| `string` | `iso-3166` | two letter country code -- see {ISO-3166-1-a2}[ISO 3166-1 alpha-2] | `"GB"`  *Hint:* It is `"GB"`, not `"UK"`, even though `"UK"` has seen some use at Zalando.
+| `string` | `iso-3166-alpha-2` | two letter country code -- see {ISO-3166-1-alpha-2}[ISO 3166-1 alpha-2] | `"GB"`  *Hint:* It is `"GB"`, not `"UK"`, even though `"UK"` has seen some use at Zalando.
 | `string` | `iso-4217` | three letter currency code -- see {ISO-4217}[ISO 4217] | `"EUR"`
 | `string` | `gtin-13` | Global Trade Item Number -- see {GTIN}[GTIN] | `"5710798389878"`
 | `string` | `regex` | regular expressions as defined in {ECMA-262}[ECMA 262] | `"^[a-z0-9]+$"`
@@ -121,9 +121,34 @@ more effort to parse, avoid this ambiguity.
 [#127]
 == {SHOULD} use standard formats for time duration and interval properties
 
-Schema based JSON properties that are by design durations and intervals could
-be strings formatted as defined by {ISO-8601}[ISO 8601]
-({RFC-3339}#appendix-A[Appendix A of RFC 3339 contains a grammar] for durations).
+Properties and that are by design durations and time intervals should be
+represented as strings formatted as defined by {ISO-8601}[ISO 8601]
+({RFC-3339}#appendix-A[RFC 3339 Appendix A contains a grammar] for `durations`
+and `periods` - the latter called time intervals in {ISO-8601}[ISO 8601]). ISO
+8601:1-2019 defines an  extension (`..`) to express open ended time intervals
+that are very convenient in searches and are included in the below grammar:
+
+[source,abnf]
+----
+   dur-second        = 1*DIGIT "S"
+   dur-minute        = 1*DIGIT "M" [dur-second]
+   dur-hour          = 1*DIGIT "H" [dur-minute]
+   dur-time          = "T" (dur-hour / dur-minute / dur-second)
+   dur-day           = 1*DIGIT "D"
+   dur-week          = 1*DIGIT "W"
+   dur-month         = 1*DIGIT "M" [dur-day]
+   dur-year          = 1*DIGIT "Y" [dur-month]
+   dur-date          = (dur-day / dur-month / dur-year) [dur-time]
+   duration          = "P" (dur-date / dur-time / dur-week)
+   
+   period-explicit   = iso-date-time "/" iso-date-time
+   period-start      = iso-date-time "/" (duration / "..")
+   period-end        = (duration / "..") "/" iso-date-time
+   period            = period-explicit / period-start / period-end
+----
+
+A time interval query parameters should use `*_between` instead of the tuple
+`*_before`/`*_after`, while properties should be named using `*_interval`.
 
 
 [#128]
@@ -132,16 +157,16 @@ be strings formatted as defined by {ISO-8601}[ISO 8601]
 
 As a specific case of <<238>> you must use the following standard formats:
 
-* Country codes: {ISO-3166-1-a2}[ISO 3166-1-alpha2] two letter country codes
-  indicated via OpenAPI format `iso-3166`
-* Language codes: {ISO-639-1}[ISO 639-1] two letter language codes
-  indicated via OpenAPI format `iso-639`
-* Language variant tags: {BCP47}[BCP 47] multi letter language tag
-  indicated via OpenAPI format `bcp47`. (It is a compatible extension of
-  {ISO-639-1}[ISO 639-1] with additional optional
-  information for language usage, like region, variant, script)
-* Currency codes:  {ISO-4217}[ISO 4217] three letter currency codes
-   indicated via OpenAPI format `iso-4217`
+* Country codes: {ISO-3166-1-alpha-2}[ISO 3166-1-alpha-2] two letter country
+  codes indicated via format `iso-3166-alpha-2` in the OpenAPI specification.
+* Language codes: {ISO-639-1}[ISO 639-1] two letter language codes indicated
+  via format `iso-639-1` in the OpenAPI specification.
+* Language variant tags: {BCP47}[BCP 47] multi letter language tag indicated
+  via format `bcp47` in the OpenAPI specification. (It is a compatible extension
+  of {ISO-639-1}[ISO 639-1] with additional optional information for language
+  usage, like region, variant, script)
+* Currency codes:  {ISO-4217}[ISO 4217] three letter currency codes indicated
+  via format `iso-4217` in the OpenAPI specification.
 
 [#244]
 == {SHOULD} use content negotiation, if clients may choose from different resource representations
