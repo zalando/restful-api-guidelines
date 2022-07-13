@@ -41,6 +41,7 @@ You *must* use these formats, whenever applicable:
 | `string` | <<144, `uuid`>> | {RFC-4122}[RFC 4122] | `"e2ab873e-b295-11e9-9c02-..."`
 | `string` | `json-pointer` | {RFC-6901}[RFC 6901] | `"/items/0/id"`
 | `string` | `relative-json-pointer` | https://tools.ietf.org/html/draft-handrews-relative-json-pointer[Relative JSON pointers] | `"1/id"`
+| `string` | `regex` | regular expressions as defined in {ECMA-262}[ECMA 262] | `"^[a-z0-9]+$"`
 |=====================================================================
 
 *Note:* Formats `bigint` and `decimal` have been added to the OpenAPI defined formats --
@@ -58,7 +59,6 @@ You *must* use these formats, whenever applicable:
 | `string` | `iso-3166` | two letter country code -- see {ISO-3166-1-a2}[ISO 3166-1 alpha-2] | `"GB"`  *Hint:* It is `"GB"`, not `"UK"`, even though `"UK"` has seen some use at Zalando.
 | `string` | `iso-4217` | three letter currency code -- see {ISO-4217}[ISO 4217] | `"EUR"`
 | `string` | `gtin-13` | Global Trade Item Number -- see {GTIN}[GTIN] | `"5710798389878"`
-| `string` | `regex` | regular expressions as defined in {ECMA-262}[ECMA 262] | `"^[a-z0-9]+$"`
 |=====================================================================
 
 *Remark:* Please note that this list of standard data formats is not exhaustive
