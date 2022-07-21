@@ -17,6 +17,7 @@
 // Some link short cuts.
 // links to RFCs and standards:
 :RFC-1034: https://tools.ietf.org/html/rfc1034
+:RFC-2234: https://tools.ietf.org/html/rfc2234
 :RFC-2616: https://tools.ietf.org/html/rfc2616
 :RFC-2673: https://tools.ietf.org/html/rfc2673
 :RFC-3339: https://tools.ietf.org/html/rfc3339

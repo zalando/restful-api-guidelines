@@ -177,7 +177,7 @@ The ETag for every entity is returned as an additional property of that entity.
 In a response containing multiple entities, every entity will then have a
 distinct {ETag} that can be used in subsequent {PUT} requests.
 
-In this solution, the `etag` property should be `readonly` and never be expected
+In this solution, the {e_tag} property should be `readonly` and never be expected
 in the {PUT} request payload.
 
 Example:
