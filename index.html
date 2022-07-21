@@ -2876,8 +2876,8 @@ You <strong>must</strong> use these formats, whenever applicable:</p>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>iso-639</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">two letter language code&#8201;&#8212;&#8201;see <a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">ISO 639-1</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>iso-639-1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">two letter language code&#8201;&#8212;&#8201;see <a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">ISO 639-1</a>. Hint: In the past we used <code>iso-639</code> as format.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>"en"</code></p></td>
 </tr>
 <tr>
@@ -2888,8 +2888,8 @@ You <strong>must</strong> use these formats, whenever applicable:</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>iso-3166</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">two letter country code&#8201;&#8212;&#8201;see <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>iso-3166-alpha-2</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">two letter country code&#8201;&#8212;&#8201;see <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2</a>. Hint: In the past we used <code>iso-3166</code> as format.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>"GB"</code>  <strong>Hint:</strong> It is <code>"GB"</code>, not <code>"UK"</code>, even though <code>"UK"</code> has seen some use at Zalando.</p></td>
 </tr>
 <tr>
@@ -2970,9 +2970,37 @@ more effort to parse, avoid this ambiguity.</p>
 <div class="sect2">
 <h3 id="127"><a class="link" href="#127"><span class="should-keyword"><strong>SHOULD</strong></span> use standard formats for time duration and interval properties</a></h3>
 <div class="paragraph">
-<p>Schema based JSON properties that are by design durations and intervals could
-be strings formatted as defined by <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>
-(<a href="https://tools.ietf.org/html/rfc3339#appendix-A">Appendix A of RFC 3339 contains a grammar</a> for durations).</p>
+<p>Properties and that are by design durations and time intervals should be
+represented as strings formatted as defined by <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>
+(<a href="https://tools.ietf.org/html/rfc3339#appendix-A">RFC 3339 Appendix A contains a grammar</a> for <code>durations</code>
+and <code>periods</code> - the latter called time intervals in <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>). ISO
+8601:1-2019 defines an  extension (<code>..</code>) to express open ended time intervals
+that are very convenient in searches and are included in the below
+<a href="https://tools.ietf.org/html/rfc2234">ABNF</a> grammar:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="abnf">   dur-second        = 1*DIGIT &quot;S&quot;
+   dur-minute        = 1*DIGIT &quot;M&quot; [dur-second]
+   dur-hour          = 1*DIGIT &quot;H&quot; [dur-minute]
+   dur-time          = &quot;T&quot; (dur-hour / dur-minute / dur-second)
+   dur-day           = 1*DIGIT &quot;D&quot;
+   dur-week          = 1*DIGIT &quot;W&quot;
+   dur-month         = 1*DIGIT &quot;M&quot; [dur-day]
+   dur-year          = 1*DIGIT &quot;Y&quot; [dur-month]
+   dur-date          = (dur-day / dur-month / dur-year) [dur-time]
+   duration          = &quot;P&quot; (dur-date / dur-time / dur-week)
+
+   period-explicit   = iso-date-time &quot;/&quot; iso-date-time
+   period-start      = iso-date-time &quot;/&quot; (duration / &quot;..&quot;)
+   period-end        = (duration / &quot;..&quot;) &quot;/&quot; iso-date-time
+   period            = period-explicit / period-start / period-end</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A time interval query parameters should use <code>&lt;time-property&gt;_between</code> instead
+of the parameter tuple <code>&lt;time-property&gt;_before</code>/<code>&lt;time-property&gt;_after</code>, while
+properties providing a time interval should be named <code>&lt;time-property&gt;_interval</code>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -2983,22 +3011,22 @@ be strings formatted as defined by <a href="https://en.wikipedia.org/wiki/ISO_86
 <div class="ulist">
 <ul>
 <li>
-<p>Country codes: <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1-alpha2</a> two letter country codes
-indicated via OpenAPI format <code>iso-3166</code></p>
+<p>Country codes: <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1-alpha-2</a> two letter country
+codes indicated via format <code>iso-3166-alpha-2</code> in the OpenAPI specification.</p>
 </li>
 <li>
-<p>Language codes: <a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">ISO 639-1</a> two letter language codes
-indicated via OpenAPI format <code>iso-639</code></p>
+<p>Language codes: <a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">ISO 639-1</a> two letter language codes indicated
+via format <code>iso-639-1</code> in the OpenAPI specification.</p>
 </li>
 <li>
-<p>Language variant tags: <a href="https://tools.ietf.org/html/bcp47">BCP 47</a> multi letter language tag
-indicated via OpenAPI format <code>bcp47</code>. (It is a compatible extension of
-<a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">ISO 639-1</a> with additional optional
-information for language usage, like region, variant, script)</p>
+<p>Language variant tags: <a href="https://tools.ietf.org/html/bcp47">BCP 47</a> multi letter language tag indicated
+via format <code>bcp47</code> in the OpenAPI specification. (It is a compatible extension
+of <a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">ISO 639-1</a> with additional optional information for language
+usage, like region, variant, script)</p>
 </li>
 <li>
-<p>Currency codes:  <a href="https://en.wikipedia.org/wiki/ISO_4217">ISO 4217</a> three letter currency codes
-indicated via OpenAPI format <code>iso-4217</code></p>
+<p>Currency codes:  <a href="https://en.wikipedia.org/wiki/ISO_4217">ISO 4217</a> three letter currency codes indicated
+via format <code>iso-4217</code> in the OpenAPI specification.</p>
 </li>
 </ul>
 </div>
@@ -3006,14 +3034,15 @@ indicated via OpenAPI format <code>iso-4217</code></p>
 <div class="sect2">
 <h3 id="244"><a class="link" href="#244"><span class="should-keyword"><strong>SHOULD</strong></span> use content negotiation, if clients may choose from different resource representations</a></h3>
 <div class="paragraph">
-<p>In some situations the API supports serving different representations of a specific resource (at the same URL)
-e.g. JSON, PDF, TEXT, or HTML representations for an invoice resource.
-You should use <a href="https://en.wikipedia.org/wiki/Content_negotiation">content negotiation</a>
-to support clients specifying via the standard HTTP headers
-<a href="https://tools.ietf.org/html/rfc7231#section-5.3.2"><code>Accept</code></a>, <a href="https://tools.ietf.org/html/rfc7231#section-5.3.5"><code>Accept-Language</code></a>, <a href="https://tools.ietf.org/html/rfc7231#section-5.3.4"><code>Accept-Encoding</code></a> which representation is best suited for their use case,
-for example, which language of a document, representation / content format, or content encoding.
-You <a href="#172"><span class="should-keyword"><strong>SHOULD</strong></span> use standard media types</a> like <code>application/json</code> or <code>application/pdf</code> for defining the content
-format in the <a href="https://tools.ietf.org/html/rfc7231#section-5.3.2"><code>Accept</code></a> header.</p>
+<p>In some situations the API supports serving different representations of a
+specific resource (at the same URL), e.g. JSON, PDF, TEXT, or HTML
+representations for an invoice resource. You should use
+<a href="https://en.wikipedia.org/wiki/Content_negotiation">content negotiation</a> to
+support clients specifying via the standard HTTP headers <a href="https://tools.ietf.org/html/rfc7231#section-5.3.2"><code>Accept</code></a>,
+<a href="https://tools.ietf.org/html/rfc7231#section-5.3.5"><code>Accept-Language</code></a>, <a href="https://tools.ietf.org/html/rfc7231#section-5.3.4"><code>Accept-Encoding</code></a> which representation is best suited for
+their use case, for example, which language of a document, representation /
+content format, or content encoding. You <a href="#172"><span class="should-keyword"><strong>SHOULD</strong></span> use standard media types</a> like <code>application/json</code> or
+<code>application/pdf</code> for defining the content format in the <a href="https://tools.ietf.org/html/rfc7231#section-5.3.2"><code>Accept</code></a> header.</p>
 </div>
 </div>
 <div class="sect2">
@@ -3870,9 +3899,9 @@ as internal only, technical integer key, see
 <a href="https://apis.zalando.net/redirect/5675b6ec-8934-11ea-929e-68f728c1ba70">Naming Decision: <code>customer_number</code> vs <code>customer_id</code> [internal_link</a>]).</p>
 </li>
 <li>
-<p><a id="etag"></a><a href="https://tools.ietf.org/html/rfc7232#section-2.3"><code>ETag</code></a>: the <a href="#182">ETag</a> of an <a href="#158">embedded sub-resource</a>. It
-typically is used to carry the <a href="https://tools.ietf.org/html/rfc7232#section-2.3"><code>ETag</code></a> for subsequent <a href="#put"><code>PUT</code></a>/<a href="#patch"><code>PATCH</code></a> calls (see
-<a href="#etag-in-result-entities"><code>ETags</code> in result entities</a>).</p>
+<p><a id="etag"></a><a href="#etag"><code>etag</code></a>: the <a href="#etag"><code>etag</code></a> of an <a href="#158">embedded sub-resource</a>. It
+typically is used to carry the <a href="https://tools.ietf.org/html/rfc7232#section-2.3"><code>ETag</code></a> for subsequent <a href="#put"><code>PUT</code></a>/<a href="#patch"><code>PATCH</code></a> calls
+(see <a href="#182"><code>ETag</code></a> and <a href="#etag-in-result-entities"><code>ETags</code> in result entities</a>).</p>
 </li>
 </ul>
 </div>
@@ -9430,7 +9459,7 @@ In a response containing multiple entities, every entity will then have a
 distinct <a href="https://tools.ietf.org/html/rfc7232#section-2.3"><code>ETag</code></a> that can be used in subsequent <a href="#put"><code>PUT</code></a> requests.</p>
 </div>
 <div class="paragraph">
-<p>In this solution, the <code>etag</code> property should be <code>readonly</code> and never be expected
+<p>In this solution, the <a href="#etag"><code>etag</code></a> property should be <code>readonly</code> and never be expected
 in the <a href="#put"><code>PUT</code></a> request payload.</p>
 </div>
 <div class="paragraph">
@@ -10042,7 +10071,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-07-14 16:48:32 UTC
+Last updated 2022-07-21 12:28:00 UTC
 </div>
 </div>
 </body>
