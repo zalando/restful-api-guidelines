@@ -264,9 +264,9 @@ We define the following common field names:
   identification of customers due to legacy reasons. (Hint: `customer_id` used to be defined
   as internal only, technical integer key, see
   {customer-naming-decision}[Naming Decision: `customer_number` vs `customer_id` [internal_link]]).
-* [[etag]]{etag}: the <<182, ETag>> of an <<158, embedded sub-resource>>. It
-  typically is used to carry the {ETag} for subsequent {PUT}/{PATCH} calls (see
-  <<etag-in-result-entities>>).
+* [[etag]]{e_tag}: the {e_tag} of an <<158, embedded sub-resource>>. It
+  typically is used to carry the {ETag} for subsequent {PUT}/{PATCH} calls
+  (see <<182, `ETag`>> and <<etag-in-result-entities>>).
 
 Further common fields are defined in <<235>>.
 The following guidelines define standard objects and fields:

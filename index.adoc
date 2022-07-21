@@ -17,6 +17,7 @@
 // Some link short cuts.
 // links to RFCs and standards:
 :RFC-1034: https://tools.ietf.org/html/rfc1034
+:RFC-2234: https://tools.ietf.org/html/rfc2234
 :RFC-2616: https://tools.ietf.org/html/rfc2616
 :RFC-2673: https://tools.ietf.org/html/rfc2673
 :RFC-3339: https://tools.ietf.org/html/rfc3339
@@ -59,7 +60,7 @@
 :GTIN: https://en.wikipedia.org/wiki/Global_Trade_Item_Number
 :IEEE-754-2008: https://en.wikipedia.org/wiki/IEEE_754
 :ISO-8601: https://en.wikipedia.org/wiki/ISO_8601
-:ISO-3166-1-a2: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+:ISO-3166-1-alpha-2: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
 :ISO-639-1: https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
 :ISO-4217: https://en.wikipedia.org/wiki/ISO_4217
 
@@ -155,7 +156,7 @@
 :modified: pass:[<a href="#modified"><code>modified</code></a>]
 :modified_at: pass:[<a href="#modified_at"><code>modified_at</code></a>]
 :type: pass:[<a href="#type"><code>type</code></a>]
-:etag: pass:[<a href="#etag"><code>etag</code></a>]
+:e_tag: pass:[<a href="#etag"><code>etag</code></a>]
 
 
 // Attributes to improve linking to semantic fields.
