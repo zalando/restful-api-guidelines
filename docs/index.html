@@ -7,7 +7,7 @@
 <meta name="generator" content="Asciidoctor 2.0.17">
 <meta name="keywords" content="Zalando, Guidelines, RESTful, API, Events, Schema">
 <meta name="copyright" content="CC-BY-SA 4.0">
-<title>Zalando RESTful API and Event Guidelines</title>
+<title>Linz Step RESTful API and Event Guidelines</title>
 <style>
 /*! normalize.css v2.1.2 | MIT License | git.io/normalize */
 /* ========================================================================== HTML5 display definitions ========================================================================== */
@@ -1387,11 +1387,10 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_zalando_restful_api_and_event_guidelines"><a class="link" href="#_zalando_restful_api_and_event_guidelines">Zalando RESTful API and Event Guidelines</a></h2>
+<h2 id="_linz_step_restful_api_and_event_guidelines"><a class="link" href="#_linz_step_restful_api_and_event_guidelines">Linz Step RESTful API and Event Guidelines</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="https://github.com/zalando/restful-api-guidelines">Github Repository</a> as part of
-<a href="https://opensource.zalando.com/">Zalando SE Opensource</a></p>
+<p><a href="https://github.com/linz/restful-api-guidelines">Github Repository</a></p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -1404,7 +1403,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <div id="toc" class="toc">
 <div id="toctitle" class="title">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_zalando_restful_api_and_event_guidelines">Zalando RESTful API and Event Guidelines</a></li>
+<li><a href="#_linz_step_restful_api_and_event_guidelines">Linz Step RESTful API and Event Guidelines</a></li>
 <li><a href="#introduction">1. Introduction</a>
 <ul class="sectlevel2">
 <li><a href="#conventions-used-in-these-guidelines">Conventions used in these guidelines</a></li>
@@ -1420,7 +1419,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 </li>
 <li><a href="#general-guidelines">3. General guidelines</a>
 <ul class="sectlevel2">
-<li><a href="#100"><span class="must-keyword"><strong>MUST</strong></span> follow API first principle</a></li>
+<li><a href="#100"><span class="should-keyword"><strong>SHOULD</strong></span> follow API first principle</a></li>
 <li><a href="#101"><span class="must-keyword"><strong>MUST</strong></span> provide API specification using OpenAPI</a></li>
 <li><a href="#102"><span class="should-keyword"><strong>SHOULD</strong></span> provide API user manual</a></li>
 <li><a href="#103"><span class="must-keyword"><strong>MUST</strong></span> write APIs using U.S. English</a></li>
@@ -1587,7 +1586,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 </li>
 <li><a href="#api-operation">17. REST Operation</a>
 <ul class="sectlevel2">
-<li><a href="#192"><span class="must-keyword"><strong>MUST</strong></span> publish OpenAPI specification</a></li>
+<li><a href="#192"><span class="must-keyword"><strong>MUST</strong></span> publish OpenAPI specification&#8201;&#8212;&#8201;Under Construction</a></li>
 <li><a href="#193"><span class="should-keyword"><strong>SHOULD</strong></span> monitor API usage</a></li>
 </ul>
 </li>
@@ -1721,7 +1720,7 @@ interpreted as described in <a href="https://www.ietf.org/rfc/rfc2119.txt">RFC
 <div class="paragraph">
 <p>The purpose of our "RESTful API guidelines" is to define standards to
 successfully establish "consistent API look and feel" quality. The
-<a href="https://api.docs.zalando.net/">API Guild (internal_link)</a>
+<a href="https://confluence.linz.govt.nz/display/STEP/STEP+Engineering+Design+Group">API Guild (internal_link)</a>
 drafted and owns this document. Teams are responsible to fulfill
 these guidelines during API development and are encouraged to contribute
 to guideline evolution via pull requests.</p>
@@ -1987,19 +1986,19 @@ Guideline compliance), already confirmed via team internal reviews.</p>
 <span class="should-keyword"><strong>SHOULD</strong></span>, <span class="may-keyword"><strong>MAY</strong></span>.</p>
 </div>
 <div class="sect2">
-<h3 id="100"><a class="link" href="#100"><span class="must-keyword"><strong>MUST</strong></span> follow API first principle</a></h3>
+<h3 id="100"><a class="link" href="#100"><span class="should-keyword"><strong>SHOULD</strong></span> follow API first principle</a></h3>
 <div class="paragraph">
-<p>You must follow the <a href="#api-first">API First Principle</a>, more specifically:</p>
+<p>You should follow the <a href="#api-first">API First Principle</a>, more specifically:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>You must define APIs first, before coding its implementation, <a href="#101">using
+<p>You should define APIs first, before coding its implementation, <a href="#101">using
 OpenAPI as specification language</a></p>
 </li>
 <li>
 <p>You must design your APIs consistently with these guidelines; use our
-<a href="https://zally.zalando.net/">API Linter Service (internal_link)</a>
+<a href="https://lilly.nonprod.enablement.awsint.linz.govt.nz/">API Linter Service (internal_link)</a>
 for automated rule checks.</p>
 </li>
 <li>
@@ -2017,8 +2016,7 @@ with <code>x-api-audience =/= component-internal</code> (see <a href="#219"><spa
 <p>We use the <a href="http://swagger.io/specification/">OpenAPI specification</a> as standard
 to define API specification files. API designers are required to provide the API
 specification using a single <strong>self-contained YAML</strong> file to improve readability.
-We encourage to use <strong>OpenAPI 3.0</strong> version, but still support <strong>OpenAPI 2.0</strong>
-(a.k.a. Swagger 2).</p>
+You must document with <strong>OpenAPI 3.</strong>* version.</p>
 </div>
 <div class="paragraph">
 <p>The API specification files should be subject to version control using a source
@@ -2030,12 +2028,12 @@ API specification with the deployment of the implementing service, and, hence,
 make it discoverable for the group via our <a href="https://apis.zalando.net/">API Portal (internal_link)</a>.</p>
 </div>
 <div class="paragraph">
-<p><strong>Hint:</strong> A good way to explore <strong>OpenAPI 3.0/2.0</strong> is to navigate through the
+<p><strong>Hint:</strong> A good way to explore <strong>OpenAPI 3.0</strong> is to navigate through the
 <a href="https://openapi-map.apihandyman.io/">OpenAPI specification mind map</a> and use
 our <a href="https://plugins.jetbrains.com/search?search=swagger+Monte">Swagger Plugin
 for IntelliJ IDEA</a> to create your first API. To explore and validate/evaluate
 existing APIs the <a href="https://editor.swagger.io/">Swagger Editor</a> or our
-<a href="https://apis.zalando.net">API Portal</a> may be a good starting point.</p>
+<a href="https://apis.zalando.net">API Portal - (Not yet under construction)</a> may be a good starting point.</p>
 </div>
 <div class="paragraph">
 <p><strong>Hint:</strong> We do not yet provide guidelines for <a href="https://graphql.org/">GraphQL</a>.
@@ -6024,7 +6022,7 @@ is not standardized in an RFC. Our only reference are the usage in the
 However, we do not want to change the header name and semantic, and
 do not name it like the proprietry headers below.
 The header addresses a generic REST concern and is different from the
-Zalando landscape specific proprietary headers.</p>
+LINZ(Zalando) landscape specific proprietary headers.</p>
 </div>
 </div>
 <div class="sect2">
@@ -6401,7 +6399,7 @@ target resources without 'discovering' them.</p>
 <p>However, we do not forbid HATEOAS; you could use it, if you checked its
 limitations and still see clear value for your usage scenario that justifies
 its additional complexity. If you use HATEOAS please share experience and
-present your findings in the <a href="https://api.docs.zalando.net/">API Guild (internal_link)</a>.</p>
+present your findings in the <a href="https://confluence.linz.govt.nz/display/STEP/STEP+Engineering+Design+Group">API Guild (internal_link)</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -7741,7 +7739,7 @@ the deprecation info (see hint in <a href="#189"><span class="should-keyword"><s
 <h2 id="api-operation"><a class="link" href="#api-operation">17. REST Operation</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="192"><a class="link" href="#192"><span class="must-keyword"><strong>MUST</strong></span> publish OpenAPI specification</a></h3>
+<h3 id="192"><a class="link" href="#192"><span class="must-keyword"><strong>MUST</strong></span> publish OpenAPI specification&#8201;&#8212;&#8201;Under Construction</a></h3>
 <div class="paragraph">
 <p>All service applications must publish OpenAPI specifications of their external
 APIs. While this is optional for internal APIs, i.e. APIs marked with the
@@ -7750,7 +7748,7 @@ to profit from the API management infrastructure.</p>
 </div>
 <div class="paragraph">
 <p>An API is published by copying its <strong>OpenAPI specification</strong> into the reserved
-<strong>/zalando-apis</strong> directory of the <strong>deployment artifact</strong> used to deploy the
+<strong>/linz-apis</strong> directory of the <strong>deployment artifact</strong> used to deploy the
 provisioning service. The directory must only contain <strong>self-contained YAML</strong>
 <strong>files</strong> that each describe one API (exception see <a href="#234"><span class="must-keyword"><strong>MUST</strong></span> only use durable and immutable remote references</a>). We prefer this
 deployment artifact-based method over the past (now legacy)
@@ -7762,7 +7760,7 @@ we only support for backward compatibility reasons.</p>
 to provide API client developers a central place with online access to the API
 specifications of all running applications. As a part of the infrastructure,
 the API publishing process is used to detect API specifications. The findings
-are published in the API Portal - the universal hub for all Zalando APIs.</p>
+are published in the API Portal - the universal hub for all LINZ Step APIs.</p>
 </div>
 <div class="paragraph">
 <p><strong>Note:</strong> To publish an API, it is still necessary to deploy the artifact
@@ -9670,7 +9668,7 @@ Major changes are listed as "Rule Changes" below.</p>
 <p><strong>Hint:</strong> Most recent major changes might be missing in the list since we update it
 only occasionally, not with each pull request, to avoid merge commits.
 Please have a look at the
-<a href="https://github.com/zalando/restful-api-guidelines/commits/master">commit list in Github</a>
+<a href="https://github.com/linz/restful-api-guidelines/commits/main">commit list in Github</a>
 to see a list of all changes.</p>
 </div>
 <div class="sect2">
@@ -9843,7 +9841,7 @@ to see a list of all changes.</p>
 <p><code>2018-01-10:</code> Moved meta information related aspects into new chapter <a href="#meta-information">REST Basics - Meta information</a>.</p>
 </li>
 <li>
-<p><code>2018-01-09:</code> Changed publication requirements for API specifications (<a href="#192"><span class="must-keyword"><strong>MUST</strong></span> publish OpenAPI specification</a>).</p>
+<p><code>2018-01-09:</code> Changed publication requirements for API specifications (<a href="#192"><span class="must-keyword"><strong>MUST</strong></span> publish OpenAPI specification&#8201;&#8212;&#8201;Under Construction</a>).</p>
 </li>
 <li>
 <p><code>2017-12-07:</code> Added best practices section including discussion about optimistic locking approaches.</p>
@@ -10046,7 +10044,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-05-23 23:48:57 UTC
+Last updated 2022-07-25 02:11:11 UTC
 </div>
 </div>
 </body>

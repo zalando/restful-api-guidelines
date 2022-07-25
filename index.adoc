@@ -63,12 +63,12 @@
 :ISO-4217: https://en.wikipedia.org/wiki/ISO_4217
 
 // links to internal 
-:api-guild: https://api.docs.zalando.net/
+:api-guild: https://confluence.linz.govt.nz/display/STEP/STEP+Engineering+Design+Group
 :nakadi-api: https://apis.zalando.net/apis/nakadi-event-bus-api-definition/ui
 :api-audience-narrative: https://apis.zalando.net/redirect/85ee93a3-7a78-4461-8bf1-08ffdaebcd18
 :functional-name-registry: https://github.bus.zalan.do/team-architecture/functional-component-registry
 :customer-naming-decision: https://apis.zalando.net/redirect/5675b6ec-8934-11ea-929e-68f728c1ba70
-:zally-ui: https://zally.zalando.net/
+:lilly-ui: https://lilly.nonprod.enablement.awsint.linz.govt.nz/
 :api-review-proc: https://api.docs.zalando.net/howto/request-review/
 :api-portal: https://apis.zalando.net/
 :techradar-public: https://techradar.zalando.net/languages/graphql.html
@@ -227,9 +227,8 @@
 :RFC-cacheable: pass:[<a href="https://tools.ietf.org/html/rfc7231#section-4.2.3">cacheable</a>]
 
 
-= Zalando RESTful API and Event Guidelines
-link:https://github.com/zalando/restful-api-guidelines[Github Repository] as part of 
-link:https://opensource.zalando.com/[Zalando SE Opensource]
+= Linz Step RESTful API and Event Guidelines
+link:https://github.com/linz/restful-api-guidelines[Github Repository]
 
 image::assets/api-zalando-small.jpg[API Guild Logo]
 
