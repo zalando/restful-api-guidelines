@@ -6,14 +6,14 @@ The titles are marked with the corresponding labels: {MUST},
 
 
 [#100]
-== {MUST} follow API first principle
+== {SHOULD} follow API first principle
 
-You must follow the <<api-first, API First Principle>>, more specifically:
+You should follow the <<api-first, API First Principle>>, more specifically:
 
-* You must define APIs first, before coding its implementation, <<101, using
+* You should define APIs first, before coding its implementation, <<101, using
   OpenAPI as specification language>>
 * You must design your APIs consistently with these guidelines; use our
-  {zally-ui}[API Linter Service (internal_link)] 
+  {lilly-ui}[API Linter Service (internal_link)]
   for automated rule checks.
 * You must call for early review feedback from peers and client developers, and apply 
   {api-review-proc}[our lightweight API review process (internal_link)] 
@@ -27,8 +27,7 @@ You must follow the <<api-first, API First Principle>>, more specifically:
 We use the http://swagger.io/specification/[OpenAPI specification] as standard
 to define API specification files. API designers are required to provide the API
 specification using a single *self-contained YAML* file to improve readability.
-We encourage to use *OpenAPI 3.0* version, but still support *OpenAPI 2.0*
-(a.k.a. Swagger 2).
+You must document with *OpenAPI 3.** version.
 
 The API specification files should be subject to version control using a source
 code management system - best together with the implementing sources.
@@ -37,12 +36,12 @@ You <<192, must / should publish>> the component <<219, external / internal>>
 API specification with the deployment of the implementing service, and, hence,
 make it discoverable for the group via our {api-portal}[API Portal (internal_link)].
 
-*Hint:* A good way to explore *OpenAPI 3.0/2.0* is to navigate through the
+*Hint:* A good way to explore *OpenAPI 3.0* is to navigate through the
 https://openapi-map.apihandyman.io/[OpenAPI specification mind map] and use
 our https://plugins.jetbrains.com/search?search=swagger+Monte[Swagger Plugin
 for IntelliJ IDEA] to create your first API. To explore and validate/evaluate
 existing APIs the https://editor.swagger.io/[Swagger Editor] or our
-https://apis.zalando.net[API Portal] may be a good starting point.
+https://apis.zalando.net[API Portal - (Not yet under construction)] may be a good starting point.
 
 *Hint:* We do not yet provide guidelines for https://graphql.org/[GraphQL].
 Following our {techradar-public}[Zalando Tech Radar (internal_link)], 

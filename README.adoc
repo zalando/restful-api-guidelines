@@ -1,4 +1,4 @@
-= Developing Restful APIs: A Comprehensive Set of Guidelines by Zalando
+= Developing Restful APIs: A Comprehensive Set of Guidelines by LINZ
 
 
 https://github.com/zalando/restful-api-guidelines/actions/[image:https://github.com/zalando/restful-api-guidelines/actions/workflows/build.yml/badge.svg[Build status]]
@@ -13,7 +13,8 @@ Great RESTful APIs look like they were designed by a single team. This
 promotes API adoption, reduces friction, and enables clients to use them
 properly. To build APIs that meet this standard, and to answer many
 common questions encountered along the way of RESTful API development,
-the Zalando Tech team has created this comprehensive set of guidelines.
+LINZ EDG has leveraged the heavy lifting the Zalando Tech teamhas done with their comprehensive set of guidelines and
+expanded it to include New Zealand Government API Standards.
 We have shared it with you to inspire additional discussion and
 refinement within and among your teams, and contribute our learnings and
 suggestions to the tech community at large.
