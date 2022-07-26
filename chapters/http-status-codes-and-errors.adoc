@@ -84,14 +84,14 @@ a clear description of the HTTP status code in the response.
 |=======================================================================
 |Code |Meaning |Methods
 |[[status-code-200]]{200}|
-OK - this is the standard success response
+OK - this is the most general success response and used, 
+if the more specific codes below are not applicable. 
 |{ALL}
 
 |[[status-code-201]]{201}|
-Created - Returned on successful entity creation. You are
-free to return either an empty response or the created resource in conjunction
-with the Location header. (More details found in the <<standard-headers>>.)
-_Always_ set the Location header.
+Created - Returned on successful resource creation. 
+You may additionally return the created resource and/or
+the `Location` response header (see details in <<standard-headers>>).
 |{POST}, {PUT}
 
 |[[status-code-202]]{202}|
@@ -99,7 +99,7 @@ Accepted - The request was successful and will be processed asynchronously.
 |{POST}, {PUT}, {PATCH}, {DELETE}
 
 |[[status-code-204]]{204}|
-No content - There is no response body.
+Like {200}, but no response payload is returned. 
 |{PUT}, {PATCH}, {DELETE}
 
 |[[status-code-207]]{207}|
@@ -175,8 +175,10 @@ Request timeout - the server times out waiting for the resource.
 
 |[[status-code-409]]{409}|
 Conflict - request cannot be completed due to conflict with the current state of the target resource.
-For instance, in situations where two clients try to create the same resource or if there are 
-concurrent, conflicting updates.
+For example, you may get a {409} response when updating a resource that is older than the existing 
+one on the server, resulting in a version control conflict.
+Hint, you should not return {409}, but {200} in case of successful robust creation of resources 
+(via {PUT} or {POST}), if the resource already exists.
 |{POST}, {PUT}, {PATCH}, {DELETE}
 
 |[[status-code-410]]{410}|
