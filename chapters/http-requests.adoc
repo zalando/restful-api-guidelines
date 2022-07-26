@@ -90,9 +90,9 @@ implicitly creating the resource before updating
 * on successful {PUT} requests, the server will *replace the entire resource*
 addressed by the URL with the representation passed in the payload (subsequent
 reads will deliver the same payload, plus possibly server-generated fields like `modified_at`)
-* successful {PUT} requests will usually generate {200} or {204} (if the
-resource was updated – with or without actual content returned), and {201} (if
-the resource was created)
+* successful {PUT} requests return {200} or {204} (if the resource was updated - 
+with or without returning the resource), {201} (if resources have been created) 
+or {202} (if accepted and processed asynchronously).
 
 *Important:* It is good practice to prefer {POST} over {PUT} for creation of
 (at least top-level) resources. This leaves the resource identifier management under
@@ -122,10 +122,9 @@ by the URL"_.
 
 * on a successful {POST} request, the server will create one or multiple new
 resources and provide their URI/URLs in the response
-* successful {POST} requests will usually generate {200} (if resources have
-been updated), {201} (if resources have been created), {202} (if the request
-was accepted but has not been finished yet), and exceptionally {204} with
-{Location} header (if the actual resource is not returned).
+* successful {POST} requests return {200} or {204} (if the resource was updated - 
+with or without returning the resource), {201} (if resources have been created) 
+or {202} (if accepted and processed asynchronously).
 
 *Note:* By using {POST} to create resources the resource ID must not be passed as
 request input date by the client, but created and maintained by the service and
@@ -161,6 +160,8 @@ instances
 addressed by the URL as defined by the change request in the payload
 * successful {PATCH} requests will usually generate {200} or {204} (if
 resources have been updated with or without updated content returned)
+* successful {PATCH} requests return {200} or {204} (if the resource was updated - 
+with or without returning the resource).
 
 *Note:* since implementing {PATCH} correctly is a bit tricky, we strongly suggest
 to choose one and only one of the following patterns per endpoint (unless
@@ -208,6 +209,8 @@ described as _"please delete the resource identified by the URL"_.
   parameters on the collection resource (see <<delete-with-query-params>>).
 * successful {DELETE} requests will usually generate {200} (if the deleted
   resource is returned) or {204} (if no content is returned).
+* successful {DELETE} requests return {200} or {204} (if the resource was updated - 
+  with or without returning the resource).
 * failed {DELETE} requests will usually generate {404} (if the resource cannot
   be found) or {410} (if the resource was already deleted before).
 
