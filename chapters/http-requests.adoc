@@ -94,12 +94,16 @@ reads will deliver the same payload, plus possibly server-generated fields like 
 with or without returning the resource), {201} (if resources have been created) 
 or {202} (if accepted and processed asynchronously).
 
-*Important:* It is good practice to prefer {POST} over {PUT} for creation of
-(at least top-level) resources. This leaves the resource identifier management under
-control of the service and not the client, and focuses {PUT} on its usage for updates.
-However, in situations where all resource attributes including the identifier
+The updated/created resource may be returned as response payload. We recommend, 
+to only make use of it if the resource is enriched with server-generated 
+fields (e.g. `version_number`).
+
+*Important:* It is good practice to keep the resource identifier management under
+control of the service provider and not the client, and, hence, to prefer {POST} for 
+creation of (at least top-level) resources, and focus {PUT} on its usage for updates.
+However, in situations where the identifier and all resource attributes
 are under control of the client as input for the resource creation you should use
-{PUT} and pass the resource identifier via the URL path.
+{PUT} and pass the resource identifier as URL path parameter.
 Putting the same resource twice is required to be <<idempotent>> and to result
 in the same single resource instance (see <<149>>) without data duplication in case of repetition.
 
