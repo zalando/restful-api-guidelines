@@ -377,6 +377,10 @@ If you mainly aim to support safe retries, we suggest to apply <<182,
 conditional key>> and <<231,secondary key>> pattern before the <<230,
 Idempotency Key>> pattern.
 
+Note, like for {PUT}, successful {POST} or {PATCH} returns {200} or {204} (if the resource 
+was updated - with or without returning the resource), or {201} (if resources have been created). 
+Hence, clients can differentiate successful robust repetition vs. successful (initial) created. 
+
 
 [#231]
 == {Should} use secondary key for idempotent `POST` design
