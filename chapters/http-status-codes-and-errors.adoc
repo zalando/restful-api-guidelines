@@ -90,8 +90,9 @@ if the more specific codes below are not applicable.
 
 |[[status-code-201]]{201}|
 Created - Returned on successful resource creation. 
-You may additionally return the created resource and/or
-the `Location` response header (see details in <<standard-headers>>).
+{201} is returned with or without response payload (unlike {200} / {204}).
+We recommend to additionally return the created resource URL via the `Location` 
+response header (see <<standard-headers>>).
 |{POST}, {PUT}
 
 |[[status-code-202]]{202}|
