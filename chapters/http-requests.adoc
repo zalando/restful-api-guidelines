@@ -158,8 +158,6 @@ collection is challenging
 instances
 * on successful {PATCH} requests, the server will update parts of the resource
 addressed by the URL as defined by the change request in the payload
-* successful {PATCH} requests will usually generate {200} or {204} (if
-resources have been updated with or without updated content returned)
 * successful {PATCH} requests return {200} or {204} (if the resource was updated - 
 with or without returning the resource).
 
@@ -207,9 +205,7 @@ described as _"please delete the resource identified by the URL"_.
   collection resources, as this would imply deleting the entire collection.
 * {DELETE} request can be applied to multiple resources at once using query
   parameters on the collection resource (see <<delete-with-query-params>>).
-* successful {DELETE} requests will usually generate {200} (if the deleted
-  resource is returned) or {204} (if no content is returned).
-* successful {DELETE} requests return {200} or {204} (if the resource was updated - 
+* successful {DELETE} requests return {200} or {204} (if the resource was deleted - 
   with or without returning the resource).
 * failed {DELETE} requests will usually generate {404} (if the resource cannot
   be found) or {410} (if the resource was already deleted before).
