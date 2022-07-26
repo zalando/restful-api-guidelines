@@ -95,8 +95,8 @@ with or without returning the resource), {201} (if resources have been created)
 or {202} (if accepted and processed asynchronously).
 
 The updated/created resource may be returned as response payload. We recommend, 
-to only make use of it if the resource is enriched with server-generated 
-fields (e.g. `version_number`).
+to not use it per default, but if the resource is enriched with server-generated 
+fields like `version_number`. You may also support client side steering (see <<181>>).
 
 *Important:* It is good practice to keep the resource identifier management under
 control of the service provider and not the client, and, hence, to prefer {POST} for 
