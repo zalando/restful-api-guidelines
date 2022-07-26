@@ -379,7 +379,7 @@ Idempotency Key>> pattern.
 
 Note, like for {PUT}, successful {POST} or {PATCH} returns {200} or {204} (if the resource 
 was updated - with or without returning the resource), or {201} (if resources have been created). 
-Hence, clients can differentiate successful robust repetition vs. (initially) created
+Hence, clients can differentiate successful robust repetition from resource created
 server activity of idempotent {POST}.
 
 
