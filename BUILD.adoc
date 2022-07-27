@@ -1,9 +1,90 @@
 = Build
 
-== Build HTML site, PDF and EPUB3 locally
+<<HTML site>> +
+<<PDF and EPUB3 locally>>
+
+== HTML site
+
+Recommended: Run *with WSL* supported Terminal( WSL ). +
+ +
+You can build the site using
+
+<<_using_build_script>> (Recommended) +
+or <<_using_a_make_file>> (Legacy)
+
+*Without WSL*:
+You'll need to
+e.g. fix the following issue in CMDer.
+[source,bash]
+----
+docker run -v /c/Users/PCadman/code/restful-api-guidelines:/documents/ asciidoctor/docker-asciidoctor:latest asciidoctor \
+  -D /documents/output index.adoc;
+asciidoctor: FAILED: input file index.adoc is missing
+make: *** [Makefile:62: html] Error 1
+----
+
+which creates a folder
+----
+step-api-restful-guidelines;C
+----
+
+== Using build script
+[source,bash]
+----
+./build.sh
+----
+
+to get a new file,
+
+[source,bash]
+----
+./docs/index.html
+----
+
+== Using a make file
+
+e.g. Windows Terminal with Ubuntu
+[source,bash]
+----
+make clean; make html
+----
+
+== PDF and EPUB3 locally
+Assuming you have installed `jq`
+
 [source,bash]
 ----
 make all
+----
+
+Still generates a
+
+[source bash]
+----
+rm -rf output;
+mkdir -p output;
+cp -r assets output/;
+cp -r models output/;
+cp -r models/{problem-1.0.{0,1},money-1.0.0}.yaml output;
+cp -r -n legacy/* output;
+docker pull asciidoctor/docker-asciidoctor:latest;
+latest: Pulling from asciidoctor/docker-asciidoctor
+Digest: sha256:95eda854195b0f885a252ef07340946e09fa66d062153c0b26c2b2f2ce338af4
+Status: Image is up to date for asciidoctor/docker-asciidoctor:latest
+docker.io/asciidoctor/docker-asciidoctor:latest
+docker run -v /mnt/c/Users/PCadman/code/restful-api-guidelines:/documents/ asciidoctor/docker-asciidoctor:latest asciidoctor \
+  -D /documents/output index.adoc;
+docker run -v /mnt/c/Users/PCadman/code/restful-api-guidelines:/documents/ asciidoctor/docker-asciidoctor:latest asciidoctor-pdf \
+  -D /documents/output index.adoc;
+asciidoctor: ERROR: failed to parse formatted text: <code><a href="https://infrastructure-api-repository.zalandoapis.com/" class="bare">https://infrastructure-api-repository.zalandoapis.com/</a> (internal_link)</code> <b>–</b> used to refer to user-defined, immutable API specification revisions published via the internal API repository. (reason: Expected one of 'br', 'img', 'a', 'strong', 'em', 'code', 'font', 'span', 'button', 'kbd', 'sup', 'sub', 'mark', 'menu', 'del' after < at byte 168)
+asciidoctor: ERROR: failed to parse formatted text: <code><a href="https://opensource.zalando.com/restful-api-guidelines/{model.yaml}" class="bare">https://opensource.zalando.com/​restful-api-guidelines/​{model.yaml}</a></code> <b>–</b> used to refer to guideline-defined re-usable API fragments (see <code>{model.yaml}</code> files in <a href="https://github.com/zalando/restful-api-guidelines/tree/main/models">restful-api-guidelines/models</a> for details). (reason: Expected one of 'br', 'img', 'a', 'strong', 'em', 'code', 'font', 'span', 'button', 'kbd', 'sup', 'sub', 'mark', 'menu', 'del' after < at byte 178)
+mv -f output/index.pdf output/zalando-guidelines.pdf;
+docker run -v /mnt/c/Users/PCadman/code/restful-api-guidelines:/documents/ asciidoctor/docker-asciidoctor:latest asciidoctor-epub3 \
+  -D /documents/output index.adoc;
+asciidoctor: WARNING: index.adoc: invalid reference to unknown anchor: required-nullable-row-2
+mv -f output/index.epub output/zalando-guidelines.epub;
+scripts/generate-rules-json.sh  | \
+  jq -s '{rules: . | sort}' | tee output/rules >output/rules.json;
 ----
 
 == Generate Custom CSS

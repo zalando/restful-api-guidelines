@@ -3,7 +3,7 @@
 
 
 [#192]
-== {MUST} publish OpenAPI specification -- Under Construction
+== {MUST} publish OpenAPI specification -- (Under construction)
 
 All service applications must publish OpenAPI specifications of their external
 APIs. While this is optional for internal APIs, i.e. APIs marked with the
