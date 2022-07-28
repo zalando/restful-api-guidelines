@@ -337,7 +337,7 @@ than 2000 characters.)
 
 
 [#130]
-== {MUST} use snake_case (never camelCase) for query parameters
+== {MUST} use camelCase (never snake_case) for query parameters
 
 See also <<118>>.
 
