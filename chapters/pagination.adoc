@@ -3,7 +3,9 @@
 
 
 [#159]
-== {MUST} support pagination
+== {MUST} support pagination (Under Construction)
+
+https://confluence.linz.govt.nz/display/STEP/Api+Standards+-+Pagination[DRAFT Proposal]
 
 Access to lists of data items must support pagination to protect the service
 against overload as well as for best client side iteration and batch processing
@@ -31,7 +33,7 @@ you must stick to the common query parameter names defined in <<137>>.
 
 
 [#160]
-== {SHOULD} prefer cursor-based pagination, avoid offset-based pagination
+== {MAY} use cursor-based pagination, instead of offset-based pagination
 
 Cursor-based pagination is usually better and more efficient when compared to
 offset-based pagination. Especially when it comes to high-data volumes and/or
@@ -73,6 +75,8 @@ For iterating over collections (result sets) we propose to either use cursors
 in a consistent way, we have defined a response page object pattern with the
 following field semantics:
 
+* [[_links]]{_links}:the link or cursor in a pagination response or object
+pointing to the same collection object or page.
 * [[self]]{self}:the link or cursor in a pagination response or object
   pointing to the same collection object or page.
 * [[first]]{first}: the link or cursor in a pagination response or object
@@ -87,8 +91,8 @@ following field semantics:
 Pagination responses should contain the following additional array field to
 transport the page content:
 
-* [[items]]{items}: array of resources, holding all the items of the current
-  page ({items} may be replaced by a resource name).
+* [[resources]]{resources}: array of resources, holding all the items of the current
+  page ({items} MUST be replaced by a resource name e.g. titles).
 
 To simplify user experience, the applied query filters may be returned using
 the following field (see also {GET-with-body}):
@@ -101,44 +105,46 @@ pagination links>> may be defined as follows:
 
 [source,yaml]
 ----
-ResponsePage:
+ResourceResponse:
   type: object
   required:
-    - items
-    - next
+    - resources
   properties:
-    self:
-      description: Pagination link|cursor pointing to the current page.
-      type: string
-      format: uri|cursor
-    first:
-      description: Pagination link|cursor pointing to the first page.
-      type: string
-      format: uri|cursor
-    prev:
-      description: Pagination link|cursor pointing to the previous page.
-      type: string
-      format: uri|cursor
-    next:
-      description: Pagination link|cursor pointing to the next page.
-      type: string
-      format: uri|cursor
-    last:
-      description: Pagination link|cursor pointing to the last page.
-      type: string
-      format: uri|cursor
-
-    query:
-      description: >
-        Object containing the query filters applied to the collection resource.
+    _links:
       type: object
-      properties: ...
-
-    items:
+      required:
+        - next
+      properties:
+        self:
+          description: Pagination link|cursor pointing to the current page.
+          type: string
+          format: uri|cursor
+        first:
+          description: Pagination link|cursor pointing to the first page.
+          type: string
+          format: uri|cursor
+        prev:
+          description: Pagination link|cursor pointing to the previous page.
+          type: string
+          format: uri|cursor
+        next:
+          description: Pagination link|cursor pointing to the next page.
+          type: string
+          format: uri|cursor
+        last:
+          description: Pagination link|cursor pointing to the last page.
+          type: string
+          format: uri|cursor
+        query:
+          description: >
+            Object containing the query filters applied to the collection resource.
+          type: object
+          properties: ...
+    resources:
       description: Array of collection items.
       type: array
       required: false
-      items:
+      resources:
         type: ...
 ----
 
@@ -153,25 +159,54 @@ To simplify client design, APIs should support <<165, simplified hypertext
 controls>> for paginating over collections whenever applicable as follows (see
 also <<pagination-fields>> for details):
 
+Offset based pagination
+
 [source,json]
 ----
 {
-  "self": "http://my-service.zalandoapis.com/resources?cursor=<self-position>",
-  "first": "http://my-service.zalandoapis.com/resources?cursor=<first-position>",
-  "prev": "http://my-service.zalandoapis.com/resources?cursor=<previous-position>",
-  "next": "http://my-service.zalandoapis.com/resources?cursor=<next-position>",
-  "last": "http://my-service.zalandoapis.com/resources?cursor=<last-position>",
-  "query": {
-    "query-param-<1>": ...,
-    "query-param-<n>": ...
-  },
-  "items": [...]
+  "titles": [...],
+  "_links": {
+    "self": "http://api.gateway.linz.co.nz/titles?offset=10&limit=10",
+    "first": "http://api.gateway.linz.co.nz/titles?offset=0&limit=10",
+    "prev": "http://api.gateway.linz.co.nz/titles?offset=0&limit=10",
+    "next": "http://api.gateway.linz.co.nz/titles?offset=20&limit=10",
+    "last": "http://api.gateway.linz.co.nz/titles?offset=50&limit=10",
+    "query": {
+      "query-param-<1>": ...,
+      "query-param-<n>": ...
+    }
+  }
 }
 ----
-
-*Remark:* You should avoid providing a total count unless there is a clear
+*Remark:* In the above case in order to calculate "last" link, the values offset and limit need to be calculated off
+of the total.
+ +
+ +
+You should avoid providing a total count unless there is a clear
 need to do so. Very often, there are significant system and performance
 implications when supporting full counts. Especially, if the data set grows
 and requests become complex queries and filters drive full scans. While this
 is an implementation detail relative to the API, it is important to consider
 the ability to support serving counts over the life of a service.
+
+Cursor Based
+
+[source,json]
+----
+{
+  "titles": [...],
+  "_links": {
+    "self": "http://api.gateway.linz.co.nz/titles?cursor=<self-position>",
+    "first": "http://api.gateway.linz.co.nz/titles?cursor=<first-position>",
+    "prev": "http://api.gateway.linz.co.nz/titles?cursor=<previous-position>",
+    "next": "http://api.gateway.linz.co.nz/titles?cursor=<next-position>",
+    "last": "http://api.gateway.linz.co.nz/titles?cursor=<last-position>",
+    "query": {
+      "query-param-<1>": ...,
+      "query-param-<n>": ...
+    }
+  }
+}
+----
+
+
