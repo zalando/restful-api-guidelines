@@ -1527,9 +1527,9 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#181"><span class="may-keyword"><strong>MAY</strong></span> consider to support <code>Prefer</code> header to handle processing preferences</a></li>
 <li><a href="#182"><span class="may-keyword"><strong>MAY</strong></span> consider to support <code>ETag</code> together with <code>If-Match</code>/<code>If-None-Match</code> header</a></li>
 <li><a href="#230"><span class="may-keyword"><strong>MAY</strong></span> consider to support <code>Idempotency-Key</code> header</a></li>
-<li><a href="#183"><span class="should-keyword"><strong>SHOULD</strong></span> use only the specified proprietary Zalando headers</a></li>
+<li><a href="#183"><span class="should-keyword"><strong>SHOULD</strong></span> use only the specified LINZ headers</a></li>
 <li><a href="#184"><span class="must-keyword"><strong>MUST</strong></span> propagate proprietary headers</a></li>
-<li><a href="#233"><span class="must-keyword"><strong>MUST</strong></span> support <code>X-Flow-ID</code></a></li>
+<li><a href="#233"><span class="must-keyword"><strong>MUST</strong></span> support <code>X-LINZ-Correlation-Id</code></a></li>
 </ul>
 </li>
 <li><a href="#hypermedia">12. REST Design - Hypermedia</a>
@@ -4237,7 +4237,7 @@ using header parameters. From a conceptual point of view, the semantic of an
 operation should always be expressed by the resource names, as well as the
 involved path and query parameters. In other words by everything that goes into
 the URL. Request headers are reserved for general context information (see
-<a href="#183"><span class="should-keyword"><strong>SHOULD</strong></span> use only the specified proprietary Zalando headers</a>). In addition, size limits on query parameters and headers are not
+<a href="#183"><span class="should-keyword"><strong>SHOULD</strong></span> use only the specified LINZ headers</a>). In addition, size limits on query parameters and headers are not
 reliable and depend on clients, gateways, server, and actual settings. Thus,
 switching to headers does not solve the original problem.</p>
 </div>
@@ -6021,7 +6021,7 @@ LINZ(Zalando) landscape specific proprietary headers.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="183"><a class="link" href="#183"><span class="should-keyword"><strong>SHOULD</strong></span> use only the specified proprietary Zalando headers</a></h3>
+<h3 id="183"><a class="link" href="#183"><span class="should-keyword"><strong>SHOULD</strong></span> use only the specified LINZ headers</a></h3>
 <div class="paragraph">
 <p>As a general rule, proprietary HTTP headers should be avoided.
 From a conceptual point of view, the business semantics and intent of an
@@ -6043,14 +6043,13 @@ not all called services use it as input for steering service behavior
 e.g. <a href="#x-sales-channel"><code>X-Sales-Channel</code></a> header) and/or&#8230;&#8203;</p>
 </li>
 <li>
-<p>is provided by specific gateway components, for instance, our
-Fashion Shop API or Merchant API gateway.</p>
+<p>is provided by specific gateway components, for instance, our API gateway.</p>
 </li>
 </ol>
 </div>
 <div class="paragraph">
 <p>Below, we explicitly define the list of proprietary header exceptions usable for
-all services for passing through generic context information of our fashion domain (use case 1).</p>
+all services for passing through generic context information of our domain (use case 1).</p>
 </div>
 <div class="paragraph">
 <p>Per convention, non standardized, proprietary header names are prefixed with  <code>X-</code>.
@@ -6075,68 +6074,17 @@ Remember that HTTP header field names are not case-sensitive:</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="x-flow-id"></a><a href="#x-flow-id"><code>X-Flow-ID</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="X-LINZ-Correlation-Id"></a><a href="#X-linz-correlation-id"><code>X-LINZ-Correlation-Id</code></a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">For more information see <a href="#233"><span class="must-keyword"><strong>MUST</strong></span> support <code>X-Flow-ID</code></a>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">For more information see <a href="https://confluence.linz.govt" class="bare">https://confluence.linz.govt</a>
+.nz/display/STEP/Use+Correlation+IDs+and+Journey+IDs+in+all+STEP+apps+-+High+Level+Design/[correlation Ids].</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">GKY7oDhpSiKY_gAAAABZ_A</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="x-tenant-id"></a><a href="#x-tenant-id"><code>X-Tenant-ID</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="Landonline-Journey-Id"></a>{Landonline-Journey-Id}</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Identifies the tenant initiated the request
-to the multi tenant Zalando Platform. The <a href="#x-tenant-id"><code>X-Tenant-ID</code></a> must be set
-according to the Business Partner ID extracted from the OAuth token when
-a request from a Business Partner hits the Zalando Platform.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">see <a href="https://confluence.linz.govt.nz/display/STEP/%5BRFC%5D+Add+Journey+IDs+to+all+STEP+apps/">Journey Ids</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">9f8b3ca3-4be5-436c-a847-9cd55460c495</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="x-sales-channel"></a><a href="#x-sales-channel"><code>X-Sales-Channel</code></a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Sales channels are owned by retailers and represent a specific consumer segment
-being addressed with a specific product assortment that is offered via CFA
-retailer catalogs to consumers (see <a href="https://digital-experience.docs.zalando.net/glossary/glossary.html">fashion platform glossary (internal_link)</a>).</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">52b96501-0f8d-43e7-82aa-8a96fab134d7</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="x-frontend-type"></a><a href="#x-frontend-type"><code>X-Frontend-Type</code></a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Consumer facing applications (CFAs) provide business experience to their
-customers via different frontend application types, for instance, mobile app
-or browser. Info should be passed-through as generic aspect&#8201;&#8212;&#8201;there are
-diverse concerns, e.g. pushing mobiles with specific coupons, that make use of
-it. Current range is mobile-app, browser, facebook-app, chat-app, email.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">mobile-app</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="x-device-type"></a><a href="#x-device-type"><code>X-Device-Type</code></a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">There are also use cases for steering customer experience (incl. features and
-content) depending on device type. Via this header info should be passed-through
-as generic aspect. Current range is smartphone, tablet, desktop, other.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">tablet</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="x-device-os"></a><a href="#x-device-os"><code>X-Device-OS</code></a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">On top of device type above, we even want to differ between device platform,
-e.g. smartphone Android vs. iOS. Via this header info should be passed-through
-as generic aspect. Current range is iOS, Android, Windows, Linux, MacOS.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Android</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="x-mobile-advertising-id"></a><a href="#x-mobile-advertising-id"><code>X-Mobile-Advertising-ID</code></a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">It is either the
-<a href="https://developer.apple.com/documentation/adsupport/asidentifiermanager">IDFA</a>
-(Apple Identifier for mobile Advertising) for iOS, or the
-<a href="https://support.google.com/googleplay/android-developer/answer/6048248">GAID</a>
-(Google mobile Advertising Identifier) for Android. It is a unique,
-customer-resettable identifier provided by mobile device’s operating system
-to facilitate personalized advertising, and usually passed by mobile apps via http header
-when calling backend services. Called services should be ready to pass this
-parameter through when calling other services. It is not sent if the customer
-disables it in the settings for respective mobile platform.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">b89fadce-1f42-46aa-9c83-b7bc49e76e1f</p></td>
 </tr>
 </tbody>
 </table>
@@ -6145,49 +6093,19 @@ disables it in the settings for respective mobile platform.</p></td>
 hop-by-hop <code>X-RateLimit-</code> headers which can be used as defined in <a href="#153"><span class="must-keyword"><strong>MUST</strong></span> use code 429 with headers for rate limits</a>.</p>
 </div>
 <div class="paragraph">
-<p>As part of the guidelines we sourced the OpenAPI definition of all proprietary headers;
-you can simply reference it when defining the API endpoint requests e.g.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="yaml"><span class="key">parameters</span>:
-- <span class="string"><span class="content">$ref: &quot;https://opensource.zalando.com/restful-api-guidelines/models/request-headers-1.0.0.yaml#/X-Flow-ID&quot;</span></span>
-- <span class="string"><span class="content">$ref: &quot;https://opensource.zalando.com/restful-api-guidelines/models/request-headers-1.0.0.yaml#/X-Tenant-ID&quot;</span></span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Response headers can be referenced in the API endpoint e.g.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="yaml"><span class="key">parameters</span>:
-- <span class="string"><span class="content">$ref: &quot;https://opensource.zalando.com/restful-api-guidelines/models/response-headers-1.0.0.yaml#/ETag&quot;</span></span>
-- <span class="string"><span class="content">$ref: &quot;https://opensource.zalando.com/restful-api-guidelines/models/response-headers-1.0.0.yaml#/Cache-Control&quot;</span></span></code></pre>
-</div>
-</div>
-<div class="paragraph">
 <p><strong>Hint:</strong> This guideline does not standardize proprietary headers for
 our specific gateway components (2. use case above).
-This include, for instance, non pass-through headers <code>X-Zalando-Client-ID</code>, <code>X-Zalando-Request-Host</code>,
-<code>X-Zalando-Request-URI</code> defined by Fashion Shop API (RKeep), or <code>X-Consumer</code>, <code>X-Consumer-Signature</code>,
-<code>X-Consumer-Key-ID</code> defined by Merchant API gateway.
-All these proprietary headers are allowlisted in the API Linter (Zally) checking this rule.</p>
+This include, for instance, non pass-through headers <code>x-tyk-version</code>,
+All these proprietary headers are allowlisted in the API Linter (lilly) checking this rule.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="184"><a class="link" href="#184"><span class="must-keyword"><strong>MUST</strong></span> propagate proprietary headers</a></h3>
 <div class="paragraph">
-<p>All Zalando&#8217;s proprietary headers listed above are end-to-end headers
+<p>All LINZ headers listed above are end-to-end headers
 <sup class="footnote" id="_footnote_header-types">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup>
 and must be propagated to the services down the call
 chain. The header names and values must remain unchanged.</p>
-</div>
-<div class="paragraph">
-<p>For example, the values of the custom headers like <a href="#x-device-type"><code>X-Device-Type</code></a> can affect
-the results of queries by using device type information to influence
-recommendation results. Besides, the values of the custom headers can influence
-the results of the queries (e.g. the device type information influences the
-recommendation results).</p>
 </div>
 <div class="paragraph">
 <p>Sometimes the value of a proprietary header will be used as part of the entity
@@ -6197,29 +6115,26 @@ information.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="233"><a class="link" href="#233"><span class="must-keyword"><strong>MUST</strong></span> support <a href="#x-flow-id"><code>X-Flow-ID</code></a></a></h3>
+<h3 id="233"><a class="link" href="#233"><span class="must-keyword"><strong>MUST</strong></span> support <a href="#X-linz-correlation-id"><code>X-LINZ-Correlation-Id</code></a></a></h3>
 <div class="paragraph">
-<p>The <a href="#flow-id"><code>Flow-ID</code></a> is a generic parameter to be passed through service APIs and
+<p>The <a href="#correlation-id"><code>Correlation-ID</code></a> is a generic parameter to be passed through service APIs and
 events and written into log files and traces. A consequent usage of the
-<a href="#flow-id"><code>Flow-ID</code></a> facilitates the tracking of call flows through our system and allows
+<a href="#correlation-id"><code>Correlation-ID</code></a> facilitates the tracking of call flows through our system and allows
 the correlation of service activities initiated by a specific call. This is
 extremely helpful for operational troubleshooting and log analysis. Main use
-case of <a href="#flow-id"><code>Flow-ID</code></a> is to track service calls of our SaaS fashion commerce
+case of <a href="#correlation-id"><code>Correlation-ID</code></a> is to track service calls of our SaaS fashion commerce
 platform and initiated internal processing flows (executed synchronously via
 APIs or asynchronously via published events).</p>
 </div>
 <div class="sect3">
 <h4 id="_data_definition"><a class="link" href="#_data_definition">Data Definition</a></h4>
 <div class="paragraph">
-<p>The <a href="#flow-id"><code>Flow-ID</code></a> must be passed through:</p>
+<p>The <a href="#correlation-id"><code>Correlation-ID</code></a> must be passed through:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>RESTful API requests via <a href="#x-flow-id"><code>X-Flow-ID</code></a> proprietary header (see <a href="#184"><span class="must-keyword"><strong>MUST</strong></span> propagate proprietary headers</a>)</p>
-</li>
-<li>
-<p>Published events via <code>flow_id</code> event field (see <a href="#event-metadata">metadata</a>)</p>
+<p>RESTful API requests via <a href="#X-linz-correlation-id"><code>X-LINZ-Correlation-Id</code></a> proprietary header (see <a href="#184"><span class="must-keyword"><strong>MUST</strong></span> propagate proprietary headers</a>)</p>
 </li>
 </ul>
 </div>
@@ -6243,18 +6158,10 @@ APIs or asynchronously via published events).</p>
 </ul>
 </div>
 <div class="paragraph">
-<p><strong>Note:</strong> If a legacy subsystem can only process <code>Flow-IDs</code> with a specific
+<p><strong>Note:</strong> If a legacy subsystem can only process <code>Correlation-IDs</code> with a specific
 format or length, it must define this restriction in its API specification,
 and be generous and remove invalid characters or cut the length to the
 supported limit.</p>
-</div>
-<div class="paragraph">
-<p><strong>Hint:</strong> In case distributed tracing is supported by
-<a href="https://github.bus.zalan.do/SRE/opentracing">OpenTracing (internal_link)</a>
-you should ensure that created <em>spans</em> are tagged using <code>flow_id</code> — see
-<a href="https://github.bus.zalan.do/SRE/opentracing/blob/master/wg-semantic-conventions/best-practices/flowid.md">How to Connect Log Output with OpenTracing Using Flow-IDs (internal_link)</a>
-or
-<a href="https://github.bus.zalan.do/SRE/opentracing/blob/master/wg-semantic-conventions/best-practices.md">Best practises (internal_link)</a>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -6262,25 +6169,22 @@ or
 <div class="ulist">
 <ul>
 <li>
-<p>Services <strong>must</strong> support <a href="#flow-id"><code>Flow-ID</code></a> as generic input, i.e.</p>
+<p>Services <strong>must</strong> support <a href="#correlation-id"><code>Correlation-ID</code></a> as generic input, i.e.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>RESTful API endpoints <strong>must</strong> support <a href="#x-flow-id"><code>X-Flow-ID</code></a> header in requests</p>
-</li>
-<li>
-<p>Event listeners <strong>must</strong> support the metadata <code>flow-id</code> from events.</p>
+<p>RESTful API endpoints <strong>must</strong> support <a href="#X-linz-correlation-id"><code>X-LINZ-Correlation-Id</code></a> header in requests</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p><strong>Note:</strong> API-Clients <strong>must</strong> provide <a href="#flow-id"><code>Flow-ID</code></a> when calling a service or
-producing events. If no <a href="#flow-id"><code>Flow-ID</code></a> is provided in a request or event, the
-service must create a new <a href="#flow-id"><code>Flow-ID</code></a>.</p>
+<p><strong>Note:</strong> API-Clients <strong>must</strong> provide <a href="#correlation-id"><code>Correlation-ID</code></a> when calling a service or
+producing events. If no <a href="#correlation-id"><code>Correlation-ID</code></a> is provided in a request or event, the
+service must create a new <a href="#correlation-id"><code>Correlation-ID</code></a>.</p>
 </div>
 </li>
 <li>
-<p>Services <strong>must</strong> propagate <a href="#flow-id"><code>Flow-ID</code></a>, i.e. use <a href="#flow-id"><code>Flow-ID</code></a> received
+<p>Services <strong>must</strong> propagate <a href="#correlation-id"><code>Correlation-ID</code></a>, i.e. use <a href="#correlation-id"><code>Correlation-ID</code></a> received
 with API calls or consumed events as&#8230;&#8203;</p>
 <div class="ulist">
 <ul>
@@ -9766,7 +9670,7 @@ to see a list of all changes.</p>
 <p><code>2021-01-19</code>: more details for <a href="#get-with-body"><code>GET with body</code></a> and <a href="#delete-with-body"><code>DELETE with body</code></a> (<a href="#148"><span class="must-keyword"><strong>MUST</strong></span> use HTTP methods correctly</a>).</p>
 </li>
 <li>
-<p><code>2020-09-29</code>: include models for headers to be included by reference in API definitions (<a href="#183"><span class="should-keyword"><strong>SHOULD</strong></span> use only the specified proprietary Zalando headers</a>)</p>
+<p><code>2020-09-29</code>: include models for headers to be included by reference in API definitions (<a href="#183"><span class="should-keyword"><strong>SHOULD</strong></span> use only the specified LINZ headers</a>)</p>
 </li>
 <li>
 <p><code>2020-09-08</code>: add exception for legacy host names to <a href="#224"><span class="must-keyword"><strong>MUST</strong></span> follow naming convention for hostnames</a></p>
@@ -9781,7 +9685,7 @@ to see a list of all changes.</p>
 <p><code>2020-08-24</code>: change "<span class="must-keyword"><strong>MUST</strong></span> avoid trailing slashes" to <a href="#136"><span class="must-keyword"><strong>MUST</strong></span> use normalized paths without empty path segments and trailing slashes</a>.</p>
 </li>
 <li>
-<p><code>2020-08-20</code>: change <a href="#183"><span class="should-keyword"><strong>SHOULD</strong></span> use only the specified proprietary Zalando headers</a> from <span class="must-keyword"><strong>MUST</strong></span> to <span class="should-keyword"><strong>SHOULD</strong></span>, mention gateway-specific headers (which are not part of the public API).</p>
+<p><code>2020-08-20</code>: change <a href="#183"><span class="should-keyword"><strong>SHOULD</strong></span> use only the specified LINZ headers</a> from <span class="must-keyword"><strong>MUST</strong></span> to <span class="should-keyword"><strong>SHOULD</strong></span>, mention gateway-specific headers (which are not part of the public API).</p>
 </li>
 <li>
 <p><code>2020-06-30</code>: add details to <a href="#114"><span class="must-keyword"><strong>MUST</strong></span> use media type versioning</a></p>
@@ -9832,16 +9736,16 @@ to see a list of all changes.</p>
 <p><code>2019-06-25</code>: change <a href="#154"><span class="must-keyword"><strong>MUST</strong></span> define collection format of header and query parameters</a> from <span class="should-keyword"><strong>SHOULD</strong></span> to <span class="must-keyword"><strong>MUST</strong></span>, use OpenAPI 3 syntax</p>
 </li>
 <li>
-<p><code>2019-06-13</code>: remove <code>X-App-Domain</code> from <a href="#183"><span class="should-keyword"><strong>SHOULD</strong></span> use only the specified proprietary Zalando headers</a>.</p>
+<p><code>2019-06-13</code>: remove <code>X-App-Domain</code> from <a href="#183"><span class="should-keyword"><strong>SHOULD</strong></span> use only the specified LINZ headers</a>.</p>
 </li>
 <li>
-<p><code>2019-05-17</code>: add <code>X-Mobile-Advertising-Id</code> to <a href="#183"><span class="should-keyword"><strong>SHOULD</strong></span> use only the specified proprietary Zalando headers</a>.</p>
+<p><code>2019-05-17</code>: add <code>X-Mobile-Advertising-Id</code> to <a href="#183"><span class="should-keyword"><strong>SHOULD</strong></span> use only the specified LINZ headers</a>.</p>
 </li>
 <li>
 <p><code>2019-04-09</code> New rule <a href="#234"><span class="must-keyword"><strong>MUST</strong></span> only use durable and immutable remote references</a></p>
 </li>
 <li>
-<p><code>2019-02-19</code>: New rule <a href="#233"><span class="must-keyword"><strong>MUST</strong></span> support <code>X-Flow-ID</code></a> extracted + expanded from <a href="#183"><span class="should-keyword"><strong>SHOULD</strong></span> use only the specified proprietary Zalando headers</a>.</p>
+<p><code>2019-02-19</code>: New rule <a href="#233"><span class="must-keyword"><strong>MUST</strong></span> support <code>X-LINZ-Correlation-Id</code></a> extracted + expanded from <a href="#183"><span class="should-keyword"><strong>SHOULD</strong></span> use only the specified LINZ headers</a>.</p>
 </li>
 <li>
 <p><code>2019-01-24:</code> Improve guidance on caching (<a href="#149"><span class="must-keyword"><strong>MUST</strong></span> fulfill common method properties</a>, <a href="#227"><span class="must-keyword"><strong>MUST</strong></span> document cacheable <code>GET</code>, <code>HEAD</code>, and <code>POST</code> endpoints</a>).</p>
@@ -10077,7 +9981,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-08-01 23:40:26 UTC
+Last updated 2022-08-01 23:48:16 UTC
 </div>
 </div>
 </body>

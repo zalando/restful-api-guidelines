@@ -171,7 +171,7 @@
 
 // Attributes to improve linking to special definition anchors.
 :Idempotency-Key: pass:[<a href="#230"><code>Idempotency-Key</code></a>]
-:X-Flow-ID: pass:[<a href="#x-flow-id"><code>X-Flow-ID</code></a>]
+:X-LINZ-Correlation-Id: pass:[<a href="#X-linz-correlation-id"><code>X-LINZ-Correlation-Id</code></a>]
 :X-Tenant-ID: pass:[<a href="#x-tenant-id"><code>X-Tenant-ID</code></a>]
 :X-Sales-Channel: pass:[<a href="#x-sales-channel"><code>X-Sales-Channel</code></a>]
 :X-Frontend-Type: pass:[<a href="#x-frontend-type"><code>X-Frontend-Type</code></a>]
@@ -220,7 +220,7 @@
 :Cache-Control: pass:[<a href="https://tools.ietf.org/html/rfc7234#section-5.2"><code>Cache-Control</code></a>]
 :Cache-Control-no-store: pass:[<a href="https://tools.ietf.org/html/rfc7234#section-5.2.2.2"><code>Cache-Control: no-store</code></a>]
 :Expires: pass:[<a href="https://tools.ietf.org/html/rfc7234#section-5.3"><code>Expires</code></a>]
-:Flow-ID: pass:[<a href="#flow-id"><code>Flow-ID</code></a>]
+:Correlation-ID: pass:[<a href="#correlation-id"><code>Correlation-ID</code></a>]
 
 // Attributes to improve design and linking of RFC key words.
 :RFC-safe: pass:[<a href="https://tools.ietf.org/html/rfc7231#section-4.2.1">safe</a>]

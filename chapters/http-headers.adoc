@@ -304,7 +304,7 @@ LINZ(Zalando) landscape specific proprietary headers.
 
 
 [#183]
-== {SHOULD} use only the specified proprietary Zalando headers
+== {SHOULD} use only the specified LINZ headers
 
 As a general rule, proprietary HTTP headers should be avoided.
 From a conceptual point of view, the business semantics and intent of an
@@ -320,11 +320,10 @@ when domain-specific generic context information...
 . needs to be passed end to end along the service call chain (even if
 not all called services use it as input for steering service behavior
 e.g. {X-Sales-Channel} header) and/or...
-. is provided by specific gateway components, for instance, our
-Fashion Shop API or Merchant API gateway.
+. is provided by specific gateway components, for instance, our API gateway.
 
 Below, we explicitly define the list of proprietary header exceptions usable for
-all services for passing through generic context information of our fashion domain (use case 1).
+all services for passing through generic context information of our domain (use case 1).
 
 Per convention, non standardized, proprietary header names are prefixed with  `X-`.
 (Due to backward compatibility, we do not follow the Internet Engineering Task Force’s
@@ -335,89 +334,46 @@ Remember that HTTP header field names are not case-sensitive:
 |=======================================================================
 |Header field name |Type |Description |Header field value example
 
-|[[x-flow-id]]{X-Flow-ID}|String|
-For more information see <<233>>.
+|[[X-LINZ-Correlation-Id]]{X-LINZ-Correlation-Id}|String|
+For more information see https://confluence.linz.govt
+.nz/display/STEP/Use+Correlation+IDs+and+Journey+IDs+in+all+STEP+apps+-+High+Level+Design/[correlation Ids].
 |GKY7oDhpSiKY_gAAAABZ_A
 
-|[[x-tenant-id]]{X-Tenant-ID}|String|
-Identifies the tenant initiated the request
-to the multi tenant Zalando Platform. The {X-Tenant-ID} must be set
-according to the Business Partner ID extracted from the OAuth token when
-a request from a Business Partner hits the Zalando Platform.
+|[[Landonline-Journey-Id]]{Landonline-Journey-Id}|String|
+see https://confluence.linz.govt.nz/display/STEP/%5BRFC%5D+Add+Journey+IDs+to+all+STEP+apps/[Journey Ids]
 |9f8b3ca3-4be5-436c-a847-9cd55460c495
-
-|[[x-sales-channel]]{X-Sales-Channel}|String|
-Sales channels are owned by retailers and represent a specific consumer segment
-being addressed with a specific product assortment that is offered via CFA
-retailer catalogs to consumers (see {glossary}[fashion platform glossary (internal_link)]).
-|52b96501-0f8d-43e7-82aa-8a96fab134d7
-
-|[[x-frontend-type]]{X-Frontend-Type}|String|
-Consumer facing applications (CFAs) provide business experience to their
-customers via different frontend application types, for instance, mobile app
-or browser. Info should be passed-through as generic aspect -- there are
-diverse concerns, e.g. pushing mobiles with specific coupons, that make use of
-it. Current range is mobile-app, browser, facebook-app, chat-app, email.
-|mobile-app
-
-|[[x-device-type]]{X-Device-Type}|String|
-There are also use cases for steering customer experience (incl. features and
-content) depending on device type. Via this header info should be passed-through
-as generic aspect. Current range is smartphone, tablet, desktop, other.
-|tablet
-
-|[[x-device-os]]{X-Device-OS}|String|
-On top of device type above, we even want to differ between device platform,
-e.g. smartphone Android vs. iOS. Via this header info should be passed-through
-as generic aspect. Current range is iOS, Android, Windows, Linux, MacOS.
-|Android
-
-|[[x-mobile-advertising-id]]{X-Mobile-Advertising-Id}|String|
-It is either the
-https://developer.apple.com/documentation/adsupport/asidentifiermanager[IDFA]
-(Apple Identifier for mobile Advertising) for iOS, or the
-https://support.google.com/googleplay/android-developer/answer/6048248[GAID]
-(Google mobile Advertising Identifier) for Android. It is a unique,
-customer-resettable identifier provided by mobile device’s operating system
-to facilitate personalized advertising, and usually passed by mobile apps via http header
-when calling backend services. Called services should be ready to pass this
-parameter through when calling other services. It is not sent if the customer
-disables it in the settings for respective mobile platform.
-|b89fadce-1f42-46aa-9c83-b7bc49e76e1f
 
 |=======================================================================
 
 *Exception:* The only exception to this guideline are the conventional
 hop-by-hop `X-RateLimit-` headers which can be used as defined in <<153>>.
 
-As part of the guidelines we sourced the OpenAPI definition of all proprietary headers;
-you can simply reference it when defining the API endpoint requests e.g.
-[source,yaml]
-----
-parameters:
-- $ref: "https://opensource.zalando.com/restful-api-guidelines/models/request-headers-1.0.0.yaml#/X-Flow-ID"
-- $ref: "https://opensource.zalando.com/restful-api-guidelines/models/request-headers-1.0.0.yaml#/X-Tenant-ID"
-----
-
-Response headers can be referenced in the API endpoint e.g.
-[source,yaml]
-----
-parameters:
-- $ref: "https://opensource.zalando.com/restful-api-guidelines/models/response-headers-1.0.0.yaml#/ETag"
-- $ref: "https://opensource.zalando.com/restful-api-guidelines/models/response-headers-1.0.0.yaml#/Cache-Control"
-----
+//As part of the guidelines we sourced the OpenAPI definition of all proprietary headers;
+//you can simply reference it when defining the API endpoint requests e.g.
+//[source,yaml]
+//----
+//parameters:
+//- $ref: "https://opensource.zalando.com/restful-api-guidelines/models/request-headers-1.0.0.yaml#/X-Correlation-ID"
+//- $ref: "https://opensource.zalando.com/restful-api-guidelines/models/request-headers-1.0.0.yaml#/X-Tenant-ID"
+//----
+//
+//Response headers can be referenced in the API endpoint e.g.
+//[source,yaml]
+//----
+//parameters:
+//- $ref: "https://opensource.zalando.com/restful-api-guidelines/models/response-headers-1.0.0.yaml#/ETag"
+//- $ref: "https://opensource.zalando.com/restful-api-guidelines/models/response-headers-1.0.0.yaml#/Cache-Control"
+//----
 
 *Hint:* This guideline does not standardize proprietary headers for 
 our specific gateway components (2. use case above).
-This include, for instance, non pass-through headers `X-Zalando-Client-ID`, `X-Zalando-Request-Host`, 
-`X-Zalando-Request-URI` defined by Fashion Shop API (RKeep), or `X-Consumer`, `X-Consumer-Signature`, 
-`X-Consumer-Key-ID` defined by Merchant API gateway.
-All these proprietary headers are allowlisted in the API Linter (Zally) checking this rule.
+This include, for instance, non pass-through headers `x-tyk-version`,
+All these proprietary headers are allowlisted in the API Linter (lilly) checking this rule.
 
 [#184]
 == {MUST} propagate proprietary headers
 
-All Zalando's proprietary headers listed above are end-to-end headers
+All LINZ headers listed above are end-to-end headers
 footnote:header-types[HTTP/1.1 standard ({RFC-7230}#section-6.1[RFC 7230])
 defines two types of headers: end-to-end and hop-by-hop headers. End-to-end
 headers must be transmitted to the ultimate recipient of a request or response.
@@ -426,11 +382,6 @@ only.]
 and must be propagated to the services down the call
 chain. The header names and values must remain unchanged.
 
-For example, the values of the custom headers like {X-Device-Type} can affect
-the results of queries by using device type information to influence
-recommendation results. Besides, the values of the custom headers can influence
-the results of the queries (e.g. the device type information influences the
-recommendation results).
 
 Sometimes the value of a proprietary header will be used as part of the entity
 in a subsequent request. In such cases, the proprietary headers must still be
@@ -439,24 +390,23 @@ information.
 
 
 [#233]
-== {MUST} support {X-Flow-ID}
+== {MUST} support {X-LINZ-Correlation-Id}
 
-The {Flow-ID} is a generic parameter to be passed through service APIs and
+The {Correlation-ID} is a generic parameter to be passed through service APIs and
 events and written into log files and traces. A consequent usage of the
-{Flow-ID} facilitates the tracking of call flows through our system and allows
+{Correlation-ID} facilitates the tracking of call flows through our system and allows
 the correlation of service activities initiated by a specific call. This is
 extremely helpful for operational troubleshooting and log analysis. Main use
-case of {Flow-ID} is to track service calls of our SaaS fashion commerce
+case of {Correlation-ID} is to track service calls of our SaaS fashion commerce
 platform and initiated internal processing flows (executed synchronously via
 APIs or asynchronously via published events).
 
 
 === Data Definition
 
-The {Flow-ID} must be passed through:
+The {Correlation-ID} must be passed through:
 
-* RESTful API requests via {X-Flow-ID} proprietary header (see <<184>>)
-* Published events via `flow_id` event field (see <<event-metadata, metadata>>)
+* RESTful API requests via {X-LINZ-Correlation-Id} proprietary header (see <<184>>)
 
 The following formats are allowed:
 
@@ -465,30 +415,22 @@ The following formats are allowed:
 * `base64url` ({RFC-4648}#section-5[RFC-4648 Section 5])
 * Random unique string restricted to the character set `[a-zA-Z0-9/+_-=]` maximal of 128 characters.
 
-*Note:* If a legacy subsystem can only process `Flow-IDs` with a specific
+*Note:* If a legacy subsystem can only process `Correlation-IDs` with a specific
 format or length, it must define this restriction in its API specification,
 and be generous and remove invalid characters or cut the length to the
 supported limit.
 
-*Hint:* In case distributed tracing is supported by 
-{SRE-open-tracing}[OpenTracing (internal_link)] 
-you should ensure that created _spans_ are tagged using `flow_id` — see
-{SRE-open-tracing}/blob/master/wg-semantic-conventions/best-practices/flowid.md[How to Connect Log Output with OpenTracing Using Flow-IDs (internal_link)] 
-or
-{SRE-open-tracing}/blob/master/wg-semantic-conventions/best-practices.md[Best practises (internal_link)].
-
 === Service Guidance
 
-* Services *must* support {Flow-ID} as generic input, i.e.
-** RESTful API endpoints *must* support {X-Flow-ID} header in requests
-** Event listeners *must* support the metadata `flow-id` from events.
+* Services *must* support {Correlation-ID} as generic input, i.e.
+** RESTful API endpoints *must* support {X-LINZ-Correlation-Id} header in requests
 
 +
-*Note:* API-Clients *must* provide {Flow-ID} when calling a service or
-producing events. If no {Flow-ID} is provided in a request or event, the
-service must create a new {Flow-ID}.
+*Note:* API-Clients *must* provide {Correlation-ID} when calling a service or
+producing events. If no {Correlation-ID} is provided in a request or event, the
+service must create a new {Correlation-ID}.
 
-* Services *must* propagate {Flow-ID}, i.e. use {Flow-ID} received
+* Services *must* propagate {Correlation-ID}, i.e. use {Correlation-ID} received
 with API calls or consumed events as...
 ** input for all API called and events published during processing
 ** data field written for logging and tracing
