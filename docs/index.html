@@ -1421,7 +1421,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <ul class="sectlevel2">
 <li><a href="#100"><span class="should-keyword"><strong>SHOULD</strong></span> follow API first principle</a></li>
 <li><a href="#101"><span class="must-keyword"><strong>MUST</strong></span> provide API specification using OpenAPI</a></li>
-<li><a href="#102"><span class="should-keyword"><strong>SHOULD</strong></span> provide API user manual</a></li>
+<li><a href="#102"><span class="may-keyword"><strong>MAY</strong></span> provide API user manual</a></li>
 <li><a href="#103"><span class="must-keyword"><strong>MUST</strong></span> write APIs using U.S. English</a></li>
 <li><a href="#234"><span class="must-keyword"><strong>MUST</strong></span> only use durable and immutable remote references</a></li>
 </ul>
@@ -1456,7 +1456,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 </li>
 <li><a href="#urls">7. REST Basics - URLs</a>
 <ul class="sectlevel2">
-<li><a href="#135"><span class="should-keyword"><strong>SHOULD</strong></span> not use /api as base path</a></li>
+<li><a href="#135"><span class="may-keyword"><strong>MAY</strong></span> use /api as base path - (Restore once gateway is in)</a></li>
 <li><a href="#134"><span class="must-keyword"><strong>MUST</strong></span> pluralize resource names</a></li>
 <li><a href="#228"><span class="must-keyword"><strong>MUST</strong></span> use URL-friendly resource identifiers</a></li>
 <li><a href="#129"><span class="must-keyword"><strong>MUST</strong></span> use kebab-case for path segments</a></li>
@@ -1471,7 +1471,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#145"><span class="may-keyword"><strong>MAY</strong></span> consider using (non-) nested URLs</a></li>
 <li><a href="#146"><span class="should-keyword"><strong>SHOULD</strong></span> limit number of resource types</a></li>
 <li><a href="#147"><span class="should-keyword"><strong>SHOULD</strong></span> limit number of sub-resource levels</a></li>
-<li><a href="#130"><span class="must-keyword"><strong>MUST</strong></span> use snake_case (never camelCase) for query parameters</a></li>
+<li><a href="#130"><span class="must-keyword"><strong>MUST</strong></span> use camelCase (never snake_case) for query parameters</a></li>
 <li><a href="#137"><span class="must-keyword"><strong>MUST</strong></span> stick to conventional query parameters</a></li>
 </ul>
 </li>
@@ -1481,9 +1481,9 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#168"><span class="may-keyword"><strong>MAY</strong></span> pass non-JSON media types using data specific standard formats</a></li>
 <li><a href="#172"><span class="should-keyword"><strong>SHOULD</strong></span> use standard media types</a></li>
 <li><a href="#120"><span class="should-keyword"><strong>SHOULD</strong></span> pluralize array names</a></li>
-<li><a href="#118"><span class="must-keyword"><strong>MUST</strong></span> property names must be snake_case (and never camelCase)</a></li>
+<li><a href="#118"><span class="must-keyword"><strong>MUST</strong></span> property names must be camelCase (and never snake_case)</a></li>
 <li><a href="#240"><span class="should-keyword"><strong>SHOULD</strong></span> declare enum values using UPPER_SNAKE_CASE string</a></li>
-<li><a href="#235"><span class="should-keyword"><strong>SHOULD</strong></span> name date/time properties with <code>_at</code> suffix</a></li>
+<li><a href="#235"><span class="should-keyword"><strong>SHOULD</strong></span> name date/time properties with <code>At</code> suffix</a></li>
 <li><a href="#216"><span class="should-keyword"><strong>SHOULD</strong></span> define maps using <code>additionalProperties</code></a></li>
 <li><a href="#123"><span class="must-keyword"><strong>MUST</strong></span> use same semantics for <code>null</code> and absent properties</a></li>
 <li><a href="#122"><span class="must-keyword"><strong>MUST</strong></span> not use <code>null</code> for boolean properties</a></li>
@@ -1553,8 +1553,8 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 </li>
 <li><a href="#pagination">14. REST Design - Pagination</a>
 <ul class="sectlevel2">
-<li><a href="#159"><span class="must-keyword"><strong>MUST</strong></span> support pagination</a></li>
-<li><a href="#160"><span class="should-keyword"><strong>SHOULD</strong></span> prefer cursor-based pagination, avoid offset-based pagination</a></li>
+<li><a href="#159"><span class="must-keyword"><strong>MUST</strong></span> support pagination (Under Construction)</a></li>
+<li><a href="#160"><span class="may-keyword"><strong>MAY</strong></span> use cursor-based pagination, prefer offset-based pagination</a></li>
 <li><a href="#248"><span class="should-keyword"><strong>SHOULD</strong></span> use pagination response page object</a></li>
 <li><a href="#161"><span class="should-keyword"><strong>SHOULD</strong></span> use pagination links where applicable</a></li>
 </ul>
@@ -1586,7 +1586,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 </li>
 <li><a href="#api-operation">17. REST Operation</a>
 <ul class="sectlevel2">
-<li><a href="#192"><span class="must-keyword"><strong>MUST</strong></span> publish OpenAPI specification&#8201;&#8212;&#8201;(Under neath)</a></li>
+<li><a href="#192"><span class="must-keyword"><strong>MUST</strong></span> publish OpenAPI specification&#8201;&#8212;&#8201;(Under construction)</a></li>
 <li><a href="#193"><span class="should-keyword"><strong>SHOULD</strong></span> monitor API usage</a></li>
 </ul>
 </li>
@@ -2048,7 +2048,7 @@ of GraphQL as API technology for our DX Interface Framework.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="102"><a class="link" href="#102"><span class="should-keyword"><strong>SHOULD</strong></span> provide API user manual</a></h3>
+<h3 id="102"><a class="link" href="#102"><span class="may-keyword"><strong>MAY</strong></span> provide API user manual</a></h3>
 <div class="paragraph">
 <p>In addition to the API Specification, it is good practice to provide an API
 user manual to improve client developer experience, especially of engineers
@@ -2073,8 +2073,8 @@ sequence flows</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>The user manual must be published online, e.g. via our documentation hosting
-platform service, GHE pages, or specific team web servers. Please do not forget
+<p>The user manual must be published online, e.g. via confluence, Githubpages, or other. Please do
+not forget
 to include a link to the API user manual into the API specification using the
 <code>#/externalDocs/url</code> property.</p>
 </div>
@@ -3097,7 +3097,7 @@ pagination use cases ordered along creation time.</p>
 <p>Guidelines for naming and designing resource paths and query parameters.</p>
 </div>
 <div class="sect2">
-<h3 id="135"><a class="link" href="#135"><span class="should-keyword"><strong>SHOULD</strong></span> not use /api as base path</a></h3>
+<h3 id="135"><a class="link" href="#135"><span class="may-keyword"><strong>MAY</strong></span> use /api as base path - (Restore once gateway is in)</a></h3>
 <div class="paragraph">
 <p>In most cases, all resources provided by a service are part of the
 public API, and therefore should be made available under the root "/"
@@ -3464,9 +3464,9 @@ than 2000 characters.)</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="130"><a class="link" href="#130"><span class="must-keyword"><strong>MUST</strong></span> use snake_case (never camelCase) for query parameters</a></h3>
+<h3 id="130"><a class="link" href="#130"><span class="must-keyword"><strong>MUST</strong></span> use camelCase (never snake_case) for query parameters</a></h3>
 <div class="paragraph">
-<p>See also <a href="#118"><span class="must-keyword"><strong>MUST</strong></span> property names must be snake_case (and never camelCase)</a>.</p>
+<p>See also <a href="#118"><span class="must-keyword"><strong>MUST</strong></span> property names must be camelCase (and never snake_case)</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -3608,26 +3608,25 @@ This implies in turn that object names should be singular.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="118"><a class="link" href="#118"><span class="must-keyword"><strong>MUST</strong></span> property names must be snake_case (and never camelCase)</a></h3>
+<h3 id="118"><a class="link" href="#118"><span class="must-keyword"><strong>MUST</strong></span> property names must be camelCase (and never snake_case)</a></h3>
 <div class="paragraph">
-<p>Property names are restricted to ASCII snake_case strings matching regex <code>^[a-z_][a-z_0-9]*$</code>.
-The first character must be a lower case letter, or an underscore, and subsequent
-characters can be a letter, an underscore, or a number.</p>
+<p>Property names are restricted to ASCII camelCase strings matching regex <code>[a-z][a-z0-9]*(?:[A-Z0-9]+[a-z0-9]*)*</code>.
+The first character must be a lower case letter and subsequent
+words with Capitalised first letters.</p>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code>customer_number, sales_order_number, billing_address</code></pre>
+<pre class="CodeRay highlight"><code>customerNumber, salesOrderNumber, billingAddress</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Rationale: No established industry standard exists, but many popular Internet
+<p>Rationale: No established industry standard exists, while many popular Internet
 companies prefer snake_case: e.g. GitHub, Stack Exchange, Twitter.
-Others, like Google and Amazon, use both - but not only camelCase. It’s
-essential to establish a consistent look and feel such that JSON looks
-as if it came from the same hand.</p>
+Others, like Google and Amazon, use both - not only camelCase. However the predominate languages in LINZ are
+Typescript and Kotlin both of which use camelCasing, keeping these aligned is sensible.</p>
 </div>
 </div>
 <div class="sect2">
@@ -3646,34 +3645,27 @@ declaring possible values for a <a href="#137">rule 137</a> [<code>sort</code> p
 </div>
 </div>
 <div class="sect2">
-<h3 id="235"><a class="link" href="#235"><span class="should-keyword"><strong>SHOULD</strong></span> name date/time properties with <code>_at</code> suffix</a></h3>
+<h3 id="235"><a class="link" href="#235"><span class="should-keyword"><strong>SHOULD</strong></span> name date/time properties with <code>At</code> suffix</a></h3>
 <div class="paragraph">
-<p>Dates and date-time properties should end with <code>_at</code> to distinguish them from
+<p>Dates and date-time properties should end with <code>At</code> to distinguish them from
 boolean properties which otherwise would have very similar or even identical
 names:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="#created_at"><code>created_at</code></a> rather than <a href="#created"><code>created</code></a>,</p>
+<p><code>createdAt</code> rather than <code>created</code>,</p>
 </li>
 <li>
-<p><a href="#modified_at"><code>modified_at</code></a> rather than <a href="#modified"><code>modified</code></a>,</p>
+<p><code>modifiedAt</code> rather than <code>modified</code>,</p>
 </li>
 <li>
-<p><code>occurred_at</code> rather than <code>occurred</code>, and</p>
+<p><code>occurredAt</code> rather than <code>occurred</code>, and</p>
 </li>
 <li>
-<p><code>returned_at</code> rather than <code>returned</code>.</p>
+<p><code>returnedAt</code> rather than <code>returned</code>.</p>
 </li>
 </ul>
-</div>
-<div class="paragraph">
-<p><strong>Hint:</strong> Use <code>format: date-time</code> (or as <code>format: date</code>) as required in <a href="#238"><span class="must-keyword"><strong>MUST</strong></span> use standard data formats</a>.</p>
-</div>
-<div class="paragraph">
-<p><strong>Note:</strong> <a href="#created"><code>created</code></a> and <a href="#modified"><code>modified</code></a> were mentioned in an earlier version of the
-guideline and are therefore still accepted for APIs that predate this rule.</p>
 </div>
 </div>
 <div class="sect2">
@@ -3875,7 +3867,7 @@ typically is used to carry the <a href="https://tools.ietf.org/html/rfc7232#sect
 </ul>
 </div>
 <div class="paragraph">
-<p>Further common fields are defined in <a href="#235"><span class="should-keyword"><strong>SHOULD</strong></span> name date/time properties with <code>_at</code> suffix</a>.
+<p>Further common fields are defined in <a href="#235"><span class="should-keyword"><strong>SHOULD</strong></span> name date/time properties with <code>At</code> suffix</a>.
 The following guidelines define standard objects and fields:</p>
 </div>
 <div class="ulist">
@@ -6893,7 +6885,10 @@ proxy cache.</p>
 <h2 id="pagination"><a class="link" href="#pagination">14. REST Design - Pagination</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="159"><a class="link" href="#159"><span class="must-keyword"><strong>MUST</strong></span> support pagination</a></h3>
+<h3 id="159"><a class="link" href="#159"><span class="must-keyword"><strong>MUST</strong></span> support pagination (Under Construction)</a></h3>
+<div class="paragraph">
+<p><a href="https://confluence.linz.govt.nz/display/STEP/Api+Standards+-+Pagination">DRAFT Proposal</a></p>
+</div>
 <div class="paragraph">
 <p>Access to lists of data items must support pagination to protect the service
 against overload as well as for best client side iteration and batch processing
@@ -6931,7 +6926,7 @@ you must stick to the common query parameter names defined in <a href="#137"><sp
 </div>
 </div>
 <div class="sect2">
-<h3 id="160"><a class="link" href="#160"><span class="should-keyword"><strong>SHOULD</strong></span> prefer cursor-based pagination, avoid offset-based pagination</a></h3>
+<h3 id="160"><a class="link" href="#160"><span class="may-keyword"><strong>MAY</strong></span> use cursor-based pagination, prefer offset-based pagination</a></h3>
 <div class="paragraph">
 <p>Cursor-based pagination is usually better and more efficient when compared to
 offset-based pagination. Especially when it comes to high-data volumes and/or
@@ -7011,12 +7006,15 @@ to safely recreate the collection (see also <a href="#cursor-based-pagination">C
 <h3 id="248"><a class="link" href="#248"><span class="should-keyword"><strong>SHOULD</strong></span> use pagination response page object</a></h3>
 <div id="pagination-fields" class="paragraph">
 <p>For iterating over collections (result sets) we propose to either use cursors
-(see <a href="#160"><span class="should-keyword"><strong>SHOULD</strong></span> prefer cursor-based pagination, avoid offset-based pagination</a>) or simple hypertext controls (see <a href="#161"><span class="should-keyword"><strong>SHOULD</strong></span> use pagination links where applicable</a>). To implement these
+(see <a href="#160"><span class="may-keyword"><strong>MAY</strong></span> use cursor-based pagination, prefer offset-based pagination</a>) or simple hypertext controls (see <a href="#161"><span class="should-keyword"><strong>SHOULD</strong></span> use pagination links where applicable</a>). To implement these
 in a consistent way, we have defined a response page object pattern with the
 following field semantics:</p>
 </div>
 <div class="ulist">
 <ul>
+<li>
+<p><a id="_links"></a><a href="#_links"><code>_links</code></a>: The object holding the simplified HATEOAS Controls.</p>
+</li>
 <li>
 <p><a id="self"></a><a href="#self"><code>self</code></a>:the link or cursor in a pagination response or object
 pointing to the same collection object or page.</p>
@@ -7046,8 +7044,8 @@ transport the page content:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a id="items"></a><a href="#items"><code>items</code></a>: array of resources, holding all the items of the current
-page (<a href="#items"><code>items</code></a> may be replaced by a resource name).</p>
+<p><a id="resources"></a><a href="#resources"><code>resources</code></a>: array of resources, holding all the items of the current
+page (<a href="#resources"><code>resources</code></a> MUST be replaced by a resource name e.g. titles).</p>
 </li>
 </ul>
 </div>
@@ -7068,44 +7066,46 @@ request to filter the collection resource.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="yaml"><span class="key">ResponsePage</span>:
+<pre class="CodeRay highlight"><code data-lang="yaml"><span class="key">ResourceResponse</span>:
   <span class="key">type</span>: <span class="string"><span class="content">object</span></span>
   <span class="key">required</span>:
-    - <span class="string"><span class="content">items</span></span>
-    - <span class="string"><span class="content">next</span></span>
+    - <span class="string"><span class="content">resources</span></span>
   <span class="key">properties</span>:
-    <span class="key">self</span>:
-      <span class="key">description</span>: <span class="string"><span class="content">Pagination link|cursor pointing to the current page.</span></span>
-      <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
-      <span class="key">format</span>: <span class="string"><span class="content">uri|cursor</span></span>
-    <span class="key">first</span>:
-      <span class="key">description</span>: <span class="string"><span class="content">Pagination link|cursor pointing to the first page.</span></span>
-      <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
-      <span class="key">format</span>: <span class="string"><span class="content">uri|cursor</span></span>
-    <span class="key">prev</span>:
-      <span class="key">description</span>: <span class="string"><span class="content">Pagination link|cursor pointing to the previous page.</span></span>
-      <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
-      <span class="key">format</span>: <span class="string"><span class="content">uri|cursor</span></span>
-    <span class="key">next</span>:
-      <span class="key">description</span>: <span class="string"><span class="content">Pagination link|cursor pointing to the next page.</span></span>
-      <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
-      <span class="key">format</span>: <span class="string"><span class="content">uri|cursor</span></span>
-    <span class="key">last</span>:
-      <span class="key">description</span>: <span class="string"><span class="content">Pagination link|cursor pointing to the last page.</span></span>
-      <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
-      <span class="key">format</span>: <span class="string"><span class="content">uri|cursor</span></span>
-
-    <span class="key">query</span>:
-      <span class="key">description</span>: <span class="string"><span class="delimiter">&gt;</span><span class="content">
-        Object containing the query filters applied to the collection resource.</span></span>
+    <span class="key">_links</span>:
       <span class="key">type</span>: <span class="string"><span class="content">object</span></span>
-      <span class="key">properties</span>: <span class="string"><span class="content">...</span></span>
-
-    <span class="key">items</span>:
+      <span class="key">required</span>:
+        - <span class="string"><span class="content">next</span></span>
+      <span class="key">properties</span>:
+        <span class="key">self</span>:
+          <span class="key">description</span>: <span class="string"><span class="content">Pagination link|cursor pointing to the current page.</span></span>
+          <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
+          <span class="key">format</span>: <span class="string"><span class="content">uri|cursor</span></span>
+        <span class="key">first</span>:
+          <span class="key">description</span>: <span class="string"><span class="content">Pagination link|cursor pointing to the first page.</span></span>
+          <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
+          <span class="key">format</span>: <span class="string"><span class="content">uri|cursor</span></span>
+        <span class="key">prev</span>:
+          <span class="key">description</span>: <span class="string"><span class="content">Pagination link|cursor pointing to the previous page.</span></span>
+          <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
+          <span class="key">format</span>: <span class="string"><span class="content">uri|cursor</span></span>
+        <span class="key">next</span>:
+          <span class="key">description</span>: <span class="string"><span class="content">Pagination link|cursor pointing to the next page.</span></span>
+          <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
+          <span class="key">format</span>: <span class="string"><span class="content">uri|cursor</span></span>
+        <span class="key">last</span>:
+          <span class="key">description</span>: <span class="string"><span class="content">Pagination link|cursor pointing to the last page.</span></span>
+          <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
+          <span class="key">format</span>: <span class="string"><span class="content">uri|cursor</span></span>
+        <span class="key">query</span>:
+          <span class="key">description</span>: <span class="string"><span class="delimiter">&gt;</span><span class="content">
+            Object containing the query filters applied to the collection resource.</span></span>
+          <span class="key">type</span>: <span class="string"><span class="content">object</span></span>
+          <span class="key">properties</span>: <span class="string"><span class="content">...</span></span>
+    <span class="key">resources</span>:
       <span class="key">description</span>: <span class="string"><span class="content">Array of collection items.</span></span>
       <span class="key">type</span>: <span class="string"><span class="content">array</span></span>
       <span class="key">required</span>: <span class="string"><span class="content">false</span></span>
-      <span class="key">items</span>:
+      <span class="key">resources</span>:
         <span class="key">type</span>: <span class="string"><span class="content">...</span></span></code></pre>
 </div>
 </div>
@@ -7121,29 +7121,59 @@ request to filter the collection resource.</p>
 controls</a> for paginating over collections whenever applicable as follows (see
 also <a href="#pagination-fields">[pagination-fields]</a> for details):</p>
 </div>
+<div class="paragraph">
+<p>Offset based pagination</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="json">{
-  <span class="key"><span class="delimiter">&quot;</span><span class="content">self</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">http://my-service.zalandoapis.com/resources?cursor=&lt;self-position&gt;</span><span class="delimiter">&quot;</span></span>,
-  <span class="key"><span class="delimiter">&quot;</span><span class="content">first</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">http://my-service.zalandoapis.com/resources?cursor=&lt;first-position&gt;</span><span class="delimiter">&quot;</span></span>,
-  <span class="key"><span class="delimiter">&quot;</span><span class="content">prev</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">http://my-service.zalandoapis.com/resources?cursor=&lt;previous-position&gt;</span><span class="delimiter">&quot;</span></span>,
-  <span class="key"><span class="delimiter">&quot;</span><span class="content">next</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">http://my-service.zalandoapis.com/resources?cursor=&lt;next-position&gt;</span><span class="delimiter">&quot;</span></span>,
-  <span class="key"><span class="delimiter">&quot;</span><span class="content">last</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">http://my-service.zalandoapis.com/resources?cursor=&lt;last-position&gt;</span><span class="delimiter">&quot;</span></span>,
-  <span class="key"><span class="delimiter">&quot;</span><span class="content">query</span><span class="delimiter">&quot;</span></span>: {
-    <span class="key"><span class="delimiter">&quot;</span><span class="content">query-param-&lt;1&gt;</span><span class="delimiter">&quot;</span></span>: <span class="error">.</span><span class="error">.</span><span class="error">.</span>,
-    <span class="key"><span class="delimiter">&quot;</span><span class="content">query-param-&lt;n&gt;</span><span class="delimiter">&quot;</span></span>: <span class="error">.</span><span class="error">.</span><span class="error">.</span>
-  },
-  <span class="key"><span class="delimiter">&quot;</span><span class="content">items</span><span class="delimiter">&quot;</span></span>: [<span class="error">.</span><span class="error">.</span><span class="error">.</span>]
+  <span class="key"><span class="delimiter">&quot;</span><span class="content">titles</span><span class="delimiter">&quot;</span></span>: [<span class="error">.</span><span class="error">.</span><span class="error">.</span>],
+  <span class="key"><span class="delimiter">&quot;</span><span class="content">_links</span><span class="delimiter">&quot;</span></span>: {
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">self</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">http://api.gateway.linz.co.nz/titles?offset=10&amp;limit=10</span><span class="delimiter">&quot;</span></span>,
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">first</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">http://api.gateway.linz.co.nz/titles?offset=0&amp;limit=10</span><span class="delimiter">&quot;</span></span>,
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">prev</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">http://api.gateway.linz.co.nz/titles?offset=0&amp;limit=10</span><span class="delimiter">&quot;</span></span>,
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">next</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">http://api.gateway.linz.co.nz/titles?offset=20&amp;limit=10</span><span class="delimiter">&quot;</span></span>,
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">last</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">http://api.gateway.linz.co.nz/titles?offset=50&amp;limit=10</span><span class="delimiter">&quot;</span></span>,
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">query</span><span class="delimiter">&quot;</span></span>: {
+      <span class="key"><span class="delimiter">&quot;</span><span class="content">query-param-&lt;1&gt;</span><span class="delimiter">&quot;</span></span>: <span class="error">.</span><span class="error">.</span><span class="error">.</span>,
+      <span class="key"><span class="delimiter">&quot;</span><span class="content">query-param-&lt;n&gt;</span><span class="delimiter">&quot;</span></span>: <span class="error">.</span><span class="error">.</span><span class="error">.</span>
+    }
+  }
 }</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><strong>Remark:</strong> You should avoid providing a total count unless there is a clear
+<p><strong>Remark:</strong> In the above case in order to calculate "last" link, the values offset and limit need to be calculated off
+of the total.
+<br>
+<br>
+You should avoid providing a total count unless there is a clear
 need to do so. Very often, there are significant system and performance
 implications when supporting full counts. Especially, if the data set grows
 and requests become complex queries and filters drive full scans. While this
 is an implementation detail relative to the API, it is important to consider
 the ability to support serving counts over the life of a service.</p>
+</div>
+<div class="paragraph">
+<p>Cursor Based</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="json">{
+  <span class="key"><span class="delimiter">&quot;</span><span class="content">titles</span><span class="delimiter">&quot;</span></span>: [<span class="error">.</span><span class="error">.</span><span class="error">.</span>],
+  <span class="key"><span class="delimiter">&quot;</span><span class="content">_links</span><span class="delimiter">&quot;</span></span>: {
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">self</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">http://api.gateway.linz.co.nz/titles?cursor=&lt;self-position&gt;</span><span class="delimiter">&quot;</span></span>,
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">first</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">http://api.gateway.linz.co.nz/titles?cursor=&lt;first-position&gt;</span><span class="delimiter">&quot;</span></span>,
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">prev</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">http://api.gateway.linz.co.nz/titles?cursor=&lt;previous-position&gt;</span><span class="delimiter">&quot;</span></span>,
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">next</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">http://api.gateway.linz.co.nz/titles?cursor=&lt;next-position&gt;</span><span class="delimiter">&quot;</span></span>,
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">last</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">http://api.gateway.linz.co.nz/titles?cursor=&lt;last-position&gt;</span><span class="delimiter">&quot;</span></span>,
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">query</span><span class="delimiter">&quot;</span></span>: {
+      <span class="key"><span class="delimiter">&quot;</span><span class="content">query-param-&lt;1&gt;</span><span class="delimiter">&quot;</span></span>: <span class="error">.</span><span class="error">.</span><span class="error">.</span>,
+      <span class="key"><span class="delimiter">&quot;</span><span class="content">query-param-&lt;n&gt;</span><span class="delimiter">&quot;</span></span>: <span class="error">.</span><span class="error">.</span><span class="error">.</span>
+    }
+  }
+}</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -7739,7 +7769,7 @@ the deprecation info (see hint in <a href="#189"><span class="should-keyword"><s
 <h2 id="api-operation"><a class="link" href="#api-operation">17. REST Operation</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="192"><a class="link" href="#192"><span class="must-keyword"><strong>MUST</strong></span> publish OpenAPI specification&#8201;&#8212;&#8201;(Under neath)</a></h3>
+<h3 id="192"><a class="link" href="#192"><span class="must-keyword"><strong>MUST</strong></span> publish OpenAPI specification&#8201;&#8212;&#8201;(Under construction)</a></h3>
 <div class="paragraph">
 <p>All service applications must publish OpenAPI specifications of their external
 APIs. While this is optional for internal APIs, i.e. APIs marked with the
@@ -9226,7 +9256,7 @@ implementing RESTful APIs.</p>
 <h3 id="cursor-based-pagination"><a class="link" href="#cursor-based-pagination">Cursor-based pagination in RESTful APIs</a></h3>
 <div class="paragraph">
 <p>Cursor-based pagination is a very powerful and valuable technique (see also
-<a href="#160"><span class="should-keyword"><strong>SHOULD</strong></span> prefer cursor-based pagination, avoid offset-based pagination</a>, that allows to efficiently provide a stable view on changing data.
+<a href="#160"><span class="may-keyword"><strong>MAY</strong></span> use cursor-based pagination, prefer offset-based pagination</a>, that allows to efficiently provide a stable view on changing data.
 This is obtained by using an anchor element that allows to retrieve all page
 elements directly via an ordering combined-index, usually based on <code>created_at</code>
 or <code>modified_at</code>. Simple said, the cursor is the information set needed to
@@ -9790,7 +9820,7 @@ to see a list of all changes.</p>
 <p><code>2019-07-30</code>: change "<span class="should-keyword"><strong>SHOULD</strong></span> Null values should have their fields removed to" <a href="#123"><span class="must-keyword"><strong>MUST</strong></span> use same semantics for <code>null</code> and absent properties</a>.</p>
 </li>
 <li>
-<p><code>2019-07-25</code>: new rule <a href="#235"><span class="should-keyword"><strong>SHOULD</strong></span> name date/time properties with <code>_at</code> suffix</a>.</p>
+<p><code>2019-07-25</code>: new rule <a href="#235"><span class="should-keyword"><strong>SHOULD</strong></span> name date/time properties with <code>At</code> suffix</a>.</p>
 </li>
 <li>
 <p><code>2019-07-18</code>: improved cursor guideline for <a href="#get-with-body"><code>GET with body</code></a>.</p>
@@ -9817,7 +9847,7 @@ to see a list of all changes.</p>
 <p><code>2019-01-21:</code> Improve guidance on idempotency, introduce idempotency-key (<a href="#229"><span class="should-keyword"><strong>SHOULD</strong></span> consider to design <code>POST</code> and <code>PATCH</code> idempotent</a>, <a href="#231"><span class="should-keyword"><strong>SHOULD</strong></span> use secondary key for idempotent <code>POST</code> design</a>).</p>
 </li>
 <li>
-<p><code>2019-01-16</code>: Change <a href="#135"><span class="should-keyword"><strong>SHOULD</strong></span> not use /api as base path</a> from <span class="may-keyword"><strong>MAY</strong></span> to {SHOULD NOT}</p>
+<p><code>2019-01-16</code>: Change <a href="#135"><span class="may-keyword"><strong>MAY</strong></span> use /api as base path - (Restore once gateway is in)</a> from <span class="may-keyword"><strong>MAY</strong></span> to {SHOULD NOT}</p>
 </li>
 <li>
 <p><code>2018-10-19</code>: Add <code>ordering_key_field</code> to event type definition schema (<a href="#197"><span class="must-keyword"><strong>MUST</strong></span> specify and register events as event types</a>, <a href="#203"><span class="should-keyword"><strong>SHOULD</strong></span> provide explicit event ordering for general events</a>)</p>
@@ -9841,7 +9871,7 @@ to see a list of all changes.</p>
 <p><code>2018-01-10:</code> Moved meta information related aspects into new chapter <a href="#meta-information">REST Basics - Meta information</a>.</p>
 </li>
 <li>
-<p><code>2018-01-09:</code> Changed publication requirements for API specifications (<a href="#192"><span class="must-keyword"><strong>MUST</strong></span> publish OpenAPI specification&#8201;&#8212;&#8201;(Under neath)</a>).</p>
+<p><code>2018-01-09:</code> Changed publication requirements for API specifications (<a href="#192"><span class="must-keyword"><strong>MUST</strong></span> publish OpenAPI specification&#8201;&#8212;&#8201;(Under construction)</a>).</p>
 </li>
 <li>
 <p><code>2017-12-07:</code> Added best practices section including discussion about optimistic locking approaches.</p>
@@ -10044,7 +10074,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-07-25 23:21:46 UTC
+Last updated 2022-08-01 22:30:23 UTC
 </div>
 </div>
 </body>

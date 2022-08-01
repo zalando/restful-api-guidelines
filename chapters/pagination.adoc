@@ -33,7 +33,7 @@ you must stick to the common query parameter names defined in <<137>>.
 
 
 [#160]
-== {MAY} use cursor-based pagination, instead of offset-based pagination
+== {MAY} use cursor-based pagination, prefer offset-based pagination
 
 Cursor-based pagination is usually better and more efficient when compared to
 offset-based pagination. Especially when it comes to high-data volumes and/or
@@ -75,8 +75,7 @@ For iterating over collections (result sets) we propose to either use cursors
 in a consistent way, we have defined a response page object pattern with the
 following field semantics:
 
-* [[_links]]{_links}:the link or cursor in a pagination response or object
-pointing to the same collection object or page.
+* [[_links]]{_links}: The object holding the simplified HATEOAS Controls.
 * [[self]]{self}:the link or cursor in a pagination response or object
   pointing to the same collection object or page.
 * [[first]]{first}: the link or cursor in a pagination response or object
@@ -92,7 +91,7 @@ Pagination responses should contain the following additional array field to
 transport the page content:
 
 * [[resources]]{resources}: array of resources, holding all the items of the current
-  page ({items} MUST be replaced by a resource name e.g. titles).
+  page ({resources} MUST be replaced by a resource name e.g. titles).
 
 To simplify user experience, the applied query filters may be returned using
 the following field (see also {GET-with-body}):

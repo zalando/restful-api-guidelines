@@ -165,7 +165,8 @@
 :next: pass:[<a href="#next"><code>next</code></a>]
 :last: pass:[<a href="#last"><code>last</code></a>]
 :query: pass:[<a href="#query"><code>query</code></a>]
-:items: pass:[<a href="#items"><code>items</code></a>]
+:resources: pass:[<a href="#resources"><code>resources</code></a>]
+:_links: pass:[<a href="#_links"><code>_links</code></a>]
 
 
 // Attributes to improve linking to special definition anchors.
