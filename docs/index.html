@@ -1554,7 +1554,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#pagination">14. REST Design - Pagination</a>
 <ul class="sectlevel2">
 <li><a href="#159"><span class="must-keyword"><strong>MUST</strong></span> support pagination (Under Construction)</a></li>
-<li><a href="#160"><span class="may-keyword"><strong>MAY</strong></span> use cursor-based pagination, instead of offset-based pagination</a></li>
+<li><a href="#160"><span class="may-keyword"><strong>MAY</strong></span> use cursor-based pagination, prefer offset-based pagination</a></li>
 <li><a href="#248"><span class="should-keyword"><strong>SHOULD</strong></span> use pagination response page object</a></li>
 <li><a href="#161"><span class="should-keyword"><strong>SHOULD</strong></span> use pagination links where applicable</a></li>
 </ul>
@@ -6929,7 +6929,7 @@ you must stick to the common query parameter names defined in <a href="#137"><sp
 </div>
 </div>
 <div class="sect2">
-<h3 id="160"><a class="link" href="#160"><span class="may-keyword"><strong>MAY</strong></span> use cursor-based pagination, instead of offset-based pagination</a></h3>
+<h3 id="160"><a class="link" href="#160"><span class="may-keyword"><strong>MAY</strong></span> use cursor-based pagination, prefer offset-based pagination</a></h3>
 <div class="paragraph">
 <p>Cursor-based pagination is usually better and more efficient when compared to
 offset-based pagination. Especially when it comes to high-data volumes and/or
@@ -7009,15 +7009,14 @@ to safely recreate the collection (see also <a href="#cursor-based-pagination">C
 <h3 id="248"><a class="link" href="#248"><span class="should-keyword"><strong>SHOULD</strong></span> use pagination response page object</a></h3>
 <div id="pagination-fields" class="paragraph">
 <p>For iterating over collections (result sets) we propose to either use cursors
-(see <a href="#160"><span class="may-keyword"><strong>MAY</strong></span> use cursor-based pagination, instead of offset-based pagination</a>) or simple hypertext controls (see <a href="#161"><span class="should-keyword"><strong>SHOULD</strong></span> use pagination links where applicable</a>). To implement these
+(see <a href="#160"><span class="may-keyword"><strong>MAY</strong></span> use cursor-based pagination, prefer offset-based pagination</a>) or simple hypertext controls (see <a href="#161"><span class="should-keyword"><strong>SHOULD</strong></span> use pagination links where applicable</a>). To implement these
 in a consistent way, we have defined a response page object pattern with the
 following field semantics:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><a id="_links"></a>{_links}:the link or cursor in a pagination response or object
-pointing to the same collection object or page.</p>
+<p><a id="_links"></a><a href="#_links"><code>_links</code></a>: The object holding the simplified HATEOAS Controls.</p>
 </li>
 <li>
 <p><a id="self"></a><a href="#self"><code>self</code></a>:the link or cursor in a pagination response or object
@@ -7048,8 +7047,8 @@ transport the page content:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a id="resources"></a>{resources}: array of resources, holding all the items of the current
-page (<a href="#items"><code>items</code></a> MUST be replaced by a resource name e.g. titles).</p>
+<p><a id="resources"></a><a href="#resources"><code>resources</code></a>: array of resources, holding all the items of the current
+page (<a href="#resources"><code>resources</code></a> MUST be replaced by a resource name e.g. titles).</p>
 </li>
 </ul>
 </div>
@@ -9260,7 +9259,7 @@ implementing RESTful APIs.</p>
 <h3 id="cursor-based-pagination"><a class="link" href="#cursor-based-pagination">Cursor-based pagination in RESTful APIs</a></h3>
 <div class="paragraph">
 <p>Cursor-based pagination is a very powerful and valuable technique (see also
-<a href="#160"><span class="may-keyword"><strong>MAY</strong></span> use cursor-based pagination, instead of offset-based pagination</a>, that allows to efficiently provide a stable view on changing data.
+<a href="#160"><span class="may-keyword"><strong>MAY</strong></span> use cursor-based pagination, prefer offset-based pagination</a>, that allows to efficiently provide a stable view on changing data.
 This is obtained by using an anchor element that allows to retrieve all page
 elements directly via an ordering combined-index, usually based on <code>created_at</code>
 or <code>modified_at</code>. Simple said, the cursor is the information set needed to
@@ -10078,7 +10077,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-08-01 23:21:02 UTC
+Last updated 2022-08-01 23:40:26 UTC
 </div>
 </div>
 </body>
