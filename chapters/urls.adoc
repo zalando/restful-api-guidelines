@@ -5,7 +5,9 @@ Guidelines for naming and designing resource paths and query parameters.
 
 
 [#135]
-== {SHOULD} not use /api as base path
+== {MAY} use /api as base path - (Restore once gateway is in)
+
+//== {SHOULD} not use /api as base path - Restore once gateway is in.
 
 In most cases, all resources provided by a service are part of the
 public API, and therefore should be made available under the root "/"
@@ -337,7 +339,7 @@ than 2000 characters.)
 
 
 [#130]
-== {MUST} use snake_case (never camelCase) for query parameters
+== {MUST} use camelCase (never snake_case) for query parameters
 
 See also <<118>>.
 

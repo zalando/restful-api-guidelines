@@ -69,24 +69,23 @@ This implies in turn that object names should be singular.
 
 
 [#118]
-== {MUST} property names must be snake_case (and never camelCase)
+== {MUST} property names must be camelCase (and never snake_case)
 
-Property names are restricted to ASCII snake_case strings matching regex `^[a-z_][a-z_0-9]*$`.
-The first character must be a lower case letter, or an underscore, and subsequent
-characters can be a letter, an underscore, or a number.
+Property names are restricted to ASCII camelCase strings matching regex `[a-z][a-z0-9]\*(?:[A-Z0-9]+[a-z0-9]*)*`.
+The first character must be a lower case letter and subsequent
+words with Capitalised first letters.
 
 Examples:
 
 [source]
 ----
-customer_number, sales_order_number, billing_address
+customerNumber, salesOrderNumber, billingAddress
 ----
 
-Rationale: No established industry standard exists, but many popular Internet
+Rationale: No established industry standard exists, while many popular Internet
 companies prefer snake_case: e.g. GitHub, Stack Exchange, Twitter.
-Others, like Google and Amazon, use both - but not only camelCase. It’s
-essential to establish a consistent look and feel such that JSON looks
-as if it came from the same hand.
+Others, like Google and Amazon, use both - not only camelCase. However the predominate languages in LINZ are
+Typescript and Kotlin both of which use camelCasing, keeping these aligned is sensible.
 
 
 [#125]
@@ -105,22 +104,16 @@ declaring possible values for a <<137,rule 137>> [`sort` parameter].
 
 
 [#235]
-== {SHOULD} name date/time properties with `_at` suffix
+== {SHOULD} name date/time properties with `At` suffix
 
-Dates and date-time properties should end with `_at` to distinguish them from
+Dates and date-time properties should end with `At` to distinguish them from
 boolean properties which otherwise would have very similar or even identical
 names:
 
-- {created_at} rather than {created},
-- {modified_at} rather than {modified},
-- `occurred_at` rather than `occurred`, and
-- `returned_at` rather than `returned`.
-
-**Hint:** Use `format: date-time` (or as `format: date`) as required in <<238>>.
-
-**Note:** {created} and {modified} were mentioned in an earlier version of the
-guideline and are therefore still accepted for APIs that predate this rule.
-
+- `createdAt` rather than `created`,
+- `modifiedAt` rather than `modified`,
+- `occurredAt` rather than `occurred`, and
+- `returnedAt` rather than `returned`.
 
 [#216]
 == {SHOULD} define maps using `additionalProperties`
