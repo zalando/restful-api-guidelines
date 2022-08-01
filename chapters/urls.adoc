@@ -5,7 +5,9 @@ Guidelines for naming and designing resource paths and query parameters.
 
 
 [#135]
-== {SHOULD} not use /api as base path
+== {MAY} use /api as base path - (Restore once gateway is in)
+
+//== {SHOULD} not use /api as base path - Restore once gateway is in.
 
 In most cases, all resources provided by a service are part of the
 public API, and therefore should be made available under the root "/"
