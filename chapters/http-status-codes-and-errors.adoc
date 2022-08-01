@@ -352,7 +352,8 @@ number of requests made within a given window for each named entity.
 
 
 [#176]
-== {MUST} support problem JSON
+== {MUST} support problem JSON (Under Construction)
+https://confluence.linz.govt.nz/display/STEP/API+Standards+-+Error+Response+Format[DRAFT Proposal]
 
 {RFC-7807}[RFC 7807] defines a Problem JSON object using the media type
 `application/problem+json` to provide an extensible human and machine readable
