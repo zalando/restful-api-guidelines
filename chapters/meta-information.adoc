@@ -59,50 +59,6 @@ info:
 ----
 
 
-[#215]
-== {MUST} provide API identifiers
-
-Each API specification must be provisioned with a globally unique and
-immutable API identifier. The API identifier is defined in the `info`-block
-of the OpenAPI specification and must conform to the following definition:
-
-[source,yaml]
-----
-/info/x-api-id:
-  type: string
-  format: urn
-  pattern: ^[a-z0-9][a-z0-9-:.]{6,62}[a-z0-9]$
-  description: |
-    Mandatory globally unique and immutable API identifier. The API
-    id allows to track the evolution and history of an API specification
-    as a sequence of versions.
-----
-
-API specifications will evolve and any aspect of an OpenAPI specification
-may change. We require API identifiers because we want  to support API clients
-and providers with API lifecycle management features, like change trackability
-and history or automated backward compatibility checks. The immutable API
-identifier allows the identification of all API specification versions of an
-API evolution. By using  <<116, API semantic version information>> or <<192,
-API publishing date>> as order criteria you get the *version* or
-*publication history* as a sequence of API specifications.
-
-*Note*: While it is nice to use human readable API identifiers based on
-self-managed URNs, it is recommend to stick to UUIDs to relief API designers
-from any urge of changing the API identifier while evolving the API. Example:
-
-[source,yaml]
-----
-openapi: 3.0.1
-info:
-  x-api-id: d0184f38-b98d-11e7-9c56-68f728c1ba70
-  title: Parcel Service API
-  description: API for <...>
-  version: 1.5.8
-  <...>
-----
-
-
 [#219]
 == {MUST} provide API audience
 
@@ -112,6 +68,9 @@ for discoverability, changeability, quality of design and documentation, as
 well as permission granting. We differentiate the following API audience
 groups with clear organisational and legal boundaries:
 
+**Note**: sub-categorised as **internal**, **partner** and **public** this affects which subdomain deploy the API Proxy
+is deployed to in **Tyk Gateway**
+
 *component-internal*::
   This is often referred to as a _team internal API_ or a _product internal API_.
   The API consumers with this audience are restricted to applications of the
@@ -120,13 +79,9 @@ groups with clear organisational and legal boundaries:
   All services of a functional component / product are owned by a specific dedicated owner
   and engineering team(s). Typical examples of component-internal APIs are APIs
   being used by internal helper and worker services or that support service operation.
-*business-unit-internal*::
-  The API consumers with this audience are restricted to applications of a
-  specific product portfolio owned by the same business unit.
 *company-internal*::
   The API consumers with this audience are restricted to applications owned
-  by the business units of the same the company (e.g. Zalando company with
-  Zalando SE, Zalando Payments SE & Co. KG. etc.)
+  by Toitū Te Whenua Land Information New Zealand
 *external-partner*::
   The API consumers with this audience are restricted to applications of
   business partners of the company owning the API and the company itself.
@@ -145,7 +100,6 @@ the OpenAPI specification and must conform to the following specification:
   type: string
   x-extensible-enum:
     - component-internal
-    - business-unit-internal
     - company-internal
     - external-partner
     - external-public

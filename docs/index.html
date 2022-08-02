@@ -1430,7 +1430,6 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <ul class="sectlevel2">
 <li><a href="#218"><span class="must-keyword"><strong>MUST</strong></span> contain API meta information</a></li>
 <li><a href="#116"><span class="must-keyword"><strong>MUST</strong></span> use semantic versioning</a></li>
-<li><a href="#215"><span class="must-keyword"><strong>MUST</strong></span> provide API identifiers</a></li>
 <li><a href="#219"><span class="must-keyword"><strong>MUST</strong></span> provide API audience</a></li>
 <li><a href="#223"><span class="must-keyword"><strong>MUST</strong></span>/<span class="should-keyword"><strong>SHOULD</strong></span> use functional naming schema</a></li>
 <li><a href="#224"><span class="must-keyword"><strong>MUST</strong></span> follow naming convention for hostnames</a></li>
@@ -2227,51 +2226,6 @@ are free to decide whether they increment it or not.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="215"><a class="link" href="#215"><span class="must-keyword"><strong>MUST</strong></span> provide API identifiers</a></h3>
-<div class="paragraph">
-<p>Each API specification must be provisioned with a globally unique and
-immutable API identifier. The API identifier is defined in the <code>info</code>-block
-of the OpenAPI specification and must conform to the following definition:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="yaml"><span class="key">/info/x-api-id</span>:
-  <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
-  <span class="key">format</span>: <span class="string"><span class="content">urn</span></span>
-  <span class="key">pattern</span>: <span class="string"><span class="content">^[a-z0-9][a-z0-9-:.]{6,62}[a-z0-9]$</span></span>
-  <span class="key">description</span>: <span class="string"><span class="delimiter">|</span><span class="content">
-    Mandatory globally unique and immutable API identifier. The API
-    id allows to track the evolution and history of an API specification
-    as a sequence of versions.</span></span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>API specifications will evolve and any aspect of an OpenAPI specification
-may change. We require API identifiers because we want  to support API clients
-and providers with API lifecycle management features, like change trackability
-and history or automated backward compatibility checks. The immutable API
-identifier allows the identification of all API specification versions of an
-API evolution. By using  <a href="#116">API semantic version information</a> or <a href="#192">API publishing date</a> as order criteria you get the <strong>version</strong> or
-<strong>publication history</strong> as a sequence of API specifications.</p>
-</div>
-<div class="paragraph">
-<p><strong>Note</strong>: While it is nice to use human readable API identifiers based on
-self-managed URNs, it is recommend to stick to UUIDs to relief API designers
-from any urge of changing the API identifier while evolving the API. Example:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="yaml"><span class="key">openapi</span>: <span class="string"><span class="content">3.0.1</span></span>
-<span class="key">info</span>:
-  <span class="key">x-api-id</span>: <span class="string"><span class="content">d0184f38-b98d-11e7-9c56-68f728c1ba70</span></span>
-  <span class="key">title</span>: <span class="string"><span class="content">Parcel Service API</span></span>
-  <span class="key">description</span>: <span class="string"><span class="content">API for &lt;...&gt;</span></span>
-  <span class="key">version</span>: <span class="string"><span class="content">1.5.8</span></span>
-  <span class="error">&lt;...&gt;</span></code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
 <h3 id="219"><a class="link" href="#219"><span class="must-keyword"><strong>MUST</strong></span> provide API audience</a></h3>
 <div class="paragraph">
 <p>Each API must be classified with respect to the intended target <strong>audience</strong>
@@ -2279,6 +2233,10 @@ supposed to consume the API, to facilitate differentiated standards on APIs
 for discoverability, changeability, quality of design and documentation, as
 well as permission granting. We differentiate the following API audience
 groups with clear organisational and legal boundaries:</p>
+</div>
+<div class="paragraph">
+<p><strong>Note</strong>: sub-categorised as <strong>internal</strong>, <strong>partner</strong> and <strong>public</strong> this affects which subdomain deploy the API Proxy
+is deployed to in <strong>Tyk Gateway</strong></p>
 </div>
 <div class="dlist">
 <dl>
@@ -2292,16 +2250,10 @@ All services of a functional component / product are owned by a specific dedicat
 and engineering team(s). Typical examples of component-internal APIs are APIs
 being used by internal helper and worker services or that support service operation.</p>
 </dd>
-<dt class="hdlist1"><strong>business-unit-internal</strong></dt>
-<dd>
-<p>The API consumers with this audience are restricted to applications of a
-specific product portfolio owned by the same business unit.</p>
-</dd>
 <dt class="hdlist1"><strong>company-internal</strong></dt>
 <dd>
 <p>The API consumers with this audience are restricted to applications owned
-by the business units of the same the company (e.g. Zalando company with
-Zalando SE, Zalando Payments SE &amp; Co. KG. etc.)</p>
+by Toitū Te Whenua Land Information New Zealand</p>
 </dd>
 <dt class="hdlist1"><strong>external-partner</strong></dt>
 <dd>
