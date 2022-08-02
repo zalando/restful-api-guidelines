@@ -162,7 +162,7 @@ naming schema for <<224, hostnames>> and <<213, event names>>
 |=========================================================
 | *Functional Naming* | *Audience*
 | *must*   | external-public, external-partner
-| *should* | company-internal, business-unit-internal
+| *should* | company-internal
 | *may*    | component-internal
 |=========================================================
 
