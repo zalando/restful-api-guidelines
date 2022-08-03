@@ -1434,11 +1434,11 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#224"><span class="must-keyword"><strong>MUST</strong></span> follow naming convention for hostnames ( Under Construction)</a></li>
 </ul>
 </li>
-<li><a href="#security">5. REST Basics - Security</a>
+<li><a href="#security">5. REST Basics - Security ( Under Construction)</a>
 <ul class="sectlevel2">
-<li><a href="#104"><span class="must-keyword"><strong>MUST</strong></span> secure endpoints</a></li>
-<li><a href="#105"><span class="must-keyword"><strong>MUST</strong></span> define and assign permissions (scopes)</a></li>
-<li><a href="#225"><span class="must-keyword"><strong>MUST</strong></span> follow naming convention for permissions (scopes)</a></li>
+<li><a href="#104"><span class="must-keyword"><strong>MUST</strong></span> secure endpoints ( Under Construction)</a></li>
+<li><a href="#105"><span class="must-keyword"><strong>MUST</strong></span> define and assign permissions (scopes) ( Under Construction)</a></li>
+<li><a href="#225"><span class="must-keyword"><strong>MUST</strong></span> follow naming convention for permissions (scopes) ( Under Construction)</a></li>
 </ul>
 </li>
 <li><a href="#data-formats">6. REST Basics - Data formats</a>
@@ -1588,7 +1588,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#193"><span class="should-keyword"><strong>SHOULD</strong></span> monitor API usage</a></li>
 </ul>
 </li>
-<li><a href="#events">18. EVENT Basics - Event Types</a>
+<li><a href="#events">18. EVENT Basics - Event Types ( Under Construction)</a>
 <ul class="sectlevel2">
 <li><a href="#208"><span class="must-keyword"><strong>MUST</strong></span> define events compliant with overall API guidelines</a></li>
 <li><a href="#194"><span class="must-keyword"><strong>MUST</strong></span> treat events as part of the service interface</a></li>
@@ -2324,10 +2324,14 @@ the target audience — even if this creates redundancies
 </div>
 </div>
 <div class="sect1">
-<h2 id="security"><a class="link" href="#security">5. REST Basics - Security</a></h2>
+<h2 id="security"><a class="link" href="#security">5. REST Basics - Security ( Under Construction)</a></h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>The entire Security Section is under review and will be updated after the auth work with keycloak and design becomes
+more apparent.</p>
+</div>
 <div class="sect2">
-<h3 id="104"><a class="link" href="#104"><span class="must-keyword"><strong>MUST</strong></span> secure endpoints</a></h3>
+<h3 id="104"><a class="link" href="#104"><span class="must-keyword"><strong>MUST</strong></span> secure endpoints ( Under Construction)</a></h3>
 <div class="paragraph">
 <p>Every API endpoint must be protected and armed with authentication and authorization.
 As part of the API definition you must specify how you protect your API using
@@ -2356,7 +2360,7 @@ The following code snippet shows how to define the bearer security scheme.</p>
 <div class="paragraph">
 <p>The bearer security schema can than be applied to all API endpoints, e.g. requiring
 the token to have <code>api-repository.read</code> scope for permission as follows (see
-also <a href="#105"><span class="must-keyword"><strong>MUST</strong></span> define and assign permissions (scopes)</a>):</p>
+also <a href="#105"><span class="must-keyword"><strong>MUST</strong></span> define and assign permissions (scopes) ( Under Construction)</a>):</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2378,13 +2382,13 @@ because it exposes authentication server address details and may make use of red
 </div>
 </div>
 <div class="sect2">
-<h3 id="105"><a class="link" href="#105"><span class="must-keyword"><strong>MUST</strong></span> define and assign permissions (scopes)</a></h3>
+<h3 id="105"><a class="link" href="#105"><span class="must-keyword"><strong>MUST</strong></span> define and assign permissions (scopes) ( Under Construction)</a></h3>
 <div class="paragraph">
 <p>APIs must define permissions to protect their resources. Thus, at least one
 permission must be assigned to each API endpoint.</p>
 </div>
 <div class="paragraph">
-<p>The naming schema for permissions corresponds to the naming schema for <a href="#224">hostnames</a> and <a href="#213">event type names</a>. Please refer to <a href="#225"><span class="must-keyword"><strong>MUST</strong></span> follow naming convention for permissions (scopes)</a> for
+<p>The naming schema for permissions corresponds to the naming schema for <a href="#224">hostnames</a> and <a href="#213">event type names</a>. Please refer to <a href="#225"><span class="must-keyword"><strong>MUST</strong></span> follow naming convention for permissions (scopes) ( Under Construction)</a> for
 designing permission names and see the following examples.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
@@ -2475,7 +2479,7 @@ it is required and so to say implicitly defined via the security section.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="225"><a class="link" href="#225"><span class="must-keyword"><strong>MUST</strong></span> follow naming convention for permissions (scopes)</a></h3>
+<h3 id="225"><a class="link" href="#225"><span class="must-keyword"><strong>MUST</strong></span> follow naming convention for permissions (scopes) ( Under Construction)</a></h3>
 <div class="paragraph">
 <p>As long as the <a href="#223">functional naming</a> is not yet supported by our permission registry,
 permission names in APIs must conform to the following naming pattern:</p>
@@ -7589,10 +7593,14 @@ of the client-id retrieved from the OAuth token.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="events"><a class="link" href="#events">18. EVENT Basics - Event Types</a></h2>
+<h2 id="events"><a class="link" href="#events">18. EVENT Basics - Event Types ( Under Construction)</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Zalando’s architecture centers around decoupled microservices and in
+<p>LINZ currently does not have a well defined Events Driven Architecture or Events Centre of Excellence (COE, COP),
+once it does then this section will be review and standards updated.</p>
+</div>
+<div class="paragraph">
+<p>LINZ architecture centers around decoupled microservices and in
 that context we favour asynchronous event driven approaches. The
 guidelines focus on how to design and publish events
 intended to be shared for others to consume.</p>
@@ -9505,7 +9513,7 @@ to see a list of all changes.</p>
 <p><code>2021-06-22</code>: <a href="#238"><span class="must-keyword"><strong>MUST</strong></span> use standard data formats</a> changed from <span class="should-keyword"><strong>SHOULD</strong></span> to <span class="must-keyword"><strong>MUST</strong></span>; consistency for rules around standards for data.</p>
 </li>
 <li>
-<p><code>2021-06-03</code>: <a href="#104"><span class="must-keyword"><strong>MUST</strong></span> secure endpoints</a> with clear distinction of OpenAPI security schemes, favoring <code>bearer</code> to <code>oauth2</code>.</p>
+<p><code>2021-06-03</code>: <a href="#104"><span class="must-keyword"><strong>MUST</strong></span> secure endpoints ( Under Construction)</a> with clear distinction of OpenAPI security schemes, favoring <code>bearer</code> to <code>oauth2</code>.</p>
 </li>
 <li>
 <p><code>2021-06-01</code>: resolve uncertainties around 'occurred_at' semantics of <a href="#event-metadata">event metadata</a>.</p>
@@ -9652,7 +9660,7 @@ to see a list of all changes.</p>
 <p><code>2017-12-07:</code> Added best practices section including discussion about optimistic locking approaches.</p>
 </li>
 <li>
-<p><code>2017-11-28:</code> Changed OAuth flow example from password to client credentials in <a href="#security">REST Basics - Security</a>.</p>
+<p><code>2017-11-28:</code> Changed OAuth flow example from password to client credentials in <a href="#security">REST Basics - Security ( Under Construction)</a>.</p>
 </li>
 <li>
 <p><code>2017-11-22:</code> Updated description of X-Tenant-ID header field</p>
@@ -9704,7 +9712,7 @@ part.</p>
 <p><code>2016-12-06:</code> New guideline: "Should Only Use UUIDs If Necessary"</p>
 </li>
 <li>
-<p><code>2016-12-04:</code> Changed OAuth flow example from implicit to password in <a href="#security">REST Basics - Security</a>.</p>
+<p><code>2016-12-04:</code> Changed OAuth flow example from implicit to password in <a href="#security">REST Basics - Security ( Under Construction)</a>.</p>
 </li>
 <li>
 <p><code>2016-10-13:</code> <a href="#172"><span class="should-keyword"><strong>SHOULD</strong></span> use standard media types</a></p>
