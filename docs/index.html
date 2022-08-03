@@ -1431,8 +1431,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#218"><span class="must-keyword"><strong>MUST</strong></span> contain API meta information</a></li>
 <li><a href="#116"><span class="must-keyword"><strong>MUST</strong></span> use semantic versioning</a></li>
 <li><a href="#219"><span class="must-keyword"><strong>MUST</strong></span> provide API audience</a></li>
-<li><a href="#223"><span class="must-keyword"><strong>MUST</strong></span>/<span class="should-keyword"><strong>SHOULD</strong></span> use functional naming schema</a></li>
-<li><a href="#224"><span class="must-keyword"><strong>MUST</strong></span> follow naming convention for hostnames</a></li>
+<li><a href="#224"><span class="must-keyword"><strong>MUST</strong></span> follow naming convention for hostnames ( Under Construction)</a></li>
 </ul>
 </li>
 <li><a href="#security">5. REST Basics - Security</a>
@@ -2317,103 +2316,9 @@ the target audience — even if this creates redundancies
 </div>
 </div>
 <div class="sect2">
-<h3 id="223"><a class="link" href="#223"><span class="must-keyword"><strong>MUST</strong></span>/<span class="should-keyword"><strong>SHOULD</strong></span> use functional naming schema</a></h3>
+<h3 id="224"><a class="link" href="#224"><span class="must-keyword"><strong>MUST</strong></span> follow naming convention for hostnames ( Under Construction)</a></h3>
 <div class="paragraph">
-<p>Functional naming is a powerful, yet easy way to align global resources as
-<em>host</em>, <em>permission</em>, and <em>event names</em> within an application landscape. It
-helps to preserve uniqueness of names while giving readers meaningful context
-information about the addressed component. Besides, the most important aspect
-is, that it allows to keep APIs stable in the case of technical and
-organizational changes (Zalando for example maintains an internal naming convention).</p>
-</div>
-<div class="paragraph">
-<p>A unique <code>functional-name</code> is assigned to each functional component serving an API.
-It is built of the domain name of the functional group the component is belonging
-to and a unique a short identifier for the functional component itself:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="bnf">&lt;functional-name&gt;      ::= &lt;functional-domain&gt;-&lt;functional-component&gt;
-&lt;functional-domain&gt;    ::= [a-z][a-z0-9-]* -- managed functional group of components
-&lt;functional-component&gt; ::= [a-z][a-z0-9-]* -- name of API owning functional component</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Depending on the <a href="#219">API audience</a>, you <strong>must/should/may</strong> follow the functional
-naming schema for <a href="#224">hostnames</a> and <a href="#213">event names</a>
-(and also <a href="#225">permission names</a>, in future) as follows:</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 75%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Functional Naming</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Audience</strong></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>must</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">external-public, external-partner</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>should</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">company-internal</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>may</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">component-internal</p></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph">
-<p>Please see the following rules for detailed functional naming patterns:
-* <a href="#224"><span class="must-keyword"><strong>MUST</strong></span> follow naming convention for hostnames</a>
-* <a href="#213"><span class="must-keyword"><strong>MUST</strong></span> follow naming convention for event type names</a></p>
-</div>
-<div class="paragraph">
-<p><strong>Internal Guideance</strong>:  You <em>must</em> use the simple
-<a href="https://github.bus.zalan.do/team-architecture/functional-component-registry">functional name registry (internal_link)</a>
-to register your functional name before using
-it. The registry is a centralized infrastructure service to ensure uniqueness
-of your functional names (and available domains&#8201;&#8212;&#8201;including subdomains) and
-to support hostname DNS resolution.<br>
-<em>Hint:</em> Due to lexicalic restrictions of DNS names there is no specific separator
-to split a functional name into (sub) domain and component; this knowledge is only
-managed in the registry.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="224"><a class="link" href="#224"><span class="must-keyword"><strong>MUST</strong></span> follow naming convention for hostnames</a></h3>
-<div class="paragraph">
-<p>Hostnames in APIs must, respectively should conform to the functional naming
-depending on the <a href="#219">audience</a> as follows (see <a href="#223"><span class="must-keyword"><strong>MUST</strong></span>/<span class="should-keyword"><strong>SHOULD</strong></span> use functional naming schema</a> for details and
-<code>&lt;functional-name&gt;</code> definition):</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="bnf">&lt;hostname&gt;             ::= &lt;functional-hostname&gt; | &lt;application-hostname&gt;
-
-&lt;functional-hostname&gt;  ::= &lt;functional-name&gt;.zalandoapis.com</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>Hint:</strong> The following convention (e.g. used by legacy STUPS infrastructure) is deprecated
-and <strong>only</strong> allowed for hostnames of <a href="#219">component-internal</a> APIs:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="bnf">&lt;application-hostname&gt; ::= &lt;application-id&gt;.&lt;organization-unit&gt;.zalan.do
-&lt;application-id&gt;       ::= [a-z][a-z0-9-]*  -- application identifier
-&lt;organization-id&gt;      ::= [a-z][a-z0-9-]*  -- organization unit identifier, e.g. team identifier</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>Exception:</strong> There are legacy hostnames used for APIs with <code>external-partner</code> audience
-which may not follow this rule due to backward compatibility constraints.
-The API Linter maintains an allow-list for these exceptions (including e.g.
-<code>api.merchants.zalando.com</code> and <code>api-sandbox.merchants.zalando.com</code>).</p>
+<p>x-audience and hostnames are intricately linked. More to come.</p>
 </div>
 </div>
 </div>
@@ -7969,7 +7874,7 @@ stream (see <a href="#204"><span class="should-keyword"><strong>SHOULD</strong><
 <div class="sect2">
 <h3 id="213"><a class="link" href="#213"><span class="must-keyword"><strong>MUST</strong></span> follow naming convention for event type names</a></h3>
 <div class="paragraph">
-<p>Event type names must (or should, see <a href="#223"><span class="must-keyword"><strong>MUST</strong></span>/<span class="should-keyword"><strong>SHOULD</strong></span> use functional naming schema</a> for details and definition)
+<p>Event type names must (or should, see <a href="#223">[223]</a> for details and definition)
 conform to the functional naming depending on the <a href="#219">audience</a> as follows:</p>
 </div>
 <div class="listingblock">
@@ -9623,7 +9528,7 @@ to see a list of all changes.</p>
 <p><code>2020-09-29</code>: include models for headers to be included by reference in API definitions (<a href="#183"><span class="should-keyword"><strong>SHOULD</strong></span> use only the specified LINZ headers</a>)</p>
 </li>
 <li>
-<p><code>2020-09-08</code>: add exception for legacy host names to <a href="#224"><span class="must-keyword"><strong>MUST</strong></span> follow naming convention for hostnames</a></p>
+<p><code>2020-09-08</code>: add exception for legacy host names to <a href="#224"><span class="must-keyword"><strong>MUST</strong></span> follow naming convention for hostnames ( Under Construction)</a></p>
 </li>
 <li>
 <p><code>2020-08-25</code>: change <a href="#240"><span class="should-keyword"><strong>SHOULD</strong></span> declare enum values using UPPER_SNAKE_CASE string</a> from <span class="must-keyword"><strong>MUST</strong></span> to <span class="should-keyword"><strong>SHOULD</strong></span>, explain exceptions</p>
