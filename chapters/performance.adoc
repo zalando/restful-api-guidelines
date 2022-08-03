@@ -44,7 +44,7 @@ via {Accept-Encoding} request header -- see also {RFC-7231}#section-5.3.4[RFC
 
 
 [#157]
-== {SHOULD} support partial responses via filtering
+== {MAY} support partial responses via filtering
 
 Depending on your use case and payload size, you can significantly reduce
 network bandwidth need by supporting filtering of returned entity fields.
@@ -136,7 +136,7 @@ anticipated by the consumer.
 
 
 [#158]
-== {SHOULD} allow optional embedding of sub-resources
+== {MAY} allow optional embedding of sub-resources
 
 Embedding related resources (also know as _Resource expansion_) is a
 great way to reduce the number of requests. In cases where clients know
