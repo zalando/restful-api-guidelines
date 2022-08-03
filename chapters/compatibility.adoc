@@ -185,9 +185,35 @@ these three ways:
 As we discourage versioning by all means because of the manifold disadvantages,
 we strongly recommend to only use the first two approaches.
 
+Further reading:
+https://blog.apisyouwonthate.com/api-versioning-has-no-right-way-f3c75457c0b7[API
+Versioning Has No "Right Way"] provides an overview on different versioning
+approaches to handle breaking changes without being opinionated.
+
+[#115]
+== {MUST} use URL versioning
+However, when API versioning is unavoidable, you have to design your
+multi-version RESTful APIs using url versioning (see <<114>>).
+
+If you want to route requests of different versions to different places, it's often easier for proxies/routers to do
+this based on URL path info than HTTP header info.
+
+But there are some Cons
+With URL versioning a (major) version number is included in the path, e.g.
+`/v1/customers`. The consumer has to wait until the provider has been released
+and deployed. If the consumer also supports hypermedia links — even in their
+APIs — to drive workflows (HATEOAS), this quickly becomes complex. So does
+coordinating version upgrades — especially with hyperlinked service
+dependencies — when using URL versioning.
+
+
+Media type versioning is less tightly coupled since
+it supports content negotiation and hence reduces complexity of release
+management. +
+However, Tyk doesn't read, the Accept: header which the is recommended for Content negotiation.
 
 [#114]
-== {MUST} use media type versioning
+== {MUST} not use media type versioning
 
 However, when API versioning is unavoidable, you have to design your
 multi-version RESTful APIs using media type versioning (see <<115>>).
@@ -249,25 +275,6 @@ Vary: Content-Type
 
 TIP: Until an incompatible change is necessary, it is recommended to stay
 with the standard `application/json` media type and do not use media type versioning.
-
-Further reading:
-https://blog.apisyouwonthate.com/api-versioning-has-no-right-way-f3c75457c0b7[API
-Versioning Has No "Right Way"] provides an overview on different versioning
-approaches to handle breaking changes without being opinionated.
-
-
-[#115]
-== {MUST} not use URL versioning
-
-With URL versioning a (major) version number is included in the path, e.g.
-`/v1/customers`. The consumer has to wait until the provider has been released
-and deployed. If the consumer also supports hypermedia links — even in their
-APIs — to drive workflows (HATEOAS), this quickly becomes complex. So does
-coordinating version upgrades — especially with hyperlinked service
-dependencies — when using URL versioning. To avoid this tighter coupling and
-complexer release management we do not use URL versioning, instead we <<114>>
-with content negotiation.
-
 
 [#110]
 == {MUST} always return JSON objects as top-level data structures
