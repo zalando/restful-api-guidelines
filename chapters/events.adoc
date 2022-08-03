@@ -1,7 +1,11 @@
 [[events]]
-= EVENT Basics - Event Types
+= EVENT Basics - Event Types ( Under Construction)
 
-Zalando’s architecture centers around decoupled microservices and in
+LINZ currently does not have a well defined Events Driven Architecture or Events Centre of Excellence (COE, COP),
+once it does then this section will be review and standards updated.
+
+
+LINZ architecture centers around decoupled microservices and in
 that context we favour asynchronous event driven approaches. The
 guidelines focus on how to design and publish events
 intended to be shared for others to consume.
