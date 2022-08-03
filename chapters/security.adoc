@@ -1,9 +1,11 @@
 [[security]]
-= REST Basics - Security
+= REST Basics - Security ( Under Construction)
 
+The entire Security Section is under review and will be updated after the auth work with keycloak and design becomes
+more apparent.
 
 [#104]
-== {MUST} secure endpoints
+== {MUST} secure endpoints ( Under Construction)
 
 Every API endpoint must be protected and armed with authentication and authorization.
 As part of the API definition you must specify how you protect your API using
@@ -51,7 +53,7 @@ because it exposes authentication server address details and may make use of red
 
 
 [#105]
-== {MUST} define and assign permissions (scopes)
+== {MUST} define and assign permissions (scopes) ( Under Construction)
 
 APIs must define permissions to protect their resources. Thus, at least one
 permission must be assigned to each API endpoint.
@@ -130,7 +132,7 @@ it is required and so to say implicitly defined via the security section.
 
 
 [#225]
-== {MUST} follow naming convention for permissions (scopes)
+== {MUST} follow naming convention for permissions (scopes) ( Under Construction)
 
 As long as the <<223,functional naming>> is not yet supported by our permission registry,
 permission names in APIs must conform to the following naming pattern:
