@@ -91,7 +91,7 @@ implicitly creating the resource before updating
 addressed by the URL with the representation passed in the payload (subsequent
 reads will deliver the same payload, plus possibly server-generated fields like `modified_at`)
 * successful {PUT} requests return {200} or {204} (if the resource was updated - 
-with or without returning the resource), {201} (if resources have been created) 
+with or without returning the resource), {201} (if the resource was created) 
 or {202} (if accepted and processed asynchronously).
 
 The updated/created resource may be returned as response payload. We recommend, 
@@ -127,7 +127,7 @@ by the URL"_.
 * on a successful {POST} request, the server will create one or multiple new
 resources and provide their URI/URLs in the response
 * successful {POST} requests return {200} or {204} (if the resource was updated - 
-with or without returning the resource), {201} (if resources have been created) 
+with or without returning the resource), {201} (if the resource was created) 
 or {202} (if accepted and processed asynchronously).
 
 *Note:* By using {POST} to create resources the resource ID must not be passed as
@@ -378,7 +378,7 @@ conditional key>> and <<231,secondary key>> pattern before the <<230,
 Idempotency Key>> pattern.
 
 Note, like for {PUT}, successful {POST} or {PATCH} returns {200} or {204} (if the resource 
-was updated - with or without returning the resource), or {201} (if resources have been created). 
+was updated - with or without returning the resource), or {201} (if resource was created). 
 Hence, clients can differentiate successful robust repetition from resource created
 server activity of idempotent {POST}.
 
