@@ -4314,19 +4314,24 @@ addressed by the URL with the representation passed in the payload (subsequent
 reads will deliver the same payload, plus possibly server-generated fields like <code>modified_at</code>)</p>
 </li>
 <li>
-<p>successful <a href="#put"><code>PUT</code></a> requests will usually generate <a href="#status-code-200" class="status-code">200</a> or <a href="#status-code-204" class="status-code">204</a> (if the
-resource was updated – with or without actual content returned), and <a href="#status-code-201" class="status-code">201</a> (if
-the resource was created)</p>
+<p>successful <a href="#put"><code>PUT</code></a> requests return <a href="#status-code-200" class="status-code">200</a> or <a href="#status-code-204" class="status-code">204</a> (if the resource was updated -
+with or without returning the resource), <a href="#status-code-201" class="status-code">201</a> (if the resource was created)
+or <a href="#status-code-202" class="status-code">202</a> (if accepted and processed asynchronously).</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p><strong>Important:</strong> It is good practice to prefer <a href="#post"><code>POST</code></a> over <a href="#put"><code>PUT</code></a> for creation of
-(at least top-level) resources. This leaves the resource identifier management under
-control of the service and not the client, and focuses <a href="#put"><code>PUT</code></a> on its usage for updates.
-However, in situations where all resource attributes including the identifier
+<p>The updated/created resource may be returned as response payload. We recommend,
+to not use it per default, but if the resource is enriched with server-generated
+fields like <code>version_number</code>. You may also support client side steering (see <a href="#181"><span class="may-keyword"><strong>MAY</strong></span> consider to support <code>Prefer</code> header to handle processing preferences</a>).</p>
+</div>
+<div class="paragraph">
+<p><strong>Important:</strong> It is good practice to keep the resource identifier management under
+control of the service provider and not the client, and, hence, to prefer <a href="#post"><code>POST</code></a> for
+creation of (at least top-level) resources, and focus <a href="#put"><code>PUT</code></a> on its usage for updates.
+However, in situations where the identifier and all resource attributes
 are under control of the client as input for the resource creation you should use
-<a href="#put"><code>PUT</code></a> and pass the resource identifier via the URL path.
+<a href="#put"><code>PUT</code></a> and pass the resource identifier as URL path parameter.
 Putting the same resource twice is required to be <a href="#idempotent">idempotent</a> and to result
 in the same single resource instance (see <a href="#149"><span class="must-keyword"><strong>MUST</strong></span> fulfill common method properties</a>) without data duplication in case of repetition.</p>
 </div>
@@ -4355,10 +4360,9 @@ by the URL"</em>.</p>
 resources and provide their URI/URLs in the response</p>
 </li>
 <li>
-<p>successful <a href="#post"><code>POST</code></a> requests will usually generate <a href="#status-code-200" class="status-code">200</a> (if resources have
-been updated), <a href="#status-code-201" class="status-code">201</a> (if resources have been created), <a href="#status-code-202" class="status-code">202</a> (if the request
-was accepted but has not been finished yet), and exceptionally <a href="#status-code-204" class="status-code">204</a> with
-<a href="https://tools.ietf.org/html/rfc7231#section-7.1.2"><code>Location</code></a> header (if the actual resource is not returned).</p>
+<p>successful <a href="#post"><code>POST</code></a> requests return <a href="#status-code-200" class="status-code">200</a> or <a href="#status-code-204" class="status-code">204</a> (if the resource was updated -
+with or without returning the resource), <a href="#status-code-201" class="status-code">201</a> (if the resource was created)
+or <a href="#status-code-202" class="status-code">202</a> (if accepted and processed asynchronously).</p>
 </li>
 </ul>
 </div>
@@ -4406,8 +4410,8 @@ instances</p>
 addressed by the URL as defined by the change request in the payload</p>
 </li>
 <li>
-<p>successful <a href="#patch"><code>PATCH</code></a> requests will usually generate <a href="#status-code-200" class="status-code">200</a> or <a href="#status-code-204" class="status-code">204</a> (if
-resources have been updated with or without updated content returned)</p>
+<p>successful <a href="#patch"><code>PATCH</code></a> requests return <a href="#status-code-200" class="status-code">200</a> or <a href="#status-code-204" class="status-code">204</a> (if the resource was updated -
+with or without returning the resource).</p>
 </li>
 </ul>
 </div>
@@ -4477,8 +4481,8 @@ collection resources, as this would imply deleting the entire collection.</p>
 parameters on the collection resource (see <a href="#delete-with-query-params">DELETE with query parameters</a>).</p>
 </li>
 <li>
-<p>successful <a href="#delete"><code>DELETE</code></a> requests will usually generate <a href="#status-code-200" class="status-code">200</a> (if the deleted
-resource is returned) or <a href="#status-code-204" class="status-code">204</a> (if no content is returned).</p>
+<p>successful <a href="#delete"><code>DELETE</code></a> requests return <a href="#status-code-200" class="status-code">200</a> or <a href="#status-code-204" class="status-code">204</a> (if the resource was deleted -
+with or without returning the resource).</p>
 </li>
 <li>
 <p>failed <a href="#delete"><code>DELETE</code></a> requests will usually generate <a href="#status-code-404" class="status-code">404</a> (if the resource cannot
@@ -4792,6 +4796,12 @@ following table showing the major properties of each pattern:</p>
 </div>
 <div class="paragraph">
 <p>If you mainly aim to support safe retries, we suggest to apply <a href="#182">conditional key</a> and <a href="#231">secondary key</a> pattern before the <a href="#230">Idempotency Key</a> pattern.</p>
+</div>
+<div class="paragraph">
+<p>Note, like for <a href="#put"><code>PUT</code></a>, successful <a href="#post"><code>POST</code></a> or <a href="#patch"><code>PATCH</code></a> returns <a href="#status-code-200" class="status-code">200</a> or <a href="#status-code-204" class="status-code">204</a> (if the resource
+was updated - with or without returning the resource), or <a href="#status-code-201" class="status-code">201</a> (if resource was created).
+Hence, clients can differentiate successful robust repetition from resource created
+server activity of idempotent <a href="#post"><code>POST</code></a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -5261,15 +5271,16 @@ a clear description of the HTTP status code in the response.</p>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="status-code-200"></a><a href="#status-code-200" class="status-code">200</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">OK - this is the standard success response</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OK - this is the most general success response and used,
+if the more specific codes below are not applicable.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>&lt;all&gt;</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="status-code-201"></a><a href="#status-code-201" class="status-code">201</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Created - Returned on successful entity creation. You are
-free to return either an empty response or the created resource in conjunction
-with the Location header. (More details found in the <a href="#standard-headers">[standard-headers]</a>.)
-<em>Always</em> set the Location header.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Created - Returned on successful resource creation.
+<a href="#status-code-201" class="status-code">201</a> is returned with or without response payload (unlike <a href="#status-code-200" class="status-code">200</a> / <a href="#status-code-204" class="status-code">204</a>).
+We recommend to additionally return the created resource URL via the <code>Location</code>
+response header (see <a href="#standard-headers">[standard-headers]</a>).</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#post"><code>POST</code></a>, <a href="#put"><code>PUT</code></a></p></td>
 </tr>
 <tr>
@@ -5279,7 +5290,7 @@ with the Location header. (More details found in the <a href="#standard-headers"
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="status-code-204"></a><a href="#status-code-204" class="status-code">204</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No content - There is no response body.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No content - Returned instead of <a href="#status-code-200" class="status-code">200</a>, if no response payload is returned.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#put"><code>PUT</code></a>, <a href="#patch"><code>PATCH</code></a>, <a href="#delete"><code>DELETE</code></a></p></td>
 </tr>
 <tr>
@@ -5389,8 +5400,10 @@ to the Accept headers sent in the request.</p></td>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="status-code-409"></a><a href="#status-code-409" class="status-code">409</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Conflict - request cannot be completed due to conflict with the current state of the target resource.
-For instance, in situations where two clients try to create the same resource or if there are
-concurrent, conflicting updates.</p></td>
+For example, you may get a <a href="#status-code-409" class="status-code">409</a> response when updating a resource that is older than the existing
+one on the server, resulting in a version control conflict.
+Hint, you should not return <a href="#status-code-409" class="status-code">409</a>, but <a href="#status-code-200" class="status-code">200</a> or <a href="#status-code-204" class="status-code">204</a> in case of successful robust creation of resources
+(via <a href="#put"><code>PUT</code></a> or <a href="#post"><code>POST</code></a>), if the resource already exists.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#post"><code>POST</code></a>, <a href="#put"><code>PUT</code></a>, <a href="#patch"><code>PATCH</code></a>, <a href="#delete"><code>DELETE</code></a></p></td>
 </tr>
 <tr>
@@ -10071,7 +10084,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-07-21 12:28:00 UTC
+Last updated 2022-08-17 09:42:11 UTC
 </div>
 </div>
 </body>
