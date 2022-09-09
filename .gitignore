@@ -3,3 +3,6 @@
 output/
 .project
 .idea
+.metals
+.vscode
+.DS_Store

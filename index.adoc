@@ -85,7 +85,7 @@
 :MUST-SHOULD: pass:[<span class="must-keyword"><strong>MUST</strong></span>/<span class="should-keyword"><strong>SHOULD</strong></span>]
 
 // Attributes to improvement design of common table elements.
-:NO: pass:[<span class="must-keyword">&#x2717;</span> No]
+:NO: pass:[<span class="must-keyword">&#x274C;</span> No]
 :YES: pass:[<span class="may-keyword">&#x2714;</span> Yes]
 :AT: pass:[<span class="should-keyword">&#x26a0;&#xFE0F;</span>]
 

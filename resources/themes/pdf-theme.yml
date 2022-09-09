@@ -1,0 +1,23 @@
+extends: base
+base:
+  font-family: NotoSerif
+font:
+  catalog:
+    merge: false
+    Ubuntu:
+      normal: Ubuntu/Ubuntu-Regular.ttf
+      italic: Ubuntu/Ubuntu-Italic.ttf
+      bold: Ubuntu/Ubuntu-Bold.ttf
+      bold_italic: Ubuntu/Ubuntu-BoldItalic.ttf
+    NotoSerif:
+      normal: Noto_Serif/NotoSerif-Regular.ttf
+      italic: Noto_Serif/NotoSerif-Italic.ttf
+      bold: Noto_Serif/NotoSerif-Bold.ttf
+      bold_italic: Noto_Serif/NotoSerif-BoldItalic.ttf
+    Noto_Emoji:
+      normal: Noto_Emoji/NotoEmoji-Regular.ttf
+      italic: Noto_Emoji/NotoEmoji-Regular.ttf
+      bold: Noto_Emoji/NotoEmoji-Bold.ttf
+      bold_italic: Noto_Emoji/NotoEmoji-Bold.ttf
+  fallbacks:
+    - Noto_Emoji
