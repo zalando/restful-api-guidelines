@@ -83,6 +83,7 @@
 :SHOULD: pass:[<span class="should-keyword"><strong>SHOULD</strong></span>]
 :MAY: pass:[<span class="may-keyword"><strong>MAY</strong></span>]
 :MUST-SHOULD: pass:[<span class="must-keyword"><strong>MUST</strong></span>/<span class="should-keyword"><strong>SHOULD</strong></span>]
+:MUST-SHOULD-MAY: pass:[<span class="must-keyword"><strong>MUST</strong></span>/<span class="should-keyword"><strong>SHOULD</strong></span>/<span class="may-keyword"><strong>MAY</strong></span>]
 
 // Attributes to improvement design of common table elements.
 :NO: pass:[<span class="must-keyword">&#x2717;</span> No]
