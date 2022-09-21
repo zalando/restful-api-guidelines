@@ -180,7 +180,7 @@ For details and more information on audience groups see the
 
 
 [#223]
-== {MUST-SHOULD} use functional naming schema
+== {MUST-SHOULD-MAY} use functional naming schema
 
 Functional naming is a powerful, yet easy way to align global resources as
 _host_, _permission_, and _event names_ within an application landscape. It
