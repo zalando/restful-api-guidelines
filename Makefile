@@ -63,7 +63,9 @@ html: check assets pull
 	  -D $(DIRMOUNTS)/$(DIRBUILDS) index.adoc;
 
 pdf: check pull
-	docker run -v $(DIRWORK):$(DIRMOUNTS)/ ${DOCKER} asciidoctor-pdf \
+	docker run -v $(DIRWORK):$(DIRMOUNTS)/ ${DOCKER} asciidoctor-pdf -v \
+		-a pdf-fontsdir=$(DIRMOUNTS)/resources/fonts \
+		-a pdf-theme=$(DIRMOUNTS)/resources/themes/pdf-theme.yml \
 	  -D $(DIRMOUNTS)/$(DIRBUILDS) index.adoc;
 	mv -f $(DIRBUILDS)/index.pdf $(DIRBUILDS)/zalando-guidelines.pdf;
 
