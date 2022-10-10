@@ -159,8 +159,7 @@ the OpenAPI specification and must conform to the following specification:
 reason a smaller audience group is intentionally included in the wider group
 and thus does not need to be declared additionally. If parts of your API have
 a different target audience, we recommend to split API specifications along
-the target audience — even if this creates redundancies
-({api-audience-narrative}[rationale (internal_link)]).
+the target audience.
 
 Example:
 
@@ -175,12 +174,10 @@ info:
   <...>
 ----
 
-For details and more information on audience groups see the
-{api-audience-narrative}[API Audience narrative (internal_link)].
 
 
 [#223]
-== {MUST-SHOULD-MAY} use functional naming schema
+== {MUST-SHOULD} use functional naming schema
 
 Functional naming is a powerful, yet easy way to align global resources as
 _host_, _permission_, and _event names_ within an application landscape. It
@@ -216,17 +213,6 @@ Please see the following rules for detailed functional naming patterns:
 * <<224>>
 * <<213>>
 // * <<225>>
-
-
-*Internal Guideance*:  You _must_ use the simple
-{functional-name-registry}[functional name registry (internal_link)] 
-to register your functional name before using
-it. The registry is a centralized infrastructure service to ensure uniqueness
-of your functional names (and available domains -- including subdomains) and
-to support hostname DNS resolution. +
-_Hint:_ Due to lexicalic restrictions of DNS names there is no specific separator
-to split a functional name into (sub) domain and component; this knowledge is only
-managed in the registry.
 
 
 [#224]

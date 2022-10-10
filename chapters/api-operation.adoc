@@ -10,6 +10,7 @@ APIs. While this is optional for internal APIs, i.e. APIs marked with the
 *component-internal* <<219, API audience>> group, we still recommend to do so
 to profit from the API management infrastructure.
 
+// TODO: Repurose for IST.
 An API is published by copying its *OpenAPI specification* into the reserved
 */zalando-apis* directory of the *deployment artifact* used to deploy the
 provisioning service. The directory must only contain *self-contained YAML*

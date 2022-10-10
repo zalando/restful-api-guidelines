@@ -346,11 +346,6 @@ according to the Business Partner ID extracted from the OAuth token when
 a request from a Business Partner hits the Zalando Platform.
 |9f8b3ca3-4be5-436c-a847-9cd55460c495
 
-|[[x-sales-channel]]{X-Sales-Channel}|String|
-Sales channels are owned by retailers and represent a specific consumer segment
-being addressed with a specific product assortment that is offered via CFA
-retailer catalogs to consumers (see {glossary}[fashion platform glossary (internal_link)]).
-|52b96501-0f8d-43e7-82aa-8a96fab134d7
 
 |[[x-frontend-type]]{X-Frontend-Type}|String|
 Consumer facing applications (CFAs) provide business experience to their
@@ -407,10 +402,10 @@ parameters:
 - $ref: "https://opensource.zalando.com/restful-api-guidelines/models/response-headers-1.0.0.yaml#/Cache-Control"
 ----
 
-*Hint:* This guideline does not standardize proprietary headers for 
+*Hint:* This guideline does not standardize proprietary headers for
 our specific gateway components (2. use case above).
-This include, for instance, non pass-through headers `X-Zalando-Client-ID`, `X-Zalando-Request-Host`, 
-`X-Zalando-Request-URI` defined by Fashion Shop API (RKeep), or `X-Consumer`, `X-Consumer-Signature`, 
+This include, for instance, non pass-through headers `X-Zalando-Client-ID`, `X-Zalando-Request-Host`,
+`X-Zalando-Request-URI` defined by Fashion Shop API (RKeep), or `X-Consumer`, `X-Consumer-Signature`,
 `X-Consumer-Key-ID` defined by Merchant API gateway.
 All these proprietary headers are allowlisted in the API Linter (Zally) checking this rule.
 
@@ -469,13 +464,6 @@ The following formats are allowed:
 format or length, it must define this restriction in its API specification,
 and be generous and remove invalid characters or cut the length to the
 supported limit.
-
-*Hint:* In case distributed tracing is supported by 
-{SRE-open-tracing}[OpenTracing (internal_link)] 
-you should ensure that created _spans_ are tagged using `flow_id` — see
-{SRE-open-tracing}/blob/master/wg-semantic-conventions/best-practices/flowid.md[How to Connect Log Output with OpenTracing Using Flow-IDs (internal_link)] 
-or
-{SRE-open-tracing}/blob/master/wg-semantic-conventions/best-practices.md[Best practises (internal_link)].
 
 === Service Guidance
 

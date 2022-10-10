@@ -25,13 +25,6 @@ teams to use, typically in an _Event Type Registry_. Each event
 published can then be validated against the overall structure of its
 event type and the schema for its custom data.
 
-The basic model described above was originally developed in the
-https://github.com/zalando/nakadi[Nakadi project], which acts as a
-reference implementation (see also {nakadi-api}[Nakadi API (internal_link)])
-of the event type registry, and as a validating
-publish/subscribe broker for event producers and consumers.
-
-
 [#208]
 == {MUST} define events compliant with overall API guidelines
 

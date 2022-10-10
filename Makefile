@@ -1,4 +1,4 @@
-SHELL := /bin/bash 
+SHELL := /bin/bash
 DOCKER := asciidoctor/docker-asciidoctor:latest
 DIRMOUNTS := /documents
 DIRCONTENTS := chapters
@@ -63,13 +63,11 @@ html: check assets pull
 	  -D $(DIRMOUNTS)/$(DIRBUILDS) index.adoc;
 
 pdf: check pull
-	docker run -v $(DIRWORK):$(DIRMOUNTS)/ ${DOCKER} asciidoctor-pdf -v \
-		-a pdf-fontsdir=$(DIRMOUNTS)/resources/fonts \
-		-a pdf-theme=$(DIRMOUNTS)/resources/themes/pdf-theme.yml \
+	docker run -v $(DIRWORK):$(DIRMOUNTS)/ ${DOCKER} asciidoctor-pdf \
 	  -D $(DIRMOUNTS)/$(DIRBUILDS) index.adoc;
-	mv -f $(DIRBUILDS)/index.pdf $(DIRBUILDS)/zalando-guidelines.pdf;
+	mv -f $(DIRBUILDS)/index.pdf $(DIRBUILDS)/IST-REST-guidelines.pdf;
 
 epub: check pull
 	docker run -v $(DIRWORK):$(DIRMOUNTS)/ ${DOCKER} asciidoctor-epub3 \
 	  -D $(DIRMOUNTS)/$(DIRBUILDS) index.adoc;
-	mv -f $(DIRBUILDS)/index.epub $(DIRBUILDS)/zalando-guidelines.epub;
+	mv -f $(DIRBUILDS)/index.epub $(DIRBUILDS)/IST-REST-guidelines.epub;

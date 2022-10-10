@@ -12,23 +12,20 @@ You must follow the <<api-first, API First Principle>>, more specifically:
 
 * You must define APIs first, before coding its implementation, <<101, using
   OpenAPI as specification language>>
-* You must design your APIs consistently with these guidelines; use our
-  {zally-ui}[API Linter Service (internal_link)] 
+* You must design your APIs consistently with these guidelines; use {api-linter}[API Linter]
   for automated rule checks.
-* You must call for early review feedback from peers and client developers, and apply 
-  {api-review-proc}[our lightweight API review process (internal_link)] 
-  for all component external APIs, i.e. all apis 
+* You must call for early review feedback from peers and client developers, and apply
+  {api-review-proc}[our lightweight API review process (internal_link)]
+  for all component external APIs, i.e. all apis
   with `x-api-audience =/= component-internal` (see <<219>>).
 
 
 [#101]
-== {MUST} provide API specification using OpenAPI
+== {MUST} provide API specification using OpenAPI v3
 
 We use the http://swagger.io/specification/[OpenAPI specification] as standard
 to define API specification files. API designers are required to provide the API
 specification using a single *self-contained YAML* file to improve readability.
-We encourage to use *OpenAPI 3.0* version, but still support *OpenAPI 2.0*
-(a.k.a. Swagger 2).
 
 The API specification files should be subject to version control using a source
 code management system - best together with the implementing sources.
@@ -43,17 +40,6 @@ our https://plugins.jetbrains.com/search?search=swagger+Monte[Swagger Plugin
 for IntelliJ IDEA] to create your first API. To explore and validate/evaluate
 existing APIs the https://editor.swagger.io/[Swagger Editor] or our
 https://apis.zalando.net[API Portal] may be a good starting point.
-
-*Hint:* We do not yet provide guidelines for https://graphql.org/[GraphQL].
-Following our {techradar-public}[Zalando Tech Radar (internal_link)], 
-we focus on resource oriented HTTP/REST API style
-(and related tooling and infrastructure support) for general purpose
-peer-to-peer microservice communication. Here, we think that GraphQL has no
-major benefits, but a couple of downsides compared to REST. However, GraphQL
-can provide a lot of value for specific target domain problems, especially
-backends for frontends (BFF) and mobile clients, and here we already make use
-of GraphQL as API technology for our DX Interface Framework.
-
 
 [#102]
 == {SHOULD} provide API user manual
@@ -76,7 +62,7 @@ to include a link to the API user manual into the API specification using the
 
 
 [#103]
-== {MUST} write APIs using U.S. English
+== {MUST} write APIs using U.K. English
 
 
 [#234]
@@ -88,23 +74,3 @@ should not contain references to local or remote content, e.g. `../fragment.yaml
 The reason is, that the content referred to is _in general_ *not durable* and
 *not immutable*. As a consequence, the semantic of an API may change in
 unexpected ways. (For example, the second link is already outdated due to code restructuring.)
-
-However, you may use remote references to resources accessible by the following
-service URLs:
-
-* `{api-repository} (internal_link)` {dash} used 
-  to refer to user-defined, immutable API specification revisions published via the
-  internal API repository.
-* `https://opensource.zalando.com/restful-api-guidelines/{model.yaml}` {dash} used
-  to refer to guideline-defined re-usable API fragments (see `{model.yaml}` files in
-  https://github.com/zalando/restful-api-guidelines/tree/main/models[restful-api-guidelines/models]
-  for details).
-
-*Hint:* The formerly used remote references to the `Problem` API fragment
-(aliases `https://opensource.zalando.com/problem/` and
-`https://zalando.github.io/problem/`) are deprecated, but still supported for
-compatibility (<<176>> on how to replace).
-
-As we control these URLs, we ensure that their content is *durable* and
-*immutable*. This allows to define API specifications by using fragments
-published via these sources, as suggested in <<151>>.

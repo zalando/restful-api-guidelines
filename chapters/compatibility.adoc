@@ -13,8 +13,8 @@ consumers that cannot be broken via unilateral decisions.
 There are two techniques to change APIs without breaking them:
 
 * follow rules for compatible extensions
-* introduce new API versions and still support older versions with 
-  https://opensource.zalando.com/restful-api-guidelines/#deprecation[deprecation]
+* introduce new API versions and still support older versions with <<deprecation,
+Deprecation>>
 
 We strongly encourage using compatible API extensions and discourage versioning
 (see <<113>> and <<114>> below). The following guidelines for service providers
@@ -197,7 +197,7 @@ management.
 
 Version information and media type are provided
 together via the HTTP `Content-Type` header — e.g.
-`application/x.zalando.cart+json;version=2`. For incompatible changes, a new
+`application/x.api.ist+json;version=2`. For incompatible changes, a new
 media type version for the resource is created. To generate the new
 representation version, consumer and producer can do <<244, content negotiation>> using
 the HTTP `Content-Type` and `Accept` headers.
@@ -214,7 +214,7 @@ Custom media type format should have the following pattern:
 application/x.<custom-media-type>+json;version=<version>
 ----
 
-* `<custom-media-type>` is a custom type name, e.g. `x.zalando.cart`
+* `<custom-media-type>` is a custom type name, e.g. `x.api.ist`
 * `<version>` is a (sequence) number, e.g. `2`
 
 === Example
@@ -223,7 +223,7 @@ In this example, a client wants only the new version of the response:
 
 [source,http]
 ----
-Accept: application/x.zalando.cart+json;version=2
+Accept: application/x.api.ist+json;version=2
 ----
 
 A server responding to this, as well as a client sending a request with content
@@ -232,12 +232,12 @@ version:
 
 [source,http]
 ----
-Content-Type: application/x.zalando.cart+json;version=2
+Content-Type: application/x.api.ist+json;version=2
 ----
 
 Media type versioning should...
 
-* Use a custom media type, e.g. `application/x.zalando.cart+json`
+* Use a custom media type, e.g. `application/x.api.ist+json`
 * Include media type versions in request and response headers to increase visibility
 * Include `Content-Type` in the `Vary` header to enable proxy caches to differ
   between versions
@@ -283,7 +283,7 @@ level data structures, since they don't support compatible, future extensions.
 
 
 [#112]
-== {SHOULD} used open-ended list of values (`x-extensible-enum`) for enumerations
+== {SHOULD} use open-ended list of values (`x-extensible-enum`) for enumerations
 
 Enumerations are per definition closed sets of values that are assumed to be
 complete and not intended for extension. This closed principle of enumerations
@@ -314,9 +314,8 @@ most tools.
 
 See <<240>> about enum value naming conventions.
 
-*Important:* Clients must be prepared for extensions of enums returned with server responses, i.e. 
-must implement a fallback / default behavior to handle unknown new enum values -- see <<108>>. 
-API owners must take care to extend enums in a compatible way that does not change the 
-semantics of already existing enum values, for instance, do not split an old enum value 
-into two new enum values. 
-
+*Important:* Clients must be prepared for extensions of enums returned with server responses, i.e.
+must implement a fallback / default behavior to handle unknown new enum values -- see <<108>>.
+API owners must take care to extend enums in a compatible way that does not change the
+semantics of already existing enum values, for instance, do not split an old enum value
+into two new enum values.
