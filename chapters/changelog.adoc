@@ -11,7 +11,7 @@ Major changes are listed as "Rule Changes" below.
 *Hint:* Most recent major changes might be missing in the list since we update it
 only occasionally, not with each pull request, to avoid merge commits.
 Please have a look at the
-https://github.com/zalando/restful-api-guidelines/commits/master[commit list in Github]
+https://github.com/ist-group/restful-api-guidelines/commits/main[commit list in Github]
 to see a list of all changes.
 
 [[rule-changes]]

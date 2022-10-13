@@ -1,7 +1,7 @@
 [[events]]
 = EVENT Basics - Event Types
 
-Zalando’s architecture centers around decoupled microservices and in
+IST's architecture {SHOULD} center around decoupled microservices and in
 that context we favour asynchronous event driven approaches. The
 guidelines focus on how to design and publish events
 intended to be shared for others to consume.

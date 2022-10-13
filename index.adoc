@@ -65,7 +65,7 @@
 :ISO-4217: https://en.wikipedia.org/wiki/ISO_4217
 
 // links to internal
-:api-guild: https://educloud.ist.com/api-docs/
+:api-guild: https://educloud.ist.com/
 :api-linter: https://stash.ist.com/projects/TI/repos/api-linter/browse
 :api-review-proc: https://api.docs.zalando.net/howto/request-review/
 :api-portal: https://educloud.ist.com
