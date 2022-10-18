@@ -409,7 +409,7 @@ parameters:
 
 *Hint:* This guideline does not standardize proprietary headers for 
 our specific gateway components (2. use case above).
-This include, for instance, non pass-through headers `X-Zalando-Client-ID`, `X-Zalando-Request-Host`, 
+This include, for instance, non pass-through headers `X-Zalando-Customer`, `X-Zalando-Client-ID`, `X-Zalando-Request-Host`, 
 `X-Zalando-Request-URI` defined by Fashion Shop API (RKeep), or `X-Consumer`, `X-Consumer-Signature`, 
 `X-Consumer-Key-ID` defined by Merchant API gateway.
 All these proprietary headers are allowlisted in the API Linter (Zally) checking this rule.
