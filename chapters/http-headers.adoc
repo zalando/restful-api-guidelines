@@ -326,7 +326,8 @@ Fashion Shop API or Merchant API gateway.
 Below, we explicitly define the list of proprietary header exceptions usable for
 all services for passing through generic context information of our fashion domain (use case 1).
 
-Per convention, non standardized, proprietary header names are prefixed with  `X-`.
+Per convention, non standardized, proprietary header names are prefixed with  `X-`
+and use the dash (`-`) as separator (dash-case). 
 (Due to backward compatibility, we do not follow the Internet Engineering Task Force’s
 recommendation in {RFC-6648}[RFC 6648] to deprecate usage of  `X-` headers.)
 Remember that HTTP header field names are not case-sensitive:
@@ -409,7 +410,7 @@ parameters:
 
 *Hint:* This guideline does not standardize proprietary headers for 
 our specific gateway components (2. use case above).
-This include, for instance, non pass-through headers `X-Zalando-Client-ID`, `X-Zalando-Request-Host`, 
+This include, for instance, non pass-through headers `X-Zalando-Customer`, `X-Zalando-Client-ID`, `X-Zalando-Request-Host`, 
 `X-Zalando-Request-URI` defined by Fashion Shop API (RKeep), or `X-Consumer`, `X-Consumer-Signature`, 
 `X-Consumer-Key-ID` defined by Merchant API gateway.
 All these proprietary headers are allowlisted in the API Linter (Zally) checking this rule.
