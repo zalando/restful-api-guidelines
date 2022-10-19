@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.17">
+<meta name="generator" content="Asciidoctor 2.0.18">
 <meta name="keywords" content="Zalando, Guidelines, RESTful, API, Events, Schema">
 <meta name="copyright" content="CC-BY-SA 4.0">
 <title>Zalando RESTful API and Event Guidelines</title>
@@ -6102,7 +6102,8 @@ Fashion Shop API or Merchant API gateway.</p>
 all services for passing through generic context information of our fashion domain (use case 1).</p>
 </div>
 <div class="paragraph">
-<p>Per convention, non standardized, proprietary header names are prefixed with  <code>X-</code>.
+<p>Per convention, non standardized, proprietary header names are prefixed with  <code>X-</code>
+and use the dash (<code>-</code>) as separator (dash-case).
 (Due to backward compatibility, we do not follow the Internet Engineering Task Force’s
 recommendation in <a href="https://tools.ietf.org/html/rfc6648">RFC 6648</a> to deprecate usage of  <code>X-</code> headers.)
 Remember that HTTP header field names are not case-sensitive:</p>
@@ -6217,7 +6218,7 @@ you can simply reference it when defining the API endpoint requests e.g.</p>
 <div class="paragraph">
 <p><strong>Hint:</strong> This guideline does not standardize proprietary headers for
 our specific gateway components (2. use case above).
-This include, for instance, non pass-through headers <code>X-Zalando-Client-ID</code>, <code>X-Zalando-Request-Host</code>,
+This include, for instance, non pass-through headers <code>X-Zalando-Customer</code>, <code>X-Zalando-Client-ID</code>, <code>X-Zalando-Request-Host</code>,
 <code>X-Zalando-Request-URI</code> defined by Fashion Shop API (RKeep), or <code>X-Consumer</code>, <code>X-Consumer-Signature</code>,
 <code>X-Consumer-Key-ID</code> defined by Merchant API gateway.
 All these proprietary headers are allowlisted in the API Linter (Zally) checking this rule.</p>
@@ -10084,7 +10085,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-09-21 08:12:22 UTC
+Last updated 2022-10-19 06:09:40 UTC
 </div>
 </div>
 </body>
