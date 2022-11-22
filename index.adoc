@@ -1,4 +1,4 @@
-:stylesheet: zalando.css
+:stylesheet: hypatos.css
 :source-highlighter: coderay
 :toc: macro
 :toclevels: 2
@@ -6,9 +6,9 @@
 :sectlinks:
 :sectnumlevels: 1
 
-:creator: Zalando SE
+:creator: Hypatos
 :producer: Asciidoctor
-:keywords: Zalando, Guidelines, RESTful, API, Events, Schema
+:keywords: Hypatos, Guidelines, RESTful, API, Events, Schema
 :copyright: CC-BY-SA 4.0
 
 // Unified character short cut.
@@ -230,13 +230,11 @@
 :RFC-cacheable: pass:[<a href="https://tools.ietf.org/html/rfc7231#section-4.2.3">cacheable</a>]
 
 
-= Zalando RESTful API and Event Guidelines
-link:https://github.com/zalando/restful-api-guidelines[Github Repository] as part of 
-link:https://opensource.zalando.com/[Zalando SE Opensource]
+= Hypatos RESTful API and Event Guidelines
 
-image::assets/api-zalando-small.jpg[API Guild Logo]
+image::assets/hypatos-logo.svg[Hypatos]
 
-Other formats: link:zalando-guidelines.pdf[PDF], link:zalando-guidelines.epub[EPUB3] +
+Other formats: link:hypatos-guidelines.pdf[PDF], link:hypatos-guidelines.epub[EPUB3] +
 
 ifndef::ebook-format[]
 toc::[]
@@ -254,39 +252,39 @@ include::chapters/meta-information.adoc[]
 
 include::chapters/security.adoc[]
 
-include::chapters/data-formats.adoc[]
+//include::chapters/data-formats.adoc[]
 
-include::chapters/urls.adoc[]
+//include::chapters/urls.adoc[]
 
-include::chapters/json-guidelines.adoc[]
+//include::chapters/json-guidelines.adoc[]
 
-include::chapters/http-requests.adoc[]
+//include::chapters/http-requests.adoc[]
 
-include::chapters/http-status-codes-and-errors.adoc[]
+//include::chapters/http-status-codes-and-errors.adoc[]
 
-include::chapters/http-headers.adoc[]
+//include::chapters/http-headers.adoc[]
 
-include::chapters/hyper-media.adoc[]
+//include::chapters/hyper-media.adoc[]
 
-include::chapters/performance.adoc[]
+//include::chapters/performance.adoc[]
 
-include::chapters/pagination.adoc[]
+//include::chapters/pagination.adoc[]
 
-include::chapters/compatibility.adoc[]
+//include::chapters/compatibility.adoc[]
 
-include::chapters/deprecation.adoc[]
+//include::chapters/deprecation.adoc[]
 
-include::chapters/api-operation.adoc[]
+//include::chapters/api-operation.adoc[]
 
-include::chapters/events.adoc[]
+//include::chapters/events.adoc[]
 
-include::chapters/references.adoc[]
+//include::chapters/references.adoc[]
 
-include::chapters/tooling.adoc[]
+//include::chapters/tooling.adoc[]
 
-include::chapters/best-practices.adoc[]
+//include::chapters/best-practices.adoc[]
 
-include::chapters/changelog.adoc[]
+//include::chapters/changelog.adoc[]
 
 ++++
 <!-- Adds rule id as a postfix to all rule titles -->

@@ -2,7 +2,7 @@
 = REST Basics - Security
 
 
-[#104]
+[#109]
 == {MUST} secure endpoints
 
 Every API endpoint must be protected and armed with authentication and authorization.
@@ -50,15 +50,13 @@ if your service does not fully support it and implements a simple bearer token s
 because it exposes authentication server address details and may make use of redirection.
 
 
-[#105]
+[#110]
 == {MUST} define and assign permissions (scopes)
 
 APIs must define permissions to protect their resources. Thus, at least one
 permission must be assigned to each API endpoint.
 
-The naming schema for permissions corresponds to the naming schema for <<224,
-hostnames>> and <<213, event type names>>. Please refer to <<225>> for
-designing permission names and see the following examples.
+Please refer to <<111>> for designing permission names and see the following examples.
 
 [cols="25%,20%,15%,40%",options="header",]
 |=======================================================================
@@ -69,24 +67,6 @@ designing permission names and see the following examples.
 | `business-partner-service` | |`read` | `business-partner-service.read`
 |=======================================================================
 
-////
-//Prepared change for functional permission names:
-
-[cols="15%,15%,15%,15%,40%",options="header",]
-|=======================================================================
-| Domain | Component | Resource | Access Type | Example
-| finance | exchange-rate | - | write | z::finance.exchange-rate.write
-| transactions | order | - | read | z::transactions.order.read
-| customer | address | shipment-address | read  | z::customer.address.shipment-address.read
-|=======================================================================
-[cols="30%,15%,15%,40%",options="header",]
-|=======================================================================
-| Application | Resource | Access Type | Example
-| business-partner-service | | - | read | z::business-partner-service.read
-| order-management | sales-order | write | z::order-management.sales-order.write
-|=======================================================================
-
-////
 
 *Note:* APIs should stick to component specific permissions without resource
 extension to avoid the complexity of too many fine grained permissions. For the
@@ -94,7 +74,7 @@ majority of use cases, restricting access for specific API endpoints using read
 or write is sufficient.
 
 The defined permissions are than assigned to each API endpoint based on the
-security schema (see example in <<104, previous section>>) by specifying the
+security schema (see example in <<109>>) by specifying the
 https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#securityRequirementObject[security requirement]
 as follows:
 
@@ -129,11 +109,10 @@ paths:
 it is required and so to say implicitly defined via the security section.
 
 
-[#225]
+[#111]
 == {MUST} follow naming convention for permissions (scopes)
 
-As long as the <<223,functional naming>> is not yet supported by our permission registry,
-permission names in APIs must conform to the following naming pattern:
+Permission names in APIs must conform to the following naming pattern:
 
 [source,bnf]
 -----
@@ -151,37 +130,3 @@ permission names in APIs must conform to the following naming pattern:
 -----
 
 This pattern is compatible with the previous definition.
-
-////
-//Prepared change for functional permission names:
-Permission names in APIs must, respectively should conform to the functional
-naming depending on the <<219, audience>> as follows (see <<223>> for details
-and `<functional-name>` definition):
-
-[source,bnf]
------
-<permission> ::= <functional-permission> |
-                 <standard-permission> |  -- standard permission without functional naming
-                 <resource-permission> |  -- resource permission without functional naming
-                 <pseudo-permission>      -- used to indicate unrestricted access
-
-<functional-permission> ::= z::<functional-name>[.<resource-name>].<access-mode>
-<pseudo-permission>     ::= uid
-
-<resource-name>       ::= [a-z][a-z0-9-]*  -- free resource identifier
-<access-mode>         ::= read || write    -- might be extended in future
------
-
-The following application specific legacy convention is *only* allowed for
-permissions names of <<223, internal>> APIs:
-
-[source,bnf]
------
-<standard-permission> ::= <application-id>.<access-mode>
-<resource-permission> ::= <application-id>.<resource-name>.<access-mode>
-
-<application-id>      ::= [a-z][a-z0-9-]*  -- application identifier
-
------
-
-////

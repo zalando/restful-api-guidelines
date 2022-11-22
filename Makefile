@@ -52,7 +52,6 @@ assets:
 	cp -r assets $(DIRBUILDS)/;
 	cp -r models $(DIRBUILDS)/;
 	cp -r models/{problem-1.0.{0,1},money-1.0.0}.yaml $(DIRBUILDS);
-	cp -r -n legacy/* $(DIRBUILDS);
 
 rules: check-rules
 	$(DIRSCRIPTS)/generate-rules-json.sh  | \
@@ -67,9 +66,9 @@ pdf: check pull
 		-a pdf-fontsdir=$(DIRMOUNTS)/resources/fonts \
 		-a pdf-theme=$(DIRMOUNTS)/resources/themes/pdf-theme.yml \
 	  -D $(DIRMOUNTS)/$(DIRBUILDS) index.adoc;
-	mv -f $(DIRBUILDS)/index.pdf $(DIRBUILDS)/zalando-guidelines.pdf;
+	mv -f $(DIRBUILDS)/index.pdf $(DIRBUILDS)/hypatos-guidelines.pdf;
 
 epub: check pull
 	docker run -v $(DIRWORK):$(DIRMOUNTS)/ ${DOCKER} asciidoctor-epub3 \
 	  -D $(DIRMOUNTS)/$(DIRBUILDS) index.adoc;
-	mv -f $(DIRBUILDS)/index.epub $(DIRBUILDS)/zalando-guidelines.epub;
+	mv -f $(DIRBUILDS)/index.epub $(DIRBUILDS)/hypatos-guidelines.epub;

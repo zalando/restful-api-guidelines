@@ -22,8 +22,7 @@ functionality via the internet or intranet.
 * We prefer systems to be truly RESTful
 footnote:fielding-restful[Per definition of R.Fielding REST APIs have to support
 HATEOAS (maturity level 3). Our guidelines do not strongly advocate for
-full REST compliance, but limited hypermedia usage, e.g. for pagination
-(see <<hypermedia>>).
+full REST compliance, but limited hypermedia usage, e.g. for pagination.
 However, we still use the term "RESTful API", due to the absence
 of an alternative established term and to keep it like the very majority
 of web service industry that also use the term for their REST
@@ -97,10 +96,8 @@ API as a Product is closely related to our <<100,API First principle>>
 [[api-first]]
 == API first
 
-API First is one of our
-https://github.com/zalando/engineering-principles[engineering
-and architecture principles]. In a nutshell API First requires two
-aspects:
+API First is one of our engineering and architecture principles. In a nutshell API First 
+requires two aspects:
 
 * define APIs first, before coding its implementation, using a standard specification
 language

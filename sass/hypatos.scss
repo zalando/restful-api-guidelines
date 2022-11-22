@@ -1,5 +1,5 @@
 @import "foundation";
-@import "settings/zalando";
+@import "settings/hypatos";
 @import "components/asciidoc";
 @import "components/awesome-icons";
 
@@ -50,6 +50,18 @@ a > code {
   padding: .5em !important;
 }
 
+#content #toc {
+  background-color: $hypatos-blue;
+}
+
+#toctitle {
+	color: #ffffff;
+}
+
 #toc a {
-  color: #364149;
+  color: #ffffff;
+}
+
+#toc.toc2 {
+  background-color: $hypatos-blue;
 }
