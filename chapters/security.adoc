@@ -6,48 +6,39 @@
 == {MUST} secure endpoints
 
 Every API endpoint must be protected and armed with authentication and authorization.
-As part of the API definition you must specify how you protect your API using
-either the `http` typed `bearer` or `oauth2` typed security schemes defined in the
-https://swagger.io/docs/specification/authentication/[OpenAPI Authentication Specification].
+As part of the API definition you must specify the  `oauth2` security scheme. Please see 
+the https://swagger.io/docs/specification/authentication/oauth2/[OpenAPI OAuth 2.0 Authentication] 
+for more details.
 
-The majority of our APIs (especially the company internal APIs) are protected
-using JWT tokens provided by the platform IAM token service. In these situations
-you should use the `http` typed
-https://swagger.io/docs/specification/authentication/bearer-authentication/[Bearer Authentication]
-security scheme -- it is based on OAuth2.0 {RFC-6750}[RFC 6750] defining the standard header
-`Auhorization: Bearer <token>`.
-The following code snippet shows how to define the bearer security scheme.
+So far we support https://www.rfc-editor.org/rfc/rfc6749#section-4.4[Client Credentials Grant] 
+only but will support https://swagger.io/docs/specification/authentication/openid-connect-discovery/[OpenID Connect] 
+soon.
+
+The following code snippet shows how to define the OAuth 2.0 security scheme.
 
 [source,yaml]
 ----
 components:
   securitySchemes:
-    BearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
+    OAuth2:
+      $ref: 'https://api.swaggerhub.com/apis/hypatos.ai/auth-service/0.0.2#/components/securitySchemes/OAuth2'
 ----
 
-The bearer security schema can then be applied to all API endpoints, e.g. requiring
-the token to have `api-repository.read` scope for permission as follows (see
+Please note that the OAuth2 scheme is defined in the API definition of our https://app.swaggerhub.com/apis/hypatos.ai/auth-service/[Auth Service]. 
+We encourage referencing this definition in your APIs, as shown above.
+
+The OAuth2 security schema can then be applied to all API endpoints, e.g. requiring
+the access token to have `api-repository.read` scope for permission as follows (see
 also <<105>>):
 
 [source,yaml]
 ----
 security:
-  - BearerAuth: [ api-repository.read ]
+  - OAuth2: [ api-repository.read ]
 ----
 
 
-In other, more specific situations e.g. with customer and partner facing APIs you
-may use other OAuth 2.0 authorization flows as defined by {RFC-6749}[RFC 6749].
-Please consult the
-https://swagger.io/docs/specification/authentication/oauth2/[OpenAPI OAuth 2.0 Authentication]
-section for details on how to define `oauth2` typed security schemes correctly.
 
-*Note:* Do not use OpenAPI `oauth2` typed security scheme flows (e.g. `implicit`)
-if your service does not fully support it and implements a simple bearer token scheme,
-because it exposes authentication server address details and may make use of redirection.
 
 
 [#110]
