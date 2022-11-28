@@ -44,15 +44,18 @@ for IntelliJ IDEA] to create your first API. To explore and validate/evaluate
 existing APIs the https://editor.swagger.io/[Swagger Editor] or our
 https://apis.zalando.net[API Portal] may be a good starting point.
 
-*Hint:* We do not yet provide guidelines for https://graphql.org/[GraphQL].
-Following our {techradar-public}[Zalando Tech Radar (internal_link)], 
-we focus on resource oriented HTTP/REST API style
-(and related tooling and infrastructure support) for general purpose
-peer-to-peer microservice communication. Here, we think that GraphQL has no
-major benefits, but a couple of downsides compared to REST. However, GraphQL
-can provide a lot of value for specific target domain problems, especially
-backends for frontends (BFF) and mobile clients, and here we already make use
-of GraphQL as API technology for our DX Interface Framework.
+*Hint:* We do not yet provide guidelines for https://graphql.org/[GraphQL]
+and focus on resource oriented HTTP/REST API style (and related tooling 
+and infrastructure support).
+Following our {techradar-public}[Zalando Tech Radar (internal_link)], we think 
+that GraphQL has no major benefits, but a couple of downsides compared to REST 
+as API technology for general purpose peer-to-peer microservice communication. 
+However, GraphQL can provide a lot of value for specific target domain problems, 
+especially backends for frontends (BFF) and mobile clients, where typically 
+many (domain object) resources from different services are queried and 
+multiple roundtrip overhead should be avoided due to (mobile or public) 
+network constraints. Therefore we list both technologies on ADOPT, though 
+GraphQL only supplements REST for the BFF-specific problem domain. 
 
 
 [#102]
