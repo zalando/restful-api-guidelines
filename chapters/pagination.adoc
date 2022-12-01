@@ -5,7 +5,7 @@
 [#159]
 == {MUST} support pagination
 
-Access to lists of data items must support pagination to protect the service and client
+Access to lists of data items must support pagination to protect the service
 against overload as well as to support client side iteration and batch processing
 experience. This holds true for all lists that are (potentially) larger than
 just a few hundred entries.
