@@ -2038,15 +2038,18 @@ existing APIs the <a href="https://editor.swagger.io/">Swagger Editor</a> or our
 <a href="https://apis.zalando.net">API Portal</a> may be a good starting point.</p>
 </div>
 <div class="paragraph">
-<p><strong>Hint:</strong> We do not yet provide guidelines for <a href="https://graphql.org/">GraphQL</a>.
-Following our <a href="https://techradar.zalando.net/languages/graphql.html">Zalando Tech Radar (internal_link)</a>,
-we focus on resource oriented HTTP/REST API style
-(and related tooling and infrastructure support) for general purpose
-peer-to-peer microservice communication. Here, we think that GraphQL has no
-major benefits, but a couple of downsides compared to REST. However, GraphQL
-can provide a lot of value for specific target domain problems, especially
-backends for frontends (BFF) and mobile clients, and here we already make use
-of GraphQL as API technology for our DX Interface Framework.</p>
+<p><strong>Hint:</strong> We do not yet provide guidelines for <a href="https://graphql.org/">GraphQL</a>
+and focus on resource oriented HTTP/REST API style (and related tooling
+and infrastructure support).
+Following our <a href="https://techradar.zalando.net/languages/graphql.html">Zalando Tech Radar (internal_link)</a>, we think
+that GraphQL has no major benefits, but a couple of downsides compared to REST
+as API technology for general purpose peer-to-peer microservice communication.
+However, GraphQL can provide a lot of value for specific target domain problems,
+especially backends for frontends (BFF) and mobile clients, where typically
+many (domain object) resources from different services are queried and
+multiple roundtrip overhead should be avoided due to (mobile or public)
+network constraints. Therefore we list both technologies on ADOPT, though
+GraphQL only supplements REST for the BFF-specific problem domain.</p>
 </div>
 </div>
 <div class="sect2">
@@ -10085,7 +10088,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-10-19 06:09:40 UTC
+Last updated 2022-12-01 08:00:34 UTC
 </div>
 </div>
 </body>
