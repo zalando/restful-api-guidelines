@@ -12,8 +12,8 @@ just a few hundred entries.
 
 There are two well known page iteration techniques:
 
-* Offset-based pagination: numeric offset identifies the first page-entry
-* Cursor-based pagination — aka key-based pagination: a unique key identifies the first page-entry
+* **Offset-based pagination**: numeric offset identifies the first page-entry
+* **Cursor-based pagination** — aka key-based pagination: a unique key identifies the first page-entry
   (see also https://dev.twitter.com/overview/api/cursoring[Twitter API] or 
   https://developers.facebook.com/docs/graph-api/results[Facebook API])
 
