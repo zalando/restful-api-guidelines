@@ -6,25 +6,22 @@
 == {MUST} support pagination
 
 Access to lists of data items must support pagination to protect the service
-against overload as well as for best client side iteration and batch processing
+against overload as well as to support client side iteration and batch processing
 experience. This holds true for all lists that are (potentially) larger than
 just a few hundred entries.
 
 There are two well known page iteration techniques:
 
-* https://developer.infoconnect.com/paging-results[Offset/Limit-based
-  pagination]: numeric offset identifies the first page entry
-* https://dev.twitter.com/overview/api/cursoring[Cursor/Limit-based] — aka
-  key-based — pagination: a unique key element identifies the first page entry
-  (see also https://developers.facebook.com/docs/graph-api/results[Facebook’s
-  guide])
+* **Offset-based pagination**: numeric offset identifies the first page-entry
+* **Cursor-based pagination** — aka key-based pagination: a unique key identifies the first page-entry
+  (see also https://dev.twitter.com/overview/api/cursoring[Twitter API] or 
+  https://developers.facebook.com/docs/graph-api/results[Facebook API])
 
-The technical conception of pagination should also consider user experience
-related issues. As mentioned in this
-https://www.smashingmagazine.com/2016/03/pagination-infinite-scrolling-load-more-buttons/[article],
-jumping to a specific page is far less used than navigation via {next}/{prev}
-page links (See <<161>>). This favours cursor-based over offset-based
-pagination.
+The technical conception of pagination should also consider user experience (see 
+https://www.smashingmagazine.com/2016/03/pagination-infinite-scrolling-load-more-buttons/[Pagination Usability Findings In eCommerce]),
+for instance, jumping to a specific page is far less used than navigation via {next}/{prev}
+page links (see <<161>>). This favors an API design using cursor-based instead of 
+offset-based pagination -- see <<160>>.
 
 **Note:** To provide a consistent look and feel of pagination patterns,
 you must stick to the common query parameter names defined in <<137>>.
@@ -59,9 +56,9 @@ Before choosing cursor-based pagination, consider the following trade-offs:
 
 The {cursor} used for pagination is an opaque pointer to a page, that must
 never be *inspected* or *constructed* by clients. It usually encodes (encrypts)
-the page position, i.e. the identifier of the first or last page element, the
-pagination direction, and the applied query filters - or a hash over these -
-to safely recreate the collection (see also <<cursor-based-pagination>>).
+the page position, i.e. the unique identifier of the first or last page element, the
+pagination direction, and the applied query filters (or a hash over these) to safely 
+recreate the collection (see also best practice <<cursor-based-pagination>> below).
 
 
 [#248]
@@ -139,15 +136,14 @@ ResponsePage:
 ----
 
 *Note:* While you may support cursors for {next}, {prev}, {first}, {last}, and
-{self}, it is best practice to replace these with links in favor of <<161>>.
+{self}, it is best practice to replace these with pagination links -- see <<161>>.
 
 
 [#161]
-== {SHOULD} use pagination links where applicable
+== {SHOULD} use pagination links
 
-To simplify client design, APIs should support <<165, simplified hypertext
-controls>> for paginating over collections whenever applicable as follows (see
-also <<pagination-fields>> for details):
+To simplify client design, APIs should support <<165, simplified hypertext controls>> 
+as standard pagination links where applicable:
 
 [source,json]
 ----
@@ -164,6 +160,8 @@ also <<pagination-fields>> for details):
   "items": [...]
 }
 ----
+
+See also <<248>> for details on the pagination fields and page result object. 
 
 *Remark:* You should avoid providing a total count unless there is a clear
 need to do so. Very often, there are significant system and performance
