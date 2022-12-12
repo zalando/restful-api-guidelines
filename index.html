@@ -1557,7 +1557,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#159"><span class="must-keyword"><strong>MUST</strong></span> support pagination</a></li>
 <li><a href="#160"><span class="should-keyword"><strong>SHOULD</strong></span> prefer cursor-based pagination, avoid offset-based pagination</a></li>
 <li><a href="#248"><span class="should-keyword"><strong>SHOULD</strong></span> use pagination response page object</a></li>
-<li><a href="#161"><span class="should-keyword"><strong>SHOULD</strong></span> use pagination links where applicable</a></li>
+<li><a href="#161"><span class="should-keyword"><strong>SHOULD</strong></span> use pagination links</a></li>
 </ul>
 </li>
 <li><a href="#compatibility">15. REST Design - Compatibility</a>
@@ -4290,7 +4290,7 @@ the <a href="#cursor"><code>cursor</code></a> cannot any longer be used to encod
 transport the query filters in the body payload, while using <a href="#161">pagination links</a>
 containing the <a href="#cursor"><code>cursor</code></a> that is only encoding the page position and direction.
 To protect the pagination sequence the <a href="#cursor"><code>cursor</code></a> may contain a hash over all
-applied query filters (See also <a href="#161"><span class="should-keyword"><strong>SHOULD</strong></span> use pagination links where applicable</a>).</p>
+applied query filters (See also <a href="#161"><span class="should-keyword"><strong>SHOULD</strong></span> use pagination links</a>).</p>
 </div>
 </div>
 <div class="sect3">
@@ -6540,7 +6540,7 @@ corresponding <a href="http://www.iana.org/assignments/link-relations">link rela
 <a href="#last"><code>last</code></a>, or <a href="#self"><code>self</code></a>.</p>
 </div>
 <div class="paragraph">
-<p>See <a href="#164"><span class="must-keyword"><strong>MUST</strong></span> use common hypertext controls</a> and <a href="#161"><span class="should-keyword"><strong>SHOULD</strong></span> use pagination links where applicable</a> for more information and examples.</p>
+<p>See <a href="#164"><span class="must-keyword"><strong>MUST</strong></span> use common hypertext controls</a> and <a href="#161"><span class="should-keyword"><strong>SHOULD</strong></span> use pagination links</a> for more information and examples.</p>
 </div>
 </div>
 <div class="sect2">
@@ -6944,7 +6944,7 @@ proxy cache.</p>
 <h3 id="159"><a class="link" href="#159"><span class="must-keyword"><strong>MUST</strong></span> support pagination</a></h3>
 <div class="paragraph">
 <p>Access to lists of data items must support pagination to protect the service
-against overload as well as for best client side iteration and batch processing
+against overload as well as to support client side iteration and batch processing
 experience. This holds true for all lists that are (potentially) larger than
 just a few hundred entries.</p>
 </div>
@@ -6954,24 +6954,21 @@ just a few hundred entries.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://developer.infoconnect.com/paging-results">Offset/Limit-based
-pagination</a>: numeric offset identifies the first page entry</p>
+<p><strong>Offset-based pagination</strong>: numeric offset identifies the first page-entry</p>
 </li>
 <li>
-<p><a href="https://dev.twitter.com/overview/api/cursoring">Cursor/Limit-based</a> — aka
-key-based — pagination: a unique key element identifies the first page entry
-(see also <a href="https://developers.facebook.com/docs/graph-api/results">Facebook’s
-guide</a>)</p>
+<p><strong>Cursor-based pagination</strong> — aka key-based pagination: a unique key identifies the first page-entry
+(see also <a href="https://dev.twitter.com/overview/api/cursoring">Twitter API</a> or
+<a href="https://developers.facebook.com/docs/graph-api/results">Facebook API</a>)</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>The technical conception of pagination should also consider user experience
-related issues. As mentioned in this
-<a href="https://www.smashingmagazine.com/2016/03/pagination-infinite-scrolling-load-more-buttons/">article</a>,
-jumping to a specific page is far less used than navigation via <a href="#next"><code>next</code></a>/<a href="#prev"><code>prev</code></a>
-page links (See <a href="#161"><span class="should-keyword"><strong>SHOULD</strong></span> use pagination links where applicable</a>). This favours cursor-based over offset-based
-pagination.</p>
+<p>The technical conception of pagination should also consider user experience (see
+<a href="https://www.smashingmagazine.com/2016/03/pagination-infinite-scrolling-load-more-buttons/">Pagination Usability Findings In eCommerce</a>),
+for instance, jumping to a specific page is far less used than navigation via <a href="#next"><code>next</code></a>/<a href="#prev"><code>prev</code></a>
+page links (see <a href="#161"><span class="should-keyword"><strong>SHOULD</strong></span> use pagination links</a>). This favors an API design using cursor-based instead of
+offset-based pagination&#8201;&#8212;&#8201;see <a href="#160"><span class="should-keyword"><strong>SHOULD</strong></span> prefer cursor-based pagination, avoid offset-based pagination</a>.</p>
 </div>
 <div class="paragraph">
 <p><strong>Note:</strong> To provide a consistent look and feel of pagination patterns,
@@ -7050,16 +7047,16 @@ the database.</p>
 <div class="paragraph">
 <p>The <a href="#cursor"><code>cursor</code></a> used for pagination is an opaque pointer to a page, that must
 never be <strong>inspected</strong> or <strong>constructed</strong> by clients. It usually encodes (encrypts)
-the page position, i.e. the identifier of the first or last page element, the
-pagination direction, and the applied query filters - or a hash over these -
-to safely recreate the collection (see also <a href="#cursor-based-pagination">Cursor-based pagination in RESTful APIs</a>).</p>
+the page position, i.e. the unique identifier of the first or last page element, the
+pagination direction, and the applied query filters (or a hash over these) to safely
+recreate the collection (see also best practice <a href="#cursor-based-pagination">Cursor-based pagination in RESTful APIs</a> below).</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="248"><a class="link" href="#248"><span class="should-keyword"><strong>SHOULD</strong></span> use pagination response page object</a></h3>
 <div id="pagination-fields" class="paragraph">
 <p>For iterating over collections (result sets) we propose to either use cursors
-(see <a href="#160"><span class="should-keyword"><strong>SHOULD</strong></span> prefer cursor-based pagination, avoid offset-based pagination</a>) or simple hypertext control links (see <a href="#161"><span class="should-keyword"><strong>SHOULD</strong></span> use pagination links where applicable</a>). To implement these
+(see <a href="#160"><span class="should-keyword"><strong>SHOULD</strong></span> prefer cursor-based pagination, avoid offset-based pagination</a>) or simple hypertext control links (see <a href="#161"><span class="should-keyword"><strong>SHOULD</strong></span> use pagination links</a>). To implement these
 in a consistent way, we have defined a response page object pattern with the
 following field semantics:</p>
 </div>
@@ -7155,15 +7152,14 @@ request to filter the collection resource.</p>
 </div>
 <div class="paragraph">
 <p><strong>Note:</strong> While you may support cursors for <a href="#next"><code>next</code></a>, <a href="#prev"><code>prev</code></a>, <a href="#first"><code>first</code></a>, <a href="#last"><code>last</code></a>, and
-<a href="#self"><code>self</code></a>, it is best practice to replace these with links in favor of <a href="#161"><span class="should-keyword"><strong>SHOULD</strong></span> use pagination links where applicable</a>.</p>
+<a href="#self"><code>self</code></a>, it is best practice to replace these with pagination links&#8201;&#8212;&#8201;see <a href="#161"><span class="should-keyword"><strong>SHOULD</strong></span> use pagination links</a>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="161"><a class="link" href="#161"><span class="should-keyword"><strong>SHOULD</strong></span> use pagination links where applicable</a></h3>
+<h3 id="161"><a class="link" href="#161"><span class="should-keyword"><strong>SHOULD</strong></span> use pagination links</a></h3>
 <div class="paragraph">
-<p>To simplify client design, APIs should support <a href="#165">simplified hypertext
-controls</a> for paginating over collections whenever applicable as follows (see
-also <a href="#pagination-fields">[pagination-fields]</a> for details):</p>
+<p>To simplify client design, APIs should support <a href="#165">simplified hypertext controls</a>
+as standard pagination links where applicable:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -7180,6 +7176,9 @@ also <a href="#pagination-fields">[pagination-fields]</a> for details):</p>
   <span class="key"><span class="delimiter">&quot;</span><span class="content">items</span><span class="delimiter">&quot;</span></span>: [<span class="error">.</span><span class="error">.</span><span class="error">.</span>]
 }</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>See also <a href="#248"><span class="should-keyword"><strong>SHOULD</strong></span> use pagination response page object</a> for details on the pagination fields and page result object.</p>
 </div>
 <div class="paragraph">
 <p><strong>Remark:</strong> You should avoid providing a total count unless there is a clear
@@ -7599,7 +7598,7 @@ with content negotiation.</p>
 array) as a top level data structure to support future extensibility. JSON
 objects support compatible extension by additional attributes. This allows you
 to easily extend your response and e.g. add pagination later, without breaking
-backwards compatibility. See <a href="#161"><span class="should-keyword"><strong>SHOULD</strong></span> use pagination links where applicable</a> for an example.</p>
+backwards compatibility. See <a href="#161"><span class="should-keyword"><strong>SHOULD</strong></span> use pagination links</a> for an example.</p>
 </div>
 <div class="paragraph">
 <p>Maps (see <a href="#216"><span class="should-keyword"><strong>SHOULD</strong></span> define maps using <code>additionalProperties</code></a>), even though technically objects, are also forbidden as top
@@ -10088,7 +10087,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-12-01 08:00:34 UTC
+Last updated 2022-12-12 12:38:43 UTC
 </div>
 </div>
 </body>
