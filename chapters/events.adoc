@@ -859,8 +859,8 @@ https://curated-sales-data.docs.zalando.net/[curated sales data [internal link]]
 *Context:* One _source of duplicate events_ are the event producers, for instance, 
 due to publish call retries or publisher client failovers. Another source is 
 Nakadi's 'at-least-once' delivery promise (like provided by most message broker 
-distributed systems). It also applies to the Data Lake event materialization as 
-raw event datasets (in Delta or JSON format) for Data Analytics. 
+distributed systems). It also currently applies to the Data Lake event materialization
+as raw event datasets (in Delta or JSON format) for Data Analytics. 
 From an event consumer point of view, duplicate events may also be created when 
 consumers reprocess parts of the event stream, for instance, due to inaccurate 
 continuation after failures. Event publishers and infrastructure systems should 
