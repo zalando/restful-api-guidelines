@@ -422,7 +422,7 @@
     },
     {
       "id": "#211",
-      "title": "MUST use unique event identifiers"
+      "title": "MUST provide unique event identifiers"
     },
     {
       "id": "#212",
@@ -434,7 +434,7 @@
     },
     {
       "id": "#214",
-      "title": "MUST prepare event consumers for duplicate events"
+      "title": "MUST be robust against duplicates when consuming events"
     },
     {
       "id": "#215",
