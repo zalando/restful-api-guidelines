@@ -58,7 +58,7 @@ services in a backward-compatible way:
 * Use {x-extensible-enum}, if range is used for output parameters and likely to
   be extended with growing functionality. It defines an open list of explicit
   values and clients must be agnostic to new values.
-* Support redirection in case an URL has to change {301} (Moved Permanently).
+* Support redirection in case a URL has to change {301} (Moved Permanently).
 
 
 [#109]

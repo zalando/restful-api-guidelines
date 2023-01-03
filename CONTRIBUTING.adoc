@@ -15,7 +15,7 @@ the changelog.
 
 == Rule IDs
 
-Each of the rules has an unique ID. A Rule ID is immutable and durable. It
+Each of the rules has a unique ID. A Rule ID is immutable and durable. It
 doesn't change until the content of the rule changes significantly so that
 it does not make sense to identify it with the old Rule ID.
 
