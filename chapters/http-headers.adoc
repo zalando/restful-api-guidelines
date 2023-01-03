@@ -278,7 +278,7 @@ components:
 
         Clients should be careful as any subsequent requests with the same key
         may return the same response without further check. Therefore, it is
-        recommended to use an UUID version 4 (random) or any other random
+        recommended to use a UUID version 4 (random) or any other random
         string with enough entropy to avoid collisions.
 
         Idempotency keys expire after 24 hours. Clients are responsible to stay
