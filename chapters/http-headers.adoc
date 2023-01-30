@@ -418,7 +418,7 @@ All these proprietary headers are allowlisted in the API Linter (Zally) checking
 [#184]
 == {MUST} propagate proprietary headers
 
-All Zalando's proprietary headers listed above are end-to-end headers
+All Zalando's proprietary headers defined in <<183>> are end-to-end headers
 footnote:header-types[HTTP/1.1 standard ({RFC-7230}#section-6.1[RFC 7230])
 defines two types of headers: end-to-end and hop-by-hop headers. End-to-end
 headers must be transmitted to the ultimate recipient of a request or response.
