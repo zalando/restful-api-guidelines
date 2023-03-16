@@ -11,7 +11,7 @@ implementing RESTful APIs.
 == Cursor-based pagination in RESTful APIs
 
 Cursor-based pagination is a very powerful and valuable technique (see also
-<<160>>, that allows to efficiently provide a stable view on changing data.
+<<160>>) that allows to efficiently provide a stable view on changing data.
 This is obtained by using an anchor element that allows to retrieve all page
 elements directly via an ordering combined-index, usually based on `created_at`
 or `modified_at`. Simple said, the cursor is the information set needed to
