@@ -177,7 +177,9 @@ For details and more information on audience groups see the
 [#250]
 == {MAY} strip gateway listen path
 
-If this setting is checked, then the API Gateway will remove the above listen path from the inbound URL so that it does not interfere with routing upstream.
+Defaults to false if omitted.
+
+If this setting is checked, then the API Gateway will remove the listen path from the inbound URL so that it does not interfere with routing upstream.
 
 [source,yaml]
 ----
