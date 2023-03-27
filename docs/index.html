@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.17">
+<meta name="generator" content="Asciidoctor 2.0.18">
 <meta name="keywords" content="Zalando, Guidelines, RESTful, API, Events, Schema">
 <meta name="copyright" content="CC-BY-SA 4.0">
 <title>Linz Step RESTful API and Event Guidelines</title>
@@ -1430,7 +1430,9 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <ul class="sectlevel2">
 <li><a href="#218"><span class="must-keyword"><strong>MUST</strong></span> contain API meta information</a></li>
 <li><a href="#116"><span class="must-keyword"><strong>MUST</strong></span> use semantic versioning</a></li>
+<li><a href="#215"><span class="must-keyword"><strong>MUST</strong></span> provide API identifiers</a></li>
 <li><a href="#219"><span class="must-keyword"><strong>MUST</strong></span> provide API audience</a></li>
+<li><a href="#250"><span class="may-keyword"><strong>MAY</strong></span> strip gateway listen path</a></li>
 <li><a href="#224"><span class="must-keyword"><strong>MUST</strong></span> follow naming convention for hostnames ( Under Construction)</a></li>
 </ul>
 </li>
@@ -2163,6 +2165,10 @@ to allow for API management:</p>
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p>Following OpenAPI extension for the API Gateway properties <strong>may</strong> be provided in addition:
+- <code>#/info/x-gateway-strip-listen-path</code> intended target audience of the API (<a href="#219">see rule 219</a>)</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="116"><a class="link" href="#116"><span class="must-keyword"><strong>MUST</strong></span> use semantic versioning</a></h3>
@@ -2225,6 +2231,50 @@ are free to decide whether they increment it or not.</p>
 </div>
 </div>
 <div class="sect2">
+<h3 id="215"><a class="link" href="#215"><span class="must-keyword"><strong>MUST</strong></span> provide API identifiers</a></h3>
+<div class="paragraph">
+<p>Each API specification must be provisioned with a globally unique and
+immutable API identifier. The API identifier is defined in the <code>info</code>-block
+of the OpenAPI specification and must conform to the following definition:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="yaml"><span class="key">/info/x-api-id</span>:
+  <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
+  <span class="key">pattern</span>: <span class="string"><span class="content">^(internal|public)\-[a-zA-Z0-9]{4,}\-v\d{1,2}$</span></span>
+  <span class="key">description</span>: <span class="string"><span class="delimiter">|</span><span class="content">
+    Mandatory globally unique and immutable API identifier. The API
+    id allows to track the evolution and history of an API specification
+    as a sequence of versions.</span></span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>API specifications will evolve and any aspect of an OpenAPI specification
+may change. We require API identifiers because we want  to support API clients
+and providers with API lifecycle management features, like change trackability
+and history or automated backward compatibility checks. The immutable API
+identifier allows the identification of all API specification versions of an
+API evolution. By using  <a href="#116">API semantic version information</a> or <a href="#192">API publishing date</a> as order criteria you get the <strong>version</strong> or
+<strong>publication history</strong> as a sequence of API specifications.</p>
+</div>
+<div class="paragraph">
+<p><strong>Note</strong>: While it is nice to use human readable API identifiers based on
+self-managed URNs, it is recommend to stick to UUIDs to relief API designers
+from any urge of changing the API identifier while evolving the API. Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="yaml"><span class="key">openapi</span>: <span class="string"><span class="content">3.0.1</span></span>
+<span class="key">info</span>:
+  <span class="key">x-api-id</span>: <span class="string"><span class="content">d0184f38-b98d-11e7-9c56-68f728c1ba70</span></span>
+  <span class="key">title</span>: <span class="string"><span class="content">Parcel Service API</span></span>
+  <span class="key">description</span>: <span class="string"><span class="content">API for &lt;...&gt;</span></span>
+  <span class="key">version</span>: <span class="string"><span class="content">1.5.8</span></span>
+  <span class="error">&lt;...&gt;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
 <h3 id="219"><a class="link" href="#219"><span class="must-keyword"><strong>MUST</strong></span> provide API audience</a></h3>
 <div class="paragraph">
 <p>Each API must be classified with respect to the intended target <strong>audience</strong>
@@ -2254,11 +2304,6 @@ being used by internal helper and worker services or that support service operat
 <p>The API consumers with this audience are restricted to applications owned
 by Toitū Te Whenua Land Information New Zealand</p>
 </dd>
-<dt class="hdlist1"><strong>external-partner</strong></dt>
-<dd>
-<p>The API consumers with this audience are restricted to applications of
-business partners of the company owning the API and the company itself.</p>
-</dd>
 <dt class="hdlist1"><strong>external-public</strong></dt>
 <dd>
 <p>APIs with this audience can be accessed by anyone with Internet access.</p>
@@ -2280,7 +2325,6 @@ the OpenAPI specification and must conform to the following specification:</p>
   <span class="key">x-extensible-enum</span>:
     - <span class="string"><span class="content">component-internal</span></span>
     - <span class="string"><span class="content">company-internal</span></span>
-    - <span class="string"><span class="content">external-partner</span></span>
     - <span class="string"><span class="content">external-public</span></span>
   <span class="key">description</span>: <span class="string"><span class="delimiter">|</span><span class="content">
     Intended target audience of the API. Relevant for standards around
@@ -2313,6 +2357,33 @@ the target audience — even if this creates redundancies
 <div class="paragraph">
 <p>For details and more information on audience groups see the
 <a href="https://apis.zalando.net/redirect/85ee93a3-7a78-4461-8bf1-08ffdaebcd18">API Audience narrative (internal_link)</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="250"><a class="link" href="#250"><span class="may-keyword"><strong>MAY</strong></span> strip gateway listen path</a></h3>
+<div class="paragraph">
+<p>If this setting is checked, then the API Gateway will remove the above listen path from the inbound URL so that it does not interfere with routing upstream.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="yaml"><span class="key">/x-gateway-strip-listen-path</span>:
+  <span class="key">type</span>: <span class="string"><span class="content">boolean</span></span>
+  <span class="key">description</span>: <span class="string"><span class="delimiter">|</span><span class="content">
+    If this setting is checked, then the API Gateway will remove the above listen path from the inbound URL so that it does not interfere with routing upstream.</span></span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="yaml"><span class="key">openapi</span>: <span class="string"><span class="content">3.0.1</span></span>
+<span class="key">info</span>:
+  <span class="key">x-audience</span>: <span class="string"><span class="content">company-internal</span></span>
+  <span class="key">title</span>: <span class="string"><span class="content">Parcel Helper Service API</span></span>
+<span class="key">x-gateway-strip-listen-path</span>: <span class="string"><span class="content">true</span></span>
+<span class="error">&lt;...&gt;</span></code></pre>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -9857,7 +9928,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-08-01 23:48:16 UTC
+Last updated 2023-03-27 01:56:19 UTC
 </div>
 </div>
 </body>

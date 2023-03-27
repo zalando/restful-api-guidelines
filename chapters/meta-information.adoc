@@ -19,6 +19,10 @@ Following OpenAPI extension properties *must* be provided in addition:
 - `#/info/x-audience` intended target audience of the API (<<219, see rule 219>>)
 
 
+Following OpenAPI extension for the API Gateway properties *may* be provided in addition:
+- `#/info/x-gateway-strip-listen-path` intended target audience of the API (<<219, see rule 219>>)
+
+
 [#116]
 == {MUST} use semantic versioning
 
@@ -58,6 +62,48 @@ info:
   <...>
 ----
 
+[#215]
+== {MUST} provide API identifiers
+
+Each API specification must be provisioned with a globally unique and
+immutable API identifier. The API identifier is defined in the `info`-block
+of the OpenAPI specification and must conform to the following definition:
+
+[source,yaml]
+----
+/info/x-api-id:
+  type: string
+  pattern: ^(internal|public)\-[a-zA-Z0-9]{4,}\-v\d{1,2}$
+  description: |
+    Mandatory globally unique and immutable API identifier. The API
+    id allows to track the evolution and history of an API specification
+    as a sequence of versions.
+----
+
+API specifications will evolve and any aspect of an OpenAPI specification
+may change. We require API identifiers because we want  to support API clients
+and providers with API lifecycle management features, like change trackability
+and history or automated backward compatibility checks. The immutable API
+identifier allows the identification of all API specification versions of an
+API evolution. By using  <<116, API semantic version information>> or <<192,
+API publishing date>> as order criteria you get the *version* or
+*publication history* as a sequence of API specifications.
+
+*Note*: While it is nice to use human readable API identifiers based on
+self-managed URNs, it is recommend to stick to UUIDs to relief API designers
+from any urge of changing the API identifier while evolving the API. Example:
+
+[source,yaml]
+----
+openapi: 3.0.1
+info:
+  x-api-id: d0184f38-b98d-11e7-9c56-68f728c1ba70
+  title: Parcel Service API
+  description: API for <...>
+  version: 1.5.8
+  <...>
+----
+
 
 [#219]
 == {MUST} provide API audience
@@ -82,9 +128,6 @@ is deployed to in **Tyk Gateway**
 *company-internal*::
   The API consumers with this audience are restricted to applications owned
   by Toitū Te Whenua Land Information New Zealand
-*external-partner*::
-  The API consumers with this audience are restricted to applications of
-  business partners of the company owning the API and the company itself.
 *external-public*::
   APIs with this audience can be accessed by anyone with Internet access.
 
@@ -101,7 +144,6 @@ the OpenAPI specification and must conform to the following specification:
   x-extensible-enum:
     - component-internal
     - company-internal
-    - external-partner
     - external-public
   description: |
     Intended target audience of the API. Relevant for standards around
@@ -131,6 +173,31 @@ info:
 
 For details and more information on audience groups see the
 {api-audience-narrative}[API Audience narrative (internal_link)].
+
+[#250]
+== {MAY} strip gateway listen path
+
+If this setting is checked, then the API Gateway will remove the above listen path from the inbound URL so that it does not interfere with routing upstream.
+
+[source,yaml]
+----
+/x-gateway-strip-listen-path:
+  type: boolean
+  description: |
+    If this setting is checked, then the API Gateway will remove the above listen path from the inbound URL so that it does not interfere with routing upstream.
+----
+
+Example:
+
+[source,yaml]
+----
+openapi: 3.0.1
+info:
+  x-audience: company-internal
+  title: Parcel Helper Service API
+x-gateway-strip-listen-path: true
+<...>
+----
 
 
 [#224]
