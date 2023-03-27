@@ -97,7 +97,7 @@ from any urge of changing the API identifier while evolving the API. Example:
 ----
 openapi: 3.0.1
 info:
-  x-api-id: d0184f38-b98d-11e7-9c56-68f728c1ba70
+  x-api-id: internal-titles-v1
   title: Parcel Service API
   description: API for <...>
   version: 1.5.8
