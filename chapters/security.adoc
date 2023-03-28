@@ -1,15 +1,13 @@
 [[security]]
-= REST Basics - Security ( Under Construction)
-
-The entire Security Section is under review and will be updated after the auth work with keycloak and design becomes
-more apparent.
+= REST Basics - Security
 
 [#104]
-== {MUST} secure endpoints ( Under Construction)
+== {MUST} secure endpoints
 
-Every API endpoint must be protected and armed with authentication and authorization.
-As part of the API definition you must specify how you protect your API using
-either the `http` typed `bearer` or `oauth2` typed security schemes defined in the
+Any non public API's must be secured. Along with denoting the x-audience <<105>> and setting the correct server urls, you must specify the correct Security.
+
+An API must be protected and armed with authentication and authorization.
+As part of the API definition you must specify how you protect your API using  `http` typed `bearer` security schemes defined in the
 https://swagger.io/docs/specification/authentication/[OpenAPI Authentication Specification].
 
 The majority of our APIs (especially the company internal APIs) are protected
@@ -30,160 +28,35 @@ components:
       bearerFormat: JWT
 ----
 
-The bearer security schema can than be applied to all API endpoints, e.g. requiring
-the token to have `api-repository.read` scope for permission as follows (see
+The bearer security schema can than be applied to an API, e.g. requiring
+the token to have `linz-domains:full` scope for permission as follows (see
 also <<105>>):
 
 [source,yaml]
 ----
 security:
-  - BearerAuth: [ api-repository.read ]
+  - BearerAuth: [ linz-domains:full ]
 ----
-
-
-In other, more specific situations e.g. with customer and partner facing APIs you
-may use other OAuth 2.0 authorization flows as defined by {RFC-6749}[RFC 6749].
-Please consult the
-https://swagger.io/docs/specification/authentication/oauth2/[OpenAPI OAuth 2.0 Authentication]
-section for details on how to define `oauth2` typed security schemes correctly.
-
-*Note:* Do not use OpenAPI `oauth2` typed security scheme flows (e.g. `implicit`)
-if your service does not fully support it and implements a simple bearer token scheme,
-because it exposes authentication server address details and may make use of redirection.
-
 
 [#105]
-== {MUST} define and assign permissions (scopes) ( Under Construction)
+== {MUST} define and assign permissions (scopes)
 
-APIs must define permissions to protect their resources. Thus, at least one
-permission must be assigned to each API endpoint.
+We currently only use the linz-domains:full permission for company-internal and component-internal audiences. The
+external-public audience, doesn't need to define a scope.
 
-The naming schema for permissions corresponds to the naming schema for <<224,
-hostnames>> and <<213, event type names>>. Please refer to <<225>> for
-designing permission names and see the following examples.
-
-[cols="25%,20%,15%,40%",options="header",]
-|=======================================================================
-| Application ID | Resource ID | Access Type | Example
-| `order-management` | `sales-order` | `read` | `order-management.sales-order.read`
-| `order-management` | `shipment-order` | `read` | `order-management.shipment-order.read`
-| `fulfillment-order` | | `write` | `fulfillment-order.write`
-| `business-partner-service` | |`read` | `business-partner-service.read`
-|=======================================================================
-
-////
-//Prepared change for functional permission names:
-
-[cols="15%,15%,15%,15%,40%",options="header",]
-|=======================================================================
-| Domain | Component | Resource | Access Type | Example
-| finance | exchange-rate | - | write | z::finance.exchange-rate.write
-| transactions | order | - | read | z::transactions.order.read
-| customer | address | shipment-address | read  | z::customer.address.shipment-address.read
-|=======================================================================
-[cols="30%,15%,15%,40%",options="header",]
-|=======================================================================
-| Application | Resource | Access Type | Example
-| business-partner-service | | - | read | z::business-partner-service.read
-| order-management | sales-order | write | z::order-management.sales-order.write
-|=======================================================================
-
-////
-
-*Note:* APIs should stick to component specific permissions without resource
-extension to avoid the complexity of too many fine grained permissions. For the
-majority of use cases, restricting access for specific API endpoints using read
-or write is sufficient.
-
-The defined permissions are than assigned to each API endpoint based on the
-security schema (see example in <<104, previous section>>) by specifying the
-https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#securityRequirementObject[security requirement]
-as follows:
+The defined permission is then assigned the whole API. If a single service needs to serve multiple audiences it is best to split into separate specifications See <<219, MUST provide audience>>.
 
 [source,yaml]
 ----
-paths:
- /business-partners/{partner-id}:
-    get:
-      summary: Retrieves information about a business partner
-      security:
-        - BearerAuth: [ business-partner-service.read ]
-----
-
-In some cases a whole API or selected API endpoints may not require speciifc
-permissions, e.g. if information is public or protected by object level
-authorization. To make this explicit you should assign the `uid` pseudo
-permission, that is always available as OAuth2 default scope in Zalando.
-
-[source,yaml]
-----
+security:
+- BearerAuth: [ linz-domains:full ]
 paths:
   /public-information:
     get:
       summary: Provides public information about ...
                Accessible by any user; no permissions needed.
-      security:
-        - BearerAuth: [ uid ]
 ----
 
-*Hint:* Following a minimal a minimal API specification approach, the
-`Authorization`-header does not need to be defined on each API endpoint, since
-it is required and so to say implicitly defined via the security section.
 
 
-[#225]
-== {MUST} follow naming convention for permissions (scopes) ( Under Construction)
 
-As long as the <<223,functional naming>> is not yet supported by our permission registry,
-permission names in APIs must conform to the following naming pattern:
-
-[source,bnf]
------
-<permission> ::= <standard-permission> |  -- should be sufficient for majority of use cases
-                 <resource-permission> |  -- for special security access differentiation use cases
-                 <pseudo-permission>      -- used to explicitly indicate that access is not restricted
-
-<standard-permission> ::= <application-id>.<access-mode>
-<resource-permission> ::= <application-id>.<resource-name>.<access-mode>
-<pseudo-permission>   ::= uid
-
-<application-id>      ::= [a-z][a-z0-9-]*  -- application identifier
-<resource-name>       ::= [a-z][a-z0-9-]*  -- free resource identifier
-<access-mode>         ::= read | write    -- might be extended in future
------
-
-This pattern is compatible with the previous definition.
-
-////
-//Prepared change for functional permission names:
-Permission names in APIs must, respectively should conform to the functional
-naming depending on the <<219, audience>> as follows (see <<223>> for details
-and `<functional-name>` definition):
-
-[source,bnf]
------
-<permission> ::= <functional-permission> |
-                 <standard-permission> |  -- standard permission without functional naming
-                 <resource-permission> |  -- resource permission without functional naming
-                 <pseudo-permission>      -- used to indicate unrestricted access
-
-<functional-permission> ::= z::<functional-name>[.<resource-name>].<access-mode>
-<pseudo-permission>     ::= uid
-
-<resource-name>       ::= [a-z][a-z0-9-]*  -- free resource identifier
-<access-mode>         ::= read || write    -- might be extended in future
------
-
-The following application specific legacy convention is *only* allowed for
-permissions names of <<223, internal>> APIs:
-
-[source,bnf]
------
-<standard-permission> ::= <application-id>.<access-mode>
-<resource-permission> ::= <application-id>.<resource-name>.<access-mode>
-
-<application-id>      ::= [a-z][a-z0-9-]*  -- application identifier
-
------
-
-////

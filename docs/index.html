@@ -1436,11 +1436,10 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#224"><span class="must-keyword"><strong>MUST</strong></span> follow naming convention for hostnames ( Under Construction)</a></li>
 </ul>
 </li>
-<li><a href="#security">5. REST Basics - Security ( Under Construction)</a>
+<li><a href="#security">5. REST Basics - Security</a>
 <ul class="sectlevel2">
-<li><a href="#104"><span class="must-keyword"><strong>MUST</strong></span> secure endpoints ( Under Construction)</a></li>
-<li><a href="#105"><span class="must-keyword"><strong>MUST</strong></span> define and assign permissions (scopes) ( Under Construction)</a></li>
-<li><a href="#225"><span class="must-keyword"><strong>MUST</strong></span> follow naming convention for permissions (scopes) ( Under Construction)</a></li>
+<li><a href="#104"><span class="must-keyword"><strong>MUST</strong></span> secure endpoints</a></li>
+<li><a href="#105"><span class="must-keyword"><strong>MUST</strong></span> define and assign permissions (scopes)</a></li>
 </ul>
 </li>
 <li><a href="#data-formats">6. REST Basics - Data formats</a>
@@ -2398,18 +2397,16 @@ the target audience — even if this creates redundancies
 </div>
 </div>
 <div class="sect1">
-<h2 id="security"><a class="link" href="#security">5. REST Basics - Security ( Under Construction)</a></h2>
+<h2 id="security"><a class="link" href="#security">5. REST Basics - Security</a></h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>The entire Security Section is under review and will be updated after the auth work with keycloak and design becomes
-more apparent.</p>
-</div>
 <div class="sect2">
-<h3 id="104"><a class="link" href="#104"><span class="must-keyword"><strong>MUST</strong></span> secure endpoints ( Under Construction)</a></h3>
+<h3 id="104"><a class="link" href="#104"><span class="must-keyword"><strong>MUST</strong></span> secure endpoints</a></h3>
 <div class="paragraph">
-<p>Every API endpoint must be protected and armed with authentication and authorization.
-As part of the API definition you must specify how you protect your API using
-either the <code>http</code> typed <code>bearer</code> or <code>oauth2</code> typed security schemes defined in the
+<p>Any non public API&#8217;s must be secured. Along with denoting the x-audience <a href="#105"><span class="must-keyword"><strong>MUST</strong></span> define and assign permissions (scopes)</a> and setting the correct server urls, you must specify the correct Security.</p>
+</div>
+<div class="paragraph">
+<p>An API must be protected and armed with authentication and authorization.
+As part of the API definition you must specify how you protect your API using  <code>http</code> typed <code>bearer</code> security schemes defined in the
 <a href="https://swagger.io/docs/specification/authentication/">OpenAPI Authentication Specification</a>.</p>
 </div>
 <div class="paragraph">
@@ -2432,149 +2429,36 @@ The following code snippet shows how to define the bearer security scheme.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>The bearer security schema can than be applied to all API endpoints, e.g. requiring
-the token to have <code>api-repository.read</code> scope for permission as follows (see
-also <a href="#105"><span class="must-keyword"><strong>MUST</strong></span> define and assign permissions (scopes) ( Under Construction)</a>):</p>
+<p>The bearer security schema can than be applied to an API, e.g. requiring
+the token to have <code>linz-domains:full</code> scope for permission as follows (see
+also <a href="#105"><span class="must-keyword"><strong>MUST</strong></span> define and assign permissions (scopes)</a>):</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="yaml"><span class="key">security</span>:
-  - <span class="string"><span class="content">BearerAuth: [ api-repository.read ]</span></span></code></pre>
+  - <span class="string"><span class="content">BearerAuth: [ linz-domains:full ]</span></span></code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>In other, more specific situations e.g. with customer and partner facing APIs you
-may use other OAuth 2.0 authorization flows as defined by <a href="https://tools.ietf.org/html/rfc6749">RFC 6749</a>.
-Please consult the
-<a href="https://swagger.io/docs/specification/authentication/oauth2/">OpenAPI OAuth 2.0 Authentication</a>
-section for details on how to define <code>oauth2</code> typed security schemes correctly.</p>
-</div>
-<div class="paragraph">
-<p><strong>Note:</strong> Do not use OpenAPI <code>oauth2</code> typed security scheme flows (e.g. <code>implicit</code>)
-if your service does not fully support it and implements a simple bearer token scheme,
-because it exposes authentication server address details and may make use of redirection.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="105"><a class="link" href="#105"><span class="must-keyword"><strong>MUST</strong></span> define and assign permissions (scopes) ( Under Construction)</a></h3>
+<h3 id="105"><a class="link" href="#105"><span class="must-keyword"><strong>MUST</strong></span> define and assign permissions (scopes)</a></h3>
 <div class="paragraph">
-<p>APIs must define permissions to protect their resources. Thus, at least one
-permission must be assigned to each API endpoint.</p>
+<p>We currently only use the linz-domains:full permission for company-internal and component-internal audiences. The
+external-public audience, doesn&#8217;t need to define a scope.</p>
 </div>
 <div class="paragraph">
-<p>The naming schema for permissions corresponds to the naming schema for <a href="#224">hostnames</a> and <a href="#213">event type names</a>. Please refer to <a href="#225"><span class="must-keyword"><strong>MUST</strong></span> follow naming convention for permissions (scopes) ( Under Construction)</a> for
-designing permission names and see the following examples.</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 20%;">
-<col style="width: 15%;">
-<col style="width: 40%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Application ID</th>
-<th class="tableblock halign-left valign-top">Resource ID</th>
-<th class="tableblock halign-left valign-top">Access Type</th>
-<th class="tableblock halign-left valign-top">Example</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>order-management</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sales-order</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>read</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>order-management.sales-order.read</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>order-management</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>shipment-order</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>read</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>order-management.shipment-order.read</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>fulfillment-order</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>write</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>fulfillment-order.write</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>business-partner-service</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>read</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>business-partner-service.read</code></p></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph">
-<p><strong>Note:</strong> APIs should stick to component specific permissions without resource
-extension to avoid the complexity of too many fine grained permissions. For the
-majority of use cases, restricting access for specific API endpoints using read
-or write is sufficient.</p>
-</div>
-<div class="paragraph">
-<p>The defined permissions are than assigned to each API endpoint based on the
-security schema (see example in <a href="#104">previous section</a>) by specifying the
-<a href="https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#securityRequirementObject">security requirement</a>
-as follows:</p>
+<p>The defined permission is then assigned the whole API. If a single service needs to serve multiple audiences it is best to split into separate specifications See <a href="#219">MUST provide audience</a>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="yaml"><span class="key">paths</span>:
- <span class="error">/business-partners/{partner-id}</span>:
-    <span class="key">get</span>:
-      <span class="key">summary</span>: <span class="string"><span class="content">Retrieves information about a business partner</span></span>
-      <span class="key">security</span>:
-        - <span class="string"><span class="content">BearerAuth: [ business-partner-service.read ]</span></span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>In some cases a whole API or selected API endpoints may not require speciifc
-permissions, e.g. if information is public or protected by object level
-authorization. To make this explicit you should assign the <code>uid</code> pseudo
-permission, that is always available as OAuth2 default scope in Zalando.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="yaml"><span class="key">paths</span>:
+<pre class="CodeRay highlight"><code data-lang="yaml"><span class="key">security</span>:
+- <span class="string"><span class="content">BearerAuth: [ linz-domains:full ]</span></span>
+<span class="key">paths</span>:
   <span class="key">/public-information</span>:
     <span class="key">get</span>:
       <span class="key">summary</span>: <span class="string"><span class="content">Provides public information about ...</span><span class="content">
-               Accessible by any user; no permissions needed.</span></span>
-      <span class="key">security</span>:
-        - <span class="string"><span class="content">BearerAuth: [ uid ]</span></span></code></pre>
+               Accessible by any user; no permissions needed.</span></span></code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p><strong>Hint:</strong> Following a minimal a minimal API specification approach, the
-<code>Authorization</code>-header does not need to be defined on each API endpoint, since
-it is required and so to say implicitly defined via the security section.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="225"><a class="link" href="#225"><span class="must-keyword"><strong>MUST</strong></span> follow naming convention for permissions (scopes) ( Under Construction)</a></h3>
-<div class="paragraph">
-<p>As long as the <a href="#223">functional naming</a> is not yet supported by our permission registry,
-permission names in APIs must conform to the following naming pattern:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="bnf">&lt;permission&gt; ::= &lt;standard-permission&gt; |  -- should be sufficient for majority of use cases
-                 &lt;resource-permission&gt; |  -- for special security access differentiation use cases
-                 &lt;pseudo-permission&gt;      -- used to explicitly indicate that access is not restricted
-
-&lt;standard-permission&gt; ::= &lt;application-id&gt;.&lt;access-mode&gt;
-&lt;resource-permission&gt; ::= &lt;application-id&gt;.&lt;resource-name&gt;.&lt;access-mode&gt;
-&lt;pseudo-permission&gt;   ::= uid
-
-&lt;application-id&gt;      ::= [a-z][a-z0-9-]*  -- application identifier
-&lt;resource-name&gt;       ::= [a-z][a-z0-9-]*  -- free resource identifier
-&lt;access-mode&gt;         ::= read | write    -- might be extended in future</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>This pattern is compatible with the previous definition.</p>
 </div>
 </div>
 </div>
@@ -9587,7 +9471,7 @@ to see a list of all changes.</p>
 <p><code>2021-06-22</code>: <a href="#238"><span class="must-keyword"><strong>MUST</strong></span> use standard data formats</a> changed from <span class="should-keyword"><strong>SHOULD</strong></span> to <span class="must-keyword"><strong>MUST</strong></span>; consistency for rules around standards for data.</p>
 </li>
 <li>
-<p><code>2021-06-03</code>: <a href="#104"><span class="must-keyword"><strong>MUST</strong></span> secure endpoints ( Under Construction)</a> with clear distinction of OpenAPI security schemes, favoring <code>bearer</code> to <code>oauth2</code>.</p>
+<p><code>2021-06-03</code>: <a href="#104"><span class="must-keyword"><strong>MUST</strong></span> secure endpoints</a> with clear distinction of OpenAPI security schemes, favoring <code>bearer</code> to <code>oauth2</code>.</p>
 </li>
 <li>
 <p><code>2021-06-01</code>: resolve uncertainties around 'occurred_at' semantics of <a href="#event-metadata">event metadata</a>.</p>
@@ -9734,7 +9618,7 @@ to see a list of all changes.</p>
 <p><code>2017-12-07:</code> Added best practices section including discussion about optimistic locking approaches.</p>
 </li>
 <li>
-<p><code>2017-11-28:</code> Changed OAuth flow example from password to client credentials in <a href="#security">REST Basics - Security ( Under Construction)</a>.</p>
+<p><code>2017-11-28:</code> Changed OAuth flow example from password to client credentials in <a href="#security">REST Basics - Security</a>.</p>
 </li>
 <li>
 <p><code>2017-11-22:</code> Updated description of X-Tenant-ID header field</p>
@@ -9786,7 +9670,7 @@ part.</p>
 <p><code>2016-12-06:</code> New guideline: "Should Only Use UUIDs If Necessary"</p>
 </li>
 <li>
-<p><code>2016-12-04:</code> Changed OAuth flow example from implicit to password in <a href="#security">REST Basics - Security ( Under Construction)</a>.</p>
+<p><code>2016-12-04:</code> Changed OAuth flow example from implicit to password in <a href="#security">REST Basics - Security</a>.</p>
 </li>
 <li>
 <p><code>2016-10-13:</code> <a href="#172"><span class="should-keyword"><strong>SHOULD</strong></span> use standard media types</a></p>
