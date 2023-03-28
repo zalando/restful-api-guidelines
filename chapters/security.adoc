@@ -1,20 +1,16 @@
 [[security]]
 = REST Basics - Security
 
+Any non public API's must be secured; that is API's exposed via https://api.landonline.govt.nz/.
+This will be imply  <<219, x-audience>> has been set to company-internal or  component-internal and <<105, scopes are set correctly>>.
+
 [#104]
-== {MUST} secure endpoints
+== {MUST} secure API
 
-Any non public API's must be secured. Along with denoting the x-audience <<105>> and setting the correct server urls, you must specify the correct Security.
+Non public APIs are protected using JWT Access tokens provided by the platform IAM token service (Currently Keycloak) and must be armed with authentication and authorization.
 
-An API must be protected and armed with authentication and authorization.
-As part of the API definition you must specify how you protect your API using  `http` typed `bearer` security schemes defined in the
-https://swagger.io/docs/specification/authentication/[OpenAPI Authentication Specification].
-
-The majority of our APIs (especially the company internal APIs) are protected
-using JWT tokens provided by the platform IAM token service. In these situations
-you should use the `http` typed
-https://swagger.io/docs/specification/authentication/bearer-authentication/[Bearer Authentication]
-security scheme -- it is based on OAuth2.0 {RFC-6750}[RFC 6750] defining the standard header
+As part of the API definition you must specify that the API is protected using  `http` typed `bearer` security schemes defined in the
+https://swagger.io/docs/specification/authentication/bearer-authentication/[Open API Bearer Authentication] it is based on OAuth2.0 {RFC-6750}[RFC 6750] defining the standard header
 `Auhorization: Bearer <token>`.
 The following code snippet shows how to define the bearer security scheme.
 
@@ -51,10 +47,10 @@ The defined permission is then assigned the whole API. If a single service needs
 security:
 - BearerAuth: [ linz-domains:full ]
 paths:
-  /public-information:
+  /registeredclients-only-information:
     get:
-      summary: Provides public information about ...
-               Accessible by any user; no permissions needed.
+      summary: Provides information about ...
+               Accessible by any user; permissions needed.
 ----
 
 

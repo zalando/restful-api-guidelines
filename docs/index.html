@@ -1438,7 +1438,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 </li>
 <li><a href="#security">5. REST Basics - Security</a>
 <ul class="sectlevel2">
-<li><a href="#104"><span class="must-keyword"><strong>MUST</strong></span> secure endpoints</a></li>
+<li><a href="#104"><span class="must-keyword"><strong>MUST</strong></span> secure API</a></li>
 <li><a href="#105"><span class="must-keyword"><strong>MUST</strong></span> define and assign permissions (scopes)</a></li>
 </ul>
 </li>
@@ -2399,22 +2399,18 @@ the target audience — even if this creates redundancies
 <div class="sect1">
 <h2 id="security"><a class="link" href="#security">5. REST Basics - Security</a></h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Any non public API&#8217;s must be secured; that is API&#8217;s exposed via <a href="https://api.landonline.govt.nz/" class="bare">https://api.landonline.govt.nz/</a>.
+This will be imply  <a href="#219">x-audience</a> has been set to company-internal or  component-internal and <a href="#105">scopes are set correctly</a>.</p>
+</div>
 <div class="sect2">
-<h3 id="104"><a class="link" href="#104"><span class="must-keyword"><strong>MUST</strong></span> secure endpoints</a></h3>
+<h3 id="104"><a class="link" href="#104"><span class="must-keyword"><strong>MUST</strong></span> secure API</a></h3>
 <div class="paragraph">
-<p>Any non public API&#8217;s must be secured. Along with denoting the x-audience <a href="#105"><span class="must-keyword"><strong>MUST</strong></span> define and assign permissions (scopes)</a> and setting the correct server urls, you must specify the correct Security.</p>
+<p>Non public APIs are protected using JWT Access tokens provided by the platform IAM token service (Currently Keycloak) and must be armed with authentication and authorization.</p>
 </div>
 <div class="paragraph">
-<p>An API must be protected and armed with authentication and authorization.
-As part of the API definition you must specify how you protect your API using  <code>http</code> typed <code>bearer</code> security schemes defined in the
-<a href="https://swagger.io/docs/specification/authentication/">OpenAPI Authentication Specification</a>.</p>
-</div>
-<div class="paragraph">
-<p>The majority of our APIs (especially the company internal APIs) are protected
-using JWT tokens provided by the platform IAM token service. In these situations
-you should use the <code>http</code> typed
-<a href="https://swagger.io/docs/specification/authentication/bearer-authentication/">Bearer Authentication</a>
-security scheme&#8201;&#8212;&#8201;it is based on OAuth2.0 <a href="https://tools.ietf.org/html/rfc6750">RFC 6750</a> defining the standard header
+<p>As part of the API definition you must specify that the API is protected using  <code>http</code> typed <code>bearer</code> security schemes defined in the
+<a href="https://swagger.io/docs/specification/authentication/bearer-authentication/">Open API Bearer Authentication</a> it is based on OAuth2.0 <a href="https://tools.ietf.org/html/rfc6750">RFC 6750</a> defining the standard header
 <code>Auhorization: Bearer &lt;token&gt;</code>.
 The following code snippet shows how to define the bearer security scheme.</p>
 </div>
@@ -2454,10 +2450,10 @@ external-public audience, doesn&#8217;t need to define a scope.</p>
 <pre class="CodeRay highlight"><code data-lang="yaml"><span class="key">security</span>:
 - <span class="string"><span class="content">BearerAuth: [ linz-domains:full ]</span></span>
 <span class="key">paths</span>:
-  <span class="key">/public-information</span>:
+  <span class="key">/registeredclients-only-information</span>:
     <span class="key">get</span>:
-      <span class="key">summary</span>: <span class="string"><span class="content">Provides public information about ...</span><span class="content">
-               Accessible by any user; no permissions needed.</span></span></code></pre>
+      <span class="key">summary</span>: <span class="string"><span class="content">Provides information about ...</span><span class="content">
+               Accessible by any user; permissions needed.</span></span></code></pre>
 </div>
 </div>
 </div>
@@ -9471,7 +9467,7 @@ to see a list of all changes.</p>
 <p><code>2021-06-22</code>: <a href="#238"><span class="must-keyword"><strong>MUST</strong></span> use standard data formats</a> changed from <span class="should-keyword"><strong>SHOULD</strong></span> to <span class="must-keyword"><strong>MUST</strong></span>; consistency for rules around standards for data.</p>
 </li>
 <li>
-<p><code>2021-06-03</code>: <a href="#104"><span class="must-keyword"><strong>MUST</strong></span> secure endpoints</a> with clear distinction of OpenAPI security schemes, favoring <code>bearer</code> to <code>oauth2</code>.</p>
+<p><code>2021-06-03</code>: <a href="#104"><span class="must-keyword"><strong>MUST</strong></span> secure API</a> with clear distinction of OpenAPI security schemes, favoring <code>bearer</code> to <code>oauth2</code>.</p>
 </li>
 <li>
 <p><code>2021-06-01</code>: resolve uncertainties around 'occurred_at' semantics of <a href="#event-metadata">event metadata</a>.</p>
