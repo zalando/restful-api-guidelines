@@ -208,9 +208,10 @@ x-gateway-strip-listen-path: true
 x-audience and hostnames are intricately linked. More to come.
 
 [#251]
-== {MUST} provide x-gateway-upstream-targets extension
+== {MUST} provide gateway upstream targets
 
-Determines the upstream target based on the environment.
+Determines the upstream target.
+This configures the API gateway upstream targets based on the environment.
 
 [source,yaml]
 ----
