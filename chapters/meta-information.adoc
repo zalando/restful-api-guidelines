@@ -210,8 +210,7 @@ x-audience and hostnames are intricately linked. More to come.
 [#251]
 == {MUST} provide gateway upstream targets
 
-Determines the upstream target.
-This configures the API gateway upstream targets based on the environment.
+Configure the API gateway upstream target i.e. API Provider. Specify one for each environment.
 
 [source,yaml]
 ----
