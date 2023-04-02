@@ -207,3 +207,32 @@ x-gateway-strip-listen-path: true
 
 x-audience and hostnames are intricately linked. More to come.
 
+[#251]
+== {MUST} provide gateway upstream targets
+
+Configure the API gateway upstream target i.e. API Provider. Specify one for each environment.
+
+[source,yaml]
+----
+/x-gateway-upstream-targets:
+  type: object
+  description: |
+     Mandatory extension used to determine upstream targets based on environment.
+----
+
+Example:
+
+[source,yaml]
+----
+openapi: 3.0.1
+info:
+  x-audience: company-internal
+  title: Parcel Helper Service API
+x-gateway-upstream-targets:
+    prod: http://httpbin.org/
+    dev: http://httpbin.org/
+    preprod: http://httpbin.org/
+
+<...>
+----
+
