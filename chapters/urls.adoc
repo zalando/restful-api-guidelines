@@ -5,7 +5,7 @@ Guidelines for naming and designing resource paths and query parameters.
 
 
 [#135]
-== {MAY} use /api as base path - (Restore once gateway is in)
+== {SHOULD} not use /api as base path
 
 //== {SHOULD} not use /api as base path - Restore once gateway is in.
 
