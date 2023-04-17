@@ -2430,15 +2430,14 @@ the target audience — even if this creates redundancies
 <div class="sect2">
 <h3 id="252"><a class="link" href="#252"><span class="must-keyword"><strong>MUST</strong></span> provide server url</a></h3>
 <div class="paragraph">
-<p>Configure the API gateway upstream target i.e. API Provider. Specify one for each environment.
-Configure the API gateway server url for your resource, ensure variable are configured if templating.</p>
+<p>Configure the API gateway server url for your resource, ensure variable are configured if templating.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="yaml"><span class="key">/servers</span>:
   <span class="key">type</span>: <span class="string"><span class="content">object</span></span>
   <span class="key">description</span>: <span class="string"><span class="delimiter">|</span><span class="content">
-     Mandatory extension used to determine url based on environment.</span></span></code></pre>
+     Mandatory field used to determine url based on environment.</span></span></code></pre>
 </div>
 </div>
 <div class="paragraph">

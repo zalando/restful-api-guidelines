@@ -239,7 +239,6 @@ x-gateway-upstream-targets:
 [#252]
 == {MUST} provide server url
 
-Configure the API gateway upstream target i.e. API Provider. Specify one for each environment.
 Configure the API gateway server url for your resource, ensure variable are configured if templating.
 
 [source,yaml]
@@ -247,7 +246,7 @@ Configure the API gateway server url for your resource, ensure variable are conf
 /servers:
   type: object
   description: |
-     Mandatory extension used to determine url based on environment.
+     Mandatory field used to determine url based on environment.
 ----
 
 Example:
