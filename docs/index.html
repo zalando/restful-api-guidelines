@@ -1435,6 +1435,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#250"><span class="may-keyword"><strong>MAY</strong></span> strip gateway listen path</a></li>
 <li><a href="#224"><span class="must-keyword"><strong>MUST</strong></span> follow naming convention for hostnames ( Under Construction)</a></li>
 <li><a href="#251"><span class="must-keyword"><strong>MUST</strong></span> provide gateway upstream targets</a></li>
+<li><a href="#252"><span class="must-keyword"><strong>MUST</strong></span> provide server url</a></li>
 </ul>
 </li>
 <li><a href="#security">5. REST Basics - Security</a>
@@ -2422,6 +2423,42 @@ the target audience — even if this creates redundancies
     <span class="key">dev</span>: <span class="string"><span class="content">http://httpbin.org/</span></span>
     <span class="key">preprod</span>: <span class="string"><span class="content">http://httpbin.org/</span></span>
 
+<span class="error">&lt;...&gt;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="252"><a class="link" href="#252"><span class="must-keyword"><strong>MUST</strong></span> provide server url</a></h3>
+<div class="paragraph">
+<p>Configure the API gateway upstream target i.e. API Provider. Specify one for each environment.
+Configure the API gateway server url for your resource, ensure variable are configured if templating.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="yaml"><span class="key">/servers</span>:
+  <span class="key">type</span>: <span class="string"><span class="content">object</span></span>
+  <span class="key">description</span>: <span class="string"><span class="delimiter">|</span><span class="content">
+     Mandatory extension used to determine url based on environment.</span></span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="yaml"><span class="key">openapi</span>: <span class="string"><span class="content">3.0.1</span></span>
+<span class="key">info</span>:
+  <span class="key">x-audience</span>: <span class="string"><span class="content">company-internal</span></span>
+  <span class="key">title</span>: <span class="string"><span class="content">Parcel Helper Service API</span></span>
+<span class="key">servers</span>:
+  - <span class="string"><span class="content">url: &quot;https://api.landonline.govt.nz/v12/myresource&quot;</span></span>
+  - <span class="string"><span class="content">url: &quot;https://api{env}.landonline.govt.nz/v12/myresource&quot;</span></span>
+    <span class="key">variables</span>:
+      <span class="key">env</span>:
+        <span class="key">enum</span>:
+          - <span class="string"><span class="content">.dev</span></span>
+          - <span class="string"><span class="content">.env</span></span>
+        <span class="key">default</span>: <span class="string"><span class="content">.dev</span></span>
 <span class="error">&lt;...&gt;</span></code></pre>
 </div>
 </div>
@@ -9843,7 +9880,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-03-27 01:56:19 UTC
+Last updated 2023-03-31 01:06:51 UTC
 </div>
 </div>
 </body>

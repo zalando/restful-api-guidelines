@@ -236,3 +236,36 @@ x-gateway-upstream-targets:
 <...>
 ----
 
+[#252]
+== {MUST} provide server url
+
+Configure the API gateway upstream target i.e. API Provider. Specify one for each environment.
+Configure the API gateway server url for your resource, ensure variable are configured if templating.
+
+[source,yaml]
+----
+/servers:
+  type: object
+  description: |
+     Mandatory extension used to determine url based on environment.
+----
+
+Example:
+
+[source,yaml]
+----
+openapi: 3.0.1
+info:
+  x-audience: company-internal
+  title: Parcel Helper Service API
+servers:
+  - url: "https://api.landonline.govt.nz/v12/myresource"
+  - url: "https://api{env}.landonline.govt.nz/v12/myresource"
+    variables:
+      env:
+        enum:
+          - .dev
+          - .env
+        default: .dev
+<...>
+----
