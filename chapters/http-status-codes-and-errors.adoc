@@ -101,11 +101,6 @@ The status code has a well-understood standard meaning to it, so only document
 it if there are operation specific details you want to add. See exception in
 <<151, rule 151>>.
 
-[[status-code-doc-may]]
-==== {doc-may}
-The status code has a standard meaning and you can document it for completeness,
-however it is not expected and you can omit it for brevity purposes.
-
 [[success-codes]]
 === Success codes
 
@@ -165,7 +160,7 @@ The response to the request can be found under another URI using a
 
 
 [[status-code-304]]
-==== 304 Not Modified {rfc-status-304} {doc-may} {GET} {HEAD}
+==== 304 Not Modified {rfc-status-304} {doc-shouldnot} {GET} {HEAD}
 [.indent]
 Indicates that a conditional GET or HEAD request would have
 resulted in 200 response if it were not for the fact that the condition evaluated
@@ -176,7 +171,7 @@ via request headers If-Modified-Since or If-None-Match.
 === Client side error codes
 
 [[status-code-400]]
-==== 400 Bad request {rfc-status-400} {doc-may} {ALL}
+==== 400 Bad request {rfc-status-400} {doc-shouldnot} {ALL}
 [.indent]
 Unspecific client error indicating that the server cannot process the request 
 due to something that is perceived to be a client error (e.g. malformed request syntax invalid request).
@@ -185,7 +180,7 @@ validation (instead of using status code 422).
 
 
 [[status-code-401]]
-==== 401 Unauthorized {rfc-status-401} {doc-shouldnot} {ALL}
+==== 401 Unauthorized {rfc-status-401} {use-should} {doc-shouldnot} {ALL}
 [.indent]
 Actually "Unauthenticated": credentials 
 are not valid for the target resource. User must log in. 
@@ -210,14 +205,14 @@ The method is not supported see {OPTIONS}.
 
 
 [[status-code-406]]
-==== 406 Not Acceptable {rfc-status-406} {doc-may} {ALL}
+==== 406 Not Acceptable {rfc-status-406} {doc-shouldnot} {ALL}
 [.indent]
 Resource can only generate content not acceptable according
 to the Accept headers sent in the request.
 
 
 [[status-code-408]]
-==== 408 Request timeout {rfc-status-408} {use-mustnot} {doc-may} {ALL}
+==== 408 Request timeout {rfc-status-408} {use-mustnot} {ALL}
 [.indent]
 The server times out waiting for the resource.
 
@@ -233,21 +228,21 @@ Hint, you should not return {409}, but {200} or {204} in case of successful robu
 
 
 [[status-code-410]]
-==== 410 Gone {rfc-status-410} {doc-may} {ALL}
+==== 410 Gone {rfc-status-410} {doc-shouldnot} {ALL}
 [.indent]
 Resource does not exist any longer e.g. when accessing a
 resource that has intentionally been deleted.
 
 
 [[status-code-412]]
-==== 412 Precondition Failed {rfc-status-412} {doc-may} {PUT} {PATCH} {DELETE}
+==== 412 Precondition Failed {rfc-status-412} {doc-shouldnot} {PUT} {PATCH} {DELETE}
 [.indent]
 Returned for conditional requests, e.g. {If-Match} if the
 condition failed. Used for optimistic locking.
 
 
 [[status-code-415]]
-==== 415 Unsupported Media Type {rfc-status-415} {doc-may} {POST} {PUT} {PATCH} {DELETE}
+==== 415 Unsupported Media Type {rfc-status-415} {doc-shouldnot} {POST} {PUT} {PATCH} {DELETE}
 [.indent]
 Clients sends request body without content type.
 
@@ -266,7 +261,7 @@ make sure that the "lost update problem" is avoided (see <<181>>).
 
 
 [[status-code-429]]
-==== 429 Too many requests {rfc-status-429} {doc-may} {ALL}
+==== 429 Too many requests {rfc-status-429} {doc-shouldnot} {ALL}
 [.indent]
 The client does not consider rate limiting and sent too
 many requests (see <<153>>).

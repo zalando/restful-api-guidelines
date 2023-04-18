@@ -5,6 +5,7 @@
 :leveloffset: +1
 :sectlinks:
 :sectnumlevels: 1
+:icons: font
 
 :creator: Zalando SE
 :producer: Asciidoctor
@@ -143,19 +144,22 @@
 :503: pass:[<a href="#status-code-503" class="status-code">503</a>]
 
 // See http-status-codes-and-errors.adoc for explanation
-:use-mustnot: pass:quotes[link:#status-code-use-mustnot[[.status-code-hint.mustnot]#❌ MUST NOT use#]]
-:use-should: pass:quotes[link:#status-code-use-should[[.status-code-hint.should]#✅ SHOULD use#]]
-:doc-should: pass:quotes[link:#status-code-doc-should[[.status-code-hint.should]#✍️ SHOULD document#]]
-:doc-shouldnot: pass:quotes[link:#status-code-doc-shouldnot[[.status-code-hint.shouldnot]#✍️ SHOULD NOT document#]]
-:doc-may: pass:quotes[link:#status-code-doc-may[[.status-code-hint.may]#✍️ MAY document#]]
+:use-should: pass:quotes[link:#status-code-use-should[[.status-code-hint.should]#icon:check[] use#]]
+:use-mustnot: pass:quotes[link:#status-code-use-mustnot[[.status-code-hint.mustnot]#icon:times[] do not use#]]
+:doc-should: pass:quotes[link:#status-code-doc-should[[.status-code-hint.should]#icon:check[] document#]]
+:doc-shouldnot: pass:quotes[link:#status-code-doc-shouldnot[[.status-code-hint.shouldnot]#icon:times[] do not document#]]
 
 // RFC Links
 // 
-// You can regenerate them by pasting the adjacent JavaScript one-liner into the browser console while having the RFC website open
+// The RFC links below were generated using JavaScript snippets. You can
+// regenerate them by opening the corresponding RFC website, opening the browser
+// dev tools (Ctrl+Shift+I or F12) and pasting in the JavaScript one-liner in
+// the Console. It should print out the definitions below.
 
 // 
 // RFC 9110 - https://www.rfc-editor.org/rfc/rfc9110.html
 // 
+// See "RFC Links" above for instructions.
 // console.log(Array.from(document.querySelectorAll('.section-name[href^="#name-"]')).map(s => ({ m: s.innerText.match(/^(\d{3}) (.*)/), href: s.attributes["href"].value })).filter(c => c.m).map(c => `:rfc-status-${c.m[1]}: pass:quotes,attributes[{RFC-9110}${c.href}[^RFC^^]]`).join("\n"))
 :rfc-status-100: pass:quotes,attributes[{RFC-9110}#name-100-continue[^RFC^^]]
 :rfc-status-101: pass:quotes,attributes[{RFC-9110}#name-101-switching-protocols[^RFC^^]]
@@ -209,6 +213,7 @@
 // 
 // Codes superseded by RFC 9110 were omitted.
 // 
+// See "RFC Links" above for instructions.
 // console.log(Array.from(document.querySelectorAll('.h3')).map(s => ({ m: s.innerText.match(/\S+\s+(\d{3}) .*/), href: s.querySelector("a").attributes["href"].value })).filter(c => c.m).map(c => `:rfc-status-${c.m[1]}: pass:quotes,attributes[{RFC-4918}${c.href}[^RFC^^]]`).join("\n")) 
 :rfc-status-207: pass:quotes,attributes[{RFC-4918}#section-11.1[^RFC^^]]
 :rfc-status-423: pass:quotes,attributes[{RFC-4918}#section-11.3[^RFC^^]]
@@ -218,6 +223,7 @@
 // 
 // RFC 6585 - https://www.rfc-editor.org/rfc/rfc6585#section-3
 // 
+// See "RFC Links" above for instructions.
 // console.log(Array.from(document.querySelectorAll('.h3')).map(s => ({ m: s.innerText.match(/\S+\s+(\d{3}) .*/), href: s.querySelector("a") })).filter(c => c.m).map(c => `:rfc-status-${c.m[1]}: pass:quotes[${c.href}[^RFC^^]]`).join("\n"))
 :rfc-status-428: pass:quotes,attributes[{RFC-6585}#section-7.1[^RFC^^]]
 :rfc-status-429: pass:quotes,attributes[{RFC-6585}#section-7.2[^RFC^^]]
@@ -315,7 +321,7 @@
 
 
 = Zalando RESTful API and Event Guidelines
-link:https://github.com/zalando/restful-api-guidelines[Github Repository] as part of 
+link:https://github.com/zalando/restful-api-guidelines[GitHub Repository] as part of 
 link:https://opensource.zalando.com/[Zalando SE Opensource]
 
 image::assets/api-zalando-small.jpg[API Guild Logo]
