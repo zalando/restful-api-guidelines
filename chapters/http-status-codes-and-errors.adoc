@@ -81,22 +81,25 @@ a clear description of the HTTP status code in the response.
 
 A more specific version of the <<conventions-used-in-these-guidelines>>.
 
-[[status-code-use-mustnot]]
-==== {use-mustnot}
-We do not see a good use-case for returning this status code from a RESTful API. The status code might be applicable in other contexts, e.g. returned by reverse proxies, for web pages, etc.
-
-[[status-code-use-should]]
-==== {use-should}
+[[status-code-use]]
+==== {use}
 A common, well understood status code that should be used where appropriate.
 Does NOT mean that every operation must be able to return this code.
 
-[[status-code-doc-should]]
-==== {doc-should}
+[[status-code-do-not-use]]
+==== {do-not-use}
+We do not see a good use-case for returning this status code from a RESTful API.
+The status code might be applicable in other contexts, e.g. returned by reverse
+proxies, for web pages, etc. Implicitly also means {do-not-document}, as
+status codes that are not returned by the API should also not be documented.
+
+[[status-code-document]]
+==== {document}
 If the status code can be returned by the API, it should be documented in the
 API specification.
 
-[[status-code-doc-shouldnot]]
-==== {doc-shouldnot}
+[[status-code-do-not-document]]
+==== {do-not-document}
 The status code has a well-understood standard meaning to it, so only document
 it if there are operation specific details you want to add. See exception in
 <<151, rule 151>>.
@@ -106,14 +109,14 @@ it if there are operation specific details you want to add. See exception in
 
 
 [[status-code-200]]
-==== 200 OK {rfc-status-200} {use-should} {doc-should} {ALL}
+==== 200 OK {rfc-status-200} {use} {document} {ALL}
 [.indent]
 This is the most general success response and used, 
 if the more specific codes below are not applicable. 
 
 
 [[status-code-201]]
-==== 201 Created {rfc-status-201} {use-should} {doc-should} {POST} {PUT}
+==== 201 Created {rfc-status-201} {use} {document} {POST} {PUT}
 [.indent]
 Returned on successful resource creation. 
 {201} is returned with or without response payload (unlike {200} / {204}).
@@ -122,19 +125,19 @@ response header (see <<standard-headers>>).
 
 
 [[status-code-202]]
-==== 202 Accepted {rfc-status-202} {use-should} {doc-should} {POST} {PUT} {PATCH} {DELETE}
+==== 202 Accepted {rfc-status-202} {use} {document} {POST} {PUT} {PATCH} {DELETE}
 [.indent]
 The request was successful and will be processed asynchronously.
 
 
 [[status-code-204]]
-==== 204 No content {rfc-status-204} {doc-should} {PUT} {PATCH} {DELETE}
+==== 204 No content {rfc-status-204} {document} {PUT} {PATCH} {DELETE}
 [.indent]
 Returned instead of {200} if no response payload is returned. 
 
 
 [[status-code-207]]
-==== 207 Multi-Status {rfc-status-207} {use-should} {doc-should} {POST} ({DELETE})
+==== 207 Multi-Status {rfc-status-207} {use} {document} {POST} ({DELETE})
 [.indent]
 Multi-Status - The response body contains status information for multiple
 different parts of a batch/bulk request (see <<152>>).
@@ -146,21 +149,21 @@ different parts of a batch/bulk request (see <<152>>).
 
 
 [[status-code-301]]
-==== 301 Moved Permanently {rfc-status-301} {doc-shouldnot} {ALL}
+==== 301 Moved Permanently {rfc-status-301} {do-not-document} {ALL}
 [.indent]
 This and all future requests should be directed to the
 given URI.
 
 
 [[status-code-303]]
-==== 303 See Other {rfc-status-303} {doc-shouldnot} {POST} {PUT} {PATCH} {DELETE}
+==== 303 See Other {rfc-status-303} {do-not-document} {POST} {PUT} {PATCH} {DELETE}
 [.indent]
 The response to the request can be found under another URI using a
 {GET} method.
 
 
 [[status-code-304]]
-==== 304 Not Modified {rfc-status-304} {doc-shouldnot} {GET} {HEAD}
+==== 304 Not Modified {rfc-status-304} {do-not-document} {GET} {HEAD}
 [.indent]
 Indicates that a conditional GET or HEAD request would have
 resulted in 200 response if it were not for the fact that the condition evaluated
@@ -171,7 +174,7 @@ via request headers If-Modified-Since or If-None-Match.
 === Client side error codes
 
 [[status-code-400]]
-==== 400 Bad request {rfc-status-400} {doc-shouldnot} {ALL}
+==== 400 Bad request {rfc-status-400} {do-not-document} {ALL}
 [.indent]
 Unspecific client error indicating that the server cannot process the request 
 due to something that is perceived to be a client error (e.g. malformed request syntax invalid request).
@@ -180,45 +183,45 @@ validation (instead of using status code 422).
 
 
 [[status-code-401]]
-==== 401 Unauthorized {rfc-status-401} {use-should} {doc-shouldnot} {ALL}
+==== 401 Unauthorized {rfc-status-401} {use} {do-not-document} {ALL}
 [.indent]
 Actually "Unauthenticated": credentials 
 are not valid for the target resource. User must log in. 
 
 
 [[status-code-403]]
-==== 403 Forbidden {rfc-status-403} {doc-shouldnot} {ALL}
+==== 403 Forbidden {rfc-status-403} {do-not-document} {ALL}
 [.indent]
 The user is not authorized to use this resource.
 
 
 [[status-code-404]]
-==== 404 Not found {rfc-status-404} {doc-shouldnot} {ALL}
+==== 404 Not found {rfc-status-404} {do-not-document} {ALL}
 [.indent]
 The resource is not found.
 
 
 [[status-code-405]]
-==== 405 Method Not Allowed {rfc-status-405} {doc-should} {ALL}
+==== 405 Method Not Allowed {rfc-status-405} {document} {ALL}
 [.indent]
 The method is not supported see {OPTIONS}.
 
 
 [[status-code-406]]
-==== 406 Not Acceptable {rfc-status-406} {doc-shouldnot} {ALL}
+==== 406 Not Acceptable {rfc-status-406} {do-not-document} {ALL}
 [.indent]
 Resource can only generate content not acceptable according
 to the Accept headers sent in the request.
 
 
 [[status-code-408]]
-==== 408 Request timeout {rfc-status-408} {use-mustnot} {ALL}
+==== 408 Request timeout {rfc-status-408} {do-not-use} {ALL}
 [.indent]
 The server times out waiting for the resource.
 
 
 [[status-code-409]]
-==== 409 Conflict {rfc-status-409} {doc-should} {POST} {PUT} {PATCH} {DELETE}
+==== 409 Conflict {rfc-status-409} {document} {POST} {PUT} {PATCH} {DELETE}
 [.indent]
 Request cannot be completed due to conflict with the current state of the target resource.
 For example, you may get a {409} response when updating a resource that is older than the existing 
@@ -228,21 +231,21 @@ Hint, you should not return {409}, but {200} or {204} in case of successful robu
 
 
 [[status-code-410]]
-==== 410 Gone {rfc-status-410} {doc-shouldnot} {ALL}
+==== 410 Gone {rfc-status-410} {do-not-document} {ALL}
 [.indent]
 Resource does not exist any longer e.g. when accessing a
 resource that has intentionally been deleted.
 
 
 [[status-code-412]]
-==== 412 Precondition Failed {rfc-status-412} {doc-shouldnot} {PUT} {PATCH} {DELETE}
+==== 412 Precondition Failed {rfc-status-412} {do-not-document} {PUT} {PATCH} {DELETE}
 [.indent]
 Returned for conditional requests, e.g. {If-Match} if the
 condition failed. Used for optimistic locking.
 
 
 [[status-code-415]]
-==== 415 Unsupported Media Type {rfc-status-415} {doc-shouldnot} {POST} {PUT} {PATCH} {DELETE}
+==== 415 Unsupported Media Type {rfc-status-415} {do-not-document} {POST} {PUT} {PATCH} {DELETE}
 [.indent]
 Clients sends request body without content type.
 
@@ -254,14 +257,14 @@ Pessimistic locking, e.g. processing states.
 
 
 [[status-code-428]]
-==== 428 Precondition Required {rfc-status-428} {doc-shouldnot} {ALL}
+==== 428 Precondition Required {rfc-status-428} {do-not-document} {ALL}
 [.indent]
 Server requires the request to be conditional, e.g. to
 make sure that the "lost update problem" is avoided (see <<181>>).
 
 
 [[status-code-429]]
-==== 429 Too many requests {rfc-status-429} {doc-shouldnot} {ALL}
+==== 429 Too many requests {rfc-status-429} {do-not-document} {ALL}
 [.indent]
 The client does not consider rate limiting and sent too
 many requests (see <<153>>).
@@ -269,7 +272,7 @@ many requests (see <<153>>).
 === Server side error codes
 
 [[status-code-500]]
-==== 500 Internal Server Error {rfc-status-500} {doc-shouldnot} {ALL}
+==== 500 Internal Server Error {rfc-status-500} {do-not-document} {ALL}
 [.indent]
 A generic error indication for an unexpected server
 execution problem (here, client retry may be sensible)
@@ -283,7 +286,7 @@ availability, e.g. new feature).
 
 
 [[status-code-503]]
-==== 503 Service Unavailable {rfc-status-503} {doc-shouldnot} {ALL}
+==== 503 Service Unavailable {rfc-status-503} {do-not-document} {ALL}
 [.indent]
 Service is (temporarily) not available (e.g. if a
 required component or downstream service is not available) -- client retry may

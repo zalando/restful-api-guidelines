@@ -144,10 +144,10 @@
 :503: pass:[<a href="#status-code-503" class="status-code">503</a>]
 
 // See http-status-codes-and-errors.adoc for explanation
-:use-should: pass:quotes[link:#status-code-use-should[[.status-code-hint.should]#icon:check[] use#]]
-:use-mustnot: pass:quotes[link:#status-code-use-mustnot[[.status-code-hint.mustnot]#icon:times[] do not use#]]
-:doc-should: pass:quotes[link:#status-code-doc-should[[.status-code-hint.should]#icon:check[] document#]]
-:doc-shouldnot: pass:quotes[link:#status-code-doc-shouldnot[[.status-code-hint.shouldnot]#icon:times[] do not document#]]
+:use: pass:quotes[link:#status-code-use[[.status-code-hint.should]#icon:check[] use#]]
+:do-not-use: pass:quotes[link:#status-code-do-not-use[[.status-code-hint.mustnot]#icon:times[] do not use#]]
+:document: pass:quotes[link:#status-code-document[[.status-code-hint.should]#icon:check[] document#]]
+:do-not-document: pass:quotes[link:#status-code-do-not-document[[.status-code-hint.shouldnot]#icon:times[] do not document#]]
 
 // RFC Links
 // 
