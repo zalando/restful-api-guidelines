@@ -10,7 +10,7 @@ DIRWORK := $(shell pwd -P)
 .PHONY: check check-rules check-rules-duplicates check-rules-incorrects
 .PHONY: next-rule-id
 
-all: clean html pdf epub rules
+all: clean html rules
 clean:
 	rm -rf $(DIRBUILDS);
 
@@ -62,6 +62,7 @@ html: check assets pull
 	docker run -v $(DIRWORK):$(DIRMOUNTS)/ ${DOCKER} asciidoctor \
 	  -D $(DIRMOUNTS)/$(DIRBUILDS) index.adoc;
 
+# Not used any longer.
 pdf: check pull
 	docker run -v $(DIRWORK):$(DIRMOUNTS)/ ${DOCKER} asciidoctor-pdf -v \
 		-a pdf-fontsdir=$(DIRMOUNTS)/resources/fonts \
@@ -69,6 +70,7 @@ pdf: check pull
 	  -D $(DIRMOUNTS)/$(DIRBUILDS) index.adoc;
 	mv -f $(DIRBUILDS)/index.pdf $(DIRBUILDS)/zalando-guidelines.pdf;
 
+# Not used any longer.
 epub: check pull
 	docker run -v $(DIRWORK):$(DIRMOUNTS)/ ${DOCKER} asciidoctor-epub3 \
 	  -D $(DIRMOUNTS)/$(DIRBUILDS) index.adoc;
