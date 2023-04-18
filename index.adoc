@@ -236,8 +236,6 @@ link:https://opensource.zalando.com/[Zalando SE Opensource]
 
 image::assets/api-zalando-small.jpg[API Guild Logo]
 
-Other formats: link:zalando-guidelines.pdf[PDF], link:zalando-guidelines.epub[EPUB3] +
-
 ifndef::ebook-format[]
 toc::[]
 endif::ebook-format[]
