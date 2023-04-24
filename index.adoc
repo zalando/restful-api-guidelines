@@ -108,7 +108,7 @@
 :HEAD: pass:[<a href="#head"><code>HEAD</code></a>]
 :OPTIONS: pass:[<a href="#options"><code>OPTIONS</code></a>]
 :TRACE: pass:[<a href="#trace"><code>TRACE</code></a>]
-:ALL: pass:[<code title="Applicable to all HTTP methods.">&lt;all&gt;</code>]
+:ALL: pass:[<a href="#http-requests"><code title="Applicable to all HTTP methods.">&lt;all&gt;</code></a>]
 
 
 // Attributes to improve design and linking of HTTP status codes
