@@ -6,6 +6,16 @@
 make all
 ----
 
+== Watch for changes and rebuild
+
+[source,bash]
+----
+make watch
+----
+
+It uses https://github.com/watchexec/watchexec[watchexec] to watch for
+changes in the `.adoc` (and `.css`) files to rebuild the html on save.
+
 == Generate Custom CSS
 
 In order to generate custom CSS we have to use http://asciidoctor.org/docs/user-manual/#stylesheet-factory[`stylesheet-factory`]

@@ -8,7 +8,7 @@ DIRWORK := $(shell pwd -P)
 
 .PHONY: all clean install lint format pull assets rules html pdf epub force
 .PHONY: check check-rules check-rules-duplicates check-rules-incorrects
-.PHONY: next-rule-id
+.PHONY: next-rule-id watch
 
 all: clean html pdf epub rules
 clean:
@@ -61,6 +61,9 @@ rules: check-rules
 html: check assets pull
 	docker run -v $(DIRWORK):$(DIRMOUNTS)/ ${DOCKER} asciidoctor \
 	  -D $(DIRMOUNTS)/$(DIRBUILDS) index.adoc;
+
+watch:
+	watchexec --exts adoc,css --ignore output -r make html
 
 pdf: check pull
 	docker run -v $(DIRWORK):$(DIRMOUNTS)/ ${DOCKER} asciidoctor-pdf -v \

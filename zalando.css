@@ -1266,6 +1266,21 @@ b.conum * { color: inherit !important; }
 
 .status-code, .status-code:link, .status-code:visited, .status-code:hover, .status-code:active { color: black; font-weight: bold; }
 
+/* HTTP Status Codes custom text span syntax / roles / highlight */
+.status-code-hint { border-radius: 4px; border-width: 2px; border-style: solid; padding: 4px 2px 0px 2px; font-size: 0.8em; }
+
+.status-code-hint.mustnot { color: white; background-color: red; border-color: red; }
+
+.status-code-hint.should { color: white; background-color: #32c032; border-color: #32c032; }
+
+.status-code-hint.shouldnot { color: #595959; background-color: #e5e82d; border-color: #e5e82d; }
+
+.status-code-hint.may { color: white; background-color: #6969f5; border-color: #6969f5; }
+
+.status-code-methods { border-radius: 4px; border-width: 2px; border-style: solid; padding: 4px 2px 0px 2px; font-size: 0.8em; }
+
+.indent { padding-left: 4rem; }
+
 .sect1 { max-width: 45em; }
 
 #content #toc { max-width: 45em; }
