@@ -61,6 +61,14 @@
   font-size: 0.8em;
 }
 
+.do-not-use {
+  color: gray;
+}
+
+.do-not-use h5 > a {
+  color: gray;
+}
+
 .indent {
   padding-left: 4rem;
 }

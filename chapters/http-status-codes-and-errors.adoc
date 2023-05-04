@@ -111,143 +111,258 @@ it if there are operation specific details you want to add. See exception in
 [[status-code-200]]
 ==== 200 OK {rfc-status-200} {use} {document} {ALL}
 [.indent]
-This is the most general success response and used, 
-if the more specific codes below are not applicable. 
+This is the most general success response. It should be used if the more
+specific codes below are not applicable.
 
 
 [[status-code-201]]
 ==== 201 Created {rfc-status-201} {use} {document} {POST} {PUT}
 [.indent]
-Returned on successful resource creation. 
+Returned on successful resource creation.
 {201} is returned with or without response payload (unlike {200} / {204}).
-We recommend to additionally return the created resource URL via the `Location` 
-response header (see <<standard-headers>>).
+We recommend additionally to return the created resource URL via the {Location}
+response header (see <<133>>).
 
 
 [[status-code-202]]
 ==== 202 Accepted {rfc-status-202} {use} {document} {POST} {PUT} {PATCH} {DELETE}
 [.indent]
 The request was successful and will be processed asynchronously.
+Only applicable to methods which change something.
 
 
 [[status-code-204]]
 ==== 204 No content {rfc-status-204} {document} {PUT} {PATCH} {DELETE}
 [.indent]
-Returned instead of {200} if no response payload is returned. 
+Returned instead of {200}, if no response payload is returned.
+Normally only applicable to methods which change something.
+
+
+[.do-not-use]
+[[status-code-205]]
+==== 205 Reset Content {rfc-status-205} {do-not-use} {ALL}
+[.indent]
+This is meant for interactive use cases, e.g. to clear a form after submitting
+it. There is no reason to use it in a REST API.
+
+
+[.do-not-use]
+[[status-code-206]]
+==== 206 Partial Content {rfc-status-206} {do-not-use} {ALL}
+[.indent]
+For responses to range requests, when only a part of the resource indicated by
+the byte range is returned. This is not for pagination, where a normal {200}
+should be used. This might be useful in rare cases (like media streaming or
+downloading large files), but most APIs don't need this.
 
 
 [[status-code-207]]
 ==== 207 Multi-Status {rfc-status-207} {use} {document} {POST} ({DELETE})
 [.indent]
-Multi-Status - The response body contains status information for multiple
-different parts of a batch/bulk request (see <<152>>).
-
+The response body contains status information for multiple different parts of a
+batch/bulk request (see <<152>> for details). Normally used for {POST}, in some
+cases also for {DELETE}.
 
 
 [[redirection-codes]]
 === Redirection codes
 
+See <<250>>.
 
+
+[.do-not-use]
 [[status-code-301]]
-==== 301 Moved Permanently {rfc-status-301} {do-not-document} {ALL}
+==== 301 Moved Permanently {rfc-status-301} {do-not-use} {ALL}
 [.indent]
 This and all future requests should be directed to the
 given URI.
 
 
+[.do-not-use]
+[[status-code-302]]
+==== 302 Found {rfc-status-302} {do-not-use} {ALL}
+[.indent]
+This is a temporary redirect where some clients {MAY} change the request method
+from {POST} to {GET}. Mainly used for dismissing and redirecting form
+submissions in browsers. 
+
+
+[.do-not-use]
 [[status-code-303]]
-==== 303 See Other {rfc-status-303} {do-not-document} {POST} {PUT} {PATCH} {DELETE}
+==== 303 See Other {rfc-status-303} {do-not-use} {POST} {PUT} {PATCH} {DELETE}
 [.indent]
 The response to the request can be found under another URI using a
-{GET} method.
+{GET} method. A disambiguated version of {302} for the case where the client
+{MUST} change the method to {GET}.
 
 
 [[status-code-304]]
-==== 304 Not Modified {rfc-status-304} {do-not-document} {GET} {HEAD}
+==== 304 Not Modified {rfc-status-304} {document} {GET} {HEAD}
 [.indent]
-Indicates that a conditional GET or HEAD request would have
-resulted in 200 response if it were not for the fact that the condition evaluated
-to false i.e. resource has not been modified since the date or version passed
-via request headers If-Modified-Since or If-None-Match.
+Indicates that a conditional {GET} or {HEAD} request would have resulted in
+{200} response if it were not for the fact that the condition evaluated to false
+i.e. resource has not been modified since the date or version passed via request
+headers {If-Modified-Since} or {If-None-Match}.
+
+
+[.do-not-use]
+[[status-code-307]]
+==== 307 Temporary Redirect {rfc-status-307} {do-not-use} {ALL}
+[.indent]
+The response to the request can be found under another URI. A disambiguated
+version of {302} where the client {MUST} keep the same method as the
+original request.
+
+
+[.do-not-use]
+[[status-code-308]]
+==== 308 Permanent Redirect {rfc-status-308} {do-not-use} {ALL}
+[.indent]
+Similar to {307}, but the client should persist the new URI. Applicable more to
+browsers. For APIs, the URI should be explicitly fixed at the source instead of
+being implicitly kept in some state based on a previous redirect.
+
 
 [[client-side-error-codes]]
 === Client side error codes
 
 [[status-code-400]]
-==== 400 Bad request {rfc-status-400} {do-not-document} {ALL}
+==== 400 Bad Request {rfc-status-400} {use} {document} {ALL}
 [.indent]
-Unspecific client error indicating that the server cannot process the request 
-due to something that is perceived to be a client error (e.g. malformed request syntax invalid request).
-Should also be delivered in case of input payload fails business logic / semantic 
-validation (instead of using status code 422). 
+Unspecific client error indicating that the server cannot process the request
+due to something that is perceived to be a client error (e.g. malformed request
+syntax, invalid request). Should also be delivered in case of input payload
+fails business logic / semantic validation (instead of using {422}).
 
 
 [[status-code-401]]
 ==== 401 Unauthorized {rfc-status-401} {use} {do-not-document} {ALL}
 [.indent]
-Actually "Unauthenticated": credentials 
-are not valid for the target resource. User must log in. 
+Actually *Unauthenticated*. The credentials are missing or not valid for the
+target resource. For an API, this usually means that the provided token or
+cookie is not valid. As this can happen for almost every endpoint, APIs should
+normally not document this.
 
 
 [[status-code-403]]
 ==== 403 Forbidden {rfc-status-403} {do-not-document} {ALL}
 [.indent]
-The user is not authorized to use this resource.
+The user is not authorized to use this resource. For an API, this can mean that
+the request's token was valid, but was missing a scope for this endpoint. Or
+that some object-specific authorization failed. We recommend only documenting
+the second case.
 
 
 [[status-code-404]]
 ==== 404 Not found {rfc-status-404} {do-not-document} {ALL}
 [.indent]
-The resource is not found.
+The target resource was not found. This will be returned by most paths on most
+APIs, and for endpoints with parameters when those parameters don't map to an
+existing entity. For a {PUT} endpoint which only supports updating existing
+resources, this might be returned if the resource does not exist. Apart from
+these special cases, this does not need to be documented.
 
 
 [[status-code-405]]
 ==== 405 Method Not Allowed {rfc-status-405} {document} {ALL}
 [.indent]
-The method is not supported see {OPTIONS}.
+The request method is not supported for this resource. In theory, this can be
+returned for all resources for all the methods except the ones documented. Using
+this response code for an existing endpoint (usually with path parameter) only
+makes sense if it depends on some internal resource state whether a specific
+method is allowed, e.g. an order can only be canceled via {DELETE} until the
+shipment leaves the warehouse. *Do not use it unless you have such a special use
+case, but then make sure to document it, making it clear why a resource might
+not support a method.*
 
 
 [[status-code-406]]
 ==== 406 Not Acceptable {rfc-status-406} {do-not-document} {ALL}
 [.indent]
-Resource can only generate content not acceptable according
-to the Accept headers sent in the request.
+Resource only supports generating content that is not listed in the {Accept}
+header sent in the request.
 
 
+[.do-not-use]
 [[status-code-408]]
 ==== 408 Request timeout {rfc-status-408} {do-not-use} {ALL}
 [.indent]
-The server times out waiting for the resource.
+The server times out waiting for the request to arrive. For APIs, this should
+not be used.
 
 
 [[status-code-409]]
 ==== 409 Conflict {rfc-status-409} {document} {POST} {PUT} {PATCH} {DELETE}
 [.indent]
-Request cannot be completed due to conflict with the current state of the target resource.
-For example, you may get a {409} response when updating a resource that is older than the existing 
-one on the server, resulting in a version control conflict.
-Hint, you should not return {409}, but {200} or {204} in case of successful robust creation of resources 
-(via {PUT} or {POST}), if the resource already exists.
+The request cannot be completed due to conflict with the current state of the
+target resource. For example, you may get a {409} response when updating a
+resource that is older than the existing one on the server, resulting in a
+version control conflict. If this is used, it {MUST} be documented. For
+successful robust creation of resources ({PUT} or {POST}) you should always
+return {200} or {204} and not {409}, even if the resource exists already. If any
+`If-*` headers cause a conflict, you should use {412} and not {409}. Only
+applicable to methods which change something.
 
 
 [[status-code-410]]
 ==== 410 Gone {rfc-status-410} {do-not-document} {ALL}
 [.indent]
-Resource does not exist any longer e.g. when accessing a
-resource that has intentionally been deleted.
+The resource does not exist any longer (but did exist in the past), and will
+most likely not exist in the future. This can be used e.g. when accessing a
+resource that has intentionally been deleted. This normally does not need to be
+documented, unless there is a specific need to distinguish this case from the
+normal {404}.
+
+
+[[status-code-411]]
+==== 411 Length Required {rfc-status-411} {document} {POST} {PUT} {PATCH}
+[.indent]
+The server requires a {Content-Length} header for this request. This is normally
+only relevant for large media uploads. The corresponding header parameter should
+be marked as required. If used, it {MUST} to be documented (and explained). Only
+applicable for methods with a request body.
 
 
 [[status-code-412]]
 ==== 412 Precondition Failed {rfc-status-412} {do-not-document} {PUT} {PATCH} {DELETE}
 [.indent]
-Returned for conditional requests, e.g. {If-Match} if the
-condition failed. Used for optimistic locking.
+Returned for conditional requests, e.g. {If-Match} if the condition failed. Used
+for optimistic locking. Normally only applicable to methods that change
+something.
 
 
 [[status-code-415]]
-==== 415 Unsupported Media Type {rfc-status-415} {do-not-document} {POST} {PUT} {PATCH} {DELETE}
+==== 415 Unsupported Media Type {rfc-status-415} {do-not-document} {POST} {PUT} {PATCH}
 [.indent]
-Clients sends request body without content type.
+The client did not provide a supported request body. Only applicable to methods
+with a request body.
+
+
+[.do-not-use]
+[[status-code-417]]
+==== 417 Locked {rfc-status-417} {do-not-use} {ALL}
+[.indent]
+Returned when the client used an {Expect} header which the server does not
+support. The only defined value for the {Expect} header is very technical and
+does not belong in an API.
+
+
+[.do-not-use]
+[[status-code-418]]
+==== 418 I'm a teapot 🫖 (Unused) {rfc-status-418} {do-not-use} {ALL}
+[.indent]
+Only use if you are implementing an API for a teapot that does not support
+brewing coffee. Response defined for April's Fools in
+https://www.rfc-editor.org/rfc/rfc2324.html[RFC 2324].
+
+
+[.do-not-use]
+[[status-code-422]]
+==== 422 Unprocessable Content {rfc-status-422} {do-not-use} {ALL}
+[.indent]
+The server understands the content type, but is unable to process the content.
+We do not recommend this code to be used as {400} already covers most use-cases
+and there does not seem to be a clear benefit to differentiating between them.
 
 
 [[status-code-423]]
@@ -259,15 +374,16 @@ Pessimistic locking, e.g. processing states.
 [[status-code-428]]
 ==== 428 Precondition Required {rfc-status-428} {do-not-document} {ALL}
 [.indent]
-Server requires the request to be conditional, e.g. to
-make sure that the "lost update problem" is avoided (see <<181>>).
+Server requires the request to be conditional, e.g. to make sure that the "lost
+update problem" is avoided (see <<181>>).
 
 
 [[status-code-429]]
-==== 429 Too many requests {rfc-status-429} {do-not-document} {ALL}
+==== 429 Too many requests {rfc-status-429} {use} {do-not-document} {ALL}
 [.indent]
-The client does not consider rate limiting and sent too
-many requests (see <<153>>).
+The client is not abiding by the rate limits in place and has sent too many
+requests (see <<153>>).
+
 
 === Server side error codes
 
@@ -483,3 +599,28 @@ Stack traces contain implementation details that are not part of an API,
 and on which clients should never rely. Moreover, stack traces can leak
 sensitive information that partners and third parties are not allowed to
 receive and may disclose insights about vulnerabilities to attackers.
+
+[#250]
+== {SHOULD} not use redirection codes
+
+We generally do not recommend using redirection codes for most API cases (except
+for {304}, which is not really a redirection code). Usually you would use the
+redirection to migrate clients to a new service location. However, this is
+better accomplished by one of the following.
+
+1. Changing the clients to use the new location in the first place, avoiding the
+need for redirection.
+2. Redirecting the traffic behind the API layer (e.g. in the reverse proxy or
+the app itself) without the client having to be involved.
+3. Deprecating the endpoint and removing it as described in <<deprecation>>.
+
+For idempotent {POST} cases, where you want to inform the client that a resource
+already exists at a certain location, you should instead use {200} with the
+{Location} header set. This is along the same lines as the creation case where
+{201} is used instead. See also <<229>>.
+
+For non-idempotent {POST} cases, where you want to inform the client that the
+resource has already been created and cannot be created again (e.g. payment),
+you should return {409} instead of redirecting to make the error case
+more explicit.
+
