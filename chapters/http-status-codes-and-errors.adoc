@@ -202,8 +202,8 @@ The response to the request can be found under another URI using a
 Indicates that a conditional {GET} or {HEAD} request would have resulted in
 {200} response if it were not for the fact that the condition evaluated to false
 i.e. resource has not been modified since the date or version passed via request
-headers {If-Modified-Since} or {If-None-Match}.
-
+headers {If-Modified-Since} or {If-None-Match}. For {PUT}/{PATCH}/{DELETE}
+requests, use {412} instead.
 
 [.do-not-use]
 [[status-code-307]]
@@ -328,7 +328,7 @@ applicable for methods with a request body.
 [.indent]
 Returned for conditional requests, e.g. {If-Match} if the condition failed. Used
 for optimistic locking. Normally only applicable to methods that change
-something.
+something. For {HEAD}/{GET} requests, use {304} instead.
 
 
 [[status-code-415]]
