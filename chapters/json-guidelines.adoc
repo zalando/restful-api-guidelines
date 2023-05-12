@@ -32,6 +32,27 @@ As a consequence, a JSON payload must
 * contain only {RFC-7493}#section-2.3[unique member names] (no duplicate
   names).
 
+[#250]
+== {SHOULD} be aware of services not fully supporting JSON/unicode
+
+JSON payloads passed via API requests consist of valid unicode characters
+(see <<167>>). While `\uxxxx` are valid characters in a JSON strings, they can
+create failures when leaving the API request processing context, e.g. by
+writing the data into a database or piping it through command line tools that
+are not 100% compatible with the JSON or unicode standard.
+
+A prominent example for such a tool is the Postgres database:
+
+* Postgres cannot handle `\u0000` in `jsonb` and `text` types (see
+  https://www.postgresql.org/docs/current/datatype-json.html[datatype-json]).
+
+As a consequence, servers and clients that forward JSON content to other tools
+should check that these tools fully support the JSON or unicode standard. If
+not, they should reject or sanitize unicode characters not supported by the
+tools.
+
+**Note:** A sanitization and rejection are actions that change the API
+behavior and therefore should be described by the API specification.
 
 [#168]
 == {MAY} pass non-JSON media types using data specific standard formats
