@@ -14,12 +14,13 @@ all: clean html rules
 clean:
 	rm -rf $(DIRBUILDS);
 
-install:
-	npm install -g markdownlint-cli;
-lint:
-	markdownlint --config linter.yaml chapters/*.adoc;
-format:
-	markdownlint --config linter.yaml --fix chapters/*.adoc;
+install: $(NVM_BIN)/markdownlint
+$(NVM_BIN)/markdownlint:
+	npm install --global markdownlint-cli;
+lint: $(NVM_BIN)/markdownlint
+	markdownlint --config .markdownlint.yaml chapters/*.adoc;
+format: $(NVM_BIN)/markdownlint
+	markdownlint --config .markdownlint.yaml --fix chapters/*.adoc;
 
 pull:
 	docker pull $(DOCKER);
