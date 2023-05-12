@@ -1476,6 +1476,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#json-guidelines">8. REST Basics - JSON payload</a>
 <ul class="sectlevel2">
 <li><a href="#167"><span class="must-keyword"><strong>MUST</strong></span> use JSON as payload data interchange format</a></li>
+<li><a href="#250"><span class="should-keyword"><strong>SHOULD</strong></span> be aware of services not fully supporting JSON/unicode</a></li>
 <li><a href="#168"><span class="may-keyword"><strong>MAY</strong></span> pass non-JSON media types using data specific standard formats</a></li>
 <li><a href="#172"><span class="should-keyword"><strong>SHOULD</strong></span> use standard media types</a></li>
 <li><a href="#120"><span class="should-keyword"><strong>SHOULD</strong></span> pluralize array names</a></li>
@@ -3598,6 +3599,37 @@ contain non-characters or surrogates, and</p>
 names).</p>
 </li>
 </ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="250"><a class="link" href="#250"><span class="should-keyword"><strong>SHOULD</strong></span> be aware of services not fully supporting JSON/unicode</a></h3>
+<div class="paragraph">
+<p>JSON payloads passed via API requests consist of valid unicode characters
+(see <a href="#167"><span class="must-keyword"><strong>MUST</strong></span> use JSON as payload data interchange format</a>). While <code>\uxxxx</code> are valid characters in a JSON strings, they can
+create failures when leaving the API request processing context, e.g. by
+writing the data into a database or piping it through command line tools that
+are not 100% compatible with the JSON or unicode standard.</p>
+</div>
+<div class="paragraph">
+<p>A prominent example for such a tool is the Postgres database:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Postgres cannot handle <code>\u0000</code> in <code>jsonb</code> and <code>text</code> types (see
+<a href="https://www.postgresql.org/docs/current/datatype-json.html">datatype-json</a>).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>As a consequence, servers and clients that forward JSON content to other tools
+should check that these tools fully support the JSON or unicode standard. If
+not, they should reject or sanitize unicode characters not supported by the
+tools.</p>
+</div>
+<div class="paragraph">
+<p><strong>Note:</strong> A sanitization and rejection are actions that change the API
+behavior and therefore should be described by the API specification.</p>
 </div>
 </div>
 <div class="sect2">
@@ -10107,7 +10139,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-04-18 16:56:00 UTC
+Last updated 2023-05-12 13:11:05 UTC
 </div>
 </div>
 </body>

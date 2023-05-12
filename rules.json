@@ -563,6 +563,10 @@
     {
       "id": "#249",
       "title": "MUST use the common address fields"
+    },
+    {
+      "id": "#250",
+      "title": "SHOULD be aware of services not fully supporting JSON/unicode"
     }
   ]
 }
