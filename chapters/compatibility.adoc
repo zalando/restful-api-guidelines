@@ -251,7 +251,7 @@ NOTE: Until an incompatible change is necessary, it is recommended to stay
 with the standard `application/json` media type without versioning.
 
 Further reading:
-https://blog.apisyouwonthate.com/api-versioning-has-no-right-way-f3c75457c0b7[API
+https://apisyouwonthate.com/blog/api-versioning-has-no-right-way[API
 Versioning Has No "Right Way"] provides an overview on different versioning
 approaches to handle breaking changes without being opinionated.
 
