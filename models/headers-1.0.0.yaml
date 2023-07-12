@@ -1,0 +1,475 @@
+# Standard request headers
+
+Accept-Encoding:
+  name: Accept-Encoding
+  in: header
+  required: false
+  description: |-
+    The **Accept-Encoding** indicates the content encoding (usually a
+    compression algorithm) the client understands. The server selects one of
+    the proposed encodings and returns his choice in the **Content-Encoding**
+    response header.
+
+    Supported compression algorithms of the server are [**gzip**][gzip] and
+    **identity**, but other encodings from list below may be support too:
+
+    * **gzip** - a compression format that uses [Lempel-Ziv coding][gzip]
+      (LZ77) with a 32-bit CRC.
+    * **compress** - a format using the [Lempel-Ziv-Welch][lzw] (LZW)
+      algorithm.
+    * **deflate** - A compression format that uses the [zlib][zlib] structure
+      with the [deflate][deflate] compression algorithm.
+    * **br** - a compression format that uses the [Brotli][brotli] algorithm.
+    * **identity** - the identity function without modification or compression
+      used to indicate unchanged responses. This value is always considered as
+      acceptable, even if omitted.
+
+    The server may choose not to compress the body of the response, if the
+    identity value is acceptable, e.g. if the content is already compressed
+    (e.g. for JPEG content), or if the server is missing resources to perform
+    the compression operation.
+
+    **Note:** A client is allowed to explicitly forbid the identity value by
+    setting **identity;q=0** or **\*;q=0**, however, the server in return may
+    respond with a **406** (Not Acceptable) error.
+
+    See [RFC 9110 Section 12.5.3][rfc-9110-12.5.3] as well as [API Guideline
+    Rule #156][api-156] for further details.
+
+    [rfc-9110-12.5.3]: <https://tools.ietf.org/html/rfc9110#section-12.5.3>
+    [api-156]: <https://opensource.zalando.com/restful-api-guidelines/#156>
+    [gzip]: <https://en.wikipedia.org/wiki/LZ77_and_LZ78#LZ77>
+    [lzw]: <https://en.wikipedia.org/wiki/LZW>
+    [zlib]: <https://en.wikipedia.org/wiki/Zlib>
+    [deflate]: <https://en.wikipedia.org/wiki/DEFLATE>
+    [brotli]: <https://en.wikipedia.org/wiki/Brotli>
+  schema:
+    type: array
+    items:
+      type: string
+  style: simple
+  explode: false
+  example: "gzip;q=0.8", "identity;q=0"
+
+
+If-Match:
+  name: If-Match
+  in: header
+  required: false
+  description: |-
+    The **If-Match** header field is used to declare a list of identifiers that
+    are required to match the current resource version identifier in at least
+    one position as a pre-condition for executing the request on the server
+    side. This behavior is used to validate and reject optimistic updates, by
+    checking if the resource version a consumer has based his changes on is
+    outdated on arrival of the change request to prevent lost updates.
+
+    If the pre-condition fails the server will respond with status code **412**
+    (Precondition Failed). See [RFC 9110 Section 13.1.1][rfc-9110-13.1.1] as
+    well as [API Guideline Rule #182][api-182] for further details.
+
+    [rfc-9110-13.1.1]: <https://tools.ietf.org/html/rfc9110#section-13.1.1>
+    [api-182]: <https://opensource.zalando.com/restful-api-guidelines/#182>
+  schema:
+    type: array
+    items:
+      type: string
+  style: simple
+  explode: false
+  example: W/"xy", "5", "5db68c06-1a68-11e9-8341-68f728c1ba70"
+
+
+If-None-Match:
+  name: If-None-Match
+  in: header
+  required: false
+  description: |-
+    The **If-None-Match header** field is used to declare a list of identifiers
+    that are required to fail matching all the current resource version
+    identifiers as a pre-condition for executing the request on the server
+    side. This is especially used in conjunction with an **\*** (asterix) that
+    is matching all possible resource identifiers to ensure the initial
+    creation of a resource. Other use cases are possible but rare.
+
+    If the pre-condition fails the server will respond with status code **412**
+    (Precondition Failed). See [RFC 9110 Section 13.1.2][rfc-9110-13.1.2] as
+    well as [API Guideline Rule #182][api-182] for further details.
+
+    [rfc-9110-13.1.2]: <https://tools.ietf.org/html/rfc9110#section-13.1.2>
+    [api-182]: <https://opensource.zalando.com/restful-api-guidelines/#182>
+  schema:
+    type: array
+    items:
+      type: string
+  style: simple
+  explode: false
+  example: W/"xy", "5", "5db68c06-1a68-11e9-8341-68f728c1ba70"
+
+
+Prefer:
+  name: Prefer
+  in: header
+  required: false
+  description: |-
+    The **Prefer** header indicates that a particular server behavior is
+    preferred by the client, but is not required for successful completion of
+    the request (see [RFC 7240][rfc-7240]. The following behaviors are
+    supported by this API:
+
+    * **respond-async** is used to suggest the server to respond as fast as
+      possible asynchronously using **202** (Accepted) instead of waiting for
+      the result.
+    * **return=<minimal|representation>** is used to suggest the server to
+      return using **204** (No Content) without resource (minimal) or using
+      **200** or **201** with resource (representation) in the response body on
+      success.
+    * **wait=<delta-seconds>** is used to suggest a maximum time the server has
+      time to process the request synchronously.
+    * **handling=<strict|lenient>** is used to suggest the server to be strict
+      and report error conditions or lenient, i.e. robust and try to continue,
+      if possible.
+
+    See [RFC 7340][rfc-7240] as well as [API Guideline Rule #181][api-181]
+    for further details.
+
+    [rfc-7240]: <https://tools.ietf.org/html/rfc7240>
+    [api-181]: <https://opensource.zalando.com/restful-api-guidelines/#181>
+  schema:
+    type: array
+    items:
+      type: string
+  style: simple
+  explode: false
+  example: "respond-async", "return=minimal", "wait=20", "handling=strict"
+  
+
+Idempotency-Key:
+  name: Idempotency-Key
+  in: header
+  required: false
+  description: |-
+    The **Idempotency-Key** is a free identifier created by the client to
+    identify a request. It is used by the service to identify repeated request
+    to ensure idempotent behavior by sending the same (or a similar) response
+    without executing the request a second time.
+
+    Clients should be careful as any subsequent requests with the same key may
+    return the same response without further check. Thus, it is recommended to
+    use a UUID version 4 (random) or any other random string with enough
+    entropy to avoid collisions.
+
+    Keys expire after 24 hours. Clients are responsible to stay within this
+    limit, if they require idempotent behavior.
+
+    See [API Guideline Rule #181][api-230] for further details.
+
+    [api-230]: <https://opensource.zalando.com/restful-api-guidelines/#230>
+  schema:
+    type: string
+    format: uuid
+  example: "7da7a728-f910-11e6-942a-68f728c1ba70"
+
+
+# Standard response headers
+
+
+Content-Encoding:
+  name: Content-Encoding
+  in: header
+  required: false
+  description: |-
+    The **Content-Encoding** header lists any encoding (usually a compression
+    algorithm) applied to the message payload - in execution order. This allows
+    the recipient to decode the content in order to obtain the original payload
+    format.
+
+    Supported compression algorithms of the server are [**gzip**][gzip] and
+    **identity**, but other encoding from list below may be support too:
+
+    * **gzip** - a compression format that uses [Lempel-Ziv coding][gzip]
+      (LZ77) with a 32-bit CRC.
+    * **compress** - a format using the [Lempel-Ziv-Welch][lzw] (LZW)
+      algorithm.
+    * **deflate** - A compression format that uses the [zlib][zlib] structure
+      with the [deflate][deflate] compression algorithm.
+    * **br** - a compression format that uses the [Brotli][brotli] algorithm.
+    * **identity** - the identity function without modification or compression
+      used to indicate unchanged responses. This value is always considered as
+      acceptable, even if omitted.
+
+    **Note:** the original media/content type is specified in the
+    **Content-Type**-header, while the **Content-Encoding** applies to the
+    representation of the data. If the original media is encoded in some way,
+    e.g. as a zip file, then this information is not be included in the
+    **Content-Encoding** header.
+
+    See [RFC 9110 Section 8.4][rfc-9110-8.4] as well as [API Guideline Rule
+    #156][api-156] for further details.
+
+    [rfc-9110-8.4]: <https://tools.ietf.org/html/rfc9110#section-8.4>
+    [api-156]: <https://opensource.zalando.com/restful-api-guidelines/#156>
+    [gzip]: <https://en.wikipedia.org/wiki/LZ77_and_LZ78#LZ77>
+    [lzw]: <https://en.wikipedia.org/wiki/LZW>
+    [zlib]: <https://en.wikipedia.org/wiki/Zlib>
+    [deflate]: <https://en.wikipedia.org/wiki/DEFLATE>
+    [brotli]: <https://en.wikipedia.org/wiki/Brotli>
+  schema:
+    type: array
+    items:
+      type: string
+  style: simple
+  explode: false
+  example: "gzip", "deflate"
+
+
+ETag:
+  name: ETag
+  in: header
+  required: false
+  description: |-
+    The **ETag** header field in a response provides an opaque quoted string
+    identifying the distinct delivered resource. The same selected resource
+    depending on version and representation may be identified by multiple
+    identifiers. The **ETag** value is guaranteed to change whenever the
+    resource changes, and thereby enabling optimistic updates.
+
+    An identifier consists of an opaque quoted string, possibly prefixed by
+    a weakness indicator. See [RFC 9110 Section 8.8.3][rfc-9110-8.8.3] as
+    well as [API Guideline Rule #182][api-182] for further details.
+
+    [rfc-9110-8.8.3]: <https://tools.ietf.org/html/rfc9110#section-8.8.3>
+    [api-182]: <https://opensource.zalando.com/restful-api-guidelines/#182>
+  schema:
+    type: array
+    items:
+      type: string
+  style: simple
+  explode: false
+  example: W/"xy", "5", "5db68c06-1a68-11e9-8341-68f728c1ba70"
+
+
+Cache-Control:
+  name: Cache-Control
+  in: header
+  required: false
+  description: |-
+    The **Cache-Control** header field is providing directives to control how
+    proxies and clients are allowed to cache responses results for performance.
+    Clients and proxies are free to not support caching of results, however if
+    they do, they must obey all directives mentioned in [RFC-9111 Section
+    5.2][rfc-9111-5.2] to the word.
+
+    In case of caching, the directive provides the scope of the cache entry,
+    i.e. only for the original user (private) or shared between all users
+    (public), the lifetime of the cache entry in seconds (max-age), and the
+    strategy how to handle a stale cache entry (must-revalidate). Please note,
+    that the lifetime and validation directives for shared caches are different
+    (s-maxage, proxy-revalidate).
+
+    See [RFC 9111 Section 5.2][rfc-9111-5.2] as well as [API Guideline Rule
+    #227][api-227] for further details.
+
+    [rfc-9111-5.2]: <https://tools.ietf.org/html/rfc9111#name-cache-control>
+    [api-227]: <https://opensource.zalando.com/restful-api-guidelines/#227>
+  schema:
+    type: array
+    items:
+      type: string
+  style: simple
+  explode: false
+  example: "private, must-revalidate, max-age=3600"
+
+
+Vary:
+  name: Vary
+  in: header
+  required: false
+  description: |-
+    The **Vary** header field in the response describes which parts of the
+    request message, aside from the method, the **Host** header field, and the
+    request target path, might have influence the server in selecting the
+    presented response. A client or proxy that caches the response must respect
+    this information to ensure that it delivers the correct cache entry (see
+    [RFC-9110 Section 12.5.5][rfc-9110-12.5.5]).
+
+    The value consists of either a single **\*** (asterisk ) or a list of
+    case-insensitive header field names.
+
+    See [RFC 9110 Section 12.5.5][rfc-9110-12.5.5] as well as [API Guideline
+    Rule #227][api-227] for further details.
+
+    [rfc-9110-12.5.5]: <https://tools.ietf.org/html/rfc9110#section-12.5.5>
+    [api-227]: <https://opensource.zalando.com/restful-api-guidelines/#227>
+  schema:
+    type: array
+    items:
+      type: string
+  style: simple
+  explode: false
+  example: "accept-encoding, accept-language"
+
+
+Deprecation:
+  name: Deprecation
+  in: header
+  required: false
+  description: |-
+    The **Deprecation** response header (see [Draft "The Deprecation HTTP
+    Header Field"][draft]) announces an upcoming deprecation of a feature or
+    resource. The deprecation value is either a timestamp as defined in [RFC
+    9110 Section 5.6.7][rfc-9110-5.6.7] or `true` - if the feature is already
+    deprecated.
+
+    The scope of the distinct deprecated feature or resource must be derived
+    from the API spec. If the timestamp points to the past, the API spec also
+    contains a migration advise.
+
+    Clients should monitor the usage of **Deprecation** headers and notify
+    about them in time, so that migration measures can be planned and executed
+    timely (see also [API Guideline - Deprecation][api]).
+
+    [draft]: <https://datatracker.ietf.org/doc/html/draft-ietf-httpapi-deprecation-header-02>
+    [rfc-9110-5.6.7]: <https://tools.ietf.org/html/rfc9110#section-5.6.7>
+    [api]: <https://opensource.zalando.com/restful-api-guidelines/#deprecation>
+  schema:
+    type: string
+    format: date-time
+  example: "Tue, 31 Dec 2024 23:59:59 GMT"
+
+
+Sunset:
+  name: Sunset
+  in: header
+  required: false
+  description: |-
+    The **Sunset** response header (see [RFC 8594][rfc-8594]) communicates the
+    point in time at which the feature or resource becomes unresponsive. The
+    sunset value is providing a timestamp as defined in [RFC 9110 Section
+    5.6.7][rfc-9110-5.6.7] usually pointing to the future. If a sunset value
+    points to the past, the feature or resource must be expected to become
+    unavailable at any time.
+
+    Clients should monitor the usage of **Sunset** headers and warn/alert about
+    them before the sunset time has come to take counter measures, e.g. prepare
+    a client shutdown or migration (see also [API Guideline -
+    Deprecation][api-deprecation]).
+
+    [rfc-8594]: <https://tools.ietf.org/html/rfc8594>
+    [rfc-9110-5.6.7]: <https://tools.ietf.org/html/rfc9110#section-5.6.7>
+    [api-deprecation]: <https://opensource.zalando.com/restful-api-guidelines/#deprecation>
+  schema:
+    type: string
+    format: date-time
+  example: "Wed, 31 Dec 2025 23:59:59 GMT"
+
+
+# Custom common headers
+
+
+X-Flow-ID:
+  name: X-Flow-ID
+  in: header
+  required: false
+  description: |-
+    The **X-Flow-ID** is a custom header containing a unique flow identifier that
+    was be passed to any further request. It can be used to investigate request
+    related log entries end events.
+
+    See [API Guideline Rule #233][api-233] for further details.
+
+    [api-233]: <https://opensource.zalando.com/restful-api-guidelines/#233>
+  schema:
+    type: string
+    example: GKY7oDhpSiKY_gAAAABZ_A
+
+
+X-Mobile-Advertising-ID:
+  name: X-Mobile-Advertising-ID
+  in: header
+  required: false
+  description: |-
+    A unique, customer-resettable identifier provided by the operating system of
+    a mobile device to facilitate personalized advertising, and usually passed
+    by mobile apps via header when calling backend services.
+
+    It is either the [IDFA](https://developer.apple.com/documentation/adsupport/asidentifiermanager)
+    (Apple Identifier for mobile Advertising) for iOS, or the
+    [GAID](https://support.google.com/googleplay/android-developer/answer/6048248)
+    (Google mobile Advertising Identifier) for Android.
+  schema:
+    type: string
+    example: cdda802e-fb9c-47ad-0794d394c912
+
+
+X-Tenant-ID:
+  name: X-Tenant-ID
+  in: header
+  required: false
+  description: |-
+    The unique identifier of the tenant that initiated the request to the
+    multi-tenant Zalando Platform. The X-Tenant-ID is set to the ID of the
+    business partner extracted from the `OAuth`-token of the request. The
+    **X-Tenant-ID** should be passed-through as generic aspect.
+  schema:
+    type: string
+    example: 9f8b3ca3-4be5-436c-a847-9cd55460c495
+
+
+X-Sales-Channel:
+  name: X-Sales-Channel
+  in: header
+  required: false
+  description: |-
+    Unique identifier of the sales channel related to the request. Sales
+    channels are owned by retailers and represent a specific consumer segment
+    being addressed with a specific product assortment that is offered via the
+    CFA retailer catalogs to consumers (see fashion platform glossary). The
+    **X-Sales-Channel** should be passed-through as generic aspect.
+  schema:
+    type: string
+    example: 52b96501-0f8d-43e7-82aa-8a96fab134d7
+
+
+X-Frontend-Type:
+  name: X-Frontend-Type
+  in: header
+  required: false
+  description: |-
+    The type of the consumer facing application (CFA) used to initiate the
+    request. CFAs provide business experience to their customers via different
+    frontend application types, `mobile-app`, `browser`, `facebook-app`,
+    `chat-app`, and `email`. The **X-Frontend-Type** should be passed-through
+    as generic aspect - there are diverse concerns, e.g. pushing mobiles with
+    specific coupons, that make use of it.
+  schema:
+    type: string
+    example: mobile-app
+
+
+X-Device-Type:
+  name: X-Device-Type
+  in: header
+  required: false
+  description: |-
+    The device type used to initiate the request. There are also use cases
+    for steering customer experience (incl. features and content) depending on
+    device types, e.g. `smartphone`, `tablet`, `desktop`, and `other`. The
+    **X-Device-Type** should be passed-through as generic aspect.
+  schema:
+    type: string
+    example: tablet
+
+
+X-Device-OS:
+  name: X-Device-OS
+  in: header
+  required: false
+  description: |-
+    The operating system used by the device initiating the request. On top of
+    device type, we want to differ between device platforms, e.g. between
+    computers, smartphone and tablets with `iOS`, `Android`, `Windows`,
+    `Linux`, and `MacOS`. The `X-Device-OS` should be passed-through as generic
+    aspect.
+  schema:
+    type: string
+    example: Android

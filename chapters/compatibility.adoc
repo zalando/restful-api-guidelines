@@ -87,7 +87,7 @@ and be explicit in what is supported:
 * Ignoring unknown input fields is actually not an option for {PUT}, since it
   becomes asymmetric with subsequent {GET} response and HTTP is clear about the
   {PUT} _replace_ semantics and default roundtrip expectations (see
-  {RFC-7231}#section-4.3.4[RFC 7231 Section 4.3.4]). Note, accepting (i.e. not
+  {RFC-9110}#section-9.3.4[RFC 9110 Section 9.3.4]). Note, accepting (i.e. not
   ignoring) unknown input fields and returning it in subsequent {GET} responses
   is a different situation and compliant to {PUT} semantics.
 * Certain client errors cannot be recognized by servers, e.g. attribute name
@@ -126,7 +126,7 @@ Service clients should apply the robustness principle:
 ** Be prepared to handle HTTP status codes not explicitly specified in endpoint
   definitions. Note also, that status codes are extensible. Default handling is
   how you would treat the corresponding {x00} code (see
-  {RFC-7231}#section-6[RFC 7231 Section 6]).
+  {RFC-9110}#section-15[RFC 9110 Section 15]).
 ** Follow the redirect when the server returns HTTP status code {301} (Moved
   Permanently).
 

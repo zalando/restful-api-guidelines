@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#! /bin/bash
 # Script to generate CSS for the Guidelines
 
 set -ex #print commands, exit on failure
