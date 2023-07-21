@@ -62,8 +62,8 @@ breaking effects on ongoing consumers. See also <<193>>.
 
 During the deprecation phase, the producer should add a `Deprecation: <date-time>`
 (see https://tools.ietf.org/html/draft-ietf-httpapi-deprecation-header[draft: RFC
-Deprecation HTTP Header]) and - if also planned - a `Sunset: <date-time>` (see
-{RFC-8594}#section-3[RFC 8594]) header on each response affected by a
+Deprecation HTTP Header Field]) and - if also planned - a `Sunset: <date-time>`
+(see {RFC-8594}#section-3[RFC 8594]) header on each response affected by a
 deprecated element (see <<187>>).
 
 The {Deprecation} header can either be set to `true` - if a feature is retired
@@ -81,17 +81,35 @@ Sunset: Wed, 31 Dec 2025 23:59:59 GMT
 
 If multiple elements are deprecated the {Deprecation} and {Sunset} headers are
 expected to be set to the earliest time stamp to reflect the shortest interval
-consumers are expected to get active.
+at which consumers are expected to get active. The {Deprecation} and {Sunset}
+headers can be defined as follows in the API specification (see also the
+default definition below):
+
+[source,yaml]
+----
+components:
+  parameters|headers:
+    Deprecation:
+      $ref: 'https://opensource.zalando.com/restful-api-guidelines/models/headers-1.0.0.yaml#/Deprecation'
+    Sunset:
+      $ref: 'https://opensource.zalando.com/restful-api-guidelines/models/headers-1.0.0.yaml#/Sunset'
+----
+
+[source,yaml]
+----
+include::../includes/deprecation.yaml[]
+include::../includes/sunset.yaml[lines=3..-1]
+----
 
 *Note:* adding the {Deprecation} and {Sunset} header is not sufficient to gain
 client consent to shut down an API or feature.
 
-*Hint:* In earlier guideline versions, we used the `Warning` header to provide
-the deprecation info to clients. However, `Warning` header has a less specific
+*Hint:* In earlier guideline versions, we used the {Warning} header to provide
+the deprecation info to clients. However, {Warning} header has a less specific
 semantics, will be obsolete with
 https://tools.ietf.org/html/draft-ietf-httpbis-cache-06[draft: RFC HTTP
-Caching], and our syntax was not compliant with {RFC-7234}#page-29[RFC 7234
--- Warning header].
+Caching], and our syntax was not compliant with {RFC-9111}#section-5.5[RFC 9111
+ Section 5.5 "Warning"].
 
 
 [#190]
@@ -104,6 +122,7 @@ ensure alignment with service owners on required migration task.
 
 *Hint:* In earlier guideline versions, we used the `Warning` header to provide
 the deprecation info (see hint in <<189>>).
+
 
 [#191]
 == {MUST} not start using deprecated APIs

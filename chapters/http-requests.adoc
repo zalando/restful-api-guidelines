@@ -5,9 +5,8 @@
 [#148]
 == {MUST} use HTTP methods correctly
 
-Be compliant with the standardized HTTP method semantics
-(see HTTP/1 {RFC-7230}[RFC-7230] and {RFC-7231}[RFC-7230] updates from 2014)
-summarized as follows:
+Be compliant with the standardized HTTP semantics (see {RFC-9110}[RFC-9110
+"HTTP semantics"]) as summarized here.
 
 
 [[get]]
@@ -247,12 +246,13 @@ details).
 === DELETE with body payload
 
 In rare cases {DELETE} may require additional information, that cannot be
-classified as filter parameters and thus should be transported via request body payload, to
-perform the operation. Since {RFC-7231}#section-4.3.5[RFC-7231] states, that
-{DELETE} has an undefined semantic for payloads, we recommend to utilize {POST}.
-In this case the POST endpoint must be documented with the hint {DELETE-with-Body}
-analog to how it is defined for {GET-with-Body}. The response status code of
-{DELETE-with-Body} requests should be similar to usual {DELETE} requests.
+classified as filter parameters and thus should be transported via request body
+payload, to perform the operation. Since {RFC-9110}#section-9.3.5[RFC-9110
+Section 9.3.5] states, that {DELETE} has an undefined semantic for payloads, we
+recommend to utilize {POST}. In this case the POST endpoint must be documented
+with the hint {DELETE-with-Body} analog to how it is defined for
+{GET-with-Body}. The response status code of {DELETE-with-Body} requests should
+be similar to usual {DELETE} requests.
 
 
 [[head]]
@@ -305,7 +305,7 @@ fetching, etc. However, these actual effects and state changes, must not be
 intended by the operation so that it can be held accountable.
 
 Method implementations must fulfill the following basic properties according
-to {RFC-7231}[RFC 7231]:
+to {RFC-9110}#section-9.2[RFC 9110 Section 9.2]:
 
 [cols="15%,15%,35%,35%",options="header",]
 |====================================================
@@ -418,7 +418,7 @@ multiple times with different values as follows:
 |=========================================================================
 | Parameter Type | Comma-separated Values | Multiple Parameters | Standard
 | Header | `Header: value1,value2` | `Header: value1, Header: value2`
-| {RFC-7230}#section-3.2.2[RFC 7230 Section 3.2.2]
+| {RFC-9110}#section-5.3[RFC 9110 Section 5.3]
 
 | Query | `?param=value1,value2` | `?param=value1&param=value2`
 | {RFC-6570}#section-3.2.8[RFC 6570 Section 3.2.8]
@@ -431,7 +431,7 @@ explicitly define the collection format to guide consumers as follows:
 |===============================================================
 | Parameter Type | Comma-separated Values | Multiple Parameters
 | Header | `style: simple, explode: false` | not allowed (see
-  {RFC-7230}#section-3.2.2[RFC 7230 Section 3.2.2])
+  {RFC-9110}#section-5.3[RFC 9110 Section 5.3])
 | Query  | `style: form, explode: false`   | `style: form, explode: true`
 |===============================================================
 

@@ -2,29 +2,70 @@
 = REST Basics - HTTP headers
 
 [[standard-headers]]
-// hint: legacy anchor positioned here - acsciidoc does not support two anchors in sequence
-We describe a handful of standard HTTP headers, which we found raising the most questions in
-our daily usage, or which are useful in particular circumstances but not widely known.
+// hint: legacy anchor positioned here
+// acsciidoc does not support two anchors in sequence
 
-Though we generally discourage usage of proprietary headers, they are useful to pass generic,
-service independent, overarching information relevant for our specific application architecture.
-We consistently define these proprietary headers in this section below. Whether services support
-these concerns or not is optional. Therefore, the OpenAPI API specification is the right place
-to make this explicitly visible -- use the parameter definitions of the resource HTTP methods.
+In this section we explain a handful of (standard) HTTP headers, which we found
+most useful in certain situations and that require additional explanation to be
+used effectively.
+
+*Note:* we generally discourage the usage of proprietary headers. However,
+they are sometimes useful to pass generic, service independent, overarching
+information relevant for our specific application architecture. We consistently
+define these proprietary headers below.
+
+Whether a service supports a certain header is part of the service contract.
+Therefore APIs should use the `parameters` and `headers` definition of the API
+endpoint and response to clarify what is supported in a certain context.
+
+[[using--headers]]
+== Using Standard Header definitions
+
+Usually, you can the standard HTTP request and response header definition
+provided by the guideline to simplify API by using well recognized patterns.
+The best practice importing headers providing the highest readability is as
+follows:
+
+[source,yaml]
+----
+path:
+  '/resource'
+    get:
+      parameters:
+        - $ref: '#/components/parameters/ETag
+
+components:
+  parameters|headers:
+    ETag:
+      $ref: 'https://opensource.zalando.com/restful-api-guidelines/models/headers-1.0.0.yaml#/ETag'
+
+  responses:
+    Default:
+      headers:
+        ETag:
+          $ref: '#/components/(parameters|headers)/ETag
+----
+
+*Note:* It is a question of taste whether headers for responses are defined in
+`\#/components/headers` or `#/components/parameters`. Unfortunately, headers
+in the first section cannot be referenced from a `parameters`-list, while it is
+possible to reference the second also from a `headers`-list.
 
 
 [#133]
 == {MAY} use standard headers
 
-Use http://en.wikipedia.org/wiki/List_of_HTTP_header_fields[this list] and
-explicitly mention its support in your OpenAPI definition.
+APIs may make use of HTTP headers defined by non-obsolete RFCs (see following
+list of http://en.wikipedia.org/wiki/List_of_HTTP_header_fields[standard HTTP
+headers]). The supported headers must be explicitly mentioned in the API
+specification.
 
 
 [#132]
 == {SHOULD} use kebab-case with uppercase separate words for HTTP headers
 
-This convention is followed by (most of) the standard headers e.g. as defined in
-{RFC-2616}[RFC 2616] and {RFC-4229}[RFC 4229]. Examples:
+This convention is followed by (most of) the standard headers e.g. as defined
+in {RFC-2616}[RFC 2616], {RFC-4229}[RFC 4229], {RFC-9110}[RFC 9110]. Examples:
 
 [source,http]
 ----
@@ -34,9 +75,11 @@ Content-ID
 Language
 ----
 
-Note, HTTP standard defines headers as case-insensitive ({RFC-7230}#page-22[RFC 7230, p.22]).
-However, for sake of readability and consistency you should follow the convention when
-using standard or proprietary headers. Exceptions are common abbreviations like `ID`.
+*Note:* The HTTP standard defines headers (now called HTTP fields) to be
+case-insensitive (see {RFC-9110}#section-5.1[RFC 9110 Section 5.1]). However,
+for the sake of readability and consistency, you should follow the convention
+when defining standard or proprietary headers. Exceptions are common
+abbreviations like `ID`.
 
 
 [#178]
@@ -64,27 +107,28 @@ limited to:
 [#180]
 == {SHOULD} use `Location` header instead of `Content-Location` header
 
-As the correct usage of {Content-Location} response header (see below) with respect
-to caching and its method specific semantics is difficult, we _discourage_ the use
-of {Content-Location}.
-In most cases it is sufficient to inform clients about the resource location
-in create or re-direct responses by using the {Location} header while avoiding
-the {Content-Location} specific ambiguities and complexities.
+As a correct usage of the {Content-Location} response header (see <<179>>)
+with respect to caching and its method specific semantics is difficult, we
+*discourage* the use of {Content-Location}. In most cases it is sufficient to
+inform clients about the resource location in create or re-direct responses by
+using the {Location} header while avoiding the {Content-Location} specific
+ambiguities and complexities.
 
-More details in RFC 7231 {RFC-7231}#section-7.1.2[7.1.2 Location],
-{RFC-7231}#section-3.1.4.2[3.1.4.2 Content-Location]
+For more details see {RFC-9110}#section-10.2.2[RFC 9110 Section 10.2.2
+Location], {RFC-9110}#section-8.7[RFC 9110 Section 8.2 Content-Location]
 
 
 [#179]
 == {MAY} use `Content-Location` header
 
-{Content-Location} is an _optional_ response header that can be used in successful write
-operations ({PUT}, {POST}, or {PATCH}) or read operations ({GET}, {HEAD}) to
-guide caching and signal a receiver the actual location of the resource
-transmitted in the response body. This allows clients to identify the resource
-and to update their local copy when receiving a response with this header.
+The {Content-Location} response header is an _optional_ header that can be used
+in successful write operations ({PUT}, {POST}, or {PATCH}) and read operations
+({GET}, {HEAD}) to guide caching and signal a receiver the actual location of
+the resource transmitted in the response body. This allows clients to identify
+the resource and to update their local copy when receiving a response with this
+header.
 
-The Content-Location header can be used to support the following use cases:
+The {Content-Location} header can be used to support the following use cases:
 
 * For reading operations {GET} and {HEAD}, a different location than the
   requested URL can be used to indicate that the returned resource is subject
@@ -97,7 +141,7 @@ The Content-Location header can be used to support the following use cases:
   indicate that the body contains a status report resource in response to the
   requested action, which is available at provided location.
 
-*Note*: When using the {Content-Location} header, the {Content-Type} header
+*Note:* When using the {Content-Location} header, the {Content-Type} header
 has to be set as well. For example:
 
 [source,http]
@@ -108,6 +152,8 @@ HTTP/1.1 200 OK
 Content-Type: image/png
 Content-Location: /products/123/images?format=raw
 ----
+
+See also <<227>>.
 
 
 [#181]
@@ -120,39 +166,14 @@ is entirely optional and at the discretion of API designers, but as an existing
 Internet Standard, is recommended over defining proprietary "X-" headers for
 processing directives.
 
-The {Prefer} header can defined like this in an API definition:
+The {Prefer} header can be defined in the API specification as follows:
 
 [source,yaml]
 ----
-components:
-  headers:
-  - Prefer:
-      description: >
-        The RFC7240 Prefer header indicates that a particular server behavior
-        is preferred by the client but is not required for successful completion
-        of the request (see [RFC 7240](https://tools.ietf.org/html/rfc7240).
-        The following behaviors are supported by this API:
-
-        # (indicate the preferences supported by the API or API endpoint)
-        * **respond-async** is used to suggest the server to respond as fast as
-          possible asynchronously using 202 - accepted - instead of waiting for
-          the result.
-        * **return=<minimal|representation>** is used to suggest the server to
-          return using 204 without resource (minimal) or using 200 or 201 with
-          resource (representation) in the response body on success.
-        * **wait=<delta-seconds>** is used to suggest a maximum time the server
-          has time to process the request synchronously.
-        * **handling=<strict|lenient>** is used to suggest the server to be
-          strict and report error conditions or lenient, i.e. robust and try to
-          continue, if possible.
-
-      type: array
-      items:
-        type: string
-      required: false
+include::../includes/prefer.yaml[]
 ----
 
-*Note:* Please copy only the behaviors into your {Prefer} header specification
+*Note:* Please, copy only the behaviors into your {Prefer} header specification
 that are supported by your API endpoint. If necessary, specify different
 {Prefer} headers for each supported use case.
 
@@ -164,12 +185,13 @@ Supporting APIs may return the {Preference-Applied} header also defined in
 == {MAY} consider to support `ETag` together with `If-Match`/`If-None-Match` header
 
 When creating or updating resources it may be necessary to expose conflicts
-and to prevent the 'lost update' or 'initially created' problem. Following
-{RFC-7232}[RFC 7232 "HTTP: Conditional Requests"] this can be best accomplished
-by supporting the {ETag} header together with the {If-Match} or {If-None-Match}
-conditional header. The contents of an `ETag: <entity-tag>` header is either
-(a) a hash of the response body, (b) a hash of the last modified field of the
-entity, or (c) a version number or identifier of the entity version.
+and to prevent the _lost update_ or _initially created_ problem. Following
+{RFC-9110}[RFC 9110 Section 13 "Conditional Requests"] this can be best
+accomplished by supporting the {ETag} header together with the {If-Match} or
+{If-None-Match} conditional header. The contents of an `ETag: <entity-tag>`
+header is either (a) a hash of the response body, (b) a hash of the last
+modified field of the entity, or (c) a version number or identifier of the
+entity version.
 
 To expose conflicts between concurrent update operations via {PUT}, {POST}, or
 {PATCH}, the `If-Match: <entity-tag>` header can be used to force the server to
@@ -183,52 +205,29 @@ operation is supposed a to respond with status code {412} - precondition
 failed.
 
 The {ETag}, {If-Match}, and {If-None-Match} headers can be defined as follows
-in the API definition:
+in the API specification (see also the default definition below):
 
 [source,yaml]
 ----
 components:
-  headers:
-  - ETag:
-      description: |
-        The RFC 7232 ETag header field in a response provides the entity-tag of
-        a selected resource. The entity-tag is an opaque identifier for versions
-        and representations of the same resource over time, regardless whether
-        multiple versions are valid at the same time. An entity-tag consists of
-        an opaque quoted string, possibly prefixed by a weakness indicator (see
-        [RFC 7232 Section 2.3](https://tools.ietf.org/html/rfc7232#section-2.3).
-
-      type: string
-      required: false
-      example: W/"xy", "5", "5db68c06-1a68-11e9-8341-68f728c1ba70"
-
-  - If-Match:
-      description: |
-        The RFC7232 If-Match header field in a request requires the server to
-        only operate on the resource that matches at least one of the provided
-        entity-tags. This allows clients express a precondition that prevent
-        the method from being applied if there have been any changes to the
-        resource (see [RFC 7232 Section
-        3.1](https://tools.ietf.org/html/rfc7232#section-3.1).
-
-      type: string
-      required: false
-      example: "5", "7da7a728-f910-11e6-942a-68f728c1ba70"
-
-  - If-None-Match:
-      description: |
-        The RFC7232 If-None-Match header field in a request requires the server
-        to only operate on the resource if it does not match any of the provided
-        entity-tags. If the provided entity-tag is `*`, it is required that the
-        resource does not exist at all (see [RFC 7232 Section
-        3.2](https://tools.ietf.org/html/rfc7232#section-3.2).
-
-      type: string
-      required: false
-      example: "7da7a728-f910-11e6-942a-68f728c1ba70", *
+  parameters|headers:
+    ETag:
+      $ref: 'https://opensource.zalando.com/restful-api-guidelines/models/headers-1.0.0.yaml#/ETag'
+    If-Match:
+      $ref: 'https://opensource.zalando.com/restful-api-guidelines/models/headers-1.0.0.yaml#/If-Match'
+    If-None-Match:
+      $ref: 'https://opensource.zalando.com/restful-api-guidelines/models/headers-1.0.0.yaml#/If-None-Match'
 ----
 
-Please see <<optimistic-locking>> for a detailed discussion and options.
+[source,yaml]
+----
+include::../includes/etag.yaml[]
+include::../includes/if-match.yaml[lines=3..-1]
+include::../includes/if-none-match.yaml[lines=3..-1]
+----
+
+Please see <<optimistic-locking>> for a detailed discussion as well as
+<<cache-support-patterns>> for additional use cases.
 
 
 [#230]
@@ -267,27 +266,18 @@ choose your expiration time:
 
 [source,yaml]
 ----
+include::../includes/idempotency-key.yaml[]
+----
+
+If you do not want to change the expiration time, you can also use the standard
+definition provided by the guideline:
+
+[source,yaml]
+----
 components:
-  headers:
-  - Idempotency-Key:
-      description: |
-        The idempotency key is a free identifier created by the client to
-        identify a request. It is used by the service to identify subsequent
-        retries of the same request and ensure idempotent behavior by sending
-        the same response without executing the request a second time.
-
-        Clients should be careful as any subsequent requests with the same key
-        may return the same response without further check. Therefore, it is
-        recommended to use a UUID version 4 (random) or any other random
-        string with enough entropy to avoid collisions.
-
-        Idempotency keys expire after 24 hours. Clients are responsible to stay
-        within this limit, if they require idempotent behavior.
-
-      type: string
-      format: uuid
-      required: false
-      example: "7da7a728-f910-11e6-942a-68f728c1ba70"
+  parameters|headers:
+    Idempotency-Key:
+      $ref: 'https://opensource.zalando.com/restful-api-guidelines/models/headers-1.0.0.yaml#/Idempotency-Key'
 ----
 
 *Hint:* The key cache is not intended as request log, and therefore should
@@ -306,30 +296,33 @@ Zalando landscape specific proprietary headers.
 [#183]
 == {SHOULD} use only the specified proprietary Zalando headers
 
-As a general rule, proprietary HTTP headers should be avoided.
-From a conceptual point of view, the business semantics and intent of an
-operation should always be expressed via the URLs path and query parameters,
-the method, and the content, but not via proprietary headers.
-Headers are typically used to implement protocol processing aspects, such as flow control,
-content negotiation, and authentication, and represent business agnostic
-request modifiers that provide generic context information ({RFC-7231}#section-5[RFC 7231]).
+As a general rule, proprietary HTTP headers should be avoided. In addition
+from a conceptual point of view, the business semantics and intent of an
+operation should always be expressed via the path and query parameters, the
+method, and the content, but not via proprietary headers.
 
-However, the exceptional usage of proprietary headers is still helpful
-when domain-specific generic context information...
+Headers are typically used to implement protocol processing aspects, such as
+flow control, content negotiation, and authentication, and represent business
+agnostic request modifiers that provide generic context information
+({RFC-9110}#section-10[RFC 9110 Section 10 "Message Context"]).
 
-. needs to be passed end to end along the service call chain (even if
-not all called services use it as input for steering service behavior
-e.g. {X-Sales-Channel} header) and/or...
-. is provided by specific gateway components, for instance, our
-Fashion Shop API or Merchant API gateway.
+However, the exceptional usage of proprietary headers is still helpful when
+domain-specific generic context information
 
-Below, we explicitly define the list of proprietary header exceptions usable for
-all services for passing through generic context information of our fashion domain (use case 1).
+1. needs to be passed _end-to-end_ along the service call chain (even if not
+   all called services use it as input for steering service behavior, e.g.
+   {X-Sales-Channel} header), and/or
+2. is provided by specific gateway components, for instance, our Fashion Shop
+   API or Merchant API gateway.
 
-Per convention, non standardized, proprietary header names are prefixed with  `X-`
-and use the dash (`-`) as separator (dash-case). 
-(Due to backward compatibility, we do not follow the Internet Engineering Task Force’s
-recommendation in {RFC-6648}[RFC 6648] to deprecate usage of  `X-` headers.)
+Below, we explicitly define the list of proprietary headers usable for all
+services for passing through generic context information of our fashion domain
+(use case 1).
+
+Per convention, non standardized, proprietary header names are prefixed with
+`X-` and use the dash (`-`) as separator (dash-case). (Due to backward
+compatibility, we do not follow the recommendation of Internet Engineering
+Task Force in {RFC-6648}[RFC 6648] to deprecate the usage of  `X-`headers.)
 Remember that HTTP header field names are not case-sensitive:
 
 [cols="15%,10%,60%,15%",options="header",]
@@ -350,7 +343,8 @@ a request from a Business Partner hits the Zalando Platform.
 |[[x-sales-channel]]{X-Sales-Channel}|String|
 Sales channels are owned by retailers and represent a specific consumer segment
 being addressed with a specific product assortment that is offered via CFA
-retailer catalogs to consumers (see {glossary}[fashion platform glossary (internal_link)]).
+retailer catalogs to consumers (see {glossary}[fashion platform glossary
+(internal link)]).
 |52b96501-0f8d-43e7-82aa-8a96fab134d7
 
 |[[x-frontend-type]]{X-Frontend-Type}|String|
@@ -380,10 +374,10 @@ https://developer.apple.com/documentation/adsupport/asidentifiermanager[IDFA]
 https://support.google.com/googleplay/android-developer/answer/6048248[GAID]
 (Google mobile Advertising Identifier) for Android. It is a unique,
 customer-resettable identifier provided by mobile device’s operating system
-to facilitate personalized advertising, and usually passed by mobile apps via http header
-when calling backend services. Called services should be ready to pass this
-parameter through when calling other services. It is not sent if the customer
-disables it in the settings for respective mobile platform.
+to facilitate personalized advertising, and usually passed by mobile apps via
+HTTP header when calling backend services. Called services should be ready to
+pass this parameter through when calling other services. It is not sent if the
+customer disables it in the settings for respective mobile platform.
 |b89fadce-1f42-46aa-9c83-b7bc49e76e1f
 
 |=======================================================================
@@ -391,40 +385,28 @@ disables it in the settings for respective mobile platform.
 *Exception:* The only exception to this guideline are the conventional
 hop-by-hop `X-RateLimit-` headers which can be used as defined in <<153>>.
 
-As part of the guidelines we sourced the OpenAPI definition of all proprietary headers;
-you can simply reference it when defining the API endpoint requests e.g.
-[source,yaml]
-----
-parameters:
-- $ref: "https://opensource.zalando.com/restful-api-guidelines/models/request-headers-1.0.0.yaml#/X-Flow-ID"
-- $ref: "https://opensource.zalando.com/restful-api-guidelines/models/request-headers-1.0.0.yaml#/X-Tenant-ID"
-----
+As part of the guidelines we provide the default definition of all proprietary
+headers, so you can simply reference them when defining the API endpoint. For
+details see <<using-headers>>.
 
-Response headers can be referenced in the API endpoint e.g.
-[source,yaml]
-----
-parameters:
-- $ref: "https://opensource.zalando.com/restful-api-guidelines/models/response-headers-1.0.0.yaml#/ETag"
-- $ref: "https://opensource.zalando.com/restful-api-guidelines/models/response-headers-1.0.0.yaml#/Cache-Control"
-----
+*Hint:* This guideline does not standardize proprietary headers for our
+specific gateway components (2. use case above). This include, for instance,
+non pass-through headers `X-Zalando-Customer`, `X-Zalando-Client-ID`,
+`X-Zalando-Request-Host`, `X-Zalando-Request-URI` defined by Fashion Shop API
+(RKeep), or `X-Consumer`, `X-Consumer-Signature`, `X-Consumer-Key-ID` defined
+by Merchant API gateway. All these proprietary headers are allowlisted in the
+API Linter (Zally) checking this rule.
 
-*Hint:* This guideline does not standardize proprietary headers for 
-our specific gateway components (2. use case above).
-This include, for instance, non pass-through headers `X-Zalando-Customer`, `X-Zalando-Client-ID`, `X-Zalando-Request-Host`, 
-`X-Zalando-Request-URI` defined by Fashion Shop API (RKeep), or `X-Consumer`, `X-Consumer-Signature`, 
-`X-Consumer-Key-ID` defined by Merchant API gateway.
-All these proprietary headers are allowlisted in the API Linter (Zally) checking this rule.
 
 [#184]
 == {MUST} propagate proprietary headers
 
 All Zalando's proprietary headers defined in <<183>> are end-to-end headers
-footnote:header-types[HTTP/1.1 standard ({RFC-7230}#section-6.1[RFC 7230])
-defines two types of headers: end-to-end and hop-by-hop headers. End-to-end
-headers must be transmitted to the ultimate recipient of a request or response.
-Hop-by-hop headers, on the contrary, are meaningful for a single connection
-only.]
-and must be propagated to the services down the call
+footnote:header-types[HTTP/1.1 standard ({RFC-9110}#section-7.6.1[RFC 9110
+Section 7.6.1]) defines two types of headers: _end-to-end_ and _hop-by-hop_
+headers. End-to-end headers must be transmitted to the ultimate recipient of a
+request or response. Hop-by-hop headers, on the contrary, are meaningful for a
+single connection only.] and must be propagated to the services down the call
 chain. The header names and values must remain unchanged.
 
 For example, the values of the custom headers like {X-Device-Type} can affect
@@ -464,19 +446,22 @@ The following formats are allowed:
 * `UUID` ({RFC-4122}[RFC-4122])
 * `base64` ({RFC-4648}[RFC-4648])
 * `base64url` ({RFC-4648}#section-5[RFC-4648 Section 5])
-* Random unique string restricted to the character set `[a-zA-Z0-9/+_-=]` maximal of 128 characters.
+* Random unique string restricted to the character set `[a-zA-Z0-9/+_-=]`
+  maximal of 128 characters.
 
 *Note:* If a legacy subsystem can only process `Flow-IDs` with a specific
 format or length, it must define this restriction in its API specification,
 and be generous and remove invalid characters or cut the length to the
 supported limit.
 
-*Hint:* In case distributed tracing is supported by 
-{SRE-open-tracing}[OpenTracing (internal_link)] 
-you should ensure that created _spans_ are tagged using `flow_id` — see
-{SRE-open-tracing}/blob/master/wg-semantic-conventions/best-practices/flowid.md[How to Connect Log Output with OpenTracing Using Flow-IDs (internal_link)] 
-or
-{SRE-open-tracing}/blob/master/wg-semantic-conventions/best-practices.md[Best practises (internal_link)].
+*Hint:* In case distributed tracing is supported by
+{SRE-open-tracing}[OpenTracing (internal link)] you should ensure that created
+_spans_ are tagged using `flow_id` — see
+{SRE-open-tracing}/blob/master/wg-semantic-conventions/best-practices/flowid.md[How
+to Connect Log Output with OpenTracing Using Flow-IDs (internal link)]  or
+{SRE-open-tracing}/blob/master/wg-semantic-conventions/best-practices.md[Best
+practices (internal link)].
+
 
 === Service Guidance
 
@@ -484,7 +469,7 @@ or
 ** RESTful API endpoints *must* support {X-Flow-ID} header in requests
 ** Event listeners *must* support the metadata `flow-id` from events.
 
-+
+
 *Note:* API-Clients *must* provide {Flow-ID} when calling a service or
 producing events. If no {Flow-ID} is provided in a request or event, the
 service must create a new {Flow-ID}.

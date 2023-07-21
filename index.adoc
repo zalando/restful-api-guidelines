@@ -40,18 +40,20 @@
 :RFC-6901: https://tools.ietf.org/html/rfc6901
 :RFC-6902: https://tools.ietf.org/html/rfc6902
 :RFC-7159: https://tools.ietf.org/html/rfc7159
-:RFC-7230: https://tools.ietf.org/html/rfc7230
-:RFC-7231: https://tools.ietf.org/html/rfc7231
-:RFC-7232: https://tools.ietf.org/html/rfc7232
-:RFC-7233: https://tools.ietf.org/html/rfc7233
+:RFC-7230: https://tools.ietf.org/html/rfc7230 // obsoleted by rfc-9110
+:RFC-7231: https://tools.ietf.org/html/rfc7231 // obsoleted by rfc-9110
+:RFC-7232: https://tools.ietf.org/html/rfc7232 // obsoleted by rfc-9110
+:RFC-7233: https://tools.ietf.org/html/rfc7233 // obsoleted by rfc-9110
 :RFC-7234: https://tools.ietf.org/html/rfc7234
-:RFC-7235: https://tools.ietf.org/html/rfc7235
+:RFC-7235: https://tools.ietf.org/html/rfc7235 // obsoleted by rfc-9110
 :RFC-7240: https://tools.ietf.org/html/rfc7240
 :RFC-7396: https://tools.ietf.org/html/rfc7396
 :RFC-7493: https://tools.ietf.org/html/rfc7493
 :RFC-7807: https://tools.ietf.org/html/rfc7807
 :RFC-8288: https://tools.ietf.org/html/rfc8288
 :RFC-8594: https://tools.ietf.org/html/rfc8594
+:RFC-9110: https://tools.ietf.org/html/rfc9110
+:RFC-9111: https://tools.ietf.org/html/rfc9111
 
 :iana-link-relations: http://www.iana.org/assignments/link-relations
 :iana-media-types: https://www.iana.org/assignments/media-types/media-types.xhtml
@@ -186,48 +188,50 @@
 
 
 // Attributes to improve design and linking of common headers.
-:ETag: pass:[<a href="https://tools.ietf.org/html/rfc7232#section-2.3"><code>ETag</code></a>]
-:entity-tag: pass:[<a href="https://tools.ietf.org/html/rfc7232#section-2.3"><code>&lt;entity-tag&gt;</code></a>]
-:If-Match: pass:[<a href="https://tools.ietf.org/html/rfc7232#section-3.1"><code>If-Match</code></a>]
-:If-None-Match: pass:[<a href="https://tools.ietf.org/html/rfc7232#section-3.2"><code>If-None-Match</code></a>]
+:entity-tag: pass:[<a href="https://tools.ietf.org/html/rfc9110#section-8.8.3"><code>&lt;entity-tag&gt;</code></a>]
+:ETag: pass:[<a href="https://tools.ietf.org/html/rfc9110#section-8.8.3"><code>ETag</code></a>]
+:If-Match: pass:[<a href="https://tools.ietf.org/html/rfc9110#section-13.1.1"><code>If-Match</code></a>]
+:If-None-Match: pass:[<a href="https://tools.ietf.org/html/rfc9110#section-13.1.2"><code>If-None-Match</code></a>]
 
-:Last-Modified: pass:[<a href="https://tools.ietf.org/html/rfc7232#section-2.2"><code>Last-Modified</code></a>]
-:If-Modified-Since: pass:[<a href="https://tools.ietf.org/html/rfc7232#section-3.3"><code>If-Modified-Since</code></a>]
-:If-Unmodified-Since: pass:[<a href="https://tools.ietf.org/html/rfc7232#section-3.4"><code>If-Unmodified-Since</code></a>]
-:If-Range: pass:[<a href="https://tools.ietf.org/html/rfc7232#section-3.5"><code>If-Range</code></a>]
+:Last-Modified: pass:[<a href="https://tools.ietf.org/html/rfc9110#section-8.8.2"><code>Last-Modified</code></a>]
+:If-Modified-Since: pass:[<a href="https://tools.ietf.org/html/rfc9110#section-13.1.3"><code>If-Modified-Since</code></a>]
+:If-Unmodified-Since: pass:[<a href="https://tools.ietf.org/html/rfc9110#section-13.1.4"><code>If-Unmodified-Since</code></a>]
+:If-Range: pass:[<a href="https://tools.ietf.org/html/rfc9110#section-13.1.5"><code>If-Range</code></a>]
 
+:Accept: pass:[<a href="https://tools.ietf.org/html/rfc9110#section-12.5.1"><code>Accept</code></a>]
+:Accept-Charset: pass:[<a href="https://tools.ietf.org/html/rfc9110#section-12.5.2"><code>Accept-Charset</code></a>]
+:Accept-Encoding: pass:[<a href="https://tools.ietf.org/html/rfc9110#section-12.5.3"><code>Accept-Encoding</code></a>]
+:Accept-Language: pass:[<a href="https://tools.ietf.org/html/rfc9110#section-12.5.4"><code>Accept-Language</code></a>]
 
-:Accept: pass:[<a href="https://tools.ietf.org/html/rfc7231#section-5.3.2"><code>Accept</code></a>]
-:Accept-Charset: pass:[<a href="https://tools.ietf.org/html/rfc7231#section-5.3.3"><code>Accept-Charset</code></a>]
-:Accept-Encoding: pass:[<a href="https://tools.ietf.org/html/rfc7231#section-5.3.4"><code>Accept-Encoding</code></a>]
-:Accept-Language: pass:[<a href="https://tools.ietf.org/html/rfc7231#section-5.3.5"><code>Accept-Language</code></a>]
-
-:Content-Type: pass:[<a href="https://tools.ietf.org/html/rfc7231#section-3.1.1.5"><code>Content-Type</code></a>]
-:Content-Range: pass:[<a href="https://tools.ietf.org/html/rfc7233#section-4.2"><code>Content-Range</code></a>]
-:Content-Encoding: pass:[<a href="https://tools.ietf.org/html/rfc7231#section-3.1.2.2"><code>Content-Encoding</code></a>]
-:Content-Language: pass:[<a href="https://tools.ietf.org/html/rfc7231#section-3.1.3.2"><code>Content-Language</code></a>]
-:Content-Length: pass:[<a href="https://tools.ietf.org/html/rfc7230#section-3.3.2"><code>Content-Length</code></a>]
+:Content-Type: pass:[<a href="https://tools.ietf.org/html/rfc9110#section-8.3"><code>Content-Type</code></a>]
+:Content-Encoding: pass:[<a href="https://tools.ietf.org/html/rfc9110#section-8.4"><code>Content-Encoding</code></a>]
+:Content-Language: pass:[<a href="https://tools.ietf.org/html/rfc9110#section-8.5"><code>Content-Language</code></a>]
+:Content-Length: pass:[<a href="https://tools.ietf.org/html/rfc9110#section-8.6"><code>Content-Length</code></a>]
+:Content-Location: pass:[<a href="https://tools.ietf.org/html/rfc9110#section-8.7"><code>Content-Location</code></a>]
+:Content-Range: pass:[<a href="https://tools.ietf.org/html/rfc9110#section-14.4"><code>Content-Range</code></a>]
 :Content-Disposition: pass:[<a href="https://tools.ietf.org/html/rfc6266#section-3.1.4.2"><code>Content-Disposition</code></a>]
-:Content-Location: pass:[<a href="https://tools.ietf.org/html/rfc7231#section-3.1.4.2"><code>Content-Location</code></a>]
-:Location: pass:[<a href="https://tools.ietf.org/html/rfc7231#section-7.1.2"><code>Location</code></a>]
+
+:Location: pass:[<a href="https://tools.ietf.org/html/rfc9110#section-10.2.2"><code>Location</code></a>]
+:Retry-After: pass:[<a href="https://tools.ietf.org/html/rfc9110#section-10.2.3"><code>Retry-After</code></a>]
+:Vary: pass:[<a href="https://tools.ietf.org/html/rfc9110#section-12.5.5"><code>Vary</code></a>]
+
+:Cache-Control: pass:[<a href="https://tools.ietf.org/html/rfc9111#section-5.2"><code>Cache-Control</code></a>]
+:Cache-Control-no-store: pass:[<a href="https://tools.ietf.org/html/rfc9110#section-5.2.1.5"><code>Cache-Control: no-store</code></a>]
+:Expires: pass:[<a href="https://tools.ietf.org/html/rfc9111#section-5.3"><code>Expires</code></a>]
 
 :Prefer: pass:[<a href="https://tools.ietf.org/html/rfc7240"><code>Prefer</code></a>]
 :Preference-Applied: pass:[<a href="https://tools.ietf.org/html/rfc7240#section-3"><code>Preference-Applied</code></a>]
 
 :Sunset: pass:[<a href="https://tools.ietf.org/html/rfc8594"><code>Sunset</code></a>]
 :Deprecation: pass:[<a href="https://tools.ietf.org/html/draft-ietf-httpapi-deprecation-header"><code>Deprecation</code></a>]
+:Warning: pass:[<a href="https://tools.ietf.org/html/rfc9111#section-5.5"><code>Warning</code></a>]
 
-:Retry-After: pass:[<a href="https://tools.ietf.org/html/rfc7231#section-7.1.3"><code>Retry-After</code></a>]
-:Vary: pass:[<a href="https://tools.ietf.org/html/rfc7231#section-7.1.4"><code>Vary</code></a>]
-:Cache-Control: pass:[<a href="https://tools.ietf.org/html/rfc7234#section-5.2"><code>Cache-Control</code></a>]
-:Cache-Control-no-store: pass:[<a href="https://tools.ietf.org/html/rfc7234#section-5.2.2.2"><code>Cache-Control: no-store</code></a>]
-:Expires: pass:[<a href="https://tools.ietf.org/html/rfc7234#section-5.3"><code>Expires</code></a>]
 :Flow-ID: pass:[<a href="#flow-id"><code>Flow-ID</code></a>]
 
 // Attributes to improve design and linking of RFC key words.
-:RFC-safe: pass:[<a href="https://tools.ietf.org/html/rfc7231#section-4.2.1">safe</a>]
-:RFC-idempotent: pass:[<a href="https://tools.ietf.org/html/rfc7231#section-4.2.2">idempotent</a>]
-:RFC-cacheable: pass:[<a href="https://tools.ietf.org/html/rfc7231#section-4.2.3">cacheable</a>]
+:RFC-safe: pass:[<a href="https://tools.ietf.org/html/rfc9110#section-9.2.1">safe</a>]
+:RFC-idempotent: pass:[<a href="https://tools.ietf.org/html/rfc9110#section-9.2.2">idempotent</a>]
+:RFC-cacheable: pass:[<a href="https://tools.ietf.org/html/rfc9110#section-9.2.3">cacheable</a>]
 
 
 = Zalando RESTful API and Event Guidelines
