@@ -1518,6 +1518,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 </li>
 <li><a href="#headers">11. REST Basics - HTTP headers</a>
 <ul class="sectlevel2">
+<li><a href="#using--headers">Using Standard Header definitions</a></li>
 <li><a href="#133"><span class="may-keyword"><strong>MAY</strong></span> use standard headers</a></li>
 <li><a href="#132"><span class="should-keyword"><strong>SHOULD</strong></span> use kebab-case with uppercase separate words for HTTP headers</a></li>
 <li><a href="#178"><span class="must-keyword"><strong>MUST</strong></span> use <code>Content-*</code> headers correctly</a></li>
@@ -3039,11 +3040,11 @@ via format <code>iso-4217</code> in the OpenAPI specification.</p>
 specific resource (at the same URL), e.g. JSON, PDF, TEXT, or HTML
 representations for an invoice resource. You should use
 <a href="https://en.wikipedia.org/wiki/Content_negotiation">content negotiation</a> to
-support clients specifying via the standard HTTP headers <a href="https://tools.ietf.org/html/rfc7231#section-5.3.2"><code>Accept</code></a>,
-<a href="https://tools.ietf.org/html/rfc7231#section-5.3.5"><code>Accept-Language</code></a>, <a href="https://tools.ietf.org/html/rfc7231#section-5.3.4"><code>Accept-Encoding</code></a> which representation is best suited for
+support clients specifying via the standard HTTP headers <a href="https://tools.ietf.org/html/rfc9110#section-12.5.1"><code>Accept</code></a>,
+<a href="https://tools.ietf.org/html/rfc9110#section-12.5.4"><code>Accept-Language</code></a>, <a href="https://tools.ietf.org/html/rfc9110#section-12.5.3"><code>Accept-Encoding</code></a> which representation is best suited for
 their use case, for example, which language of a document, representation /
 content format, or content encoding. You <a href="#172"><span class="should-keyword"><strong>SHOULD</strong></span> use standard media types</a> like <code>application/json</code> or
-<code>application/pdf</code> for defining the content format in the <a href="https://tools.ietf.org/html/rfc7231#section-5.3.2"><code>Accept</code></a> header.</p>
+<code>application/pdf</code> for defining the content format in the <a href="https://tools.ietf.org/html/rfc9110#section-12.5.1"><code>Accept</code></a> header.</p>
 </div>
 </div>
 <div class="sect2">
@@ -3932,7 +3933,7 @@ as internal only, technical integer key, see
 </li>
 <li>
 <p><a id="etag"></a><a href="#etag"><code>etag</code></a>: the <a href="#etag"><code>etag</code></a> of an <a href="#158">embedded sub-resource</a>. It
-typically is used to carry the <a href="https://tools.ietf.org/html/rfc7232#section-2.3"><code>ETag</code></a> for subsequent <a href="#put"><code>PUT</code></a>/<a href="#patch"><code>PATCH</code></a> calls
+typically is used to carry the <a href="https://tools.ietf.org/html/rfc9110#section-8.8.3"><code>ETag</code></a> for subsequent <a href="#put"><code>PUT</code></a>/<a href="#patch"><code>PATCH</code></a> calls
 (see <a href="#182"><code>ETag</code></a> and <a href="#etag-in-result-entities"><code>ETags</code> in result entities</a>).</p>
 </li>
 </ul>
@@ -4234,9 +4235,8 @@ numbers as float / doubles.</p>
 <div class="sect2">
 <h3 id="148"><a class="link" href="#148"><span class="must-keyword"><strong>MUST</strong></span> use HTTP methods correctly</a></h3>
 <div class="paragraph">
-<p>Be compliant with the standardized HTTP method semantics
-(see HTTP/1 <a href="https://tools.ietf.org/html/rfc7230">RFC-7230</a> and <a href="https://tools.ietf.org/html/rfc7231">RFC-7230</a> updates from 2014)
-summarized as follows:</p>
+<p>Be compliant with the standardized HTTP semantics (see <a href="https://tools.ietf.org/html/rfc9110">RFC-9110
+"HTTP semantics"</a>) as summarized here.</p>
 </div>
 <div class="sect3">
 <h4 id="get"><a class="link" href="#get">GET</a></h4>
@@ -4558,12 +4558,13 @@ details).</p>
 <h4 id="delete-with-body"><a class="link" href="#delete-with-body">DELETE with body payload</a></h4>
 <div class="paragraph">
 <p>In rare cases <a href="#delete"><code>DELETE</code></a> may require additional information, that cannot be
-classified as filter parameters and thus should be transported via request body payload, to
-perform the operation. Since <a href="https://tools.ietf.org/html/rfc7231#section-4.3.5">RFC-7231</a> states, that
-<a href="#delete"><code>DELETE</code></a> has an undefined semantic for payloads, we recommend to utilize <a href="#post"><code>POST</code></a>.
-In this case the POST endpoint must be documented with the hint <a href="#delete-with-body"><code>DELETE with body</code></a>
-analog to how it is defined for <a href="#get-with-body"><code>GET with body</code></a>. The response status code of
-<a href="#delete-with-body"><code>DELETE with body</code></a> requests should be similar to usual <a href="#delete"><code>DELETE</code></a> requests.</p>
+classified as filter parameters and thus should be transported via request body
+payload, to perform the operation. Since <a href="https://tools.ietf.org/html/rfc9110#section-9.3.5">RFC-9110
+Section 9.3.5</a> states, that <a href="#delete"><code>DELETE</code></a> has an undefined semantic for payloads, we
+recommend to utilize <a href="#post"><code>POST</code></a>. In this case the POST endpoint must be documented
+with the hint <a href="#delete-with-body"><code>DELETE with body</code></a> analog to how it is defined for
+<a href="#get-with-body"><code>GET with body</code></a>. The response status code of <a href="#delete-with-body"><code>DELETE with body</code></a> requests should
+be similar to usual <a href="#delete"><code>DELETE</code></a> requests.</p>
 </div>
 </div>
 <div class="sect3">
@@ -4583,7 +4584,7 @@ body.</p>
 <div class="paragraph">
 <p><strong>Hint:</strong> <a href="#head"><code>HEAD</code></a> is particular useful to efficiently lookup whether large
 resources or collection resources have been updated in conjunction with the
-<a href="https://tools.ietf.org/html/rfc7232#section-2.3"><code>ETag</code></a>-header.</p>
+<a href="https://tools.ietf.org/html/rfc9110#section-8.8.3"><code>ETag</code></a>-header.</p>
 </div>
 </div>
 <div class="sect3">
@@ -4614,18 +4615,18 @@ self-describe the full functionality of a resource.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a id="safe"></a><a href="https://tools.ietf.org/html/rfc7231#section-4.2.1">safe</a> - the operation semantic is defined to be read-only,
+<p><a id="safe"></a><a href="https://tools.ietf.org/html/rfc9110#section-9.2.1">safe</a> - the operation semantic is defined to be read-only,
 meaning it must not have <em>intended side effects</em>, i.e. changes, to the server
 state.</p>
 </li>
 <li>
-<p><a id="idempotent"></a><a href="https://tools.ietf.org/html/rfc7231#section-4.2.2">idempotent</a> - the operation has the same
+<p><a id="idempotent"></a><a href="https://tools.ietf.org/html/rfc9110#section-9.2.2">idempotent</a> - the operation has the same
 <em>intended effect</em> on the server state, independently whether it is executed
 once or multiple times. <strong>Note:</strong> this does not require that the operation is
 returning the same response or status code.</p>
 </li>
 <li>
-<p><a id="cacheable"></a><a href="https://tools.ietf.org/html/rfc7231#section-4.2.3">cacheable</a> - to indicate that responses are
+<p><a id="cacheable"></a><a href="https://tools.ietf.org/html/rfc9110#section-9.2.3">cacheable</a> - to indicate that responses are
 allowed to be stored for future reuse. In general, requests to safe methods
 are cacheable, if it does not require a current or authoritative response
 from the server.</p>
@@ -4640,7 +4641,7 @@ intended by the operation so that it can be held accountable.</p>
 </div>
 <div class="paragraph">
 <p>Method implementations must fulfill the following basic properties according
-to <a href="https://tools.ietf.org/html/rfc7231">RFC 7231</a>:</p>
+to <a href="https://tools.ietf.org/html/rfc9110#section-9.2">RFC 9110 Section 9.2</a>:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -4890,7 +4891,7 @@ multiple times with different values as follows:</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Header</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Header: value1,value2</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Header: value1, Header: value2</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://tools.ietf.org/html/rfc7230#section-3.2.2">RFC 7230 Section 3.2.2</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://tools.ietf.org/html/rfc9110#section-5.3">RFC 9110 Section 5.3</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Query</p></td>
@@ -4922,7 +4923,7 @@ explicitly define the collection format to guide consumers as follows:</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Header</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>style: simple, explode: false</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">not allowed (see
-  <a href="https://tools.ietf.org/html/rfc7230#section-3.2.2">RFC 7230 Section 3.2.2</a>)</p></td>
+  <a href="https://tools.ietf.org/html/rfc9110#section-5.3">RFC 9110 Section 5.3</a>)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Query</p></td>
@@ -5213,8 +5214,8 @@ also with company <em>Bar</em>.</p>
 <p>You must only use official HTTP status codes consistently with their intended
 semantics. Official HTTP status codes are defined via RFC standards and
 registered in the <a href="https://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml">IANA
-Status Code Registry</a>. Main RFC standards are <a href="https://tools.ietf.org/html/rfc7231#section-6">RFC7231 - HTTP/1.1: Semantics</a>
-(or <a href="https://tools.ietf.org/html/rfc7235#page-6">RFC7235 - HTTP/1.1: Authentication</a>)
+Status Code Registry</a>. Main RFC standards are <a href="https://tools.ietf.org/html/rfc7231" class="bare">https://tools.ietf.org/html/rfc7231</a> // obsoleted by rfc-9110#section-6[RFC7231 - HTTP/1.1: Semantics]
+(or <a href="https://tools.ietf.org/html/rfc7235" class="bare">https://tools.ietf.org/html/rfc7235</a> // obsoleted by rfc-9110#page-6[RFC7235 - HTTP/1.1: Authentication])
 and <a href="https://tools.ietf.org/html/rfc6585">RFC 6585 - HTTP: Additional Status Codes</a> (and there are upcoming new ones, e.g.
 <a href="https://tools.ietf.org/html/draft-tbray-http-legally-restricted-status-05">draft
 legally-restricted-status</a>). An overview on the official error codes provides
@@ -5446,7 +5447,7 @@ resource that has intentionally been deleted.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="status-code-412"></a><a href="#status-code-412" class="status-code">412</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Precondition Failed - returned for conditional requests, e.g. <a href="https://tools.ietf.org/html/rfc7232#section-3.1"><code>If-Match</code></a> if the
+<td class="tableblock halign-left valign-top"><p class="tableblock">Precondition Failed - returned for conditional requests, e.g. <a href="https://tools.ietf.org/html/rfc9110#section-13.1.1"><code>If-Match</code></a> if the
 condition failed. Used for optimistic locking.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#put"><code>PUT</code></a>, <a href="#patch"><code>PATCH</code></a>, <a href="#delete"><code>DELETE</code></a></p></td>
 </tr>
@@ -5508,7 +5509,7 @@ availability, e.g. new feature).</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Service Unavailable - service is (temporarily) not available (e.g. if a
 required component or downstream service is not available)&#8201;&#8212;&#8201;client retry may
 be sensible. If possible, the service should indicate how long the client
-should wait by setting the <a href="https://tools.ietf.org/html/rfc7231#section-7.1.3"><code>Retry-After</code></a> header.</p></td>
+should wait by setting the <a href="https://tools.ietf.org/html/rfc9110#section-10.2.3"><code>Retry-After</code></a> header.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>&lt;all&gt;</code></p></td>
 </tr>
 </tbody>
@@ -5614,7 +5615,7 @@ can take for header information:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Return a <a href="https://tools.ietf.org/html/rfc7231#section-7.1.3"><code>Retry-After</code></a> header indicating how long the client ought to wait
+<p>Return a <a href="https://tools.ietf.org/html/rfc9110#section-10.2.3"><code>Retry-After</code></a> header indicating how long the client ought to wait
 before making a follow-up request. The Retry-After header can contain a HTTP
 date value to retry after or the number of seconds to delay. Either is
 acceptable but APIs should prefer to use a delay in seconds.</p>
@@ -5682,7 +5683,7 @@ with this guideline in certain error situations.</p>
 <div class="paragraph">
 <p><strong>Hint:</strong> The media type <code>application/problem+json</code> is often not implemented as
 a subset of <code>application/json</code> by libraries and services! Thus clients need to
-include <code>application/problem+json</code> in the <a href="https://tools.ietf.org/html/rfc7231#section-5.3.2"><code>Accept</code></a>-Header to trigger delivery
+include <code>application/problem+json</code> in the <a href="https://tools.ietf.org/html/rfc9110#section-12.5.1"><code>Accept</code></a>-Header to trigger delivery
 of the extended failure information.</p>
 </div>
 <div class="paragraph">
@@ -5758,28 +5759,70 @@ receive and may disclose insights about vulnerabilities to attackers.</p>
 <h2 id="headers"><a class="link" href="#headers">11. REST Basics - HTTP headers</a></h2>
 <div class="sectionbody">
 <div id="standard-headers" class="paragraph">
-<p>We describe a handful of standard HTTP headers, which we found raising the most questions in
-our daily usage, or which are useful in particular circumstances but not widely known.</p>
+<p>In this section we explain a handful of (standard) HTTP headers, which we found
+most useful in certain situations and that require additional explanation to be
+used effectively.</p>
 </div>
 <div class="paragraph">
-<p>Though we generally discourage usage of proprietary headers, they are useful to pass generic,
-service independent, overarching information relevant for our specific application architecture.
-We consistently define these proprietary headers in this section below. Whether services support
-these concerns or not is optional. Therefore, the OpenAPI API specification is the right place
-to make this explicitly visible&#8201;&#8212;&#8201;use the parameter definitions of the resource HTTP methods.</p>
+<p><strong>Note:</strong> we generally discourage the usage of proprietary headers. However,
+they are sometimes useful to pass generic, service independent, overarching
+information relevant for our specific application architecture. We consistently
+define these proprietary headers below.</p>
+</div>
+<div class="paragraph">
+<p>Whether a service supports a certain header is part of the service contract.
+Therefore APIs should use the <code>parameters</code> and <code>headers</code> definition of the API
+endpoint and response to clarify what is supported in a certain context.</p>
+</div>
+<div class="sect2">
+<h3 id="using--headers"><a class="link" href="#using--headers">Using Standard Header definitions</a></h3>
+<div class="paragraph">
+<p>Usually, you can the standard HTTP request and response header definition
+provided by the guideline to simplify API by using well recognized patterns.
+The best practice importing headers providing the highest readability is as
+follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="yaml"><span class="key">path</span>:
+  <span class="error">'/resource'</span>
+    <span class="key">get</span>:
+      <span class="key">parameters</span>:
+        - <span class="string"><span class="content">$ref: '#/components/parameters/ETag</span></span>
+
+<span class="key">components</span>:
+  <span class="error">parameters|headers</span>:
+    <span class="key">ETag</span>:
+      <span class="error">$ref</span>: <span class="error">'https://opensource.zalando.com/restful-api-guidelines/models/headers-1.0.0.yaml#/ETag'</span>
+
+  <span class="key">responses</span>:
+    <span class="key">Default</span>:
+      <span class="key">headers</span>:
+        <span class="key">ETag</span>:
+          <span class="error">$ref</span>: <span class="error">'#/components/(parameters|headers)/ETag</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Note:</strong> It is a question of taste whether headers for responses are defined in
+<code>#/components/headers</code> or <code>#/components/parameters</code>. Unfortunately, headers
+in the first section cannot be referenced from a <code>parameters</code>-list, while it is
+possible to reference the second also from a <code>headers</code>-list.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="133"><a class="link" href="#133"><span class="may-keyword"><strong>MAY</strong></span> use standard headers</a></h3>
 <div class="paragraph">
-<p>Use <a href="http://en.wikipedia.org/wiki/List_of_HTTP_header_fields">this list</a> and
-explicitly mention its support in your OpenAPI definition.</p>
+<p>APIs may make use of HTTP headers defined by non-obsolete RFCs (see following
+list of <a href="http://en.wikipedia.org/wiki/List_of_HTTP_header_fields">standard HTTP
+headers</a>). The supported headers must be explicitly mentioned in the API
+specification.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="132"><a class="link" href="#132"><span class="should-keyword"><strong>SHOULD</strong></span> use kebab-case with uppercase separate words for HTTP headers</a></h3>
 <div class="paragraph">
-<p>This convention is followed by (most of) the standard headers e.g. as defined in
-<a href="https://tools.ietf.org/html/rfc2616">RFC 2616</a> and <a href="https://tools.ietf.org/html/rfc4229">RFC 4229</a>. Examples:</p>
+<p>This convention is followed by (most of) the standard headers e.g. as defined
+in <a href="https://tools.ietf.org/html/rfc2616">RFC 2616</a>, <a href="https://tools.ietf.org/html/rfc4229">RFC 4229</a>, <a href="https://tools.ietf.org/html/rfc9110">RFC 9110</a>. Examples:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -5790,9 +5833,11 @@ Language</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Note, HTTP standard defines headers as case-insensitive (<a href="https://tools.ietf.org/html/rfc7230#page-22">RFC 7230, p.22</a>).
-However, for sake of readability and consistency you should follow the convention when
-using standard or proprietary headers. Exceptions are common abbreviations like <code>ID</code>.</p>
+<p><strong>Note:</strong> The HTTP standard defines headers (now called HTTP fields) to be
+case-insensitive (see <a href="https://tools.ietf.org/html/rfc9110#section-5.1">RFC 9110 Section 5.1</a>). However,
+for the sake of readability and consistency, you should follow the convention
+when defining standard or proprietary headers. Exceptions are common
+abbreviations like <code>ID</code>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -5810,26 +5855,26 @@ limited to:</p>
 saved as a file, and the proposed file name.</p>
 </li>
 <li>
-<p><a href="https://tools.ietf.org/html/rfc7231#section-3.1.2.2"><code>Content-Encoding</code></a> indicates compression or encryption algorithms applied to
+<p><a href="https://tools.ietf.org/html/rfc9110#section-8.4"><code>Content-Encoding</code></a> indicates compression or encryption algorithms applied to
 the content.</p>
 </li>
 <li>
-<p><a href="https://tools.ietf.org/html/rfc7230#section-3.3.2"><code>Content-Length</code></a> indicates the length of the content (in bytes).</p>
+<p><a href="https://tools.ietf.org/html/rfc9110#section-8.6"><code>Content-Length</code></a> indicates the length of the content (in bytes).</p>
 </li>
 <li>
-<p><a href="https://tools.ietf.org/html/rfc7231#section-3.1.3.2"><code>Content-Language</code></a> indicates that the body is meant for people literate in
+<p><a href="https://tools.ietf.org/html/rfc9110#section-8.5"><code>Content-Language</code></a> indicates that the body is meant for people literate in
 some human language(s).</p>
 </li>
 <li>
-<p><a href="https://tools.ietf.org/html/rfc7231#section-3.1.4.2"><code>Content-Location</code></a> indicates where the body can be found otherwise (<a href="#179"><span class="may-keyword"><strong>MAY</strong></span> use <code>Content-Location</code> header</a>
+<p><a href="https://tools.ietf.org/html/rfc9110#section-8.7"><code>Content-Location</code></a> indicates where the body can be found otherwise (<a href="#179"><span class="may-keyword"><strong>MAY</strong></span> use <code>Content-Location</code> header</a>
 for more details]).</p>
 </li>
 <li>
-<p><a href="https://tools.ietf.org/html/rfc7233#section-4.2"><code>Content-Range</code></a> is used in responses to range requests to indicate which part
+<p><a href="https://tools.ietf.org/html/rfc9110#section-14.4"><code>Content-Range</code></a> is used in responses to range requests to indicate which part
 of the requested resource representation is delivered with the body.</p>
 </li>
 <li>
-<p><a href="https://tools.ietf.org/html/rfc7231#section-3.1.1.5"><code>Content-Type</code></a> indicates the media type of the body content.</p>
+<p><a href="https://tools.ietf.org/html/rfc9110#section-8.3"><code>Content-Type</code></a> indicates the media type of the body content.</p>
 </li>
 </ul>
 </div>
@@ -5837,29 +5882,30 @@ of the requested resource representation is delivered with the body.</p>
 <div class="sect2">
 <h3 id="180"><a class="link" href="#180"><span class="should-keyword"><strong>SHOULD</strong></span> use <code>Location</code> header instead of <code>Content-Location</code> header</a></h3>
 <div class="paragraph">
-<p>As the correct usage of <a href="https://tools.ietf.org/html/rfc7231#section-3.1.4.2"><code>Content-Location</code></a> response header (see below) with respect
-to caching and its method specific semantics is difficult, we <em>discourage</em> the use
-of <a href="https://tools.ietf.org/html/rfc7231#section-3.1.4.2"><code>Content-Location</code></a>.
-In most cases it is sufficient to inform clients about the resource location
-in create or re-direct responses by using the <a href="https://tools.ietf.org/html/rfc7231#section-7.1.2"><code>Location</code></a> header while avoiding
-the <a href="https://tools.ietf.org/html/rfc7231#section-3.1.4.2"><code>Content-Location</code></a> specific ambiguities and complexities.</p>
+<p>As a correct usage of the <a href="https://tools.ietf.org/html/rfc9110#section-8.7"><code>Content-Location</code></a> response header (see <a href="#179"><span class="may-keyword"><strong>MAY</strong></span> use <code>Content-Location</code> header</a>)
+with respect to caching and its method specific semantics is difficult, we
+<strong>discourage</strong> the use of <a href="https://tools.ietf.org/html/rfc9110#section-8.7"><code>Content-Location</code></a>. In most cases it is sufficient to
+inform clients about the resource location in create or re-direct responses by
+using the <a href="https://tools.ietf.org/html/rfc9110#section-10.2.2"><code>Location</code></a> header while avoiding the <a href="https://tools.ietf.org/html/rfc9110#section-8.7"><code>Content-Location</code></a> specific
+ambiguities and complexities.</p>
 </div>
 <div class="paragraph">
-<p>More details in RFC 7231 <a href="https://tools.ietf.org/html/rfc7231#section-7.1.2">7.1.2 Location</a>,
-<a href="https://tools.ietf.org/html/rfc7231#section-3.1.4.2">3.1.4.2 Content-Location</a></p>
+<p>For more details see <a href="https://tools.ietf.org/html/rfc9110#section-10.2.2">RFC 9110 Section 10.2.2
+Location</a>, <a href="https://tools.ietf.org/html/rfc9110#section-8.7">RFC 9110 Section 8.2 Content-Location</a></p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="179"><a class="link" href="#179"><span class="may-keyword"><strong>MAY</strong></span> use <code>Content-Location</code> header</a></h3>
 <div class="paragraph">
-<p><a href="https://tools.ietf.org/html/rfc7231#section-3.1.4.2"><code>Content-Location</code></a> is an <em>optional</em> response header that can be used in successful write
-operations (<a href="#put"><code>PUT</code></a>, <a href="#post"><code>POST</code></a>, or <a href="#patch"><code>PATCH</code></a>) or read operations (<a href="#get"><code>GET</code></a>, <a href="#head"><code>HEAD</code></a>) to
-guide caching and signal a receiver the actual location of the resource
-transmitted in the response body. This allows clients to identify the resource
-and to update their local copy when receiving a response with this header.</p>
+<p>The <a href="https://tools.ietf.org/html/rfc9110#section-8.7"><code>Content-Location</code></a> response header is an <em>optional</em> header that can be used
+in successful write operations (<a href="#put"><code>PUT</code></a>, <a href="#post"><code>POST</code></a>, or <a href="#patch"><code>PATCH</code></a>) and read operations
+(<a href="#get"><code>GET</code></a>, <a href="#head"><code>HEAD</code></a>) to guide caching and signal a receiver the actual location of
+the resource transmitted in the response body. This allows clients to identify
+the resource and to update their local copy when receiving a response with this
+header.</p>
 </div>
 <div class="paragraph">
-<p>The Content-Location header can be used to support the following use cases:</p>
+<p>The <a href="https://tools.ietf.org/html/rfc9110#section-8.7"><code>Content-Location</code></a> header can be used to support the following use cases:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -5882,7 +5928,7 @@ requested action, which is available at provided location.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p><strong>Note</strong>: When using the <a href="https://tools.ietf.org/html/rfc7231#section-3.1.4.2"><code>Content-Location</code></a> header, the <a href="https://tools.ietf.org/html/rfc7231#section-3.1.1.5"><code>Content-Type</code></a> header
+<p><strong>Note:</strong> When using the <a href="https://tools.ietf.org/html/rfc9110#section-8.7"><code>Content-Location</code></a> header, the <a href="https://tools.ietf.org/html/rfc9110#section-8.3"><code>Content-Type</code></a> header
 has to be set as well. For example:</p>
 </div>
 <div class="listingblock">
@@ -5893,6 +5939,9 @@ HTTP/1.1 200 OK
 Content-Type: image/png
 Content-Location: /products/123/images?format=raw</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>See also <a href="#227"><span class="must-keyword"><strong>MUST</strong></span> document cacheable <code>GET</code>, <code>HEAD</code>, and <code>POST</code> endpoints</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -5906,40 +5955,51 @@ Internet Standard, is recommended over defining proprietary "X-" headers for
 processing directives.</p>
 </div>
 <div class="paragraph">
-<p>The <a href="https://tools.ietf.org/html/rfc7240"><code>Prefer</code></a> header can defined like this in an API definition:</p>
+<p>The <a href="https://tools.ietf.org/html/rfc7240"><code>Prefer</code></a> header can be defined in the API specification as follows:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="yaml"><span class="key">components</span>:
-  <span class="key">headers</span>:
-  - <span class="string"><span class="content">Prefer:</span><span class="content">
-      description: &gt;
-        The RFC7240 Prefer header indicates that a particular server behavior
-        is preferred by the client but is not required for successful completion
-        of the request (see [RFC 7240](https://tools.ietf.org/html/rfc7240).
-        The following behaviors are supported by this API:
+  <span class="key">parameters</span>:
+    <span class="key">Prefer</span>:
+        <span class="key">name</span>: <span class="string"><span class="content">Prefer</span></span>
+        <span class="key">in</span>: <span class="string"><span class="content">header</span></span>
+        <span class="key">required</span>: <span class="string"><span class="content">false</span></span>
+        <span class="key">description</span>: <span class="string"><span class="delimiter">|-</span><span class="content">
+          The **Prefer** header indicates that a particular server behavior is
+          preferred by the client, but is not required for successful completion of
+          the request (see [RFC 7240][rfc-7240]. The following behaviors are
+          supported by this API:
 
-        # (indicate the preferences supported by the API or API endpoint)
-        * **respond-async** is used to suggest the server to respond as fast as
-          possible asynchronously using 202 - accepted - instead of waiting for
-          the result.
-        * **return=&lt;minimal|representation&gt;** is used to suggest the server to
-          return using 204 without resource (minimal) or using 200 or 201 with
-          resource (representation) in the response body on success.
-        * **wait=&lt;delta-seconds&gt;** is used to suggest a maximum time the server
-          has time to process the request synchronously.
-        * **handling=&lt;strict|lenient&gt;** is used to suggest the server to be
-          strict and report error conditions or lenient, i.e. robust and try to
-          continue, if possible.
+          * **respond-async** is used to suggest the server to respond as fast as
+            possible asynchronously using **202** (Accepted) instead of waiting for
+            the result.
+          * **return=&lt;minimal|representation&gt;** is used to suggest the server to
+            return using **204** (No Content) without resource (minimal) or using
+            **200** or **201** with resource (representation) in the response body on
+            success.
+          * **wait=&lt;delta-seconds&gt;** is used to suggest a maximum time the server has
+            time to process the request synchronously.
+          * **handling=&lt;strict|lenient&gt;** is used to suggest the server to be strict
+            and report error conditions or lenient, i.e. robust and try to continue,
+            if possible.
 
-      type: array
-      items:
-        type: string
-      required: false</span></span></code></pre>
+          See [RFC 7340][rfc-7240] as well as [API Guideline Rule #181][api-181]
+          for further details.
+
+          [rfc-7240]: &lt;https://tools.ietf.org/html/rfc7240&gt;
+          [api-181]: &lt;https://opensource.zalando.com/restful-api-guidelines/#181&gt;</span></span>
+        <span class="key">schema</span>:
+          <span class="key">type</span>: <span class="string"><span class="content">array</span></span>
+          <span class="key">items</span>:
+            <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
+        <span class="key">style</span>: <span class="string"><span class="content">simple</span></span>
+        <span class="key">explode</span>: <span class="string"><span class="content">false</span></span>
+        <span class="key">example</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">respond-async</span><span class="delimiter">&quot;</span></span><span class="string"><span class="content">, &quot;return=minimal&quot;, &quot;wait=20&quot;, &quot;handling=strict&quot;</span></span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><strong>Note:</strong> Please copy only the behaviors into your <a href="https://tools.ietf.org/html/rfc7240"><code>Prefer</code></a> header specification
+<p><strong>Note:</strong> Please, copy only the behaviors into your <a href="https://tools.ietf.org/html/rfc7240"><code>Prefer</code></a> header specification
 that are supported by your API endpoint. If necessary, specify different
 <a href="https://tools.ietf.org/html/rfc7240"><code>Prefer</code></a> headers for each supported use case.</p>
 </div>
@@ -5952,18 +6012,19 @@ that are supported by your API endpoint. If necessary, specify different
 <h3 id="182"><a class="link" href="#182"><span class="may-keyword"><strong>MAY</strong></span> consider to support <code>ETag</code> together with <code>If-Match</code>/<code>If-None-Match</code> header</a></h3>
 <div class="paragraph">
 <p>When creating or updating resources it may be necessary to expose conflicts
-and to prevent the 'lost update' or 'initially created' problem. Following
-<a href="https://tools.ietf.org/html/rfc7232">RFC 7232 "HTTP: Conditional Requests"</a> this can be best accomplished
-by supporting the <a href="https://tools.ietf.org/html/rfc7232#section-2.3"><code>ETag</code></a> header together with the <a href="https://tools.ietf.org/html/rfc7232#section-3.1"><code>If-Match</code></a> or <a href="https://tools.ietf.org/html/rfc7232#section-3.2"><code>If-None-Match</code></a>
-conditional header. The contents of an <code>ETag: &lt;entity-tag&gt;</code> header is either
-(a) a hash of the response body, (b) a hash of the last modified field of the
-entity, or (c) a version number or identifier of the entity version.</p>
+and to prevent the <em>lost update</em> or <em>initially created</em> problem. Following
+<a href="https://tools.ietf.org/html/rfc9110">RFC 9110 Section 13 "Conditional Requests"</a> this can be best
+accomplished by supporting the <a href="https://tools.ietf.org/html/rfc9110#section-8.8.3"><code>ETag</code></a> header together with the <a href="https://tools.ietf.org/html/rfc9110#section-13.1.1"><code>If-Match</code></a> or
+<a href="https://tools.ietf.org/html/rfc9110#section-13.1.2"><code>If-None-Match</code></a> conditional header. The contents of an <code>ETag: &lt;entity-tag&gt;</code>
+header is either (a) a hash of the response body, (b) a hash of the last
+modified field of the entity, or (c) a version number or identifier of the
+entity version.</p>
 </div>
 <div class="paragraph">
 <p>To expose conflicts between concurrent update operations via <a href="#put"><code>PUT</code></a>, <a href="#post"><code>POST</code></a>, or
 <a href="#patch"><code>PATCH</code></a>, the <code>If-Match: &lt;entity-tag&gt;</code> header can be used to force the server to
 check whether the version of the updated entity is conforming to the requested
-<a href="https://tools.ietf.org/html/rfc7232#section-2.3"><code>&lt;entity-tag&gt;</code></a>. If no matching entity is found, the operation is supposed a to
+<a href="https://tools.ietf.org/html/rfc9110#section-8.8.3"><code>&lt;entity-tag&gt;</code></a>. If no matching entity is found, the operation is supposed a to
 respond with status code <a href="#status-code-412" class="status-code">412</a> - precondition failed.</p>
 </div>
 <div class="paragraph">
@@ -5973,54 +6034,104 @@ operation is supposed a to respond with status code <a href="#status-code-412" c
 failed.</p>
 </div>
 <div class="paragraph">
-<p>The <a href="https://tools.ietf.org/html/rfc7232#section-2.3"><code>ETag</code></a>, <a href="https://tools.ietf.org/html/rfc7232#section-3.1"><code>If-Match</code></a>, and <a href="https://tools.ietf.org/html/rfc7232#section-3.2"><code>If-None-Match</code></a> headers can be defined as follows
-in the API definition:</p>
+<p>The <a href="https://tools.ietf.org/html/rfc9110#section-8.8.3"><code>ETag</code></a>, <a href="https://tools.ietf.org/html/rfc9110#section-13.1.1"><code>If-Match</code></a>, and <a href="https://tools.ietf.org/html/rfc9110#section-13.1.2"><code>If-None-Match</code></a> headers can be defined as follows
+in the API specification (see also the default definition below):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="yaml"><span class="key">components</span>:
+  <span class="error">parameters|headers</span>:
+    <span class="key">ETag</span>:
+      <span class="error">$ref</span>: <span class="error">'https://opensource.zalando.com/restful-api-guidelines/models/headers-1.0.0.yaml#/ETag'</span>
+    <span class="key">If-Match</span>:
+      <span class="error">$ref</span>: <span class="error">'https://opensource.zalando.com/restful-api-guidelines/models/headers-1.0.0.yaml#/If-Match'</span>
+    <span class="key">If-None-Match</span>:
+      <span class="error">$ref</span>: <span class="error">'https://opensource.zalando.com/restful-api-guidelines/models/headers-1.0.0.yaml#/If-None-Match'</span></code></pre>
+</div>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="yaml"><span class="key">components</span>:
   <span class="key">headers</span>:
-  - <span class="string"><span class="content">ETag:</span><span class="content">
-      description: |
-        The RFC 7232 ETag header field in a response provides the entity-tag of
-        a selected resource. The entity-tag is an opaque identifier for versions
-        and representations of the same resource over time, regardless whether
-        multiple versions are valid at the same time. An entity-tag consists of
-        an opaque quoted string, possibly prefixed by a weakness indicator (see
-        [RFC 7232 Section 2.3](https://tools.ietf.org/html/rfc7232#section-2.3).
+    <span class="key">ETag</span>:
+        <span class="key">required</span>: <span class="string"><span class="content">false</span></span>
+        <span class="key">description</span>: <span class="string"><span class="delimiter">|-</span><span class="content">
+          The **ETag** header field in a response provides an opaque quoted string
+          identifying the distinct delivered resource. The same selected resource
+          depending on version and representation may be identified by multiple
+          identifiers. The **ETag** value is guaranteed to change whenever the
+          resource changes, and thereby enabling optimistic updates.
 
-      type: string
-      required: false
-      example: W/&quot;xy&quot;, &quot;5&quot;, &quot;5db68c06-1a68-11e9-8341-68f728c1ba70&quot;</span></span>
+          An identifier consists of an opaque quoted string, possibly prefixed by
+          a weakness indicator. See [RFC 9110 Section 8.8.3][rfc-9110-8.8.3] as
+          well as [API Guideline Rule #182][api-182] for further details.
 
-  - <span class="string"><span class="content">If-Match:</span><span class="content">
-      description: |
-        The RFC7232 If-Match header field in a request requires the server to
-        only operate on the resource that matches at least one of the provided
-        entity-tags. This allows clients express a precondition that prevent
-        the method from being applied if there have been any changes to the
-        resource (see [RFC 7232 Section
-        3.1](https://tools.ietf.org/html/rfc7232#section-3.1).
+          [rfc-9110-8.8.3]: &lt;https://tools.ietf.org/html/rfc9110#section-8.8.3&gt;
+          [api-182]: &lt;https://opensource.zalando.com/restful-api-guidelines/#182&gt;</span></span>
+        <span class="key">schema</span>:
+          <span class="key">type</span>: <span class="string"><span class="content">array</span></span>
+          <span class="key">items</span>:
+            <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
+        <span class="key">style</span>: <span class="string"><span class="content">simple</span></span>
+        <span class="key">explode</span>: <span class="string"><span class="content">false</span></span>
+        <span class="key">example</span>: <span class="string"><span class="content">W/&quot;xy&quot;, &quot;5&quot;, &quot;5db68c06-1a68-11e9-8341-68f728c1ba70&quot;</span></span>
 
-      type: string
-      required: false
-      example: &quot;5&quot;, &quot;7da7a728-f910-11e6-942a-68f728c1ba70&quot;</span></span>
+    <span class="key">If-Match</span>:
+        <span class="key">name</span>: <span class="string"><span class="content">If-Match</span></span>
+        <span class="key">in</span>: <span class="string"><span class="content">header</span></span>
+        <span class="key">required</span>: <span class="string"><span class="content">false</span></span>
+        <span class="key">description</span>: <span class="string"><span class="delimiter">|-</span><span class="content">
+          The **If-Match** header field is used to declare a list of identifiers that
+          are required to match the current resource version identifier in at least
+          one position as a pre-condition for executing the request on the server
+          side. This behavior is used to validate and reject optimistic updates, by
+          checking if the resource version a consumer has based his changes on is
+          outdated on arrival of the change request to prevent lost updates.
 
-  - <span class="string"><span class="content">If-None-Match:</span><span class="content">
-      description: |
-        The RFC7232 If-None-Match header field in a request requires the server
-        to only operate on the resource if it does not match any of the provided
-        entity-tags. If the provided entity-tag is `*`, it is required that the
-        resource does not exist at all (see [RFC 7232 Section
-        3.2](https://tools.ietf.org/html/rfc7232#section-3.2).
+          If the pre-condition fails the server will respond with status code **412**
+          (Precondition Failed). See [RFC 9110 Section 13.1.1][rfc-9110-13.1.1] as
+          well as [API Guideline Rule #182][api-182] for further details.
 
-      type: string
-      required: false
-      example: &quot;7da7a728-f910-11e6-942a-68f728c1ba70&quot;, *</span></span></code></pre>
+          [rfc-9110-13.1.1]: &lt;https://tools.ietf.org/html/rfc9110#section-13.1.1&gt;
+          [api-182]: &lt;https://opensource.zalando.com/restful-api-guidelines/#182&gt;</span></span>
+        <span class="key">schema</span>:
+          <span class="key">type</span>: <span class="string"><span class="content">array</span></span>
+          <span class="key">items</span>:
+            <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
+        <span class="key">style</span>: <span class="string"><span class="content">simple</span></span>
+        <span class="key">explode</span>: <span class="string"><span class="content">false</span></span>
+        <span class="key">example</span>: <span class="string"><span class="content">W/&quot;xy&quot;, &quot;5&quot;, &quot;5db68c06-1a68-11e9-8341-68f728c1ba70&quot;</span></span>
+
+    <span class="key">If-None-Match</span>:
+        <span class="key">name</span>: <span class="string"><span class="content">If-None-Match</span></span>
+        <span class="key">in</span>: <span class="string"><span class="content">header</span></span>
+        <span class="key">required</span>: <span class="string"><span class="content">false</span></span>
+        <span class="key">description</span>: <span class="string"><span class="delimiter">|-</span><span class="content">
+          The **If-None-Match header** field is used to declare a list of identifiers
+          that are required to fail matching all the current resource version
+          identifiers as a pre-condition for executing the request on the server
+          side. This is especially used in conjunction with an **\*** (asterix) that
+          is matching all possible resource identifiers to ensure the initial
+          creation of a resource. Other use cases are possible but rare.
+
+          If the pre-condition fails the server will respond with status code **412**
+          (Precondition Failed). See [RFC 9110 Section 13.1.2][rfc-9110-13.1.2] as
+          well as [API Guideline Rule #182][api-182] for further details.
+
+          [rfc-9110-13.1.2]: &lt;https://tools.ietf.org/html/rfc9110#section-13.1.2&gt;
+          [api-182]: &lt;https://opensource.zalando.com/restful-api-guidelines/#182&gt;</span></span>
+        <span class="key">schema</span>:
+          <span class="key">type</span>: <span class="string"><span class="content">array</span></span>
+          <span class="key">items</span>:
+            <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
+        <span class="key">style</span>: <span class="string"><span class="content">simple</span></span>
+        <span class="key">explode</span>: <span class="string"><span class="content">false</span></span>
+        <span class="key">example</span>: <span class="string"><span class="content">W/&quot;xy&quot;, &quot;5&quot;, &quot;5db68c06-1a68-11e9-8341-68f728c1ba70&quot;</span></span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Please see <a href="#optimistic-locking">Optimistic locking in RESTful APIs</a> for a detailed discussion and options.</p>
+<p>Please see <a href="#optimistic-locking">Optimistic locking in RESTful APIs</a> for a detailed discussion as well as
+<a href="#cache-support-patterns">Cache Support Patterns</a> for additional use cases.</p>
 </div>
 </div>
 <div class="sect2">
@@ -6064,26 +6175,44 @@ choose your expiration time:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="yaml"><span class="key">components</span>:
-  <span class="key">headers</span>:
-  - <span class="string"><span class="content">Idempotency-Key:</span><span class="content">
-      description: |
-        The idempotency key is a free identifier created by the client to
-        identify a request. It is used by the service to identify subsequent
-        retries of the same request and ensure idempotent behavior by sending
-        the same response without executing the request a second time.
+  <span class="key">parameters</span>:
+    <span class="key">Idempotency-Key</span>:
+        <span class="key">name</span>: <span class="string"><span class="content">Idempotency-Key</span></span>
+        <span class="key">in</span>: <span class="string"><span class="content">header</span></span>
+        <span class="key">required</span>: <span class="string"><span class="content">false</span></span>
+        <span class="key">description</span>: <span class="string"><span class="delimiter">|-</span><span class="content">
+          The **Idempotency-Key** is a free identifier created by the client to
+          identify a request. It is used by the service to identify repeated request
+          to ensure idempotent behavior by sending the same (or a similar) response
+          without executing the request a second time.
 
-        Clients should be careful as any subsequent requests with the same key
-        may return the same response without further check. Therefore, it is
-        recommended to use a UUID version 4 (random) or any other random
-        string with enough entropy to avoid collisions.
+          Clients should be careful as any subsequent requests with the same key may
+          return the same response without further check. Thus, it is recommended to
+          use a UUID version 4 (random) or any other random string with enough
+          entropy to avoid collisions.
 
-        Idempotency keys expire after 24 hours. Clients are responsible to stay
-        within this limit, if they require idempotent behavior.
+          Keys expire after 24 hours. Clients are responsible to stay within this
+          limit, if they require idempotent behavior.
 
-      type: string
-      format: uuid
-      required: false
-      example: &quot;7da7a728-f910-11e6-942a-68f728c1ba70&quot;</span></span></code></pre>
+          See [API Guideline Rule #181][api-230] for further details.
+
+          [api-230]: &lt;https://opensource.zalando.com/restful-api-guidelines/#230&gt;</span></span>
+        <span class="key">schema</span>:
+          <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
+          <span class="key">format</span>: <span class="string"><span class="content">uuid</span></span>
+        <span class="key">example</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">7da7a728-f910-11e6-942a-68f728c1ba70</span><span class="delimiter">&quot;</span></span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you do not want to change the expiration time, you can also use the standard
+definition provided by the guideline:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="yaml"><span class="key">components</span>:
+  <span class="error">parameters|headers</span>:
+    <span class="key">Idempotency-Key</span>:
+      <span class="error">$ref</span>: <span class="error">'https://opensource.zalando.com/restful-api-guidelines/models/headers-1.0.0.yaml#/Idempotency-Key'</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -6104,40 +6233,44 @@ Zalando landscape specific proprietary headers.</p>
 <div class="sect2">
 <h3 id="183"><a class="link" href="#183"><span class="should-keyword"><strong>SHOULD</strong></span> use only the specified proprietary Zalando headers</a></h3>
 <div class="paragraph">
-<p>As a general rule, proprietary HTTP headers should be avoided.
-From a conceptual point of view, the business semantics and intent of an
-operation should always be expressed via the URLs path and query parameters,
-the method, and the content, but not via proprietary headers.
-Headers are typically used to implement protocol processing aspects, such as flow control,
-content negotiation, and authentication, and represent business agnostic
-request modifiers that provide generic context information (<a href="https://tools.ietf.org/html/rfc7231#section-5">RFC 7231</a>).</p>
+<p>As a general rule, proprietary HTTP headers should be avoided. In addition
+from a conceptual point of view, the business semantics and intent of an
+operation should always be expressed via the path and query parameters, the
+method, and the content, but not via proprietary headers.</p>
 </div>
 <div class="paragraph">
-<p>However, the exceptional usage of proprietary headers is still helpful
-when domain-specific generic context information&#8230;&#8203;</p>
+<p>Headers are typically used to implement protocol processing aspects, such as
+flow control, content negotiation, and authentication, and represent business
+agnostic request modifiers that provide generic context information
+(<a href="https://tools.ietf.org/html/rfc9110#section-10">RFC 9110 Section 10 "Message Context"</a>).</p>
+</div>
+<div class="paragraph">
+<p>However, the exceptional usage of proprietary headers is still helpful when
+domain-specific generic context information</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>needs to be passed end to end along the service call chain (even if
-not all called services use it as input for steering service behavior
-e.g. <a href="#x-sales-channel"><code>X-Sales-Channel</code></a> header) and/or&#8230;&#8203;</p>
+<p>needs to be passed <em>end-to-end</em> along the service call chain (even if not
+all called services use it as input for steering service behavior, e.g.
+<a href="#x-sales-channel"><code>X-Sales-Channel</code></a> header), and/or</p>
 </li>
 <li>
-<p>is provided by specific gateway components, for instance, our
-Fashion Shop API or Merchant API gateway.</p>
+<p>is provided by specific gateway components, for instance, our Fashion Shop
+API or Merchant API gateway.</p>
 </li>
 </ol>
 </div>
 <div class="paragraph">
-<p>Below, we explicitly define the list of proprietary header exceptions usable for
-all services for passing through generic context information of our fashion domain (use case 1).</p>
+<p>Below, we explicitly define the list of proprietary headers usable for all
+services for passing through generic context information of our fashion domain
+(use case 1).</p>
 </div>
 <div class="paragraph">
-<p>Per convention, non standardized, proprietary header names are prefixed with  <code>X-</code>
-and use the dash (<code>-</code>) as separator (dash-case).
-(Due to backward compatibility, we do not follow the Internet Engineering Task Force’s
-recommendation in <a href="https://tools.ietf.org/html/rfc6648">RFC 6648</a> to deprecate usage of  <code>X-</code> headers.)
+<p>Per convention, non standardized, proprietary header names are prefixed with
+<code>X-</code> and use the dash (<code>-</code>) as separator (dash-case). (Due to backward
+compatibility, we do not follow the recommendation of Internet Engineering
+Task Force in <a href="https://tools.ietf.org/html/rfc6648">RFC 6648</a> to deprecate the usage of  `X-`headers.)
 Remember that HTTP header field names are not case-sensitive:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
@@ -6176,7 +6309,8 @@ a request from a Business Partner hits the Zalando Platform.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Sales channels are owned by retailers and represent a specific consumer segment
 being addressed with a specific product assortment that is offered via CFA
-retailer catalogs to consumers (see <a href="https://digital-experience.docs.zalando.net/glossary/glossary.html">fashion platform glossary (internal_link)</a>).</p></td>
+retailer catalogs to consumers (see <a href="https://digital-experience.docs.zalando.net/glossary/glossary.html">fashion platform glossary
+(internal link)</a>).</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">52b96501-0f8d-43e7-82aa-8a96fab134d7</p></td>
 </tr>
 <tr>
@@ -6214,10 +6348,10 @@ as generic aspect. Current range is iOS, Android, Windows, Linux, MacOS.</p></td
 <a href="https://support.google.com/googleplay/android-developer/answer/6048248">GAID</a>
 (Google mobile Advertising Identifier) for Android. It is a unique,
 customer-resettable identifier provided by mobile device’s operating system
-to facilitate personalized advertising, and usually passed by mobile apps via http header
-when calling backend services. Called services should be ready to pass this
-parameter through when calling other services. It is not sent if the customer
-disables it in the settings for respective mobile platform.</p></td>
+to facilitate personalized advertising, and usually passed by mobile apps via
+HTTP header when calling backend services. Called services should be ready to
+pass this parameter through when calling other services. It is not sent if the
+customer disables it in the settings for respective mobile platform.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">b89fadce-1f42-46aa-9c83-b7bc49e76e1f</p></td>
 </tr>
 </tbody>
@@ -6227,41 +6361,25 @@ disables it in the settings for respective mobile platform.</p></td>
 hop-by-hop <code>X-RateLimit-</code> headers which can be used as defined in <a href="#153"><span class="must-keyword"><strong>MUST</strong></span> use code 429 with headers for rate limits</a>.</p>
 </div>
 <div class="paragraph">
-<p>As part of the guidelines we sourced the OpenAPI definition of all proprietary headers;
-you can simply reference it when defining the API endpoint requests e.g.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="yaml"><span class="key">parameters</span>:
-- <span class="string"><span class="content">$ref: &quot;https://opensource.zalando.com/restful-api-guidelines/models/request-headers-1.0.0.yaml#/X-Flow-ID&quot;</span></span>
-- <span class="string"><span class="content">$ref: &quot;https://opensource.zalando.com/restful-api-guidelines/models/request-headers-1.0.0.yaml#/X-Tenant-ID&quot;</span></span></code></pre>
-</div>
+<p>As part of the guidelines we provide the default definition of all proprietary
+headers, so you can simply reference them when defining the API endpoint. For
+details see <a href="#using-headers">[using-headers]</a>.</p>
 </div>
 <div class="paragraph">
-<p>Response headers can be referenced in the API endpoint e.g.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="yaml"><span class="key">parameters</span>:
-- <span class="string"><span class="content">$ref: &quot;https://opensource.zalando.com/restful-api-guidelines/models/response-headers-1.0.0.yaml#/ETag&quot;</span></span>
-- <span class="string"><span class="content">$ref: &quot;https://opensource.zalando.com/restful-api-guidelines/models/response-headers-1.0.0.yaml#/Cache-Control&quot;</span></span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>Hint:</strong> This guideline does not standardize proprietary headers for
-our specific gateway components (2. use case above).
-This include, for instance, non pass-through headers <code>X-Zalando-Customer</code>, <code>X-Zalando-Client-ID</code>, <code>X-Zalando-Request-Host</code>,
-<code>X-Zalando-Request-URI</code> defined by Fashion Shop API (RKeep), or <code>X-Consumer</code>, <code>X-Consumer-Signature</code>,
-<code>X-Consumer-Key-ID</code> defined by Merchant API gateway.
-All these proprietary headers are allowlisted in the API Linter (Zally) checking this rule.</p>
+<p><strong>Hint:</strong> This guideline does not standardize proprietary headers for our
+specific gateway components (2. use case above). This include, for instance,
+non pass-through headers <code>X-Zalando-Customer</code>, <code>X-Zalando-Client-ID</code>,
+<code>X-Zalando-Request-Host</code>, <code>X-Zalando-Request-URI</code> defined by Fashion Shop API
+(RKeep), or <code>X-Consumer</code>, <code>X-Consumer-Signature</code>, <code>X-Consumer-Key-ID</code> defined
+by Merchant API gateway. All these proprietary headers are allowlisted in the
+API Linter (Zally) checking this rule.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="184"><a class="link" href="#184"><span class="must-keyword"><strong>MUST</strong></span> propagate proprietary headers</a></h3>
 <div class="paragraph">
 <p>All Zalando&#8217;s proprietary headers defined in <a href="#183"><span class="should-keyword"><strong>SHOULD</strong></span> use only the specified proprietary Zalando headers</a> are end-to-end headers
-<sup class="footnote" id="_footnote_header-types">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup>
-and must be propagated to the services down the call
+<sup class="footnote" id="_footnote_header-types">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup> and must be propagated to the services down the call
 chain. The header names and values must remain unchanged.</p>
 </div>
 <div class="paragraph">
@@ -6320,7 +6438,8 @@ APIs or asynchronously via published events).</p>
 <p><code>base64url</code> (<a href="https://tools.ietf.org/html/rfc4648#section-5">RFC-4648 Section 5</a>)</p>
 </li>
 <li>
-<p>Random unique string restricted to the character set <code>[a-zA-Z0-9/+_-=]</code> maximal of 128 characters.</p>
+<p>Random unique string restricted to the character set <code>[a-zA-Z0-9/+_-=]</code>
+maximal of 128 characters.</p>
 </li>
 </ul>
 </div>
@@ -6332,11 +6451,12 @@ supported limit.</p>
 </div>
 <div class="paragraph">
 <p><strong>Hint:</strong> In case distributed tracing is supported by
-<a href="https://github.bus.zalan.do/SRE/opentracing">OpenTracing (internal_link)</a>
-you should ensure that created <em>spans</em> are tagged using <code>flow_id</code> — see
-<a href="https://github.bus.zalan.do/SRE/opentracing/blob/master/wg-semantic-conventions/best-practices/flowid.md">How to Connect Log Output with OpenTracing Using Flow-IDs (internal_link)</a>
-or
-<a href="https://github.bus.zalan.do/SRE/opentracing/blob/master/wg-semantic-conventions/best-practices.md">Best practises (internal_link)</a>.</p>
+<a href="https://github.bus.zalan.do/SRE/opentracing">OpenTracing (internal link)</a> you should ensure that created
+<em>spans</em> are tagged using <code>flow_id</code> — see
+<a href="https://github.bus.zalan.do/SRE/opentracing/blob/master/wg-semantic-conventions/best-practices/flowid.md">How
+to Connect Log Output with OpenTracing Using Flow-IDs (internal link)</a>  or
+<a href="https://github.bus.zalan.do/SRE/opentracing/blob/master/wg-semantic-conventions/best-practices.md">Best
+practices (internal link)</a>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -6355,12 +6475,16 @@ or
 </li>
 </ul>
 </div>
+</li>
+</ul>
+</div>
 <div class="paragraph">
 <p><strong>Note:</strong> API-Clients <strong>must</strong> provide <a href="#flow-id"><code>Flow-ID</code></a> when calling a service or
 producing events. If no <a href="#flow-id"><code>Flow-ID</code></a> is provided in a request or event, the
 service must create a new <a href="#flow-id"><code>Flow-ID</code></a>.</p>
 </div>
-</li>
+<div class="ulist">
+<ul>
 <li>
 <p>Services <strong>must</strong> propagate <a href="#flow-id"><code>Flow-ID</code></a>, i.e. use <a href="#flow-id"><code>Flow-ID</code></a> received
 with API calls or consumed events as&#8230;&#8203;</p>
@@ -6623,7 +6747,7 @@ this point.)</p>
 <a href="#157"><span class="should-keyword"><strong>SHOULD</strong></span> support partial responses via filtering</a> below)</p>
 </li>
 <li>
-<p><a href="https://tools.ietf.org/html/rfc7232#section-2.3"><code>ETag</code></a> and <a href="https://tools.ietf.org/html/rfc7232#section-3.1"><code>If-Match</code></a>/<a href="https://tools.ietf.org/html/rfc7232#section-3.2"><code>If-None-Match</code></a> headers to avoid re-fetching of
+<p><a href="https://tools.ietf.org/html/rfc9110#section-8.8.3"><code>ETag</code></a> and <a href="https://tools.ietf.org/html/rfc9110#section-13.1.1"><code>If-Match</code></a>/<a href="https://tools.ietf.org/html/rfc9110#section-13.1.2"><code>If-None-Match</code></a> headers to avoid re-fetching of
 unchanged resources (see <a href="#182"><span class="may-keyword"><strong>MAY</strong></span> consider to support <code>ETag</code> together with <code>If-Match</code>/<code>If-None-Match</code> header</a>)</p>
 </li>
 <li>
@@ -6646,17 +6770,154 @@ at all after creation (see <a href="#227"><span class="must-keyword"><strong>MUS
 <div class="sect2">
 <h3 id="156"><a class="link" href="#156"><span class="should-keyword"><strong>SHOULD</strong></span> use <code>gzip</code> compression</a></h3>
 <div class="paragraph">
-<p>Compress the payload of your API’s responses with gzip, unless there’s a good
-reason not to — for example, you are serving so many requests that the time to
-compress becomes a bottleneck. This helps to transport data faster over the
-network (fewer bytes) and makes frontends respond faster.</p>
+<p>A servers and clients should support <code>gzip</code> content encoding to reduce the data
+transported over the network and thereby speed up response times, unless there
+is a good reason against this. Good reasons against compression are:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The content is already compressed, or</p>
+</li>
+<li>
+<p>The server has not enough resources to support compression.</p>
+</li>
+</ol>
 </div>
 <div class="paragraph">
-<p>Though gzip compression might be the default choice for server payload, the
-server should also support payload without compression and its client control
-via <a href="https://tools.ietf.org/html/rfc7231#section-5.3.4"><code>Accept-Encoding</code></a> request header&#8201;&#8212;&#8201;see also <a href="https://tools.ietf.org/html/rfc7231#section-5.3.4">RFC
-7231 Section 5.3.4</a>. The server should indicate used gzip compression via the
-<a href="https://tools.ietf.org/html/rfc7231#section-3.1.2.2"><code>Content-Encoding</code></a> header.</p>
+<p>While <code>gzip</code> content encoding should be the default, servers must also support
+unencoded content for testing. This is ensured by content negotiation using the
+<a href="https://tools.ietf.org/html/rfc9110#section-12.5.3"><code>Accept-Encoding</code></a> request header (see <a href="https://tools.ietf.org/html/rfc9110#section-12.5.3">RFC 9110
+Section 12.5.3</a>). Successful compression is signaled via the <a href="https://tools.ietf.org/html/rfc9110#section-8.4"><code>Content-Encoding</code></a>
+response header (see <a href="https://tools.ietf.org/html/rfc9110#section-8.4">RFC 9110 Section 8.4</a>). Clients and
+servers may support other compression algorithms as <code>compress</code>, <code>deflate</code>, or
+<code>br</code>.</p>
+</div>
+<div class="paragraph">
+<p>To signal server support for compression the API specification should define
+both, the <a href="https://tools.ietf.org/html/rfc9110#section-12.5.3"><code>Accept-Encoding</code></a> request header and the <a href="https://tools.ietf.org/html/rfc9110#section-8.4"><code>Content-Encoding</code></a> response
+header. This can be done by simply referencing the standard header definitions
+as follows (see also the default definition below):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="yaml"><span class="key">components</span>:
+  <span class="error">parameters|headers</span>:
+    <span class="key">Accept-Encoding</span>:
+      <span class="error">$ref</span>: <span class="error">'https://opensource.zalando.com/restful-api-guidelines/models/headers-1.0.0.yaml#/Accept-Encoding'</span>
+    <span class="key">Content-Encoding</span>:
+      <span class="error">$ref</span>: <span class="error">'https://opensource.zalando.com/restful-api-guidelines/models/headers-1.0.0.yaml#/Content-Encoding'</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="yaml"><span class="key">components</span>:
+  <span class="key">parameters</span>:
+    <span class="key">Accept-Encoding</span>:
+        <span class="key">name</span>: <span class="string"><span class="content">Accept-Encoding</span></span>
+        <span class="key">in</span>: <span class="string"><span class="content">header</span></span>
+        <span class="key">required</span>: <span class="string"><span class="content">false</span></span>
+        <span class="key">description</span>: <span class="string"><span class="delimiter">|-</span><span class="content">
+          The **Accept-Encoding** indicates the content encoding (usually a
+          compression algorithm) the client understands. The server selects one of
+          the proposed encodings and returns his choice in the **Content-Encoding**
+          response header.
+
+          Supported compression algorithms of the server are [**gzip**][gzip] and
+          **identity**, but other encodings from list below may be support too:
+
+          * **gzip** - a compression format that uses [Lempel-Ziv coding][gzip]
+            (LZ77) with a 32-bit CRC.
+          * **compress** - a format using the [Lempel-Ziv-Welch][lzw] (LZW)
+            algorithm.
+          * **deflate** - A compression format that uses the [zlib][zlib] structure
+            with the [deflate][deflate] compression algorithm.
+          * **br** - a compression format that uses the [Brotli][brotli] algorithm.
+          * **identity** - the identity function without modification or compression
+            used to indicate unchanged responses. This value is always considered as
+            acceptable, even if omitted.
+
+          The server may choose not to compress the body of the response, if the
+          identity value is acceptable, e.g. if the content is already compressed
+          (e.g. for JPEG content), or if the server is missing resources to perform
+          the compression operation.
+
+          **Note:** A client is allowed to explicitly forbid the identity value by
+          setting **identity;q=0** or **\*;q=0**, however, the server in return may
+          respond with a **406** (Not Acceptable) error.
+
+          See [RFC 9110 Section 12.5.3][rfc-9110-12.5.3] as well as [API Guideline
+          Rule #156][api-156] for further details.
+
+          [rfc-9110-12.5.3]: &lt;https://tools.ietf.org/html/rfc9110#section-12.5.3&gt;
+          [api-156]: &lt;https://opensource.zalando.com/restful-api-guidelines/#156&gt;
+          [gzip]: &lt;https://en.wikipedia.org/wiki/LZ77_and_LZ78#LZ77&gt;
+          [lzw]: &lt;https://en.wikipedia.org/wiki/LZW&gt;
+          [zlib]: &lt;https://en.wikipedia.org/wiki/Zlib&gt;
+          [deflate]: &lt;https://en.wikipedia.org/wiki/DEFLATE&gt;
+          [brotli]: &lt;https://en.wikipedia.org/wiki/Brotli&gt;</span></span>
+        <span class="key">schema</span>:
+          <span class="key">type</span>: <span class="string"><span class="content">array</span></span>
+          <span class="key">items</span>:
+            <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
+        <span class="key">style</span>: <span class="string"><span class="content">simple</span></span>
+        <span class="key">explode</span>: <span class="string"><span class="content">false</span></span>
+        <span class="key">example</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">gzip;q=0.8</span><span class="delimiter">&quot;</span></span><span class="string"><span class="content">, &quot;identity;q=0&quot;</span></span>
+
+<span class="key">components</span>:
+  <span class="key">headers</span>:
+    <span class="key">Content-Encoding</span>:
+        <span class="key">required</span>: <span class="string"><span class="content">false</span></span>
+        <span class="key">description</span>: <span class="string"><span class="delimiter">|-</span><span class="content">
+          The **Content-Encoding** header lists any encoding (usually a compression
+          algorithm) applied to the message payload - in execution order. This allows
+          the recipient to decode the content in order to obtain the original payload
+          format.
+
+          Supported compression algorithms of the server are [**gzip**][gzip] and
+          **identity**, but other encoding from list below may be support too:
+
+          * **gzip** - a compression format that uses [Lempel-Ziv coding][gzip]
+            (LZ77) with a 32-bit CRC.
+          * **compress** - a format using the [Lempel-Ziv-Welch][lzw] (LZW)
+            algorithm.
+          * **deflate** - A compression format that uses the [zlib][zlib] structure
+            with the [deflate][deflate] compression algorithm.
+          * **br** - a compression format that uses the [Brotli][brotli] algorithm.
+          * **identity** - the identity function without modification or compression
+            used to indicate unchanged responses. This value is always considered as
+            acceptable, even if omitted.
+
+          **Note:** the original media/content type is specified in the
+          **Content-Type**-header, while the **Content-Encoding** applies to the
+          representation of the data. If the original media is encoded in some way,
+          e.g. as a zip file, then this information is not be included in the
+          **Content-Encoding** header.
+
+          See [RFC 9110 Section 8.4][rfc-9110-8.4] as well as [API Guideline Rule
+          #156][api-156] for further details.
+
+          [rfc-9110-8.4]: &lt;https://tools.ietf.org/html/rfc9110#section-8.4&gt;
+          [api-156]: &lt;https://opensource.zalando.com/restful-api-guidelines/#156&gt;
+          [gzip]: &lt;https://en.wikipedia.org/wiki/LZ77_and_LZ78#LZ77&gt;
+          [lzw]: &lt;https://en.wikipedia.org/wiki/LZW&gt;
+          [zlib]: &lt;https://en.wikipedia.org/wiki/Zlib&gt;
+          [deflate]: &lt;https://en.wikipedia.org/wiki/DEFLATE&gt;
+          [brotli]: &lt;https://en.wikipedia.org/wiki/Brotli&gt;</span></span>
+        <span class="key">schema</span>:
+          <span class="key">type</span>: <span class="string"><span class="content">array</span></span>
+          <span class="key">items</span>:
+            <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
+        <span class="key">style</span>: <span class="string"><span class="content">simple</span></span>
+        <span class="key">explode</span>: <span class="string"><span class="content">false</span></span>
+        <span class="key">example</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">gzip</span><span class="delimiter">&quot;</span></span><span class="string"><span class="content">, &quot;deflate&quot;</span></span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Note:</strong> since most server and client frameworks still <strong>do not</strong> support
+<code>gzip</code>-compression <strong>out-of-the-box</strong> you need to manually activate it, e.g.
+<a href="https://www.callicoder.com/configuring-spring-boot-application/#enabling-gzip-compression-in-spring-boot">Spring Boot</a>,
+or add a dedicated middleware, e.g. <a href="https://github.com/gin-contrib/gzip#usage">gin-gionic/gin</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -6801,9 +7062,8 @@ resource has its order items as sub-resource (/order/{orderId}/items):</p>
 <div class="paragraph">
 <p>Caching has to take many aspects into account, e.g. general <a href="#cacheable">cacheability</a> of response information, our guideline to protect endpoints
 using SSL and <a href="#104">OAuth authorization</a>, resource update and invalidation
-rules, existence of multiple consumer instances. As a consequence, caching is
-in best case complex, e.g. with respect to consistency, in worst case
-inefficient.</p>
+rules, existence of multiple consumer instances. Caching is in best case
+complex, e.g. with respect to consistency, in worst case inefficient.</p>
 </div>
 <div class="paragraph">
 <p>As a consequence, client side as well as transparent web caching should be
@@ -6812,15 +7072,17 @@ in case of a heavily used and therefore rate limited master data service, i.e.
 data items that rarely or not at all change after creation.</p>
 </div>
 <div class="paragraph">
-<p>As default, API providers and consumers should always set the <a href="https://tools.ietf.org/html/rfc7234#section-5.2"><code>Cache-Control</code></a>
-header set to <a href="https://tools.ietf.org/html/rfc7234#section-5.2.2.2"><code>Cache-Control: no-store</code></a> and assume the same setting, if no
-<a href="https://tools.ietf.org/html/rfc7234#section-5.2"><code>Cache-Control</code></a> header is provided.</p>
+<p>As default, servers and clients should always set the <a href="https://tools.ietf.org/html/rfc9111#section-5.2"><code>Cache-Control</code></a> header
+to <a href="https://tools.ietf.org/html/rfc9110#section-5.2.1.5"><code>Cache-Control: no-store</code></a> and assume the same setting, if no <a href="https://tools.ietf.org/html/rfc9111#section-5.2"><code>Cache-Control</code></a>
+header is provided.</p>
 </div>
 <div class="paragraph">
-<p><strong>Note:</strong> There is no need to document this default setting. However, please
-make sure that your framework is attaching this header value by default, or
-ensure this manually, e.g. using the best practice of Spring Security as shown
-below. Any setup deviating from this default must be sufficiently documented.</p>
+<p><strong>Note:</strong> There is no need to document this default setting. However, please make
+sure that your framework is attaching these header values by default, or ensure
+this manually, e.g. using the best practice of
+<a href="https://www.baeldung.com/spring-security-cache-control-headers">Spring Security</a>
+as shown below. Any setup deviating from this default must be sufficiently
+documented.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -6835,20 +7097,47 @@ following rules:</p>
 <ul>
 <li>
 <p>Document all <a href="#cacheable">cacheable</a> <a href="#get"><code>GET</code></a>, <a href="#head"><code>HEAD</code></a>, and <a href="#post"><code>POST</code></a> endpoints by declaring
-the support of <a href="https://tools.ietf.org/html/rfc7234#section-5.2"><code>Cache-Control</code></a>, <a href="https://tools.ietf.org/html/rfc7231#section-7.1.4"><code>Vary</code></a>, and <a href="https://tools.ietf.org/html/rfc7232#section-2.3"><code>ETag</code></a> headers in response.
-<strong>Note:</strong> you must not define the <a href="https://tools.ietf.org/html/rfc7234#section-5.3"><code>Expires</code></a> header to prevent redundant and
+the support of <a href="https://tools.ietf.org/html/rfc9111#section-5.2"><code>Cache-Control</code></a>, <a href="https://tools.ietf.org/html/rfc9110#section-12.5.5"><code>Vary</code></a>, and <a href="https://tools.ietf.org/html/rfc9110#section-8.8.3"><code>ETag</code></a> headers in response.
+<strong>Note:</strong> you must not define the <a href="https://tools.ietf.org/html/rfc9111#section-5.3"><code>Expires</code></a> header to prevent redundant and
 ambiguous definition of cache lifetime. A sensible default documentation of
 these headers is given below.</p>
 </li>
 <li>
 <p>Take care to specify the ability to support caching by defining the right
 caching boundaries, i.e. time-to-live and cache constraints, by providing
-sensible values for <a href="https://tools.ietf.org/html/rfc7234#section-5.2"><code>Cache-Control</code></a> and <a href="https://tools.ietf.org/html/rfc7231#section-7.1.4"><code>Vary</code></a> in your service. We will
+sensible values for <a href="https://tools.ietf.org/html/rfc9111#section-5.2"><code>Cache-Control</code></a> and <a href="https://tools.ietf.org/html/rfc9110#section-12.5.5"><code>Vary</code></a> in your service. We will
 explain best practices below.</p>
 </li>
 <li>
-<p><a id="cache-support-patterns"></a>Provide efficient methods to warm up and update
-caches, e.g. as follows:</p>
+<p>Provide efficient methods to warm up and update caches (see ).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Usually, you can reuse the standard <a href="https://tools.ietf.org/html/rfc9111#section-5.2"><code>Cache-Control</code></a>, <a href="https://tools.ietf.org/html/rfc9110#section-12.5.5"><code>Vary</code></a>, and <a href="https://tools.ietf.org/html/rfc9110#section-8.8.3"><code>ETag</code></a>
+response header definitions provided by the guideline as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="yaml"><span class="key">components</span>:
+  <span class="error">parameters|headers</span>:
+    <span class="key">Accept-Encoding</span>:
+      <span class="error">$ref</span>: <span class="error">'https://opensource.zalando.com/restful-api-guidelines/models/headers-1.0.0.yaml#/Cache-Control'</span>
+    <span class="key">Content-Encoding</span>:
+      <span class="error">$ref</span>: <span class="error">'https://opensource.zalando.com/restful-api-guidelines/models/headers-1.0.0.yaml#/Vary'</span>
+    <span class="key">ETag</span>:
+      <span class="error">$ref</span>: <span class="error">'https://opensource.zalando.com/restful-api-guidelines/models/headers-1.0.0.yaml#/ETag'</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>See also <a href="#182"><span class="may-keyword"><strong>MAY</strong></span> consider to support <code>ETag</code> together with <code>If-Match</code>/<code>If-None-Match</code> header</a>.</p>
+</div>
+<div class="sect3">
+<h4 id="cache-support-patterns"><a class="link" href="#cache-support-patterns">Cache Support Patterns</a></h4>
+<div class="paragraph">
+<p>To make best use of caching in micro service environments you need to provide
+efficient methods to warm up and update caches, e.g. as follows:</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
@@ -6856,73 +7145,32 @@ caches, e.g. as follows:</p>
 <code>If-None-Match</code> Header</a> on all <a href="#cacheable">cacheable</a> endpoints.</p>
 </li>
 <li>
-<p>For larger data items support <a href="#head"><code>HEAD</code></a> requests or more efficient <a href="#get"><code>GET</code></a>
-requests with <a href="https://tools.ietf.org/html/rfc7232#section-3.2"><code>If-None-Match</code></a> header to check for updates.</p>
+<p>For larger data items you should support <a href="#head"><code>HEAD</code></a> requests or more a bit more
+efficient <a href="#get"><code>GET</code></a> requests with <a href="https://tools.ietf.org/html/rfc9110#section-13.1.2"><code>If-None-Match</code></a> header to check for updates.</p>
 </li>
 <li>
-<p>For small data sets provide full collection <a href="#get"><code>GET</code></a> requests supporting
-<a href="https://tools.ietf.org/html/rfc7232#section-2.3"><code>ETag</code></a>, as well as <a href="#head"><code>HEAD</code></a> requests or <a href="#get"><code>GET</code></a> requests with <a href="https://tools.ietf.org/html/rfc7232#section-3.2"><code>If-None-Match</code></a>
-to check for updates.</p>
+<p>For small data sets you should provide a <strong>get full collection</strong> <a href="#get"><code>GET</code></a> endpoint
+that supports an <a href="https://tools.ietf.org/html/rfc9110#section-8.8.3"><code>ETag</code></a> for the collection in combination with a <a href="#head"><code>HEAD</code></a> or
+<a href="#get"><code>GET</code></a> requests with <a href="https://tools.ietf.org/html/rfc9110#section-13.1.2"><code>If-None-Match</code></a> to check for updates.</p>
 </li>
 <li>
-<p>For medium sized data sets provide full collection <a href="#get"><code>GET</code></a> requests supporting
-<a href="https://tools.ietf.org/html/rfc7232#section-2.3"><code>ETag</code></a> together with <a href="#pagination">REST Design - Pagination</a> and <a href="https://tools.ietf.org/html/rfc7232#section-2.3"><code>&lt;entity-tag&gt;</code></a> filtering <a href="#get"><code>GET</code></a> requests
-for limiting the response to changes since the provided <a href="https://tools.ietf.org/html/rfc7232#section-2.3"><code>&lt;entity-tag&gt;</code></a>. <strong>Note:</strong>
-this is not supported by generic client and proxy caches on HTTP layer.</p>
-</li>
-</ul>
-</div>
+<p>For medium sized data sets provide a <strong>get full collection</strong> <a href="#get"><code>GET</code></a> endpoint
+that supports an <a href="https://tools.ietf.org/html/rfc9110#section-8.8.3"><code>ETag</code></a> for the collection in combination with <a href="#pagination">REST Design - Pagination</a>
+and <a href="https://tools.ietf.org/html/rfc9110#section-8.8.3"><code>&lt;entity-tag&gt;</code></a> filtering <a href="#get"><code>GET</code></a> requests for limiting the response to
+changes since the provided <a href="https://tools.ietf.org/html/rfc9110#section-8.8.3"><code>&lt;entity-tag&gt;</code></a>. <strong>Note:</strong> this is not supported by
+generic client and proxy caches on HTTP layer.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
 <p><strong>Hint:</strong> For proper cache support, you must return <a href="#status-code-304" class="status-code">304</a> without content on a
-failed <a href="#head"><code>HEAD</code></a> or <a href="#get"><code>GET</code></a> request with  <a href="#182"><code>If-None-Match: &lt;entity-tag&gt;</code></a> instead
-of <a href="#status-code-412" class="status-code">412</a>.</p>
+failed <a href="#head"><code>HEAD</code></a> or <a href="#get"><code>GET</code></a> request with  <a href="#182"><code>If-None-Match: &lt;entity-tag&gt;</code></a>
+instead of <a href="#status-code-412" class="status-code">412</a>. For <a href="https://tools.ietf.org/html/rfc9110#section-8.8.3"><code>ETag</code></a> see also <a href="#182"><span class="may-keyword"><strong>MAY</strong></span> consider to support <code>ETag</code> together with <code>If-Match</code>/<code>If-None-Match</code> header</a>.</p>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="yaml"><span class="key">components</span>:
-  <span class="key">headers</span>:
-  - <span class="string"><span class="content">Cache-Control:</span><span class="content">
-      description: |
-        The RFC 7234 Cache-Control header field is providing directives to
-        control how proxies and clients are allowed to cache responses results
-        for performance. Clients and proxies are free to not support caching of
-        results, however if they do, they must obey all directives mentioned in
-        [RFC-7234 Section 5.2.2](https://tools.ietf.org/html/rfc7234) to the
-        word.
-
-        In case of caching, the directive provides the scope of the cache
-        entry, i.e. only for the original user (private) or shared between all
-        users (public), the lifetime of the cache entry in seconds (max-age),
-        and the strategy how to handle a stale cache entry (must-revalidate).
-        Please note, that the lifetime and validation directives for shared
-        caches are different (s-maxage, proxy-revalidate).
-
-      type: string
-      required: false
-      example: &quot;private, must-revalidate, max-age=300&quot;</span></span>
-
-  - <span class="string"><span class="content">Vary:</span><span class="content">
-      description: |
-        The RFC 7231 Vary header field in a response defines which parts of
-        a request message, aside the target URL and HTTP method, might have
-        influenced the response. A client or proxy cache must respect this
-        information, to ensure that it delivers the correct cache entry (see
-        [RFC-7231 Section
-        7.1.4](https://tools.ietf.org/html/rfc7231#section-7.1.4)).
-
-      type: string
-      required: false
-      example: &quot;accept-encoding, accept-language&quot;</span></span></code></pre>
-</div>
-</div>
+<div class="sect4">
+<h5 id="_default_header_values"><a class="link" href="#_default_header_values">Default Header Values</a></h5>
 <div class="paragraph">
-<p><strong>Hint:</strong> For <a href="https://tools.ietf.org/html/rfc7232#section-2.3"><code>ETag</code></a> source see <a href="#182"><span class="may-keyword"><strong>MAY</strong></span> consider to support <code>ETag</code> together with <code>If-Match</code>/<code>If-None-Match</code> header</a>.</p>
-</div>
-<div class="paragraph">
-<p>The default setting for <a href="https://tools.ietf.org/html/rfc7234#section-5.2"><code>Cache-Control</code></a> should contain the <code>private</code> directive
+<p>The default setting for <a href="https://tools.ietf.org/html/rfc9111#section-5.2"><code>Cache-Control</code></a> should contain the <code>private</code> directive
 for endpoints with standard <a href="#104">OAuth authorization</a>, as well as the
 <code>must-revalidate</code> directive to ensure, that the client does not use stale cache
 entries. Last, the <code>max-age</code> directive should be set to a value between a few
@@ -6935,11 +7183,10 @@ rate of your master data and your requirements to keep clients consistent.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>The default setting for <a href="https://tools.ietf.org/html/rfc7231#section-7.1.4"><code>Vary</code></a> is harder to determine correctly. It highly
-depends on the API endpoint, e.g. whether it supports compression, accepts
-different media types, or requires other request specific headers. To support
-correct caching you have to carefully choose the value. However, a good first
-default may be:</p>
+<p>The default setting for <a href="https://tools.ietf.org/html/rfc9110#section-12.5.5"><code>Vary</code></a> is harder to determine correctly. It depends on
+the API endpoint, e.g. whether it supports compression, accepts different media
+types, or requires other request specific headers. To support correct caching
+you have to carefully choose the value. However, a good first default may be:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -6950,18 +7197,23 @@ default may be:</p>
 <p>Anyhow, this is only relevant, if you encourage clients to install generic
 HTTP layer client and proxy caches.</p>
 </div>
+</div>
+<div class="sect4">
+<h5 id="_caching_strategy"><a class="link" href="#_caching_strategy">Caching strategy</a></h5>
 <div class="paragraph">
-<p><strong>Note:</strong> generic client and proxy caching on HTTP level is hard to configure.
-Therefore, we strongly recommend to attach the (possibly distributed) cache
-directly to the service (or gateway) layer of your application. This relieves
-from interpreting the <a href="https://tools.ietf.org/html/rfc7231#section-7.1.4"><code>Vary</code></a> header and greatly simplifies interpreting the
-<a href="https://tools.ietf.org/html/rfc7234#section-5.2"><code>Cache-Control</code></a> and <a href="https://tools.ietf.org/html/rfc7232#section-2.3"><code>ETag</code></a> headers. Moreover, is highly efficient with respect
-to caching performance and overhead, and allows to support more
+<p>Generic client and proxy caching on HTTP level is hard to configure. Therefore,
+we strongly recommend to attach the (possibly distributed) cache directly to
+the service (or gateway) layer of your application. This relieves the service
+from interpreting the <a href="https://tools.ietf.org/html/rfc9110#section-12.5.5"><code>Vary</code></a> header and greatly simplifies the usage patterns
+of the <a href="https://tools.ietf.org/html/rfc9111#section-5.2"><code>Cache-Control</code></a> and <a href="https://tools.ietf.org/html/rfc9110#section-8.8.3"><code>ETag</code></a> headers. Moreover, is highly efficient with
+respect to cache performance and overhead, and allows to support more
 <a href="#cache-support-patterns">advanced cache update and warm up patterns</a>.</p>
 </div>
 <div class="paragraph">
-<p>Anyhow, please carefully read <a href="https://tools.ietf.org/html/rfc7234">RFC 7234</a> before adding any client or
+<p>Anyhow, please carefully read <a href="https://tools.ietf.org/html/rfc9111">RFC 9111</a> before adding any client or
 proxy cache.</p>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -7348,7 +7600,7 @@ and be explicit in what is supported:</p>
 <p>Ignoring unknown input fields is actually not an option for <a href="#put"><code>PUT</code></a>, since it
 becomes asymmetric with subsequent <a href="#get"><code>GET</code></a> response and HTTP is clear about the
 <a href="#put"><code>PUT</code></a> <em>replace</em> semantics and default roundtrip expectations (see
-<a href="https://tools.ietf.org/html/rfc7231#section-4.3.4">RFC 7231 Section 4.3.4</a>). Note, accepting (i.e. not
+<a href="https://tools.ietf.org/html/rfc9110#section-9.3.4">RFC 9110 Section 9.3.4</a>). Note, accepting (i.e. not
 ignoring) unknown input fields and returning it in subsequent <a href="#get"><code>GET</code></a> responses
 is a different situation and compliant to <a href="#put"><code>PUT</code></a> semantics.</p>
 </li>
@@ -7405,7 +7657,7 @@ either be agnostic or provide default behavior for unknown values.</p>
 <p>Be prepared to handle HTTP status codes not explicitly specified in endpoint
 definitions. Note also, that status codes are extensible. Default handling is
 how you would treat the corresponding <a href="#http-status-codes-and-errors" class="status-code">2xx</a> code (see
-<a href="https://tools.ietf.org/html/rfc7231#section-6">RFC 7231 Section 6</a>).</p>
+<a href="https://tools.ietf.org/html/rfc9110#section-15">RFC 9110 Section 15</a>).</p>
 </li>
 <li>
 <p>Follow the redirect when the server returns HTTP status code <a href="#status-code-301" class="status-code">301</a> (Moved
@@ -7751,8 +8003,8 @@ breaking effects on ongoing consumers. See also <a href="#193"><span class="shou
 <div class="paragraph">
 <p>During the deprecation phase, the producer should add a <code>Deprecation: &lt;date-time&gt;</code>
 (see <a href="https://tools.ietf.org/html/draft-ietf-httpapi-deprecation-header">draft: RFC
-Deprecation HTTP Header</a>) and - if also planned - a <code>Sunset: &lt;date-time&gt;</code> (see
-<a href="https://tools.ietf.org/html/rfc8594#section-3">RFC 8594</a>) header on each response affected by a
+Deprecation HTTP Header Field</a>) and - if also planned - a <code>Sunset: &lt;date-time&gt;</code>
+(see <a href="https://tools.ietf.org/html/rfc8594#section-3">RFC 8594</a>) header on each response affected by a
 deprecated element (see <a href="#187"><span class="must-keyword"><strong>MUST</strong></span> reflect deprecation in API specifications</a>).</p>
 </div>
 <div class="paragraph">
@@ -7772,18 +8024,84 @@ Sunset: Wed, 31 Dec 2025 23:59:59 GMT</code></pre>
 <div class="paragraph">
 <p>If multiple elements are deprecated the <a href="https://tools.ietf.org/html/draft-ietf-httpapi-deprecation-header"><code>Deprecation</code></a> and <a href="https://tools.ietf.org/html/rfc8594"><code>Sunset</code></a> headers are
 expected to be set to the earliest time stamp to reflect the shortest interval
-consumers are expected to get active.</p>
+at which consumers are expected to get active. The <a href="https://tools.ietf.org/html/draft-ietf-httpapi-deprecation-header"><code>Deprecation</code></a> and <a href="https://tools.ietf.org/html/rfc8594"><code>Sunset</code></a>
+headers can be defined as follows in the API specification (see also the
+default definition below):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="yaml"><span class="key">components</span>:
+  <span class="error">parameters|headers</span>:
+    <span class="key">Deprecation</span>:
+      <span class="error">$ref</span>: <span class="error">'https://opensource.zalando.com/restful-api-guidelines/models/headers-1.0.0.yaml#/Deprecation'</span>
+    <span class="key">Sunset</span>:
+      <span class="error">$ref</span>: <span class="error">'https://opensource.zalando.com/restful-api-guidelines/models/headers-1.0.0.yaml#/Sunset'</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="yaml"><span class="key">components</span>:
+  <span class="key">headers</span>:
+    <span class="key">Deprecation</span>:
+        <span class="key">required</span>: <span class="string"><span class="content">false</span></span>
+        <span class="key">description</span>: <span class="string"><span class="delimiter">|-</span><span class="content">
+          The **Deprecation** response header (see [Draft &quot;The Deprecation HTTP
+          Header Field&quot;][draft]) announces an upcoming deprecation of a feature or
+          resource. The deprecation value is either a timestamp as defined in [RFC
+          9110 Section 5.6.7][rfc-9110-5.6.7] or `true` - if the feature is already
+          deprecated.
+
+          The scope of the distinct deprecated feature or resource must be derived
+          from the API spec. If the timestamp points to the past, the API spec also
+          contains a migration advise.
+
+          Clients should monitor the usage of **Deprecation** headers and notify
+          about them in time, so that migration measures can be planned and executed
+          timely (see also [API Guideline - Deprecation][api]).
+
+          [draft]: &lt;https://datatracker.ietf.org/doc/html/draft-ietf-httpapi-deprecation-header-02&gt;
+          [rfc-9110-5.6.7]: &lt;https://tools.ietf.org/html/rfc9110#section-5.6.7&gt;
+          [api]: &lt;https://opensource.zalando.com/restful-api-guidelines/#deprecation&gt;</span></span>
+        <span class="key">schema</span>:
+          <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
+          <span class="key">format</span>: <span class="string"><span class="content">date-time</span></span>
+        <span class="key">example</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">Tue, 31 Dec 2024 23:59:59 GMT</span><span class="delimiter">&quot;</span></span>
+
+    <span class="key">Sunset</span>:
+        <span class="key">required</span>: <span class="string"><span class="content">false</span></span>
+        <span class="key">description</span>: <span class="string"><span class="delimiter">|-</span><span class="content">
+          The **Sunset** response header (see [RFC 8594][rfc-8594]) communicates the
+          point in time at which the feature or resource becomes unresponsive. The
+          sunset value is providing a timestamp as defined in [RFC 9110 Section
+          5.6.7][rfc-9110-5.6.7] usually pointing to the future. If a sunset value
+          points to the past, the feature or resource must be expected to become
+          unavailable at any time.
+
+          Clients should monitor the usage of **Sunset** headers and warn/alert about
+          them before the sunset time has come to take counter measures, e.g. prepare
+          a client shutdown or migration (see also [API Guideline -
+          Deprecation][api-deprecation]).
+
+          [rfc-8594]: &lt;https://tools.ietf.org/html/rfc8594&gt;
+          [rfc-9110-5.6.7]: &lt;https://tools.ietf.org/html/rfc9110#section-5.6.7&gt;
+          [api-deprecation]: &lt;https://opensource.zalando.com/restful-api-guidelines/#deprecation&gt;</span></span>
+        <span class="key">schema</span>:
+          <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
+          <span class="key">format</span>: <span class="string"><span class="content">date-time</span></span>
+        <span class="key">example</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">Wed, 31 Dec 2025 23:59:59 GMT</span><span class="delimiter">&quot;</span></span></code></pre>
+</div>
 </div>
 <div class="paragraph">
 <p><strong>Note:</strong> adding the <a href="https://tools.ietf.org/html/draft-ietf-httpapi-deprecation-header"><code>Deprecation</code></a> and <a href="https://tools.ietf.org/html/rfc8594"><code>Sunset</code></a> header is not sufficient to gain
 client consent to shut down an API or feature.</p>
 </div>
 <div class="paragraph">
-<p><strong>Hint:</strong> In earlier guideline versions, we used the <code>Warning</code> header to provide
-the deprecation info to clients. However, <code>Warning</code> header has a less specific
+<p><strong>Hint:</strong> In earlier guideline versions, we used the <a href="https://tools.ietf.org/html/rfc9111#section-5.5"><code>Warning</code></a> header to provide
+the deprecation info to clients. However, <a href="https://tools.ietf.org/html/rfc9111#section-5.5"><code>Warning</code></a> header has a less specific
 semantics, will be obsolete with
 <a href="https://tools.ietf.org/html/draft-ietf-httpbis-cache-06">draft: RFC HTTP
-Caching</a>, and our syntax was not compliant with <a href="https://tools.ietf.org/html/rfc7234#page-29">RFC 7234&#8201;&#8212;&#8201;Warning header</a>.</p>
+Caching</a>, and our syntax was not compliant with <a href="https://tools.ietf.org/html/rfc9111#section-5.5">RFC 9111
+ Section 5.5 "Warning"</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -9132,7 +9450,7 @@ is not available in JSON Schema)</p>
 <p><strong><a href="https://tools.ietf.org/html/rfc4627">RFC 4627</a>:</strong> The application/json Media Type for JavaScript Object Notation (JSON)</p>
 </li>
 <li>
-<p><strong><a href="https://tools.ietf.org/html/rfc8288">RFC 8288</a>:</strong> Web Linking</p>
+<p><strong><a href="https://tools.ietf.org/html/rfc4648">RFC 4648</a>:</strong> The Base16, Base32, and Base64 Data Encodings</p>
 </li>
 <li>
 <p><strong><a href="https://tools.ietf.org/html/rfc6585">RFC 6585</a>:</strong> Additional HTTP Status Codes</p>
@@ -9144,21 +9462,6 @@ is not available in JSON Schema)</p>
 <p><strong><a href="https://tools.ietf.org/html/rfc7159">RFC 7159</a>:</strong> The JavaScript Object Notation (JSON) Data Interchange Format</p>
 </li>
 <li>
-<p><strong><a href="https://tools.ietf.org/html/rfc7230">RFC 7230</a>:</strong> Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing</p>
-</li>
-<li>
-<p><strong><a href="https://tools.ietf.org/html/rfc7231">RFC 7231</a>:</strong> Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content</p>
-</li>
-<li>
-<p><strong><a href="https://tools.ietf.org/html/rfc7232">RFC 7232</a>:</strong> Hypertext Transfer Protocol (HTTP/1.1): Conditional Requests</p>
-</li>
-<li>
-<p><strong><a href="https://tools.ietf.org/html/rfc7233">RFC 7233</a>:</strong> Hypertext Transfer Protocol (HTTP/1.1): Range Requests</p>
-</li>
-<li>
-<p><strong><a href="https://tools.ietf.org/html/rfc7234">RFC 7234</a>:</strong> Hypertext Transfer Protocol (HTTP/1.1): Caching</p>
-</li>
-<li>
 <p><strong><a href="https://tools.ietf.org/html/rfc7240">RFC 7240</a>:</strong> Prefer Header for HTTP</p>
 </li>
 <li>
@@ -9168,7 +9471,13 @@ is not available in JSON Schema)</p>
 <p><strong><a href="https://tools.ietf.org/html/rfc7807">RFC 7807</a>:</strong> Problem Details for HTTP APIs</p>
 </li>
 <li>
-<p><strong><a href="https://tools.ietf.org/html/rfc4648">RFC 4648</a>:</strong> The Base16, Base32, and Base64 Data Encodings</p>
+<p><strong><a href="https://tools.ietf.org/html/rfc8288">RFC 8288</a>:</strong> Web Linking</p>
+</li>
+<li>
+<p><strong><a href="https://tools.ietf.org/html/rfc9110">RFC 9110</a>:</strong> HTTP Semantics</p>
+</li>
+<li>
+<p><strong><a href="https://tools.ietf.org/html/rfc9111">RFC 9111</a>:</strong> HTTP Caching</p>
 </li>
 <li>
 <p><strong><a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>:</strong> Date and time format</p>
@@ -9458,7 +9767,7 @@ current version of the entity that should be updated.</p>
 <div class="sect3">
 <h4 id="_etag_with_if_match_header"><a class="link" href="#_etag_with_if_match_header"><code>ETag</code> with <code>If-Match</code> header</a></h4>
 <div class="paragraph">
-<p>An <a href="https://tools.ietf.org/html/rfc7232#section-2.3"><code>ETag</code></a> can only be obtained by performing a <a href="#get"><code>GET</code></a> request on the single
+<p>An <a href="https://tools.ietf.org/html/rfc9110#section-8.8.3"><code>ETag</code></a> can only be obtained by performing a <a href="#get"><code>GET</code></a> request on the single
 entity resource before the update, i.e. when using a search endpoint an
 additional request is necessary.</p>
 </div>
@@ -9491,7 +9800,7 @@ additional request is necessary.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Or, if there was an update since the <a href="#get"><code>GET</code></a> and the entity&#8217;s <a href="https://tools.ietf.org/html/rfc7232#section-2.3"><code>ETag</code></a> has changed:</p>
+<p>Or, if there was an update since the <a href="#get"><code>GET</code></a> and the entity&#8217;s <a href="https://tools.ietf.org/html/rfc9110#section-8.8.3"><code>ETag</code></a> has changed:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -9524,7 +9833,7 @@ additional request is necessary.</p>
 <div class="paragraph">
 <p>The ETag for every entity is returned as an additional property of that entity.
 In a response containing multiple entities, every entity will then have a
-distinct <a href="https://tools.ietf.org/html/rfc7232#section-2.3"><code>ETag</code></a> that can be used in subsequent <a href="#put"><code>PUT</code></a> requests.</p>
+distinct <a href="https://tools.ietf.org/html/rfc9110#section-8.8.3"><code>ETag</code></a> that can be used in subsequent <a href="#put"><code>PUT</code></a> requests.</p>
 </div>
 <div class="paragraph">
 <p>In this solution, the <a href="#etag"><code>etag</code></a> property should be <code>readonly</code> and never be expected
@@ -9553,7 +9862,7 @@ in the <a href="#put"><code>PUT</code></a> request payload.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Or, if there was an update since the <a href="#get"><code>GET</code></a> and the entity&#8217;s <a href="https://tools.ietf.org/html/rfc7232#section-2.3"><code>ETag</code></a> has changed:</p>
+<p>Or, if there was an update since the <a href="#get"><code>GET</code></a> and the entity&#8217;s <a href="https://tools.ietf.org/html/rfc9110#section-8.8.3"><code>ETag</code></a> has changed:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -9659,17 +9968,17 @@ but may feel unusual for the consumer)</p>
 <div class="sect3">
 <h4 id="_last_modified_if_unmodified_since"><a class="link" href="#_last_modified_if_unmodified_since"><code>Last-Modified</code> / <code>If-Unmodified-Since</code></a></h4>
 <div class="paragraph">
-<p>In HTTP 1.0 there was no <a href="https://tools.ietf.org/html/rfc7232#section-2.3"><code>ETag</code></a> and the mechanism used for optimistic locking
+<p>In HTTP 1.0 there was no <a href="https://tools.ietf.org/html/rfc9110#section-8.8.3"><code>ETag</code></a> and the mechanism used for optimistic locking
 was based on a date. This is still part of the HTTP protocol and can be used.
-Every response contains a <a href="https://tools.ietf.org/html/rfc7232#section-2.2"><code>Last-Modified</code></a> header with a HTTP date. When
+Every response contains a <a href="https://tools.ietf.org/html/rfc9110#section-8.8.2"><code>Last-Modified</code></a> header with a HTTP date. When
 requesting an update using a <a href="#put"><code>PUT</code></a> request, the client has to provide this
-value via the header <a href="https://tools.ietf.org/html/rfc7232#section-3.4"><code>If-Unmodified-Since</code></a>. The server rejects the request, if
+value via the header <a href="https://tools.ietf.org/html/rfc9110#section-13.1.4"><code>If-Unmodified-Since</code></a>. The server rejects the request, if
 the last modified date of the entity is after the given date in the header.</p>
 </div>
 <div class="paragraph">
 <p>This effectively catches any situations where a change that happened between
 <a href="#get"><code>GET</code></a> and <a href="#put"><code>PUT</code></a> would be overwritten. In the case of multiple result entities,
-the <a href="https://tools.ietf.org/html/rfc7232#section-2.2"><code>Last-Modified</code></a> header will be set to the latest date of all the entities.
+the <a href="https://tools.ietf.org/html/rfc9110#section-8.8.2"><code>Last-Modified</code></a> header will be set to the latest date of all the entities.
 This ensures that any change to any of the entities that happens between <a href="#get"><code>GET</code></a>
 and <a href="#put"><code>PUT</code></a> will be detectable, without locking the rest of the batch as well.</p>
 </div>
@@ -9741,8 +10050,8 @@ not perfectly in sync, the locking could potentially fail</p>
 <div class="sect3">
 <h4 id="_conclusion"><a class="link" href="#_conclusion">Conclusion</a></h4>
 <div class="paragraph">
-<p>We suggest to either use the <em><a href="https://tools.ietf.org/html/rfc7232#section-2.3"><code>ETag</code></a> in result entities</em> or <em><a href="https://tools.ietf.org/html/rfc7232#section-2.2"><code>Last-Modified</code></a>
-/ <a href="https://tools.ietf.org/html/rfc7232#section-3.4"><code>If-Unmodified-Since</code></a></em> approach.</p>
+<p>We suggest to either use the <em><a href="https://tools.ietf.org/html/rfc9110#section-8.8.3"><code>ETag</code></a> in result entities</em> or <em><a href="https://tools.ietf.org/html/rfc9110#section-8.8.2"><code>Last-Modified</code></a>
+/ <a href="https://tools.ietf.org/html/rfc9110#section-13.1.4"><code>If-Unmodified-Since</code></a></em> approach.</p>
 </div>
 </div>
 </div>
@@ -10134,12 +10443,12 @@ window.cookieconsent.initialise({
 <a href="#_footnoteref_1">1</a>. Per definition of R.Fielding REST APIs have to support HATEOAS (maturity level 3). Our guidelines do not strongly advocate for full REST compliance, but limited hypermedia usage, e.g. for pagination (see <a href="#hypermedia">REST Design - Hypermedia</a>). However, we still use the term "RESTful API", due to the absence of an alternative established term and to keep it like the very majority of web service industry that also use the term for their REST approximations — in fact, in today&#8217;s industry full HATEOAS compliant APIs are a very rare exception.
 </div>
 <div class="footnote" id="_footnotedef_2">
-<a href="#_footnoteref_2">2</a>. HTTP/1.1 standard (<a href="https://tools.ietf.org/html/rfc7230#section-6.1">RFC 7230</a>) defines two types of headers: end-to-end and hop-by-hop headers. End-to-end headers must be transmitted to the ultimate recipient of a request or response. Hop-by-hop headers, on the contrary, are meaningful for a single connection only.
+<a href="#_footnoteref_2">2</a>. HTTP/1.1 standard (<a href="https://tools.ietf.org/html/rfc9110#section-7.6.1">RFC 9110 Section 7.6.1</a>) defines two types of headers: <em>end-to-end</em> and <em>hop-by-hop</em> headers. End-to-end headers must be transmitted to the ultimate recipient of a request or response. Hop-by-hop headers, on the contrary, are meaningful for a single connection only.
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-07-11 13:44:34 UTC
+Last updated 2023-07-21 19:27:11 UTC
 </div>
 </div>
 </body>
