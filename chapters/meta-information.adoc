@@ -88,8 +88,11 @@ API publishing date>> as order criteria you get the *version* or
 *publication history* as a sequence of API specifications.
 
 *Note*: While it is nice to use human readable API identifiers based on
-self-managed URNs, it is recommend to stick to UUIDs to relief API designers
-from any urge of changing the API identifier while evolving the API. Example:
+self-managed URNs, it is recommend to stick to a UUID (freshly generated when
+first creating the API) to relief API designers from any urge of changing
+the API identifier while evolving the API. *Do not copy the API-ID from another API!*
+
+Example:
 
 [source,yaml]
 ----
