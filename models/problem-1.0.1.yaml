@@ -6,7 +6,7 @@ Problem:
       format: uri-reference
       description: >
         A URI reference that uniquely identifies the problem type only in the
-        context of the provided API. Opposed to the specification in RFC-7807,
+        context of the provided API. Opposed to the specification in RFC-9457,
         it is neither recommended to be dereferenceable and point to a
         human-readable documentation nor globally unique for the problem type.
       default: 'about:blank'
