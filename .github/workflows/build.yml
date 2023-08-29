@@ -28,13 +28,6 @@ jobs:
           app_private_key: ${{ secrets.APP_PRIVATE_KEY }}
           application_id: ${{ secrets.APP_ID }}
 
-      - name: Create Zally Issues
-        if: ${{ github.ref == 'refs/heads/main' }}
-        env:
-          GH_TOKEN: ${{ steps.get-gh-token.outputs.gh_access_token }}
-        run: |
-          scripts/create-zally-issue.sh
-
       - name: Deploy to GitHub Pages
         if: ${{ github.ref == 'refs/heads/main' }}
         uses: peaceiris/actions-gh-pages@v3

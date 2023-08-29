@@ -65,17 +65,3 @@ $(DIRINCLUDES): models/headers-1.0.0.yaml $(DIRSCRIPTS)/generate-includes.sh
 html: $(DIRINCLUDES) check assets pull
 	docker run -v $(DIRWORK):$(DIRMOUNTS)/ ${DOCKER} asciidoctor \
 	  -D $(DIRMOUNTS)/$(DIRBUILDS) index.adoc;
-
-# Not used any longer.
-pdf: $(DIRINCLUDES) check pull
-	docker run -v $(DIRWORK):$(DIRMOUNTS)/ ${DOCKER} asciidoctor-pdf -v \
-		-a pdf-fontsdir=$(DIRMOUNTS)/resources/fonts \
-		-a pdf-theme=$(DIRMOUNTS)/resources/themes/pdf-theme.yml \
-	  -D $(DIRMOUNTS)/$(DIRBUILDS) index.adoc;
-	mv -f $(DIRBUILDS)/index.pdf $(DIRBUILDS)/zalando-guidelines.pdf;
-
-# Not used any longer.
-epub: $(DIRINCLUDES) check pull
-	docker run -v $(DIRWORK):$(DIRMOUNTS)/ ${DOCKER} asciidoctor-epub3 \
-	  -D $(DIRMOUNTS)/$(DIRBUILDS) index.adoc;
-	mv -f $(DIRBUILDS)/index.epub $(DIRBUILDS)/zalando-guidelines.epub;

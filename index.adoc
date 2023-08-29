@@ -1,4 +1,4 @@
-:stylesheet: zalando.css
+:stylesheet: judo.css
 :source-highlighter: coderay
 :toc: macro
 :toclevels: 2
