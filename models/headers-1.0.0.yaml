@@ -49,7 +49,7 @@ Accept-Encoding:
       type: string
   style: simple
   explode: false
-  example: "gzip;q=0.8", "identity;q=0"
+  example: [ "gzip", "gzip;q=0.8,deflate;q=0.2", "gzip;q=0.9,identity;q=0" ]
 
 
 If-Match:
@@ -76,7 +76,7 @@ If-Match:
       type: string
   style: simple
   explode: false
-  example: W/"xy", "5", "5db68c06-1a68-11e9-8341-68f728c1ba70"
+  example: [ "5db68c06-1a68-11e9-8341-68f728c1ba70", 'W/"xy", "5"' ]
 
 
 If-None-Match:
@@ -103,7 +103,7 @@ If-None-Match:
       type: string
   style: simple
   explode: false
-  example: W/"xy", "5", "5db68c06-1a68-11e9-8341-68f728c1ba70"
+  example: [ "5db68c06-1a68-11e9-8341-68f728c1ba70", 'W/"xy", "5"' ]
 
 
 Prefer:
@@ -140,7 +140,8 @@ Prefer:
       type: string
   style: simple
   explode: false
-  example: "respond-async", "return=minimal", "wait=20", "handling=strict"
+  example: [ "respond-async", "return=minimal", "wait=20", "handling=strict",
+    "respond-async,return=minimal,wait=20,handling=strict" ]
   
 
 Idempotency-Key:
@@ -167,7 +168,7 @@ Idempotency-Key:
   schema:
     type: string
     format: uuid
-  example: "7da7a728-f910-11e6-942a-68f728c1ba70"
+  example: [ "7da7a728-f910-11e6-942a-68f728c1ba70" ]
 
 
 # Standard response headers
@@ -219,7 +220,7 @@ Content-Encoding:
       type: string
   style: simple
   explode: false
-  example: "gzip", "deflate"
+  example: [ "gzip", "deflate", "gzip,deflate" ]
 
 
 ETag:
@@ -245,7 +246,7 @@ ETag:
       type: string
   style: simple
   explode: false
-  example: W/"xy", "5", "5db68c06-1a68-11e9-8341-68f728c1ba70"
+  example: [ W/"xy", "5", "5db68c06-1a68-11e9-8341-68f728c1ba70" ]
 
 
 Cache-Control:
@@ -277,7 +278,7 @@ Cache-Control:
       type: string
   style: simple
   explode: false
-  example: "private, must-revalidate, max-age=3600"
+  example: [ "private,must-revalidate,max-age=3600" ]
 
 
 Vary:
@@ -306,7 +307,7 @@ Vary:
       type: string
   style: simple
   explode: false
-  example: "accept-encoding, accept-language"
+  example: [ "accept-encoding,accept-language" ]
 
 
 Deprecation:
@@ -334,7 +335,7 @@ Deprecation:
   schema:
     type: string
     format: date-time
-  example: "Tue, 31 Dec 2024 23:59:59 GMT"
+  example: [ "Tue, 31 Dec 2024 23:59:59 GMT" ]
 
 
 Sunset:
@@ -380,7 +381,7 @@ X-Flow-ID:
     [api-233]: <https://opensource.zalando.com/restful-api-guidelines/#233>
   schema:
     type: string
-    example: GKY7oDhpSiKY_gAAAABZ_A
+    example: "GKY7oDhpSiKY_gAAAABZ_A"
 
 
 X-Mobile-Advertising-ID:
@@ -398,7 +399,7 @@ X-Mobile-Advertising-ID:
     (Google mobile Advertising Identifier) for Android.
   schema:
     type: string
-    example: cdda802e-fb9c-47ad-0794d394c912
+    example: "cdda802e-fb9c-47ad-0794d394c912"
 
 
 X-Tenant-ID:
@@ -412,7 +413,7 @@ X-Tenant-ID:
     **X-Tenant-ID** should be passed-through as generic aspect.
   schema:
     type: string
-    example: 9f8b3ca3-4be5-436c-a847-9cd55460c495
+    example: "9f8b3ca3-4be5-436c-a847-9cd55460c495"
 
 
 X-Sales-Channel:
@@ -427,7 +428,7 @@ X-Sales-Channel:
     **X-Sales-Channel** should be passed-through as generic aspect.
   schema:
     type: string
-    example: 52b96501-0f8d-43e7-82aa-8a96fab134d7
+    example: "52b96501-0f8d-43e7-82aa-8a96fab134d7"
 
 
 X-Frontend-Type:
@@ -443,7 +444,7 @@ X-Frontend-Type:
     specific coupons, that make use of it.
   schema:
     type: string
-    example: mobile-app
+    example: [ "mobile-app", "browser", "facebook-app", "chat-app", "email" ]
 
 
 X-Device-Type:
@@ -457,7 +458,7 @@ X-Device-Type:
     **X-Device-Type** should be passed-through as generic aspect.
   schema:
     type: string
-    example: tablet
+    example: [ "tablet", "smartphone", "desktop", "other" ]
 
 
 X-Device-OS:
@@ -472,4 +473,4 @@ X-Device-OS:
     aspect.
   schema:
     type: string
-    example: Android
+    example: [ "Android", "Windows", "Linux", "MacOS" ]

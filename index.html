@@ -6002,7 +6002,8 @@ processing directives.</p>
             <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
         <span class="key">style</span>: <span class="string"><span class="content">simple</span></span>
         <span class="key">explode</span>: <span class="string"><span class="content">false</span></span>
-        <span class="key">example</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">respond-async</span><span class="delimiter">&quot;</span></span><span class="string"><span class="content">, &quot;return=minimal&quot;, &quot;wait=20&quot;, &quot;handling=strict&quot;</span></span></code></pre>
+        <span class="key">example</span>: <span class="string"><span class="content">[ &quot;respond-async&quot;, &quot;return=minimal&quot;, &quot;wait=20&quot;, &quot;handling=strict&quot;,</span><span class="content">
+          &quot;respond-async,return=minimal,wait=20,handling=strict&quot; ]</span></span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -6081,7 +6082,7 @@ in the API specification (see also the default definition below):</p>
             <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
         <span class="key">style</span>: <span class="string"><span class="content">simple</span></span>
         <span class="key">explode</span>: <span class="string"><span class="content">false</span></span>
-        <span class="key">example</span>: <span class="string"><span class="content">W/&quot;xy&quot;, &quot;5&quot;, &quot;5db68c06-1a68-11e9-8341-68f728c1ba70&quot;</span></span>
+        <span class="key">example</span>: <span class="string"><span class="content">[ W/&quot;xy&quot;, &quot;5&quot;, &quot;5db68c06-1a68-11e9-8341-68f728c1ba70&quot; ]</span></span>
 
     <span class="key">If-Match</span>:
         <span class="key">name</span>: <span class="string"><span class="content">If-Match</span></span>
@@ -6107,7 +6108,7 @@ in the API specification (see also the default definition below):</p>
             <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
         <span class="key">style</span>: <span class="string"><span class="content">simple</span></span>
         <span class="key">explode</span>: <span class="string"><span class="content">false</span></span>
-        <span class="key">example</span>: <span class="string"><span class="content">W/&quot;xy&quot;, &quot;5&quot;, &quot;5db68c06-1a68-11e9-8341-68f728c1ba70&quot;</span></span>
+        <span class="key">example</span>: <span class="string"><span class="content">[ &quot;5db68c06-1a68-11e9-8341-68f728c1ba70&quot;, 'W/&quot;xy&quot;, &quot;5&quot;' ]</span></span>
 
     <span class="key">If-None-Match</span>:
         <span class="key">name</span>: <span class="string"><span class="content">If-None-Match</span></span>
@@ -6133,7 +6134,7 @@ in the API specification (see also the default definition below):</p>
             <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
         <span class="key">style</span>: <span class="string"><span class="content">simple</span></span>
         <span class="key">explode</span>: <span class="string"><span class="content">false</span></span>
-        <span class="key">example</span>: <span class="string"><span class="content">W/&quot;xy&quot;, &quot;5&quot;, &quot;5db68c06-1a68-11e9-8341-68f728c1ba70&quot;</span></span></code></pre>
+        <span class="key">example</span>: <span class="string"><span class="content">[ &quot;5db68c06-1a68-11e9-8341-68f728c1ba70&quot;, 'W/&quot;xy&quot;, &quot;5&quot;' ]</span></span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -6207,7 +6208,7 @@ choose your expiration time:</p>
         <span class="key">schema</span>:
           <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
           <span class="key">format</span>: <span class="string"><span class="content">uuid</span></span>
-        <span class="key">example</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">7da7a728-f910-11e6-942a-68f728c1ba70</span><span class="delimiter">&quot;</span></span></code></pre>
+        <span class="key">example</span>: <span class="string"><span class="content">[ &quot;7da7a728-f910-11e6-942a-68f728c1ba70&quot; ]</span></span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -6869,7 +6870,7 @@ as follows (see also the default definition below):</p>
             <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
         <span class="key">style</span>: <span class="string"><span class="content">simple</span></span>
         <span class="key">explode</span>: <span class="string"><span class="content">false</span></span>
-        <span class="key">example</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">gzip;q=0.8</span><span class="delimiter">&quot;</span></span><span class="string"><span class="content">, &quot;identity;q=0&quot;</span></span>
+        <span class="key">example</span>: <span class="string"><span class="content">[ &quot;gzip&quot;, &quot;gzip;q=0.8,deflate;q=0.2&quot;, &quot;gzip;q=0.9,identity;q=0&quot; ]</span></span>
 
 <span class="key">components</span>:
   <span class="key">headers</span>:
@@ -6917,7 +6918,7 @@ as follows (see also the default definition below):</p>
             <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
         <span class="key">style</span>: <span class="string"><span class="content">simple</span></span>
         <span class="key">explode</span>: <span class="string"><span class="content">false</span></span>
-        <span class="key">example</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">gzip</span><span class="delimiter">&quot;</span></span><span class="string"><span class="content">, &quot;deflate&quot;</span></span></code></pre>
+        <span class="key">example</span>: <span class="string"><span class="content">[ &quot;gzip&quot;, &quot;deflate&quot;, &quot;gzip,deflate&quot; ]</span></span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -8072,7 +8073,7 @@ default definition below):</p>
         <span class="key">schema</span>:
           <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
           <span class="key">format</span>: <span class="string"><span class="content">date-time</span></span>
-        <span class="key">example</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">Tue, 31 Dec 2024 23:59:59 GMT</span><span class="delimiter">&quot;</span></span>
+        <span class="key">example</span>: <span class="string"><span class="content">[ &quot;Tue, 31 Dec 2024 23:59:59 GMT&quot; ]</span></span>
 
     <span class="key">Sunset</span>:
         <span class="key">required</span>: <span class="string"><span class="content">false</span></span>
@@ -10455,7 +10456,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-09-15 16:01:07 UTC
+Last updated 2023-09-15 16:56:18 UTC
 </div>
 </div>
 </body>
