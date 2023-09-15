@@ -21,7 +21,7 @@ If-Match:
       type: string
   style: simple
   explode: false
-  example: W/"xy", "5", "5db68c06-1a68-11e9-8341-68f728c1ba70"
+  example: [ "5db68c06-1a68-11e9-8341-68f728c1ba70", 'W/"xy", "5"' ]
 
 If-None-Match:
   name: If-None-Match
@@ -44,7 +44,7 @@ If-None-Match:
       type: string
   style: simple
   explode: false
-  example: W/"xy", "5", "5db68c06-1a68-11e9-8341-68f728c1ba70"
+  example: [ "5db68c06-1a68-11e9-8341-68f728c1ba70", 'W/"xy", "5"' ]
 
 # Custom Headers
 
