@@ -18,7 +18,7 @@ Cache-Control:
     (s-maxage, proxy-revalidate).
   schema:
     type: string
-    example: "private, must-revalidate, max-age=3600"
+    example: "private,must-revalidate,max-age=3600"
 
 Vary:
   in: header
@@ -35,7 +35,7 @@ Vary:
     case-insensitive header field names.
   schema:
     type: string
-    example: "accept-encoding, accept-language"
+    example: "accept-encoding,accept-language"
 
 ETag:
   in: header
@@ -52,7 +52,7 @@ ETag:
     2.3](https://tools.ietf.org/html/rfc7232#section-2.3).
   schema:
     type: string
-    example: W/"xy", "5", "5db68c06-1a68-11e9-8341-68f728c1ba70"
+    example: 'W/"xy", "5", "5db68c06-1a68-11e9-8341-68f728c1ba70"''
 
 # Custom Headers
 
