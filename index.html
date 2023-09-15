@@ -2947,6 +2947,13 @@ The formats are based on the standard <a href="https://tools.ietf.org/html/rfc33
 subset of <a href="https://tools.ietf.org/html/rfc3339#ref-ISO8601">ISO 8601</a></p>
 </div>
 <div class="paragraph">
+<p>APIs <span class="must-keyword"><strong>MUST</strong></span> use the upper-case <code>T</code> as a separator between date and time and
+upper-case <code>Z</code> at the end when generating dates as opposed to lower-case <code>t</code>,
+<code>z</code>, space, or any other character. This is stricter than the
+<a href="https://datatracker.ietf.org/doc/html/rfc3339#section-5.6">date/time format
+as defined in RFC 3339</a>, which leaves it up to the specification.</p>
+</div>
+<div class="paragraph">
 <p><strong>Exception:</strong> For passing date/time information via standard protocol headers,
 HTTP <a href="https://tools.ietf.org/html/rfc7231#section-7.1.1.1">RFC 7231</a> requires to
 follow the date and time specification used by the Internet Message Format
@@ -10448,7 +10455,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-09-15 15:20:24 UTC
+Last updated 2023-09-15 16:01:07 UTC
 </div>
 </div>
 </body>
