@@ -256,7 +256,7 @@ the second case.
 [[status-code-404]]
 ==== 404 Not found {rfc-status-404} {do-not-document} {ALL}
 [.indent]
-The target resource was not found. This will be returned by most paths on most
+The target resource was not found. This will be returned by most (not documented) paths on most
 APIs, and for endpoints with parameters when those parameters don't map to an
 existing entity. For a {PUT} endpoint which only supports updating existing
 resources, this might be returned if the resource does not exist. Apart from
@@ -279,8 +279,8 @@ not support a method.*
 [[status-code-406]]
 ==== 406 Not Acceptable {rfc-status-406} {do-not-document} {ALL}
 [.indent]
-Resource only supports generating content that is not listed in the {Accept}
-header sent in the request.
+Resource only supports generating content with content-types that are not listed
+in the {Accept} header sent in the request.
 
 
 [.do-not-use]
@@ -334,13 +334,13 @@ something. For {HEAD}/{GET} requests, use {304} instead.
 [[status-code-415]]
 ==== 415 Unsupported Media Type {rfc-status-415} {do-not-document} {POST} {PUT} {PATCH}
 [.indent]
-The client did not provide a supported request body. Only applicable to methods
-with a request body.
+The client did not provide a supported content-type for the request body.
+Only applicable to methods with a request body.
 
 
 [.do-not-use]
 [[status-code-417]]
-==== 417 Locked {rfc-status-417} {do-not-use} {ALL}
+==== 417 Expectation Failed {rfc-status-417} {do-not-use} {ALL}
 [.indent]
 Returned when the client used an {Expect} header which the server does not
 support. The only defined value for the {Expect} header is very technical and
@@ -375,7 +375,9 @@ Pessimistic locking, e.g. processing states.
 ==== 428 Precondition Required {rfc-status-428} {do-not-document} {ALL}
 [.indent]
 Server requires the request to be conditional, e.g. to make sure that the "lost
-update problem" is avoided (see <<181>>).
+update problem" is avoided (see <<182>>). Instead of documenting this
+response status, the required headers should be documented (and marked
+as required).
 
 
 [[status-code-429]]
