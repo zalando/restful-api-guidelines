@@ -444,7 +444,7 @@ the escaping of special characters and the maximal URL length.
 
 We prefer the use of query parameters to describe resource-specific
 query languages for the majority of APIs because it's native to HTTP,
-easy to extend and an has excellent implementation support in HTTP clients
+easy to extend and has an excellent implementation support in HTTP clients
 and web frameworks.
 
 By simple query language we mean one or more name-value pairs that are combined
