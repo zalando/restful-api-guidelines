@@ -5672,7 +5672,7 @@ number of requests made within a given window for each named entity.</p>
 <div class="sect2">
 <h3 id="176"><a class="link" href="#176"><span class="must-keyword"><strong>MUST</strong></span> support problem JSON</a></h3>
 <div class="paragraph">
-<p><a href="https://tools.ietf.org/html/rfc7807">RFC 7807</a> defines a Problem JSON object using the media type
+<p><a href="https://tools.ietf.org/html/rfc9457">RFC 9457</a> defines a Problem JSON object using the media type
 <code>application/problem+json</code> to provide an extensible human and machine readable
 failure information beyond the HTTP response status code to transports the
 failure kind (<code>type</code> / <code>title</code>) and the failure cause and location (<code>instant</code> /
@@ -5716,7 +5716,7 @@ information.</p>
 </div>
 <div class="paragraph">
 <p><strong>Note:</strong> Problem <code>type</code> and <code>instance</code> identifiers in our APIs are not meant
-to be resolved. <a href="https://tools.ietf.org/html/rfc7807">RFC 7807</a> encourages that problem types are URI
+to be resolved. <a href="https://tools.ietf.org/html/rfc9457">RFC 9457</a> encourages that problem types are URI
 references that point to human-readable documentation, <strong>but</strong> we deliberately
 decided against that, as all important parts of the API must be documented
 using <a href="#101">OpenAPI</a> anyway. In addition, URLs tend to be fragile and not
@@ -5724,7 +5724,7 @@ very stable over longer periods because of organizational and documentation
 changes and descriptions might easily get out of sync.</p>
 </div>
 <div class="paragraph">
-<p>In order to stay compatible with <a href="https://tools.ietf.org/html/rfc7807">RFC 7807</a> we proposed to use
+<p>In order to stay compatible with <a href="https://tools.ietf.org/html/rfc9457">RFC 9457</a> we proposed to use
 <a href="https://tools.ietf.org/html/rfc3986#section-4.1">relative URI references</a>
 usually defined by <code>absolute-path [ '?' query ] [ '#' fragment ]</code> as simplified
 identifiers in <code>type</code> and <code>instance</code> fields:</p>
@@ -9476,9 +9476,6 @@ is not available in JSON Schema)</p>
 <p><strong><a href="https://tools.ietf.org/html/rfc7396">RFC 7396</a>:</strong> JSON Merge Patch</p>
 </li>
 <li>
-<p><strong><a href="https://tools.ietf.org/html/rfc7807">RFC 7807</a>:</strong> Problem Details for HTTP APIs</p>
-</li>
-<li>
 <p><strong><a href="https://tools.ietf.org/html/rfc8288">RFC 8288</a>:</strong> Web Linking</p>
 </li>
 <li>
@@ -9486,6 +9483,9 @@ is not available in JSON Schema)</p>
 </li>
 <li>
 <p><strong><a href="https://tools.ietf.org/html/rfc9111">RFC 9111</a>:</strong> HTTP Caching</p>
+</li>
+<li>
+<p><strong><a href="https://tools.ietf.org/html/rfc9457">RFC 9457</a>:</strong> Problem Details for HTTP APIs</p>
 </li>
 <li>
 <p><strong><a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>:</strong> Date and time format</p>
@@ -10456,7 +10456,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-09-15 16:56:18 UTC
+Last updated 2023-10-17 13:26:53 UTC
 </div>
 </div>
 </body>
