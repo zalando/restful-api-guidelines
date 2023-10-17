@@ -357,7 +357,7 @@ number of requests made within a given window for each named entity.
 [#176]
 == {MUST} support problem JSON
 
-{RFC-7807}[RFC 7807] defines a Problem JSON object using the media type
+{RFC-9457}[RFC 9457] defines a Problem JSON object using the media type
 `application/problem+json` to provide an extensible human and machine readable
 failure information beyond the HTTP response status code to transports the
 failure kind (`type` / `title`) and the failure cause and location (`instant` /
@@ -396,14 +396,14 @@ if your API needs to return specific, additional, and more detailed error
 information.
 
 *Note:* Problem `type` and `instance` identifiers in our APIs are not meant
-to be resolved. {RFC-7807}[RFC 7807] encourages that problem types are URI
+to be resolved. {RFC-9457}[RFC 9457] encourages that problem types are URI
 references that point to human-readable documentation, *but* we deliberately
 decided against that, as all important parts of the API must be documented
 using <<101, OpenAPI>> anyway. In addition, URLs tend to be fragile and not
 very stable over longer periods because of organizational and documentation
 changes and descriptions might easily get out of sync.
 
-In order to stay compatible with {RFC-7807}[RFC 7807] we proposed to use
+In order to stay compatible with {RFC-9457}[RFC 9457] we proposed to use
 https://tools.ietf.org/html/rfc3986#section-4.1[relative URI references]
 usually defined by `absolute-path [ '?' query ] [ '#' fragment ]` as simplified
 identifiers in `type` and `instance` fields:
