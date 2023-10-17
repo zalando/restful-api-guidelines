@@ -1279,6 +1279,10 @@ b.conum * { color: inherit !important; }
 
 .status-code-methods { border-radius: 4px; border-width: 2px; border-style: solid; padding: 4px 2px 0px 2px; font-size: 0.8em; }
 
+.do-not-use { color: gray; }
+
+.do-not-use h5 > a { color: gray; }
+
 .indent { padding-left: 4rem; }
 
 .sect1 { max-width: 45em; }
