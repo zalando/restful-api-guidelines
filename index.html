@@ -2260,8 +2260,13 @@ API evolution. By using  <a href="#116">API semantic version information</a> or 
 </div>
 <div class="paragraph">
 <p><strong>Note</strong>: While it is nice to use human readable API identifiers based on
-self-managed URNs, it is recommend to stick to UUIDs to relief API designers
-from any urge of changing the API identifier while evolving the API. Example:</p>
+self-managed URNs, it is recommend to stick to a UUID (freshly generated when
+first creating the API) to relief API designers from any urge of changing
+the API identifier while evolving the API. <strong>Do not copy an API unless you
+immediately change the API identifier in it!</strong></p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -10448,7 +10453,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-10-17 13:30:25 UTC
+Last updated 2023-10-17 13:32:59 UTC
 </div>
 </div>
 </body>
