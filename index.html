@@ -4975,8 +4975,12 @@ the escaping of special characters and the maximal URL length.</p>
 <div class="paragraph">
 <p>We prefer the use of query parameters to describe resource-specific
 query languages for the majority of APIs because it&#8217;s native to HTTP,
-easy to extend and has excellent implementation support in HTTP clients
+easy to extend and has an excellent implementation support in HTTP clients
 and web frameworks.</p>
+</div>
+<div class="paragraph">
+<p>By simple query language we mean one or more name-value pairs that are combined
+in one way only with <code>and</code> semantics.</p>
 </div>
 <div class="paragraph">
 <p>Query parameters should have the following aspects specified:</p>
@@ -4998,36 +5002,132 @@ and web frameworks.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>How query parameters are named and used is up to individual API designers.
-The following examples should serve as ideas:</p>
+<p>How query parameters are named and used is up to individual API designers, here
+are a few tips that could help to decide whether to use simple or more complex
+query language:
+1. Consider using simple query language when API is built to be used
+   by others (external teams):</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>name=Zalando</code>, to query for elements based on property equality</p>
+<p>no additional effort/logic to form the query</p>
 </li>
 <li>
-<p><code>age=5</code>, to query for elements based on logical properties</p>
+<p>no ambiguity in meaning of the query parameters. For example
+ in <code>GET /items?user_id=gt:100</code>, is <code>user_id</code> greater than <code>100</code> or
+is <code>user_id</code> equal to <code>gt:100</code>?</p>
+</li>
+<li>
+<p>easy to read, no learning curve</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>For internal usage or specific use case a more complex query language
+can be used (such as <code>price gt 10</code> or <code>price[gt]=10</code> or <code>price&gt;10</code> etc.).
+Also please consider following <a href="#237">our guidance</a> for designing complex
+query languages with JSON.</p>
+</li>
+</ol>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The following examples should serve as ideas for simple query language:</p>
+</div>
+<div class="sect3">
+<h4 id="_equals"><a class="link" href="#_equals">Equals</a></h4>
 <div class="ulist">
 <ul>
 <li>
-<p>Assuming that elements don&#8217;t actually have an <code>age</code> but rather a <code>birthday</code></p>
+<p><code>name=Zalando</code>, <code>creation_year=2023</code>, <code>updated_by=user1</code> (query elements
+based on property equality)</p>
+</li>
+<li>
+<p><code>created_at=2023-09-18T12:12:00.000Z</code>, <code>sort=id:desc</code> (query elements
+based on logical properties)</p>
+</li>
+<li>
+<p><code>color=red,green,blue,multicolored</code> (query elements based on multiple
+choice possibility)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>for these type of filters, consider to use <a href="#237">guidance</a> to have
+smth like <code>filters={"color":["red","green","blue"]}</code>.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_less_than"><a class="link" href="#_less_than">Less than</a></h4>
+<div class="ulist">
+<ul>
+<li>
+<p><code>max_length=5</code> - query elements based on upper/lower bounds (<code>min</code> and <code>max</code>)</p>
+</li>
+<li>
+<p><code>shorter_than=5</code> - query elements using terminology specific e.g. to <em>length</em></p>
+</li>
+<li>
+<p><code>price_lower_than=50</code> or <code>price_lower_than_or_equal=50</code></p>
+</li>
+<li>
+<p><code>created_before=2019-07-17</code> or <code>active_until=2023-09-18T12:12:00.000Z</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Using terminology specific to time: <em>before</em>, <em>after</em>, <em>since</em> and <em>until</em></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_more_than"><a class="link" href="#_more_than">More than</a></h4>
+<div class="ulist">
+<ul>
+<li>
+<p><code>min_length=2</code> - query elements based on upper/lower bounds (<code>min</code> and <code>max</code>)</p>
+</li>
+<li>
+<p><code>created_after=2019-07-17</code> or <code>modified_since=2019-07-17</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Using terminology specific to time: <em>before</em>, <em>after</em>, <em>since</em> and <em>until</em></p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p><code>max_length=5</code>, based on upper and lower bounds (<code>min</code> and <code>max</code>)</p>
+<p><code>price_higher_than=50</code> or <code>price_equal_or_higher_than=50</code></p>
 </li>
-<li>
-<p><code>shorter_than=5</code>, using terminology specific e.g. to <em>length</em></p>
-</li>
-<li>
-<p><code>created_before=2019-07-17</code> or <code>not_modified_since=2019-07-17</code></p>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_pagination"><a class="link" href="#_pagination">Pagination</a></h4>
 <div class="ulist">
 <ul>
 <li>
-<p>Using terminology specific e.g. to time: <em>before</em>, <em>after</em>, <em>since</em> and <em>until</em></p>
+<p><code>offset=10</code> and <code>limit=5</code> (query elements for pagination regardless
+customer sorting)</p>
+</li>
+<li>
+<p><code>limit=5</code> and <code>created_after=2019-07-17</code> (query elements for
+keyset pagination)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>when sorting is in place and new elements are inserted, it prevents showing
+repeated/missing results due to offset shift.</p>
 </li>
 </ul>
 </div>
@@ -5035,8 +5135,13 @@ The following examples should serve as ideas:</p>
 </ul>
 </div>
 <div class="paragraph">
+<p>Please check <a href="#137">conventional query parameters for pagination and sorting</a>
+and you can also find additional info in <a href="#pagination">REST Design - Pagination</a> section below.</p>
+</div>
+<div class="paragraph">
 <p>We don&#8217;t advocate for or against certain names because in the end
 APIs should be free to choose the terminology that fits their domain the best.</p>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -10616,7 +10721,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-10-18 09:09:03 UTC
+Last updated 2023-10-18 13:54:30 UTC
 </div>
 </div>
 </body>
