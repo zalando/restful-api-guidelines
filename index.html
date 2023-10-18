@@ -1277,6 +1277,25 @@ b.conum * { color: inherit !important; }
 
 .status-code, .status-code:link, .status-code:visited, .status-code:hover, .status-code:active { color: black; font-weight: bold; }
 
+/* HTTP Status Codes custom text span syntax / roles / highlight */
+.status-code-hint { border-radius: 4px; border-width: 2px; border-style: solid; padding: 4px 2px 0px 2px; font-size: 0.8em; }
+
+.status-code-hint.mustnot { color: white; background-color: red; border-color: red; }
+
+.status-code-hint.should { color: white; background-color: #32c032; border-color: #32c032; }
+
+.status-code-hint.shouldnot { color: #595959; background-color: #e5e82d; border-color: #e5e82d; }
+
+.status-code-hint.may { color: white; background-color: #6969f5; border-color: #6969f5; }
+
+.status-code-methods { border-radius: 4px; border-width: 2px; border-style: solid; padding: 4px 2px 0px 2px; font-size: 0.8em; }
+
+.do-not-use { color: gray; }
+
+.do-not-use h5 > a { color: gray; }
+
+.indent { padding-left: 4rem; }
+
 .sect1 { max-width: 45em; }
 
 #content #toc { max-width: 45em; }
@@ -1292,6 +1311,7 @@ a > code { background-color: #f0f0f0; padding: .1em .4em .1em .4em !important; f
 #toc a { color: #364149; }
 
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
 /*! Stylesheet for CodeRay to loosely match GitHub themes | MIT License */
 pre.CodeRay{background:#f7f7f8}
@@ -1390,7 +1410,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <h2 id="_zalando_restful_api_and_event_guidelines"><a class="link" href="#_zalando_restful_api_and_event_guidelines">Zalando RESTful API and Event Guidelines</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="https://github.com/zalando/restful-api-guidelines">Github Repository</a> as part of
+<p><a href="https://github.com/zalando/restful-api-guidelines">GitHub Repository</a> as part of
 <a href="https://opensource.zalando.com/">Zalando SE Opensource</a></p>
 </div>
 <div class="imageblock">
@@ -1514,6 +1534,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#153"><span class="must-keyword"><strong>MUST</strong></span> use code 429 with headers for rate limits</a></li>
 <li><a href="#176"><span class="must-keyword"><strong>MUST</strong></span> support problem JSON</a></li>
 <li><a href="#177"><span class="must-keyword"><strong>MUST</strong></span> not expose stack traces</a></li>
+<li><a href="#251"><span class="should-keyword"><strong>SHOULD</strong></span> not use redirection codes</a></li>
 </ul>
 </li>
 <li><a href="#headers">11. REST Basics - HTTP headers</a>
@@ -5299,233 +5320,339 @@ information aside the well defined semantic, the API specification must provide
 a clear description of the HTTP status code in the response.</p>
 </div>
 <div class="sect3">
+<h4 id="status-code-legend"><a class="link" href="#status-code-legend">Legend</a></h4>
+<div class="paragraph">
+<p>A more specific version of the <a href="#conventions-used-in-these-guidelines">Conventions used in these guidelines</a>.</p>
+</div>
+<div class="sect4">
+<h5 id="status-code-use"><a class="link" href="#status-code-use"><a href="#status-code-use"><span class="status-code-hint should"><span class="icon"><i class="fa fa-check"></i></span> use</span></a></a></h5>
+<div class="paragraph">
+<p>A common, well understood status code that should be used where appropriate.
+Does NOT mean that every operation must be able to return this code.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="status-code-do-not-use"><a class="link" href="#status-code-do-not-use"><a href="#status-code-do-not-use"><span class="status-code-hint mustnot"><span class="icon"><i class="fa fa-times"></i></span> do not use</span></a></a></h5>
+<div class="paragraph">
+<p>We do not see a good use-case for returning this status code from a RESTful API.
+The status code might be applicable in other contexts, e.g. returned by reverse
+proxies, for web pages, etc. Implicitly also means <a href="#status-code-do-not-document"><span class="status-code-hint shouldnot"><span class="icon"><i class="fa fa-times"></i></span> do not document</span></a>, as
+status codes that are not returned by the API should also not be documented.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="status-code-document"><a class="link" href="#status-code-document"><a href="#status-code-document"><span class="status-code-hint should"><span class="icon"><i class="fa fa-check"></i></span> document</span></a></a></h5>
+<div class="paragraph">
+<p>If the status code can be returned by the API, it should be documented in the
+API specification.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="status-code-do-not-document"><a class="link" href="#status-code-do-not-document"><a href="#status-code-do-not-document"><span class="status-code-hint shouldnot"><span class="icon"><i class="fa fa-times"></i></span> do not document</span></a></a></h5>
+<div class="paragraph">
+<p>The status code has a well-understood standard meaning to it, so only document
+it if there are operation specific details you want to add. See exception in
+<a href="#151">rule 151</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect3">
 <h4 id="success-codes"><a class="link" href="#success-codes">Success codes</a></h4>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 10%;">
-<col style="width: 70%;">
-<col style="width: 20%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Code</th>
-<th class="tableblock halign-left valign-top">Meaning</th>
-<th class="tableblock halign-left valign-top">Methods</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="status-code-200"></a><a href="#status-code-200" class="status-code">200</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">OK - this is the most general success response and used,
-if the more specific codes below are not applicable.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>&lt;all&gt;</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="status-code-201"></a><a href="#status-code-201" class="status-code">201</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Created - Returned on successful resource creation.
+<div class="sect4">
+<h5 id="status-code-200"><a class="link" href="#status-code-200">200 OK <a href="https://tools.ietf.org/html/rfc9110#name-200-ok" target="_blank" rel="noopener"><sup>RFC</sup></a> <a href="#status-code-use"><span class="status-code-hint should"><span class="icon"><i class="fa fa-check"></i></span> use</span></a> <a href="#status-code-document"><span class="status-code-hint should"><span class="icon"><i class="fa fa-check"></i></span> document</span></a> <a href="#http-requests"><code title="Applicable to all HTTP methods.">&lt;all&gt;</code></a></a></h5>
+<div class="paragraph indent">
+<p>This is the most general success response. It should be used if the more
+specific codes below are not applicable.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="status-code-201"><a class="link" href="#status-code-201">201 Created <a href="https://tools.ietf.org/html/rfc9110#name-201-created" target="_blank" rel="noopener"><sup>RFC</sup></a> <a href="#status-code-use"><span class="status-code-hint should"><span class="icon"><i class="fa fa-check"></i></span> use</span></a> <a href="#status-code-document"><span class="status-code-hint should"><span class="icon"><i class="fa fa-check"></i></span> document</span></a> <a href="#post"><code>POST</code></a> <a href="#put"><code>PUT</code></a></a></h5>
+<div class="paragraph indent">
+<p>Returned on successful resource creation.
 <a href="#status-code-201" class="status-code">201</a> is returned with or without response payload (unlike <a href="#status-code-200" class="status-code">200</a> / <a href="#status-code-204" class="status-code">204</a>).
-We recommend to additionally return the created resource URL via the <code>Location</code>
-response header (see <a href="#standard-headers">[standard-headers]</a>).</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#post"><code>POST</code></a>, <a href="#put"><code>PUT</code></a></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="status-code-202"></a><a href="#status-code-202" class="status-code">202</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Accepted - The request was successful and will be processed asynchronously.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#post"><code>POST</code></a>, <a href="#put"><code>PUT</code></a>, <a href="#patch"><code>PATCH</code></a>, <a href="#delete"><code>DELETE</code></a></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="status-code-204"></a><a href="#status-code-204" class="status-code">204</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No content - Returned instead of <a href="#status-code-200" class="status-code">200</a>, if no response payload is returned.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#put"><code>PUT</code></a>, <a href="#patch"><code>PATCH</code></a>, <a href="#delete"><code>DELETE</code></a></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="status-code-207"></a><a href="#status-code-207" class="status-code">207</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Multi-Status - The response body contains status information for multiple
-different parts of a batch/bulk request (see <a href="#152"><span class="must-keyword"><strong>MUST</strong></span> use code 207 for batch or bulk requests</a>).</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#post"><code>POST</code></a>, (<a href="#delete"><code>DELETE</code></a>)</p></td>
-</tr>
-</tbody>
-</table>
+We recommend additionally to return the created resource URL via the <a href="https://tools.ietf.org/html/rfc9110#section-10.2.2"><code>Location</code></a>
+response header (see <a href="#133"><span class="may-keyword"><strong>MAY</strong></span> use standard headers</a>).</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="status-code-202"><a class="link" href="#status-code-202">202 Accepted <a href="https://tools.ietf.org/html/rfc9110#name-202-accepted" target="_blank" rel="noopener"><sup>RFC</sup></a> <a href="#status-code-use"><span class="status-code-hint should"><span class="icon"><i class="fa fa-check"></i></span> use</span></a> <a href="#status-code-document"><span class="status-code-hint should"><span class="icon"><i class="fa fa-check"></i></span> document</span></a> <a href="#post"><code>POST</code></a> <a href="#put"><code>PUT</code></a> <a href="#patch"><code>PATCH</code></a> <a href="#delete"><code>DELETE</code></a></a></h5>
+<div class="paragraph indent">
+<p>The request was successful and will be processed asynchronously.
+Only applicable to methods which change something.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="status-code-204"><a class="link" href="#status-code-204">204 No content <a href="https://tools.ietf.org/html/rfc9110#name-204-no-content" target="_blank" rel="noopener"><sup>RFC</sup></a> <a href="#status-code-document"><span class="status-code-hint should"><span class="icon"><i class="fa fa-check"></i></span> document</span></a> <a href="#put"><code>PUT</code></a> <a href="#patch"><code>PATCH</code></a> <a href="#delete"><code>DELETE</code></a></a></h5>
+<div class="paragraph indent">
+<p>Returned instead of <a href="#status-code-200" class="status-code">200</a>, if no response payload is returned.
+Normally only applicable to methods which change something.</p>
+</div>
+</div>
+<div class="sect4 do-not-use">
+<h5 id="status-code-205"><a class="link" href="#status-code-205">205 Reset Content <a href="https://tools.ietf.org/html/rfc9110#name-205-reset-content" target="_blank" rel="noopener"><sup>RFC</sup></a> <a href="#status-code-do-not-use"><span class="status-code-hint mustnot"><span class="icon"><i class="fa fa-times"></i></span> do not use</span></a> <a href="#http-requests"><code title="Applicable to all HTTP methods.">&lt;all&gt;</code></a></a></h5>
+<div class="paragraph indent">
+<p>This is meant for interactive use cases, e.g. to clear a form after submitting
+it. There is no reason to use it in a REST API.</p>
+</div>
+</div>
+<div class="sect4 do-not-use">
+<h5 id="status-code-206"><a class="link" href="#status-code-206">206 Partial Content <a href="https://tools.ietf.org/html/rfc9110#name-206-partial-content" target="_blank" rel="noopener"><sup>RFC</sup></a> <a href="#status-code-do-not-use"><span class="status-code-hint mustnot"><span class="icon"><i class="fa fa-times"></i></span> do not use</span></a> <a href="#http-requests"><code title="Applicable to all HTTP methods.">&lt;all&gt;</code></a></a></h5>
+<div class="paragraph indent">
+<p>For responses to range requests, when only a part of the resource indicated by
+the byte range is returned. This is not for pagination, where a normal <a href="#status-code-200" class="status-code">200</a>
+should be used. This might be useful in rare cases (like media streaming or
+downloading large files), but most APIs don&#8217;t need this.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="status-code-207"><a class="link" href="#status-code-207">207 Multi-Status <a href="https://tools.ietf.org/html/rfc4918#section-11.1" target="_blank" rel="noopener"><sup>RFC</sup></a> <a href="#status-code-use"><span class="status-code-hint should"><span class="icon"><i class="fa fa-check"></i></span> use</span></a> <a href="#status-code-document"><span class="status-code-hint should"><span class="icon"><i class="fa fa-check"></i></span> document</span></a> <a href="#post"><code>POST</code></a> (<a href="#delete"><code>DELETE</code></a>)</a></h5>
+<div class="paragraph indent">
+<p>The response body contains status information for multiple different parts of a
+batch/bulk request (see <a href="#152"><span class="must-keyword"><strong>MUST</strong></span> use code 207 for batch or bulk requests</a> for details). Normally used for <a href="#post"><code>POST</code></a>, in some
+cases also for <a href="#delete"><code>DELETE</code></a>.</p>
+</div>
+</div>
 </div>
 <div class="sect3">
 <h4 id="redirection-codes"><a class="link" href="#redirection-codes">Redirection codes</a></h4>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 10%;">
-<col style="width: 70%;">
-<col style="width: 20%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Code</th>
-<th class="tableblock halign-left valign-top">Meaning</th>
-<th class="tableblock halign-left valign-top">Methods</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="status-code-301"></a><a href="#status-code-301" class="status-code">301</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Moved Permanently - This and all future requests should be directed to the
-given URI.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>&lt;all&gt;</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="status-code-303"></a><a href="#status-code-303" class="status-code">303</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">See Other - The response to the request can be found under another URI using a
-<a href="#get"><code>GET</code></a> method.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#post"><code>POST</code></a>, <a href="#put"><code>PUT</code></a>, <a href="#patch"><code>PATCH</code></a>, <a href="#delete"><code>DELETE</code></a></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="status-code-304"></a><a href="#status-code-304" class="status-code">304</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Not Modified - indicates that a conditional GET or HEAD request would have
-resulted in 200 response if it were not for the fact that the condition evaluated
-to false, i.e. resource has not been modified since the date or version passed
-via request headers If-Modified-Since or If-None-Match.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#get"><code>GET</code></a>, <a href="#head"><code>HEAD</code></a></p></td>
-</tr>
-</tbody>
-</table>
+<div class="paragraph">
+<p>See <a href="#250"><span class="should-keyword"><strong>SHOULD</strong></span> be aware of services not fully supporting JSON/unicode</a>.</p>
+</div>
+<div class="sect4 do-not-use">
+<h5 id="status-code-301"><a class="link" href="#status-code-301">301 Moved Permanently <a href="https://tools.ietf.org/html/rfc9110#name-301-moved-permanently" target="_blank" rel="noopener"><sup>RFC</sup></a> <a href="#status-code-do-not-use"><span class="status-code-hint mustnot"><span class="icon"><i class="fa fa-times"></i></span> do not use</span></a> <a href="#http-requests"><code title="Applicable to all HTTP methods.">&lt;all&gt;</code></a></a></h5>
+<div class="paragraph indent">
+<p>This and all future requests should be directed to the
+given URI.</p>
+</div>
+</div>
+<div class="sect4 do-not-use">
+<h5 id="status-code-302"><a class="link" href="#status-code-302">302 Found <a href="https://tools.ietf.org/html/rfc9110#name-302-found" target="_blank" rel="noopener"><sup>RFC</sup></a> <a href="#status-code-do-not-use"><span class="status-code-hint mustnot"><span class="icon"><i class="fa fa-times"></i></span> do not use</span></a> <a href="#http-requests"><code title="Applicable to all HTTP methods.">&lt;all&gt;</code></a></a></h5>
+<div class="paragraph indent">
+<p>This is a temporary redirect where some clients <span class="may-keyword"><strong>MAY</strong></span> change the request method
+from <a href="#post"><code>POST</code></a> to <a href="#get"><code>GET</code></a>. Mainly used for dismissing and redirecting form
+submissions in browsers.</p>
+</div>
+</div>
+<div class="sect4 do-not-use">
+<h5 id="status-code-303"><a class="link" href="#status-code-303">303 See Other <a href="https://tools.ietf.org/html/rfc9110#name-303-see-other" target="_blank" rel="noopener"><sup>RFC</sup></a> <a href="#status-code-do-not-use"><span class="status-code-hint mustnot"><span class="icon"><i class="fa fa-times"></i></span> do not use</span></a> <a href="#post"><code>POST</code></a> <a href="#put"><code>PUT</code></a> <a href="#patch"><code>PATCH</code></a> <a href="#delete"><code>DELETE</code></a></a></h5>
+<div class="paragraph indent">
+<p>The response to the request can be found under another URI using a
+<a href="#get"><code>GET</code></a> method. A disambiguated version of <a href="#status-code-302" class="status-code">302</a> for the case where the client
+<span class="must-keyword"><strong>MUST</strong></span> change the method to <a href="#get"><code>GET</code></a>.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="status-code-304"><a class="link" href="#status-code-304">304 Not Modified <a href="https://tools.ietf.org/html/rfc9110#name-304-not-modified" target="_blank" rel="noopener"><sup>RFC</sup></a> <a href="#status-code-document"><span class="status-code-hint should"><span class="icon"><i class="fa fa-check"></i></span> document</span></a> <a href="#get"><code>GET</code></a> <a href="#head"><code>HEAD</code></a></a></h5>
+<div class="paragraph indent">
+<p>Indicates that a conditional <a href="#get"><code>GET</code></a> or <a href="#head"><code>HEAD</code></a> request would have resulted in
+<a href="#status-code-200" class="status-code">200</a> response if it were not for the fact that the condition evaluated to false
+i.e. resource has not been modified since the date or version passed via request
+headers <a href="https://tools.ietf.org/html/rfc9110#section-13.1.3"><code>If-Modified-Since</code></a> or <a href="https://tools.ietf.org/html/rfc9110#section-13.1.2"><code>If-None-Match</code></a>. For <a href="#put"><code>PUT</code></a>/<a href="#patch"><code>PATCH</code></a>/<a href="#delete"><code>DELETE</code></a>
+requests, use <a href="#status-code-412" class="status-code">412</a> instead.</p>
+</div>
+</div>
+<div class="sect4 do-not-use">
+<h5 id="status-code-307"><a class="link" href="#status-code-307">307 Temporary Redirect <a href="https://tools.ietf.org/html/rfc9110#name-307-temporary-redirect" target="_blank" rel="noopener"><sup>RFC</sup></a> <a href="#status-code-do-not-use"><span class="status-code-hint mustnot"><span class="icon"><i class="fa fa-times"></i></span> do not use</span></a> <a href="#http-requests"><code title="Applicable to all HTTP methods.">&lt;all&gt;</code></a></a></h5>
+<div class="paragraph indent">
+<p>The response to the request can be found under another URI. A disambiguated
+version of <a href="#status-code-302" class="status-code">302</a> where the client <span class="must-keyword"><strong>MUST</strong></span> keep the same method as the
+original request.</p>
+</div>
+</div>
+<div class="sect4 do-not-use">
+<h5 id="status-code-308"><a class="link" href="#status-code-308">308 Permanent Redirect <a href="https://tools.ietf.org/html/rfc9110#name-308-permanent-redirect" target="_blank" rel="noopener"><sup>RFC</sup></a> <a href="#status-code-do-not-use"><span class="status-code-hint mustnot"><span class="icon"><i class="fa fa-times"></i></span> do not use</span></a> <a href="#http-requests"><code title="Applicable to all HTTP methods.">&lt;all&gt;</code></a></a></h5>
+<div class="paragraph indent">
+<p>Similar to <a href="#status-code-307" class="status-code">307</a>, but the client should persist the new URI. Applicable more to
+browsers. For APIs, the URI should be explicitly fixed at the source instead of
+being implicitly kept in some state based on a previous redirect.</p>
+</div>
+</div>
 </div>
 <div class="sect3">
 <h4 id="client-side-error-codes"><a class="link" href="#client-side-error-codes">Client side error codes</a></h4>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 10%;">
-<col style="width: 70%;">
-<col style="width: 20%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Code</th>
-<th class="tableblock halign-left valign-top">Meaning</th>
-<th class="tableblock halign-left valign-top">Methods</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="status-code-400"></a><a href="#status-code-400" class="status-code">400</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Bad request - unspecific client error indicating that the server cannot process the request
-due to something that is perceived to be a client error (e.g. malformed request syntax, invalid request).
-Should also be delivered in case of input payload fails business logic / semantic
-validation (instead of using status code 422).</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>&lt;all&gt;</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="status-code-401"></a><a href="#status-code-401" class="status-code">401</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Unauthorized - actually "Unauthenticated": credentials
-are not valid for the target resource. User must log in.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>&lt;all&gt;</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="status-code-403"></a><a href="#status-code-403" class="status-code">403</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Forbidden - the user is not authorized to use this resource.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>&lt;all&gt;</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="status-code-404"></a><a href="#status-code-404" class="status-code">404</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Not found - the resource is not found.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>&lt;all&gt;</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="status-code-405"></a><a href="#status-code-405" class="status-code">405</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Method Not Allowed - the method is not supported, see <a href="#options"><code>OPTIONS</code></a>.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>&lt;all&gt;</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="status-code-406"></a><a href="#status-code-406" class="status-code">406</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Not Acceptable - resource can only generate content not acceptable according
-to the Accept headers sent in the request.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>&lt;all&gt;</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="status-code-408"></a><a href="#status-code-408" class="status-code">408</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Request timeout - the server times out waiting for the resource.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>&lt;all&gt;</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="status-code-409"></a><a href="#status-code-409" class="status-code">409</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Conflict - request cannot be completed due to conflict with the current state of the target resource.
-For example, you may get a <a href="#status-code-409" class="status-code">409</a> response when updating a resource that is older than the existing
-one on the server, resulting in a version control conflict.
-Hint, you should not return <a href="#status-code-409" class="status-code">409</a>, but <a href="#status-code-200" class="status-code">200</a> or <a href="#status-code-204" class="status-code">204</a> in case of successful robust creation of resources
-(via <a href="#put"><code>PUT</code></a> or <a href="#post"><code>POST</code></a>), if the resource already exists.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#post"><code>POST</code></a>, <a href="#put"><code>PUT</code></a>, <a href="#patch"><code>PATCH</code></a>, <a href="#delete"><code>DELETE</code></a></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="status-code-410"></a><a href="#status-code-410" class="status-code">410</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Gone - resource does not exist any longer, e.g. when accessing a
-resource that has intentionally been deleted.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>&lt;all&gt;</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="status-code-412"></a><a href="#status-code-412" class="status-code">412</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Precondition Failed - returned for conditional requests, e.g. <a href="https://tools.ietf.org/html/rfc9110#section-13.1.1"><code>If-Match</code></a> if the
-condition failed. Used for optimistic locking.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#put"><code>PUT</code></a>, <a href="#patch"><code>PATCH</code></a>, <a href="#delete"><code>DELETE</code></a></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="status-code-415"></a><a href="#status-code-415" class="status-code">415</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Unsupported Media Type - e.g. clients sends request body without content type.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#post"><code>POST</code></a>, <a href="#put"><code>PUT</code></a>, <a href="#patch"><code>PATCH</code></a>, <a href="#delete"><code>DELETE</code></a></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="status-code-423"></a><a href="#status-code-423" class="status-code">423</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Locked - Pessimistic locking, e.g. processing states.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#put"><code>PUT</code></a>, <a href="#patch"><code>PATCH</code></a>, <a href="#delete"><code>DELETE</code></a></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="status-code-428"></a><a href="#status-code-428" class="status-code">428</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Precondition Required - server requires the request to be conditional, e.g. to
-make sure that the "lost update problem" is avoided (see <a href="#181"><span class="may-keyword"><strong>MAY</strong></span> consider to support <code>Prefer</code> header to handle processing preferences</a>).</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>&lt;all&gt;</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="status-code-429"></a><a href="#status-code-429" class="status-code">429</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Too many requests - the client does not consider rate limiting and sent too
-many requests (see <a href="#153"><span class="must-keyword"><strong>MUST</strong></span> use code 429 with headers for rate limits</a>).</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>&lt;all&gt;</code></p></td>
-</tr>
-</tbody>
-</table>
+<div class="sect4">
+<h5 id="status-code-400"><a class="link" href="#status-code-400">400 Bad Request <a href="https://tools.ietf.org/html/rfc9110#name-400-bad-request" target="_blank" rel="noopener"><sup>RFC</sup></a> <a href="#status-code-use"><span class="status-code-hint should"><span class="icon"><i class="fa fa-check"></i></span> use</span></a> <a href="#status-code-document"><span class="status-code-hint should"><span class="icon"><i class="fa fa-check"></i></span> document</span></a> <a href="#http-requests"><code title="Applicable to all HTTP methods.">&lt;all&gt;</code></a></a></h5>
+<div class="paragraph indent">
+<p>Unspecific client error indicating that the server cannot process the request
+due to something that is perceived to be a client error (e.g. malformed request
+syntax, invalid request). Should also be delivered in case of input payload
+fails business logic / semantic validation (instead of using <a href="#status-code-422" class="status-code">422</a>).</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="status-code-401"><a class="link" href="#status-code-401">401 Unauthorized <a href="https://tools.ietf.org/html/rfc9110#name-401-unauthorized" target="_blank" rel="noopener"><sup>RFC</sup></a> <a href="#status-code-use"><span class="status-code-hint should"><span class="icon"><i class="fa fa-check"></i></span> use</span></a> <a href="#status-code-do-not-document"><span class="status-code-hint shouldnot"><span class="icon"><i class="fa fa-times"></i></span> do not document</span></a> <a href="#http-requests"><code title="Applicable to all HTTP methods.">&lt;all&gt;</code></a></a></h5>
+<div class="paragraph indent">
+<p>Actually <strong>Unauthenticated</strong>. The credentials are missing or not valid for the
+target resource. For an API, this usually means that the provided token or
+cookie is not valid. As this can happen for almost every endpoint, APIs should
+normally not document this.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="status-code-403"><a class="link" href="#status-code-403">403 Forbidden <a href="https://tools.ietf.org/html/rfc9110#name-403-forbidden" target="_blank" rel="noopener"><sup>RFC</sup></a> <a href="#status-code-do-not-document"><span class="status-code-hint shouldnot"><span class="icon"><i class="fa fa-times"></i></span> do not document</span></a> <a href="#http-requests"><code title="Applicable to all HTTP methods.">&lt;all&gt;</code></a></a></h5>
+<div class="paragraph indent">
+<p>The user is not authorized to use this resource. For an API, this can mean that
+the request&#8217;s token was valid, but was missing a scope for this endpoint. Or
+that some object-specific authorization failed. We recommend only documenting
+the second case.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="status-code-404"><a class="link" href="#status-code-404">404 Not found <a href="https://tools.ietf.org/html/rfc9110#name-404-not-found" target="_blank" rel="noopener"><sup>RFC</sup></a> <a href="#status-code-do-not-document"><span class="status-code-hint shouldnot"><span class="icon"><i class="fa fa-times"></i></span> do not document</span></a> <a href="#http-requests"><code title="Applicable to all HTTP methods.">&lt;all&gt;</code></a></a></h5>
+<div class="paragraph indent">
+<p>The target resource was not found. This will be returned by most (not documented) paths on most
+APIs, and for endpoints with parameters when those parameters don&#8217;t map to an
+existing entity. For a <a href="#put"><code>PUT</code></a> endpoint which only supports updating existing
+resources, this might be returned if the resource does not exist. Apart from
+these special cases, this does not need to be documented.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="status-code-405"><a class="link" href="#status-code-405">405 Method Not Allowed <a href="https://tools.ietf.org/html/rfc9110#name-405-method-not-allowed" target="_blank" rel="noopener"><sup>RFC</sup></a> <a href="#status-code-document"><span class="status-code-hint should"><span class="icon"><i class="fa fa-check"></i></span> document</span></a> <a href="#http-requests"><code title="Applicable to all HTTP methods.">&lt;all&gt;</code></a></a></h5>
+<div class="paragraph indent">
+<p>The request method is not supported for this resource. In theory, this can be
+returned for all resources for all the methods except the ones documented. Using
+this response code for an existing endpoint (usually with path parameter) only
+makes sense if it depends on some internal resource state whether a specific
+method is allowed, e.g. an order can only be canceled via <a href="#delete"><code>DELETE</code></a> until the
+shipment leaves the warehouse. <strong>Do not use it unless you have such a special use
+case, but then make sure to document it, making it clear why a resource might
+not support a method.</strong></p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="status-code-406"><a class="link" href="#status-code-406">406 Not Acceptable <a href="https://tools.ietf.org/html/rfc9110#name-406-not-acceptable" target="_blank" rel="noopener"><sup>RFC</sup></a> <a href="#status-code-do-not-document"><span class="status-code-hint shouldnot"><span class="icon"><i class="fa fa-times"></i></span> do not document</span></a> <a href="#http-requests"><code title="Applicable to all HTTP methods.">&lt;all&gt;</code></a></a></h5>
+<div class="paragraph indent">
+<p>Resource only supports generating content with content-types that are not listed
+in the <a href="https://tools.ietf.org/html/rfc9110#section-12.5.1"><code>Accept</code></a> header sent in the request.</p>
+</div>
+</div>
+<div class="sect4 do-not-use">
+<h5 id="status-code-408"><a class="link" href="#status-code-408">408 Request timeout <a href="https://tools.ietf.org/html/rfc9110#name-408-request-timeout" target="_blank" rel="noopener"><sup>RFC</sup></a> <a href="#status-code-do-not-use"><span class="status-code-hint mustnot"><span class="icon"><i class="fa fa-times"></i></span> do not use</span></a> <a href="#http-requests"><code title="Applicable to all HTTP methods.">&lt;all&gt;</code></a></a></h5>
+<div class="paragraph indent">
+<p>The server times out waiting for the request to arrive. For APIs, this should
+not be used.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="status-code-409"><a class="link" href="#status-code-409">409 Conflict <a href="https://tools.ietf.org/html/rfc9110#name-409-conflict" target="_blank" rel="noopener"><sup>RFC</sup></a> <a href="#status-code-document"><span class="status-code-hint should"><span class="icon"><i class="fa fa-check"></i></span> document</span></a> <a href="#post"><code>POST</code></a> <a href="#put"><code>PUT</code></a> <a href="#patch"><code>PATCH</code></a> <a href="#delete"><code>DELETE</code></a></a></h5>
+<div class="paragraph indent">
+<p>The request cannot be completed due to conflict with the current state of the
+target resource. For example, you may get a <a href="#status-code-409" class="status-code">409</a> response when updating a
+resource that is older than the existing one on the server, resulting in a
+version control conflict. If this is used, it <span class="must-keyword"><strong>MUST</strong></span> be documented. For
+successful robust creation of resources (<a href="#put"><code>PUT</code></a> or <a href="#post"><code>POST</code></a>) you should always
+return <a href="#status-code-200" class="status-code">200</a> or <a href="#status-code-204" class="status-code">204</a> and not <a href="#status-code-409" class="status-code">409</a>, even if the resource exists already. If any
+<code>If-*</code> headers cause a conflict, you should use <a href="#status-code-412" class="status-code">412</a> and not <a href="#status-code-409" class="status-code">409</a>. Only
+applicable to methods which change something.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="status-code-410"><a class="link" href="#status-code-410">410 Gone <a href="https://tools.ietf.org/html/rfc9110#name-410-gone" target="_blank" rel="noopener"><sup>RFC</sup></a> <a href="#status-code-do-not-document"><span class="status-code-hint shouldnot"><span class="icon"><i class="fa fa-times"></i></span> do not document</span></a> <a href="#http-requests"><code title="Applicable to all HTTP methods.">&lt;all&gt;</code></a></a></h5>
+<div class="paragraph indent">
+<p>The resource does not exist any longer (but did exist in the past), and will
+most likely not exist in the future. This can be used e.g. when accessing a
+resource that has intentionally been deleted. This normally does not need to be
+documented, unless there is a specific need to distinguish this case from the
+normal <a href="#status-code-404" class="status-code">404</a>.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="status-code-411"><a class="link" href="#status-code-411">411 Length Required <a href="https://tools.ietf.org/html/rfc9110#name-411-length-required" target="_blank" rel="noopener"><sup>RFC</sup></a> <a href="#status-code-document"><span class="status-code-hint should"><span class="icon"><i class="fa fa-check"></i></span> document</span></a> <a href="#post"><code>POST</code></a> <a href="#put"><code>PUT</code></a> <a href="#patch"><code>PATCH</code></a></a></h5>
+<div class="paragraph indent">
+<p>The server requires a <a href="https://tools.ietf.org/html/rfc9110#section-8.6"><code>Content-Length</code></a> header for this request. This is normally
+only relevant for large media uploads. The corresponding header parameter should
+be marked as required. If used, it <span class="must-keyword"><strong>MUST</strong></span> to be documented (and explained). Only
+applicable for methods with a request body.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="status-code-412"><a class="link" href="#status-code-412">412 Precondition Failed <a href="https://tools.ietf.org/html/rfc9110#name-412-precondition-failed" target="_blank" rel="noopener"><sup>RFC</sup></a> <a href="#status-code-do-not-document"><span class="status-code-hint shouldnot"><span class="icon"><i class="fa fa-times"></i></span> do not document</span></a> <a href="#put"><code>PUT</code></a> <a href="#patch"><code>PATCH</code></a> <a href="#delete"><code>DELETE</code></a></a></h5>
+<div class="paragraph indent">
+<p>Returned for conditional requests, e.g. <a href="https://tools.ietf.org/html/rfc9110#section-13.1.1"><code>If-Match</code></a> if the condition failed. Used
+for optimistic locking. Normally only applicable to methods that change
+something. For <a href="#head"><code>HEAD</code></a>/<a href="#get"><code>GET</code></a> requests, use <a href="#status-code-304" class="status-code">304</a> instead.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="status-code-415"><a class="link" href="#status-code-415">415 Unsupported Media Type <a href="https://tools.ietf.org/html/rfc9110#name-415-unsupported-media-type" target="_blank" rel="noopener"><sup>RFC</sup></a> <a href="#status-code-do-not-document"><span class="status-code-hint shouldnot"><span class="icon"><i class="fa fa-times"></i></span> do not document</span></a> <a href="#post"><code>POST</code></a> <a href="#put"><code>PUT</code></a> <a href="#patch"><code>PATCH</code></a></a></h5>
+<div class="paragraph indent">
+<p>The client did not provide a supported content-type for the request body.
+Only applicable to methods with a request body.</p>
+</div>
+</div>
+<div class="sect4 do-not-use">
+<h5 id="status-code-417"><a class="link" href="#status-code-417">417 Expectation Failed <a href="https://tools.ietf.org/html/rfc9110#name-417-expectation-failed" target="_blank" rel="noopener"><sup>RFC</sup></a> <a href="#status-code-do-not-use"><span class="status-code-hint mustnot"><span class="icon"><i class="fa fa-times"></i></span> do not use</span></a> <a href="#http-requests"><code title="Applicable to all HTTP methods.">&lt;all&gt;</code></a></a></h5>
+<div class="paragraph indent">
+<p>Returned when the client used an <a href="https://tools.ietf.org/html/rfc9110#name-expect"><code>Expect</code></a> header which the server does not
+support. The only defined value for the <a href="https://tools.ietf.org/html/rfc9110#name-expect"><code>Expect</code></a> header is very technical and
+does not belong in an API.</p>
+</div>
+</div>
+<div class="sect4 do-not-use">
+<h5 id="status-code-418"><a class="link" href="#status-code-418">418 I&#8217;m a teapot 🫖 (Unused) <a href="https://tools.ietf.org/html/rfc9110#name-418-unused" target="_blank" rel="noopener"><sup>RFC</sup></a> <a href="#status-code-do-not-use"><span class="status-code-hint mustnot"><span class="icon"><i class="fa fa-times"></i></span> do not use</span></a> <a href="#http-requests"><code title="Applicable to all HTTP methods.">&lt;all&gt;</code></a></a></h5>
+<div class="paragraph indent">
+<p>Only use if you are implementing an API for a teapot that does not support
+brewing coffee. Response defined for April&#8217;s Fools in
+<a href="https://www.rfc-editor.org/rfc/rfc2324.html">RFC 2324</a>.</p>
+</div>
+</div>
+<div class="sect4 do-not-use">
+<h5 id="status-code-422"><a class="link" href="#status-code-422">422 Unprocessable Content <a href="https://tools.ietf.org/html/rfc9110#name-422-unprocessable-content" target="_blank" rel="noopener"><sup>RFC</sup></a> <a href="#status-code-do-not-use"><span class="status-code-hint mustnot"><span class="icon"><i class="fa fa-times"></i></span> do not use</span></a> <a href="#http-requests"><code title="Applicable to all HTTP methods.">&lt;all&gt;</code></a></a></h5>
+<div class="paragraph indent">
+<p>The server understands the content type, but is unable to process the content.
+We do not recommend this code to be used as <a href="#status-code-400" class="status-code">400</a> already covers most use-cases
+and there does not seem to be a clear benefit to differentiating between them.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="status-code-423"><a class="link" href="#status-code-423">423 Locked <a href="https://tools.ietf.org/html/rfc4918#section-11.3" target="_blank" rel="noopener"><sup>RFC</sup></a> <a href="#put"><code>PUT</code></a> <a href="#patch"><code>PATCH</code></a> <a href="#delete"><code>DELETE</code></a></a></h5>
+<div class="paragraph indent">
+<p>Pessimistic locking, e.g. processing states.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="status-code-428"><a class="link" href="#status-code-428">428 Precondition Required <a href="https://tools.ietf.org/html/rfc6585#section-7.1" target="_blank" rel="noopener"><sup>RFC</sup></a> <a href="#status-code-do-not-document"><span class="status-code-hint shouldnot"><span class="icon"><i class="fa fa-times"></i></span> do not document</span></a> <a href="#http-requests"><code title="Applicable to all HTTP methods.">&lt;all&gt;</code></a></a></h5>
+<div class="paragraph indent">
+<p>Server requires the request to be conditional, e.g. to make sure that the "lost
+update problem" is avoided (see <a href="#182"><span class="may-keyword"><strong>MAY</strong></span> consider to support <code>ETag</code> together with <code>If-Match</code>/<code>If-None-Match</code> header</a>). Instead of documenting this
+response status, the required headers should be documented (and marked
+as required).</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="status-code-429"><a class="link" href="#status-code-429">429 Too many requests <a href="https://tools.ietf.org/html/rfc6585#section-7.2" target="_blank" rel="noopener"><sup>RFC</sup></a> <a href="#status-code-use"><span class="status-code-hint should"><span class="icon"><i class="fa fa-check"></i></span> use</span></a> <a href="#status-code-do-not-document"><span class="status-code-hint shouldnot"><span class="icon"><i class="fa fa-times"></i></span> do not document</span></a> <a href="#http-requests"><code title="Applicable to all HTTP methods.">&lt;all&gt;</code></a></a></h5>
+<div class="paragraph indent">
+<p>The client is not abiding by the rate limits in place and has sent too many
+requests (see <a href="#153"><span class="must-keyword"><strong>MUST</strong></span> use code 429 with headers for rate limits</a>).</p>
+</div>
+</div>
 </div>
 <div class="sect3">
-<h4 id="server-side-error-codes"><a class="link" href="#server-side-error-codes">Server side error codes:</a></h4>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 10%;">
-<col style="width: 70%;">
-<col style="width: 20%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Code</th>
-<th class="tableblock halign-left valign-top">Meaning</th>
-<th class="tableblock halign-left valign-top">Methods</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="status-code-500"></a><a href="#status-code-500" class="status-code">500</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Internal Server Error - a generic error indication for an unexpected server
-execution problem (here, client retry may be sensible)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>&lt;all&gt;</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="status-code-501"></a><a href="#status-code-501" class="status-code">501</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Not Implemented - server cannot fulfill the request (usually implies future
-availability, e.g. new feature).</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>&lt;all&gt;</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="status-code-503"></a><a href="#status-code-503" class="status-code">503</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Service Unavailable - service is (temporarily) not available (e.g. if a
+<h4 id="_server_side_error_codes"><a class="link" href="#_server_side_error_codes">Server side error codes</a></h4>
+<div class="sect4">
+<h5 id="status-code-500"><a class="link" href="#status-code-500">500 Internal Server Error <a href="https://tools.ietf.org/html/rfc9110#name-500-internal-server-error" target="_blank" rel="noopener"><sup>RFC</sup></a> <a href="#status-code-do-not-document"><span class="status-code-hint shouldnot"><span class="icon"><i class="fa fa-times"></i></span> do not document</span></a> <a href="#http-requests"><code title="Applicable to all HTTP methods.">&lt;all&gt;</code></a></a></h5>
+<div class="paragraph indent">
+<p>A generic error indication for an unexpected server
+execution problem (here, client retry may be sensible)</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="status-code-501"><a class="link" href="#status-code-501">501 Not Implemented <a href="https://tools.ietf.org/html/rfc9110#name-501-not-implemented" target="_blank" rel="noopener"><sup>RFC</sup></a> <a href="#http-requests"><code title="Applicable to all HTTP methods.">&lt;all&gt;</code></a></a></h5>
+<div class="paragraph indent">
+<p>Server cannot fulfill the request (usually implies future
+availability, e.g. new feature).</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="status-code-503"><a class="link" href="#status-code-503">503 Service Unavailable <a href="https://tools.ietf.org/html/rfc9110#name-503-service-unavailable" target="_blank" rel="noopener"><sup>RFC</sup></a> <a href="#status-code-do-not-document"><span class="status-code-hint shouldnot"><span class="icon"><i class="fa fa-times"></i></span> do not document</span></a> <a href="#http-requests"><code title="Applicable to all HTTP methods.">&lt;all&gt;</code></a></a></h5>
+<div class="paragraph indent">
+<p>Service is (temporarily) not available (e.g. if a
 required component or downstream service is not available)&#8201;&#8212;&#8201;client retry may
 be sensible. If possible, the service should indicate how long the client
-should wait by setting the <a href="https://tools.ietf.org/html/rfc9110#section-10.2.3"><code>Retry-After</code></a> header.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>&lt;all&gt;</code></p></td>
-</tr>
-</tbody>
-</table>
+should wait by setting the <a href="https://tools.ietf.org/html/rfc9110#section-10.2.3"><code>Retry-After</code></a> header.</p>
+</div>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -5763,6 +5890,42 @@ please reference <a href="https://opensource.zalando.com/restful-api-guidelines/
 and on which clients should never rely. Moreover, stack traces can leak
 sensitive information that partners and third parties are not allowed to
 receive and may disclose insights about vulnerabilities to attackers.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="251"><a class="link" href="#251"><span class="should-keyword"><strong>SHOULD</strong></span> not use redirection codes</a></h3>
+<div class="paragraph">
+<p>We generally do not recommend using redirection codes for most API cases (except
+for <a href="#status-code-304" class="status-code">304</a>, which is not really a redirection code). Usually you would use the
+redirection to migrate clients to a new service location. However, this is
+better accomplished by one of the following.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Changing the clients to use the new location in the first place, avoiding the
+need for redirection.</p>
+</li>
+<li>
+<p>Redirecting the traffic behind the API layer (e.g. in the reverse proxy or
+the app itself) without the client having to be involved.</p>
+</li>
+<li>
+<p>Deprecating the endpoint and removing it as described in <a href="#deprecation">REST Design - Deprecation</a>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>For idempotent <a href="#post"><code>POST</code></a> cases, where you want to inform the client that a resource
+already exists at a certain location, you should instead use <a href="#status-code-200" class="status-code">200</a> with the
+<a href="https://tools.ietf.org/html/rfc9110#section-10.2.2"><code>Location</code></a> header set. This is along the same lines as the creation case where
+<a href="#status-code-201" class="status-code">201</a> is used instead. See also <a href="#229"><span class="should-keyword"><strong>SHOULD</strong></span> consider to design <code>POST</code> and <code>PATCH</code> idempotent</a>.</p>
+</div>
+<div class="paragraph">
+<p>For non-idempotent <a href="#post"><code>POST</code></a> cases, where you want to inform the client that the
+resource has already been created and cannot be created again (e.g. payment),
+you should return <a href="#status-code-409" class="status-code">409</a> instead of redirecting to make the error case
+more explicit.</p>
 </div>
 </div>
 </div>
@@ -7569,7 +7732,7 @@ be extended with growing functionality. It defines an open list of explicit
 values and clients must be agnostic to new values.</p>
 </li>
 <li>
-<p>Support redirection in case a URL has to change <a href="#status-code-301" class="status-code">301</a> (Moved Permanently).</p>
+<p>Consider <a href="#250"><span class="should-keyword"><strong>SHOULD</strong></span> be aware of services not fully supporting JSON/unicode</a> in case a URL has to change.</p>
 </li>
 </ul>
 </div>
@@ -7779,7 +7942,7 @@ the HTTP <code>Content-Type</code> and <code>Accept</code> headers.</p>
 <table>
 <tr>
 <td class="icon">
-<div class="title">Note</div>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
 This versioning method only applies to
@@ -7855,7 +8018,7 @@ between versions</p>
 <table>
 <tr>
 <td class="icon">
-<div class="title">Note</div>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
 Until an incompatible change is necessary, it is recommended to stay
@@ -10453,7 +10616,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-10-17 13:32:59 UTC
+Last updated 2023-10-18 09:09:03 UTC
 </div>
 </div>
 </body>

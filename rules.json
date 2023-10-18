@@ -567,6 +567,10 @@
     {
       "id": "#250",
       "title": "SHOULD be aware of services not fully supporting JSON/unicode"
+    },
+    {
+      "id": "#251",
+      "title": "SHOULD not use redirection codes"
     }
   ]
 }
