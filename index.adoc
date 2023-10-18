@@ -5,6 +5,7 @@
 :leveloffset: +1
 :sectlinks:
 :sectnumlevels: 1
+:icons: font
 
 :creator: Zalando SE
 :producer: Asciidoctor
@@ -28,6 +29,7 @@
 :RFC-4291: https://tools.ietf.org/html/rfc4291
 :RFC-4627: https://tools.ietf.org/html/rfc4627
 :RFC-4648: https://tools.ietf.org/html/rfc4648
+:RFC-4918: https://tools.ietf.org/html/rfc4918
 :RFC-5322: https://tools.ietf.org/html/rfc5322
 :RFC-5789: https://tools.ietf.org/html/rfc5789
 :RFC-5890: https://tools.ietf.org/html/rfc5890
@@ -107,7 +109,7 @@
 :HEAD: pass:[<a href="#head"><code>HEAD</code></a>]
 :OPTIONS: pass:[<a href="#options"><code>OPTIONS</code></a>]
 :TRACE: pass:[<a href="#trace"><code>TRACE</code></a>]
-:ALL: pass:[<code>&lt;all&gt;</code>]
+:ALL: pass:[<a href="#http-requests"><code title="Applicable to all HTTP methods.">&lt;all&gt;</code></a>]
 
 
 // Attributes to improve design and linking of HTTP status codes
@@ -120,10 +122,15 @@
 :201: pass:[<a href="#status-code-201" class="status-code">201</a>]
 :202: pass:[<a href="#status-code-202" class="status-code">202</a>]
 :204: pass:[<a href="#status-code-204" class="status-code">204</a>]
+:205: pass:[<a href="#status-code-205" class="status-code">205</a>]
+:206: pass:[<a href="#status-code-206" class="status-code">206</a>]
 :207: pass:[<a href="#status-code-207" class="status-code">207</a>]
 :301: pass:[<a href="#status-code-301" class="status-code">301</a>]
+:302: pass:[<a href="#status-code-302" class="status-code">302</a>]
 :303: pass:[<a href="#status-code-303" class="status-code">303</a>]
 :304: pass:[<a href="#status-code-304" class="status-code">304</a>]
+:307: pass:[<a href="#status-code-307" class="status-code">307</a>]
+:308: pass:[<a href="#status-code-308" class="status-code">308</a>]
 :400: pass:[<a href="#status-code-400" class="status-code">400</a>]
 :401: pass:[<a href="#status-code-401" class="status-code">401</a>]
 :403: pass:[<a href="#status-code-403" class="status-code">403</a>]
@@ -133,14 +140,105 @@
 :408: pass:[<a href="#status-code-408" class="status-code">408</a>]
 :409: pass:[<a href="#status-code-409" class="status-code">409</a>]
 :410: pass:[<a href="#status-code-410" class="status-code">410</a>]
+:411: pass:[<a href="#status-code-411" class="status-code">411</a>]
 :412: pass:[<a href="#status-code-412" class="status-code">412</a>]
 :415: pass:[<a href="#status-code-415" class="status-code">415</a>]
+:417: pass:[<a href="#status-code-417" class="status-code">417</a>]
+:418: pass:[<a href="#status-code-418" class="status-code">418</a>]
+:422: pass:[<a href="#status-code-422" class="status-code">422</a>]
 :423: pass:[<a href="#status-code-423" class="status-code">423</a>]
 :428: pass:[<a href="#status-code-428" class="status-code">428</a>]
 :429: pass:[<a href="#status-code-429" class="status-code">429</a>]
 :500: pass:[<a href="#status-code-500" class="status-code">500</a>]
 :501: pass:[<a href="#status-code-501" class="status-code">501</a>]
 :503: pass:[<a href="#status-code-503" class="status-code">503</a>]
+
+// See http-status-codes-and-errors.adoc for explanation
+:use: pass:quotes[link:#status-code-use[[.status-code-hint.should]#icon:check[] use#]]
+:do-not-use: pass:quotes[link:#status-code-do-not-use[[.status-code-hint.mustnot]#icon:times[] do not use#]]
+:document: pass:quotes[link:#status-code-document[[.status-code-hint.should]#icon:check[] document#]]
+:do-not-document: pass:quotes[link:#status-code-do-not-document[[.status-code-hint.shouldnot]#icon:times[] do not document#]]
+
+// RFC Links
+// 
+// The RFC links below were generated using JavaScript snippets. You can
+// regenerate them by opening the corresponding RFC website, opening the browser
+// dev tools (Ctrl+Shift+I or F12) and pasting in the JavaScript one-liner in
+// the Console. It should print out the definitions below.
+
+// 
+// RFC 9110 - https://www.rfc-editor.org/rfc/rfc9110.html
+// 
+// See "RFC Links" above for instructions.
+// console.log(Array.from(document.querySelectorAll('.section-name[href^="#name-"]')).map(s => ({ m: s.innerText.match(/^(\d{3}) (.*)/), href: s.attributes["href"].value })).filter(c => c.m).map(c => `:rfc-status-${c.m[1]}: pass:quotes,attributes[{RFC-9110}${c.href}[^RFC^^]]`).join("\n"))
+:rfc-status-100: pass:quotes,attributes[{RFC-9110}#name-100-continue[^RFC^^]]
+:rfc-status-101: pass:quotes,attributes[{RFC-9110}#name-101-switching-protocols[^RFC^^]]
+:rfc-status-200: pass:quotes,attributes[{RFC-9110}#name-200-ok[^RFC^^]]
+:rfc-status-201: pass:quotes,attributes[{RFC-9110}#name-201-created[^RFC^^]]
+:rfc-status-202: pass:quotes,attributes[{RFC-9110}#name-202-accepted[^RFC^^]]
+:rfc-status-203: pass:quotes,attributes[{RFC-9110}#name-203-non-authoritative-infor[^RFC^^]]
+:rfc-status-204: pass:quotes,attributes[{RFC-9110}#name-204-no-content[^RFC^^]]
+:rfc-status-205: pass:quotes,attributes[{RFC-9110}#name-205-reset-content[^RFC^^]]
+:rfc-status-206: pass:quotes,attributes[{RFC-9110}#name-206-partial-content[^RFC^^]]
+:rfc-status-300: pass:quotes,attributes[{RFC-9110}#name-300-multiple-choices[^RFC^^]]
+:rfc-status-301: pass:quotes,attributes[{RFC-9110}#name-301-moved-permanently[^RFC^^]]
+:rfc-status-302: pass:quotes,attributes[{RFC-9110}#name-302-found[^RFC^^]]
+:rfc-status-303: pass:quotes,attributes[{RFC-9110}#name-303-see-other[^RFC^^]]
+:rfc-status-304: pass:quotes,attributes[{RFC-9110}#name-304-not-modified[^RFC^^]]
+:rfc-status-305: pass:quotes,attributes[{RFC-9110}#name-305-use-proxy[^RFC^^]]
+:rfc-status-306: pass:quotes,attributes[{RFC-9110}#name-306-unused[^RFC^^]]
+:rfc-status-307: pass:quotes,attributes[{RFC-9110}#name-307-temporary-redirect[^RFC^^]]
+:rfc-status-308: pass:quotes,attributes[{RFC-9110}#name-308-permanent-redirect[^RFC^^]]
+:rfc-status-400: pass:quotes,attributes[{RFC-9110}#name-400-bad-request[^RFC^^]]
+:rfc-status-401: pass:quotes,attributes[{RFC-9110}#name-401-unauthorized[^RFC^^]]
+:rfc-status-402: pass:quotes,attributes[{RFC-9110}#name-402-payment-required[^RFC^^]]
+:rfc-status-403: pass:quotes,attributes[{RFC-9110}#name-403-forbidden[^RFC^^]]
+:rfc-status-404: pass:quotes,attributes[{RFC-9110}#name-404-not-found[^RFC^^]]
+:rfc-status-405: pass:quotes,attributes[{RFC-9110}#name-405-method-not-allowed[^RFC^^]]
+:rfc-status-406: pass:quotes,attributes[{RFC-9110}#name-406-not-acceptable[^RFC^^]]
+:rfc-status-407: pass:quotes,attributes[{RFC-9110}#name-407-proxy-authentication-re[^RFC^^]]
+:rfc-status-408: pass:quotes,attributes[{RFC-9110}#name-408-request-timeout[^RFC^^]]
+:rfc-status-409: pass:quotes,attributes[{RFC-9110}#name-409-conflict[^RFC^^]]
+:rfc-status-410: pass:quotes,attributes[{RFC-9110}#name-410-gone[^RFC^^]]
+:rfc-status-411: pass:quotes,attributes[{RFC-9110}#name-411-length-required[^RFC^^]]
+:rfc-status-412: pass:quotes,attributes[{RFC-9110}#name-412-precondition-failed[^RFC^^]]
+:rfc-status-413: pass:quotes,attributes[{RFC-9110}#name-413-content-too-large[^RFC^^]]
+:rfc-status-414: pass:quotes,attributes[{RFC-9110}#name-414-uri-too-long[^RFC^^]]
+:rfc-status-415: pass:quotes,attributes[{RFC-9110}#name-415-unsupported-media-type[^RFC^^]]
+:rfc-status-416: pass:quotes,attributes[{RFC-9110}#name-416-range-not-satisfiable[^RFC^^]]
+:rfc-status-417: pass:quotes,attributes[{RFC-9110}#name-417-expectation-failed[^RFC^^]]
+:rfc-status-418: pass:quotes,attributes[{RFC-9110}#name-418-unused[^RFC^^]]
+:rfc-status-421: pass:quotes,attributes[{RFC-9110}#name-421-misdirected-request[^RFC^^]]
+:rfc-status-422: pass:quotes,attributes[{RFC-9110}#name-422-unprocessable-content[^RFC^^]]
+:rfc-status-426: pass:quotes,attributes[{RFC-9110}#name-426-upgrade-required[^RFC^^]]
+:rfc-status-500: pass:quotes,attributes[{RFC-9110}#name-500-internal-server-error[^RFC^^]]
+:rfc-status-501: pass:quotes,attributes[{RFC-9110}#name-501-not-implemented[^RFC^^]]
+:rfc-status-502: pass:quotes,attributes[{RFC-9110}#name-502-bad-gateway[^RFC^^]]
+:rfc-status-503: pass:quotes,attributes[{RFC-9110}#name-503-service-unavailable[^RFC^^]]
+:rfc-status-504: pass:quotes,attributes[{RFC-9110}#name-504-gateway-timeout[^RFC^^]]
+:rfc-status-505: pass:quotes,attributes[{RFC-9110}#name-505-http-version-not-suppor[^RFC^^]]
+
+// 
+// RFC 4918 - https://www.rfc-editor.org/rfc/rfc4918
+// 
+// Codes superseded by RFC 9110 were omitted.
+// 
+// See "RFC Links" above for instructions.
+// console.log(Array.from(document.querySelectorAll('.h3')).map(s => ({ m: s.innerText.match(/\S+\s+(\d{3}) .*/), href: s.querySelector("a").attributes["href"].value })).filter(c => c.m).map(c => `:rfc-status-${c.m[1]}: pass:quotes,attributes[{RFC-4918}${c.href}[^RFC^^]]`).join("\n")) 
+:rfc-status-207: pass:quotes,attributes[{RFC-4918}#section-11.1[^RFC^^]]
+:rfc-status-423: pass:quotes,attributes[{RFC-4918}#section-11.3[^RFC^^]]
+:rfc-status-424: pass:quotes,attributes[{RFC-4918}#section-11.4[^RFC^^]]
+:rfc-status-507: pass:quotes,attributes[{RFC-4918}#section-11.5[^RFC^^]]
+
+// 
+// RFC 6585 - https://www.rfc-editor.org/rfc/rfc6585#section-3
+// 
+// See "RFC Links" above for instructions.
+// console.log(Array.from(document.querySelectorAll('.h3')).map(s => ({ m: s.innerText.match(/\S+\s+(\d{3}) .*/), href: s.querySelector("a") })).filter(c => c.m).map(c => `:rfc-status-${c.m[1]}: pass:quotes[${c.href}[^RFC^^]]`).join("\n"))
+:rfc-status-428: pass:quotes,attributes[{RFC-6585}#section-7.1[^RFC^^]]
+:rfc-status-429: pass:quotes,attributes[{RFC-6585}#section-7.2[^RFC^^]]
+:rfc-status-431: pass:quotes,attributes[{RFC-6585}#section-7.3[^RFC^^]]
+:rfc-status-511: pass:quotes,attributes[{RFC-6585}#section-7.4[^RFC^^]]
 
 // Attributes to improve common query parameters.
 :q: pass:[<a href="#q"><code>q</code></a>]
@@ -203,6 +301,8 @@
 :Accept-Encoding: pass:[<a href="https://tools.ietf.org/html/rfc9110#section-12.5.3"><code>Accept-Encoding</code></a>]
 :Accept-Language: pass:[<a href="https://tools.ietf.org/html/rfc9110#section-12.5.4"><code>Accept-Language</code></a>]
 
+:Expect: pass:[<a href="https://tools.ietf.org/html/rfc9110#name-expect"><code>Expect</code></a>]
+
 :Content-Type: pass:[<a href="https://tools.ietf.org/html/rfc9110#section-8.3"><code>Content-Type</code></a>]
 :Content-Encoding: pass:[<a href="https://tools.ietf.org/html/rfc9110#section-8.4"><code>Content-Encoding</code></a>]
 :Content-Language: pass:[<a href="https://tools.ietf.org/html/rfc9110#section-8.5"><code>Content-Language</code></a>]
@@ -235,7 +335,7 @@
 
 
 = Zalando RESTful API and Event Guidelines
-link:https://github.com/zalando/restful-api-guidelines[Github Repository] as part of 
+link:https://github.com/zalando/restful-api-guidelines[GitHub Repository] as part of 
 link:https://opensource.zalando.com/[Zalando SE Opensource]
 
 image::assets/api-zalando-small.jpg[API Guild Logo]

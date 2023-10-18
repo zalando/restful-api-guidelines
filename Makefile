@@ -9,7 +9,7 @@ DIRWORK := $(shell pwd -P)
 
 .PHONY: all clean install lint format pull assets rules html pdf epub force
 .PHONY: check check-rules check-rules-duplicates check-rules-incorrects
-.PHONY: next-rule-id
+.PHONY: next-rule-id watch
 
 all: clean html rules
 clean:
@@ -65,6 +65,9 @@ $(DIRINCLUDES): models/headers-1.0.0.yaml $(DIRSCRIPTS)/generate-includes.sh
 html: $(DIRINCLUDES) check assets pull
 	docker run -v $(DIRWORK):$(DIRMOUNTS)/ ${DOCKER} asciidoctor \
 	  -D $(DIRMOUNTS)/$(DIRBUILDS) index.adoc;
+
+watch:
+	watchexec --exts adoc,css --ignore output -r make html
 
 # Not used any longer.
 pdf: $(DIRINCLUDES) check pull

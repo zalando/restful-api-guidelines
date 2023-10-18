@@ -20,6 +20,59 @@
   font-weight: bold;
 }
 
+/* HTTP Status Codes custom text span syntax / roles / highlight */
+.status-code-hint {
+  border-radius: 4px;
+  border-width: 2px;
+  border-style: solid;
+  padding: 4px 2px 0px 2px;
+  font-size: 0.8em;
+}
+
+.status-code-hint.mustnot {
+  color: white;
+  background-color: red;
+  border-color: red;
+}
+
+.status-code-hint.should {
+  color: white;
+  background-color: rgb(50, 192, 50);
+  border-color: rgb(50, 192, 50);
+}
+
+.status-code-hint.shouldnot {
+  color: #595959;
+  background-color: rgb(229, 232, 45);
+  border-color: rgb(229, 232, 45);
+}
+
+.status-code-hint.may {
+  color: white;
+  background-color: rgb(105, 105, 245);
+  border-color: rgb(105, 105, 245);
+}
+
+.status-code-methods {
+  border-radius: 4px;
+  border-width: 2px;
+  border-style: solid;
+  padding: 4px 2px 0px 2px;
+  font-size: 0.8em;
+}
+
+.do-not-use {
+  color: gray;
+}
+
+.do-not-use h5 > a {
+  color: gray;
+}
+
+.indent {
+  padding-left: 4rem;
+}
+
 .sect1 {
   max-width: 45em;
 }
