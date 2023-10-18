@@ -602,7 +602,7 @@ and on which clients should never rely. Moreover, stack traces can leak
 sensitive information that partners and third parties are not allowed to
 receive and may disclose insights about vulnerabilities to attackers.
 
-[#250]
+[#251]
 == {SHOULD} not use redirection codes
 
 We generally do not recommend using redirection codes for most API cases (except
