@@ -444,8 +444,11 @@ the escaping of special characters and the maximal URL length.
 
 We prefer the use of query parameters to describe resource-specific
 query languages for the majority of APIs because it's native to HTTP,
-easy to extend and has excellent implementation support in HTTP clients
+easy to extend and has an excellent implementation support in HTTP clients
 and web frameworks.
+
+By simple query language we mean one or more name-value pairs that are combined
+in one way only with `and` semantics.
 
 Query parameters should have the following aspects specified:
 
@@ -454,16 +457,62 @@ Query parameters should have the following aspects specified:
 * Comparison semantics (equals, less than, greater than, etc)
 * Implications when combined with other queries, e.g. _and_ vs. _or_
 
-How query parameters are named and used is up to individual API designers.
-The following examples should serve as ideas:
+How query parameters are named and used is up to individual API designers, here
+are a few tips that could help to decide whether to use simple or more complex
+query language:
+1. Consider using simple query language when API is built to be used
+   by others (external teams):
 
-* `name=Zalando`, to query for elements based on property equality
-* `age=5`, to query for elements based on logical properties
-**  Assuming that elements don't actually have an `age` but rather a `birthday`
-* `max_length=5`, based on upper and lower bounds (`min` and `max`)
-* `shorter_than=5`, using terminology specific e.g. to _length_
-* `created_before=2019-07-17` or `not_modified_since=2019-07-17`
-** Using terminology specific e.g. to time: _before_, _after_, _since_ and _until_
+   * no additional effort/logic to form the query
+   * no ambiguity in meaning of the query parameters. For example
+     in `GET /items?user_id=gt:100`, is `user_id` greater than `100` or
+    is `user_id` equal to `gt:100`?
+   * easy to read, no learning curve
+
+2. For internal usage or specific use case a more complex query language
+  can be used (such as `price gt 10` or `price[gt]=10` or `price>10` etc.).
+  Also please consider following <<237, our guidance>> for designing complex
+  query languages with JSON.
+
+The following examples should serve as ideas for simple query language:
+
+=== Equals
+
+* `name=Zalando`, `creation_year=2023`, `updated_by=user1` (query elements
+  based on property equality)
+* `created_at=2023-09-18T12:12:00.000Z`, `sort=id:desc` (query elements
+  based on logical properties)
+* `color=red,green,blue,multicolored` (query elements based on multiple
+  choice possibility)
+** for these type of filters, consider to use <<237,guidance>> to have
+   smth like `filters={"color":["red","green","blue"]}`.
+
+=== Less than
+
+* `max_length=5` - query elements based on upper/lower bounds (`min` and `max`)
+* `shorter_than=5` - query elements using terminology specific e.g. to _length_
+* `price_lower_than=50` or `price_lower_than_or_equal=50`
+* `created_before=2019-07-17` or `active_until=2023-09-18T12:12:00.000Z`
+** Using terminology specific to time: _before_, _after_, _since_ and _until_
+
+=== More than
+
+* `min_length=2` - query elements based on upper/lower bounds (`min` and `max`)
+* `created_after=2019-07-17` or `modified_since=2019-07-17`
+** Using terminology specific to time: _before_, _after_, _since_ and _until_
+* `price_higher_than=50` or `price_equal_or_higher_than=50`
+
+=== Pagination
+
+* `offset=10` and `limit=5` (query elements for pagination regardless
+  customer sorting)
+* `limit=5` and `created_after=2019-07-17` (query elements for
+  keyset pagination)
+** when sorting is in place and new elements are inserted, it prevents showing
+   repeated/missing results due to offset shift.
+
+Please check <<137, conventional query parameters for pagination and sorting>>
+and you can also find additional info in <<pagination>> section below.
 
 We don't advocate for or against certain names because in the end
 APIs should be free to choose the terminology that fits their domain the best.
