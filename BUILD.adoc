@@ -1,9 +1,50 @@
 = Build
 
-== Build HTML site, PDF and EPUB3 locally
+== Build and test HTML site
+
 [source,bash]
 ----
 make all
+----
+
+**Note:** While we have removed the `epub` and `pdf` from our published pages,
+the targets are still available for experimenting.
+
+Since http://asciidoctor.org/docs[asciidoctor] does not support a linter yet,
+we have setup https://unpkg.com/browse/markdownlint-cli@0.27.1/README.md[markdownlint]
+as an experiment to support coding standards. To install and check for
+violations use
+
+[source,bash]
+----
+make lint
+----
+
+If linting with the suggested rules proves helpful we will integrate this
+target into the a `pre-commit`-hook to enforce a common style and append it
+to the `all`-target.
+
+**Note:** We have currently not tested the capability of `markdownlint` (or
+`make format`) to fix linter violations.
+
+== Watch for changes and rebuild
+
+[source,bash]
+----
+make watch
+----
+
+It uses https://github.com/watchexec/watchexec[watchexec] to watch for
+changes in the `.adoc` (and `.css`) files to rebuild the html on save.
+
+== Find next Rule ID
+
+If you want to create a new rule, you need to define a new rule identifier. Use
+the following command to find the next unused rule identifier.
+
+[source,bash]
+----
+make next-rule-id
 ----
 
 == Watch for changes and rebuild
@@ -18,9 +59,11 @@ changes in the `.adoc` (and `.css`) files to rebuild the html on save.
 
 == Generate Custom CSS
 
-In order to generate custom CSS we have to use http://asciidoctor.org/docs/user-manual/#stylesheet-factory[`stylesheet-factory`]
+In order to generate custom CSS we have to use
+http://asciidoctor.org/docs/user-manual/#stylesheet-factory[`stylesheet-factory`]
 
-This script clones the factory repository, installs the dependencies and generates CSS based in the `zalando.scss`
+This script clones the factory repository, installs the dependencies and
+generates CSS based in the `zalando.scss`
 
 [source,bash]
 ----

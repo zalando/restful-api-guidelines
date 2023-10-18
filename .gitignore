@@ -1,6 +1,7 @@
 .project
 .sass-cache/
 output/
+includes/
 .project
 .idea
 .metals

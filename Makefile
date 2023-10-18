@@ -4,22 +4,24 @@ DIRMOUNTS := /documents
 DIRCONTENTS := chapters
 DIRSCRIPTS := scripts
 DIRBUILDS := output
+DIRINCLUDES := includes
 DIRWORK := $(shell pwd -P)
 
 .PHONY: all clean install lint format pull assets rules html pdf epub force
 .PHONY: check check-rules check-rules-duplicates check-rules-incorrects
 .PHONY: next-rule-id watch
 
-all: clean html pdf epub rules
+all: clean html rules
 clean:
-	rm -rf $(DIRBUILDS);
+	rm -rf $(DIRBUILDS) $(DIRINCLUDES);
 
-install:
-	npm install -g markdownlint-cli;
-lint:
-	markdownlint --config linter.yaml chapters/*.adoc;
-format:
-	markdownlint --config linter.yaml --fix chapters/*.adoc;
+install: $(NVM_BIN)/markdownlint
+$(NVM_BIN)/markdownlint:
+	npm install --global markdownlint-cli;
+lint: $(NVM_BIN)/markdownlint
+	markdownlint --config .markdownlint.yaml chapters/*.adoc;
+format: $(NVM_BIN)/markdownlint
+	markdownlint --config .markdownlint.yaml --fix chapters/*.adoc;
 
 pull:
 	docker pull $(DOCKER);
@@ -52,27 +54,31 @@ assets:
 	cp -r assets $(DIRBUILDS)/;
 	cp -r models $(DIRBUILDS)/;
 	cp -r models/{problem-1.0.{0,1},money-1.0.0}.yaml $(DIRBUILDS);
-	cp -r -n legacy/* $(DIRBUILDS);
 
 rules: check-rules
 	$(DIRSCRIPTS)/generate-rules-json.sh  | \
 	  jq -s '{rules: . | sort}' | tee $(DIRBUILDS)/rules >$(DIRBUILDS)/rules.json;
 
-html: check assets pull
+$(DIRINCLUDES): models/headers-1.0.0.yaml $(DIRSCRIPTS)/generate-includes.sh
+	mkdir -p $(DIRINCLUDES); $(DIRSCRIPTS)/generate-includes.sh "$(DIRINCLUDES)";
+
+html: $(DIRINCLUDES) check assets pull
 	docker run -v $(DIRWORK):$(DIRMOUNTS)/ ${DOCKER} asciidoctor \
 	  -D $(DIRMOUNTS)/$(DIRBUILDS) index.adoc;
 
 watch:
 	watchexec --exts adoc,css --ignore output -r make html
 
-pdf: check pull
+# Not used any longer.
+pdf: $(DIRINCLUDES) check pull
 	docker run -v $(DIRWORK):$(DIRMOUNTS)/ ${DOCKER} asciidoctor-pdf -v \
 		-a pdf-fontsdir=$(DIRMOUNTS)/resources/fonts \
 		-a pdf-theme=$(DIRMOUNTS)/resources/themes/pdf-theme.yml \
 	  -D $(DIRMOUNTS)/$(DIRBUILDS) index.adoc;
 	mv -f $(DIRBUILDS)/index.pdf $(DIRBUILDS)/zalando-guidelines.pdf;
 
-epub: check pull
+# Not used any longer.
+epub: $(DIRINCLUDES) check pull
 	docker run -v $(DIRWORK):$(DIRMOUNTS)/ ${DOCKER} asciidoctor-epub3 \
 	  -D $(DIRMOUNTS)/$(DIRBUILDS) index.adoc;
 	mv -f $(DIRBUILDS)/index.epub $(DIRBUILDS)/zalando-guidelines.epub;

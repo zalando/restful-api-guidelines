@@ -31,16 +31,46 @@ Each of these items is described in greater detail below.
 [#156]
 == {SHOULD} use `gzip` compression
 
-Compress the payload of your API’s responses with gzip, unless there’s a good
-reason not to — for example, you are serving so many requests that the time to
-compress becomes a bottleneck. This helps to transport data faster over the
-network (fewer bytes) and makes frontends respond faster.
+A servers and clients should support `gzip` content encoding to reduce the data
+transported over the network and thereby speed up response times, unless there
+is a good reason against this. Good reasons against compression are:
 
-Though gzip compression might be the default choice for server payload, the
-server should also support payload without compression and its client control
-via {Accept-Encoding} request header -- see also {RFC-7231}#section-5.3.4[RFC
-7231 Section 5.3.4]. The server should indicate used gzip compression via the
-{Content-Encoding} header.
+1. The content is already compressed, or
+2. The server has not enough resources to support compression.
+
+While `gzip` content encoding should be the default, servers must also support
+unencoded content for testing. This is ensured by content negotiation using the
+{Accept-Encoding} request header (see {RFC-9110}#section-12.5.3[RFC 9110
+Section 12.5.3]). Successful compression is signaled via the {Content-Encoding}
+response header (see {RFC-9110}#section-8.4[RFC 9110 Section 8.4]). Clients and
+servers may support other compression algorithms as `compress`, `deflate`, or
+`br`.
+
+To signal server support for compression the API specification should define
+both, the {Accept-Encoding} request header and the {Content-Encoding} response
+header. This can be done by simply referencing the standard header definitions
+as follows (see also the default definition below):
+
+[source,yaml]
+----
+components:
+  parameters|headers:
+    Accept-Encoding:
+      $ref: 'https://opensource.zalando.com/restful-api-guidelines/models/headers-1.0.0.yaml#/Accept-Encoding'
+    Content-Encoding:
+      $ref: 'https://opensource.zalando.com/restful-api-guidelines/models/headers-1.0.0.yaml#/Content-Encoding'
+----
+
+[source,yaml]
+----
+include::../includes/accept-encoding.yaml[]
+include::../includes/content-encoding.yaml[line=3..-1]
+----
+
+*Note:* since most server and client frameworks still **do not** support
+`gzip`-compression *out-of-the-box* you need to manually activate it, e.g.
+https://www.callicoder.com/configuring-spring-boot-application/#enabling-gzip-compression-in-spring-boot[Spring Boot],
+or add a dedicated middleware, e.g. https://github.com/gin-contrib/gzip#usage[gin-gionic/gin].
 
 
 [#157]
@@ -128,7 +158,7 @@ https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form[BNF] grammar.
 <negation>          ::= "!"
 ----
 
-**Note:** Following the
+*Note:* Following the
 https://en.wikipedia.org/wiki/Principle_of_least_astonishment[principle of
 least astonishment], you should not define the {fields} query parameter using
 a default value, as the result is counter-intuitive and very likely not
@@ -182,23 +212,24 @@ GET /order/123?embed=(items) HTTP/1.1
 Caching has to take many aspects into account, e.g. general <<cacheable,
 cacheability>> of response information, our guideline to protect endpoints
 using SSL and <<104, OAuth authorization>>, resource update and invalidation
-rules, existence of multiple consumer instances. As a consequence, caching is
-in best case complex, e.g. with respect to consistency, in worst case
-inefficient.
+rules, existence of multiple consumer instances. Caching is in best case
+complex, e.g. with respect to consistency, in worst case inefficient.
 
 As a consequence, client side as well as transparent web caching should be
 avoided, unless the service supports and requires it to protect itself, e.g.
 in case of a heavily used and therefore rate limited master data service, i.e.
 data items that rarely or not at all change after creation.
 
-As default, API providers and consumers should always set the {Cache-Control}
-header set to {Cache-Control-no-store} and assume the same setting, if no
-{Cache-Control} header is provided.
+As default, servers and clients should always set the {Cache-Control} header
+to {Cache-Control-no-store} and assume the same setting, if no {Cache-Control}
+header is provided.
 
-**Note:** There is no need to document this default setting. However, please
-make sure that your framework is attaching this header value by default, or
-ensure this manually, e.g. using the best practice of Spring Security as shown
-below. Any setup deviating from this default must be sufficiently documented.
+*Note:* There is no need to document this default setting. However, please make
+sure that your framework is attaching these header values by default, or ensure
+this manually, e.g. using the best practice of
+https://www.baeldung.com/spring-security-cache-control-headers[Spring Security]
+as shown below. Any setup deviating from this default must be sufficiently
+documented.
 
 [source,http]
 ----
@@ -217,63 +248,49 @@ following rules:
   caching boundaries, i.e. time-to-live and cache constraints, by providing
   sensible values for {Cache-Control} and {Vary} in your service. We will
   explain best practices below.
-* [[cache-support-patterns]]Provide efficient methods to warm up and update
-  caches, e.g. as follows:
-** In general, you should support <<182, `ETag` Together With `If-Match`/
-   `If-None-Match` Header>> on all <<cacheable>> endpoints.
-** For larger data items support {HEAD} requests or more efficient {GET}
-   requests with {If-None-Match} header to check for updates.
-** For small data sets provide full collection {GET} requests supporting
-   {ETag}, as well as {HEAD} requests or {GET} requests with {If-None-Match}
-   to check for updates.
-** For medium sized data sets provide full collection {GET} requests supporting
-   {ETag} together with <<pagination>> and {entity-tag} filtering {GET} requests
-   for limiting the response to changes since the provided {entity-tag}. *Note:*
-   this is not supported by generic client and proxy caches on HTTP layer.
+* Provide efficient methods to warm up and update caches (see ).
 
-*Hint:* For proper cache support, you must return {304} without content on a
-failed {HEAD} or {GET} request with  <<182, `If-None-Match: <entity-tag>`>> instead
-of {412}.
+Usually, you can reuse the standard {Cache-Control}, {Vary}, and {ETag}
+response header definitions provided by the guideline as follows:
 
 [source,yaml]
 ----
 components:
-  headers:
-  - Cache-Control:
-      description: |
-        The RFC 7234 Cache-Control header field is providing directives to
-        control how proxies and clients are allowed to cache responses results
-        for performance. Clients and proxies are free to not support caching of
-        results, however if they do, they must obey all directives mentioned in
-        [RFC-7234 Section 5.2.2](https://tools.ietf.org/html/rfc7234) to the
-        word.
-
-        In case of caching, the directive provides the scope of the cache
-        entry, i.e. only for the original user (private) or shared between all
-        users (public), the lifetime of the cache entry in seconds (max-age),
-        and the strategy how to handle a stale cache entry (must-revalidate).
-        Please note, that the lifetime and validation directives for shared
-        caches are different (s-maxage, proxy-revalidate).
-
-      type: string
-      required: false
-      example: "private, must-revalidate, max-age=300"
-
-  - Vary:
-      description: |
-        The RFC 7231 Vary header field in a response defines which parts of
-        a request message, aside the target URL and HTTP method, might have
-        influenced the response. A client or proxy cache must respect this
-        information, to ensure that it delivers the correct cache entry (see
-        [RFC-7231 Section
-        7.1.4](https://tools.ietf.org/html/rfc7231#section-7.1.4)).
-
-      type: string
-      required: false
-      example: "accept-encoding, accept-language"
+  parameters|headers:
+    Accept-Encoding:
+      $ref: 'https://opensource.zalando.com/restful-api-guidelines/models/headers-1.0.0.yaml#/Cache-Control'
+    Content-Encoding:
+      $ref: 'https://opensource.zalando.com/restful-api-guidelines/models/headers-1.0.0.yaml#/Vary'
+    ETag:
+      $ref: 'https://opensource.zalando.com/restful-api-guidelines/models/headers-1.0.0.yaml#/ETag'
 ----
 
-*Hint:* For {ETag} source see <<182>>.
+See also <<182>>.
+
+[[cache-support-patterns]]
+=== Cache Support Patterns
+
+To make best use of caching in micro service environments you need to provide
+efficient methods to warm up and update caches, e.g. as follows:
+
+* In general, you should support <<182, `ETag` Together With `If-Match`/
+  `If-None-Match` Header>> on all <<cacheable>> endpoints.
+* For larger data items you should support {HEAD} requests or more a bit more
+  efficient {GET} requests with {If-None-Match} header to check for updates.
+* For small data sets you should provide a *get full collection* {GET} endpoint
+  that supports an {ETag} for the collection in combination with a {HEAD} or
+  {GET} requests with {If-None-Match} to check for updates.
+* For medium sized data sets provide a *get full collection* {GET} endpoint
+  that supports an {ETag} for the collection in combination with <<pagination>>
+  and {entity-tag} filtering {GET} requests for limiting the response to
+  changes since the provided {entity-tag}. *Note:* this is not supported by
+  generic client and proxy caches on HTTP layer.
+
+*Hint:* For proper cache support, you must return {304} without content on a
+failed {HEAD} or {GET} request with  <<182, `If-None-Match: <entity-tag>`>>
+instead of {412}. For {ETag} see also <<182>>.
+
+==== Default Header Values
 
 The default setting for {Cache-Control} should contain the `private` directive
 for endpoints with standard <<104, OAuth authorization>>, as well as the
@@ -287,11 +304,10 @@ rate of your master data and your requirements to keep clients consistent.
 Cache-Control: private, must-revalidate, max-age=300
 ----
 
-The default setting for {Vary} is harder to determine correctly. It highly
-depends on the API endpoint, e.g. whether it supports compression, accepts
-different media types, or requires other request specific headers. To support
-correct caching you have to carefully choose the value. However, a good first
-default may be:
+The default setting for {Vary} is harder to determine correctly. It depends on
+the API endpoint, e.g. whether it supports compression, accepts different media
+types, or requires other request specific headers. To support correct caching
+you have to carefully choose the value. However, a good first default may be:
 
 [source,http]
 ----
@@ -301,13 +317,15 @@ Vary: accept, accept-encoding
 Anyhow, this is only relevant, if you encourage clients to install generic
 HTTP layer client and proxy caches.
 
-*Note:* generic client and proxy caching on HTTP level is hard to configure.
-Therefore, we strongly recommend to attach the (possibly distributed) cache
-directly to the service (or gateway) layer of your application. This relieves
-from interpreting the {vary} header and greatly simplifies interpreting the
-{Cache-Control} and {ETag} headers. Moreover, is highly efficient with respect
-to caching performance and overhead, and allows to support more
+==== Caching strategy
+
+Generic client and proxy caching on HTTP level is hard to configure. Therefore,
+we strongly recommend to attach the (possibly distributed) cache directly to
+the service (or gateway) layer of your application. This relieves the service
+from interpreting the {vary} header and greatly simplifies the usage patterns
+of the {Cache-Control} and {ETag} headers. Moreover, is highly efficient with
+respect to cache performance and overhead, and allows to support more
 <<cache-support-patterns, advanced cache update and warm up patterns>>.
 
-Anyhow, please carefully read {RFC-7234}[RFC 7234] before adding any client or
+Anyhow, please carefully read {RFC-9111}[RFC 9111] before adding any client or
 proxy cache.

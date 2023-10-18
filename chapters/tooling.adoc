@@ -14,8 +14,6 @@ workflow with OpenAPI YAML files (sorted alphabetically):
 
 * *https://github.com/zalando/connexion[Connexion]:*
   OpenAPI First framework for Python on top of Flask
-* *https://github.com/zalando-stups/friboo[Friboo]:*
-  utility library to write microservices in Clojure with support for Swagger and OAuth
 * *https://github.com/zalando/api-first-hand[Api-First-Hand]:*
   API-First Play Bootstrapping Tool for Swagger/OpenAPI specs
 * *https://github.com/swagger-api/swagger-codegen[Swagger Codegen]:*
@@ -45,5 +43,3 @@ RESTful API guidelines (sorted alphabetically):
   extension module to properly support datatypes of javax.money
 * *https://github.com/zalando/tracer[Tracer]:*
   call tracing and log correlation in distributed systems
-* *https://github.com/zalando/twintip-spring-web[TWINTIP Spring Integration]:*
-  API discovery endpoint for Spring Web MVC

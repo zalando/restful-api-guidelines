@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#! /bin/bash
 # This script generates a JSON with information about the guideline rules.
 
 cat chapters/*.adoc | \

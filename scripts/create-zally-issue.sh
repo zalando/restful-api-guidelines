@@ -1,8 +1,8 @@
-#!/usr/bin/env bash
+#! /bin/bash
 
 set -ex
 
-GH_REPO="github.com/zalando/restful-api-guidelines.git"
+#GH_REPO="github.com/zalando/restful-api-guidelines.git"
 GH_REPO_URL="https://api.github.com/repos/zalando/restful-api-guidelines"
 ZALLY_REPO_URL="https://api.github.com/repos/zalando/zally"
 

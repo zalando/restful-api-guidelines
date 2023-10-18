@@ -4,8 +4,6 @@
 https://github.com/zalando/restful-api-guidelines/actions/[image:https://github.com/zalando/restful-api-guidelines/actions/workflows/build.yml/badge.svg[Build status]]
 Latest published version:
 http://zalando.github.io/restful-api-guidelines/[*HTML*],
-http://zalando.github.io/restful-api-guidelines/zalando-guidelines.pdf[*PDF*],
-http://zalando.github.io/restful-api-guidelines/zalando-guidelines.epub[*EPUB3*]
 
 == Purpose
 
