@@ -471,17 +471,21 @@ query language:
 
 2. For internal usage or specific use case a more complex query language
   can be used (such as `price gt 10` or `price[gt]=10` or `price>10` etc.).
-  Also please consider following <<237, our guidance for designing complex query languages with JSON>>.
+  Also please consider following <<237, our guidance>> for designing complex
+  query languages with JSON.
 
 The following examples should serve as ideas for simple query language:
 
 === Equals
 
-* `name=Zalando`, `creation_year=2023`, `updated_by=user1`  (query elements based on property equality)
-* `created_at=2023-09-18T12:12:00.000Z`, `sort=id:desc` (query elements based on logical properties)
-* `color=red,green,blue,multicolored` (query elements based on multiple choice possibility)
+* `name=Zalando`, `creation_year=2023`, `updated_by=user1` (query elements
+  based on property equality)
+* `created_at=2023-09-18T12:12:00.000Z`, `sort=id:desc` (query elements
+  based on logical properties)
+* `color=red,green,blue,multicolored` (query elements based on multiple
+  choice possibility)
 ** for these type of filters, consider to use <<237,guidance>> to have
-smth like `filters={"color":["red","green","blue"]}`.
+   smth like `filters={"color":["red","green","blue"]}`.
 
 === Less than
 
@@ -500,11 +504,14 @@ smth like `filters={"color":["red","green","blue"]}`.
 
 === Pagination
 
-* `offset=10` and `limit=5` (query elements for pagination regardless customer sorting)
-* `limit=5` and `created_after=2019-07-17` (query elements for keyset pagination)
-** when sorting is in place and new elements are inserted, it prevents showing repeated/missing results due to offset shift.
+* `offset=10` and `limit=5` (query elements for pagination regardless
+  customer sorting)
+* `limit=5` and `created_after=2019-07-17` (query elements for
+  keyset pagination)
+** when sorting is in place and new elements are inserted, it prevents showing
+   repeated/missing results due to offset shift.
 
-Please refer to <<137, conventional query parameters for pagination and sorting>>
+Please check <<137, conventional query parameters for pagination and sorting>>
 and you can also find additional info in <<pagination>> section below.
 
 We don't advocate for or against certain names because in the end
