@@ -460,6 +460,7 @@ Query parameters should have the following aspects specified:
 How query parameters are named and used is up to individual API designers, here
 are a few tips that could help to decide whether to use simple or more complex
 query language:
+
 1. Consider using simple query language when API is built to be used
    by others (external teams):
 
@@ -470,9 +471,9 @@ query language:
    * easy to read, no learning curve
 
 2. For internal usage or specific use case a more complex query language
-  can be used (such as `price gt 10` or `price[gt]=10` or `price>10` etc.).
-  Also please consider following <<237, our guidance>> for designing complex
-  query languages with JSON.
+   can be used (such as `price gt 10` or `price[gt]=10` or `price>10` etc.).
+   Also please consider following <<237, our guidance>> for designing complex
+   query languages with JSON.
 
 The following examples should serve as ideas for simple query language:
 
