@@ -57,6 +57,7 @@
 :RFC-9111: https://tools.ietf.org/html/rfc9111
 :RFC-9457: https://tools.ietf.org/html/rfc9457
 
+:json-schema-validation: https://json-schema.org/draft/2020-12/draft-bhutton-json-schema-validation-00
 :iana-link-relations: http://www.iana.org/assignments/link-relations
 :iana-media-types: https://www.iana.org/assignments/media-types/media-types.xhtml
 :BCP47: https://tools.ietf.org/html/bcp47
