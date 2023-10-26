@@ -33,12 +33,12 @@ As a consequence, a JSON payload must
 
 
 [#252]
-== {SHOULD} design single resource for reading and writing
+== {SHOULD} design single resource schema for reading and writing
 
 To simplify API specs and API maintenance, as well as the cognitive load of
-developers, endpoints should  utilize a common model for reading and writing
-the same resource type. The usualy differences between read and write models
-are best addressed by
+developers, endpoints should utilize a common model for reading and writing
+the same resource type. The differences between read and write models are best
+addressed by
 
 * marking properties `writeOnly` that are only available in a request, e.g.
   passwords, and
@@ -47,9 +47,9 @@ are best addressed by
 
 **Note:** A resource with property marked `readOnly` in the API according to
 the {json-schema-validation}#rfc.section.9.4[JSON schema validation] may be
-ignored or rejected by a server. Both is inline with the idea behind <<#109,
-the compatibility guidance>>, however, we suggest to document rejection to
-prevent client side surprises.
+ignored or rejected by a server. Both are in line with the idea behind <<#109,
+the compatibility guidance>>, however, we suggest to document when rejecting
+to prevent client side surprises.
 
 
 [#250]
