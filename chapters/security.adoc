@@ -154,8 +154,8 @@ This pattern is compatible with the previous definition.
 
 **Note:** This naming convention only applies to scopes for service-to-service
 communication using the Platform IAM tokens. For IAM systems with other naming
-rules (e.g. Zalando Partner IAM), the naming convention is applied consistent
-with the naming conventions of this IAM system.
+rules (e.g. Zalando Partner IAM), the naming should be consistent with the
+existing conventions of those systems.
 
 ////
 //Prepared change for functional permission names:
