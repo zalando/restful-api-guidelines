@@ -18,7 +18,7 @@ Whether a service supports a certain header is part of the service contract.
 Therefore APIs should use the `parameters` and `headers` definition of the API
 endpoint and response to clarify what is supported in a certain context.
 
-[[using--headers]]
+[[using-headers]]
 == Using Standard Header definitions
 
 Usually, you can the standard HTTP request and response header definition
