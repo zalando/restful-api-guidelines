@@ -1539,7 +1539,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 </li>
 <li><a href="#headers">11. REST Basics - HTTP headers</a>
 <ul class="sectlevel2">
-<li><a href="#using--headers">Using Standard Header definitions</a></li>
+<li><a href="#using-headers">Using Standard Header definitions</a></li>
 <li><a href="#133"><span class="may-keyword"><strong>MAY</strong></span> use standard headers</a></li>
 <li><a href="#132"><span class="should-keyword"><strong>SHOULD</strong></span> use kebab-case with uppercase separate words for HTTP headers</a></li>
 <li><a href="#178"><span class="must-keyword"><strong>MUST</strong></span> use <code>Content-*</code> headers correctly</a></li>
@@ -5004,10 +5004,13 @@ in one way only with <code>and</code> semantics.</p>
 <div class="paragraph">
 <p>How query parameters are named and used is up to individual API designers, here
 are a few tips that could help to decide whether to use simple or more complex
-query language:
-1. Consider using simple query language when API is built to be used
-   by others (external teams):</p>
+query language:</p>
 </div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Consider using simple query language when API is built to be used
+by others (external teams):</p>
 <div class="ulist">
 <ul>
 <li>
@@ -5020,8 +5023,10 @@ is <code>user_id</code> equal to <code>gt:100</code>?</p>
 </li>
 <li>
 <p>easy to read, no learning curve</p>
-<div class="olist arabic">
-<ol class="arabic">
+</li>
+</ul>
+</div>
+</li>
 <li>
 <p>For internal usage or specific use case a more complex query language
 can be used (such as <code>price gt 10</code> or <code>price[gt]=10</code> or <code>price&gt;10</code> etc.).
@@ -5029,9 +5034,6 @@ Also please consider following <a href="#237">our guidance</a> for designing com
 query languages with JSON.</p>
 </li>
 </ol>
-</div>
-</li>
-</ul>
 </div>
 <div class="paragraph">
 <p>The following examples should serve as ideas for simple query language:</p>
@@ -6055,7 +6057,7 @@ Therefore APIs should use the <code>parameters</code> and <code>headers</code> d
 endpoint and response to clarify what is supported in a certain context.</p>
 </div>
 <div class="sect2">
-<h3 id="using--headers"><a class="link" href="#using--headers">Using Standard Header definitions</a></h3>
+<h3 id="using-headers"><a class="link" href="#using-headers">Using Standard Header definitions</a></h3>
 <div class="paragraph">
 <p>Usually, you can the standard HTTP request and response header definition
 provided by the guideline to simplify API by using well recognized patterns.
@@ -6644,7 +6646,7 @@ hop-by-hop <code>X-RateLimit-</code> headers which can be used as defined in <a 
 <div class="paragraph">
 <p>As part of the guidelines we provide the default definition of all proprietary
 headers, so you can simply reference them when defining the API endpoint. For
-details see <a href="#using-headers">[using-headers]</a>.</p>
+details see <a href="#using-headers">Using Standard Header definitions</a>.</p>
 </div>
 <div class="paragraph">
 <p><strong>Hint:</strong> This guideline does not standardize proprietary headers for our
@@ -10721,7 +10723,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-10-18 13:54:30 UTC
+Last updated 2023-10-26 09:05:34 UTC
 </div>
 </div>
 </body>
