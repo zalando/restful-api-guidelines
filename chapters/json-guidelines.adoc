@@ -11,15 +11,14 @@ an idiomatic form across teams and services.
 [#167]
 == {MUST} use JSON as payload data interchange format
 
-Use JSON ({RFC-7159}[RFC 7159]) to represent structured (resource) data
-passed with HTTP requests and responses as body payload.
-The JSON payload must use a JSON object as top-level data
-structure (if possible) to allow for future extension. This also applies to
-collection resources, where you ad-hoc would use an array -- see also
-<<110>>.
+Use JSON ({RFC-7159}[RFC 7159]) to represent structured (resource) data passed
+with HTTP requests and responses as body payload. The JSON payload must use a
+JSON object as top-level data structure (if possible) to allow for future
+extension. This also applies to collection resources, where you ad-hoc would
+use an array -- see also <<110>>.
 
-Additionally, the JSON payload must comply to the more restrictive Internet JSON ({RFC-7493}[RFC 7493]),
-particularly
+Additionally, the JSON payload must comply to the more restrictive Internet
+JSON ({RFC-7493}[RFC 7493]), particularly
 
 * {RFC-7493}#section-2.1[Section 2.1] on encoding of characters, and
 * {RFC-7493}#section-2.3[Section 2.3] on object constraints.
@@ -31,6 +30,27 @@ As a consequence, a JSON payload must
   contain non-characters or surrogates, and
 * contain only {RFC-7493}#section-2.3[unique member names] (no duplicate
   names).
+
+
+[#252]
+== {SHOULD} design single resource schema for reading and writing
+
+To simplify API specs and API maintenance, as well as the cognitive load of
+developers, endpoints should utilize a common model for reading and writing
+the same resource type. The differences between read and write models are best
+addressed by
+
+* marking properties `writeOnly` that are only available in a request, e.g.
+  passwords, and
+* marking properties `readOnly` that are only available in a response, e.g.
+  resource identifiers.
+
+**Note:** A resource with property marked `readOnly` in the API according to
+the {json-schema-validation}#rfc.section.9.4[JSON schema validation] may be
+ignored or rejected by a server. Both are in line with the idea behind <<#109,
+the compatibility guidance>>, however, we suggest to document when rejecting
+to prevent client side surprises.
+
 
 [#250]
 == {SHOULD} be aware of services not fully supporting JSON/unicode
