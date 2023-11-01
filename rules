@@ -571,6 +571,10 @@
     {
       "id": "#251",
       "title": "SHOULD not use redirection codes"
+    },
+    {
+      "id": "#252",
+      "title": "SHOULD design single resource schema for reading and writing"
     }
   ]
 }

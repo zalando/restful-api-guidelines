@@ -1496,6 +1496,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#json-guidelines">8. REST Basics - JSON payload</a>
 <ul class="sectlevel2">
 <li><a href="#167"><span class="must-keyword"><strong>MUST</strong></span> use JSON as payload data interchange format</a></li>
+<li><a href="#252"><span class="should-keyword"><strong>SHOULD</strong></span> design single resource schema for reading and writing</a></li>
 <li><a href="#250"><span class="should-keyword"><strong>SHOULD</strong></span> be aware of services not fully supporting JSON/unicode</a></li>
 <li><a href="#168"><span class="may-keyword"><strong>MAY</strong></span> pass non-JSON media types using data specific standard formats</a></li>
 <li><a href="#172"><span class="should-keyword"><strong>SHOULD</strong></span> use standard media types</a></li>
@@ -3601,16 +3602,15 @@ an idiomatic form across teams and services.</p>
 <div class="sect2">
 <h3 id="167"><a class="link" href="#167"><span class="must-keyword"><strong>MUST</strong></span> use JSON as payload data interchange format</a></h3>
 <div class="paragraph">
-<p>Use JSON (<a href="https://tools.ietf.org/html/rfc7159">RFC 7159</a>) to represent structured (resource) data
-passed with HTTP requests and responses as body payload.
-The JSON payload must use a JSON object as top-level data
-structure (if possible) to allow for future extension. This also applies to
-collection resources, where you ad-hoc would use an array&#8201;&#8212;&#8201;see also
-<a href="#110"><span class="must-keyword"><strong>MUST</strong></span> always return JSON objects as top-level data structures</a>.</p>
+<p>Use JSON (<a href="https://tools.ietf.org/html/rfc7159">RFC 7159</a>) to represent structured (resource) data passed
+with HTTP requests and responses as body payload. The JSON payload must use a
+JSON object as top-level data structure (if possible) to allow for future
+extension. This also applies to collection resources, where you ad-hoc would
+use an array&#8201;&#8212;&#8201;see also <a href="#110"><span class="must-keyword"><strong>MUST</strong></span> always return JSON objects as top-level data structures</a>.</p>
 </div>
 <div class="paragraph">
-<p>Additionally, the JSON payload must comply to the more restrictive Internet JSON (<a href="https://tools.ietf.org/html/rfc7493">RFC 7493</a>),
-particularly</p>
+<p>Additionally, the JSON payload must comply to the more restrictive Internet
+JSON (<a href="https://tools.ietf.org/html/rfc7493">RFC 7493</a>), particularly</p>
 </div>
 <div class="ulist">
 <ul>
@@ -3639,6 +3639,33 @@ contain non-characters or surrogates, and</p>
 names).</p>
 </li>
 </ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="252"><a class="link" href="#252"><span class="should-keyword"><strong>SHOULD</strong></span> design single resource schema for reading and writing</a></h3>
+<div class="paragraph">
+<p>To simplify API specs and API maintenance, as well as the cognitive load of
+developers, endpoints should utilize a common model for reading and writing
+the same resource type. The differences between read and write models are best
+addressed by</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>marking properties <code>writeOnly</code> that are only available in a request, e.g.
+passwords, and</p>
+</li>
+<li>
+<p>marking properties <code>readOnly</code> that are only available in a response, e.g.
+resource identifiers.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Note:</strong> A resource with property marked <code>readOnly</code> in the API according to
+the <a href="https://json-schema.org/draft/2020-12/draft-bhutton-json-schema-validation-00#rfc.section.9.4">JSON schema validation</a> may be
+ignored or rejected by a server. Both are in line with the idea behind <a href="#109">the compatibility guidance</a>, however, we suggest to document when rejecting
+to prevent client side surprises.</p>
 </div>
 </div>
 <div class="sect2">
@@ -10729,7 +10756,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-11-01 17:03:36 UTC
+Last updated 2023-11-01 17:41:10 UTC
 </div>
 </div>
 </body>
