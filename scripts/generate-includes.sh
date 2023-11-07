@@ -1,5 +1,6 @@
 #! /bin/bash
 
+readonly DIR="${1}";
 readonly SOURCES=("models/headers-1.0.0.yaml");
 readonly HEADERS=($(cat "${SOURCES[@]}" | awk '
     BEGIN { mode = "parameters" }
@@ -16,10 +17,11 @@ readonly HEADERS=($(cat "${SOURCES[@]}" | awk '
         print $0 mode
     }'))
 
-FILE="/dev/stdout";
 for HEADER in "${HEADERS[@]}"; do
     NAME="${HEADER%%:*}"; MODE="${HEADER##*:}";
-    if [ -n "${1}" ]; then FILE="${1}/${NAME,,}.yaml"; fi;
+    if [ -n "${DIR}" ]; then
+      FILE="${DIR}/$(echo ${NAME} | tr '[A-Z]' '[a-z]').yaml";
+    else FILE="/dev/stdout"; fi;
     awk -v name="${NAME}" -v mode="${MODE}" '
         (($0 ~ "^[A-Z][A-Za-z-]*:$" || $0 ~ "^#.*$") && content) {
             print content; content = ""
