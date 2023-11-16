@@ -128,7 +128,9 @@ response header (see <<133>>).
 ==== 202 Accepted {rfc-status-202} {use} {document} {POST} {PUT} {PATCH} {DELETE}
 [.indent]
 The request was successful and will be processed asynchronously.
-Only applicable to methods which change something.
+Only applicable to methods which change something, with the exception of 
+GET methods provided for resources still being asynchronously processed,
+as not recommended in <<253>>.
 
 
 [[status-code-204]]
