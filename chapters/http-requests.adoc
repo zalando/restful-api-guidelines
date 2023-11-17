@@ -422,7 +422,7 @@ explicitly via a job resource that has a status and is different from the actual
 business resource. For instance, `POST /report-job` returns http status code {202} to 
 indicate successful initiation of asynchronous processing together with the job-id 
 as response payload. The job-id then can be used to poll the processing status 
-via `GET /report-job/{id}` which returns http status code {200} with job status and 
+via `GET /report-jobs/{id}` which returns http status code {200} with job status and 
 optional report-id as response payload. Once returned, the report-id can be used 
 to fetch the report result via `GET /report/{id}` which returns http status code {200}  
 and the report object as response payload. 
