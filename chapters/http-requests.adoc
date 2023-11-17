@@ -419,20 +419,20 @@ processing status and/or result.
 
 We recommend an API design that represents the asynchronous request processing 
 explicitly via a job resource that has a status and is different from the actual 
-business resource. For instance, `POST /report-job` returns http status code {202} to 
+business resource. For instance, `POST /report-jobs` returns http status code {200} to 
 indicate successful initiation of asynchronous processing together with the job-id 
 as response payload. The job-id then can be used to poll the processing status 
 via `GET /report-jobs/{id}` which returns http status code {200} with job status and 
-optional report-id as response payload. Once returned, the report-id can be used 
-to fetch the report result via `GET /report/{id}` which returns http status code {200}  
-and the report object as response payload. 
+optional report-id as response payload. Once returned with job status `finished`, 
+the report-id can be used to fetch the result via `GET /reports/{id}` which returns 
+http status code {200} and the report object as response payload. 
 
-In case you do not follow the best practice via a separate job resource, `POST /report`
+In case you do not follow the best practice via a separate job resource, `POST /reports`
 returns http status code {202} to indicate successful initiation of asynchronous 
 processing together with the report-id as response payload. The report-id can be 
-used to fetch the report result via `GET /report/{id}` which returns either http status 
-code {200} and the report object response payload or status code {202} without the 
-report object response payload depending on the asynchronous processing status.
+used to fetch the report result via `GET /reports/{id}` which returns either http status 
+code {200} and the report object response payload or status code {202} without  
+response payload depending on the asynchronous processing status.
 Hint: Do _not_ use response code {204} or {404} instead of {202} here -- it is misleading
 (neither is the processing successfully finished, nor do we want to suggest a client failure).
 
