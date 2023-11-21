@@ -107,6 +107,9 @@ If-None-Match:
 
 
 Prefer:
+  # Do not import this schema directly, since processing directives are usually
+  # highly customized. Instead, copy the schema to your API and adjust it to
+  # your needs.
   name: Prefer
   in: header
   required: false
@@ -123,6 +126,10 @@ Prefer:
       return using **204** (No Content) without resource (minimal) or using
       **200** or **201** with resource (representation) in the response body on
       success.
+    * **return=<total-count>** is used to suggest the server to return a total
+      result count in a collection requests supporting pagination. Since this
+      is a costly operation, it should be used with care, and the service may
+      decide to ignore this request.
     * **wait=<delta-seconds>** is used to suggest a maximum time the server has
       time to process the request synchronously.
     * **handling=<strict|lenient>** is used to suggest the server to be strict

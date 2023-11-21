@@ -43,7 +43,7 @@ components:
     Default:
       headers:
         ETag:
-          $ref: '#/components/(parameters|headers)/ETag
+          $ref: '#/components/(parameters|headers)/ETag'
 ----
 
 *Note:* It is a question of taste whether headers for responses are defined in
