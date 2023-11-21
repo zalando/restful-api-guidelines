@@ -419,7 +419,7 @@ processing status and/or result.
 
 We recommend an API design that represents the asynchronous request processing 
 explicitly via a job resource that has a status and is different from the actual 
-business resource. For instance, `POST /report-jobs` returns http status code {201} to 
+business resource. For instance, `POST /report-jobs` returns HTTP status code {201} to 
 indicate successful initiation of asynchronous processing together with the job-id 
 passed in the response payload and/or via the URL of the {Location} header. 
 The job-id or {Location} URL then can be used to poll the processing status 
