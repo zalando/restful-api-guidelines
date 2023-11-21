@@ -411,8 +411,8 @@ would be a similar well defined option.
 == {MAY} support asynchronous request processing
 
 Typically REST APIs are designed as synchronous interfaces where all server-side 
-processing and state changes initiated by the call are finished before delivering the 
-result as request response. However, in long running request processing situations 
+processing and state changes initiated by the call are finished before delivering
+the result as response. However, in long running request processing situations 
 you may make use of asynchronous interface design with multiple calls: one for 
 initiating the asynchronous processing and subsequent ones for accessing the 
 processing status and/or result.
