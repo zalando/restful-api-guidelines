@@ -129,8 +129,8 @@ response header (see <<133>>).
 [.indent]
 The request was successful and will be processed asynchronously.
 Only applicable to methods which change something, with the exception of 
-GET methods provided for resources still being asynchronously processed,
-as not recommended in <<253>>.
+{GET} methods indicating that a resources is still created asynchronously
+as described in <<253>>.
 
 
 [[status-code-204]]
