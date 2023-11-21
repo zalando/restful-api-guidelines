@@ -1579,6 +1579,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#160"><span class="should-keyword"><strong>SHOULD</strong></span> prefer cursor-based pagination, avoid offset-based pagination</a></li>
 <li><a href="#248"><span class="should-keyword"><strong>SHOULD</strong></span> use pagination response page object</a></li>
 <li><a href="#161"><span class="should-keyword"><strong>SHOULD</strong></span> use pagination links</a></li>
+<li><a href="#254"><span class="should-keyword"><strong>SHOULD</strong></span> avoid a total result count</a></li>
 </ul>
 </li>
 <li><a href="#compatibility">15. REST Design - Compatibility</a>
@@ -6114,7 +6115,7 @@ follows:</p>
     <span class="key">Default</span>:
       <span class="key">headers</span>:
         <span class="key">ETag</span>:
-          <span class="error">$ref</span>: <span class="error">'#/components/(parameters|headers)/ETag</span></code></pre>
+          <span class="error">$ref</span>: <span class="error">'#/components/(parameters|headers)/ETag'</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -6277,6 +6278,9 @@ processing directives.</p>
 <pre class="CodeRay highlight"><code data-lang="yaml"><span class="key">components</span>:
   <span class="key">parameters</span>:
     <span class="key">Prefer</span>:
+        <span class="comment"># Do not import this schema directly, since processing directives are usually</span>
+        <span class="comment"># highly customized. Instead, copy the schema to your API and adjust it to</span>
+        <span class="comment"># your needs.</span>
         <span class="key">name</span>: <span class="string"><span class="content">Prefer</span></span>
         <span class="key">in</span>: <span class="string"><span class="content">header</span></span>
         <span class="key">required</span>: <span class="string"><span class="content">false</span></span>
@@ -6293,6 +6297,10 @@ processing directives.</p>
             return using **204** (No Content) without resource (minimal) or using
             **200** or **201** with resource (representation) in the response body on
             success.
+          * **return=&lt;total-count&gt;** is used to suggest the server to return a total
+            result count in a collection requests supporting pagination. Since this
+            is a costly operation, it should be used with care, and the service may
+            decide to ignore this request.
           * **wait=&lt;delta-seconds&gt;** is used to suggest a maximum time the server has
             time to process the request synchronously.
           * **handling=&lt;strict|lenient&gt;** is used to suggest the server to be strict
@@ -7541,9 +7549,9 @@ proxy cache.</p>
 <h3 id="159"><a class="link" href="#159"><span class="must-keyword"><strong>MUST</strong></span> support pagination</a></h3>
 <div class="paragraph">
 <p>Access to lists of data items must support pagination to protect the service
-against overload as well as to support client side iteration and batch processing
-experience. This holds true for all lists that are (potentially) larger than
-just a few hundred entries.</p>
+against overload as well as to support client side iteration and batch
+processing experience. This holds true for all lists that are (potentially)
+larger than just a few hundred entries.</p>
 </div>
 <div class="paragraph">
 <p>There are two well known page iteration techniques:</p>
@@ -7554,18 +7562,19 @@ just a few hundred entries.</p>
 <p><strong>Offset-based pagination</strong>: numeric offset identifies the first page-entry</p>
 </li>
 <li>
-<p><strong>Cursor-based pagination</strong> — aka key-based pagination: a unique key identifies the first page-entry
-(see also <a href="https://dev.twitter.com/overview/api/cursoring">Twitter API</a> or
+<p><strong>Cursor-based pagination</strong> — aka key-based pagination: a unique key
+identifies the first page-entry (see also
+<a href="https://dev.twitter.com/overview/api/cursoring">Twitter API</a> or
 <a href="https://developers.facebook.com/docs/graph-api/results">Facebook API</a>)</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>The technical conception of pagination should also consider user experience (see
-<a href="https://www.smashingmagazine.com/2016/03/pagination-infinite-scrolling-load-more-buttons/">Pagination Usability Findings In eCommerce</a>),
-for instance, jumping to a specific page is far less used than navigation via <a href="#next"><code>next</code></a>/<a href="#prev"><code>prev</code></a>
-page links (see <a href="#161"><span class="should-keyword"><strong>SHOULD</strong></span> use pagination links</a>). This favors an API design using cursor-based instead of
-offset-based pagination&#8201;&#8212;&#8201;see <a href="#160"><span class="should-keyword"><strong>SHOULD</strong></span> prefer cursor-based pagination, avoid offset-based pagination</a>.</p>
+<p>The technical conception of pagination should also consider user experience
+(see <a href="https://www.smashingmagazine.com/2016/03/pagination-infinite-scrolling-load-more-buttons/">Pagination Usability Findings In eCommerce</a>), for
+instance, jumping to a specific page is far less used than navigation via
+<a href="#next"><code>next</code></a>/<a href="#prev"><code>prev</code></a> page links (see <a href="#161"><span class="should-keyword"><strong>SHOULD</strong></span> use pagination links</a>). This favors an API design using
+cursor-based instead of offset-based pagination&#8201;&#8212;&#8201;see <a href="#160"><span class="should-keyword"><strong>SHOULD</strong></span> prefer cursor-based pagination, avoid offset-based pagination</a>.</p>
 </div>
 <div class="paragraph">
 <p><strong>Note:</strong> To provide a consistent look and feel of pagination patterns,
@@ -7590,7 +7599,7 @@ storage in NoSQL databases.</p>
 <ul>
 <li>
 <p>Offset-based pagination is more widely known than cursor-based pagination,
-so it has more framework support and is easier to use for API clients</p>
+so it has more framework support and is easier to use for API clients.</p>
 </li>
 </ul>
 </div>
@@ -7601,7 +7610,7 @@ so it has more framework support and is easier to use for API clients</p>
 <ul>
 <li>
 <p>If jumping to a particular page in a range (e.g., 51 of 100) is really a
-required use case, cursor-based navigation is not feasible.</p>
+required use case, cursor-based navigation may not be feasible.</p>
 </li>
 </ul>
 </div>
@@ -7636,26 +7645,24 @@ the database.</p>
 </ul>
 </div>
 </li>
-<li>
-<p>Cursor-based navigation may not work if you need the total count of results.</p>
-</li>
 </ul>
 </div>
 <div class="paragraph">
 <p>The <a href="#cursor"><code>cursor</code></a> used for pagination is an opaque pointer to a page, that must
 never be <strong>inspected</strong> or <strong>constructed</strong> by clients. It usually encodes (encrypts)
-the page position, i.e. the unique identifier of the first or last page element, the
-pagination direction, and the applied query filters (or a hash over these) to safely
-recreate the collection (see also best practice <a href="#cursor-based-pagination">Cursor-based pagination in RESTful APIs</a> below).</p>
+the page position, i.e. the unique identifier of the first or last page
+element, the pagination direction, and the applied query filters (or a hash
+over these) to safely recreate the collection (see also best practice
+<a href="#cursor-based-pagination">Cursor-based pagination in RESTful APIs</a> below).</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="248"><a class="link" href="#248"><span class="should-keyword"><strong>SHOULD</strong></span> use pagination response page object</a></h3>
 <div id="pagination-fields" class="paragraph">
 <p>For iterating over collections (result sets) we propose to either use cursors
-(see <a href="#160"><span class="should-keyword"><strong>SHOULD</strong></span> prefer cursor-based pagination, avoid offset-based pagination</a>) or simple hypertext control links (see <a href="#161"><span class="should-keyword"><strong>SHOULD</strong></span> use pagination links</a>). To implement these
-in a consistent way, we have defined a response page object pattern with the
-following field semantics:</p>
+(see <a href="#160"><span class="should-keyword"><strong>SHOULD</strong></span> prefer cursor-based pagination, avoid offset-based pagination</a>) or simple hypertext control links (see <a href="#161"><span class="should-keyword"><strong>SHOULD</strong></span> use pagination links</a>). To implement
+these in a consistent way, we have defined a response page object pattern with
+the following field semantics:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -7749,14 +7756,15 @@ request to filter the collection resource.</p>
 </div>
 <div class="paragraph">
 <p><strong>Note:</strong> While you may support cursors for <a href="#next"><code>next</code></a>, <a href="#prev"><code>prev</code></a>, <a href="#first"><code>first</code></a>, <a href="#last"><code>last</code></a>, and
-<a href="#self"><code>self</code></a>, it is best practice to replace these with pagination links&#8201;&#8212;&#8201;see <a href="#161"><span class="should-keyword"><strong>SHOULD</strong></span> use pagination links</a>.</p>
+<a href="#self"><code>self</code></a>, it is best practice to replace these with pagination links&#8201;&#8212;&#8201;see
+<a href="#161"><span class="should-keyword"><strong>SHOULD</strong></span> use pagination links</a>.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="161"><a class="link" href="#161"><span class="should-keyword"><strong>SHOULD</strong></span> use pagination links</a></h3>
 <div class="paragraph">
-<p>To simplify client design, APIs should support <a href="#165">simplified hypertext controls</a>
-as standard pagination links where applicable:</p>
+<p>To simplify client design, APIs should support <a href="#165">simplified hypertext
+controls</a> as standard pagination links where applicable:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -7777,13 +7785,27 @@ as standard pagination links where applicable:</p>
 <div class="paragraph">
 <p>See also <a href="#248"><span class="should-keyword"><strong>SHOULD</strong></span> use pagination response page object</a> for details on the pagination fields and page result object.</p>
 </div>
+</div>
+<div class="sect2">
+<h3 id="254"><a class="link" href="#254"><span class="should-keyword"><strong>SHOULD</strong></span> avoid a total result count</a></h3>
 <div class="paragraph">
-<p><strong>Remark:</strong> You should avoid providing a total count unless there is a clear
-need to do so. Very often, there are significant system and performance
-implications when supporting full counts. Especially, if the data set grows
-and requests become complex queries and filters drive full scans. While this
-is an implementation detail relative to the API, it is important to consider
-the ability to support serving counts over the life of a service.</p>
+<p>In pagination responses you should generally avoid providing a <em>total result
+count</em>, since calculating it is a costly operation that is usually not required
+by clients. Counting the total number of results for complex queries usually
+requires a full scan of all involved indexes, as it is difficult to calculate
+and cache it in advance. While this is only an implementation detail, it is
+important to consider that providing these total counts over the life-span
+of a service might become expensive as the data set grows over time.</p>
+</div>
+<div class="paragraph">
+<p>As clients may integrate against these counts over time alongside data
+set growth, removing them will be more difficult than not providing them
+in the first place.</p>
+</div>
+<div class="paragraph">
+<p>If your consumer really requires a total result count in the response, you may
+support this requirement via the <a href="https://tools.ietf.org/html/rfc7240"><code>Prefer</code></a> header adding the directive
+<code>return=total-count</code> (see also <a href="#181"><span class="may-keyword"><strong>MAY</strong></span> consider to support <code>Prefer</code> header to handle processing preferences</a>).</p>
 </div>
 </div>
 </div>
@@ -10756,7 +10778,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-11-14 14:16:18 UTC
+Last updated 2023-11-21 14:56:45 UTC
 </div>
 </div>
 </body>

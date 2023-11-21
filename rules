@@ -575,6 +575,10 @@
     {
       "id": "#252",
       "title": "SHOULD design single resource schema for reading and writing"
+    },
+    {
+      "id": "#254",
+      "title": "SHOULD avoid a total result count"
     }
   ]
 }
