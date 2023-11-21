@@ -419,24 +419,24 @@ processing status and/or result.
 
 We recommend an API design that represents the asynchronous request processing 
 explicitly via a job resource that has a status and is different from the actual 
-business resource. For instance, `POST /report-jobs` returns http status code {200} to 
+business resource. For instance, `POST /report-jobs` returns http status code {201} to 
 indicate successful initiation of asynchronous processing together with the job-id 
-as response payload. The job-id then can be used to poll the processing status 
+passed with the response payload and/or {Location} header. 
+The job-id or {Location} URL then can be used to poll the processing status 
 via `GET /report-jobs/{id}` which returns http status code {200} with job status and 
 optional report-id as response payload. Once returned with job status `finished`, 
-the report-id can be used to fetch the result via `GET /reports/{id}` which returns 
-http status code {200} and the report object as response payload. 
+the report-id is provided and can be used to fetch the result via `GET /reports/{id}` 
+which returns {200} and the report object as response payload. 
 
 Alternatively, if you do not to follow the recommended practice of providing a
-separate job resource -- which may happen when your target resource supports
-sufficient status monitoring --, you may use `POST /reports` returning a status
-code {202} to indicate successful initiation of the asynchronous processing. In
-this case the URL from the {Location} header is used to fetch the report via
+separate job resource, you may use `POST /reports` returning a status code {202} 
+together with the {Location} header to indicate successful initiation of the 
+asynchronous processing. The {Location} URL is used to fetch the report via
 `GET /reports/{id}` which returns either {200} and the report resource or {202}
 without payload, if the asynchronous processing is still ongoing.
 
 *Hint:* Do *not* use response code {204} or {404} instead of {202} here -- it is
-misleading: neither is the processing successfully finished, nor do we want to
+misleading since neither is the processing successfully finished, nor do we want to
 suggest a client failure.
 
 
