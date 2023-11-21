@@ -172,13 +172,17 @@ See also <<248>> for details on the pagination fields and page result object.
 [#254]
 == {SHOULD} avoid a total result count
 
-In pagination responses you should generally avoid to provid a _total result
-count_, since calculating it is a costly operation that is mostly not required
+In pagination responses you should generally avoid providing a _total result
+count_, since calculating it is a costly operation that is usually not required
 by clients. Counting the total number of results for complex queries usually
 requires a full scan of all involved indexes, as it is difficult to calculate
 and cache it in advance. While this is only an implementation detail, it is
-still important to consider the ability to support a total counts over the
-life-span of a service -- especially, if the data set grows over time.
+important to consider that providing these total counts over the life-span
+of a service might become expensive as the data set grows over time.
+
+As clients may integrate against these counts over time alongside data
+set growth, removing them will be more difficult than not providing them
+in the first place.
 
 If your consumer really requires a total result count in the response, you may
 support this requirement via the {Prefer} header adding the directive
