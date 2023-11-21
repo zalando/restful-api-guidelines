@@ -408,7 +408,7 @@ would be a similar well defined option.
 
 
 [#253]
-== {MAY} use asynchronous request processing
+== {MAY} support asynchronous request processing
 
 Typically REST APIs are designed as synchronous interfaces where all server-side 
 processing and state changes initiated by the call are finished before delivering the 
