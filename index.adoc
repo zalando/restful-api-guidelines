@@ -152,7 +152,10 @@
 :429: pass:[<a href="#status-code-429" class="status-code">429</a>]
 :500: pass:[<a href="#status-code-500" class="status-code">500</a>]
 :501: pass:[<a href="#status-code-501" class="status-code">501</a>]
+:502: pass:[<a href="#status-code-502" class="status-code">502</a>]
 :503: pass:[<a href="#status-code-503" class="status-code">503</a>]
+:504: pass:[<a href="#status-code-504" class="status-code">504</a>]
+:505: pass:[<a href="#status-code-505" class="status-code">505</a>]
 
 // See http-status-codes-and-errors.adoc for explanation
 :use: pass:quotes[link:#status-code-use[[.status-code-hint.should]#icon:check[] use#]]
