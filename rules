@@ -577,6 +577,10 @@
       "title": "SHOULD design single resource schema for reading and writing"
     },
     {
+      "id": "#253",
+      "title": "MAY support asynchronous request processing"
+    },
+    {
       "id": "#254",
       "title": "SHOULD avoid a total result count"
     }

@@ -1519,6 +1519,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#149"><span class="must-keyword"><strong>MUST</strong></span> fulfill common method properties</a></li>
 <li><a href="#229"><span class="should-keyword"><strong>SHOULD</strong></span> consider to design <code>POST</code> and <code>PATCH</code> idempotent</a></li>
 <li><a href="#231"><span class="should-keyword"><strong>SHOULD</strong></span> use secondary key for idempotent <code>POST</code> design</a></li>
+<li><a href="#253"><span class="may-keyword"><strong>MAY</strong></span> support asynchronous request processing</a></li>
 <li><a href="#154"><span class="must-keyword"><strong>MUST</strong></span> define collection format of header and query parameters</a></li>
 <li><a href="#236"><span class="should-keyword"><strong>SHOULD</strong></span> design simple query languages using query parameters</a></li>
 <li><a href="#237"><span class="should-keyword"><strong>SHOULD</strong></span> design complex query languages using JSON</a></li>
@@ -4932,6 +4933,42 @@ would be a similar well defined option.</p>
 </div>
 </div>
 <div class="sect2">
+<h3 id="253"><a class="link" href="#253"><span class="may-keyword"><strong>MAY</strong></span> support asynchronous request processing</a></h3>
+<div class="paragraph">
+<p>Typically REST APIs are designed as synchronous interfaces where all server-side
+processing and state changes initiated by the call are finished before delivering
+the result as response. However, in long running request processing situations
+you may make use of asynchronous interface design with multiple calls: one for
+initiating the asynchronous processing and subsequent ones for accessing the
+processing status and/or result.</p>
+</div>
+<div class="paragraph">
+<p>We recommend an API design that represents the asynchronous request processing
+explicitly via a job resource that has a status and is different from the actual
+business resource. For instance, <code>POST /report-jobs</code> returns HTTP status code <a href="#status-code-201" class="status-code">201</a> to
+indicate successful initiation of asynchronous processing together with the job-id
+passed in the response payload and/or via the URL of the <a href="https://tools.ietf.org/html/rfc9110#section-10.2.2"><code>Location</code></a> header.
+The job-id or <a href="https://tools.ietf.org/html/rfc9110#section-10.2.2"><code>Location</code></a> URL then can be used to poll the processing status
+via <code>GET /report-jobs/<a href="#id"><code>id</code></a></code> which returns HTTP status code <a href="#status-code-200" class="status-code">200</a> with job status and
+optional report-id as response payload. Once returned with job status <code>finished</code>,
+the report-id is provided and can be used to fetch the result via <code>GET /reports/<a href="#id"><code>id</code></a></code>
+which returns <a href="#status-code-200" class="status-code">200</a> and the report object as response payload.</p>
+</div>
+<div class="paragraph">
+<p>Alternatively, if you do not to follow the recommended practice of providing a
+separate job resource, you may use <code>POST /reports</code> returning a status code <a href="#status-code-202" class="status-code">202</a>
+together with the <a href="https://tools.ietf.org/html/rfc9110#section-10.2.2"><code>Location</code></a> header to indicate successful initiation of the
+asynchronous processing. The <a href="https://tools.ietf.org/html/rfc9110#section-10.2.2"><code>Location</code></a> URL is used to fetch the report via
+<code>GET /reports/<a href="#id"><code>id</code></a></code> which returns either <a href="#status-code-200" class="status-code">200</a> and the report resource or <a href="#status-code-202" class="status-code">202</a>
+without payload, if the asynchronous processing is still ongoing.</p>
+</div>
+<div class="paragraph">
+<p><strong>Hint:</strong> Do <strong>not</strong> use response code <a href="#status-code-204" class="status-code">204</a> or <a href="#status-code-404" class="status-code">404</a> instead of <a href="#status-code-202" class="status-code">202</a> here&#8201;&#8212;&#8201;it is
+misleading since neither is the processing successfully finished, nor do we want to
+suggest a client failure.</p>
+</div>
+</div>
+<div class="sect2">
 <h3 id="154"><a class="link" href="#154"><span class="must-keyword"><strong>MUST</strong></span> define collection format of header and query parameters</a></h3>
 <div class="paragraph">
 <p>Header and query parameters allow to provide a collection of values, either
@@ -5519,7 +5556,9 @@ response header (see <a href="#133"><span class="may-keyword"><strong>MAY</stron
 <h5 id="status-code-202"><a class="link" href="#status-code-202">202 Accepted <a href="https://tools.ietf.org/html/rfc9110#name-202-accepted" target="_blank" rel="noopener"><sup>RFC</sup></a> <a href="#status-code-use"><span class="status-code-hint should"><span class="icon"><i class="fa fa-check"></i></span> use</span></a> <a href="#status-code-document"><span class="status-code-hint should"><span class="icon"><i class="fa fa-check"></i></span> document</span></a> <a href="#post"><code>POST</code></a> <a href="#put"><code>PUT</code></a> <a href="#patch"><code>PATCH</code></a> <a href="#delete"><code>DELETE</code></a></a></h5>
 <div class="paragraph indent">
 <p>The request was successful and will be processed asynchronously.
-Only applicable to methods which change something.</p>
+Only applicable to methods which change something, with the exception of
+<a href="#get"><code>GET</code></a> methods indicating that a resources is still created asynchronously
+as described in <a href="#253"><span class="may-keyword"><strong>MAY</strong></span> support asynchronous request processing</a>.</p>
 </div>
 </div>
 <div class="sect4">
@@ -10778,7 +10817,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-11-21 14:56:45 UTC
+Last updated 2023-11-22 08:37:55 UTC
 </div>
 </div>
 </body>
