@@ -407,6 +407,39 @@ original one implementing a well defined behavior. Using {204} without content
 would be a similar well defined option.
 
 
+[#253]
+== {MAY} support asynchronous request processing
+
+Typically REST APIs are designed as synchronous interfaces where all server-side 
+processing and state changes initiated by the call are finished before delivering
+the result as response. However, in long running request processing situations 
+you may make use of asynchronous interface design with multiple calls: one for 
+initiating the asynchronous processing and subsequent ones for accessing the 
+processing status and/or result.
+
+We recommend an API design that represents the asynchronous request processing 
+explicitly via a job resource that has a status and is different from the actual 
+business resource. For instance, `POST /report-jobs` returns HTTP status code {201} to 
+indicate successful initiation of asynchronous processing together with the job-id 
+passed in the response payload and/or via the URL of the {Location} header. 
+The job-id or {Location} URL then can be used to poll the processing status 
+via `GET /report-jobs/{id}` which returns HTTP status code {200} with job status and 
+optional report-id as response payload. Once returned with job status `finished`, 
+the report-id is provided and can be used to fetch the result via `GET /reports/{id}` 
+which returns {200} and the report object as response payload. 
+
+Alternatively, if you do not to follow the recommended practice of providing a
+separate job resource, you may use `POST /reports` returning a status code {202} 
+together with the {Location} header to indicate successful initiation of the 
+asynchronous processing. The {Location} URL is used to fetch the report via
+`GET /reports/{id}` which returns either {200} and the report resource or {202}
+without payload, if the asynchronous processing is still ongoing.
+
+*Hint:* Do *not* use response code {204} or {404} instead of {202} here -- it is
+misleading since neither is the processing successfully finished, nor do we want to
+suggest a client failure.
+
+
 [#154]
 == {MUST} define collection format of header and query parameters
 
