@@ -122,38 +122,65 @@ details and options.
 
 {POST} requests are idiomatically used to *create* single resources on a
 collection resource endpoint, but other semantics on single resources endpoint
-are equally possible. The semantic for collection endpoints is best described
-as _"please add the enclosed representation to the collection resource
-identified by the URL"_. The semantic for single resource endpoints is best
-described as _"please execute the given well specified request on the resource
-identified by the URL"_.
+are equally possible.
 
-* On a successful {POST} request, the server will create one or multiple new
-  resources, usually returning the resources or their URI/URLs in the response.
-  * For a single resource (tree) {POST} is expected to utilize the {Location}
-    header pointing to the URL of the newly created resource (tree) -- with or
-    without returning the resource (tree).
-  * For multiple resources {POST} may either return a collection of newly
-    created resources as served by the {GET} collection endpoint, or a bulk
-    response using the status code {207} (see also <<152>>).
-* Successful {POST} requests return {200} or {204} (if the resource was updated
-  -- with or without returning the resource), {201} (if the resource was newly
-  created), and {202} (if the request was accepted for asynchronous
-  processing).
-
-*Note:* By using {POST} to create resources the resource ID must not be passed
-as request input date by the client, but created and maintained by the service
-and returned with the response payload.
+The semantic for collection endpoints is best described as _"please add the
+enclosed representation to the collection resource identified by the URL"_. The
+semantic for single resource endpoints is best described as _"please execute the
+given well specified request on the resource identified by the URL"_.
 
 Apart from resource creation, {POST} should be also used for scenarios that
 cannot be covered by the other methods sufficiently. However, in such cases
 make sure to document the fact that {POST} is used as a workaround (see e.g.
 {GET-with-Body}).
 
-*Hint:* Posting the same resource twice is *not* required to be <<idempotent>>
-(check <<149>>) and may result in multiple resources. However, you <<229>> to
-prevent this.
+See below for common {POST} use-cases.
 
+[[post-create-single]]
+==== Single resource creation
+
+* Successful {POST} requests on a collection endpoint {SHOULD} return {201} and
+  the new resource object (including the resource identifier) in the response
+  payload.
+** The client {SHOULD} be able to use this resource identifier to {GET} the
+   resource if supported by the API, see <<143>>.
+* If the response does not contain the created resource (no payload, or a
+  payload with just a "Success" message), the status code should still be {201},
+  and the URL to {GET} the resource {MUST} be provided in the {Location}
+  response header. It is a good practice to always provide the {Location} header
+  with the URL to the created resource.
+* The resource ID {MUST-NOT} be passed as request body data by the client,
+  but created and maintained by the service.
+* Posting the same resource twice is *not* required to be <<idempotent>>
+and may result in multiple resources, see <<post-idempotent>>.
+
+[[post-create-multiple]]
+==== Multiple resource creation
+
+If a {POST} request creates multiple resources, a successful response may be one
+of the following:
+
+* {201} with a collection of the newly created resources as served
+  by the {GET} collection endpoint, but only if the creation is atomic.
+* {207} bulk response, where each response item contains the ID and/or URL of
+  the created resource, see <<152>>.
+
+[[post-idempotent]]
+==== Idempotent create/update
+
+{POST} requests can be <<idempotent>>, in which case the status code depends
+on whether the resource was created or updated, see <<229>>.
+
+* If the resource was created, the response {SHOULD} have a {201} status code
+  and follow <<post-create-single>> semantics.
+* If the resource was updated, the response status code should be {200} or
+  {204} (with or without returning the resource).
+
+[[post-async]]
+==== Asynchronous processing
+
+If the request is accepted for asynchronous processing, the response status code
+should be {202}, see <<253>>.
 
 [[patch]]
 === PATCH

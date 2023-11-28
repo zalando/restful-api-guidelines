@@ -85,6 +85,7 @@
 
 // Attribute to improve design of key words in titles.
 :MUST: pass:[<span class="must-keyword"><strong>MUST</strong></span>]
+:MUST-NOT: pass:[<span class="must-keyword"><strong>MUST NOT</strong></span>]
 :SHOULD: pass:[<span class="should-keyword"><strong>SHOULD</strong></span>]
 :MAY: pass:[<span class="may-keyword"><strong>MAY</strong></span>]
 :MUST-SHOULD: pass:[<span class="must-keyword"><strong>MUST</strong></span>/<span class="should-keyword"><strong>SHOULD</strong></span>]
