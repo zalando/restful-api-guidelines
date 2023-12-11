@@ -143,12 +143,11 @@ See below for common {POST} use-cases.
   the new resource object (including the resource identifier) in the response
   payload.
 ** The client {SHOULD} be able to use this resource identifier to {GET} the
-   resource if supported by the API, see <<143>>.
-* If the response does not contain the created resource (no payload, or a
-  payload with just a "Success" message), the status code should still be {201},
-  and the URL to {GET} the resource {MUST} be provided in the {Location}
-  response header. It is a good practice to always provide the {Location} header
-  with the URL to the created resource.
+   resource if supported by the API (see <<143>>).
+* If the response does not contain the created resource or a resource monitor the
+  status code should still be {201}, and the URL to {GET} the resource {MUST} be
+  provided in the {Location} response header. It is a good practice to always provide
+  the {Location} header with the URL to the created resource (see <<180>>).
 * The resource ID {MUST-NOT} be passed as request body data by the client,
   but created and maintained by the service.
 * Posting the same resource twice is *not* required to be <<idempotent>>
