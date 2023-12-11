@@ -122,12 +122,11 @@ details and options.
 
 {POST} requests are idiomatically used to *create* single resources on a
 collection resource endpoint, but other semantics on single resources endpoint
-are equally possible.
-
-The semantic for collection endpoints is best described as _"please add the
-enclosed representation to the collection resource identified by the URL"_. The
-semantic for single resource endpoints is best described as _"please execute the
-given well specified request on the resource identified by the URL"_.
+are equally possible. The semantic for collection endpoints is best described as
+_"please add the enclosed representation to the collection resource identified
+by the URL"_. The semantic for single resource endpoints is best described as
+_"please execute the given well specified request on the resource identified by
+the URL"_.
 
 Apart from resource creation, {POST} should be also used for scenarios that
 cannot be covered by the other methods sufficiently. However, in such cases
