@@ -14,11 +14,11 @@ Be compliant with the standardized HTTP semantics (see {RFC-9110}[RFC-9110
 
 {GET} requests are used to *read* either a single or a collection resource.
 
-* {GET} requests for individual resources will usually generate a {404} if the
-resource does not exist
+* {GET} requests for individual resources will usually generate a {404} (if the
+  resource does not exist).
 * {GET} requests for collection resources may return either {200} (if the
-collection is empty) or {404} (if the collection is missing)
-* {GET} requests must NOT have a request body payload (see {GET-with-Body})
+  collection is empty) or {404} (if the collection is missing).
+* {GET} requests must NOT have a request body payload (see {GET-with-Body}).
 
 *Note:* {GET} requests on collection resources should provide sufficient
 <<137, filter>> and <<pagination>> mechanisms.
@@ -30,17 +30,17 @@ collection is empty) or {404} (if the collection is missing)
 APIs sometimes face the problem, that they have to provide extensive structured
 request information with {GET}, that may conflict with the size limits of
 clients, load-balancers, and servers. As we require APIs to be standard conform
-(request body payload in {GET} must be ignored on server side), API designers have to check the
-following two options:
+(request body payload in {GET} must be ignored on server side), API designers
+have to check the following two options:
 
 1. {GET} with URL encoded query parameters: when it is possible to encode the
    request information in query parameters, respecting the usual size limits of
    clients, gateways, and servers, this should be the first choice. The request
    information can either be provided via multiple query parameters or by a
    single structured URL encoded string.
-2. {POST} with body payload content: when a {GET} with URL encoded query parameters
-   is not possible, a {POST} request with body payload must be used, and explicitly
-   documented with a hint like in the following example:
+2. {POST} with body payload content: when a {GET} with URL encoded query
+   parameters is not possible, a {POST} request with body payload must be used,
+   and explicitly documented with a hint like in the following example:
 
 [source,yaml]
 ----
@@ -48,8 +48,9 @@ paths:
   /products:
     post:
       description: >
-        [GET with body payload](https://opensource.zalando.com/restful-api-guidelines/#get-with-body) - no resources created:
-        Returns all products matching the query passed as request input payload.
+        [GET with body payload](https://opensource.zalando.com/restful-api-guidelines/#get-with-body)
+        - no resources created: Returns all products matching the query passed
+        as request input payload.
       requestBody:
         required: true
         content:
@@ -68,10 +69,10 @@ switching to headers does not solve the original problem.
 *Hint:* As {GET-with-Body} is used to transport extensive query parameters,
 the {cursor} cannot any longer be used to encode the query filters in case of
 <<160, cursor-based pagination>>. As a consequence, it is best practice to
-transport the query filters in the body payload, while using <<161, pagination links>>
-containing the {cursor} that is only encoding the page position and direction.
-To protect the pagination sequence the {cursor} may contain a hash over all
-applied query filters (See also <<161>>).
+transport the query filters in the body payload, while using <<161, pagination
+links>> containing the {cursor} that is only encoding the page position and
+direction. To protect the pagination sequence the {cursor} may contain a hash
+over all applied query filters (See also <<161>>).
 
 
 [[put]]
@@ -83,28 +84,32 @@ as _"please put the enclosed representation at the resource mentioned by
 the URL, replacing any existing resource."_.
 
 * {PUT} requests are usually applied to single resources, and not to collection
-resources, as this would imply replacing the entire collection
+  resources, as this would imply replacing the entire collection.
 * {PUT} requests are usually robust against non-existence of resources by
-implicitly creating the resource before updating
-* on successful {PUT} requests, the server will *replace the entire resource*
-addressed by the URL with the representation passed in the payload (subsequent
-reads will deliver the same payload, plus possibly server-generated fields like `modified_at`)
-* successful {PUT} requests return {200} or {204} (if the resource was updated - 
-with or without returning the resource), {201} (if the resource was created) 
-or {202} (if accepted and processed asynchronously).
+  implicitly creating the resource before updating.
+* On successful {PUT} requests, the server will *replace the entire resource*
+  addressed by the URL with the representation passed in the payload.
+  Subsequent reads will deliver the same payload, plus possibly
+  server-generated fields like `modified_at`.
+* Successful {PUT} requests return {200} or {204} (if the resource was updated
+  -- with or without returning the resource), {201} (if the resource was newly
+  created), and {202} (if the request was accepted for asynchronous
+  processing).
 
-The updated/created resource may be returned as response payload. We recommend, 
-to not use it per default, but if the resource is enriched with server-generated 
-fields like `version_number`. You may also support client side steering (see <<181>>).
+The updated/created resource may be returned as response payload. We recommend,
+to not use it per default, but if the resource is enriched with
+server-generated fields like `version_number`. You may also support client side
+steering (see <<181>>).
 
-*Important:* It is good practice to keep the resource identifier management under
-control of the service provider and not the client, and, hence, to prefer {POST} for 
-creation of (at least top-level) resources, and focus {PUT} on its usage for updates.
-However, in situations where the identifier and all resource attributes
-are under control of the client as input for the resource creation you should use
-{PUT} and pass the resource identifier as URL path parameter.
+*Important:* It is good practice to keep the resource identifier management
+under control of the service provider and not the client, and, hence, to prefer
+{POST} for creation of (at least top-level) resources, and focus {PUT} on its
+usage for updates. However, in situations where the identifier and all resource
+attributes are under control of the client as input for the resource creation
+you should use {PUT} and pass the resource identifier as URL path parameter.
 Putting the same resource twice is required to be <<idempotent>> and to result
-in the same single resource instance (see <<149>>) without data duplication in case of repetition.
+in the same single resource instance (see <<149>>) without data duplication in
+case of repetition.
 
 *Hint:* To prevent unnoticed concurrent updates and duplicate creations when
 using {PUT}, you <<182>> to allow the server to react on stricter demands that
@@ -119,23 +124,31 @@ details and options.
 collection resource endpoint, but other semantics on single resources endpoint
 are equally possible. The semantic for collection endpoints is best described
 as _"please add the enclosed representation to the collection resource
-identified by the URL"_. The semantic for single resource endpoints is best described
-as _"please execute the given well specified request on the resource identified
-by the URL"_.
+identified by the URL"_. The semantic for single resource endpoints is best
+described as _"please execute the given well specified request on the resource
+identified by the URL"_.
 
-* on a successful {POST} request, the server will create one or multiple new
-resources and provide their URI/URLs in the response
-* successful {POST} requests return {200} or {204} (if the resource was updated - 
-with or without returning the resource), {201} (if the resource was created) 
-or {202} (if accepted and processed asynchronously).
+* On a successful {POST} request, the server will create one or multiple new
+  resources, usually returning the resources or their URI/URLs in the response.
+  * For a single resource (tree) {POST} is expected to utilize the {Location}
+    header pointing to the URL of the newly created resource (tree) -- with or
+    without returning the resource (tree).
+  * For multiple resources {POST} may either return a collection of newly
+    created resources as served by the {GET} collection endpoint, or a bulk
+    response using the status code {207} (see also <<152>>).
+* Successful {POST} requests return {200} or {204} (if the resource was updated
+  -- with or without returning the resource), {201} (if the resource was newly
+  created), and {202} (if the request was accepted for asynchronous
+  processing).
 
-*Note:* By using {POST} to create resources the resource ID must not be passed as
-request input date by the client, but created and maintained by the service and
-returned with the response payload.
+*Note:* By using {POST} to create resources the resource ID must not be passed
+as request input date by the client, but created and maintained by the service
+and returned with the response payload.
 
-Apart from resource creation, {POST} should be also used for scenarios that cannot
-be covered by the other methods sufficiently. However, in such cases make sure to
-document the fact that {POST} is used as a workaround (see e.g. {GET-with-Body}).
+Apart from resource creation, {POST} should be also used for scenarios that
+cannot be covered by the other methods sufficiently. However, in such cases
+make sure to document the fact that {POST} is used as a workaround (see e.g.
+{GET-with-Body}).
 
 *Hint:* Posting the same resource twice is *not* required to be <<idempotent>>
 (check <<149>>) and may result in multiple resources. However, you <<229>> to
@@ -147,43 +160,43 @@ prevent this.
 
 {PATCH} method extends HTTP via {RFC-5789}[RFC-5789] standard to update parts
 of the resource objects where e.g. in contrast to {PUT} only a specific subset
-of resource fields should be changed. The set of changes is represented
-in a format called a _patch document_ passed as payload and identified by a
-specific media type. The semantic is best
-described as _"please change the resource identified by the URL according to my
-patch document"_. The syntax and semantics of the patch document is not
-defined in {RFC-5789}[RFC-5789] and must be described in the API specification
-by using specific media types.
+of resource fields should be changed. The set of changes is represented in a
+format called a _patch document_ passed as payload and identified by a specific
+media type. The semantic is best described as _"please change the resource
+identified by the URL according to my patch document"_. The syntax and
+semantics of the patch document is not defined in {RFC-5789}[RFC-5789] and must
+be described in the API specification by using specific media types.
 
 * {PATCH} requests are usually applied to single resources as patching entire
-collection is challenging
+  collection is challenging.
 * {PATCH} requests are usually not robust against non-existence of resource
-instances
-* on successful {PATCH} requests, the server will update parts of the resource
-addressed by the URL as defined by the change request in the payload
-* successful {PATCH} requests return {200} or {204} (if the resource was updated - 
-with or without returning the resource).
+  instances.
+* On successful {PATCH} requests, the server will update parts of the resource
+  addressed by the URL as defined by the change request in the payload.
+* Successful {PATCH} requests return {200} or {204} (if the resource was
+  updated -- with or without returning the resource), and {202} (if the request
+  was accepted for asynchronous processing).
 
-*Note:* since implementing {PATCH} correctly is a bit tricky, we strongly suggest
-to choose one and only one of the following patterns per endpoint (unless
-forced by a <<106,backwards compatible change>>). In preference order:
+*Note:* since implementing {PATCH} correctly is a bit tricky, we strongly
+suggest to choose one and only one of the following patterns per endpoint
+(unless forced by a <<106,backwards compatible change>>). In preference order:
 
-1. use {PUT} with complete objects to update a resource as long as feasible
+1. Use {PUT} with complete objects to update a resource as long as feasible
    (i.e. do not use {PATCH} at all).
-2. use {PATCH} with {RFC-7396}[JSON Merge Patch] standard, a
+2. Use {PATCH} with {RFC-7396}[JSON Merge Patch] standard, a
    specialized media type `application/merge-patch+json` for partial
    resource representation to update parts of resource objects.
-3. use {PATCH} with {RFC-6902}[JSON Patch] standard, a specialized media type
+3. Use {PATCH} with {RFC-6902}[JSON Patch] standard, a specialized media type
    `application/json-patch+json` that includes instructions on how to change
    the resource.
-4. use {POST} (with a proper description of what is happening) instead of
+4. Use {POST} (with a proper description of what is happening) instead of
    {PATCH}, if the request does not modify the resource in a way defined by
    the semantics of the standard media types above.
 
 In practice {RFC-7396}[JSON Merge Patch] quickly turns out to be too limited,
 especially when trying to update single objects in large collections (as part
-of the resource). In this case {RFC-6902}[JSON Patch] is more powerful
-while still showing readable patch requests (see also
+of the resource). In this case {RFC-6902}[JSON Patch] is more powerful while
+still showing readable patch requests (see also
 http://erosb.github.io/post/json-patch-vs-merge-patch[JSON patch vs. merge]).
 JSON Patch supports changing of array elements identified via its index, but
 not via (key) fields of the elements as typically needed for collections.
@@ -208,10 +221,11 @@ described as _"please delete the resource identified by the URL"_.
   collection resources, as this would imply deleting the entire collection.
 * {DELETE} request can be applied to multiple resources at once using query
   parameters on the collection resource (see <<delete-with-query-params>>).
-* successful {DELETE} requests return {200} or {204} (if the resource was deleted - 
-  with or without returning the resource).
-* failed {DELETE} requests will usually generate {404} (if the resource cannot
-  be found) or {410} (if the resource was already deleted before).
+* Successful {DELETE} requests return {200} or {204} (if the resource was
+  deleted -- with or without returning the resource), or {202} (if the request
+  was accepted for asynchronous processing).
+* Failed {DELETE} requests will usually generate {404} (if the resource cannot
+  be found) or {410} (if the resource was already traceably deleted before).
 
 *Important:* After deleting a resource with {DELETE}, a {GET} request on the
 resource is expected to either return {404} (not found) or {410} (gone)
@@ -262,7 +276,7 @@ be similar to usual {DELETE} requests.
 resources and resource collections.
 
 * {HEAD} has exactly the same semantics as {GET}, but returns headers only, no
-body.
+  body.
 
 *Hint:* {HEAD} is particular useful to efficiently lookup whether large
 resources or collection resources have been updated in conjunction with the
@@ -276,7 +290,7 @@ resources or collection resources have been updated in conjunction with the
 methods) of a given endpoint.
 
 * {OPTIONS} responses usually either return a comma separated list of methods
-in the `Allow` header or as a structured list of link templates
+  in the `Allow` header or as a structured list of link templates.
 
 *Note:* {OPTIONS} is rarely implemented, though it could be used to
 self-describe the full functionality of a resource.
@@ -287,14 +301,14 @@ self-describe the full functionality of a resource.
 
 Request methods in RESTful services can be...
 
-* [[safe, safe]]{RFC-safe} - the operation semantic is defined to be read-only,
+* [[safe, safe]]{RFC-safe} -- the operation semantic is defined to be read-only,
   meaning it must not have _intended side effects_, i.e. changes, to the server
   state.
-* [[idempotent, idempotent]]{RFC-idempotent} - the operation has the same
+* [[idempotent, idempotent]]{RFC-idempotent} -- the operation has the same
   _intended effect_ on the server state, independently whether it is executed
   once or multiple times. *Note:* this does not require that the operation is
   returning the same response or status code.
-* [[cacheable, cacheable]]{RFC-cacheable} - to indicate that responses are
+* [[cacheable, cacheable]]{RFC-cacheable} -- to indicate that responses are
   allowed to be stored for future reuse. In general, requests to safe methods
   are cacheable, if it does not require a current or authoritative response
   from the server.
@@ -358,8 +372,8 @@ To decide, which pattern is suitable for your use case, please consult the
 following table showing the major properties of each pattern:
 
 [,cols="46%,18%,18%,18%",options="header",]
-|==================================================================================
-|                               | Conditional Key | Secondary Key | Idempotency Key
+|==============================================================================
+|                         | Conditional Key | Secondary Key | Idempotency Key
 | Applicable with                       | {PATCH} | {POST}  | {POST}/{PATCH}
 | HTTP Standard                         | {YES}   | {NO}    | {NO}
 | Prevents duplicate (zombie) resources | {YES}   | {YES}   | {NO}
@@ -368,19 +382,19 @@ following table showing the major properties of each pattern:
 | Supports exact same response          | {NO}    | {NO}    | {YES}
 | Can be inspected (by intermediaries)  | {YES}   | {NO}    | {YES}
 | Usable without previous {GET}         | {NO}    | {YES}   | {YES}
-|==================================================================================
+|==============================================================================
 
 *Note:* The patterns applicable to {PATCH} can be applied in the same way to
 {PUT} and {DELETE} providing the same properties.
 
 If you mainly aim to support safe retries, we suggest to apply <<182,
 conditional key>> and <<231,secondary key>> pattern before the <<230,
-Idempotency Key>> pattern.
+idempotency key>> pattern.
 
-Note, like for {PUT}, successful {POST} or {PATCH} returns {200} or {204} (if the resource 
-was updated - with or without returning the resource), or {201} (if resource was created). 
-Hence, clients can differentiate successful robust repetition from resource created
-server activity of idempotent {POST}.
+*Note:* like for {PUT}, successful {POST} or {PATCH} returns {200} or {204} (if
+the resource was updated -- with or without returning the resource), or {201}
+(if resource was created). Hence, clients can differentiate successful robust
+repetition from resource created server activity of idempotent {POST}.
 
 
 [#231]
@@ -410,34 +424,35 @@ would be a similar well defined option.
 [#253]
 == {MAY} support asynchronous request processing
 
-Typically REST APIs are designed as synchronous interfaces where all server-side 
-processing and state changes initiated by the call are finished before delivering
-the result as response. However, in long running request processing situations 
-you may make use of asynchronous interface design with multiple calls: one for 
-initiating the asynchronous processing and subsequent ones for accessing the 
-processing status and/or result.
+Typically REST APIs are designed as synchronous interfaces where all
+server-side processing and state changes initiated by the call are finished
+before delivering the result as response. However, in long running request
+processing situations you may make use of asynchronous interface design with
+multiple calls: one for initiating the asynchronous processing and subsequent
+ones for accessing the processing status and/or result.
 
-We recommend an API design that represents the asynchronous request processing 
-explicitly via a job resource that has a status and is different from the actual 
-business resource. For instance, `POST /report-jobs` returns HTTP status code {201} to 
-indicate successful initiation of asynchronous processing together with the job-id 
-passed in the response payload and/or via the URL of the {Location} header. 
-The job-id or {Location} URL then can be used to poll the processing status 
-via `GET /report-jobs/{id}` which returns HTTP status code {200} with job status and 
-optional report-id as response payload. Once returned with job status `finished`, 
-the report-id is provided and can be used to fetch the result via `GET /reports/{id}` 
-which returns {200} and the report object as response payload. 
+We recommend an API design that represents the asynchronous request processing
+explicitly via a job resource that has a status and is different from the
+actual business resource. For instance, `POST /report-jobs` returns HTTP status
+code {201} to indicate successful initiation of asynchronous processing
+together with the _job-id_ passed in the response payload and/or via the URL of
+the {Location} header. The _job-id_ or {Location} URL then can be used to poll
+the processing status via `GET /report-jobs/{id}` which returns HTTP status
+code {200} with job status and optional report-id as response payload. Once
+returned with job status `finished`, the report-id is provided and can be used
+to fetch the result via `GET /reports/{id}` which returns {200} and the report
+object as response payload.
 
 Alternatively, if you do not to follow the recommended practice of providing a
-separate job resource, you may use `POST /reports` returning a status code {202} 
-together with the {Location} header to indicate successful initiation of the 
-asynchronous processing. The {Location} URL is used to fetch the report via
+separate job resource, you may use `POST /reports` returning a status code
+{202} together with the {Location} header to indicate successful initiation of
+the asynchronous processing. The {Location} URL is used to fetch the report via
 `GET /reports/{id}` which returns either {200} and the report resource or {202}
 without payload, if the asynchronous processing is still ongoing.
 
-*Hint:* Do *not* use response code {204} or {404} instead of {202} here -- it is
-misleading since neither is the processing successfully finished, nor do we want to
-suggest a client failure.
+*Hint:* Do *not* use response code {204} or {404} instead of {202} here -- it
+is misleading since neither is the processing successfully finished, nor do we
+want to suggest a client failure.
 
 
 [#154]
@@ -475,10 +490,9 @@ the escaping of special characters and the maximal URL length.
 [#236]
 == {SHOULD} design simple query languages using query parameters
 
-We prefer the use of query parameters to describe resource-specific
-query languages for the majority of APIs because it's native to HTTP,
-easy to extend and has an excellent implementation support in HTTP clients
-and web frameworks.
+We prefer the use of query parameters to describe resource-specific query
+languages for the majority of APIs because it's native to HTTP, easy to extend
+and has an excellent implementation support in HTTP clients and web frameworks.
 
 By simple query language we mean one or more name-value pairs that are combined
 in one way only with `and` semantics.
@@ -494,8 +508,8 @@ How query parameters are named and used is up to individual API designers, here
 are a few tips that could help to decide whether to use simple or more complex
 query language:
 
-1. Consider using simple query language when API is built to be used
-   by others (external teams):
+1. Consider using simple query language when API is built to be used by others
+   (external teams):
 
    * no additional effort/logic to form the query
    * no ambiguity in meaning of the query parameters. For example
@@ -503,10 +517,10 @@ query language:
     is `user_id` equal to `gt:100`?
    * easy to read, no learning curve
 
-2. For internal usage or specific use case a more complex query language
-   can be used (such as `price gt 10` or `price[gt]=10` or `price>10` etc.).
-   Also please consider following <<237, our guidance>> for designing complex
-   query languages with JSON.
+2. For internal usage or specific use case a more complex query language can be
+   used (such as `price gt 10` or `price[gt]=10` or `price>10` etc.). Also
+   please consider following <<237, our guidance>> for designing complex query
+   languages with JSON.
 
 The following examples should serve as ideas for simple query language:
 
@@ -523,15 +537,15 @@ The following examples should serve as ideas for simple query language:
 
 === Less than
 
-* `max_length=5` - query elements based on upper/lower bounds (`min` and `max`)
-* `shorter_than=5` - query elements using terminology specific e.g. to _length_
+* `max_length=5` -- query elements based on upper/lower bounds (`min` and `max`)
+* `shorter_than=5` -- query elements using terminology specific e.g. to _length_
 * `price_lower_than=50` or `price_lower_than_or_equal=50`
 * `created_before=2019-07-17` or `active_until=2023-09-18T12:12:00.000Z`
 ** Using terminology specific to time: _before_, _after_, _since_ and _until_
 
 === More than
 
-* `min_length=2` - query elements based on upper/lower bounds (`min` and `max`)
+* `min_length=2` -- query elements based on upper/lower bounds (`min` and `max`)
 * `created_after=2019-07-17` or `modified_since=2019-07-17`
 ** Using terminology specific to time: _before_, _after_, _since_ and _until_
 * `price_higher_than=50` or `price_equal_or_higher_than=50`
@@ -548,8 +562,8 @@ The following examples should serve as ideas for simple query language:
 Please check <<137, conventional query parameters for pagination and sorting>>
 and you can also find additional info in <<pagination>> section below.
 
-We don't advocate for or against certain names because in the end
-APIs should be free to choose the terminology that fits their domain the best.
+We don't advocate for or against certain names because in the end APIs should
+be free to choose the terminology that fits their domain the best.
 
 
 [#237]
@@ -569,8 +583,8 @@ Aspects that set those APIs apart from the rest include but are not limited to:
 * Dynamic filters, due to a dynamic and extensible resource model
 * Free choice of operators, e.g. `and`, `or` and `not`
 
-APIs that qualify for a specific, complex query language are encouraged to
-use nested JSON data structures and define them using OpenAPI directly. The
+APIs that qualify for a specific, complex query language are encouraged to use
+nested JSON data structures and define them using OpenAPI directly. The
 provides the following benefits:
 
 * Data structures are easy to use for clients
@@ -615,7 +629,8 @@ might look like.
 
 Feel free to also get some inspiration from:
 
-* https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html[Elastic Search: Query DSL]
+* https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html[Elastic
+  Search: Query DSL]
 * https://graphql.org/learn/queries/[GraphQL: Queries]
 
 
@@ -623,8 +638,8 @@ Feel free to also get some inspiration from:
 == {MUST} document implicit response filtering
 
 Sometimes certain collection resources or queries will not list all the
-possible elements they have, but only those for which the current client
-is authorized to access.
+possible elements they have, but only those for which the current client is
+authorized to access.
 
 Implicit filtering could be done on:
 
@@ -632,8 +647,8 @@ Implicit filtering could be done on:
 * the fields returned for the detail information of the resource
 
 In such cases, the fact that implicit filtering is applied must be documented
-in the API specification's endpoint description. Consider <<227,caching aspects>>
-when implicit filtering is provided. Example:
+in the API specification's endpoint description. Consider <<227,caching
+aspects>> when implicit filtering is provided. Example:
 
 If an employee of the company _Foo_ accesses one of our business-to-business
 service and performs a `{GET} /business-partners`, it must, for legal reasons,
