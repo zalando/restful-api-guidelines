@@ -149,7 +149,7 @@ is not required to make an object definition extensible:
   ignore fields sent by the server they cannot process. This allows API
   servers to evolve their data formats.
 * For API servers receiving unexpected data, the situation is slightly
-  different. According to <<109>> instead of ignoring fields,
+  different. According to <<109>>, instead of ignoring fields,
   servers _should_ reject requests whose entities contain undefined fields
   in order to signal to clients that those fields would not be stored on behalf
   of the client.
