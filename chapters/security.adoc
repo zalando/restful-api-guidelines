@@ -35,9 +35,7 @@ also <<105>>):
 [source,yaml]
 ----
 security:
-
-- BearerAuth: [ api-repository.read ]
-
+  - BearerAuth: [ api-repository.read ]
 ----
 
 
