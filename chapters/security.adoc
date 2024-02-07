@@ -35,7 +35,9 @@ also <<105>>):
 [source,yaml]
 ----
 security:
-  - BearerAuth: [ api-repository.read ]
+
+- BearerAuth: [ api-repository.read ]
+
 ----
 
 
@@ -54,7 +56,8 @@ because it exposes authentication server address details and may make use of red
 == {MUST} define and assign permissions (scopes)
 
 APIs must define permissions to protect their resources. Thus, at least one
-permission must be assigned to each API endpoint.
+permission must be assigned to each API endpoint. The `uid` default scope can be used
+for publicly available data, but should be declared explicitly (see details below).
 
 The naming schema for permissions corresponds to the naming schema for <<224,
 hostnames>> and <<213, event type names>>. Please refer to <<225>> for
