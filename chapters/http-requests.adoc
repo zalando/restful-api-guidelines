@@ -133,52 +133,31 @@ cannot be covered by the other methods sufficiently. However, in such cases
 make sure to document the fact that {POST} is used as a workaround (see e.g.
 {GET-with-Body}).
 
-See below for common {POST} use-cases.
-
-[[post-create-single]]
-==== Single resource creation
-
 * Successful {POST} requests on a collection endpoint {SHOULD} return {201} and
   the new resource object (including the resource identifier) in the response
   payload.
 ** The client {SHOULD} be able to use this resource identifier to {GET} the
    resource if supported by the API (see <<143>>).
-* If the response does not contain the created resource or a resource monitor the
-  status code should still be {201}, and the URL to {GET} the resource {MUST} be
-  provided in the {Location} response header. It is a good practice to always provide
-  the {Location} header with the URL to the created resource (see <<180>>).
-* The resource ID {MUST-NOT} be passed as request body data by the client,
+** The URL to {GET} the resource {SHOULD} be provided in the {Location} header.
+* If the response does not contain the created resource or a resource monitor,
+  the status code {SHOULD} be {201} and the URL to {GET} the resource {MUST} be
+  provided in the {Location} response header.
+* The resource identifier {MUST-NOT} be passed as request body data by the client,
   but created and maintained by the service.
-* Posting the same resource twice is *not* required to be <<idempotent>>
-and may result in multiple resources, see <<post-idempotent>>.
+* If the {POST} is <<idempotent>>, the status code {SHOULD} be {201} if the
+  resource was created and {200} or {204} if the resource was updated.
 
-[[post-create-multiple]]
-==== Multiple resource creation
+NOTE: Posting the same resource twice is *not* required to be <<idempotent>>
+(check <<149>>) and may result in multiple resources. However, you <<229>> to prevent
+this.
 
-If a {POST} request creates multiple resources, a successful response may be one
-of the following:
-
-* {201} with a collection of the newly created resources as served
-  by the {GET} collection endpoint, but only if the creation is atomic.
-* {207} bulk response, where each response item contains the ID and/or URL of
-  the created resource, see <<152>>.
-
-[[post-idempotent]]
-==== Idempotent create/update
-
-{POST} requests can be <<idempotent>>, in which case the status code depends
-on whether the resource was created or updated, see <<229>>.
-
-* If the resource was created, the response {SHOULD} have a {201} status code
-  and follow <<post-create-single>> semantics.
-* If the resource was updated, the response status code should be {200} or
-  {204} (with or without returning the resource).
-
-[[post-async]]
-==== Asynchronous processing
-
-If the request is accepted for asynchronous processing, the response status code
-should be {202}, see <<253>>.
+* If the {POST} creates multiple resources and the creation is atomic, meaning
+  either all the resources are created or none of them are, the status code
+  {SHOULD} be {201}.
+* If the {POST} creates multiple resources and the creation is not atomic,
+  meaning some resources can fail to be created, you <<152>>.
+* You <<253>>, where the resource creation would not finish by the time the
+  request is delivered, so the response status code {SHOULD} be {202}.
 
 [[patch]]
 === PATCH
