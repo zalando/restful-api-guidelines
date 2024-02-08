@@ -128,22 +128,25 @@ by the URL"_. The semantic for single resource endpoints is best described as
 _"please execute the given well specified request on the resource identified by
 the URL"_.
 
-Apart from resource creation, {POST} should be also used for scenarios that
-cannot be covered by the other methods sufficiently. However, in such cases
-make sure to document the fact that {POST} is used as a workaround (see e.g.
-{GET-with-Body}).
-
-* Successful {POST} requests on a collection endpoint {SHOULD} return {201} and
-  the new resource object (including the resource identifier) in the response
-  payload.
+* Successful {POST} requests on a collection endpoint will create one or more
+  resource instances.
+* For single resources, you {SHOULD} return {201} and the new resource object
+  (including the resource identifier) in the response payload.
 ** The client {SHOULD} be able to use this resource identifier to {GET} the
    resource if supported by the API (see <<143>>).
 ** The URL to {GET} the resource {SHOULD} be provided in the {Location} header.
+
+WARNING: The resource identifier {MUST-NOT} be passed as request body data by the client,
+  but created and maintained by the service.
+
+* For multiple resources you {SHOULD} return {201} in the response, as long as
+  they are created atomically, meaning that either all the resources are created
+  or none of them are.
+** You <<152>> if the request can partially fail, that is some of the resources
+  can fail to be created.
 * If the response does not contain the created resource or a resource monitor,
   the status code {SHOULD} be {201} and the URL to {GET} the resource {MUST} be
   provided in the {Location} response header.
-* The resource identifier {MUST-NOT} be passed as request body data by the client,
-  but created and maintained by the service.
 * If the {POST} is <<idempotent>>, the status code {SHOULD} be {201} if the
   resource was created and {200} or {204} if the resource was updated.
 
@@ -151,13 +154,15 @@ NOTE: Posting the same resource twice is *not* required to be <<idempotent>>
 (check <<149>>) and may result in multiple resources. However, you <<229>> to prevent
 this.
 
-* If the {POST} creates multiple resources and the creation is atomic, meaning
-  either all the resources are created or none of them are, the status code
-  {SHOULD} be {201}.
-* If the {POST} creates multiple resources and the creation is not atomic,
-  meaning some resources can fail to be created, you <<152>>.
 * You <<253>>, where the resource creation would not finish by the time the
   request is delivered, so the response status code {SHOULD} be {202}.
+
+
+Apart from resource creation, {POST} should be also used for scenarios that
+cannot be covered by the other methods sufficiently. However, in such cases
+make sure to document the fact that {POST} is used as a workaround (see e.g.
+{GET-with-Body}).
+
 
 [[patch]]
 === PATCH
