@@ -15,7 +15,7 @@ Cursor-based pagination is a very powerful and valuable technique (see also
 This is obtained by using an anchor element that allows to retrieve all page
 elements directly via an ordering combined-index, usually based on `created_at`
 or `modified_at`. Simple said, the cursor is the information set needed to
-reconstruct the database query to retrieves the minimal page information from
+reconstruct the database query that retrieves the minimal page information from
 the data storage.
 
 The {cursor} itself is an opaque string, transmitted forth and back between
