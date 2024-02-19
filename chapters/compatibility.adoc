@@ -69,6 +69,9 @@ they accept from clients:
 
 * Unknown input fields in payload or URL should not be ignored; servers should
   provide error feedback to clients via an HTTP 400 response code.
+  Otherwise, if unexpected fields are planned to be handled in some way instead
+  of being rejected, API designers *must* document clearly how unexpected
+  fields are being handled for {PUT}, {POST}, and {PATCH} requests.
 * Be accurate in defining input data constraints (like formats, ranges, lengths
   etc.) — and check constraints and return dedicated error information in case
   of violations.
