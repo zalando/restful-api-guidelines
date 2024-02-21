@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.20">
+<meta name="generator" content="Asciidoctor 2.0.21">
 <meta name="keywords" content="Zalando, Guidelines, RESTful, API, Events, Schema">
 <meta name="copyright" content="CC-BY-SA 4.0">
 <title>Zalando RESTful API and Event Guidelines</title>
@@ -8028,7 +8028,10 @@ they accept from clients:</p>
 <ul>
 <li>
 <p>Unknown input fields in payload or URL should not be ignored; servers should
-provide error feedback to clients via an HTTP 400 response code.</p>
+provide error feedback to clients via an HTTP 400 response code.
+Otherwise, if unexpected fields are planned to be handled in some way instead
+of being rejected, API designers <strong>must</strong> document clearly how unexpected
+fields are being handled for <a href="#put"><code>PUT</code></a>, <a href="#post"><code>POST</code></a>, and <a href="#patch"><code>PATCH</code></a> requests.</p>
 </li>
 <li>
 <p>Be accurate in defining input data constraints (like formats, ranges, lengths
@@ -8150,11 +8153,13 @@ servers to evolve their data formats.</p>
 </li>
 <li>
 <p>For API servers receiving unexpected data, the situation is slightly
-different. Instead of ignoring fields, servers <em>may</em> reject requests whose
-entities contain undefined fields in order to signal to clients that those
-fields would not be stored on behalf of the client. API designers must
-document clearly how unexpected fields are handled for <a href="#put"><code>PUT</code></a>, <a href="#post"><code>POST</code></a>, and
-<a href="#patch"><code>PATCH</code></a> requests.</p>
+different. According to <a href="#109"><span class="should-keyword"><strong>SHOULD</strong></span> design APIs conservatively</a>, instead of ignoring fields,
+servers <em>should</em> reject requests whose entities contain undefined fields
+in order to signal to clients that those fields would not be stored on behalf
+of the client.
+Otherwise, if unexpected fields are planned to be handled in some way instead
+of being rejected, API designers <strong>must</strong> document clearly how unexpected
+fields are being handled for <a href="#put"><code>PUT</code></a>, <a href="#post"><code>POST</code></a>, and <a href="#patch"><code>PATCH</code></a> requests.</p>
 </li>
 </ul>
 </div>
@@ -10897,7 +10902,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-12-12 13:40:03 UTC
+Last updated 2024-02-21 12:26:19 UTC
 </div>
 </div>
 </body>
