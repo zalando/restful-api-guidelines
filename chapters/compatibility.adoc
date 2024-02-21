@@ -69,6 +69,9 @@ they accept from clients:
 
 * Unknown input fields in payload or URL should not be ignored; servers should
   provide error feedback to clients via an HTTP 400 response code.
+  Otherwise, if unexpected fields are planned to be handled in some way instead
+  of being rejected, API designers *must* document clearly how unexpected
+  fields are being handled for {PUT}, {POST}, and {PATCH} requests.
 * Be accurate in defining input data constraints (like formats, ranges, lengths
   etc.) — and check constraints and return dedicated error information in case
   of violations.
@@ -149,11 +152,13 @@ is not required to make an object definition extensible:
   ignore fields sent by the server they cannot process. This allows API
   servers to evolve their data formats.
 * For API servers receiving unexpected data, the situation is slightly
-  different. Instead of ignoring fields, servers _may_ reject requests whose
-  entities contain undefined fields in order to signal to clients that those
-  fields would not be stored on behalf of the client. API designers must
-  document clearly how unexpected fields are handled for {PUT}, {POST}, and
-  {PATCH} requests.
+  different. According to <<109>>, instead of ignoring fields,
+  servers _should_ reject requests whose entities contain undefined fields
+  in order to signal to clients that those fields would not be stored on behalf
+  of the client.
+  Otherwise, if unexpected fields are planned to be handled in some way instead
+  of being rejected, API designers *must* document clearly how unexpected
+  fields are being handled for {PUT}, {POST}, and {PATCH} requests.
 
 API formats must not declare `additionalProperties` to be false, as this
 prevents objects being extended in the future.
