@@ -55,11 +55,11 @@ because it exposes authentication server address details and may make use of red
 
 APIs must define permissions to protect their resources. Thus, at least one
 permission must be assigned to each API endpoint. You should use the `uid`
-pseudo-scope to allow read-only (?) access to public and employee-only data
-(classified as `green` and `yellow` respectively). For sensitive data (`orange`
-or `red`), the `uid` scope based authorization must be either accompanied by
-individual object level authorization or use role based permissions through
-specific scopes.
+pseudo-scope to allow access to public and employee-only data (classified as
+`green` and `yellow` respectively). For sensitive data (`orange` or `red`),
+the `uid` scope based authorization must be either accompanied by individual
+object level authorization or use role based permissions through specific
+scopes.
 
 The naming schema for permissions corresponds to the naming schema for <<224,
 hostnames>> and <<213, event type names>>. Please refer to <<225>> for
