@@ -135,6 +135,11 @@ the URL"_.
 ** The client {SHOULD} be able to use this resource identifier to {GET} the
    resource if supported by the API (see <<143>>).
 ** The URL to {GET} the resource {SHOULD} be provided in the {Location} header.
+** If the response does not contain the created resource or a resource monitor,
+  the status code {SHOULD} be {201} and the URL to {GET} the resource {MUST} be
+  provided in the {Location} response header.
+** If the {POST} is <<idempotent>>, the status code {SHOULD} be {201} if the
+  resource was created and {200} or {204} if the resource was updated.
 
 WARNING: The resource identifier {MUST-NOT} be passed as request body data by the client,
   but created and maintained by the service.
@@ -144,11 +149,7 @@ WARNING: The resource identifier {MUST-NOT} be passed as request body data by th
   or none of them are.
 ** You <<152>> if the request can partially fail, that is some of the resources
   can fail to be created.
-* If the response does not contain the created resource or a resource monitor,
-  the status code {SHOULD} be {201} and the URL to {GET} the resource {MUST} be
-  provided in the {Location} response header.
-* If the {POST} is <<idempotent>>, the status code {SHOULD} be {201} if the
-  resource was created and {200} or {204} if the resource was updated.
+
 
 NOTE: Posting the same resource twice is *not* required to be <<idempotent>>
 (check <<149>>) and may result in multiple resources. However, you <<229>> to prevent
