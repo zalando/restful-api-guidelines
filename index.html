@@ -4451,50 +4451,101 @@ details and options.</p>
 <div class="paragraph">
 <p><a href="#post"><code>POST</code></a> requests are idiomatically used to <strong>create</strong> single resources on a
 collection resource endpoint, but other semantics on single resources endpoint
-are equally possible. The semantic for collection endpoints is best described
-as <em>"please add the enclosed representation to the collection resource
-identified by the URL"</em>. The semantic for single resource endpoints is best
-described as <em>"please execute the given well specified request on the resource
-identified by the URL"</em>.</p>
+are equally possible. The semantic for collection endpoints is best described as
+<em>"please add the enclosed representation to the collection resource identified
+by the URL"</em>. The semantic for single resource endpoints is best described as
+<em>"please execute the given well specified request on the resource identified by
+the URL"</em>.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>On a successful <a href="#post"><code>POST</code></a> request, the server will create one or multiple new
-resources, usually returning the resources or their URI/URLs in the response.</p>
+<p>Successful <a href="#post"><code>POST</code></a> requests on a collection endpoint will create one or more
+resource instances.</p>
 </li>
 <li>
-<p>For a single resource (tree) <a href="#post"><code>POST</code></a> is expected to utilize the <a href="https://tools.ietf.org/html/rfc9110#section-10.2.2"><code>Location</code></a>
-header pointing to the URL of the newly created resource (tree)&#8201;&#8212;&#8201;with or
-without returning the resource (tree).</p>
+<p>For single resources, you <span class="should-keyword"><strong>SHOULD</strong></span> return <a href="#status-code-201" class="status-code">201</a> and the new resource object
+(including the resource identifier) in the response payload.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The client <span class="should-keyword"><strong>SHOULD</strong></span> be able to use this resource identifier to <a href="#get"><code>GET</code></a> the
+resource if supported by the API (see <a href="#143"><span class="must-keyword"><strong>MUST</strong></span> identify resources and sub-resources via path segments</a>).</p>
 </li>
 <li>
-<p>For multiple resources <a href="#post"><code>POST</code></a> may either return a collection of newly
-created resources as served by the <a href="#get"><code>GET</code></a> collection endpoint, or a bulk
-response using the status code <a href="#status-code-207" class="status-code">207</a> (see also <a href="#152"><span class="must-keyword"><strong>MUST</strong></span> use code 207 for batch or bulk requests</a>).</p>
+<p>The URL to <a href="#get"><code>GET</code></a> the resource <span class="should-keyword"><strong>SHOULD</strong></span> be provided in the <a href="https://tools.ietf.org/html/rfc9110#section-10.2.2"><code>Location</code></a> header.</p>
 </li>
 <li>
-<p>Successful <a href="#post"><code>POST</code></a> requests return <a href="#status-code-200" class="status-code">200</a> or <a href="#status-code-204" class="status-code">204</a> (if the resource was updated&#8201;&#8212;&#8201;with or without returning the resource), <a href="#status-code-201" class="status-code">201</a> (if the resource was newly
-created), and <a href="#status-code-202" class="status-code">202</a> (if the request was accepted for asynchronous
-processing).</p>
+<p>If the response does not contain the created resource or a resource monitor,
+the status code <span class="should-keyword"><strong>SHOULD</strong></span> be <a href="#status-code-201" class="status-code">201</a> and the URL to <a href="#get"><code>GET</code></a> the resource <span class="must-keyword"><strong>MUST</strong></span> be
+provided in the <a href="https://tools.ietf.org/html/rfc9110#section-10.2.2"><code>Location</code></a> response header.</p>
+</li>
+<li>
+<p>If the <a href="#post"><code>POST</code></a> is <a href="#idempotent">idempotent</a>, the status code <span class="should-keyword"><strong>SHOULD</strong></span> be <a href="#status-code-201" class="status-code">201</a> if the
+resource was created and <a href="#status-code-200" class="status-code">200</a> or <a href="#status-code-204" class="status-code">204</a> if the resource was updated.</p>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p><strong>Note:</strong> By using <a href="#post"><code>POST</code></a> to create resources the resource ID must not be passed
-as request input date by the client, but created and maintained by the service
-and returned with the response payload.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+The resource identifier <span class="must-keyword"><strong>MUST NOT</strong></span> be passed as request body data by the client,
+  but created and maintained by the service.
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>For multiple resources you <span class="should-keyword"><strong>SHOULD</strong></span> return <a href="#status-code-201" class="status-code">201</a> in the response, as long as
+they are created atomically, meaning that either all the resources are created
+or none of them are.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>You <a href="#152"><span class="must-keyword"><strong>MUST</strong></span> use code 207 for batch or bulk requests</a> if the request can partially fail, that is some of the resources
+can fail to be created.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Posting the same resource twice is <strong>not</strong> required to be <a href="#idempotent">idempotent</a>
+(check <a href="#149"><span class="must-keyword"><strong>MUST</strong></span> fulfill common method properties</a>) and may result in multiple resources. However, you <a href="#229"><span class="should-keyword"><strong>SHOULD</strong></span> consider to design <code>POST</code> and <code>PATCH</code> idempotent</a> to prevent
+this.
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>You <a href="#253"><span class="may-keyword"><strong>MAY</strong></span> support asynchronous request processing</a>, where the resource creation would not finish by the time the
+request is delivered, so the response status code <span class="should-keyword"><strong>SHOULD</strong></span> be <a href="#status-code-202" class="status-code">202</a>.</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>Apart from resource creation, <a href="#post"><code>POST</code></a> should be also used for scenarios that
 cannot be covered by the other methods sufficiently. However, in such cases
 make sure to document the fact that <a href="#post"><code>POST</code></a> is used as a workaround (see e.g.
 <a href="#get-with-body"><code>GET with body</code></a>).</p>
-</div>
-<div class="paragraph">
-<p><strong>Hint:</strong> Posting the same resource twice is <strong>not</strong> required to be <a href="#idempotent">idempotent</a>
-(check <a href="#149"><span class="must-keyword"><strong>MUST</strong></span> fulfill common method properties</a>) and may result in multiple resources. However, you <a href="#229"><span class="should-keyword"><strong>SHOULD</strong></span> consider to design <code>POST</code> and <code>PATCH</code> idempotent</a> to
-prevent this.</p>
 </div>
 </div>
 <div class="sect3">
@@ -5582,7 +5633,7 @@ as described in <a href="#253"><span class="may-keyword"><strong>MAY</strong></s
 </div>
 </div>
 <div class="sect4">
-<h5 id="status-code-204"><a class="link" href="#status-code-204">204 No content <a href="https://tools.ietf.org/html/rfc9110#name-204-no-content" target="_blank" rel="noopener"><sup>RFC</sup></a> <a href="#status-code-use"><span class="status-code-hint should"><span class="icon"><i class="fa fa-check"></i></span> use</span></a> <a href="#status-code-document"><span class="status-code-hint should"><span class="icon"><i class="fa fa-check"></i></span> document</span></a> <a href="#put"><code>PUT</code></a> <a href="#patch"><code>PATCH</code></a> <a href="#delete"><code>DELETE</code></a></a></h5>
+<h5 id="status-code-204"><a class="link" href="#status-code-204">204 No content <a href="https://tools.ietf.org/html/rfc9110#name-204-no-content" target="_blank" rel="noopener"><sup>RFC</sup></a> <a href="#status-code-use"><span class="status-code-hint should"><span class="icon"><i class="fa fa-check"></i></span> use</span></a> <a href="#status-code-document"><span class="status-code-hint should"><span class="icon"><i class="fa fa-check"></i></span> document</span></a> <a href="#post"><code>POST</code></a> <a href="#put"><code>PUT</code></a> <a href="#patch"><code>PATCH</code></a> <a href="#delete"><code>DELETE</code></a></a></h5>
 <div class="paragraph indent">
 <p>Returned instead of <a href="#status-code-200" class="status-code">200</a>, if no response payload is returned. Normally only
 applicable to methods which change something.</p>
@@ -10902,7 +10953,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-02-21 18:05:23 UTC
+Last updated 2024-02-29 14:54:13 UTC
 </div>
 </div>
 </body>
