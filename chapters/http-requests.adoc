@@ -122,37 +122,47 @@ details and options.
 
 {POST} requests are idiomatically used to *create* single resources on a
 collection resource endpoint, but other semantics on single resources endpoint
-are equally possible. The semantic for collection endpoints is best described
-as _"please add the enclosed representation to the collection resource
-identified by the URL"_. The semantic for single resource endpoints is best
-described as _"please execute the given well specified request on the resource
-identified by the URL"_.
+are equally possible. The semantic for collection endpoints is best described as
+_"please add the enclosed representation to the collection resource identified
+by the URL"_. The semantic for single resource endpoints is best described as
+_"please execute the given well specified request on the resource identified by
+the URL"_.
 
-* On a successful {POST} request, the server will create one or multiple new
-  resources, usually returning the resources or their URI/URLs in the response.
-  * For a single resource (tree) {POST} is expected to utilize the {Location}
-    header pointing to the URL of the newly created resource (tree) -- with or
-    without returning the resource (tree).
-  * For multiple resources {POST} may either return a collection of newly
-    created resources as served by the {GET} collection endpoint, or a bulk
-    response using the status code {207} (see also <<152>>).
-* Successful {POST} requests return {200} or {204} (if the resource was updated
-  -- with or without returning the resource), {201} (if the resource was newly
-  created), and {202} (if the request was accepted for asynchronous
-  processing).
+* Successful {POST} requests on a collection endpoint will create one or more
+  resource instances.
+* For single resources, you {SHOULD} return {201} and the new resource object
+  (including the resource identifier) in the response payload.
+** The client {SHOULD} be able to use this resource identifier to {GET} the
+   resource if supported by the API (see <<143>>).
+** The URL to {GET} the resource {SHOULD} be provided in the {Location} header.
+** If the response does not contain the created resource or a resource monitor,
+  the status code {SHOULD} be {201} and the URL to {GET} the resource {MUST} be
+  provided in the {Location} response header.
+** If the {POST} is <<idempotent>>, the status code {SHOULD} be {201} if the
+  resource was created and {200} or {204} if the resource was updated.
 
-*Note:* By using {POST} to create resources the resource ID must not be passed
-as request input date by the client, but created and maintained by the service
-and returned with the response payload.
+WARNING: The resource identifier {MUST-NOT} be passed as request body data by the client,
+  but created and maintained by the service.
+
+* For multiple resources you {SHOULD} return {201} in the response, as long as
+  they are created atomically, meaning that either all the resources are created
+  or none of them are.
+** You <<152>> if the request can partially fail, that is some of the resources
+  can fail to be created.
+
+
+NOTE: Posting the same resource twice is *not* required to be <<idempotent>>
+(check <<149>>) and may result in multiple resources. However, you <<229>> to prevent
+this.
+
+* You <<253>>, where the resource creation would not finish by the time the
+  request is delivered, so the response status code {SHOULD} be {202}.
+
 
 Apart from resource creation, {POST} should be also used for scenarios that
 cannot be covered by the other methods sufficiently. However, in such cases
 make sure to document the fact that {POST} is used as a workaround (see e.g.
 {GET-with-Body}).
-
-*Hint:* Posting the same resource twice is *not* required to be <<idempotent>>
-(check <<149>>) and may result in multiple resources. However, you <<229>> to
-prevent this.
 
 
 [[patch]]

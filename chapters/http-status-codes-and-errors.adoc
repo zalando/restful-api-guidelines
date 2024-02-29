@@ -135,7 +135,7 @@ Only applicable to methods which change something, with the exception of
 as described in <<253>>.
 
 [[status-code-204]]
-==== 204 No content {rfc-status-204} {use} {document} {PUT} {PATCH} {DELETE}
+==== 204 No content {rfc-status-204} {use} {document} {POST} {PUT} {PATCH} {DELETE}
 [.indent]
 Returned instead of {200}, if no response payload is returned. Normally only
 applicable to methods which change something.
