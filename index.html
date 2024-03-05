@@ -2558,7 +2558,12 @@ because it exposes authentication server address details and may make use of red
 <h3 id="105"><a class="link" href="#105"><span class="must-keyword"><strong>MUST</strong></span> define and assign permissions (scopes)</a></h3>
 <div class="paragraph">
 <p>APIs must define permissions to protect their resources. Thus, at least one
-permission must be assigned to each API endpoint.</p>
+permission must be assigned to each API endpoint. You should use the <code>uid</code>
+pseudo-scope to allow access to public and employee-only data (classified as
+<code>green</code> and <code>yellow</code> respectively). For sensitive data (<code>orange</code> or <code>red</code>),
+the <code>uid</code> scope based authorization must be either accompanied by individual
+object level authorization or use role based permissions through specific
+scopes.</p>
 </div>
 <div class="paragraph">
 <p>The naming schema for permissions corresponds to the naming schema for <a href="#224">hostnames</a> and <a href="#213">event type names</a>. Please refer to <a href="#225"><span class="must-keyword"><strong>MUST</strong></span> follow naming convention for permissions (scopes)</a> for
@@ -10953,7 +10958,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-02-29 14:54:13 UTC
+Last updated 2024-03-05 13:35:55 UTC
 </div>
 </div>
 </body>
