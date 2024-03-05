@@ -322,3 +322,25 @@ later than the given date:
 === Conclusion
 We suggest to either use the _{ETag} in result entities_ or _{Last-Modified}
 / {If-Unmodified-Since}_ approach.
+
+
+[[handling-compatible-extensions]]
+== Handling compatible API extensions
+
+[[client-handling-compatible-extensions]]
+=== In the clients
+
+Client code needs to be prepared to store any new optional properties of the
+fetched resource payload, and to serialize them later when submitting the
+payload back to the API server (<<108>>).
+
+When using Java with Jackson serialization, for example, that can be achieved
+by including a field in the Java class representing the API resource, like the
+following one:
+
+[source,java]
+----
+@JsonAnyGetter
+@JsonAnySetter
+private Map<String, JsonNode> additionalProperties = new HashMap<>();
+----
