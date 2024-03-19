@@ -53,52 +53,19 @@ because it exposes authentication server address details and may make use of red
 [#105]
 == {MUST} define and assign permissions (scopes)
 
-APIs must define permissions to protect their resources. Thus, at least one
-permission must be assigned to each API endpoint. You should use the `uid`
-pseudo-scope to allow access to public and employee-only data (classified as
-`green` and `yellow` respectively). For sensitive data (`orange` or `red`),
-the `uid` scope based authorization must be either accompanied by individual
-object level authorization or use role based permissions through specific
-scopes.
+Endpoints must be equipped with permissions, if they require client authorization for protection 
+since e.g. data is exposed that is classified as `orange` or `red` according to Zalando's 
+https://drive.google.com/file/d/1UPB0UbZP7IvcB52DVWQX41pmB7ugJdAX/view[Data Classification Group Policy [internal link]]. 
+Please refer to <<225>> for designing permission names. 
+Some API endpoints may not require specific permissions for authorization e.g. 
+in case of (i) authorization is _not_ needed for the endpoint since all
+exposed data is classified as `green` or `yellow`, 
+or in case of (ii) the specific authorization is provided differently on 
+the individual object level. In these situations, however, you must make 
+it explicit by assigning the `uid` pseudo permission, which is always 
+available as OAuth2 default scope for all clients in Zalando. 
 
-The naming schema for permissions corresponds to the naming schema for <<224,
-hostnames>> and <<213, event type names>>. Please refer to <<225>> for
-designing permission names and see the following examples.
-
-[cols="25%,20%,15%,40%",options="header",]
-|=======================================================================
-| Application ID | Resource ID | Access Type | Example
-| `order-management` | `sales-order` | `read` | `order-management.sales-order.read`
-| `order-management` | `shipment-order` | `read` | `order-management.shipment-order.read`
-| `fulfillment-order` | | `write` | `fulfillment-order.write`
-| `business-partner-service` | |`read` | `business-partner-service.read`
-|=======================================================================
-
-////
-//Prepared change for functional permission names:
-
-[cols="15%,15%,15%,15%,40%",options="header",]
-|=======================================================================
-| Domain | Component | Resource | Access Type | Example
-| finance | exchange-rate | - | write | z::finance.exchange-rate.write
-| transactions | order | - | read | z::transactions.order.read
-| customer | address | shipment-address | read  | z::customer.address.shipment-address.read
-|=======================================================================
-[cols="30%,15%,15%,40%",options="header",]
-|=======================================================================
-| Application | Resource | Access Type | Example
-| business-partner-service | | - | read | z::business-partner-service.read
-| order-management | sales-order | write | z::order-management.sales-order.write
-|=======================================================================
-
-////
-
-*Note:* APIs should stick to component specific permissions without resource
-extension to avoid the complexity of too many fine grained permissions. For the
-majority of use cases, restricting access for specific API endpoints using read
-or write is sufficient.
-
-The defined permissions are than assigned to each API endpoint based on the
+The defined permissions are assigned to each API endpoint based on the
 security schema (see example in <<104, previous section>>) by specifying the
 https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#securityRequirementObject[security requirement]
 as follows:
@@ -113,29 +80,13 @@ paths:
         - BearerAuth: [ business-partner-service.read ]
 ----
 
-In some cases a whole API or selected API endpoints may not require specific
-permissions, e.g. if information is public or protected by object level
-authorization. To make this explicit you should assign the `uid` pseudo
-permission, that is always available as OAuth2 default scope in Zalando.
-
-[source,yaml]
-----
-paths:
-  /public-information:
-    get:
-      summary: Provides public information about ...
-               Accessible by any user; no permissions needed.
-      security:
-        - BearerAuth: [ uid ]
-----
-
-*Hint:* Following a minimal a minimal API specification approach, the
+*Hint:* Following a minimal API specification approach, the
 `Authorization`-header does not need to be defined on each API endpoint, since
 it is required and so to say implicitly defined via the security section.
 
 
 [#225]
-== {MUST} follow naming convention for permissions (scopes)
+== {MUST} follow the naming convention for permissions (scopes)
 
 As long as the <<223,functional naming>> is not yet supported by our permission registry,
 permission names in APIs must conform to the following naming pattern:
@@ -154,8 +105,6 @@ permission names in APIs must conform to the following naming pattern:
 <resource-name>       ::= [a-z][a-z0-9-]*  -- free resource identifier
 <access-mode>         ::= read | write    -- might be extended in future
 -----
-
-This pattern is compatible with the previous definition.
 
 **Note:** This naming convention only applies to scopes for service-to-service
 communication using the Platform IAM tokens. For IAM systems with other naming
@@ -195,3 +144,39 @@ permissions names of <<223, internal>> APIs:
 -----
 
 ////
+
+The permission naming schema corresponds to the naming schema for <<224,
+hostnames>> and <<213, event type names>>, and typical examples are:
+
+[cols="25%,20%,15%,40%",options="header",]
+|=======================================================================
+| Application ID | Resource ID | Access Type | Example
+| `order-management` | `sales-order` | `read` | `order-management.sales-order.read`
+| `order-management` | `shipment-order` | `read` | `order-management.shipment-order.read`
+| `fulfillment-order` | | `write` | `fulfillment-order.write`
+| `business-partner-service` | |`read` | `business-partner-service.read`
+|=======================================================================
+
+////
+//Prepared change for functional permission names:
+
+[cols="15%,15%,15%,15%,40%",options="header",]
+|=======================================================================
+| Domain | Component | Resource | Access Type | Example
+| finance | exchange-rate | - | write | z::finance.exchange-rate.write
+| transactions | order | - | read | z::transactions.order.read
+| customer | address | shipment-address | read  | z::customer.address.shipment-address.read
+|=======================================================================
+[cols="30%,15%,15%,40%",options="header",]
+|=======================================================================
+| Application | Resource | Access Type | Example
+| business-partner-service | | - | read | z::business-partner-service.read
+| order-management | sales-order | write | z::order-management.sales-order.write
+|=======================================================================
+
+////
+
+*Note:* APIs should stick to component specific permissions without resource
+extension to avoid the complexity of too many fine grained permissions. For the
+majority of use cases, restricting access for specific API endpoints using read
+or write is sufficient.
