@@ -55,7 +55,7 @@ because it exposes authentication server address details and may make use of red
 
 Endpoints must be equipped with permissions, if they require client authorization for protection 
 since e.g. data is exposed that is classified as `orange` or `red` according to Zalando's 
-https://drive.google.com/file/d/1UPB0UbZP7IvcB52DVWQX41pmB7ugJdAX/view[Data Classification Group Policy [internal link]]. 
+https://drive.google.com/file/d/1UPB0UbZP7IvcB52DVWQX41pmB7ugJdAX/view[Data Classification Group Policy (internal link)]. 
 Please refer to <<225>> for designing permission names. 
 Some API endpoints may not require specific permissions for authorization e.g. 
 in case of (i) authorization is _not_ needed for the endpoint since all
