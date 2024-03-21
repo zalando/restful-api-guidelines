@@ -1,11 +1,13 @@
 SHELL := /bin/bash 
-DOCKER := asciidoctor/docker-asciidoctor:latest
+DOCKER ?= $(shell command -v docker || command -v podman || docker)
+ASCIIDOC := asciidoctor/docker-asciidoctor:latest
 DIRMOUNTS := /documents
 DIRCONTENTS := chapters
 DIRSCRIPTS := scripts
 DIRBUILDS := output
 DIRINCLUDES := includes
 DIRWORK := $(shell pwd -P)
+
 
 .PHONY: all clean install lint format pull assets rules html pdf epub force
 .PHONY: check check-rules check-rules-duplicates check-rules-incorrects
@@ -24,7 +26,7 @@ format: $(NVM_BIN)/markdownlint
 	markdownlint --config .markdownlint.yaml --fix chapters/*.adoc;
 
 pull:
-	docker pull $(DOCKER);
+	$(DOCKER) pull $(ASCIIDOC);
 
 check: check-rules
 check-rules: check-rules-duplicates check-rules-incorrects
@@ -63,22 +65,26 @@ $(DIRINCLUDES): models/headers-1.0.0.yaml $(DIRSCRIPTS)/generate-includes.sh
 	mkdir -p $(DIRINCLUDES); $(DIRSCRIPTS)/generate-includes.sh "$(DIRINCLUDES)";
 
 html: $(DIRINCLUDES) check assets pull
-	docker run -v $(DIRWORK):$(DIRMOUNTS)/ ${DOCKER} asciidoctor \
-	  -D $(DIRMOUNTS)/$(DIRBUILDS) index.adoc;
+	$(DOCKER) run --interactive --user=$$(id -u):$$(id -g) \
+	  --volume=$(DIRWORK):$(DIRMOUNTS)/ \
+	  $(ASCIIDOC) asciidoctor -D $(DIRMOUNTS)/$(DIRBUILDS) index.adoc;
 
 watch:
 	watchexec --exts adoc,css --ignore output -r make html
 
 # Not used any longer.
 pdf: $(DIRINCLUDES) check pull
-	docker run -v $(DIRWORK):$(DIRMOUNTS)/ ${DOCKER} asciidoctor-pdf -v \
+	$(DOCKER) run --interactive --user=$$(id -u):$$(id -g) \
+	  --volume=$(DIRWORK):$(DIRMOUNTS)/ \
+	  $(ASCIIDOC) asciidoctor-pdf -v \
 		-a pdf-fontsdir=$(DIRMOUNTS)/resources/fonts \
 		-a pdf-theme=$(DIRMOUNTS)/resources/themes/pdf-theme.yml \
-	  -D $(DIRMOUNTS)/$(DIRBUILDS) index.adoc;
+	    -D $(DIRMOUNTS)/$(DIRBUILDS) index.adoc;
 	mv -f $(DIRBUILDS)/index.pdf $(DIRBUILDS)/zalando-guidelines.pdf;
 
 # Not used any longer.
 epub: $(DIRINCLUDES) check pull
-	docker run -v $(DIRWORK):$(DIRMOUNTS)/ ${DOCKER} asciidoctor-epub3 \
-	  -D $(DIRMOUNTS)/$(DIRBUILDS) index.adoc;
+	$(DOCKER) run --interactive --user=$$(id -u):$$(id -g) \
+	  --volume=$(DIRWORK):$(DIRMOUNTS)/ \
+	  $(ASCIIDOC) asciidoctor-epub3 -D $(DIRMOUNTS)/$(DIRBUILDS) index.adoc;
 	mv -f $(DIRBUILDS)/index.epub $(DIRBUILDS)/zalando-guidelines.epub;
