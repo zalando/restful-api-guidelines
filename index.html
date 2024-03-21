@@ -1669,6 +1669,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <ul class="sectlevel2">
 <li><a href="#cursor-based-pagination">Cursor-based pagination in RESTful APIs</a></li>
 <li><a href="#optimistic-locking">Optimistic locking in RESTful APIs</a></li>
+<li><a href="#handling-compatible-extensions">Handling compatible API extensions</a></li>
 </ul>
 </li>
 <li><a href="#appendix-changelog">Appendix D: Changelog</a>
@@ -4595,7 +4596,10 @@ suggest to choose one and only one of the following patterns per endpoint
 <ol class="arabic">
 <li>
 <p>Use <a href="#put"><code>PUT</code></a> with complete objects to update a resource as long as feasible
-(i.e. do not use <a href="#patch"><code>PATCH</code></a> at all).</p>
+(i.e. do not use <a href="#patch"><code>PATCH</code></a> at all).
+<strong>Note:</strong> this choice by the API server imposes additional requirements on
+the client (<a href="#108"><span class="must-keyword"><strong>MUST</strong></span> prepare clients to accept compatible API extensions</a>) which can be implemented e.g. in Java following the
+practice <a href="#handling-compatible-extensions">Handling compatible API extensions</a>.</p>
 </li>
 <li>
 <p>Use <a href="#patch"><code>PATCH</code></a> with <a href="https://tools.ietf.org/html/rfc7396">JSON Merge Patch</a> standard, a
@@ -8184,6 +8188,9 @@ Permanently).</p>
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p>The <a href="#handling-compatible-extensions">Handling compatible API extensions</a> section describes a best practice to implement the requirements in Java.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="111"><a class="link" href="#111"><span class="must-keyword"><strong>MUST</strong></span> treat OpenAPI specification as open for extension by default</a></h3>
@@ -10565,6 +10572,29 @@ not perfectly in sync, the locking could potentially fail</p>
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="handling-compatible-extensions"><a class="link" href="#handling-compatible-extensions">Handling compatible API extensions</a></h3>
+<div class="sect3">
+<h4 id="client-handling-compatible-extensions"><a class="link" href="#client-handling-compatible-extensions">In the clients</a></h4>
+<div class="paragraph">
+<p>Client must not eliminate unknown optional fields from the
+fetched resource payload, and to serialize them later when submitting the
+complete resource payload back to the API server via <a href="#put"><code>PUT</code></a> (<a href="#108"><span class="must-keyword"><strong>MUST</strong></span> prepare clients to accept compatible API extensions</a>).</p>
+</div>
+<div class="paragraph">
+<p>When using Java with Jackson serialization, for example, that can be achieved
+by including a field in the Java class representing the API resource, like the
+following one:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@JsonAnyGetter</span>
+<span class="annotation">@JsonAnySetter</span>
+<span class="directive">private</span> <span class="predefined-type">Map</span>&lt;<span class="predefined-type">String</span>, JsonNode&gt; additionalProperties = <span class="keyword">new</span> <span class="predefined-type">HashMap</span>&lt;&gt;();</code></pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -10958,7 +10988,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-03-21 11:54:55 UTC
+Last updated 2024-03-21 11:57:30 UTC
 </div>
 </div>
 </body>
