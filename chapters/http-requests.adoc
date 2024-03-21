@@ -194,9 +194,8 @@ suggest to choose one and only one of the following patterns per endpoint
 1. Use {PUT} with complete objects to update a resource as long as feasible
    (i.e. do not use {PATCH} at all).
    *Note:* this choice by the API server imposes additional requirements on
-   the client (<<108>>). The <<appendix-best-practices>> section contains
-   recommendations on how to satisfy these requirements
-   (<<client-handling-compatible-extensions>>).
+   the client (<<108>>) which can be implemented e.g. in Java following the 
+   practice <<handling-compatible-extensions>>.
 2. Use {PATCH} with {RFC-7396}[JSON Merge Patch] standard, a
    specialized media type `application/merge-patch+json` for partial
    resource representation to update parts of resource objects.
