@@ -133,8 +133,7 @@ Service clients should apply the robustness principle:
 ** Follow the redirect when the server returns HTTP status code {301} (Moved
   Permanently).
 
-The <<appendix-best-practices>> section contains recommendations on how to
-satisfy these requirements (<<client-handling-compatible-extensions>>).
+The <<handling-compatible-extensions>> section describes a best practice to implement the requirements in Java. 
 
 [#111]
 == {MUST} treat OpenAPI specification as open for extension by default
