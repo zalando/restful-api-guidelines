@@ -1,3 +1,7 @@
+# This document is DEPRECATED and only maintained for backward compatibility.
+# Separation of request vs. response header definition is partially redundant and not needed. 
+# Instead, please use the HEADER DEFINITIONS provided in headers-<version>.yaml
+
 # Standard Headers
 
 If-Match:
