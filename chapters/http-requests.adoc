@@ -541,7 +541,7 @@ The following examples should serve as ideas for simple query language:
 
 * `name=Zalando`, `creation_year=2023`, `updated_by=user1` (query elements
   based on property equality)
-* `created_at=2023-09-18T12:12:00.000Z`, `sort=id:desc` (query elements
+* `created_at=2023-09-18T12:12:00.000Z`, `age=18` (query elements
   based on logical properties)
 * `color=red,green,blue,multicolored` (query elements based on multiple
   choice possibility)
