@@ -1458,7 +1458,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <ul class="sectlevel2">
 <li><a href="#104"><span class="must-keyword"><strong>MUST</strong></span> secure endpoints</a></li>
 <li><a href="#105"><span class="must-keyword"><strong>MUST</strong></span> define and assign permissions (scopes)</a></li>
-<li><a href="#225"><span class="must-keyword"><strong>MUST</strong></span> follow naming convention for permissions (scopes)</a></li>
+<li><a href="#225"><span class="must-keyword"><strong>MUST</strong></span> follow the naming convention for permissions (scopes)</a></li>
 </ul>
 </li>
 <li><a href="#data-formats">6. REST Basics - Data formats</a>
@@ -2558,17 +2558,69 @@ because it exposes authentication server address details and may make use of red
 <div class="sect2">
 <h3 id="105"><a class="link" href="#105"><span class="must-keyword"><strong>MUST</strong></span> define and assign permissions (scopes)</a></h3>
 <div class="paragraph">
-<p>APIs must define permissions to protect their resources. Thus, at least one
-permission must be assigned to each API endpoint. You should use the <code>uid</code>
-pseudo-scope to allow access to public and employee-only data (classified as
-<code>green</code> and <code>yellow</code> respectively). For sensitive data (<code>orange</code> or <code>red</code>),
-the <code>uid</code> scope based authorization must be either accompanied by individual
-object level authorization or use role based permissions through specific
-scopes.</p>
+<p>Endpoints must be equipped with permissions, if they require client authorization for protection
+since e.g. data is exposed that is classified as <code>orange</code> or <code>red</code> according to Zalando&#8217;s
+<a href="https://drive.google.com/file/d/1UPB0UbZP7IvcB52DVWQX41pmB7ugJdAX/view">Data Classification Group Policy (internal link)</a>.
+Please refer to <a href="#225"><span class="must-keyword"><strong>MUST</strong></span> follow the naming convention for permissions (scopes)</a> for designing permission names.
+Some API endpoints may not require specific permissions for authorization e.g.
+in case of (i) authorization is <em>not</em> needed for the endpoint since all
+exposed data is classified as <code>green</code> or <code>yellow</code>,
+or in case of (ii) the specific authorization is provided differently on
+the individual object level. In these situations, however, you must make
+it explicit by assigning the <code>uid</code> pseudo permission, which is always
+available as OAuth2 default scope for all clients in Zalando.</p>
 </div>
 <div class="paragraph">
-<p>The naming schema for permissions corresponds to the naming schema for <a href="#224">hostnames</a> and <a href="#213">event type names</a>. Please refer to <a href="#225"><span class="must-keyword"><strong>MUST</strong></span> follow naming convention for permissions (scopes)</a> for
-designing permission names and see the following examples.</p>
+<p>The defined permissions are assigned to each API endpoint based on the
+security schema (see example in <a href="#104">previous section</a>) by specifying the
+<a href="https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#securityRequirementObject">security requirement</a>
+as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="yaml"><span class="key">paths</span>:
+ <span class="error">/business-partners/{partner-id}</span>:
+    <span class="key">get</span>:
+      <span class="key">summary</span>: <span class="string"><span class="content">Retrieves information about a business partner</span></span>
+      <span class="key">security</span>:
+        - <span class="string"><span class="content">BearerAuth: [ business-partner-service.read ]</span></span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Hint:</strong> Following a minimal API specification approach, the
+<code>Authorization</code>-header does not need to be defined on each API endpoint, since
+it is required and so to say implicitly defined via the security section.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="225"><a class="link" href="#225"><span class="must-keyword"><strong>MUST</strong></span> follow the naming convention for permissions (scopes)</a></h3>
+<div class="paragraph">
+<p>As long as the <a href="#223">functional naming</a> is not yet supported by our permission registry,
+permission names in APIs must conform to the following naming pattern:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bnf">&lt;permission&gt; ::= &lt;standard-permission&gt; |  -- should be sufficient for majority of use cases
+                 &lt;resource-permission&gt; |  -- for special security access differentiation use cases
+                 &lt;pseudo-permission&gt;      -- used to explicitly indicate that access is not restricted
+
+&lt;standard-permission&gt; ::= &lt;application-id&gt;.&lt;access-mode&gt;
+&lt;resource-permission&gt; ::= &lt;application-id&gt;.&lt;resource-name&gt;.&lt;access-mode&gt;
+&lt;pseudo-permission&gt;   ::= uid
+
+&lt;application-id&gt;      ::= [a-z][a-z0-9-]*  -- application identifier
+&lt;resource-name&gt;       ::= [a-z][a-z0-9-]*  -- free resource identifier
+&lt;access-mode&gt;         ::= read | write    -- might be extended in future</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Note:</strong> This naming convention only applies to scopes for service-to-service
+communication using the Platform IAM tokens. For IAM systems with other naming
+rules (e.g. Zalando Partner IAM), the naming should be consistent with the
+existing conventions of those systems.</p>
+</div>
+<div class="paragraph">
+<p>The permission naming schema corresponds to the naming schema for <a href="#224">hostnames</a> and <a href="#213">event type names</a>, and typical examples are:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -2617,75 +2669,6 @@ designing permission names and see the following examples.</p>
 extension to avoid the complexity of too many fine grained permissions. For the
 majority of use cases, restricting access for specific API endpoints using read
 or write is sufficient.</p>
-</div>
-<div class="paragraph">
-<p>The defined permissions are than assigned to each API endpoint based on the
-security schema (see example in <a href="#104">previous section</a>) by specifying the
-<a href="https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#securityRequirementObject">security requirement</a>
-as follows:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="yaml"><span class="key">paths</span>:
- <span class="error">/business-partners/{partner-id}</span>:
-    <span class="key">get</span>:
-      <span class="key">summary</span>: <span class="string"><span class="content">Retrieves information about a business partner</span></span>
-      <span class="key">security</span>:
-        - <span class="string"><span class="content">BearerAuth: [ business-partner-service.read ]</span></span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>In some cases a whole API or selected API endpoints may not require specific
-permissions, e.g. if information is public or protected by object level
-authorization. To make this explicit you should assign the <code>uid</code> pseudo
-permission, that is always available as OAuth2 default scope in Zalando.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="yaml"><span class="key">paths</span>:
-  <span class="key">/public-information</span>:
-    <span class="key">get</span>:
-      <span class="key">summary</span>: <span class="string"><span class="content">Provides public information about ...</span><span class="content">
-               Accessible by any user; no permissions needed.</span></span>
-      <span class="key">security</span>:
-        - <span class="string"><span class="content">BearerAuth: [ uid ]</span></span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>Hint:</strong> Following a minimal a minimal API specification approach, the
-<code>Authorization</code>-header does not need to be defined on each API endpoint, since
-it is required and so to say implicitly defined via the security section.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="225"><a class="link" href="#225"><span class="must-keyword"><strong>MUST</strong></span> follow naming convention for permissions (scopes)</a></h3>
-<div class="paragraph">
-<p>As long as the <a href="#223">functional naming</a> is not yet supported by our permission registry,
-permission names in APIs must conform to the following naming pattern:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="bnf">&lt;permission&gt; ::= &lt;standard-permission&gt; |  -- should be sufficient for majority of use cases
-                 &lt;resource-permission&gt; |  -- for special security access differentiation use cases
-                 &lt;pseudo-permission&gt;      -- used to explicitly indicate that access is not restricted
-
-&lt;standard-permission&gt; ::= &lt;application-id&gt;.&lt;access-mode&gt;
-&lt;resource-permission&gt; ::= &lt;application-id&gt;.&lt;resource-name&gt;.&lt;access-mode&gt;
-&lt;pseudo-permission&gt;   ::= uid
-
-&lt;application-id&gt;      ::= [a-z][a-z0-9-]*  -- application identifier
-&lt;resource-name&gt;       ::= [a-z][a-z0-9-]*  -- free resource identifier
-&lt;access-mode&gt;         ::= read | write    -- might be extended in future</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>This pattern is compatible with the previous definition.</p>
-</div>
-<div class="paragraph">
-<p><strong>Note:</strong> This naming convention only applies to scopes for service-to-service
-communication using the Platform IAM tokens. For IAM systems with other naming
-rules (e.g. Zalando Partner IAM), the naming should be consistent with the
-existing conventions of those systems.</p>
 </div>
 </div>
 </div>
@@ -10988,7 +10971,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-01 12:13:01 UTC
+Last updated 2024-04-16 12:36:59 UTC
 </div>
 </div>
 </body>
