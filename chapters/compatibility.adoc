@@ -290,7 +290,7 @@ level data structures, since they don't support compatible, future extensions.
 
 
 [#112]
-== {SHOULD} used open-ended list of values (`x-extensible-enum`) for enumerations
+== {SHOULD} use open-ended list of values (`x-extensible-enum`) for enumerations
 
 Enumerations are per definition closed sets of values that are assumed to be
 complete and not intended for extension. This closed principle of enumerations
