@@ -131,7 +131,7 @@ When choosing between `date` and `datetime` formats you should take into account
 
 * `date` should be used for properties where no exact point in time is not required and day time-range is sufficient,
 for instance, document dates, birthdays, ETAs (estimated time of arrival).
-Normally date without time implies the time period from midnight to midnight in the local time zone.
+Without further context, `date` without time implies the time period from midnight to midnight in the local time zone.
 Since time zone information is absent in the property value, it must be documented and can be also provided
 as an additional context via other fields indicating location.
 * `datetime` should be used in all other cases to indicate instants/moments in time.
