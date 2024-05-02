@@ -134,7 +134,8 @@ for instance, document dates, birthdays, ETAs (estimated time of arrival).
 Without further context, `date` without time implies the time period from midnight to midnight in the local time zone.
 However, the timezone information can be also provided
 as an additional context information via other fields indicating location.
-* `datetime` should be used in all other cases to indicate instants/moments in time.
+* `datetime` should be used in all other cases where an exact point in time is required, 
+for instance, datetimes for supplier advice, specific processing events, fast delivery planning dates.
 This format requires the explicit time zone offset to be provided,
 which avoids misinterpretations and eliminates the need of an additional context to provide.
 
