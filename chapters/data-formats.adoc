@@ -129,7 +129,7 @@ more effort to parse, avoid this ambiguity.
 
 When choosing between `date` and `datetime` formats you should take into account the following:
 
-* `date` should be used for properties that are not time-sensitive or where precise timing is not required,
+* `date` should be used for properties where no exact point in time is not required and day time-range is sufficient,
 for instance, document dates, birthdays, ETAs (estimated time of arrival).
 Normally date without time implies the time period from midnight to midnight in the local time zone.
 Since time zone information is absent in the property value, it must be documented and can be also provided
