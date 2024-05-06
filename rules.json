@@ -583,6 +583,10 @@
     {
       "id": "#254",
       "title": "SHOULD avoid a total result count"
+    },
+    {
+      "id": "#255",
+      "title": "SHOULD select appropriate one of date or date-time format"
     }
   ]
 }

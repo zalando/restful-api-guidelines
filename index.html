@@ -1466,6 +1466,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#238"><span class="must-keyword"><strong>MUST</strong></span> use standard data formats</a></li>
 <li><a href="#171"><span class="must-keyword"><strong>MUST</strong></span> define a format for number and integer types</a></li>
 <li><a href="#169"><span class="must-keyword"><strong>MUST</strong></span> use standard formats for date and time properties</a></li>
+<li><a href="#255"><span class="should-keyword"><strong>SHOULD</strong></span> select appropriate one of date or date-time format</a></li>
 <li><a href="#127"><span class="should-keyword"><strong>SHOULD</strong></span> use standard formats for time duration and interval properties</a></li>
 <li><a href="#170"><span class="must-keyword"><strong>MUST</strong></span> use standard formats for country, language and currency properties</a></li>
 <li><a href="#244"><span class="should-keyword"><strong>SHOULD</strong></span> use content negotiation, if clients may choose from different resource representations</a></li>
@@ -2998,6 +2999,29 @@ user interfaces, if required.</p>
 issues with precision, e.g. whether to represent a timestamp as 1460062925,
 1460062925000 or 1460062925.000. Date strings, though more verbose and requiring
 more effort to parse, avoid this ambiguity.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="255"><a class="link" href="#255"><span class="should-keyword"><strong>SHOULD</strong></span> select appropriate one of date or date-time format</a></h3>
+<div class="paragraph">
+<p>When choosing between <code>date</code> and <code>datetime</code> formats you should take into account the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>date</code> should be used for properties where no exact point in time is required and day time-range is sufficient,
+for instance, document dates, birthdays, ETAs (estimated time of arrival).
+Without further context, <code>date</code> implies the time period from midnight to midnight in the local time zone.
+However, the timezone information can be also provided
+as an additional context information via other fields indicating location.</p>
+</li>
+<li>
+<p><code>datetime</code> should be used in all other cases where an exact point in time is required,
+for instance, datetimes for supplier advice, specific processing events, fast delivery planning dates.
+As required in <a href="#169"><span class="must-keyword"><strong>MUST</strong></span> use standard formats for date and time properties</a>,  <code>datetime</code> requires the explicit time zone offset to be provided,
+which avoids misinterpretations and eliminates the need of an additional context to provide.</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
@@ -10971,7 +10995,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-16 12:39:45 UTC
+Last updated 2024-05-06 09:26:02 UTC
 </div>
 </div>
 </body>
