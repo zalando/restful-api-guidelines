@@ -124,6 +124,22 @@ issues with precision, e.g. whether to represent a timestamp as 1460062925,
 more effort to parse, avoid this ambiguity.
 
 
+[#255]
+== {SHOULD} select appropriate one of date or date-time format
+
+When choosing between `date` and `datetime` formats you should take into account the following:
+
+* `date` should be used for properties where no exact point in time is required and day time-range is sufficient,
+for instance, document dates, birthdays, ETAs (estimated time of arrival).
+Without further context, `date` implies the time period from midnight to midnight in the local time zone.
+However, the timezone information can be also provided
+as an additional context information via other fields indicating location.
+* `datetime` should be used in all other cases where an exact point in time is required, 
+for instance, datetimes for supplier advice, specific processing events, fast delivery planning dates.
+As required in <<169>>,  `datetime` requires the explicit time zone offset to be provided,
+which avoids misinterpretations and eliminates the need of an additional context to provide.
+
+
 [#127]
 == {SHOULD} use standard formats for time duration and interval properties
 
