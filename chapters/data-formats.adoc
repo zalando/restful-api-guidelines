@@ -24,8 +24,8 @@ You *must* use these formats, whenever applicable:
 | `string` | `date` | {RFC-3339}[RFC 3339] internet profile -- subset of https://tools.ietf.org/html/rfc3339#ref-ISO8601[ISO 8601] | `"2019-07-30"`
 | `string` | `date-time` | {RFC-3339}[RFC 3339] internet profile -- subset of https://tools.ietf.org/html/rfc3339#ref-ISO8601[ISO 8601] |`"2019-07-30T06:43:40.252Z"`
 | `string` | `time` | {RFC-3339}[RFC 3339] internet profile -- subset of https://tools.ietf.org/html/rfc3339#ref-ISO8601[ISO 8601] | `"06:43:40.252Z"`
-| `string` | `duration` | Appendix A of {RFC-3339}[RFC 3339] from https://tools.ietf.org/html/rfc3339#ref-ISO8601[ISO 8601], see also <<#127>> | `"P1DT30H4S"`
-| `string` | `period` | Our guideline <<#127>> -- an extension of the format from https://tools.ietf.org/html/rfc3339#ref-ISO8601[ISO 8601] included in {RFC-3339}[RFC 3339], from a newer version of ISO 8601. | `"2019-07-30T06:43:40.252Z/PT3H"`
+| `string` | `duration` | {RFC-3339}[RFC 3339] -- subset of https://tools.ietf.org/html/rfc3339#ref-ISO8601[ISO 8601], see also <<rule #127,#127>> for details. | `"P1DT3H4S"`
+| `string` | `period` | {RFC-3339}[RFC 3339] -- subset of https://tools.ietf.org/html/rfc3339#ref-ISO8601[ISO 8601], see also <<rule #127,#127>> for details. | `"2022-06-30T14:52:44.276/PT48H" "PT24H/2023-07-30T18:22:16.315Z" "2024-05-15T09:48:56.317Z/.."`
 | `string` | `password` |  | `"secret"`
 | `string` | `email` | {RFC-5322}[RFC 5322] | `"example@zalando.de"`
 | `string` | `idn-email` | {RFC-6531}[RFC 6531] | `"hello@bücher.example"`
