@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.22">
+<meta name="generator" content="Asciidoctor 2.0.23">
 <meta name="keywords" content="Zalando, Guidelines, RESTful, API, Events, Schema">
 <meta name="copyright" content="CC-BY-SA 4.0">
 <title>Zalando RESTful API and Event Guidelines</title>
@@ -2770,14 +2770,14 @@ You <strong>must</strong> use these formats, whenever applicable:</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>duration</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://tools.ietf.org/html/rfc3339">RFC 3339</a> internet profile&#8201;&#8212;&#8201;subset of <a href="https://tools.ietf.org/html/rfc3339#ref-ISO8601">ISO 8601</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"P1DT30H4S"</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://tools.ietf.org/html/rfc3339">RFC 3339</a>&#8201;&#8212;&#8201;subset of <a href="https://tools.ietf.org/html/rfc3339#ref-ISO8601">ISO 8601</a>, see also <a href="#127">rule #127</a> for details.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"P1DT3H4S"</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>period</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://tools.ietf.org/html/rfc3339">RFC 3339</a> internet profile&#8201;&#8212;&#8201;subset of <a href="https://tools.ietf.org/html/rfc3339#ref-ISO8601">ISO 8601</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"2019-07-30T06:43:40.252Z/PT3H"</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://tools.ietf.org/html/rfc3339">RFC 3339</a>&#8201;&#8212;&#8201;subset of <a href="https://tools.ietf.org/html/rfc3339#ref-ISO8601">ISO 8601</a>, see also <a href="#127">rule #127</a> for details.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"2022-06-30T14:52:44.276/PT48H" "PT24H/2023-07-30T18:22:16.315Z" "2024-05-15T09:48:56.317Z/.."</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
@@ -2969,7 +2969,7 @@ encoding&#8201;&#8212;&#8201;as also described in <a href="#238"><span class="mu
 <p>As a specific case of <a href="#238"><span class="must-keyword"><strong>MUST</strong></span> use standard data formats</a>, you must use the <code>string</code> typed formats
 <code>date</code>, <code>date-time</code>, <code>time</code>, <code>duration</code>, or <code>period</code> for the definition of date and time properties.
 The formats are based on the standard <a href="https://tools.ietf.org/html/rfc3339">RFC 3339</a> internet profile -- a
-subset of <a href="https://tools.ietf.org/html/rfc3339#ref-ISO8601">ISO 8601</a></p>
+subset of <a href="https://tools.ietf.org/html/rfc3339#ref-ISO8601">ISO 8601</a>.</p>
 </div>
 <div class="paragraph">
 <p>APIs <span class="must-keyword"><strong>MUST</strong></span> use the upper-case <code>T</code> as a separator between date and time and
@@ -3055,8 +3055,8 @@ that are very convenient in searches and are included in the below
 </div>
 </div>
 <div class="paragraph">
-<p>A time interval query parameters should use <code>&lt;time-property&gt;_between</code> instead
-of the parameter tuple <code>&lt;time-property&gt;_before</code>/<code>&lt;time-property&gt;_after</code>, while
+<p>A time interval query parameter should use <code>&lt;time-property&gt;_between</code> instead
+of the parameter pair <code>&lt;time-property&gt;_before</code>/<code>&lt;time-property&gt;_after</code>, while
 properties providing a time interval should be named <code>&lt;time-property&gt;_interval</code>.</p>
 </div>
 </div>
@@ -10995,7 +10995,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-05-06 09:26:02 UTC
+Last updated 2024-06-11 13:40:52 UTC
 </div>
 </div>
 </body>
