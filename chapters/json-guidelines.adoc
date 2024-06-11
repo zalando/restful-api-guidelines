@@ -146,21 +146,18 @@ declaring possible values for a <<137,rule 137>> [`sort` parameter].
 
 
 [#235]
-== {SHOULD} name date/time properties with `_at` suffix
+== {SHOULD} use naming convention for date/time properties
 
-Dates and date-time properties should end with `_at` to distinguish them from
-boolean properties which otherwise would have very similar or even identical
-names:
+Naming of date and data-time properties should comply with the following convention: 
+The name either (i) contains `date`, `day`, `time`, `timestamp` or similar type indicators, 
+or (ii) end with the  `_at` suffix. The convention allows easy identification of date/time 
+typed properties and distinguishing them e.g. from boolean properties like `created` vs. `created_at`. 
+Examples of valid date/time property names: 
 
-- {created_at} rather than {created},
-- {modified_at} rather than {modified},
-- `occurred_at` rather than `occurred`, and
-- `returned_at` rather than `returned`.
+- `created_at`, `modified_at`, `occurred_at`, `returned_at`  -- instead of `created`, `modified`, ...
+- `campaign_start_time`, `arrival_date`, `checkout_time`  -- instead of `campaign_start`, `arrival`, ...
 
-**Hint:** Use `format: date-time` (or as `format: date`) as required in <<238>>.
-
-**Note:** {created} and {modified} were mentioned in an earlier version of the
-guideline and are therefore still accepted for APIs that predate this rule.
+**Hint:** Use `format: date-time` or `format: date` as required in <<238>>.
 
 
 [#216]
