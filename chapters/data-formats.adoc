@@ -24,8 +24,8 @@ You *must* use these formats, whenever applicable:
 | `string` | `date` | {RFC-3339}[RFC 3339] internet profile -- subset of https://tools.ietf.org/html/rfc3339#ref-ISO8601[ISO 8601] | `"2019-07-30"`
 | `string` | `date-time` | {RFC-3339}[RFC 3339] internet profile -- subset of https://tools.ietf.org/html/rfc3339#ref-ISO8601[ISO 8601] |`"2019-07-30T06:43:40.252Z"`
 | `string` | `time` | {RFC-3339}[RFC 3339] internet profile -- subset of https://tools.ietf.org/html/rfc3339#ref-ISO8601[ISO 8601] | `"06:43:40.252Z"`
-| `string` | `duration` | {RFC-3339}[RFC 3339] internet profile -- subset of https://tools.ietf.org/html/rfc3339#ref-ISO8601[ISO 8601] | `"P1DT30H4S"`
-| `string` | `period` | {RFC-3339}[RFC 3339] internet profile -- subset of https://tools.ietf.org/html/rfc3339#ref-ISO8601[ISO 8601] | `"2019-07-30T06:43:40.252Z/PT3H"`
+| `string` | `duration` | {RFC-3339}[RFC 3339] -- subset of https://tools.ietf.org/html/rfc3339#ref-ISO8601[ISO 8601], see also <<#127,rule #127>> for details. | `"P1DT3H4S"`
+| `string` | `period` | {RFC-3339}[RFC 3339] -- subset of https://tools.ietf.org/html/rfc3339#ref-ISO8601[ISO 8601], see also <<#127,rule #127>> for details. | `"2022-06-30T14:52:44.276/PT48H" "PT24H/2023-07-30T18:22:16.315Z" "2024-05-15T09:48:56.317Z/.."`
 | `string` | `password` |  | `"secret"`
 | `string` | `email` | {RFC-5322}[RFC 5322] | `"example@zalando.de"`
 | `string` | `idn-email` | {RFC-6531}[RFC 6531] | `"hello@bücher.example"`
@@ -96,7 +96,7 @@ encoding -- as also described in <<238>>.
 As a specific case of <<238>>, you must use the `string` typed formats
 `date`, `date-time`, `time`, `duration`, or `period` for the definition of date and time properties.
 The formats are based on the standard {RFC-3339}[RFC 3339] internet profile -- a
-subset of https://tools.ietf.org/html/rfc3339#ref-ISO8601[ISO 8601]
+subset of https://tools.ietf.org/html/rfc3339#ref-ISO8601[ISO 8601].
 
 APIs {MUST} use the upper-case `T` as a separator between date and time and
 upper-case `Z` at the end when generating dates as opposed to lower-case `t`,
@@ -170,8 +170,8 @@ that are very convenient in searches and are included in the below
    period            = period-explicit / period-start / period-end
 ----
 
-A time interval query parameters should use `<time-property>_between` instead
-of the parameter tuple `<time-property>_before`/`<time-property>_after`, while
+A time interval query parameter should use `<time-property>_between` instead
+of the parameter pair `<time-property>_before`/`<time-property>_after`, while
 properties providing a time interval should be named `<time-property>_interval`.
 
 
