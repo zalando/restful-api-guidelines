@@ -395,6 +395,8 @@ include::chapters/best-practices.adoc[]
 
 include::chapters/changelog.adoc[]
 
+include::chapters/zeppelin.adoc[]
+
 ++++
 <!-- Adds rule id as a postfix to all rule titles -->
 <script>
