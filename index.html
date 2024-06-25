@@ -1504,7 +1504,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#120"><span class="should-keyword"><strong>SHOULD</strong></span> pluralize array names</a></li>
 <li><a href="#118"><span class="must-keyword"><strong>MUST</strong></span> property names must be snake_case (and never camelCase)</a></li>
 <li><a href="#240"><span class="should-keyword"><strong>SHOULD</strong></span> declare enum values using UPPER_SNAKE_CASE string</a></li>
-<li><a href="#235"><span class="should-keyword"><strong>SHOULD</strong></span> name date/time properties with <code>_at</code> suffix</a></li>
+<li><a href="#235"><span class="should-keyword"><strong>SHOULD</strong></span> use naming convention for date/time properties</a></li>
 <li><a href="#216"><span class="should-keyword"><strong>SHOULD</strong></span> define maps using <code>additionalProperties</code></a></li>
 <li><a href="#123"><span class="must-keyword"><strong>MUST</strong></span> use same semantics for <code>null</code> and absent properties</a></li>
 <li><a href="#122"><span class="must-keyword"><strong>MUST</strong></span> not use <code>null</code> for boolean properties</a></li>
@@ -3791,34 +3791,26 @@ declaring possible values for a <a href="#137">rule 137</a> [<code>sort</code> p
 </div>
 </div>
 <div class="sect2">
-<h3 id="235"><a class="link" href="#235"><span class="should-keyword"><strong>SHOULD</strong></span> name date/time properties with <code>_at</code> suffix</a></h3>
+<h3 id="235"><a class="link" href="#235"><span class="should-keyword"><strong>SHOULD</strong></span> use naming convention for date/time properties</a></h3>
 <div class="paragraph">
-<p>Dates and date-time properties should end with <code>_at</code> to distinguish them from
-boolean properties which otherwise would have very similar or even identical
-names:</p>
+<p>Naming of date and data-time properties should comply with the following convention:
+The name either (i) contains <code>date</code>, <code>day</code>, <code>time</code>, <code>timestamp</code> or similar type indicators,
+or (ii) end with the  <code>_at</code> suffix. The convention allows easy identification of date/time
+typed properties and distinguishing them e.g. from boolean properties like <code>created</code> vs. <code>created_at</code>.
+Examples of valid date/time property names:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="#created_at"><code>created_at</code></a> rather than <a href="#created"><code>created</code></a>,</p>
+<p><code>created_at</code>, <code>modified_at</code>, <code>occurred_at</code>, <code>returned_at</code> &#8201;&#8212;&#8201;instead of <code>created</code>, <code>modified</code>, &#8230;&#8203;</p>
 </li>
 <li>
-<p><a href="#modified_at"><code>modified_at</code></a> rather than <a href="#modified"><code>modified</code></a>,</p>
-</li>
-<li>
-<p><code>occurred_at</code> rather than <code>occurred</code>, and</p>
-</li>
-<li>
-<p><code>returned_at</code> rather than <code>returned</code>.</p>
+<p><code>campaign_start_time</code>, <code>arrival_date</code>, <code>checkout_time</code> &#8201;&#8212;&#8201;instead of <code>campaign_start</code>, <code>arrival</code>, &#8230;&#8203;</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p><strong>Hint:</strong> Use <code>format: date-time</code> (or as <code>format: date</code>) as required in <a href="#238"><span class="must-keyword"><strong>MUST</strong></span> use standard data formats</a>.</p>
-</div>
-<div class="paragraph">
-<p><strong>Note:</strong> <a href="#created"><code>created</code></a> and <a href="#modified"><code>modified</code></a> were mentioned in an earlier version of the
-guideline and are therefore still accepted for APIs that predate this rule.</p>
+<p><strong>Hint:</strong> Use <code>format: date-time</code> or <code>format: date</code> as required in <a href="#238"><span class="must-keyword"><strong>MUST</strong></span> use standard data formats</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -4020,7 +4012,7 @@ typically is used to carry the <a href="https://tools.ietf.org/html/rfc9110#sect
 </ul>
 </div>
 <div class="paragraph">
-<p>Further common fields are defined in <a href="#235"><span class="should-keyword"><strong>SHOULD</strong></span> name date/time properties with <code>_at</code> suffix</a>.
+<p>Further common fields are defined in <a href="#235"><span class="should-keyword"><strong>SHOULD</strong></span> use naming convention for date/time properties</a>.
 The following guidelines define standard objects and fields:</p>
 </div>
 <div class="ulist">
@@ -10741,7 +10733,7 @@ to see a list of all changes.</p>
 <p><code>2019-07-30</code>: change "<span class="should-keyword"><strong>SHOULD</strong></span> Null values should have their fields removed to" <a href="#123"><span class="must-keyword"><strong>MUST</strong></span> use same semantics for <code>null</code> and absent properties</a>.</p>
 </li>
 <li>
-<p><code>2019-07-25</code>: new rule <a href="#235"><span class="should-keyword"><strong>SHOULD</strong></span> name date/time properties with <code>_at</code> suffix</a>.</p>
+<p><code>2019-07-25</code>: new rule <a href="#235"><span class="should-keyword"><strong>SHOULD</strong></span> use naming convention for date/time properties</a>.</p>
 </li>
 <li>
 <p><code>2019-07-18</code>: improved cursor guideline for <a href="#get-with-body"><code>GET with body</code></a>.</p>
@@ -10995,7 +10987,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-06-11 13:40:52 UTC
+Last updated 2024-06-25 12:33:38 UTC
 </div>
 </div>
 </body>

@@ -506,7 +506,7 @@
     },
     {
       "id": "#235",
-      "title": "SHOULD name date/time properties with `_at` suffix"
+      "title": "SHOULD use naming convention for date/time properties"
     },
     {
       "id": "#236",
