@@ -315,7 +315,7 @@ delivery_methods:
 ----
 
 *Note:* {x-extensible-enum} is a proprietary extension of the JSON Schema standard that 
-will be ignored by most tools.
+is e.g. visible via Swagger UI and ignored by most tools.
 
 See <<240>> about enum value naming conventions.
 
@@ -329,6 +329,6 @@ must implement a fallback / default behavior to handle unknown new enum values -
 API owners must take care to extend enums in a compatible way that does not change the 
 semantics of already existing enum values, for instance, do not split an old enum value 
 into two new enum values. Services should only extend {x-extensible-enum} ranges, and only accept 
-and return values listed in the latest API version which needs to be updated first before 
-providing new values -- see also <<107>>. 
+and return values listed in the API definition, i.e. the API definition needs to be updated first  
+before the service accepts/returns new values -- see also <<107>>. 
 
