@@ -315,7 +315,7 @@ delivery_methods:
 ----
 
 *Note:* {x-extensible-enum} is a proprietary extension of the JSON Schema standard that 
-is e.g. visible via Swagger UI and ignored by most tools.
+is e.g. visible via Swagger UI, but ignored by most other tools.
 
 See <<240>> about enum value naming conventions.
 
