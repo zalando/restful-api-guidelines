@@ -49,15 +49,15 @@ services in a backward-compatible way:
 * Input fields may have (complex) constraints being validated via server-side
   business logic. Never change the validation logic to be more restrictive and
   make sure that all constraints are clearly defined in description.
-* Enum ranges can be reduced when used as input parameters, only if the server
-  is ready to accept and handle old range values too. Enum range can be reduced
+* `enum` ranges can be reduced when used as input parameters, only if the server
+  is ready to accept and handle old range values too. The range can be reduced
   when used as output parameters.
-* Enum ranges cannot be extended when used for output parameters — clients may
+* `enum` ranges cannot be extended when used for output parameters — clients may
   not be prepared to handle it. However, enum ranges can be extended when used
   for input parameters.
-* Use {x-extensible-enum}, if range is used for output parameters and likely to
-  be extended with growing functionality. It defines an open list of explicit
-  values and clients must be agnostic to new values.
+* You <<112>> that are used for output parameters and likely to
+  be extended with growing functionality. The API definition should be updated
+  first before returning new values.
 * Consider <<250>> in case a URL has to change.
 
 
@@ -124,8 +124,8 @@ Service clients should apply the robustness principle:
   http://martinfowler.com/bliki/TolerantReader.html["TolerantReader"] post),
   i.e. ignore new fields but do not eliminate them from payload if needed for
   subsequent {PUT} requests.
-** Be prepared that {x-extensible-enum} return parameter may deliver new values;
-  either be agnostic or provide default behavior for unknown values.
+** Be prepared that {x-extensible-enum} return parameters (see <<112, rule 112>>) may deliver new values;
+  either be agnostic or provide default behavior for unknown values, and do not eliminate them.
 ** Be prepared to handle HTTP status codes not explicitly specified in endpoint
   definitions. Note also, that status codes are extensible. Default handling is
   how you would treat the corresponding {x00} code (see
@@ -289,12 +289,12 @@ level data structures, since they don't support compatible, future extensions.
 
 
 [#112]
-== {SHOULD} used open-ended list of values (`x-extensible-enum`) for enumerations
+== {SHOULD} use open-ended list of values (`x-extensible-enum`) for enumeration types
 
-Enumerations are per definition closed sets of values that are assumed to be
+JSON schema `enum` is per definition a closed set of values that is assumed to be
 complete and not intended for extension. This closed principle of enumerations
 imposes compatibility issues when an enumeration must be extended. To avoid
-these issues, we strongly recommend to use an open-ended list of values instead
+these issues, we recommend to use an open-ended list of values instead
 of an enumeration unless:
 
 1. the API has full control of the enumeration values, i.e. the list of values
@@ -302,8 +302,7 @@ of an enumeration unless:
 2. the list of values is complete with respect to any thinkable and unthinkable
   future feature.
 
-To specify an open-ended list of values use the marker {x-extensible-enum} as
-follows:
+To specify an open-ended list of values via the {x-extensible-enum} property as follows:
 
 [source,yaml]
 ----
@@ -315,14 +314,21 @@ delivery_methods:
     - EMAIL
 ----
 
-*Note:* {x-extensible-enum} is not JSON Schema conform but will be ignored by
-most tools.
+*Note:* {x-extensible-enum} is a proprietary extension of the JSON Schema standard that 
+is e.g. visible via Swagger UI, but ignored by most other tools.
 
 See <<240>> about enum value naming conventions.
+
+Note, {x-extensible-enum} is a different concept than JSON schema `examples` which is 
+just a list of a few example values, whereas {x-extensible-enum} defines all valid 
+values (for a specific API and service version) and has the advantage of an extensible 
+full type-range specification that is validated by the service.
 
 *Important:* Clients must be prepared for extensions of enums returned with server responses, i.e. 
 must implement a fallback / default behavior to handle unknown new enum values -- see <<108>>. 
 API owners must take care to extend enums in a compatible way that does not change the 
 semantics of already existing enum values, for instance, do not split an old enum value 
-into two new enum values. 
+into two new enum values. Services should only extend {x-extensible-enum} ranges, and only accept 
+and return values listed in the API definition, i.e. the API definition needs to be updated first  
+before the service accepts/returns new values -- see also <<107>>. 
 

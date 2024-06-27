@@ -960,6 +960,7 @@ seen by consumers -
 * Changing the order of values with same type in an array.
 * Removing optional fields.
 * Removing an individual value from an enumeration.
+* Adding new value to a {x-extensible-enum} field (see <<112, rule 112>> and <<108, rule 108>>).
 
 These are considered backwards-incompatible changes, as seen by
 consumers -
@@ -971,5 +972,4 @@ consumers -
 known as a tuple).
 * Adding a new optional field to redefine the meaning of an existing
 field (also known as a co-occurrence constraint).
-* Adding a value to an enumeration (note that <<112,`x-extensible-enum`>>
-is not available in JSON Schema)
+* Adding a value to an enumeration. Instead, you <<112>>. 
