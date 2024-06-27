@@ -320,7 +320,7 @@ is e.g. visible via Swagger UI and ignored by most tools.
 See <<240>> about enum value naming conventions.
 
 Note, {x-extensible-enum} is a different concept than JSON schema `examples` which is 
-just a list of few example values, whereas {x-extensible-enum} defines all valid 
+just a list of a few example values, whereas {x-extensible-enum} defines all valid 
 values (for a specific API and service version) and has the advantage of an extensible 
 full type-range specification that is validated by the service.
 
