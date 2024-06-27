@@ -1595,7 +1595,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#114"><span class="must-keyword"><strong>MUST</strong></span> use media type versioning</a></li>
 <li><a href="#115"><span class="must-keyword"><strong>MUST</strong></span> not use URL versioning</a></li>
 <li><a href="#110"><span class="must-keyword"><strong>MUST</strong></span> always return JSON objects as top-level data structures</a></li>
-<li><a href="#112"><span class="should-keyword"><strong>SHOULD</strong></span> used open-ended list of values (<code>x-extensible-enum</code>) for enumerations</a></li>
+<li><a href="#112"><span class="should-keyword"><strong>SHOULD</strong></span> use open-ended list of values (<code>x-extensible-enum</code>) for enumeration types</a></li>
 </ul>
 </li>
 <li><a href="#deprecation">16. REST Design - Deprecation</a>
@@ -8057,19 +8057,19 @@ business logic. Never change the validation logic to be more restrictive and
 make sure that all constraints are clearly defined in description.</p>
 </li>
 <li>
-<p>Enum ranges can be reduced when used as input parameters, only if the server
-is ready to accept and handle old range values too. Enum range can be reduced
+<p><code>enum</code> ranges can be reduced when used as input parameters, only if the server
+is ready to accept and handle old range values too. The range can be reduced
 when used as output parameters.</p>
 </li>
 <li>
-<p>Enum ranges cannot be extended when used for output parameters — clients may
+<p><code>enum</code> ranges cannot be extended when used for output parameters — clients may
 not be prepared to handle it. However, enum ranges can be extended when used
 for input parameters.</p>
 </li>
 <li>
-<p>Use <a href="#112"><code>x-extensible-enum</code></a>, if range is used for output parameters and likely to
-be extended with growing functionality. It defines an open list of explicit
-values and clients must be agnostic to new values.</p>
+<p>You <a href="#112"><span class="should-keyword"><strong>SHOULD</strong></span> use open-ended list of values (<code>x-extensible-enum</code>) for enumeration types</a> that are used for output parameters and likely to
+be extended with growing functionality. The API definition should be updated
+first before returning new values.</p>
 </li>
 <li>
 <p>Consider <a href="#250"><span class="should-keyword"><strong>SHOULD</strong></span> be aware of services not fully supporting JSON/unicode</a> in case a URL has to change.</p>
@@ -8169,8 +8169,8 @@ i.e. ignore new fields but do not eliminate them from payload if needed for
 subsequent <a href="#put"><code>PUT</code></a> requests.</p>
 </li>
 <li>
-<p>Be prepared that <a href="#112"><code>x-extensible-enum</code></a> return parameter may deliver new values;
-either be agnostic or provide default behavior for unknown values.</p>
+<p>Be prepared that <a href="#112"><code>x-extensible-enum</code></a> return parameters (see <a href="#112">rule 112</a>) may deliver new values;
+either be agnostic or provide default behavior for unknown values, and do not eliminate them.</p>
 </li>
 <li>
 <p>Be prepared to handle HTTP status codes not explicitly specified in endpoint
@@ -8411,12 +8411,12 @@ level data structures, since they don&#8217;t support compatible, future extensi
 </div>
 </div>
 <div class="sect2">
-<h3 id="112"><a class="link" href="#112"><span class="should-keyword"><strong>SHOULD</strong></span> used open-ended list of values (<code>x-extensible-enum</code>) for enumerations</a></h3>
+<h3 id="112"><a class="link" href="#112"><span class="should-keyword"><strong>SHOULD</strong></span> use open-ended list of values (<code>x-extensible-enum</code>) for enumeration types</a></h3>
 <div class="paragraph">
-<p>Enumerations are per definition closed sets of values that are assumed to be
+<p>JSON schema <code>enum</code> is per definition a closed set of values that is assumed to be
 complete and not intended for extension. This closed principle of enumerations
 imposes compatibility issues when an enumeration must be extended. To avoid
-these issues, we strongly recommend to use an open-ended list of values instead
+these issues, we recommend to use an open-ended list of values instead
 of an enumeration unless:</p>
 </div>
 <div class="olist arabic">
@@ -8432,8 +8432,7 @@ future feature.</p>
 </ol>
 </div>
 <div class="paragraph">
-<p>To specify an open-ended list of values use the marker <a href="#112"><code>x-extensible-enum</code></a> as
-follows:</p>
+<p>To specify an open-ended list of values via the <a href="#112"><code>x-extensible-enum</code></a> property as follows:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -8446,18 +8445,26 @@ follows:</p>
 </div>
 </div>
 <div class="paragraph">
-<p><strong>Note:</strong> <a href="#112"><code>x-extensible-enum</code></a> is not JSON Schema conform but will be ignored by
-most tools.</p>
+<p><strong>Note:</strong> <a href="#112"><code>x-extensible-enum</code></a> is a proprietary extension of the JSON Schema standard that
+is e.g. visible via Swagger UI, but ignored by most other tools.</p>
 </div>
 <div class="paragraph">
 <p>See <a href="#240"><span class="should-keyword"><strong>SHOULD</strong></span> declare enum values using UPPER_SNAKE_CASE string</a> about enum value naming conventions.</p>
+</div>
+<div class="paragraph">
+<p>Note, <a href="#112"><code>x-extensible-enum</code></a> is a different concept than JSON schema <code>examples</code> which is
+just a list of a few example values, whereas <a href="#112"><code>x-extensible-enum</code></a> defines all valid
+values (for a specific API and service version) and has the advantage of an extensible
+full type-range specification that is validated by the service.</p>
 </div>
 <div class="paragraph">
 <p><strong>Important:</strong> Clients must be prepared for extensions of enums returned with server responses, i.e.
 must implement a fallback / default behavior to handle unknown new enum values&#8201;&#8212;&#8201;see <a href="#108"><span class="must-keyword"><strong>MUST</strong></span> prepare clients to accept compatible API extensions</a>.
 API owners must take care to extend enums in a compatible way that does not change the
 semantics of already existing enum values, for instance, do not split an old enum value
-into two new enum values.</p>
+into two new enum values. Services should only extend <a href="#112"><code>x-extensible-enum</code></a> ranges, and only accept
+and return values listed in the API definition, i.e. the API definition needs to be updated first
+before the service accepts/returns new values&#8201;&#8212;&#8201;see also <a href="#107"><span class="should-keyword"><strong>SHOULD</strong></span> prefer compatible extensions</a>.</p>
 </div>
 </div>
 </div>
@@ -9907,6 +9914,9 @@ seen by consumers -</p>
 <li>
 <p>Removing an individual value from an enumeration.</p>
 </li>
+<li>
+<p>Adding new value to a <a href="#112"><code>x-extensible-enum</code></a> field (see <a href="#112">rule 112</a> and <a href="#108">rule 108</a>).</p>
+</li>
 </ul>
 </div>
 <div class="paragraph">
@@ -9933,8 +9943,7 @@ known as a tuple).</p>
 field (also known as a co-occurrence constraint).</p>
 </li>
 <li>
-<p>Adding a value to an enumeration (note that <a href="#112"><code>x-extensible-enum</code></a>
-is not available in JSON Schema)</p>
+<p>Adding a value to an enumeration. Instead, you <a href="#112"><span class="should-keyword"><strong>SHOULD</strong></span> use open-ended list of values (<code>x-extensible-enum</code>) for enumeration types</a>.</p>
 </li>
 </ul>
 </div>
@@ -10987,7 +10996,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-06-25 12:33:38 UTC
+Last updated 2024-06-27 17:52:16 UTC
 </div>
 </div>
 </body>

@@ -50,7 +50,7 @@
     },
     {
       "id": "#112",
-      "title": "SHOULD used open-ended list of values (`x-extensible-enum`) for enumerations"
+      "title": "SHOULD use open-ended list of values (`x-extensible-enum`) for enumeration types"
     },
     {
       "id": "#113",
