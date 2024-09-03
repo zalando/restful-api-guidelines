@@ -39,7 +39,7 @@ check-rules-duplicates:
 	fi;
 
 check-rules-incorrects:
-	@INCORRECT="$$(grep -rnE "(\[[0-9]+\]|\[ +#?[0-9]+ +\])" $(DIRCONTENTS))"; \
+	@INCORRECT="$$(grep -rnE "(\[[0-9]{1,4}\]|\[ +#?[0-9]+ +\])" $(DIRCONTENTS))"; \
 	if [ -n "$${INCORRECT}" ]; then \
 	    echo -e "Incorrect Rule IDs:\n $${INCORRECT}"; \
 	    echo "Please make sure that the Rule ID anchors conform to '\[#[0-9]+\]'"; \
