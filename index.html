@@ -10628,6 +10628,84 @@ to see a list of all changes.</p>
 <div class="ulist">
 <ul>
 <li>
+<p><code>2024-06-27</code>: Clarified usage of <a href="#112"><code>x-extensible-enum</code></a> for events in <a href="#112"><span class="should-keyword"><strong>SHOULD</strong></span> use open-ended list of values (<code>x-extensible-enum</code>) for enumeration types</a>. <sup><a href="https://github.com/zalando/restful-api-guidelines/pull/807">#807</a></sup></p>
+</li>
+<li>
+<p><code>2024-06-25</code>: Relaxed naming convention for date/time properties in <a href="#235"><span class="should-keyword"><strong>SHOULD</strong></span> use naming convention for date/time properties</a>. <sup><a href="https://github.com/zalando/restful-api-guidelines/pull/811">#811</a></sup></p>
+</li>
+<li>
+<p><code>2024-06-11</code>: Linked <a href="#127"><span class="should-keyword"><strong>SHOULD</strong></span> use standard formats for time duration and interval properties</a> (duration / period) from <a href="#238"><span class="must-keyword"><strong>MUST</strong></span> use standard data formats</a>. <sup><a href="https://github.com/zalando/restful-api-guidelines/pull/810">#810</a></sup></p>
+</li>
+<li>
+<p><code>2024-05-06</code>: Added new rule <a href="#255"><span class="should-keyword"><strong>SHOULD</strong></span> select appropriate one of date or date-time format</a> on selecting appropriate date or date-time format. <sup><a href="https://github.com/zalando/restful-api-guidelines/pull/808">#808</a></sup></p>
+</li>
+<li>
+<p><code>2024-04-16</code>: Removed sort example from simple query language in <a href="#236"><span class="should-keyword"><strong>SHOULD</strong></span> design simple query languages using query parameters</a>. Enhanced clarity for 'uid' usage and permission naming convention in <a href="#105"><span class="must-keyword"><strong>MUST</strong></span> define and assign permissions (scopes)</a> and <a href="#225"><span class="must-keyword"><strong>MUST</strong></span> follow the naming convention for permissions (scopes)</a>. <sup><a href="https://github.com/zalando/restful-api-guidelines/pull/804">#804</a></sup> <sup><a href="https://github.com/zalando/restful-api-guidelines/pull/801">#801</a></sup></p>
+</li>
+<li>
+<p><code>2024-03-21</code>: Added best practices section for <a href="#108"><span class="must-keyword"><strong>MUST</strong></span> prepare clients to accept compatible API extensions</a> on handling compatible API extensions. <sup><a href="https://github.com/zalando/restful-api-guidelines/pull/799">#799</a></sup></p>
+</li>
+<li>
+<p><code>2024-03-05</code>: Updated security section about uid scope in <a href="#105"><span class="must-keyword"><strong>MUST</strong></span> define and assign permissions (scopes)</a>. <sup><a href="https://github.com/zalando/restful-api-guidelines/pull/794">#794</a></sup></p>
+</li>
+<li>
+<p><code>2024-02-29</code>: Improved guidance on <a href="#post"><code>POST</code></a> usage in <a href="#148"><span class="must-keyword"><strong>MUST</strong></span> use HTTP methods correctly</a>. <sup><a href="https://github.com/zalando/restful-api-guidelines/pull/791">#791</a></sup></p>
+</li>
+<li>
+<p><code>2024-02-21</code>: Fixed discrepancy between <a href="#109"><span class="should-keyword"><strong>SHOULD</strong></span> design APIs conservatively</a> and <a href="#111"><span class="must-keyword"><strong>MUST</strong></span> treat OpenAPI specification as open for extension by default</a> regarding handling of unexpected fields. <sup><a href="https://github.com/zalando/restful-api-guidelines/pull/793">#793</a></sup></p>
+</li>
+<li>
+<p><code>2023-12-12</code>: Improved response code guidance in <a href="#150"><span class="should-keyword"><strong>SHOULD</strong></span> only use most common HTTP status codes</a>. <sup><a href="https://github.com/zalando/restful-api-guidelines/pull/789">#789</a></sup></p>
+</li>
+<li>
+<p><code>2023-11-22</code>: Added new rule <a href="#253"><span class="may-keyword"><strong>MAY</strong></span> support asynchronous request processing</a> for supporting asynchronous request processing. <sup><a href="https://github.com/zalando/restful-api-guidelines/pull/787">#787</a></sup></p>
+</li>
+<li>
+<p><code>2023-07-21</code>: Improved guidance on total counts in <a href="#254"><span class="should-keyword"><strong>SHOULD</strong></span> avoid a total result count</a>. <sup><a href="https://github.com/zalando/restful-api-guidelines/pull/731">#731</a></sup></p>
+</li>
+<li>
+<p><code>2023-05-12</code>: Added new rule <a href="#250"><span class="should-keyword"><strong>SHOULD</strong></span> be aware of services not fully supporting JSON/unicode</a> recommending not to use redirection codes. <sup><a href="https://github.com/zalando/restful-api-guidelines/pull/762">#762</a></sup></p>
+</li>
+<li>
+<p><code>2023-05-08</code>: Improved guidance on sanitizing JSON payload in <a href="#250"><span class="should-keyword"><strong>SHOULD</strong></span> be aware of services not fully supporting JSON/unicode</a>. <sup><a href="https://github.com/zalando/restful-api-guidelines/pull/759">#759</a></sup></p>
+</li>
+<li>
+<p><code>2023-04-18</code>: Added new rule <a href="#252"><span class="should-keyword"><strong>SHOULD</strong></span> design single resource schema for reading and writing</a> recommending to design single resource schema for reading and writing. Added exception for partner IAM to <a href="#104"><span class="must-keyword"><strong>MUST</strong></span> secure endpoints</a>. <sup><a href="https://github.com/zalando/restful-api-guidelines/pull/764">#764</a></sup> <sup><a href="https://github.com/zalando/restful-api-guidelines/pull/767">#767</a></sup></p>
+</li>
+<li>
+<p><code>2022-12-20</code>: Clarify that event consumers must be robust against duplicates in <a href="#214"><span class="must-keyword"><strong>MUST</strong></span> be robust against duplicates when consuming events</a>. <sup><a href="https://github.com/zalando/restful-api-guidelines/pull/749">#749</a></sup></p>
+</li>
+<li>
+<p><code>2022-10-18</code>: Add X-Zalando-Customer to list of proprietary headers in <a href="#183"><span class="should-keyword"><strong>SHOULD</strong></span> use only the specified proprietary Zalando headers</a>. <sup><a href="https://github.com/zalando/restful-api-guidelines/pull/743">#743</a></sup></p>
+</li>
+<li>
+<p><code>2022-09-21</code>: Clarify that functional naming schema in <a href="#223"><span class="must-keyword"><strong>MUST</strong></span>/<span class="should-keyword"><strong>SHOULD</strong></span>/<span class="may-keyword"><strong>MAY</strong></span> use functional naming schema</a> is a <span class="must-keyword"><strong>MUST</strong></span>/<span class="should-keyword"><strong>SHOULD</strong></span>/<span class="may-keyword"><strong>MAY</strong></span> rule. <sup><a href="https://github.com/zalando/restful-api-guidelines/pull/740">#740</a></sup></p>
+</li>
+<li>
+<p><code>2022-07-26</code>: Improve guidance for return code usage for (robust) create operations in <a href="#148"><span class="must-keyword"><strong>MUST</strong></span> use HTTP methods correctly</a>. <sup><a href="https://github.com/zalando/restful-api-guidelines/pull/735">#735</a></sup></p>
+</li>
+<li>
+<p><code>2022-07-21</code>: Improve format and time interval guidance in <a href="#238"><span class="must-keyword"><strong>MUST</strong></span> use standard data formats</a> and <a href="#127"><span class="should-keyword"><strong>SHOULD</strong></span> use standard formats for time duration and interval properties</a>. <sup><a href="https://github.com/zalando/restful-api-guidelines/pull/733">#733</a></sup></p>
+</li>
+<li>
+<p><code>2022-05-24</code>: Define <code>next</code> page link as optional in <a href="#pagination-fields">[pagination-fields]</a>. <sup><a href="https://github.com/zalando/restful-api-guidelines/pull/726">#726</a></sup></p>
+</li>
+<li>
+<p><code>2022-04-19</code>: Change <a href="#200"><span class="should-keyword"><strong>SHOULD</strong></span> avoid writing sensitive data to events</a> from <span class="must-keyword"><strong>MUST</strong></span> to <span class="should-keyword"><strong>SHOULD</strong></span> avoid providing sensitive data with events. <sup><a href="https://github.com/zalando/restful-api-guidelines/pull/723">#723</a></sup></p>
+</li>
+<li>
+<p><code>2022-03-22</code>: More clarity about when error specification definitions can be omitted in <a href="#151"><span class="must-keyword"><strong>MUST</strong></span> specify success and error responses</a>. More clarity around HTTP status codes in <a href="#243"><span class="must-keyword"><strong>MUST</strong></span> use official HTTP status codes</a>. More clarity for avoiding null for boolean fields in <a href="#122"><span class="must-keyword"><strong>MUST</strong></span> not use <code>null</code> for boolean properties</a>. <sup><a href="https://github.com/zalando/restful-api-guidelines/pull/715">#715</a></sup> <sup><a href="https://github.com/zalando/restful-api-guidelines/pull/720">#720</a></sup> <sup><a href="https://github.com/zalando/restful-api-guidelines/pull/721">#721</a></sup></p>
+</li>
+<li>
+<p><code>2022-01-26</code>: Exclude 'type' from common field names in <a href="#235"><span class="should-keyword"><strong>SHOULD</strong></span> use naming convention for date/time properties</a>. Improve clarity around usage of extensible enums in <a href="#112"><span class="should-keyword"><strong>SHOULD</strong></span> use open-ended list of values (<code>x-extensible-enum</code>) for enumeration types</a>. <sup><a href="https://github.com/zalando/restful-api-guidelines/pull/714">#714</a></sup> <sup><a href="https://github.com/zalando/restful-api-guidelines/pull/717">#717</a></sup></p>
+</li>
+<li>
+<p><code>2021-12-22</code>: Clarify that event id must not change in retry situations when producers <a href="#211"><span class="must-keyword"><strong>MUST</strong></span> provide unique event identifiers</a>. <sup><a href="https://github.com/zalando/restful-api-guidelines/pull/694">#694</a></sup></p>
+</li>
+<li>
+<p><code>2021-12-09</code>: Improve clarity on <a href="#patch"><code>PATCH</code></a> and <a href="#put"><code>PUT</code></a> usage in rule <a href="#148"><span class="must-keyword"><strong>MUST</strong></span> use HTTP methods correctly</a>. Only use codes registered via IANA in rule <a href="#243"><span class="must-keyword"><strong>MUST</strong></span> use official HTTP status codes</a>. <sup><a href="https://github.com/zalando/restful-api-guidelines/commit/cb0624b2bc128b32fba0f78dd24f1a67d5e62766">cb0624b</a></sup></p>
+</li>
+<li>
 <p><code>2021-12-09</code>: event id must not change in retry situations when producers <a href="#211"><span class="must-keyword"><strong>MUST</strong></span> provide unique event identifiers</a>.</p>
 </li>
 <li>
@@ -10996,7 +11074,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-06-27 17:52:16 UTC
+Last updated 2024-09-18 11:37:55 UTC
 </div>
 </div>
 </body>
