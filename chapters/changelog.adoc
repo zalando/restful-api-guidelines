@@ -17,6 +17,32 @@ to see a list of all changes.
 [[rule-changes]]
 == Rule Changes
 
+* `2024-06-27`: Clarified usage of {x-extensible-enum} for events in <<112>>. ^https://github.com/zalando/restful-api-guidelines/pull/807[#807]^
+* `2024-06-25`: Relaxed naming convention for date/time properties in <<235>>. ^https://github.com/zalando/restful-api-guidelines/pull/811[#811]^
+* `2024-06-11`: Linked <<127>> (duration / period) from <<238>>. ^https://github.com/zalando/restful-api-guidelines/pull/810[#810]^
+* `2024-05-06`: Added new rule <<255>> on selecting appropriate date or date-time format. ^https://github.com/zalando/restful-api-guidelines/pull/808[#808]^
+* `2024-04-16`: Removed sort example from simple query language in <<236>>. Enhanced clarity for 'uid' usage and permission naming convention in <<105>> and <<225>>. ^https://github.com/zalando/restful-api-guidelines/pull/804[#804]^ ^https://github.com/zalando/restful-api-guidelines/pull/801[#801]^
+* `2024-03-21`: Added best practices section for <<108>> on handling compatible API extensions. ^https://github.com/zalando/restful-api-guidelines/pull/799[#799]^
+* `2024-03-05`: Updated security section about uid scope in <<105>>. ^https://github.com/zalando/restful-api-guidelines/pull/794[#794]^
+* `2024-02-29`: Improved guidance on {POST} usage in <<148>>. ^https://github.com/zalando/restful-api-guidelines/pull/791[#791]^
+* `2024-02-21`: Fixed discrepancy between <<109>> and <<111>> regarding handling of unexpected fields. ^https://github.com/zalando/restful-api-guidelines/pull/793[#793]^
+* `2023-12-12`: Improved response code guidance in <<150>>. ^https://github.com/zalando/restful-api-guidelines/pull/789[#789]^
+* `2023-11-22`: Added new rule <<253>> for supporting asynchronous request processing. ^https://github.com/zalando/restful-api-guidelines/pull/787[#787]^
+* `2023-07-21`: Improved guidance on total counts in <<254>>. ^https://github.com/zalando/restful-api-guidelines/pull/731[#731]^
+* `2023-05-12`: Added new rule <<250>> recommending not to use redirection codes. ^https://github.com/zalando/restful-api-guidelines/pull/762[#762]^
+* `2023-05-08`: Improved guidance on sanitizing JSON payload in <<250>>. ^https://github.com/zalando/restful-api-guidelines/pull/759[#759]^
+* `2023-04-18`: Added new rule <<252>> recommending to design single resource schema for reading and writing. Added exception for partner IAM to <<104>>. ^https://github.com/zalando/restful-api-guidelines/pull/764[#764]^ ^https://github.com/zalando/restful-api-guidelines/pull/767[#767]^
+* `2022-12-20`: Clarify that event consumers must be robust against duplicates in <<214>>. ^https://github.com/zalando/restful-api-guidelines/pull/749[#749]^
+* `2022-10-18`: Add X-Zalando-Customer to list of proprietary headers in <<183>>. ^https://github.com/zalando/restful-api-guidelines/pull/743[#743]^
+* `2022-09-21`: Clarify that functional naming schema in <<223>> is a {MUST}/{SHOULD}/{MAY} rule. ^https://github.com/zalando/restful-api-guidelines/pull/740[#740]^
+* `2022-07-26`: Improve guidance for return code usage for (robust) create operations in <<148>>. ^https://github.com/zalando/restful-api-guidelines/pull/735[#735]^
+* `2022-07-21`: Improve format and time interval guidance in <<238>> and <<127>>. ^https://github.com/zalando/restful-api-guidelines/pull/733[#733]^
+* `2022-05-24`: Define `next` page link as optional in <<pagination-fields>>. ^https://github.com/zalando/restful-api-guidelines/pull/726[#726]^
+* `2022-04-19`: Change <<200>> from {MUST} to {SHOULD} avoid providing sensitive data with events. ^https://github.com/zalando/restful-api-guidelines/pull/723[#723]^
+* `2022-03-22`: More clarity about when error specification definitions can be omitted in <<151>>. More clarity around HTTP status codes in <<243>>. More clarity for avoiding null for boolean fields in <<122>>. ^https://github.com/zalando/restful-api-guidelines/pull/715[#715]^ ^https://github.com/zalando/restful-api-guidelines/pull/720[#720]^ ^https://github.com/zalando/restful-api-guidelines/pull/721[#721]^
+* `2022-01-26`: Exclude 'type' from common field names in <<235>>. Improve clarity around usage of extensible enums in <<112>>. ^https://github.com/zalando/restful-api-guidelines/pull/714[#714]^ ^https://github.com/zalando/restful-api-guidelines/pull/717[#717]^
+* `2021-12-22`: Clarify that event id must not change in retry situations when producers <<211>>. ^https://github.com/zalando/restful-api-guidelines/pull/694[#694]^
+* `2021-12-09`: Improve clarity on {PATCH} and {PUT} usage in rule <<148>>. Only use codes registered via IANA in rule <<243>>. ^https://github.com/zalando/restful-api-guidelines/commit/cb0624b2bc128b32fba0f78dd24f1a67d5e62766[cb0624b]^
 * `2021-12-09`: event id must not change in retry situations when producers <<211>>.
 * `2021-11-24`: restructuring of the document and some rules.
 * `2021-10-18`: new rule <<244>>.
