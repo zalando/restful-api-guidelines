@@ -257,9 +257,9 @@ response header definitions provided by the guideline as follows:
 ----
 components:
   parameters|headers:
-    Accept-Encoding:
+    Cache-Control:
       $ref: 'https://opensource.zalando.com/restful-api-guidelines/models/headers-1.0.0.yaml#/Cache-Control'
-    Content-Encoding:
+    Vary:
       $ref: 'https://opensource.zalando.com/restful-api-guidelines/models/headers-1.0.0.yaml#/Vary'
     ETag:
       $ref: 'https://opensource.zalando.com/restful-api-guidelines/models/headers-1.0.0.yaml#/ETag'
