@@ -5,7 +5,7 @@ Guidelines for naming and designing resource paths and query parameters.
 
 
 [#135]
-== {SHOULD} not use /api as base path
+== {TODO} {SHOULD} not use /api as base path
 
 In most cases, all resources provided by a service are part of the
 public API, and therefore should be made available under the root "/"
@@ -30,7 +30,7 @@ be modeled as a collection with cardinality 1 including definition of
 `maxItems` = `minItems` = 1 for the returned `array` structure
 to make the cardinality constraint explicit.
 
-**Exception:** the _pseudo identifier_ `self` used to specify a resource endpoint
+{TODO} **Exception:** the _pseudo identifier_ `self` used to specify a resource endpoint
 where the resource identifier is provided by authorization information (see <<143>>).
 
 
@@ -202,7 +202,7 @@ define `/employees/{empl-id}` or `/employees/{empl-id}/personal-details`.
 
 
 [#241]
-== {MAY} expose compound keys as resource identifiers
+== {TODO} {MAY} expose compound keys as resource identifiers
 
 If a resource is best identified by a _compound key_ consisting of multiple
 other resource identifiers, it is allowed to reuse the compound key in its

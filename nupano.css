@@ -1264,6 +1264,8 @@ b.conum * { color: inherit !important; }
 
 .may-keyword { color: green; }
 
+.todo-keyword { color: orangered; background-color: yellow;}
+
 .status-code, .status-code:link, .status-code:visited, .status-code:hover, .status-code:active { color: black; font-weight: bold; }
 
 /* HTTP Status Codes custom text span syntax / roles / highlight */

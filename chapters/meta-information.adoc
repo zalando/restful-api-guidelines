@@ -3,7 +3,7 @@
 
 
 [#218]
-== {MUST} contain API meta information
+== {TODO} {MUST} contain API meta information
 API specifications must contain the following OpenAPI meta information
 to allow for API management:
 
@@ -20,7 +20,7 @@ Following OpenAPI extension properties *must* be provided in addition:
 
 
 [#116]
-== {MUST} use semantic versioning
+==  {TODO} {MUST} use semantic versioning
 
 OpenAPI allows to specify the API specification version in
 `#/info/version`. To share a common semantic of version information we
@@ -60,7 +60,7 @@ info:
 
 
 [#215]
-== {MUST} provide API identifiers
+== {TODO} {MUST} provide API identifiers
 
 Each API specification must be provisioned with a globally unique and
 immutable API identifier. The API identifier is defined in the `info`-block
@@ -79,7 +79,7 @@ of the OpenAPI specification and must conform to the following definition:
 ----
 
 API specifications will evolve and any aspect of an OpenAPI specification
-may change. We require API identifiers because we want  to support API clients
+may change. We require API identifiers because we want to support API clients
 and providers with API lifecycle management features, like change trackability
 and history or automated backward compatibility checks. The immutable API
 identifier allows the identification of all API specification versions of an
@@ -107,84 +107,8 @@ info:
 ----
 
 
-[#219]
-== {MUST} provide API audience
-
-Each API must be classified with respect to the intended target *audience*
-supposed to consume the API, to facilitate differentiated standards on APIs
-for discoverability, changeability, quality of design and documentation, as
-well as permission granting. We differentiate the following API audience
-groups with clear organisational and legal boundaries:
-
-*component-internal*::
-  This is often referred to as a _team internal API_ or a _product internal API_.
-  The API consumers with this audience are restricted to applications of the
-  same *functional component* which typically represents a specific *product*
-  with clear functional scope and ownership.
-  All services of a functional component / product are owned by a specific dedicated owner
-  and engineering team(s). Typical examples of component-internal APIs are APIs
-  being used by internal helper and worker services or that support service operation.
-*business-unit-internal*::
-  The API consumers with this audience are restricted to applications of a
-  specific product portfolio owned by the same business unit.
-*company-internal*::
-  The API consumers with this audience are restricted to applications owned
-  by the business units of the same the company (e.g. Zalando company with
-  Zalando SE, Zalando Payments SE & Co. KG. etc.)
-*external-partner*::
-  The API consumers with this audience are restricted to applications of
-  business partners of the company owning the API and the company itself.
-*external-public*::
-  APIs with this audience can be accessed by anyone with Internet access.
-
-*Note:* a smaller audience group is intentionally included in the wider group
-and thus does not need to be declared additionally.
-
-The API audience is provided as API meta information in the `info`-block of
-the OpenAPI specification and must conform to the following specification:
-
-[source,yaml]
-----
-/info/x-audience:
-  type: string
-  x-extensible-enum:
-    - component-internal
-    - business-unit-internal
-    - company-internal
-    - external-partner
-    - external-public
-  description: |
-    Intended target audience of the API. Relevant for standards around
-    quality of design and documentation, reviews, discoverability,
-    changeability, and permission granting.
-----
-
-*Note:* Exactly *one audience* per API specification is allowed. For this
-reason a smaller audience group is intentionally included in the wider group
-and thus does not need to be declared additionally. If parts of your API have
-a different target audience, we recommend to split API specifications along
-the target audience — even if this creates redundancies
-({api-audience-narrative}[rationale (internal_link)]).
-
-Example:
-
-[source,yaml]
-----
-openapi: 3.0.1
-info:
-  x-audience: company-internal
-  title: Parcel Helper Service API
-  description: API for <...>
-  version: 1.2.4
-  <...>
-----
-
-For details and more information on audience groups see the
-{api-audience-narrative}[API Audience narrative (internal_link)].
-
-
 [#223]
-== {MUST-SHOULD-MAY} use functional naming schema
+== {TODO} {MUST-SHOULD-MAY} use functional naming schema
 
 Functional naming is a powerful, yet easy way to align global resources as
 _host_, _permission_, and _event names_ within an application landscape. It
@@ -234,7 +158,7 @@ managed in the registry.
 
 
 [#224]
-== {MUST} follow naming convention for hostnames
+== {TODO} {MUST} follow naming convention for hostnames
 
 Hostnames in APIs must, respectively should conform to the functional naming
 depending on the <<219, audience>> as follows (see <<223>> for details and

@@ -45,13 +45,13 @@ Please consult the
 https://swagger.io/docs/specification/authentication/oauth2/[OpenAPI OAuth 2.0 Authentication]
 section for details on how to define `oauth2` typed security schemes correctly.
 
-*Note:* Do not use OpenAPI `oauth2` typed security scheme flows (e.g. `implicit`)
+*Note:* {TODO} Do not use OpenAPI `oauth2` typed security scheme flows (e.g. `implicit`)
 if your service does not fully support it and implements a simple bearer token scheme,
 because it exposes authentication server address details and may make use of redirection.
 
 
 [#105]
-== {MUST} define and assign permissions (scopes)
+== {TODO} {MUST} define and assign permissions (scopes)
 
 Endpoints must be equipped with permissions, if they require client authorization for protection 
 since e.g. data is exposed that is classified as `orange` or `red` according to Zalando's 
@@ -86,7 +86,7 @@ it is required and so to say implicitly defined via the security section.
 
 
 [#225]
-== {MUST} follow the naming convention for permissions (scopes)
+== {TODO} {MUST} follow the naming convention for permissions (scopes)
 
 As long as the <<223,functional naming>> is not yet supported by our permission registry,
 permission names in APIs must conform to the following naming pattern:

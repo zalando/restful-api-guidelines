@@ -1,9 +1,4 @@
-= Developing Restful APIs: A Comprehensive Set of Guidelines by Zalando
-
-
-https://github.com/zalando/restful-api-guidelines/actions/[image:https://github.com/zalando/restful-api-guidelines/actions/workflows/build.yml/badge.svg[Build status]]
-Latest published version:
-http://zalando.github.io/restful-api-guidelines/[*HTML*],
+= Developing Restful APIs: A Comprehensive Set of Guidelines. Originally created by Zalando.
 
 == Purpose
 
@@ -12,17 +7,13 @@ promotes API adoption, reduces friction, and enables clients to use them
 properly. To build APIs that meet this standard, and to answer many
 common questions encountered along the way of RESTful API development,
 the Zalando Tech team has created this comprehensive set of guidelines.
-We have shared it with you to inspire additional discussion and
-refinement within and among your teams, and contribute our learnings and
-suggestions to the tech community at large.
+
+The NUPANO dev leads have decided to take the original guidelines from Zalando 
+and adapt them four NUPANO needs. Mainly this means only small renamings and  adjustments in priority.
+
+Probs
 
 == Usage
-
-Feel free to use these guidelines as a guidance for your own
-development. Note that we encourage our own teams to use them in order
-to challenge their APIs. As such, you should consider this to be a
-living, evolving document. We will revise and update based on our
-learnings and experiences.
 
 See link:BUILD.adoc[BUILD documentation] for technical details.
 
@@ -30,3 +21,10 @@ See link:BUILD.adoc[BUILD documentation] for technical details.
 
 We have published these guidelines under the CC-BY (Creative commons
 Attribution 4.0) license. Please see link:LICENSE[LICENSE file].
+
+== NUPANO related changes
+
+- zappr (https://github.com/zalando/zappr) config removed
+- API audience removed
+-- #219 provide API audience
+- internationalized data formats removed (#238)

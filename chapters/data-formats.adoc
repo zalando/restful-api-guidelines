@@ -27,17 +27,13 @@ You *must* use these formats, whenever applicable:
 | `string` | `duration` | {RFC-3339}[RFC 3339] -- subset of https://tools.ietf.org/html/rfc3339#ref-ISO8601[ISO 8601], see also <<#127,rule #127>> for details. | `"P1DT3H4S"`
 | `string` | `period` | {RFC-3339}[RFC 3339] -- subset of https://tools.ietf.org/html/rfc3339#ref-ISO8601[ISO 8601], see also <<#127,rule #127>> for details. | `"2022-06-30T14:52:44.276/PT48H" "PT24H/2023-07-30T18:22:16.315Z" "2024-05-15T09:48:56.317Z/.."`
 | `string` | `password` |  | `"secret"`
-| `string` | `email` | {RFC-5322}[RFC 5322] | `"example@zalando.de"`
-| `string` | `idn-email` | {RFC-6531}[RFC 6531] | `"hello@bücher.example"`
-| `string` | `hostname` | {RFC-1034}[RFC 1034] | `"www.zalando.de"`
-| `string` | `idn-hostname` | {RFC-5890}[RFC 5890] | `"bücher.example"`
+| `string` | `email` | {RFC-5322}[RFC 5322] | `"example@nupano.com"`
+| `string` | `hostname` | {RFC-1034}[RFC 1034] | `"www.nuano.com"`
 | `string` | `ipv4` | {RFC-2673}[RFC 2673] | `"104.75.173.179"`
 | `string` | `ipv6` | {RFC-4291}[RFC 4291] | `"2600:1401:2::8a"`
-| `string` | `uri` | {RFC-3986}[RFC 3986] | `"https://www.zalando.de/"`
+| `string` | `uri` | {RFC-3986}[RFC 3986] | `"https://www.nupano.com/"`
 | `string` | `uri-reference` | {RFC-3986}[RFC 3986] | `"/clothing/"`
 | `string` | `uri-template` | {RFC-6570}[RFC 6570] | `"/users/\{id\}"`
-| `string` | `iri` | {RFC-3987}[RFC 3987] | `"https://bücher.example/"`
-| `string` | `iri-reference` | {RFC-3987}[RFC 3987] | `"/damenbekleidung-jacken-mäntel/"`
 | `string` | <<144, `uuid`>> | {RFC-4122}[RFC 4122] | `"e2ab873e-b295-11e9-9c02-..."`
 | `string` | `json-pointer` | {RFC-6901}[RFC 6901] | `"/items/0/id"`
 | `string` | `relative-json-pointer` | https://tools.ietf.org/html/draft-handrews-relative-json-pointer[Relative JSON pointers] | `"1/id"`
@@ -46,23 +42,6 @@ You *must* use these formats, whenever applicable:
 
 *Note:* Formats `bigint` and `decimal` have been added to the OpenAPI defined formats --
 see also <<171>> and <<169>> below.
-
-We add further OpenAPI formats that are useful especially in an e-commerce environment
-e.g. `language code`, `country code`, and `currency` based other ISO and IETF standards.
-You *must* use these formats, whenever applicable:
-
-[cols="10%,10%,40%,40%",options="header",]
-|=====================================================================
-| `OpenAPI type` | `format` | Specification | Example
-| `string` | `iso-639-1`| two letter language code -- see {ISO-639-1}[ISO 639-1]. Hint: In the past we used `iso-639` as format. | `"en"`
-| `string` | `bcp47` | multi letter language tag -- see {BCP47}[BCP 47]. It is a compatible extension of {ISO-639-1}[ISO 639-1] optionally with additional information for language usage, like region, variant, script. | `"en-DE"`
-| `string` | `iso-3166-alpha-2` | two letter country code -- see {ISO-3166-1-alpha-2}[ISO 3166-1 alpha-2]. Hint: In the past we used `iso-3166` as format. | `"GB"`  *Hint:* It is `"GB"`, not `"UK"`, even though `"UK"` has seen some use at Zalando.
-| `string` | `iso-4217` | three letter currency code -- see {ISO-4217}[ISO 4217] | `"EUR"`
-| `string` | `gtin-13` | Global Trade Item Number -- see {GTIN}[GTIN] | `"5710798389878"`
-|=====================================================================
-
-*Remark:* Please note that this list of standard data formats is not exhaustive
-and everyone is encouraged to propose additions.
 
 
 [#171]
@@ -207,7 +186,7 @@ content format, or content encoding. You <<172>> like `application/json` or
 
 
 [#144]
-== {SHOULD} only use UUIDs if necessary
+== {TODO} {SHOULD} only use UUIDs if necessary
 
 Generating IDs can be a scaling problem in high frequency and near real time
 use cases. UUIDs solve this problem, as they can be generated without
