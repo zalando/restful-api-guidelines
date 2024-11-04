@@ -1,11 +1,9 @@
 [[json-guidelines]]
 = REST Basics - JSON payload
 
-These guidelines provides recommendations for defining JSON data at Zalando.
+These guidelines provides recommendations for defining JSON data at NUPANO.
 JSON here refers to {RFC-7159}[RFC 7159] (which updates {RFC-4627}[RFC 4627]),
 the "application/json" media type and custom JSON media types defined for APIs.
-The guidelines clarifies some specific cases to allow Zalando JSON data to have
-an idiomatic form across teams and services.
 
 
 [#167]
@@ -33,7 +31,7 @@ As a consequence, a JSON payload must
 
 
 [#252]
-== {SHOULD} design single resource schema for reading and writing
+== {SHOULD} {TODO} design single resource schema for reading and writing
 
 To simplify API specs and API maintenance, as well as the cognitive load of
 developers, endpoints should utilize a common model for reading and writing
@@ -94,7 +92,7 @@ of Internet Assigned Numbers Authority (IANA)) as `content-type` (or `accept`) h
 information. More specifically, for JSON payload you should use the standard media type
 `application/json` (or `application/problem+json` for <<176>>).
 
-You should avoid using custom media types like `application/x.zalando.article+json`.
+You should avoid using custom media types like `application/x.customer.object+json`.
 Custom media types beginning with `x` bring no advantage compared to the
 standard media type for JSON, and make automated processing more difficult.
 
@@ -110,7 +108,7 @@ This implies in turn that object names should be singular.
 
 
 [#118]
-== {MUST} property names must be snake_case (and never camelCase)
+== {MUST} {TODO} property names must be snake_case (and never camelCase)
 
 Property names are restricted to ASCII snake_case strings matching regex `^[a-z_][a-z_0-9]*$`.
 The first character must be a lower case letter, or an underscore, and subsequent
@@ -120,7 +118,7 @@ Examples:
 
 [source]
 ----
-customer_number, sales_order_number, billing_address
+customer_number, app_version, machine_network_name
 ----
 
 Rationale: No established industry standard exists, but many popular Internet
@@ -146,7 +144,7 @@ declaring possible values for a <<137,rule 137>> [`sort` parameter].
 
 
 [#235]
-== {SHOULD} use naming convention for date/time properties
+== {SHOULD} {TODO} use naming convention for date/time properties
 
 Naming of date and data-time properties should comply with the following convention: 
 The name either (i) contains `date`, `day`, `time`, `timestamp` or similar type indicators, 
@@ -280,7 +278,7 @@ Empty array values can unambiguously be represented as the empty list, `[]`.
 
 
 [#174]
-== {MUST} use common field names and semantics
+== {MUST} {TODO }use common field names and semantics
 
 [[generic-fields]]
 You must use common field names and semantics whenever applicable.
@@ -298,10 +296,6 @@ We define the following common field names:
   object or the relationship to the referenced object followed by `_id` (e.g.
   `partner_id` not `partner_number`, or `parent_node_id` for the reference to a parent
   node from a child node, even if both have the type `Node`).
-  *Exception*: We use `customer_number` instead of `customer_id` for customer facing
-  identification of customers due to legacy reasons. (Hint: `customer_id` used to be defined
-  as internal only, technical integer key, see
-  {customer-naming-decision}[Naming Decision: `customer_number` vs `customer_id` [internal_link]]).
 * [[etag]]{e_tag}: the {e_tag} of an <<158, embedded sub-resource>>. It
   typically is used to carry the {ETag} for subsequent {PUT}/{PATCH} calls
   (see <<182, `ETag`>> and <<etag-in-result-entities>>).
@@ -341,183 +335,3 @@ tree_node:
     created_at: '2017-04-12T23:20:50.52Z'
     modified_at: '2017-04-12T23:20:50.52Z'
 ----
-
-
-[#249]
-== {MUST} use the common address fields
-
-[[address-fields]]
-Address structures play a role in different business and use-case
-contexts, including country variances. All attributes that relate to
-address information must follow the naming and semantics defined
-below.
-
-[source,yaml]
-----
-addressee:
-  description: a (natural or legal) person that gets addressed
-  type: object
-  properties:
-    salutation:
-      description: |
-        a salutation and/or title used for personal contacts to some
-        addressee; not to be confused with the gender information!
-      type: string
-      example: Mr
-    first_name:
-      description: |
-        given name(s) or first name(s) of a person; may also include the
-        middle names.
-      type: string
-      example: Hans Dieter
-    last_name:
-      description: |
-        family name(s) or surname(s) of a person
-      type: string
-      example: Mustermann
-    business_name:
-      description: |
-        company name of the business organization. Used when a business is
-        the actual addressee; for personal shipments to office addresses, use
-        `care_of` instead.
-      type: string
-      example: Consulting Services GmbH
-  required:
-    - first_name
-    - last_name
-
-address:
-  description:
-    an address of a location/destination
-  type: object
-  properties:
-    care_of:
-      description: |
-        (aka c/o) the person that resides at the address, if different from
-        addressee. E.g. used when sending a personal parcel to the
-        office /someone else's home where the addressee resides temporarily
-      type: string
-      example: Consulting Services GmbH
-    street:
-      description: |
-        the full street address including house number and street name
-      type: string
-      example: Schönhauser Allee 103
-    additional:
-      description: |
-        further details like building name, suite, apartment number, etc.
-      type: string
-      example: 2. Hinterhof rechts
-    city:
-      description: |
-        name of the city / locality
-      type: string
-      example: Berlin
-    zip:
-      description: |
-        zip code or postal code
-      type: string
-      example: 14265
-    country_code:
-      description: |
-        the country code according to
-        [iso-3166-1-alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
-      type: string
-      example: DE
-  required:
-    - street
-    - city
-    - zip
-    - country_code
-----
-
-Grouping and cardinality of fields in specific data types may vary based
-on the specific use case (e.g. combining addressee and address fields
-into a single type when modeling an address label vs distinct addressee
-and address types when modeling users and their addresses).
-
-
-[#173]
-== {MUST} use the common money object
-
-Use the following common money structure:
-
-[source,yaml]
-----
-include::../models/money-1.0.0.yaml[]
-----
-
-APIs are encouraged to include a reference to the global schema for Money.
-
-[source,yaml]
-----
-SalesOrder:
-  properties:
-    grand_total:
-      $ref: 'https://opensource.zalando.com/restful-api-guidelines/models/money-1.0.0.yaml#/Money'
-----
-
-Please note that APIs have to treat Money as a closed data type, i.e. it's not meant to be used in an inheritance hierarchy. That means the following usage is not allowed:
-
-[source,json]
-----
-{
-  "amount": 19.99,
-  "currency": "EUR",
-  "discounted_amount": 9.99
-}
-----
-
-=== Cons
-
-* Violates the https://en.wikipedia.org/wiki/Liskov_substitution_principle[Liskov Substitution Principle]
-* Breaks existing library support, e.g. https://github.com/zalando/jackson-datatype-money[Jackson Datatype Money]
-* Less flexible since both amounts are coupled together, e.g. mixed currencies are impossible
-
-A better approach is to favor https://en.wikipedia.org/wiki/Composition_over_inheritance[composition over inheritance]:
-
-[source,json]
-----
-{
-    "price": {
-      "amount": 19.99,
-      "currency": "EUR"
-    },
-    "discounted_price": {
-      "amount": 9.99,
-      "currency": "EUR"
-    }
-}
-----
-
-=== Pros
-
-* No inheritance, hence no issue with the substitution principle
-* Makes use of existing library support
-* No coupling, i.e. mixed currencies is an option
-* Prices are now self-describing, atomic values
-
-=== Notes
-
-Please be aware that some business cases (e.g. transactions in Bitcoin) call for a higher precision, so applications must be prepared to accept values with unlimited precision, unless explicitly stated otherwise in the API specification.
-
-Examples for correct representations (in EUR):
-
-* `42.20` or `42.2` = 42 Euros, 20 Cent
-* `0.23` = 23 Cent
-* `42.0` or `42` = 42 Euros
-* `1024.42` = 1024 Euros, 42 Cent
-* `1024.4225` = 1024 Euros, 42.25 Cent
-
-Make sure that you don’t convert the "amount" field to `float` /
-`double` types when implementing this interface in a specific language
-or when doing calculations. Otherwise, you might lose precision.
-Instead, use exact formats like Java’s
-https://docs.oracle.com/javase/8/docs/api/java/math/BigDecimal.html[`BigDecimal`].
-See http://stackoverflow.com/a/3730040/342852[Stack Overflow] for more
-info.
-
-Some JSON parsers (NodeJS’s, for example) convert numbers to floats by default.
-After discussing the pros and cons we’ve decided on "decimal" as our amount
-format. It is not a standard OpenAPI format, but should help us to avoid parsing
-numbers as float / doubles.

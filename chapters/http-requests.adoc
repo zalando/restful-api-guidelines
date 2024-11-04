@@ -25,7 +25,7 @@ Be compliant with the standardized HTTP semantics (see {RFC-9110}[RFC-9110
 
 
 [[get-with-body]]
-=== GET with body payload
+=== {TODO} GET with body payload
 
 APIs sometimes face the problem, that they have to provide extensive structured
 request information with {GET}, that may conflict with the size limits of
@@ -166,7 +166,7 @@ make sure to document the fact that {POST} is used as a workaround (see e.g.
 
 
 [[patch]]
-=== PATCH
+=== {TODO} PATCH
 
 {PATCH} method extends HTTP via {RFC-5789}[RFC-5789] standard to update parts
 of the resource objects where e.g. in contrast to {PUT} only a specific subset
@@ -248,7 +248,7 @@ endpoint.
 
 
 [[delete-with-query-params]]
-=== DELETE with query parameters
+=== {TODO} DELETE with query parameters
 
 {DELETE} request can have query parameters. Query parameters should be used as
 filter parameters on a resource and not for passing context information to
@@ -270,7 +270,7 @@ details).
 
 
 [[delete-with-body]]
-=== DELETE with body payload
+=== {TODO} DELETE with body payload
 
 In rare cases {DELETE} may require additional information, that cannot be
 classified as filter parameters and thus should be transported via request body
@@ -352,7 +352,7 @@ to {RFC-9110}#section-9.2[RFC 9110 Section 9.2]:
 
 
 [#229]
-== {SHOULD} consider to design `POST` and `PATCH` idempotent
+== {TODO} {SHOULD} consider to design `POST` and `PATCH` idempotent
 
 In many cases it is helpful or even necessary to design {POST} and {PATCH}
 <<idempotent>> for clients to expose conflicts and prevent resource duplicate
@@ -411,7 +411,7 @@ repetition from resource created server activity of idempotent {POST}.
 
 
 [#231]
-== {Should} use secondary key for idempotent `POST` design
+== {TODO} {Should} use secondary key for idempotent `POST` design
 
 The most important pattern to design {POST} <<idempotent>> for creation is to
 introduce a resource specific *secondary key* provided in the request body, to
@@ -501,7 +501,7 @@ the escaping of special characters and the maximal URL length.
 
 
 [#236]
-== {SHOULD} design simple query languages using query parameters
+== {TODO} {SHOULD} design simple query languages using query parameters
 
 We prefer the use of query parameters to describe resource-specific query
 languages for the majority of APIs because it's native to HTTP, easy to extend
@@ -580,7 +580,7 @@ be free to choose the terminology that fits their domain the best.
 
 
 [#237]
-== {SHOULD} design complex query languages using JSON
+== {TODO} {SHOULD} design complex query languages using JSON
 
 Minimalistic query languages based on <<236, query parameters>> are suitable
 for simple use cases with a small set of available filters that are combined

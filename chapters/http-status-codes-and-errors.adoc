@@ -157,7 +157,7 @@ should be used. This might be useful in rare cases (like media streaming or
 downloading large files), but most APIs don't need this.
 
 [[status-code-207]]
-==== 207 Multi-Status {rfc-status-207} {use} {document} {POST} ({DELETE})
+==== {TODO} 207 Multi-Status {rfc-status-207} {use} {document} {POST} ({DELETE})
 [.indent]
 The response body contains status information for multiple different parts of a
 batch/bulk request (see <<152>> for details). Normally used for {POST}, in some
@@ -451,7 +451,7 @@ about your request processing status or error situations.
 
 
 [#152]
-== {MUST} use code 207 for batch or bulk requests
+== {TODO} {MUST} use code 207 for batch or bulk requests
 
 Some APIs are required to provide either _batch_ or _bulk_ requests using
 {POST} for performance reasons, i.e. for communication and processing
@@ -520,7 +520,7 @@ response processing this distinction normally does not matter.
 
 
 [#153]
-== {MUST} use code 429 with headers for rate limits
+== {TODO} {MUST} use code 429 with headers for rate limits
 
 APIs that wish to manage the request rate of clients must use the {429} (Too
 Many Requests) response code, if the client exceeded the request rate (see
