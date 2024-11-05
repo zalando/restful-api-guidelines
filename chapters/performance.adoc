@@ -1,9 +1,9 @@
 [[performance]]
-= REST Design - Performance
+= {TODO} REST Design - Performance
 
 
 [#155]
-== {SHOULD} reduce bandwidth needs and improve responsiveness
+== {TODO} {SHOULD} reduce bandwidth needs and improve responsiveness
 
 APIs should support techniques for reducing bandwidth based on client needs.
 This holds for APIs that (might) have high payloads and/or are used in
@@ -74,7 +74,7 @@ or add a dedicated middleware, e.g. https://github.com/gin-contrib/gzip#usage[gi
 
 
 [#157]
-== {SHOULD} support partial responses via filtering
+== {TODO} {SHOULD} support partial responses via filtering
 
 Depending on your use case and payload size, you can significantly reduce
 network bandwidth need by supporting filtering of returned entity fields.
@@ -166,7 +166,7 @@ anticipated by the consumer.
 
 
 [#158]
-== {SHOULD} allow optional embedding of sub-resources
+== {TODO} {SHOULD} allow optional embedding of sub-resources
 
 Embedding related resources (also know as _Resource expansion_) is a
 great way to reduce the number of requests. In cases where clients know

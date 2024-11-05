@@ -1,5 +1,5 @@
 [[hypermedia]]
-= REST Design - Hypermedia
+= {TODO} REST Design - Hypermedia
 
 
 [#162]
@@ -21,7 +21,7 @@ proper link relationships in your APIs as stated in rules below.
 
 
 [#163]
-== {MAY} use REST maturity level 3 - HATEOAS
+== {TODO} {MAY} use REST maturity level 3 - HATEOAS
 
 We do not generally recommend to implement
 http://martinfowler.com/articles/richardsonMaturityModel.html#level3[REST
@@ -66,7 +66,7 @@ present your findings in the {api-guild}[API Guild (internal_link)].
 
 
 [#164]
-== {MUST} use common hypertext controls
+== {TODO} {MUST} use common hypertext controls
 
 When embedding links to other resources into representations you must use the
 common hypertext control object. It contains at least one attribute:
@@ -135,7 +135,7 @@ understandability and usability of an API.
 
 
 [#165]
-== {SHOULD} use simple hypertext controls for pagination and self-references
+== {TODO} {SHOULD} use simple hypertext controls for pagination and self-references
 
 For pagination and self-references a simplified form of the <<164, extensible
 common hypertext controls>> should be used to reduce the specification and
@@ -147,7 +147,7 @@ See <<164>> and <<161>> for more information and examples.
 
 
 [#217]
-== {MUST} use full, absolute URI for resource identification
+== {TODO} {MUST} use full, absolute URI for resource identification
 
 Links to other resource must always use full, absolute URI.
 
@@ -160,7 +160,7 @@ by following the recommendation to use <<156,gzip compression>>
 
 
 [#166]
-== {MUST} not use link headers with JSON entities
+== {TODO} {MUST} not use link headers with JSON entities
 
 For flexibility and precision, we prefer links to be directly embedded in the
 JSON payload instead of being attached using the uncommon link header syntax.

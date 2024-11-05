@@ -384,7 +384,7 @@ include::chapters/deprecation.adoc[]
 
 include::chapters/api-operation.adoc[]
 
-include::chapters/events.adoc[]
+<!-- include::chapters/events.adoc[] -->
 
 include::chapters/references.adoc[]
 

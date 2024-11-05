@@ -33,3 +33,4 @@ Attribution 4.0) license. Please see link:LICENSE[LICENSE file].
 - rule 173 (use the common money object) removed
 - rule 183 (use only the specified proprietary Zalando headers) removed
 - rule 184 (propagate prorietary headers) removed
+- events removed

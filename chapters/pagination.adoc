@@ -1,9 +1,9 @@
 [[pagination]]
-= REST Design - Pagination
+= {TODO} REST Design - Pagination
 
 
 [#159]
-== {MUST} support pagination
+== {TODO} {MUST} support pagination
 
 Access to lists of data items must support pagination to protect the service
 against overload as well as to support client side iteration and batch
@@ -32,7 +32,7 @@ you must stick to the common query parameter names defined in <<137>>.
 
 
 [#160]
-== {SHOULD} prefer cursor-based pagination, avoid offset-based pagination
+== {TODO}  {SHOULD} prefer cursor-based pagination, avoid offset-based pagination
 
 Cursor-based pagination is usually better and more efficient when compared to
 offset-based pagination. Especially when it comes to high-data volumes and/or
@@ -66,7 +66,7 @@ over these) to safely recreate the collection (see also best practice
 
 
 [#248]
-== {SHOULD} use pagination response page object
+== {TODO} {SHOULD} use pagination response page object
 
 [[pagination-fields]]
 For iterating over collections (result sets) we propose to either use cursors
@@ -145,7 +145,7 @@ ResponsePage:
 
 
 [#161]
-== {SHOULD} use pagination links
+== {TODO}  {SHOULD} use pagination links
 
 To simplify client design, APIs should support <<165, simplified hypertext
 controls>> as standard pagination links where applicable:
@@ -170,7 +170,7 @@ See also <<248>> for details on the pagination fields and page result object.
 
 
 [#254]
-== {SHOULD} avoid a total result count
+== {TODO}  {SHOULD} avoid a total result count
 
 In pagination responses you should generally avoid providing a _total result
 count_, since calculating it is a costly operation that is usually not required
