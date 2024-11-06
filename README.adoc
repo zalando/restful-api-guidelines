@@ -11,7 +11,6 @@ the Zalando Tech team has created this comprehensive set of guidelines.
 The NUPANO dev leads have decided to take the original guidelines from Zalando 
 and adapt them four NUPANO needs. Mainly this means only small renamings and  adjustments in priority.
 
-Probs
 
 == Usage
 
@@ -24,13 +23,13 @@ Attribution 4.0) license. Please see link:LICENSE[LICENSE file].
 
 == NUPANO related changes
 
-- zappr (https://github.com/zalando/zappr) config removed
-- API audience removed
--- #219 provide API audience
-- internationalized data formats removed (#238)
-- Zalando specific JSON Guideline details removed
-- rule 249 (use the common address fields) removed
-- rule 173 (use the common money object) removed
-- rule 183 (use only the specified proprietary Zalando headers) removed
-- rule 184 (propagate prorietary headers) removed
-- events removed
+* zappr (https://github.com/zalando/zappr) config removed
+* API audience removed
+** #219 provide API audience
+* internationalized data formats removed (#238)
+* Zalando specific JSON Guideline details removed
+* rule 249 (use the common address fields) removed
+* rule 173 (use the common money object) removed
+* rule 183 (use only the specified proprietary Zalando headers) removed
+* rule 184 (propagate prorietary headers) removed
+* events removed
