@@ -3,7 +3,7 @@
 
 
 [#192]
-== {MUST} publish OpenAPI specification
+== {MUST} publish OpenAPI specification for external APIs
 
 All service applications must publish OpenAPI specifications of their external
 APIs. While this is optional for internal APIs, i.e. APIs marked with the
