@@ -35,25 +35,8 @@ make it discoverable for the group via our {api-portal}[API Portal (internal_lin
 and focus on resource oriented HTTP/REST API style (and related tooling 
 and infrastructure support).
 
-
-[#102]
-== {SHOULD} provide API user manual
-
-In addition to the API Specification, it is good practice to provide an API
-user manual to improve client developer experience, especially of engineers
-that are less experienced in using this API. A helpful API user manual
-typically describes the following API aspects:
-
-* API scope, purpose, and use cases
-* concrete examples of API usage
-* edge cases, error situation details, and repair hints
-* architecture context and major dependencies - including figures and
-sequence flows
-
-The user manual must be published online, e.g. via our documentation hosting
-platform service, GHE pages, or specific team web servers. Please do not forget
-to include a link to the API user manual into the API specification using the
-`#/externalDocs/url` property.
+In addition to the API Specification, it is good practice to provide examples and a meaningful
+summary to explain e.g. background processes.
 
 
 [#103]
@@ -69,6 +52,9 @@ The reason is, that the content referred to is _in general_ *not durable* and
 *not immutable*. As a consequence, the semantic of an API may change in
 unexpected ways. (For example, the second link is already outdated due to code restructuring.)
 
-As we control these URLs, we ensure that their content is *durable* and
+As we control internal URLs, we ensure that their content is *durable* and
 *immutable*. This allows to define API specifications by using fragments
-published via these sources, as suggested in <<151>>. {TODO}
+published via these sources, as suggested in <<151>>.
+
+Due to the fact, that's sometimes necessary to reference external documentations
+such URLs are explicitly allowed.

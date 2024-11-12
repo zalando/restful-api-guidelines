@@ -44,7 +44,7 @@ service client and provider performance.
 {403} (unauthorized), {404} (not found), {500} (internal server error), or
 {503} (service unavailable), where the semantic can be easily derived from the
 end endpoint specification need no individual definition. Instead these can be
-included by applying the `default` shown pattern below. However, error codes
+included by applying the {TODO} `default` shown pattern below. However, error codes
 that provide endpoint specific indications for clients on how to avoid calling
 the endpoint in the wrong way, or be prepared to react on specific error
 situation must be specified explicitly.

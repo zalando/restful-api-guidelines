@@ -200,62 +200,6 @@ or `/employees/self/personal-details` as resource paths --  and may additionally
 define endpoints that support identifier passing in the resource path, like
 define `/employees/{empl-id}` or `/employees/{empl-id}/personal-details`.
 
-
-[#241]
-== {TODO} {MAY} expose compound keys as resource identifiers
-
-If a resource is best identified by a _compound key_ consisting of multiple
-other resource identifiers, it is allowed to reuse the compound key in its
-natural form containing slashes instead of _technical_ resource identifier in
-the resource path without violating the above rule <<143>> as follows:
-
-[source,http]
-----
-/resources/{compound-key-1}[delim-1]...[delim-n-1]{compound-key-n}
-----
-
-Example paths:
-
-[source,http]
-----
-/shopping-carts/{country}/{session-id}
-/shopping-carts/{country}/{session-id}/items/{item-id}
-/api-specifications/{docker-image-id}/apis/{path}/{file-name}
-/api-specifications/{repository-name}/{artifact-name}:{tag}
-/article-size-advices/{sku}/{sales-channel}
-----
-
-*Note*: Exposing a compound key as described above limits ability to
-evolve the structure of the resource identifier as it is no longer opaque.
-
-To compensate for this drawback, APIs must apply a compound key abstraction
-consistently in all requests and responses parameters and attributes allowing
-consumers to treat these as _technical resource identifier_ replacement. The
-use of independent compound key components must be limited to search and
-creation requests, as follows:
-
-[source,http]
-----
-# compound key components passed as independent search query parameters
-GET /article-size-advices?skus=sku-1,sku-2&sales_channel_id=sid-1
-=> { "items": [{ "id": "id-1", ...  },{ "id": "id-2", ...  }] }
-
-# opaque technical resource identifier passed as path parameter
-GET /article-size-advices/id-1
-=> { "id": "id-1", "sku": "sku-1", "sales_channel_id": "sid-1", "size": ... }
-
-# compound key components passed as mandatory request fields
-POST /article-size-advices { "sku": "sku-1", "sales_channel_id": "sid-1", "size": ... }
-=> { "id": "id-1", "sku": "sku-1", "sales_channel_id": "sid-1", "size": ... }
-----
-
-Where `id-1` is representing the opaque provision of the compound key
-`sku-1/sid-1` as technical resource identifier.
-
-**Remark:** A compound key component may itself be used as another resource
-identifier providing another resource endpoint, e.g `/article-size-advices/{sku}`.
-
-
 [#145]
 == {MAY} consider using (non-) nested URLs
 

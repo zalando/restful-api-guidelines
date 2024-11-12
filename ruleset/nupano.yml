@@ -51,22 +51,6 @@ rules:
       functionOptions:
         notMatch: /v[0-9]+/
 
-  # MUST use semantic versioning [116]
-  # => https://opensource.zalando.com/restful-api-guidelines/#116
-
-  must-use-semantic-versioning:
-    message: '{{error}}'
-    description: MUST use semantic versioning [116]
-    documentationUrl: https://opensource.zalando.com/restful-api-guidelines/#116
-    severity: error
-    given: $.info.version
-    then:
-      function: schema
-      functionOptions:
-        schema:
-          type: string
-          pattern: '^[0-9]+\.[0-9]+\.[0-9]+(-[0-9a-zA-Z-]+(\.[0-9a-zA-Z-]+)*)?$'
-
   # MUST property names must be ASCII snake_case [118]
   # => https://opensource.zalando.com/restful-api-guidelines/#118
 
@@ -352,7 +336,7 @@ rules:
     message: Numeric properties must have valid format specified
     description: MUST define a format for number and integer types [171]
     documentationUrl: https://opensource.zalando.com/restful-api-guidelines/#171
-    severity: error
+    severity: warn
     given: $.paths.*.*..schema..properties..[?(@ && @.type=='number')]
     then:
       - field: format
@@ -413,27 +397,11 @@ rules:
       field: schema
       function: is-problem-json-schema
 
-  # MUST provide API identifiers [215]
-  # => https://opensource.zalando.com/restful-api-guidelines/#215
-
-  must-provide-api-identifiers:
-    message: '{{error}}'
-    description: MUST provide API identifiers [215]
-    documentationUrl: https://opensource.zalando.com/restful-api-guidelines/#215
-    severity: error
-    given: $.info.x-api-id
-    then:
-      function: schema
-      functionOptions:
-        schema:
-          type: string
-          pattern: ^[a-z0-9][a-z0-9-:.]{6,62}[a-z0-9]$
-
   # MUST contain API meta information [218]
   # https://opensource.zalando.com/restful-api-guidelines/#218
 
   must-have-info-description:
-    message: Missing `info.description`.
+    message: Missing `info.title`.
     description: MUST contain API meta information [218]
     documentationUrl: https://opensource.zalando.com/restful-api-guidelines/#218
     severity: error
@@ -441,63 +409,6 @@ rules:
     then:
       field: description
       function: truthy
-
-  must-have-info-contact-name:
-    message: Missing `info.contact.name`.
-    description: MUST contain API meta information [218]
-    documentationUrl: https://opensource.zalando.com/restful-api-guidelines/#218
-    severity: error
-    given: $.info
-    then:
-      field: contact.name
-      function: truthy
-
-  must-have-info-contact-url:
-    message: Missing `info.contact.url`.
-    description: MUST contain API meta information [218]
-    documentationUrl: https://opensource.zalando.com/restful-api-guidelines/#218
-    severity: error
-    given: $.info
-    then:
-      field: contact.url
-      function: truthy
-
-  must-have-info-contact-email:
-    message: Missing `info.contact.email`.
-    description: MUST contain API meta information [218]
-    documentationUrl: https://opensource.zalando.com/restful-api-guidelines/#218
-    severity: error
-    given: $.info
-    then:
-      field: contact.email
-      function: truthy
-
-  must-have-info-x-api-id:
-    message: Missing `info.x-api-id`.
-    description: MUST contain API meta information [218]
-    documentationUrl: https://opensource.zalando.com/restful-api-guidelines/#218
-    severity: error
-    given: $.info
-    then:
-      field: x-api-id
-      function: truthy
-
-  # MUST provide API audience [219]
-  # => https://opensource.zalando.com/restful-api-guidelines/#219
-
-  must-provide-api-audience:
-    message: Missing or wrong `info.x-audience`.
-    description: MUST provide API audience [219]
-    documentationUrl: https://opensource.zalando.com/restful-api-guidelines/#219
-    severity: error
-    given: $.info
-    then:
-      - field: x-audience
-        function: truthy
-      - field: x-audience
-        function: pattern
-        functionOptions:
-          match: ^(component-internal|business-unit-internal|company-internal|external-partner|external-public)$
 
   # SHOULD declare enum values using UPPER_SNAKE_CASE format [240]
   # => https://opensource.zalando.com/restful-api-guidelines/#240

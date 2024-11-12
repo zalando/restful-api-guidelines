@@ -24,12 +24,24 @@ Attribution 4.0) license. Please see link:LICENSE[LICENSE file].
 == NUPANO related changes
 
 * zappr (https://github.com/zalando/zappr) config removed
-* API audience removed
-** #219 provide API audience
+* rule 219 (provide API audience) removed
 * internationalized data formats removed (#238)
 * Zalando specific JSON Guideline details removed
 * rule 249 (use the common address fields) removed
 * rule 173 (use the common money object) removed
 * rule 183 (use only the specified proprietary Zalando headers) removed
-* rule 184 (propagate prorietary headers) removed
+* rule 184 (propagate proprietary headers) removed
 * events removed
+* rule 101 adjusted
+* rule 102 (provide API user manual) removed
+* rule 234 adjusted
+* rule 218 only title meta data kept, rest removed
+* rule 116 (use semantic versioning) removed
+* rule 215 (provide API identifiers) removed
+* rule 223 (use functional naming schema) removed
+* rule 224 (follow naming convention for hostnames) removed
+* rule 225 adjusted, application id removed
+* rule 171 (define a format for number and integer types) changed from MUST to MAY
+* rule 244 (use content negotiation, if clients may choose from different resource representations) removed
+* rule 144 (only use UUIDs if necessary) changed to "only use UUIDs"
+* rule 241 (expose compound keys as resource identifiers) removed

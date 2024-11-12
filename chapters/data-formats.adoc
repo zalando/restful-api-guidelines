@@ -45,7 +45,7 @@ see also <<171>> and <<169>> below.
 
 
 [#171]
-== {MUST} define a format for number and integer types
+== {MAY} define a format for number and integer types
 
 In <<238>> we added `bigint` and `decimal` to the OpenAPI defined formats.
 As an implication, you must always provide one of the formats `int32`, `int64`, `bigint`
@@ -120,7 +120,7 @@ which avoids misinterpretations and eliminates the need of an additional context
 
 
 [#127]
-== {SHOULD} use standard formats for time duration and interval properties
+== {TODO} {SHOULD} use standard formats for time duration and interval properties
 
 Properties and that are by design durations and time intervals should be
 represented as strings formatted as defined by {ISO-8601}[ISO 8601]
@@ -171,61 +171,7 @@ As a specific case of <<238>> you must use the following standard formats:
 * Currency codes:  {ISO-4217}[ISO 4217] three letter currency codes indicated
   via format `iso-4217` in the OpenAPI specification.
 
-[#244]
-== {SHOULD} use content negotiation, if clients may choose from different resource representations
-
-In some situations the API supports serving different representations of a
-specific resource (at the same URL), e.g. JSON, PDF, TEXT, or HTML
-representations for an invoice resource. You should use
-https://en.wikipedia.org/wiki/Content_negotiation[content negotiation] to
-support clients specifying via the standard HTTP headers {Accept},
-{Accept-Language}, {Accept-Encoding} which representation is best suited for
-their use case, for example, which language of a document, representation /
-content format, or content encoding. You <<172>> like `application/json` or
-`application/pdf` for defining the content format in the {Accept} header.
-
-
 [#144]
-== {TODO} {SHOULD} only use UUIDs if necessary
+== {MUST} only use UUIDs as identifiers
 
-Generating IDs can be a scaling problem in high frequency and near real time
-use cases. UUIDs solve this problem, as they can be generated without
-collisions in a distributed, non-coordinated way and without additional server
-round trips.
-
-However, they also come with some disadvantages:
-
-* pure technical key without meaning; not ready for naming or name scope
-  conventions that might be helpful for pragmatic reasons, e.g. we learned to
-  use names for product attributes, instead of UUIDs
-* less usable, because...
-** cannot be memorized and easily communicated by humans
-** harder to use in debugging and logging analysis
-** less convenient for consumer facing usage
-* quite long: readable representation requires 36 characters and comes with
-  higher memory and bandwidth consumption
-* not ordered along their creation history and no indication of used id volume
-* may be in conflict with additional backward compatibility support of legacy ids
-
-UUIDs should be avoided when not needed for large scale id generation. Instead,
-for instance, server side support with id generation can be preferred ({POST}
-on id resource, followed by idempotent {PUT} on entity resource). Usage of
-UUIDs is especially discouraged as primary keys of master and configuration
-data, like brand-ids or attribute-ids which have low id volume but widespread
-steering functionality.
-
-Please be aware that sequential, strictly monotonically increasing numeric
-identifiers may reveal critical, confidential business information, like order
-volume, to non-privileged clients.
-
-In any case, we should always use string rather than number type for
-identifiers. This gives us more flexibility to evolve the identifier naming
-scheme. Accordingly, if used as identifiers, UUIDs should not be qualified
-using a format property.
-
-Hint: Usually, random UUID is used - see UUID version 4 in {RFC-4122}[RFC 4122].
-Though UUID version 1 also contains leading timestamps it is not reflected by
-its lexicographic sorting. This deficit is addressed by
-https://github.com/alizain/ulid[ULID] (Universally Unique Lexicographically
-Sortable Identifier). You may favour ULID instead of UUID, for instance, for
-pagination use cases ordered along creation time.
+Generate only UUIDs Version 4 as unique identifiers for resources.

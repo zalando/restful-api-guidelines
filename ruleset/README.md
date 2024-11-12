@@ -27,7 +27,6 @@ npx @stoplight/spectral-cli lint --ruleset <path to nupano.yml> example/example-
 |----------------|------------------------------------------------------------------------------------------------------| -- | --- |
 | [#100][#100]   | [MUST follow API first principle][#100]                                                              | :grey_exclamation: | B |
 | [#101][#101]   | [MUST provide API specification using OpenAPI][#101]                                                 | :grey_exclamation: | A |
-| [#102][#102]   | [SHOULD provide API user manual][#102]                                                               | - | C |
 | [#103][#103]   | [MUST write APIs using U.S. English][#103]                                                           | :grey_exclamation: | A |
 | [#104][#104]   | [MUST secure endpoints with OAuth 2.0][#104]                                                         | - | B |
 | [#105][#105]   | [MUST define and assign permissions (scopes)][#105]                                                  | - | B |
@@ -42,7 +41,6 @@ npx @stoplight/spectral-cli lint --ruleset <path to nupano.yml> example/example-
 | [#114][#114]   | [MUST use media type versioning][#114]                                                               | :grey_exclamation: | - |
 | [#115][#115]   | [MUST not use URI versioning][#115]                                                                  | :heavy_check_mark: | A |
 | [#115a][#115a] | [CAN use correct URI versioning: `^((?!.*\/v\d+(\/.*)?\/v\d+)\/.*)$`][#115a]                         | - | A |
-| [#116][#116]   | [MUST use semantic versioning][#116]                                                                 | :heavy_check_mark: | B |
 | [#118][#118]   | [MUST property names must be ASCII snake_case (and never camelCase): `^[a-z_][a-z_0-9]*$`][#118]     | :heavy_check_mark: | A |
 | [#118a][#118a] | [MUST property names must be ASCII camelCase: `^[a-z]+((\d)([A-Z0-9][a-z0-9]+))*([A-Z])?$`][#118a]   | - | A |
 | [#120][#120]   | [SHOULD pluralize array names][#120]                                                                 | - | B |
@@ -98,7 +96,6 @@ npx @stoplight/spectral-cli lint --ruleset <path to nupano.yml> example/example-
 | [#170][#170]   | [SHOULD use standards for country, language and currency codes][#170]                                | - | B |
 | [#171][#171]   | [MUST define format for number and integer types][#171]                                              | :heavy_check_mark: | - |
 | [#172][#172]   | [SHOULD prefer standard media type name `application/json`][#172]                                    | :heavy_check_mark: | B |
-| [#173][#173]   | [MUST use the common money object][#173]                                                             | :grey_exclamation: | - |
 | [#174][#174]   | [MUST use common field names and semantics][#174]                                                    | :grey_exclamation: | - |
 | [#176][#176]   | [MUST support problem JSON][#176]                                                                    | :heavy_check_mark: | - |
 | [#177][#177]   | [MUST not expose stack traces][#177]                                                                 | :grey_exclamation: | - |
@@ -107,8 +104,6 @@ npx @stoplight/spectral-cli lint --ruleset <path to nupano.yml> example/example-
 | [#180][#180]   | [SHOULD use `Location` header instead of `Content-Location` header][#180]                            | - | - |
 | [#181][#181]   | [MAY consider to support `Prefer` header to handle processing preferences][#181]                     | :grey_exclamation: | - |
 | [#182][#182]   | [MAY consider to support `ETag` together with `If-Match`/`If-None-Match` header][#182]               | :grey_exclamation: | - |
-| [#183][#183]   | [SHOULD use only the specified proprietary Zalando headers][#183]                                    | - | - |
-| [#184][#184]   | [MUST propagate proprietary headers][#184]                                                           | - | - |
 | [#185][#185]   | [MUST obtain approval of clients before API shut down][#185]                                         | :grey_exclamation: | - |
 | [#186][#186]   | [MUST collect external partner consent on deprecation time span][#186]                               | :grey_exclamation: | - |
 | [#187][#187]   | [MUST reflect deprecation in API specifications][#187]                                               | :grey_exclamation: | - |
@@ -138,15 +133,11 @@ npx @stoplight/spectral-cli lint --ruleset <path to nupano.yml> example/example-
 | [#212][#212]   | [SHOULD design for idempotent out-of-order processing][#212]                                         | - | - |
 | [#213][#213]   | [MUST follow naming convention for event type names][#213]                                           | - | - |
 | [#214][#214]   | [MUST prepare event consumers for duplicate events][#214]                                            | - | - |
-| [#215][#215]   | [MUST provide API identifiers][#215]                                                                 | :heavy_check_mark: | - | - |
 | [#216][#216]   | [SHOULD define maps using `additionalProperties`][#216]                                              | - | - |
 | [#217][#217]   | [MUST use full, absolute URI][#217]                                                                  | - | - |
 | [#218][#218]   | [MUST contain API meta information][#218]                                                            | :heavy_check_mark: | - | - |
-| [#219][#219]   | [MUST provide API audience][#219]                                                                    | :heavy_check_mark: | - | - |
 | [#219a][#219a] | [MUST provide baloise API audience][#219a]                                                           | - | - | - |
 | [#220][#220]   | [MUST use most specific HTTP status codes][#220]                                                     | :grey_exclamation: | - |
-| [#223][#223]   | [MUST-SHOULD use functional naming schema][#223]                                                     | :grey_exclamation: | - |
-| [#224][#224]   | [MUST follow naming convention for hostnames][#224]                                                  | :grey_exclamation: | - |
 | [#225][#225]   | [MUST follow naming convention for permissions (scopes)][#225]                                       | :grey_exclamation: | - |
 | [#226][#226]   | [MUST document implicit filtering][#226]                                                             | :grey_exclamation: | - |
 | [#227][#227]   | [MUST document cachable `GET`, `HEAD`, and `POST` endpoints][#227]                                   | :grey_exclamation: | - |
@@ -162,10 +153,12 @@ npx @stoplight/spectral-cli lint --ruleset <path to nupano.yml> example/example-
 | [#238][#238]   | [SHOULD use standardized property formats][#238]                                                     | :grey_exclamation: | - |
 | [#239][#239]   | [SHOULD encode embedded binary data in `base64url`][#239]                                            | :grey_exclamation: | - |
 | [#240][#240]   | [SHOULD declare enum values using UPPER_SNAKE_CASE format][#240]                                     | :heavy_check_mark: | - | - |
-| [#241][#241]   | [MAY expose compound keys as resource identifiers][#241]                                             | :grey_exclamation: | - |
+
+
+
+
 [#100]: https://opensource.zalando.com/restful-api-guidelines/#100
 [#101]: https://opensource.zalando.com/restful-api-guidelines/#101
-[#102]: https://opensource.zalando.com/restful-api-guidelines/#102
 [#103]: https://opensource.zalando.com/restful-api-guidelines/#103
 [#104]: https://opensource.zalando.com/restful-api-guidelines/#104
 [#105]: https://opensource.zalando.com/restful-api-guidelines/#105
@@ -180,7 +173,6 @@ npx @stoplight/spectral-cli lint --ruleset <path to nupano.yml> example/example-
 [#114]: https://opensource.zalando.com/restful-api-guidelines/#114
 [#115]: https://opensource.zalando.com/restful-api-guidelines/#115
 [#115a]: ./doc/rules/can-use-correct-URI-versioning.test.md
-[#116]: https://opensource.zalando.com/restful-api-guidelines/#116
 [#118]: https://opensource.zalando.com/restful-api-guidelines/#118
 [#118a]: ./doc/rules/property-names-must-be-ascii-camel-case.md
 [#120]: https://opensource.zalando.com/restful-api-guidelines/#120
@@ -236,7 +228,6 @@ npx @stoplight/spectral-cli lint --ruleset <path to nupano.yml> example/example-
 [#170]: https://opensource.zalando.com/restful-api-guidelines/#170
 [#171]: https://opensource.zalando.com/restful-api-guidelines/#171
 [#172]: https://opensource.zalando.com/restful-api-guidelines/#172
-[#173]: https://opensource.zalando.com/restful-api-guidelines/#173
 [#174]: https://opensource.zalando.com/restful-api-guidelines/#174
 [#176]: https://opensource.zalando.com/restful-api-guidelines/#176
 [#177]: https://opensource.zalando.com/restful-api-guidelines/#177
@@ -245,8 +236,6 @@ npx @stoplight/spectral-cli lint --ruleset <path to nupano.yml> example/example-
 [#180]: https://opensource.zalando.com/restful-api-guidelines/#180
 [#181]: https://opensource.zalando.com/restful-api-guidelines/#181
 [#182]: https://opensource.zalando.com/restful-api-guidelines/#182
-[#183]: https://opensource.zalando.com/restful-api-guidelines/#183
-[#184]: https://opensource.zalando.com/restful-api-guidelines/#184
 [#185]: https://opensource.zalando.com/restful-api-guidelines/#185
 [#186]: https://opensource.zalando.com/restful-api-guidelines/#186
 [#187]: https://opensource.zalando.com/restful-api-guidelines/#187
@@ -276,15 +265,12 @@ npx @stoplight/spectral-cli lint --ruleset <path to nupano.yml> example/example-
 [#212]: https://opensource.zalando.com/restful-api-guidelines/#212
 [#213]: https://opensource.zalando.com/restful-api-guidelines/#213
 [#214]: https://opensource.zalando.com/restful-api-guidelines/#214
-[#215]: https://opensource.zalando.com/restful-api-guidelines/#215
 [#216]: https://opensource.zalando.com/restful-api-guidelines/#216
 [#217]: https://opensource.zalando.com/restful-api-guidelines/#217
 [#218]: https://opensource.zalando.com/restful-api-guidelines/#218
 [#219]: https://opensource.zalando.com/restful-api-guidelines/#219
 [#219a]: ./doc/rules/must-provide-baloise-api-audience.md
 [#220]: https://opensource.zalando.com/restful-api-guidelines/#220
-[#223]: https://opensource.zalando.com/restful-api-guidelines/#223
-[#224]: https://opensource.zalando.com/restful-api-guidelines/#224
 [#225]: https://opensource.zalando.com/restful-api-guidelines/#225
 [#226]: https://opensource.zalando.com/restful-api-guidelines/#226
 [#227]: https://opensource.zalando.com/restful-api-guidelines/#227
@@ -301,4 +287,3 @@ npx @stoplight/spectral-cli lint --ruleset <path to nupano.yml> example/example-
 [#238]: https://opensource.zalando.com/restful-api-guidelines/#238
 [#239]: https://opensource.zalando.com/restful-api-guidelines/#239
 [#240]: https://opensource.zalando.com/restful-api-guidelines/#240
-[#241]: https://opensource.zalando.com/restful-api-guidelines/#241
