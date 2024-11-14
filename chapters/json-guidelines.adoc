@@ -31,23 +31,9 @@ As a consequence, a JSON payload must
 
 
 [#252]
-== {SHOULD} {TODO} design single resource schema for reading and writing
+== {SHOULD} design dedicated resource schema for reading and writing
 
-To simplify API specs and API maintenance, as well as the cognitive load of
-developers, endpoints should utilize a common model for reading and writing
-the same resource type. The differences between read and write models are best
-addressed by
-
-* marking properties `writeOnly` that are only available in a request, e.g.
-  passwords, and
-* marking properties `readOnly` that are only available in a response, e.g.
-  resource identifiers.
-
-**Note:** A resource with property marked `readOnly` in the API according to
-the {json-schema-validation}#rfc.section.9.4[JSON schema validation] may be
-ignored or rejected by a server. Both are in line with the idea behind <<#109,
-the compatibility guidance>>, however, we suggest to document when rejecting
-to prevent client side surprises.
+{TODO}
 
 
 [#250]
@@ -101,14 +87,14 @@ standard media type for JSON, and make automated processing more difficult.
 
 
 [#120]
-== {SHOULD} pluralize array names
+== {MUST} pluralize array names
 
 Names of arrays should be pluralized to indicate that they contain multiple values.
 This implies in turn that object names should be singular.
 
 
 [#118]
-== {MUST} {TODO} property names must be snake_case (and never camelCase)
+== {MUST} property names must be camelCase (and never snake_case)
 
 Property names are restricted to ASCII snake_case strings matching regex `^[a-z_][a-z_0-9]*$`.
 The first character must be a lower case letter, or an underscore, and subsequent
@@ -118,19 +104,13 @@ Examples:
 
 [source]
 ----
-customer_number, app_version, machine_network_name
+customerNumber, appVersion, machineNetworkName
 ----
-
-Rationale: No established industry standard exists, but many popular Internet
-companies prefer snake_case: e.g. GitHub, Stack Exchange, Twitter.
-Others, like Google and Amazon, use both - but not only camelCase. It’s
-essential to establish a consistent look and feel such that JSON looks
-as if it came from the same hand.
 
 
 [#125]
 [#240]
-== {SHOULD} declare enum values using UPPER_SNAKE_CASE string
+== {MUST} declare enum values using UPPER_SNAKE_CASE string
 
 Enumerations should be represented as `string` typed OpenAPI definitions of
 request parameters or model properties.
@@ -144,16 +124,16 @@ declaring possible values for a <<137,rule 137>> [`sort` parameter].
 
 
 [#235]
-== {SHOULD} {TODO} use naming convention for date/time properties
+== {SHOULD} use naming convention for date/time properties
 
 Naming of date and data-time properties should comply with the following convention: 
 The name either (i) contains `date`, `day`, `time`, `timestamp` or similar type indicators, 
 or (ii) end with the  `_at` suffix. The convention allows easy identification of date/time 
-typed properties and distinguishing them e.g. from boolean properties like `created` vs. `created_at`. 
+typed properties and distinguishing them e.g. from boolean properties like `created` vs. `createdAt`.
 Examples of valid date/time property names: 
 
-- `created_at`, `modified_at`, `occurred_at`, `returned_at`  -- instead of `created`, `modified`, ...
-- `campaign_start_time`, `arrival_date`, `checkout_time`  -- instead of `campaign_start`, `arrival`, ...
+- `createdAt`, `modifiedAt`, `occurredAt`, `returnedAt`  -- instead of `created`, `modified`, ...
+- `campaignStartTime`, `arrivalDate`, `checkoutTime`  -- instead of `campaignStart`, `arrival`, ...
 
 **Hint:** Use `format: date-time` or `format: date` as required in <<238>>.
 
@@ -210,7 +190,7 @@ An actual JSON object described by this might then look like this:
 
 
 [#123]
-== {MUST} use same semantics for `null` and absent properties
+== {TODO} {MUST} use same semantics for `null` and absent properties
 
 OpenAPI 3.x allows to mark properties as `required` and as `nullable` to
 specify whether properties may be absent (`{}`) or `null` (`{"example":null}`).
@@ -272,13 +252,13 @@ YES, NO, UNDEFINED.
 
 
 [#124]
-== {SHOULD} not use `null` for empty arrays
+== {MUST} not use `null` for empty arrays
 
 Empty array values can unambiguously be represented as the empty list, `[]`.
 
 
 [#174]
-== {MUST} {TODO }use common field names and semantics
+== {MUST} use common field names and semantics
 
 [[generic-fields]]
 You must use common field names and semantics whenever applicable.
@@ -291,22 +271,16 @@ We define the following common field names:
   and not numbers. IDs are unique within some documented context, are stable
   and don't change for a given object once assigned, and are never recycled
   cross entities.
-* [[xyz_id]]{xyz_id}: an attribute within one object holding the identifier of
+* [[xyzId]]{xyzId}: an attribute within one object holding the identifier of
   another object must use a name that corresponds to the type of the referenced
-  object or the relationship to the referenced object followed by `_id` (e.g.
-  `partner_id` not `partner_number`, or `parent_node_id` for the reference to a parent
+  object or the relationship to the referenced object followed by `Id` (e.g.
+  `partnerId` not `partnerNumber`, or `parentNodeId` for the reference to a parent
   node from a child node, even if both have the type `Node`).
-* [[etag]]{e_tag}: the {e_tag} of an <<158, embedded sub-resource>>. It
-  typically is used to carry the {ETag} for subsequent {PUT}/{PATCH} calls
-  (see <<182, `ETag`>> and <<etag-in-result-entities>>).
 
 Further common fields are defined in <<235>>.
 The following guidelines define standard objects and fields:
 
 * <<248>>
-* <<249>>
-* <<173>>
-
 
 Example JSON schema:
 
@@ -318,20 +292,20 @@ tree_node:
     id:
       description: the identifier of this node
       type: string
-    parent_node_id:
+    parentNodeId:
       description: the identifier of the parent node of this node
       type: string
-    created_at:
+    createdAt:
       description: when got this node created
       type: string
       format: 'date-time'
-    modified_at:
+    modifiedAt:
       description: when got this node last updated
       type: string
       format: 'date-time'
   example:
     id: '123435'
-    parent_node_id: '534321'
-    created_at: '2017-04-12T23:20:50.52Z'
-    modified_at: '2017-04-12T23:20:50.52Z'
+    parentNodeId: '534321'
+    createdAt: '2017-04-12T23:20:50.52Z'
+    modifiedAt: '2017-04-12T23:20:50.52Z'
 ----
