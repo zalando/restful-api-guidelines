@@ -45,3 +45,8 @@ Attribution 4.0) license. Please see link:LICENSE[LICENSE file].
 * rule 244 (use content negotiation, if clients may choose from different resource representations) removed
 * rule 144 (only use UUIDs if necessary) changed to "only use UUIDs"
 * rule 241 (expose compound keys as resource identifiers) removed
+* rule 149 adjusted (PATCH removed)
+* rule 229 (consider to design `POST` and `PATCH` idempotent) removed
+* rule 231 (use secondary key for idempotent `POST` design) removed
+* rule 253 (support asynchronous request processing) adjusted
+* rule 237 (design complex query languages using JSON) removed

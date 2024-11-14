@@ -339,100 +339,14 @@ to {RFC-9110}#section-9.2[RFC 9110 Section 9.2]:
 | Method    | Safe  | Idempotent | Cacheable
 | {GET}     | {YES} | {YES}      | {YES}
 | {HEAD}    | {YES} | {YES}      | {YES}
-| {POST}    | {NO}  | {AT} No, but <<229>> | {AT} May, but only if specific
-{POST} endpoint is <<safe>>. *Hint:* not supported by most caches.
+| {POST}    | {NO}  | {NO}       | {NO}
 | {PUT}     | {NO}  | {YES}      | {NO}
-| {PATCH}   | {NO}  | {AT} No, but <<229>> | {NO}
 | {DELETE}  | {NO}  | {YES}      | {NO}
 | {OPTIONS} | {YES} | {YES}      | {NO}
 | {TRACE}   | {YES} | {YES}      | {NO}
 |====================================================
 
 *Note:* <<227>>.
-
-
-[#229]
-== {TODO} {SHOULD} consider to design `POST` and `PATCH` idempotent
-
-In many cases it is helpful or even necessary to design {POST} and {PATCH}
-<<idempotent>> for clients to expose conflicts and prevent resource duplicate
-(a.k.a. zombie resources) or lost updates, e.g. if same resources may be
-created or changed in parallel or multiple times. To design an <<idempotent>>
-API endpoint owners should consider to apply one of the following three
-patterns.
-
-* A resource specific *conditional key* provided via <<182,`If-Match` header>>
-  in the request. The key is in general a meta information of the resource,
-  e.g. a _hash_ or _version number_, often stored with it. It allows to detect
-  concurrent creations and updates to ensure <<idempotent>> behavior (see
-  <<182>>).
-* A resource specific *secondary key* provided as resource property in the
-  request body. The _secondary key_ is stored permanently in the resource. It
-  allows to ensure <<idempotent>> behavior by looking up the unique secondary
-  key in case of multiple independent resource creations from different
-  clients (see <<231>>).
-* A client specific *idempotency key* provided via {Idempotency-Key} header
-  in the request. The key is not part of the resource but stored temporarily
-  pointing to the original response to ensure <<idempotent>> behavior when
-  retrying a request (see <<230>>).
-
-*Note:* While *conditional key* and *secondary key* are focused on handling
-concurrent requests, the *idempotency key* is focused on providing the exact
-same responses, which is even a _stronger_ requirement than the <<idempotent,
-idempotency defined above>>. It can be combined with the two other patterns.
-
-To decide, which pattern is suitable for your use case, please consult the
-following table showing the major properties of each pattern:
-
-[,cols="46%,18%,18%,18%",options="header",]
-|==============================================================================
-|                         | Conditional Key | Secondary Key | Idempotency Key
-| Applicable with                       | {PATCH} | {POST}  | {POST}/{PATCH}
-| HTTP Standard                         | {YES}   | {NO}    | {NO}
-| Prevents duplicate (zombie) resources | {YES}   | {YES}   | {NO}
-| Prevents concurrent lost updates      | {YES}   | {NO}    | {NO}
-| Supports safe retries                 | {YES}   | {YES}   | {YES}
-| Supports exact same response          | {NO}    | {NO}    | {YES}
-| Can be inspected (by intermediaries)  | {YES}   | {NO}    | {YES}
-| Usable without previous {GET}         | {NO}    | {YES}   | {YES}
-|==============================================================================
-
-*Note:* The patterns applicable to {PATCH} can be applied in the same way to
-{PUT} and {DELETE} providing the same properties.
-
-If you mainly aim to support safe retries, we suggest to apply <<182,
-conditional key>> and <<231,secondary key>> pattern before the <<230,
-idempotency key>> pattern.
-
-*Note:* like for {PUT}, successful {POST} or {PATCH} returns {200} or {204} (if
-the resource was updated -- with or without returning the resource), or {201}
-(if resource was created). Hence, clients can differentiate successful robust
-repetition from resource created server activity of idempotent {POST}.
-
-
-[#231]
-== {TODO} {Should} use secondary key for idempotent `POST` design
-
-The most important pattern to design {POST} <<idempotent>> for creation is to
-introduce a resource specific *secondary key* provided in the request body, to
-eliminate the problem of duplicate (a.k.a zombie) resources.
-
-The secondary key is stored permanently in the resource as _alternate key_ or
-_combined key_ (if consisting of multiple properties) guarded by a uniqueness
-constraint enforced server-side, that is visible when reading the resource.
-The best and often naturally existing candidate is a _unique foreign key_, that
-points to another resource having _one-on-one_ relationship with the newly
-created resource, e.g. a parent process identifier.
-
-A good example here for a secondary key is the shopping cart ID in an order
-resource.
-
-*Note:* When using the secondary key pattern without {Idempotency-Key} all
-subsequent retries should fail with status code {409} (conflict). We suggest
-to avoid {200} here unless you make sure, that the delivered resource is the
-original one implementing a well defined behavior. Using {204} without content
-would be a similar well defined option.
-
 
 [#253]
 == {MAY} support asynchronous request processing
@@ -448,7 +362,7 @@ We recommend an API design that represents the asynchronous request processing
 explicitly via a job resource that has a status and is different from the
 actual business resource. For instance, `POST /report-jobs` returns HTTP status
 code {201} to indicate successful initiation of asynchronous processing
-together with the _job-id_ passed in the response payload and/or via the URL of
+together with the _job-id_ passed in the response payload and via the URL of
 the {Location} header. The _job-id_ or {Location} URL then can be used to poll
 the processing status via `GET /report-jobs/{id}` which returns HTTP status
 code {200} with job status and optional report-id as response payload. Once
@@ -521,7 +435,7 @@ How query parameters are named and used is up to individual API designers, here
 are a few tips that could help to decide whether to use simple or more complex
 query language:
 
-1. Consider using simple query language when API is built to be used by others
+Consider using simple query language when API is built to be used by others
    (external teams):
 
    * no additional effort/logic to form the query
@@ -529,11 +443,6 @@ query language:
      in `GET /items?user_id=gt:100`, is `user_id` greater than `100` or
     is `user_id` equal to `gt:100`?
    * easy to read, no learning curve
-
-2. For internal usage or specific use case a more complex query language can be
-   used (such as `price gt 10` or `price[gt]=10` or `price>10` etc.). Also
-   please consider following <<237, our guidance>> for designing complex query
-   languages with JSON.
 
 The following examples should serve as ideas for simple query language:
 
@@ -545,8 +454,6 @@ The following examples should serve as ideas for simple query language:
   based on logical properties)
 * `color=red,green,blue,multicolored` (query elements based on multiple
   choice possibility)
-** for these type of filters, consider to use <<237,guidance>> to have
-   smth like `filters={"color":["red","green","blue"]}`.
 
 === Less than
 
@@ -577,74 +484,6 @@ and you can also find additional info in <<pagination>> section below.
 
 We don't advocate for or against certain names because in the end APIs should
 be free to choose the terminology that fits their domain the best.
-
-
-[#237]
-== {TODO} {SHOULD} design complex query languages using JSON
-
-Minimalistic query languages based on <<236, query parameters>> are suitable
-for simple use cases with a small set of available filters that are combined
-in one way and one way only (e.g. _and_ semantics). Simple query languages are
-generally preferred over complex ones.
-
-Some APIs will have a need for sophisticated and more complex query languages.
-Dominant examples are APIs around search (incl. faceting) and product catalogs.
-
-Aspects that set those APIs apart from the rest include but are not limited to:
-
-* Unusual high number of available filters
-* Dynamic filters, due to a dynamic and extensible resource model
-* Free choice of operators, e.g. `and`, `or` and `not`
-
-APIs that qualify for a specific, complex query language are encouraged to use
-nested JSON data structures and define them using OpenAPI directly. The
-provides the following benefits:
-
-* Data structures are easy to use for clients
-** No special library support necessary
-** No need for string concatenation or manual escaping
-* Data structures are easy to use for servers
-** No special tokenizers needed
-** Semantics are attached to data structures rather than text tokens
-* Consistent with other HTTP methods
-* API is defined in OpenAPI completely
-** No external documents or grammars needed
-** Existing means are familiar to everyone
-
-<<json-guidelines, JSON-specific rules>> and most certainly needs to make use
-of the <<get-with-body, `GET`-with-body>> pattern.
-
-
-=== Example
-
-The following JSON document should serve as an idea how a structured query
-might look like.
-
-[source,json]
-----
-{
-  "and": {
-    "name": {
-      "match": "Alice"
-    },
-    "age": {
-      "or": {
-        "range": {
-          ">": 25,
-          "<=": 50
-        },
-        "=": 65
-      }
-    }
-  }
-}
-----
-
-Feel free to also get some inspiration from:
-
-* https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html[Elastic
-  Search: Query DSL]
-* https://graphql.org/learn/queries/[GraphQL: Queries]
 
 
 [#226]
