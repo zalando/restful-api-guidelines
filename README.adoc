@@ -79,3 +79,8 @@ Attribution 4.0) license. Please see link:LICENSE[LICENSE file].
 * rule 157 (support partial responses via filtering) removed
 * rule 158 ( allow optional embedding of sub-resources) removed
 * rule 227 ( document cacheable `GET`, `HEAD`, and `POST` endpoints) removed
+* rule 159 (support pagination) removed
+* rule 160 (prefer cursor-based pagination, avoid offset-based pagination) removed
+* rule 248 (use pagination response page object) removed
+* rule 161 (use pagination links) removed
+* rule 254 (avoid a total result count) removed
