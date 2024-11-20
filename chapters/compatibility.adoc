@@ -88,8 +88,6 @@ Service clients should apply the robustness principle:
   http://martinfowler.com/bliki/TolerantReader.html["TolerantReader"] post),
   i.e. ignore new fields but do not eliminate them from payload if needed for
   subsequent {PUT} requests.
-** Be prepared that {x-extensible-enum} return parameters (see <<112, rule 112>>) may deliver new values;
-  either be agnostic or provide default behavior for unknown values, and do not eliminate them.
 ** Be prepared to handle HTTP status codes not explicitly specified in endpoint
   definitions. Note also, that status codes are extensible. Default handling is
   how you would treat the corresponding {x00} code (see
