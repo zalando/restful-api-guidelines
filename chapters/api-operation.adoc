@@ -3,7 +3,7 @@
 
 
 [#192]
-== {MUST} publish OpenAPI specification
+== {TODO} {MUST} publish OpenAPI specification
 
 All service applications must publish OpenAPI specifications of their external
 APIs. While this is optional for internal APIs, i.e. APIs marked with the
@@ -30,7 +30,7 @@ services.
 
 
 [#193]
-== {SHOULD} monitor API usage
+== {MUST} monitor API usage
 
 Owners of APIs used in production should monitor API service to get
 information about its using clients. This information, for instance, is

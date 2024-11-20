@@ -64,7 +64,7 @@ Attribution 4.0) license. Please see link:LICENSE[LICENSE file].
 * rule 144 changed from {MAY} to {MUST}, description adjusted
 * rule 132 (use kebab-case with uppercase separate words for HTTP headers) removed
 * rule 178 (use `Content-*` headers correctly) removed
-* rule 180 ( use `Location` header instead of `Content-Location` header) removed
+* rule 180 (use `Location` header instead of `Content-Location` header) removed
 * rule 179 (use `Content-Location` header) removed
 * rule 181 (consider to support `Prefer` header to handle processing preferences) removed
 * rule 182 (consider to support `ETag` together with `If-Match`/`If-None-Match` header) removed
@@ -77,8 +77,8 @@ Attribution 4.0) license. Please see link:LICENSE[LICENSE file].
 * rule 166 (not use link headers with JSON entities) removed
 * rule 155 (reduce bandwidth needs and improve responsiveness) removed
 * rule 157 (support partial responses via filtering) removed
-* rule 158 ( allow optional embedding of sub-resources) removed
-* rule 227 ( document cacheable `GET`, `HEAD`, and `POST` endpoints) removed
+* rule 158 (allow optional embedding of sub-resources) removed
+* rule 227 (document cacheable `GET`, `HEAD`, and `POST` endpoints) removed
 * rule 159 (support pagination) removed
 * rule 160 (prefer cursor-based pagination, avoid offset-based pagination) removed
 * rule 248 (use pagination response page object) removed
@@ -86,3 +86,10 @@ Attribution 4.0) license. Please see link:LICENSE[LICENSE file].
 * rule 254 (avoid a total result count) removed
 * rule 112 (use open-ended list of values (`x-extensible-enum`) for enumeration types) removed
 * rule 109 adjusted (removed unknown fields and related content)
+* rule 185 (obtain approval of clients before API shut down) removed
+* rule 186 (collect external partner consent on deprecation time span) removed
+* rule 188 (monitor usage of deprecated API scheduled for sunset) removed
+* rule 193 changed from {SHOULD} to {MUST}
+* Appendix B: Tooling removed
+* Appendix C: Best practices removed
+* Appendix D: Changelog adjusted (original squashed and own added)
