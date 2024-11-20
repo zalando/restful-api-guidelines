@@ -84,3 +84,5 @@ Attribution 4.0) license. Please see link:LICENSE[LICENSE file].
 * rule 248 (use pagination response page object) removed
 * rule 161 (use pagination links) removed
 * rule 254 (avoid a total result count) removed
+* rule 112 (use open-ended list of values (`x-extensible-enum`) for enumeration types) removed
+* rule 109 adjusted (removed unknown fields and related content)

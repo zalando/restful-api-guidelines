@@ -55,9 +55,6 @@ services in a backward-compatible way:
 * `enum` ranges cannot be extended when used for output parameters — clients may
   not be prepared to handle it. However, enum ranges can be extended when used
   for input parameters.
-* You <<112>> that are used for output parameters and likely to
-  be extended with growing functionality. The API definition should be updated
-  first before returning new values.
 * Consider <<250>> in case a URL has to change.
 
 
@@ -67,11 +64,6 @@ services in a backward-compatible way:
 Designers of service provider APIs should be conservative and accurate in what
 they accept from clients:
 
-* {TODO} Unknown input fields in payload or URL should not be ignored; servers should
-  provide error feedback to clients via an HTTP 400 response code.
-  Otherwise, if unexpected fields are planned to be handled in some way instead
-  of being rejected, API designers *must* document clearly how unexpected
-  fields are being handled for {PUT}, {POST}, and {PATCH} requests.
 * Be accurate in defining input data constraints (like formats, ranges, lengths
   etc.) — and check constraints and return dedicated error information in case
   of violations.
@@ -79,34 +71,6 @@ they accept from clients:
   requirements), e.g. by defining length range of strings. It may simplify
   implementation while providing freedom for further evolution as compatible
   extensions.
-
-Not ignoring unknown input fields is a specific deviation from Postel's Law
-(e.g. see also +
-https://cacm.acm.org/magazines/2011/8/114933-the-robustness-principle-reconsidered/fulltext[The
-Robustness Principle Reconsidered]) and a strong recommendation. Servers might
-want to take different approach but should be aware of the following problems
-and be explicit in what is supported:
-
-* Ignoring unknown input fields is actually not an option for {PUT}, since it
-  becomes asymmetric with subsequent {GET} response and HTTP is clear about the
-  {PUT} _replace_ semantics and default roundtrip expectations (see
-  {RFC-9110}#section-9.3.4[RFC 9110 Section 9.3.4]). Note, accepting (i.e. not
-  ignoring) unknown input fields and returning it in subsequent {GET} responses
-  is a different situation and compliant to {PUT} semantics.
-* Certain client errors cannot be recognized by servers, e.g. attribute name
-  typing errors will be ignored without server error feedback. The server
-  cannot differentiate between the client intentionally providing an additional
-  field versus the client sending a mistakenly named field, when the client's
-  actual intent was to provide an optional input field.
-* Future extensions of the input data structure might be in conflict with
-  already ignored fields and, hence, will not be compatible, i.e. break clients
-  that already use this field but with different type.
-
-In specific situations, where a (known) input field is not needed anymore, it
-either can stay in the API definition with "not used anymore" description or
-can be removed from the API definition as long as the server ignores this
-specific parameter.
-
 
 [#108]
 == {MUST} prepare clients to accept compatible API extensions
@@ -276,7 +240,7 @@ with content negotiation.
 
 
 [#110]
-== {TODO} {MUST} always return JSON objects as top-level data structures
+== {MUST} always return JSON objects as top-level data structures
 
 In a response body, you must always return a JSON object (and not e.g. an
 array) as a top level data structure to support future extensibility. JSON
@@ -286,49 +250,4 @@ backwards compatibility. See <<161>> for an example.
 
 Maps (see <<216>>), even though technically objects, are also forbidden as top
 level data structures, since they don't support compatible, future extensions.
-
-
-[#112]
-== {TODO} {SHOULD} use open-ended list of values (`x-extensible-enum`) for enumeration types
-
-JSON schema `enum` is per definition a closed set of values that is assumed to be
-complete and not intended for extension. This closed principle of enumerations
-imposes compatibility issues when an enumeration must be extended. To avoid
-these issues, we recommend to use an open-ended list of values instead
-of an enumeration unless:
-
-1. the API has full control of the enumeration values, i.e. the list of values
-  does not depend on any external tool or interface, and
-2. the list of values is complete with respect to any thinkable and unthinkable
-  future feature.
-
-To specify an open-ended list of values via the {x-extensible-enum} property as follows:
-
-[source,yaml]
-----
-delivery_methods:
-  type: string
-  x-extensible-enum:
-    - PARCEL
-    - LETTER
-    - EMAIL
-----
-
-*Note:* {x-extensible-enum} is a proprietary extension of the JSON Schema standard that 
-is e.g. visible via Swagger UI, but ignored by most other tools.
-
-See <<240>> about enum value naming conventions.
-
-Note, {x-extensible-enum} is a different concept than JSON schema `examples` which is 
-just a list of a few example values, whereas {x-extensible-enum} defines all valid 
-values (for a specific API and service version) and has the advantage of an extensible 
-full type-range specification that is validated by the service.
-
-*Important:* Clients must be prepared for extensions of enums returned with server responses, i.e. 
-must implement a fallback / default behavior to handle unknown new enum values -- see <<108>>. 
-API owners must take care to extend enums in a compatible way that does not change the 
-semantics of already existing enum values, for instance, do not split an old enum value 
-into two new enum values. Services should only extend {x-extensible-enum} ranges, and only accept 
-and return values listed in the API definition, i.e. the API definition needs to be updated first  
-before the service accepts/returns new values -- see also <<107>>. 
 
