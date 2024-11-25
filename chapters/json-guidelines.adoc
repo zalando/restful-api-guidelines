@@ -2,21 +2,16 @@
 = REST Basics - JSON payload
 
 These guidelines provides recommendations for defining JSON data at NUPANO.
-JSON here refers to {RFC-7159}[RFC 7159] (which updates {RFC-4627}[RFC 4627]),
-the "application/json" media type and custom JSON media types defined for APIs.
-
+JSON here refers to {RFC-7159}[RFC 7159] (which updates {RFC-4627}[RFC 4627]), the "application/json" media type and custom JSON media types defined for APIs.
 
 [#167]
 == {MUST} use JSON as payload data interchange format
 
-Use JSON ({RFC-7159}[RFC 7159]) to represent structured (resource) data passed
-with HTTP requests and responses as body payload. The JSON payload must use a
-JSON object as top-level data structure (if possible) to allow for future
-extension. This also applies to collection resources, where you ad-hoc would
-use an array -- see also <<110>>.
+Use JSON ({RFC-7159}[RFC 7159]) to represent structured (resource) data passed with HTTP requests and responses as body payload.
+The JSON payload must use a JSON object as top-level data structure (if possible) to allow for future extension.
+This also applies to collection resources, where you ad-hoc would use an array -- see also <<110>>.
 
-Additionally, the JSON payload must comply to the more restrictive Internet
-JSON ({RFC-7493}[RFC 7493]), particularly
+Additionally, the JSON payload must comply to the more restrictive Internet JSON ({RFC-7493}[RFC 7493]), particularly
 
 * {RFC-7493}#section-2.1[Section 2.1] on encoding of characters, and
 * {RFC-7493}#section-2.3[Section 2.3] on object constraints.
@@ -24,67 +19,82 @@ JSON ({RFC-7493}[RFC 7493]), particularly
 As a consequence, a JSON payload must
 
 * use {RFC-7493}#section-2.1[`UTF-8` encoding]
-* consist of {RFC-7493}#section-2.1[valid Unicode strings], i.e. must not
-  contain non-characters or surrogates, and
-* contain only {RFC-7493}#section-2.3[unique member names] (no duplicate
-  names).
-
+* consist of {RFC-7493}#section-2.1[valid Unicode strings], i.e. must not contain non-characters or surrogates, and
+* contain only {RFC-7493}#section-2.3[unique member names] (no duplicate names).
 
 [#252]
-== {SHOULD} design dedicated resource schema for reading and writing
+== {MUST} design dedicated resource schema for reading and writing
 
-{TODO}
+As different content types are an integral part of our versioning strategy (see <<114>>) it is only consistent to also strictly differentiate between reading and writing schema's for all resources.
 
+Even if the reading model and the writing model only differ slightly, it is necessary to be able to distinguish between the two.
+Consider the following two schemas:
+
+```yaml
+components:
+  schemas:
+     Machine-vanilla:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        organizationId:
+          type: string
+          format: uuid
+      CreateMachine-v1:
+        type: object
+        required:
+          - name
+          - organizationId
+        properties:
+          name:
+            type: string
+          organizationId:
+            type: string
+            format: uuid
+```
+
+Even though these two models only differ from each other because of the ```id``` property on the read model, it is important to keep them separate, as they may need to be versioned (or transformed into different flavours - see <<TODO>>) independently from each other.
 
 [#250]
 == {SHOULD} be aware of services not fully supporting JSON/unicode
 
-JSON payloads passed via API requests consist of valid unicode characters
-(see <<167>>). While `\uxxxx` are valid characters in a JSON strings, they can
-create failures when leaving the API request processing context, e.g. by
-writing the data into a database or piping it through command line tools that
-are not 100% compatible with the JSON or unicode standard.
+JSON payloads passed via API requests consist of valid unicode characters (see <<167>>).
+While `\uxxxx` are valid characters in a JSON strings, they can create failures when leaving the API request processing context, e.g. by writing the data into a database or piping it through command line tools that are not 100% compatible with the JSON or unicode standard.
 
 A prominent example for such a tool is the Postgres database:
 
 * Postgres cannot handle `\u0000` in `jsonb` and `text` types (see
-  https://www.postgresql.org/docs/current/datatype-json.html[datatype-json]).
+https://www.postgresql.org/docs/current/datatype-json.html[datatype-json]).
 
-As a consequence, servers and clients that forward JSON content to other tools
-should check that these tools fully support the JSON or unicode standard. If
-not, they should reject or sanitize unicode characters not supported by the
-tools.
+As a consequence, servers and clients that forward JSON content to other tools should check that these tools fully support the JSON or unicode standard.
+If not, they should reject or sanitize unicode characters not supported by the tools.
 
-**Note:** A sanitization and rejection are actions that change the API
-behavior and therefore should be described by the API specification.
+**Note:** A sanitization and rejection are actions that change the API behavior and therefore should be described by the API specification.
 
 [#168]
 == {MAY} pass non-JSON media types using data specific standard formats
 
-Non-JSON media types may be supported, if you stick to a business object specific standard
-format for the payload data, for instance, image data format (JPG, PNG, GIF), document
-format (PDF, DOC, ODF, PPT), or archive format (TAR, ZIP).
+Non-JSON media types may be supported, if you stick to a business object specific standard format for the payload data, for instance, image data format (JPG, PNG, GIF), document format (PDF, DOC, ODF, PPT), or archive format (TAR, ZIP).
 
-Generic structured data interchange formats other than JSON (e.g. XML, CSV)
-may be provided, but only additionally to JSON as default format using <<244, content negotiation>>,
-for specific use cases where clients may not interpret the payload structure.
-
+Generic structured data interchange formats other than JSON (e.g. XML, CSV) may be provided, but only additionally to JSON as default format using <<244, content negotiation>>, for specific use cases where clients may not interpret the payload structure.
 
 [#172]
 == {SHOULD} use standard media types
 
 You should use standard media types (defined in {iana-media-types}[media type registry]
-of Internet Assigned Numbers Authority (IANA)) as `content-type` (or `accept`) header
-information. More specifically, for JSON payload you should use the standard media type
+of Internet Assigned Numbers Authority (IANA)) as `content-type` (or `accept`) header information.
+More specifically, for JSON payload you should use the standard media type
 `application/json` (or `application/problem+json` for <<176>>).
 
 You should avoid using custom media types like `application/x.customer.object+json`.
-Custom media types beginning with `x` bring no advantage compared to the
-standard media type for JSON, and make automated processing more difficult.
+Custom media types beginning with `x` bring no advantage compared to the standard media type for JSON, and make automated processing more difficult.
 
 *Exception:* Custom media type should be only used in situations where you need to provide
 <<114, API endpoint versioning>> (with content negotiation) due to incompatible changes.
-
 
 [#120]
 == {MUST} pluralize array names
@@ -92,13 +102,11 @@ standard media type for JSON, and make automated processing more difficult.
 Names of arrays should be pluralized to indicate that they contain multiple values.
 This implies in turn that object names should be singular.
 
-
 [#118]
 == {MUST} property names must be camelCase (and never snake_case)
 
 Property names are restricted to ASCII snake_case strings matching regex `^[a-z_][a-z_0-9]*$`.
-The first character must be a lower case letter, or an underscore, and subsequent
-characters can be a letter, an underscore, or a number.
+The first character must be a lower case letter, or an underscore, and subsequent characters can be a letter, an underscore, or a number.
 
 Examples:
 
@@ -107,49 +115,39 @@ Examples:
 customerNumber, appVersion, machineNetworkName
 ----
 
-
 [#125]
 [#240]
 == {MUST} declare enum values using UPPER_SNAKE_CASE string
 
-Enumerations should be represented as `string` typed OpenAPI definitions of
-request parameters or model properties.
-Enum values (using `enum` or {x-extensible-enum}) need to consistently use
-the upper-snake case format, e.g. `VALUE` or `YET_ANOTHER_VALUE`.
+Enumerations should be represented as `string` typed OpenAPI definitions of request parameters or model properties.
+Enum values (using `enum` or {x-extensible-enum}) need to consistently use the upper-snake case format, e.g. `VALUE` or `YET_ANOTHER_VALUE`.
 This approach allows to clearly distinguish values from properties or other elements.
 
-**Exception:** This rule does not apply for case sensitive values sourced from outside
-API definition scope, e.g. for language codes from {ISO-639-1}[ISO 639-1], or when
-declaring possible values for a <<137,rule 137>> [`sort` parameter].
-
+**Exception:** This rule does not apply for case sensitive values sourced from outside API definition scope, e.g. for language codes from {ISO-639-1}[ISO 639-1], or when declaring possible values for a <<137,rule 137>> [`sort` parameter].
 
 [#235]
 == {SHOULD} use naming convention for date/time properties
 
-Naming of date and data-time properties should comply with the following convention: 
-The name either (i) contains `date`, `day`, `time`, `timestamp` or similar type indicators, 
-or (ii) end with the  `_at` suffix. The convention allows easy identification of date/time 
-typed properties and distinguishing them e.g. from boolean properties like `created` vs. `createdAt`.
-Examples of valid date/time property names: 
+Naming of date and data-time properties should comply with the following convention:
+The name either (i) contains `date`, `day`, `time`, `timestamp` or similar type indicators, or (ii) end with the  `_at` suffix.
+The convention allows easy identification of date/time typed properties and distinguishing them e.g. from boolean properties like `created` vs. `createdAt`.
+Examples of valid date/time property names:
 
 - `createdAt`, `modifiedAt`, `occurredAt`, `returnedAt`  -- instead of `created`, `modified`, ...
 - `campaignStartTime`, `arrivalDate`, `checkoutTime`  -- instead of `campaignStart`, `arrival`, ...
 
 **Hint:** Use `format: date-time` or `format: date` as required in <<238>>.
 
-
 [#216]
 == {SHOULD} define maps using `additionalProperties`
 
-A "map" here is a mapping from string keys to some other type. In JSON this is
-represented as an object, the key-value pairs being represented by property
-names and property values. In OpenAPI schema (as well as in JSON schema) they
-should be represented using additionalProperties with a schema defining the
-value type. Such an object should normally have no other defined properties.
+A "map" here is a mapping from string keys to some other type.
+In JSON this is represented as an object, the key-value pairs being represented by property names and property values.
+In OpenAPI schema (as well as in JSON schema) they should be represented using additionalProperties with a schema defining the value type.
+Such an object should normally have no other defined properties.
 
-The map keys don't count as property names in the sense of <<118,rule 118>>,
-and can follow whatever format is natural for their domain. Please document
-this in the description of the map object's schema.
+The map keys don't count as property names in the sense of <<118,rule 118>>, and can follow whatever format is natural for their domain.
+Please document this in the description of the map object's schema.
 
 Here is an example for such a map definition (the `translations` property):
 
@@ -176,6 +174,7 @@ components:
 ```
 
 An actual JSON object described by this might then look like this:
+
 ```json
 { "message_key": "color",
   "translations": {
@@ -188,18 +187,14 @@ An actual JSON object described by this might then look like this:
 }
 ```
 
-
 [#123]
 == {TODO} {MUST} use same semantics for `null` and absent properties
 
-OpenAPI 3.x allows to mark properties as `required` and as `nullable` to
-specify whether properties may be absent (`{}`) or `null` (`{"example":null}`).
+OpenAPI 3.x allows to mark properties as `required` and as `nullable` to specify whether properties may be absent (`{}`) or `null` (`{"example":null}`).
 If a property is defined to be not `required` and `nullable` (see
-<<required-nullable-row-2, 2nd row in Table below>>), this rule demands
-that both cases must be handled in the exact same manner by specification.
+<<required-nullable-row-2, 2nd row in Table below>>), this rule demands that both cases must be handled in the exact same manner by specification.
 
-The following table shows all combinations and whether the examples are
-valid:
+The following table shows all combinations and whether the examples are valid:
 
 [cols=",,,",options="header",]
 |===========================================
@@ -211,71 +206,51 @@ valid:
 | `false` |`false`  | {YES} | {NO}
 |===========================================
 
-While API designers and implementers may be tempted to assign different
-semantics to both cases, we explicitly decide **against** that option, because we
-think that any gain in expressiveness is far outweighed by the risk of clients
-not understanding and implementing the subtle differences incorrectly.
+While API designers and implementers may be tempted to assign different semantics to both cases, we explicitly decide **against** that option, because we think that any gain in expressiveness is far outweighed by the risk of clients not understanding and implementing the subtle differences incorrectly.
 
-As an example, an API that provides the ability for different users to
-coordinate on a time schedule, e.g. a meeting, may have a resource for options
-in which every user has to make a `choice`. The difference between _undecided_
+As an example, an API that provides the ability for different users to coordinate on a time schedule, e.g. a meeting, may have a resource for options in which every user has to make a `choice`.
+The difference between _undecided_
 and _decided against any of the options_ could be modeled as _absent_ and
-`null` respectively. It would be safer to express the `null` case with a
-dedicated https://en.wikipedia.org/wiki/Null_object_pattern[Null object], e.g.
+`null` respectively.
+It would be safer to express the `null` case with a dedicated https://en.wikipedia.org/wiki/Null_object_pattern[Null object], e.g.
 `{}` compared to `{"id":"42"}`.
 
-Moreover, many major libraries have somewhere between little to no support for
-a `null`/absent pattern (see
+Moreover, many major libraries have somewhere between little to no support for a `null`/absent pattern (see
 https://stackoverflow.com/questions/48465005/gson-distinguish-null-value-field-and-missing-field[Gson],
 https://github.com/square/moshi#borrows-from-gson[Moshi],
 https://github.com/FasterXML/jackson-databind/issues/578[Jackson],
-https://developer.ibm.com/articles/j-javaee8-json-binding-3/[JSON-B]). Especially
-strongly-typed languages suffer from this since a new composite type is required
-to express the third state. Nullable `Option`/`Optional`/`Maybe` types could be
-used but having nullable references of these types completely contradicts their
-purpose.
+https://developer.ibm.com/articles/j-javaee8-json-binding-3/[JSON-B]).
+Especially strongly-typed languages suffer from this since a new composite type is required to express the third state.
+Nullable `Option`/`Optional`/`Maybe` types could be used but having nullable references of these types completely contradicts their purpose.
 
-The only exception to this rule is JSON Merge Patch {RFC-7396}[RFC 7396]) which
-uses `null` to explicitly indicate property deletion while absent properties are
-ignored, i.e. not modified.
-
+The only exception to this rule is JSON Merge Patch {RFC-7396}[RFC 7396]) which uses `null` to explicitly indicate property deletion while absent properties are ignored, i.e. not modified.
 
 [#122]
 == {MUST} not use `null` for boolean properties
 
-Schema based JSON properties that are by design booleans must not be
-presented as nulls. A boolean is essentially a closed enumeration of two
-values, true and false. If the content has a meaningful null value, we
-strongly prefer to replace the boolean with enumeration of named values
-or statuses - for example accepted_terms_and_conditions with enumeration values
-YES, NO, UNDEFINED.
-
+Schema based JSON properties that are by design booleans must not be presented as nulls.
+A boolean is essentially a closed enumeration of two values, true and false.
+If the content has a meaningful null value, we strongly prefer to replace the boolean with enumeration of named values or statuses - for example accepted_terms_and_conditions with enumeration values YES, NO, UNDEFINED.
 
 [#124]
 == {MUST} not use `null` for empty arrays
 
 Empty array values can unambiguously be represented as the empty list, `[]`.
 
-
 [#174]
 == {MUST} use common field names and semantics
 
 [[generic-fields]]
 You must use common field names and semantics whenever applicable.
-Common fields are idiomatic, create consistency across APIs and
-support common understanding for API consumers.
+Common fields are idiomatic, create consistency across APIs and support common understanding for API consumers.
 
 We define the following common field names:
 
-* [[id]]{id}: the identity of the object. If used, IDs must be opaque strings
-  and not numbers. IDs are unique within some documented context, are stable
-  and don't change for a given object once assigned, and are never recycled
-  cross entities.
-* [[xyzId]]{xyzId}: an attribute within one object holding the identifier of
-  another object must use a name that corresponds to the type of the referenced
-  object or the relationship to the referenced object followed by `Id` (e.g.
-  `partnerId` not `partnerNumber`, or `parentNodeId` for the reference to a parent
-  node from a child node, even if both have the type `Node`).
+* [[id]]{id}: the identity of the object.
+If used, IDs must be opaque strings and not numbers.
+IDs are unique within some documented context, are stable and don't change for a given object once assigned, and are never recycled cross entities.
+* [[xyzId]]{xyzId}: an attribute within one object holding the identifier of another object must use a name that corresponds to the type of the referenced object or the relationship to the referenced object followed by `Id` (e.g.
+`partnerId` not `partnerNumber`, or `parentNodeId` for the reference to a parent node from a child node, even if both have the type `Node`).
 
 Further common fields are defined in <<235>>.
 The following guidelines define standard objects and fields:

@@ -1,18 +1,15 @@
 [[security]]
 = REST Basics - Security
 
-
 [#104]
 == {MUST} secure endpoints
 
 Every API endpoint must be protected and armed with authentication and authorization.
-As part of the API definition you must specify how you protect your API using
-either the `http` typed `bearer` or `oauth2` typed security schemes defined in the
+As part of the API definition you must specify how you protect your API using either the `http` typed `bearer` or `oauth2` typed security schemes defined in the
 https://swagger.io/docs/specification/authentication/[OpenAPI Authentication Specification].
 
-The majority of our APIs (especially the company internal APIs) are protected
-using JWT tokens provided by the platform IAM token service. In these situations
-you should use the `http` typed
+The majority of our APIs (especially the company internal APIs) are protected using JWT tokens provided by the platform IAM token service.
+In these situations you should use the `http` typed
 https://swagger.io/docs/specification/authentication/bearer-authentication/[Bearer Authentication]
 security scheme -- it is based on OAuth2.0 {RFC-6750}[RFC 6750] defining the standard header
 `Auhorization: Bearer <token>`.
@@ -28,101 +25,58 @@ components:
       bearerFormat: JWT
 ----
 
-The bearer security schema can then be applied to all API endpoints, e.g. requiring
-the token to have `api-repository.read` scope for permission as follows (see
-also <<105>>):
+The bearer security schema can then be applied to all API endpoints, e.g. requiring the token to have `machines:read` scope for permission as follows (see also <<105>>):
 
 [source,yaml]
 ----
 security:
-  - BearerAuth: [ api-repository.read ]
+  - BearerAuth: [ machines:read ]
 ----
 
-
-In other, more specific situations e.g. with customer and partner facing APIs you
-may use other OAuth 2.0 authorization flows as defined by {RFC-6749}[RFC 6749].
-Please consult the
-https://swagger.io/docs/specification/authentication/oauth2/[OpenAPI OAuth 2.0 Authentication]
-section for details on how to define `oauth2` typed security schemes correctly.
-
-*Note:* {TODO} Do not use OpenAPI `oauth2` typed security scheme flows (e.g. `implicit`)
-if your service does not fully support it and implements a simple bearer token scheme,
-because it exposes authentication server address details and may make use of redirection.
-
-
 [#105]
-== {TODO} {MUST} define and assign permissions (scopes)
+== {MUST} define and assign permissions (scopes)
 
-Endpoints must be equipped with permissions, if they require client authorization for protection 
-since e.g. data is exposed that is classified as `orange` or `red` according to Zalando's 
-https://drive.google.com/file/d/1UPB0UbZP7IvcB52DVWQX41pmB7ugJdAX/view[Data Classification Group Policy (internal link)]. 
-Please refer to <<225>> for designing permission names. 
-Some API endpoints may not require specific permissions for authorization e.g. 
-in case of (i) authorization is _not_ needed for the endpoint since all
-exposed data is classified as `green` or `yellow`, 
-or in case of (ii) the specific authorization is provided differently on 
-the individual object level. In these situations, however, you must make 
-it explicit by assigning the `uid` pseudo permission, which is always 
-available as OAuth2 default scope for all clients in Zalando. 
+Endpoints must be equipped with permissions, if they require client authorization.
 
-The defined permissions are assigned to each API endpoint based on the
-security schema (see example in <<104, previous section>>) by specifying the
+Most endpoints will require a certain permission to function properly, however some API endpoints may not require specific permissions as they return publicly available data (e.g the public app store).
+
+The defined permissions are assigned to each API endpoint based on the security schema (see example in <<104, previous section>>) by specifying the
 https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#securityRequirementObject[security requirement]
 as follows:
 
 [source,yaml]
 ----
 paths:
- /business-partners/{partner-id}:
+ /machines/{machineId}:
     get:
-      summary: Retrieves information about a business partner
+      summary: Returns a specific machine by id
       security:
-        - BearerAuth: [ business-partner-service.read ]
+        - BearerAuth: [ machines:read ]
 ----
 
 *Hint:* Following a minimal API specification approach, the
-`Authorization`-header does not need to be defined on each API endpoint, since
-it is required and so to say implicitly defined via the security section.
-
+`Authorization`-header does not need to be defined on each API endpoint, since it is required and so to say implicitly defined via the security section.
 
 [#225]
 == {MUST} follow the naming convention for permissions (scopes)
 
-As long as the <<223,functional naming>> is not yet supported by our permission registry,
-permission names in APIs must conform to the following naming pattern:
+All operations on and with entities within the NUPANO Suite are covered by permissions, unless they are explicitly declared "public".
+If your API introduces a new entity, the following convention is to be upheld:
 
 [source,bnf]
 -----
-<permission> ::= <standard-permission> |  -- should be sufficient for majority of use cases
-                 <resource-permission> |  -- for special security access differentiation use cases
-                 <pseudo-permission>      -- used to explicitly indicate that access is not restricted
-
-<standard-permission> ::= <access-mode>
-<resource-permission> ::= <resource-name>.<access-mode>
-<pseudo-permission>   ::= uid
-
-<resource-name>       ::= [a-z][a-z0-9-]*  -- free resource identifier
-<access-mode>         ::= read | write    -- might be extended in future
+<resource ID>         ::= [resource-name]                    -- e.g machine, organization, app - lowercase and singular
+<access-type>         ::= create | read | update | delete    -- might be extended in future - lowercase
 -----
 
-**Note:** This naming convention only applies to scopes for service-to-service
-communication using the Platform IAM tokens. For IAM systems with other naming
-rules, the naming should be consistent with the
-existing conventions of those systems.
-
-The permission naming schema corresponds to the naming schema for <<224,
-hostnames>> and <<213, event type names>>, and typical examples are:
+Examples are:
 
 [cols="25%,20%,15%,40%",options="header",]
-|=======================================================================
-|  | Resource ID | Access Type | Example
-|  | `sales-order` | `read` | `sales-order.read`
-|  | `shipment-order` | `read` | `shipment-order.read`
-| | | `write` | `write`
-| | |`read` | `read`
-|=======================================================================
+|===
+|Resource ID      | Access Type | Example      |
+|machine          | read        | machine:read |
+|organization     | create      | organization:create |
+|===
 
-*Note:* APIs should stick to component specific permissions without resource
-extension to avoid the complexity of too many fine grained permissions. For the
-majority of use cases, restricting access for specific API endpoints using read
-or write is sufficient.
+*Note:* APIs should stick to component specific permissions without resource extension to avoid the complexity of too many fine grained permissions.
+For the majority of use cases, restricting access for specific API endpoints using read or write is sufficient.
