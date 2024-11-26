@@ -350,7 +350,7 @@
     },
     {
       "id": "#192",
-      "title": "MUST publish OpenAPI specification"
+      "title": "MUST publish OpenAPI specification for non-component-internal APIs"
     },
     {
       "id": "#193",
