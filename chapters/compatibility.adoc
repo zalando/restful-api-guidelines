@@ -112,7 +112,7 @@ However, when API versioning is unavoidable, you have to design your multi-versi
 Media type versioning is less tightly coupled since it supports content negotiation and hence reduces complexity of release management.
 
 Version information and media type are provided together via the HTTP `Content-Type` header — e.g.
-`application/x.nupano.app+json;version=2`.
+`application/vnp.nupano.app+json;version=2;flavour=vanilla`.
 For incompatible changes, a new media type version for the resource is created.
 To generate the new representation version, consumer and producer can do <<244, content negotiation>> using the HTTP `Content-Type` and `Accept` headers.
 
@@ -124,11 +124,23 @@ Custom media type format should have the following pattern:
 
 [source,http]
 ----
-application/x.<custom-media-type>+json;version=<version>
+application/vnd.<resource-name>.<sub-resource-name>+json;version=<version>;flavour=<flavour>
 ----
 
-* `<custom-media-type>` is a custom type name, e.g. `x.zalando.cart`
+* `<resource-name>` is the name of the resource that is represented in the request/response body, e.g. `app`, `machine` or `organization` - always lowercase, singular
 * `<version>` is a (sequence) number, e.g. `2`
+* `<flavour>` is a non-describing name for the type or representations, see below for more details
+
+=== Flavours
+
+In addition to using custom content types for versioning, we use them to offer options for data representation to users of our APIs.
+In accordance to our (mostly UI driven) use-cases we want to be able to use the same API to retrieve a list of resources with all possible details as well as the same list, but with only the basic attributes needed for any given use case (think large list of machines, but only the name is shown or same list of machines but we are also interested in the number of installed apps, components or tickets).
+
+However we do not want to bind representations of our models to exactly one use-case, hence we must avoid naming the flavours in accordance to the first use-case that warrants their existence.
+Example: the model that is used in the app inventory to show machines including their apps should not be called `machine-list-app-inventory`.
+This leads us to the introduction of generic flavours where the name solely exists to identify the representation itself, and not its use case.
+
+Flavours can have any name you seem fit, but they should follow the same theme within the same service (e.g ice cream flavours for machine models, star wars planets for ticket models, colors for organization models).
 
 === Example
 
