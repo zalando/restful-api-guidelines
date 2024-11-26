@@ -189,27 +189,15 @@ An actual JSON object described by this might then look like this:
 ```
 
 
-[#123]
-== {TODO} {MUST} use same semantics for `null` and absent properties
+[#123-nup]
+== {MUST} use `undefined` for absent and nullable properties (never `null` or empty value)
 
 OpenAPI 3.x allows to mark properties as `required` and as `nullable` to
 specify whether properties may be absent (`{}`) or `null` (`{"example":null}`).
-If a property is defined to be not `required` and `nullable` (see
-<<required-nullable-row-2, 2nd row in Table below>>), this rule demands
-that both cases must be handled in the exact same manner by specification.
+To avoid confusion between the semantics we only use `required` in our APIs, never `nullable`.
 
-The following table shows all combinations and whether the examples are
-valid:
-
-[cols=",,,",options="header",]
-|===========================================
-| {CODE-START}required{CODE-END} | {CODE-START}nullable{CODE-END}
-| {CODE-START}{}{CODE-END} | {CODE-START}{"example":null}{CODE-END}
-| `true`  |`true`   | {NO}  | {YES}
-| `false` | `true`  | {YES} | {YES} [[required-nullable-row-2]]
-| `true`  |`false`  | {NO}  | {NO}
-| `false` |`false`  | {YES} | {NO}
-|===========================================
+`null` may still be used to store absent values in databases.
+During transport, i.e. JSON sent from and to our APIs, nullable values are absent.
 
 While API designers and implementers may be tempted to assign different
 semantics to both cases, we explicitly decide **against** that option, because we
@@ -235,9 +223,9 @@ to express the third state. Nullable `Option`/`Optional`/`Maybe` types could be
 used but having nullable references of these types completely contradicts their
 purpose.
 
-The only exception to this rule is JSON Merge Patch {RFC-7396}[RFC 7396]) which
-uses `null` to explicitly indicate property deletion while absent properties are
-ignored, i.e. not modified.
+The situation is similar in the frontend:
+At worst, TypeScript developers will need to distinguish between `null`, `undefined`, & _not defined_.
+In line with https://github.com/sindresorhus/meta/discussions/7[this suggestion], we favor pragmatism over semantics here.
 
 
 [#122]
