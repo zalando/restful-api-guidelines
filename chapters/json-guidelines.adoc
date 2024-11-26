@@ -57,7 +57,7 @@ components:
             format: uuid
 ```
 
-Even though these two models only differ from each other because of the ```id``` property on the read model, it is important to keep them separate, as they may need to be versioned (or transformed into different flavours - see <<TODO>>) independently from each other.
+Even though these two models only differ from each other because of the ```id``` property on the read model, it is important to keep them separate, as they may need to be versioned (or transformed into different flavours - see <<114>>) independently from each other.
 
 [#250]
 == {SHOULD} be aware of services not fully supporting JSON/unicode
