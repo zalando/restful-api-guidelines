@@ -148,28 +148,30 @@ In this example, a client wants only the new version of the response:
 
 [source,http]
 ----
-Accept: application/x.nupano.app+json;version=2
+Accept: application/vnd.nupano.app+json;version=2
 ----
 
 A server responding to this, as well as a client sending a request with content should use the `Content-Type` header, declaring that one is sending the new version:
 
 [source,http]
 ----
-Content-Type: application/x.nupano.app+json;version=2
+Content-Type: application/vnd.nupano.app+json;version=2
 ----
 
 Media type versioning should...
 
-* Use a custom media type, e.g. `application/x.nupano.app+json`
+* Use a custom media type, e.g. `application/vnd.nupano.app+json`
 * Include media type versions in request and response headers to increase visibility
 * Include `Content-Type` in the `Vary` header to enable proxy caches to differ between versions
+* Include a `version` property as part of the media type, e.g `version=1`
+* (Optional) Include a `flavour` property to allow control of the granularity of the response model
 
 [source,http]
 ----
 Vary: Content-Type
 ----
 
-NOTE: Until an incompatible change is necessary, it is recommended to stay with the standard `application/json` media type without versioning.
+NOTE: Every endpoint has to always accept the `application/json` media type without versioning - however we cannot guarantee that the response will be stable forever, we always return the latest version of the content type in the flavour that returns the most data.
 
 Further reading:
 https://apisyouwonthate.com/blog/api-versioning-has-no-right-way[API

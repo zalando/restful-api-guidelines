@@ -1,161 +1,111 @@
 [[http-requests]]
 = REST Basics - HTTP requests
 
-
 [#148]
 == {MUST} use HTTP methods correctly
 
-Be compliant with the standardized HTTP semantics (see {RFC-9110}[RFC-9110
-"HTTP semantics"]) as summarized here.
-
+Be compliant with the standardized HTTP semantics (see {RFC-9110}[RFC-9110 "HTTP semantics"]) as summarized here.
 
 [[get]]
 === GET
 
 {GET} requests are used to *read* either a single or a collection resource.
 
-* {GET} requests for individual resources will usually generate a {404} (if the
-  resource does not exist).
-* {GET} requests for collection resources may return either {200} (if the
-  collection is empty) or {404} (if the collection is missing).
+* {GET} requests for individual resources will usually generate a {404} (if the resource does not exist).
+* {GET} requests for collection resources may return either {200} (if the collection is empty) or {404} (if the collection is missing).
 * {GET} requests must NOT have a request body payload.
 
 [[put]]
 === PUT
 
 {PUT} requests are used to *update* (and sometimes to create) *entire*
-resources – single or collection resources. The semantic is best described
-as _"please put the enclosed representation at the resource mentioned by
-the URL, replacing any existing resource."_.
+resources – single or collection resources.
+The semantic is best described as _"please put the enclosed representation at the resource mentioned by the URL, replacing any existing resource."_.
 
-* {PUT} requests are usually applied to single resources, and not to collection
-  resources, as this would imply replacing the entire collection.
-* {PUT} requests are usually robust against non-existence of resources by
-  implicitly creating the resource before updating.
+* {PUT} requests are usually applied to single resources, and not to collection resources, as this would imply replacing the entire collection.
+* {PUT} requests are usually robust against non-existence of resources by implicitly creating the resource before updating.
 * On successful {PUT} requests, the server will *replace the entire resource*
-  addressed by the URL with the representation passed in the payload.
-  Subsequent reads will deliver the same payload, plus possibly
-  server-generated fields like `modifiedAt`.
+addressed by the URL with the representation passed in the payload.
+Subsequent reads will deliver the same payload, plus possibly server-generated fields like `modifiedAt`.
 * Successful {PUT} requests return {200} or {204} (if the resource was updated
-  -- with or without returning the resource), {201} (if the resource was newly
-  created), and {202} (if the request was accepted for asynchronous
-  processing).
+-- with or without returning the resource), {201} (if the resource was newly created), and {202} (if the request was accepted for asynchronous processing).
 
-The updated/created resource may be returned as response payload. We recommend,
-to not use it per default, but if the resource is enriched with
-server-generated fields like `versionNumber`. You may also support client side
-steering (see <<181>>).
+The updated/created resource may be returned as response payload.
+We recommend, to not use it per default, but if the resource is enriched with server-generated fields like `versionNumber`.
+You may also support client side steering (see <<181>>).
 
-*Important:* It is good practice to keep the resource identifier management
-under control of the service provider and not the client, and, hence, to prefer
-{POST} for creation of (at least top-level) resources, and focus {PUT} on its
-usage for updates. However, in situations where the identifier and all resource
-attributes are under control of the client as input for the resource creation
-you should use {PUT} and pass the resource identifier as URL path parameter.
-Putting the same resource twice is required to be <<idempotent>> and to result
-in the same single resource instance (see <<149>>) without data duplication in
-case of repetition.
+*Important:* It is good practice to keep the resource identifier management under control of the service provider and not the client, and, hence, to prefer
+{POST} for creation of (at least top-level) resources, and focus {PUT} on its usage for updates.
+However, in situations where the identifier and all resource attributes are under control of the client as input for the resource creation you should use {PUT} and pass the resource identifier as URL path parameter.
+Putting the same resource twice is required to be <<idempotent>> and to result in the same single resource instance (see <<149>>) without data duplication in case of repetition.
 
-*Hint:* To prevent unnoticed concurrent updates and duplicate creations when
-using {PUT}, you <<182>> to allow the server to react on stricter demands that
-expose conflicts and prevent lost updates. See also <<optimistic-locking>> for
-details and options.
-
+*Hint:* To prevent unnoticed concurrent updates and duplicate creations when using {PUT}, you <<182>> to allow the server to react on stricter demands that expose conflicts and prevent lost updates.
+See also <<optimistic-locking>> for details and options.
 
 [[post]]
 === POST
 
-{POST} requests are idiomatically used to *create* single resources on a
-collection resource endpoint, but other semantics on single resources endpoint
-are equally possible. The semantic for collection endpoints is best described as
-_"please add the enclosed representation to the collection resource identified
-by the URL"_. The semantic for single resource endpoints is best described as
-_"please execute the given well specified request on the resource identified by
-the URL"_.
+{POST} requests are idiomatically used to *create* single resources on a collection resource endpoint, but other semantics on single resources endpoint are equally possible.
+The semantic for collection endpoints is best described as
+_"please add the enclosed representation to the collection resource identified by the URL"_.
+The semantic for single resource endpoints is best described as
+_"please execute the given well specified request on the resource identified by the URL"_.
 
-* Successful {POST} requests on a collection endpoint will create one or more
-  resource instances.
-* For single resources, you {SHOULD} return {201} and the new resource object
-  (including the resource identifier) in the response payload.
-** The client {SHOULD} be able to use this resource identifier to {GET} the
-   resource if supported by the API (see <<143>>).
+* Successful {POST} requests on a collection endpoint will create one or more resource instances.
+* For single resources, you {SHOULD} return {201} and the new resource object (including the resource identifier) in the response payload.
+** The client {SHOULD} be able to use this resource identifier to {GET} the resource if supported by the API (see <<143>>).
 ** The URL to {GET} the resource {SHOULD} be provided in the {Location} header.
-** If the response does not contain the created resource or a resource monitor,
-  the status code {SHOULD} be {201} and the URL to {GET} the resource {MUST} be
-  provided in the {Location} response header.
+** If the response does not contain the created resource or a resource monitor, the status code {SHOULD} be {201} and the URL to {GET} the resource {MUST} be provided in the {Location} response header.
 
 WARNING: The resource identifier {MUST-NOT} be passed as request body data by the client, but created and maintained by the service.
 
-* For multiple resources you {SHOULD} return {201} in the response, as long as
-  they are created atomically, meaning that either all the resources are created
-  or none of them are.
-** You <<152>> if the request can partially fail, that is some of the resources
-  can fail to be created.
+* For multiple resources you {SHOULD} return {201} in the response, as long as they are created atomically, meaning that either all the resources are created or none of them are.
+** You <<152>> if the request can partially fail, that is some of the resources can fail to be created.
 
-* You <<253>>, where the resource creation would not finish by the time the
-  request is delivered, so the response status code {SHOULD} be {202}.
+* You <<253>>, where the resource creation would not finish by the time the request is delivered, so the response status code {SHOULD} be {202}.
 
-Apart from resource creation, {POST} should be also used for scenarios that
-cannot be covered by the other methods sufficiently. However, in such cases
-make sure to document the fact that {POST} is used as a workaround.
+Apart from resource creation, {POST} should be also used for scenarios that cannot be covered by the other methods sufficiently.
+However, in such cases make sure to document the fact that {POST} is used as a workaround.
 
 [#delete]
 === DELETE
 
-{DELETE} requests are used to *delete* resources. The semantic is best
-described as _"please delete the resource identified by the URL"_.
+{DELETE} requests are used to *delete* resources.
+The semantic is best described as _"please delete the resource identified by the URL"_.
 
-* {DELETE} requests are usually applied to single resources, not on
-  collection resources, as this would imply deleting the entire collection.
-* {DELETE} request can be applied to multiple resources at once using query
-  parameters on the collection resource (see <<delete-with-query-params>>).
-* Successful {DELETE} requests return {200} or {204} (if the resource was
-  deleted -- with or without returning the resource), or {202} (if the request
-  was accepted for asynchronous processing).
-* Failed {DELETE} requests will usually generate {404} (if the resource cannot
-  be found) or {410} (if the resource was already traceably deleted before).
+* {DELETE} requests are usually applied to single resources, not on collection resources, as this would imply deleting the entire collection.
+* {DELETE} request can be applied to multiple resources at once using query parameters on the collection resource (see <<delete-with-query-params>>).
+* Successful {DELETE} requests return {200} or {204} (if the resource was deleted -- with or without returning the resource), or {202} (if the request was accepted for asynchronous processing).
+* Failed {DELETE} requests will usually generate {404} (if the resource cannot be found) or {410} (if the resource was already traceably deleted before).
 
-*Important:* After deleting a resource with {DELETE}, a {GET} request on the
-resource is expected to either return {404} (not found) or {410} (gone)
-depending on how the resource is represented after deletion. Under no
-circumstances the resource must be accessible after this operation on its
-endpoint.
+*Important:* After deleting a resource with {DELETE}, a {GET} request on the resource is expected to either return {404} (not found) or {410} (gone) depending on how the resource is represented after deletion.
+Under no circumstances the resource must be accessible after this operation on its endpoint.
 
 [[delete-with-body]]
 === DELETE with body payload
 
-In rare cases {DELETE} may require additional information, that cannot be
-classified as filter parameters and thus should be transported via request body
-payload, to perform the operation. Since {RFC-9110}#section-9.3.5[RFC-9110
-Section 9.3.5] states, that {DELETE} has an undefined semantic for payloads, we
-recommend to utilize {POST}. The response status code of {DELETE-with-Body} requests should be similar to usual {DELETE} requests.
-
+In rare cases {DELETE} may require additional information, that cannot be classified as filter parameters and thus should be transported via request body payload, to perform the operation.
+Since {RFC-9110}#section-9.3.5[RFC-9110 Section 9.3.5] states, that {DELETE} has an undefined semantic for payloads, we recommend to utilize {POST}.
+The response status code of {DELETE-with-Body} requests should be similar to usual {DELETE} requests.
 
 [[head]]
 === HEAD
 
-{HEAD} requests are used to *retrieve* the header information of single
-resources and resource collections.
+{HEAD} requests are used to *retrieve* the header information of single resources and resource collections.
 
-* {HEAD} has exactly the same semantics as {GET}, but returns headers only, no
-  body.
+* {HEAD} has exactly the same semantics as {GET}, but returns headers only, no body.
 
-*Hint:* {HEAD} is particular useful to efficiently lookup whether large
-resources or collection resources have been updated in conjunction with the
+*Hint:* {HEAD} is particular useful to efficiently lookup whether large resources or collection resources have been updated in conjunction with the
 {ETag}-header.
-
 
 [[options]]
 === OPTIONS
 
-{OPTIONS} requests are used to *inspect* the available operations (HTTP
-methods) of a given endpoint.
+{OPTIONS} requests are used to *inspect* the available operations (HTTP methods) of a given endpoint.
 
-* {OPTIONS} responses usually either return a comma separated list of methods
-  in the `Allow` header or as a structured list of link templates.
+* {OPTIONS} responses usually either return a comma separated list of methods in the `Allow` header or as a structured list of link templates.
 
-*Note:* {OPTIONS} is rarely implemented, though it could be used to
-self-describe the full functionality of a resource.
+*Note:* {OPTIONS} is rarely implemented, though it could be used to self-describe the full functionality of a resource.
 
 *Note:* {OPTIONS} must be accessible without authentication
 
@@ -164,25 +114,16 @@ self-describe the full functionality of a resource.
 
 Request methods in RESTful services can be...
 
-* [[safe, safe]]{RFC-safe} -- the operation semantic is defined to be read-only,
-  meaning it must not have _intended side effects_, i.e. changes, to the server
-  state.
+* [[safe, safe]]{RFC-safe} -- the operation semantic is defined to be read-only, meaning it must not have _intended side effects_, i.e. changes, to the server state.
 * [[idempotent, idempotent]]{RFC-idempotent} -- the operation has the same
-  _intended effect_ on the server state, independently whether it is executed
-  once or multiple times. *Note:* this does not require that the operation is
-  returning the same response or status code.
-* [[cacheable, cacheable]]{RFC-cacheable} -- to indicate that responses are
-  allowed to be stored for future reuse. In general, requests to safe methods
-  are cacheable, if it does not require a current or authoritative response
-  from the server.
+_intended effect_ on the server state, independently whether it is executed once or multiple times. *Note:* this does not require that the operation is returning the same response or status code.
+* [[cacheable, cacheable]]{RFC-cacheable} -- to indicate that responses are allowed to be stored for future reuse.
+In general, requests to safe methods are cacheable, if it does not require a current or authoritative response from the server.
 
-*Note:* The above definitions, of _intended (side) effect_ allows the server
-to provide additional state changing behavior as logging, accounting, pre-
-fetching, etc. However, these actual effects and state changes, must not be
-intended by the operation so that it can be held accountable.
+*Note:* The above definitions, of _intended (side) effect_ allows the server to provide additional state changing behavior as logging, accounting, pre- fetching, etc.
+However, these actual effects and state changes, must not be intended by the operation so that it can be held accountable.
 
-Method implementations must fulfill the following basic properties according
-to {RFC-9110}#section-9.2[RFC 9110 Section 9.2]:
+Method implementations must fulfill the following basic properties according to {RFC-9110}#section-9.2[RFC 9110 Section 9.2]:
 
 [cols="15%,15%,35%,35%",options="header",]
 |====================================================
@@ -200,43 +141,26 @@ to {RFC-9110}#section-9.2[RFC 9110 Section 9.2]:
 [#253]
 == {MAY} support asynchronous request processing
 
-Typically REST APIs are designed as synchronous interfaces where all
-server-side processing and state changes initiated by the call are finished
-before delivering the result as response. However, in long running request
-processing situations you may make use of asynchronous interface design with
-multiple calls: one for initiating the asynchronous processing and subsequent
-ones for accessing the processing status and/or result.
+Typically REST APIs are designed as synchronous interfaces where all server-side processing and state changes initiated by the call are finished before delivering the result as response.
+However, in long running request processing situations you may make use of asynchronous interface design with multiple calls: one for initiating the asynchronous processing and subsequent ones for accessing the processing status and/or result.
 
-We recommend an API design that represents the asynchronous request processing
-explicitly via a job resource that has a status and is different from the
-actual business resource. For instance, `POST /report-jobs` returns HTTP status
-code {201} to indicate successful initiation of asynchronous processing
-together with the _job-id_ passed in the response payload and via the URL of
-the {Location} header. The _job-id_ or {Location} URL then can be used to poll
-the processing status via `GET /report-jobs/{id}` which returns HTTP status
-code {200} with job status and optional report-id as response payload. Once
-returned with job status `finished`, the report-id is provided and can be used
-to fetch the result via `GET /reports/{id}` which returns {200} and the report
-object as response payload.
+We recommend an API design that represents the asynchronous request processing explicitly via a job resource that has a status and is different from the actual business resource.
+For instance, `POST /report-jobs` returns HTTP status code {201} to indicate successful initiation of asynchronous processing together with the _job-id_ passed in the response payload and via the URL of the {Location} header.
+The _job-id_ or {Location} URL then can be used to poll the processing status via `GET /report-jobs/{id}` which returns HTTP status code {200} with job status and optional report-id as response payload.
+Once returned with job status `finished`, the report-id is provided and can be used to fetch the result via `GET /reports/{id}` which returns {200} and the report object as response payload.
 
-Alternatively, if you do not to follow the recommended practice of providing a
-separate job resource, you may use `POST /reports` returning a status code
-{202} together with the {Location} header to indicate successful initiation of
-the asynchronous processing. The {Location} URL is used to fetch the report via
+Alternatively, if you do not to follow the recommended practice of providing a separate job resource, you may use `POST /reports` returning a status code
+{202} together with the {Location} header to indicate successful initiation of the asynchronous processing.
+The {Location} URL is used to fetch the report via
 `GET /reports/{id}` which returns either {200} and the report resource or {202}
 without payload, if the asynchronous processing is still ongoing.
 
-*Hint:* Do *not* use response code {204} or {404} instead of {202} here -- it
-is misleading since neither is the processing successfully finished, nor do we
-want to suggest a client failure.
-
+*Hint:* Do *not* use response code {204} or {404} instead of {202} here -- it is misleading since neither is the processing successfully finished, nor do we want to suggest a client failure.
 
 [#154]
 == {MUST} define collection format of header and query parameters
 
-Header and query parameters allow to provide a collection of values, either
-by providing a comma-separated list of values or by repeating the parameter
-multiple times with different values as follows:
+Header and query parameters allow to provide a collection of values, either by providing a comma-separated list of values or by repeating the parameter multiple times with different values as follows:
 
 [,cols="14%,30%,39%,17%",options="header",]
 |=========================================================================
@@ -248,30 +172,24 @@ multiple times with different values as follows:
 | {RFC-6570}#section-3.2.8[RFC 6570 Section 3.2.8]
 |=========================================================================
 
-As OpenAPI does not support both schemas at once, an API specification must
-explicitly define the collection format to guide consumers as follows:
+As OpenAPI does not support both schemas at once, an API specification must explicitly define the collection format to guide consumers as follows:
 
 [,cols="14%,40%,46%",options="header",]
 |===============================================================
 | Parameter Type | Comma-separated Values | Multiple Parameters
 | Header | `style: simple, explode: false` | not allowed (see
-  {RFC-9110}#section-5.3[RFC 9110 Section 5.3])
+{RFC-9110}#section-5.3[RFC 9110 Section 5.3])
 | Query  | `style: form, explode: false`   | `style: form, explode: true`
 |===============================================================
 
-When choosing the collection format, take into account the tool support,
-the escaping of special characters and the maximal URL length.
-
+When choosing the collection format, take into account the tool support, the escaping of special characters and the maximal URL length.
 
 [#236]
-== {TODO} {SHOULD} design simple query languages using query parameters
+== {SHOULD} design simple query languages using query parameters
 
-We prefer the use of query parameters to describe resource-specific query
-languages for the majority of APIs because it's native to HTTP, easy to extend
-and has an excellent implementation support in HTTP clients and web frameworks.
+We prefer the use of query parameters to describe resource-specific query languages for the majority of APIs because it's native to HTTP, easy to extend and has an excellent implementation support in HTTP clients and web frameworks.
 
-By simple query language we mean one or more name-value pairs that are combined
-in one way only with `and` semantics.
+By simple query language we mean one or more name-value pairs that are combined in one way only with `and` semantics.
 
 Query parameters should have the following aspects specified:
 
@@ -280,29 +198,23 @@ Query parameters should have the following aspects specified:
 * Comparison semantics (equals, less than, greater than, etc)
 * Implications when combined with other queries, e.g. _and_ vs. _or_
 
-How query parameters are named and used is up to individual API designers, here
-are a few tips that could help to decide whether to use simple or more complex
-query language:
+Our query language needs to be easy to understand and only ever be implemented if an existing or new use case dictates it.
+It is strongly discouraged to add query options for attributes or filters that are not immediately necessary for clients to use.
 
-Consider using simple query language when API is built to be used by others
-   (external teams):
+Instead of using an attribute name as a query parameter and offering semantic options for specifying the filter to apply (e.g `count=gt:10` or `users=lt:100`) we aim to be specific by accurately naming the parameters and what their effect might be.
 
-   * no additional effort/logic to form the query
-   * no ambiguity in meaning of the query parameters. For example
-     in `GET /items?user_id=gt:100`, is `user_id` greater than `100` or
-    is `user_id` equal to `gt:100`?
-   * easy to read, no learning curve
+Consider these points in particular when designing your query parameters:
+* no additional effort/logic to form the query * no ambiguity in meaning of the query parameters.
+For example in `GET /items?user_id=gt:100`, is `user_id` greater than `100` or is `user_id` equal to `gt:100`?
+* easy to read, no learning curve
 
 The following examples should serve as ideas for simple query language:
 
 === Equals
 
-* `name=Zalando`, `creation_year=2023`, `updated_by=user1` (query elements
-  based on property equality)
-* `created_at=2023-09-18T12:12:00.000Z`, `age=18` (query elements
-  based on logical properties)
-* `color=red,green,blue,multicolored` (query elements based on multiple
-  choice possibility)
+* `name=NUPANO`, `creation_year=2023`, `updated_by=user1` (query elements based on property equality)
+* `created_at=2023-09-18T12:12:00.000Z`, `age=18` (query elements based on logical properties)
+* `color=red,green,blue,multicolored` (query elements based on multiple choice possibility)
 
 === Less than
 
@@ -319,43 +231,22 @@ The following examples should serve as ideas for simple query language:
 ** Using terminology specific to time: _before_, _after_, _since_ and _until_
 * `price_higher_than=50` or `price_equal_or_higher_than=50`
 
-=== Pagination
-
-* `offset=10` and `limit=5` (query elements for pagination regardless
-  customer sorting)
-* `limit=5` and `created_after=2019-07-17` (query elements for
-  keyset pagination)
-** when sorting is in place and new elements are inserted, it prevents showing
-   repeated/missing results due to offset shift.
-
-Please check <<137, conventional query parameters for pagination and sorting>>
-and you can also find additional info in <<pagination>> section below.
-
-We don't advocate for or against certain names because in the end APIs should
-be free to choose the terminology that fits their domain the best.
-
-
 [#226]
 == {MUST} document implicit response filtering
 
-Sometimes certain collection resources or queries will not list all the
-possible elements they have, but only those for which the current client is
-authorized to access.
+Sometimes certain collection resources or queries will not list all the possible elements they have, but only those for which the current client is authorized to access.
 
 Implicit filtering could be done on:
 
 * the collection of resources being returned on a {GET} request
 * the fields returned for the detail information of the resource
 
-In such cases, the fact that implicit filtering is applied must be documented
-in the API specification's endpoint description. Consider <<227,caching
-aspects>> when implicit filtering is provided. Example:
+In such cases, the fact that implicit filtering is applied must be documented in the API specification's endpoint description.
+Consider <<227,caching aspects>> when implicit filtering is provided.
+Example:
 
-If an employee of the company _Foo_ accesses one of our business-to-business
-service and performs a `{GET} /business-partners`, it must, for legal reasons,
-not display any other business partner that is not owned or contractually
-managed by her/his company. It should never see that we are doing business
-also with company _Bar_.
+If an employee of the company _Foo_ accesses one of our business-to-business service and performs a `{GET} /business-partners`, it must, for legal reasons, not display any other business partner that is not owned or contractually managed by her/his company.
+It should never see that we are doing business also with company _Bar_.
 
 Response as seen from a consumer working at `FOO`:
 

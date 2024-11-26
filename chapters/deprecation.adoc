@@ -1,37 +1,26 @@
 [[deprecation]]
-= {TODO} REST Design - Deprecation
+= REST Design - Deprecation
 
-Sometimes it is necessary to phase out an API endpoint, an API version, or an
-API feature, e.g. if a field or parameter is no longer supported or a whole
-business functionality behind an endpoint is supposed to be shut down. As long
-as the API endpoints and features are still used by consumers these shut downs
-are breaking changes and not allowed. To progress the following deprecation
-rules have to be applied to make sure that the necessary consumer changes and
-actions are well communicated and aligned using _deprecation_ and _sunset_
+Sometimes it is necessary to phase out an API endpoint, an API version, or an API feature, e.g. if a field or parameter is no longer supported or a whole business functionality behind an endpoint is supposed to be shut down.
+As long as the API endpoints and features are still used by consumers these shut downs are breaking changes and not allowed.
+To progress the following deprecation rules have to be applied to make sure that the necessary consumer changes and actions are well communicated and aligned using _deprecation_ and _sunset_
 dates.
-
 
 [#187]
 == {MUST} reflect deprecation in API specifications
 
 The API deprecation must be part of the API specification.
 
-If an API endpoint (operation object), an input argument (parameter object),
-an in/out data object (schema object), or on a more fine grained level, a
-schema attribute or property should be deprecated, the producers must set
+If an API endpoint (operation object), an input argument (parameter object), an in/out data object (schema object), or on a more fine grained level, a schema attribute or property should be deprecated, the producers must set
 `deprecated: true` for the affected element and add further explanation to the
-`description` section of the API specification. If a future shut down is
-planned, the producer must provide a sunset date and document in details
-what consumers should use instead and how to migrate.
+`description` section of the API specification.
+If a future shut down is planned, the producer must provide a sunset date and document in details what consumers should use instead and how to migrate.
 
 [#188]
 == {MUST} monitor usage of deprecated API scheduled for sunset
 
-Owners of an API, API version, or API feature used in production that is
-scheduled for sunset must monitor the usage of the sunset API, API version, or
-API feature in order to observe migration progress and avoid uncontrolled
-breaking effects on ongoing consumers. See also <<193>>.
-
+Owners of an API, API version, or API feature used in production that is scheduled for sunset must monitor the usage of the sunset API, API version, or API feature in order to observe migration progress and avoid uncontrolled breaking effects on ongoing consumers.
+See also <<193>>.
 
 [#189]
 == {SHOULD} add `Deprecation` and `Sunset` header to responses
@@ -39,15 +28,12 @@ breaking effects on ongoing consumers. See also <<193>>.
 During the deprecation phase, the producer should add a `Deprecation: <date-time>`
 (see https://tools.ietf.org/html/draft-ietf-httpapi-deprecation-header[draft: RFC
 Deprecation HTTP Header Field]) and - if also planned - a `Sunset: <date-time>`
-(see {RFC-8594}#section-3[RFC 8594]) header on each response affected by a
-deprecated element (see <<187>>).
+(see {RFC-8594}#section-3[RFC 8594]) header on each response affected by a deprecated element (see <<187>>).
 
-The {Deprecation} header can either be set to `true` - if a feature is retired
--, or carry a deprecation time stamp, at which a replacement will become/became
-available and consumers must not on-board any longer (see <<191>>). The optional
-{Sunset} time stamp carries the information when consumers latest have to stop
-using a feature. The sunset date should always offer an eligible time interval
-for switching to a replacement feature.
+The {Deprecation} header can either be set to `true` - if a feature is retired -, or carry a deprecation time stamp, at which a replacement will become/became available and consumers must not on-board any longer (see <<191>>).
+The optional
+{Sunset} time stamp carries the information when consumers latest have to stop using a feature.
+The sunset date should always offer an eligible time interval for switching to a replacement feature.
 
 [source,txt]
 ----
@@ -55,11 +41,9 @@ Deprecation: Tue, 31 Dec 2024 23:59:59 GMT
 Sunset: Wed, 31 Dec 2025 23:59:59 GMT
 ----
 
-If multiple elements are deprecated the {Deprecation} and {Sunset} headers are
-expected to be set to the earliest time stamp to reflect the shortest interval
-at which consumers are expected to get active. The {Deprecation} and {Sunset}
-headers can be defined as follows in the API specification (see also the
-default definition below):
+If multiple elements are deprecated the {Deprecation} and {Sunset} headers are expected to be set to the earliest time stamp to reflect the shortest interval at which consumers are expected to get active.
+The {Deprecation} and {Sunset}
+headers can be defined as follows in the API specification (see also the default definition below):
 
 [source,yaml]
 ----
@@ -77,28 +61,20 @@ include::../includes/deprecation.yaml[]
 include::../includes/sunset.yaml[lines=3..-1]
 ----
 
-*Note:* adding the {Deprecation} and {Sunset} header is not sufficient to gain
-client consent to shut down an API or feature.
+*Note:* adding the {Deprecation} and {Sunset} header is not sufficient to gain client consent to shut down an API or feature.
 
-*Hint:* In earlier guideline versions, we used the {Warning} header to provide
-the deprecation info to clients. However, {Warning} header has a less specific
-semantics, will be obsolete with
+*Hint:* In earlier guideline versions, we used the {Warning} header to provide the deprecation info to clients.
+However, {Warning} header has a less specific semantics, will be obsolete with
 https://tools.ietf.org/html/draft-ietf-httpbis-cache-06[draft: RFC HTTP
-Caching], and our syntax was not compliant with {RFC-9111}#section-5.5[RFC 9111
- Section 5.5 "Warning"].
-
+Caching], and our syntax was not compliant with {RFC-9111}#section-5.5[RFC 9111 Section 5.5 "Warning"].
 
 [#190]
 == {SHOULD} add monitoring for `Deprecation` and `Sunset` header
 
-Clients should monitor the {Deprecation} and {Sunset} headers in HTTP responses
-to get information about future sunset of APIs and API features (see <<189>>).
-We recommend that client owners build alerts on this monitoring information to
-ensure alignment with service owners on required migration task.
+Clients should monitor the {Deprecation} and {Sunset} headers in HTTP responses to get information about future sunset of APIs and API features (see <<189>>).
+We recommend that client owners build alerts on this monitoring information to ensure alignment with service owners on required migration task.
 
-*Hint:* In earlier guideline versions, we used the `Warning` header to provide
-the deprecation info (see hint in <<189>>).
-
+*Hint:* In earlier guideline versions, we used the `Warning` header to provide the deprecation info (see hint in <<189>>).
 
 [#191]
 == {MUST} not start using deprecated APIs
