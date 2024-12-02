@@ -1,177 +1,122 @@
 [[compatibility]]
 = REST Design - Compatibility
 
-
 [#106]
 == {MUST} not break backward compatibility
 
-Change APIs, but keep all consumers running. Consumers usually have independent
-release lifecycles, focus on stability, and avoid changes that do not provide
-additional value. APIs are contracts between service providers and service
-consumers that cannot be broken via unilateral decisions.
+Change APIs, but keep all consumers running.
+Consumers usually have independent release lifecycles, focus on stability, and avoid changes that do not provide additional value.
+APIs are contracts between service providers and service consumers that cannot be broken via unilateral decisions.
 
 There are two techniques to change APIs without breaking them:
 
 * follow rules for compatible extensions
-* introduce new API versions and still support older versions with 
-  https://opensource.zalando.com/restful-api-guidelines/#deprecation[deprecation]
+* introduce new API versions and still support older versions with
+https://opensource.zalando.com/restful-api-guidelines/#deprecation[deprecation]
 
-We strongly encourage using compatible API extensions and discourage versioning
-(see <<113>> and <<114>> below). The following guidelines for service providers
-(<<107>>) and consumers (<<108>>) enable us (having Postel’s Law in mind) to
-make compatible changes without versioning.
+We strongly encourage using compatible API extensions and discourage versioning (see <<113>> and <<114>> below).
+The following guidelines for service providers (<<107>>) and consumers (<<108>>) enable us (having Postel’s Law in mind) to make compatible changes without versioning.
 
 *Note:* There is a difference between incompatible and breaking changes.
-Incompatible changes are changes that are not covered by the compatibility
-rules below. Breaking changes are incompatible changes deployed into operation,
-and thereby breaking running API consumers. Usually, incompatible changes are
-breaking changes when deployed into operation. However, in specific controlled
-situations it is possible to deploy incompatible changes in a non-breaking way,
-if no API consumer is using the affected API aspects (see also <<deprecation,
-Deprecation>> guidelines).
+Incompatible changes are changes that are not covered by the compatibility rules below.
+Breaking changes are incompatible changes deployed into operation, and thereby breaking running API consumers.
+Usually, incompatible changes are breaking changes when deployed into operation.
+However, in specific controlled situations it is possible to deploy incompatible changes in a non-breaking way, if no API consumer is using the affected API aspects (see also <<deprecation, Deprecation>> guidelines).
 
-*Hint:* Please note that the compatibility guarantees are for the "on the wire"
-format. Binary or source compatibility of code generated from an API definition
-is not covered by these rules. If client implementations update their
-generation process to a new version of the API definition, it has to be
-expected that code changes are necessary.
-
+*Hint:* Please note that the compatibility guarantees are for the "on the wire" format.
+Binary or source compatibility of code generated from an API definition is not covered by these rules.
+If client implementations update their generation process to a new version of the API definition, it has to be expected that code changes are necessary.
 
 [#107]
 == {SHOULD} prefer compatible extensions
 
-API designers should apply the following rules to evolve RESTful APIs for
-services in a backward-compatible way:
+API designers should apply the following rules to evolve RESTful APIs for services in a backward-compatible way:
 
 * Add only optional, never mandatory fields.
-* Never change the semantic of fields (e.g. changing the semantic from
-  customer-number to customer-id, as both are different unique customer keys)
-* Input fields may have (complex) constraints being validated via server-side
-  business logic. Never change the validation logic to be more restrictive and
-  make sure that all constraints are clearly defined in description.
-* `enum` ranges can be reduced when used as input parameters, only if the server
-  is ready to accept and handle old range values too. The range can be reduced
-  when used as output parameters.
-* `enum` ranges cannot be extended when used for output parameters — clients may
-  not be prepared to handle it. However, enum ranges can be extended when used
-  for input parameters.
+* Never change the semantic of fields (e.g. changing the semantic from customer-number to customer-id, as both are different unique customer keys)
+* Input fields may have (complex) constraints being validated via server-side business logic.
+Never change the validation logic to be more restrictive and make sure that all constraints are clearly defined in description.
+* `enum` ranges can be reduced when used as input parameters, only if the server is ready to accept and handle old range values too.
+The range can be reduced when used as output parameters.
+* `enum` ranges cannot be extended when used for output parameters — clients may not be prepared to handle it.
+However, enum ranges can be extended when used for input parameters.
 * Consider <<250>> in case a URL has to change.
-
 
 [#109]
 == {SHOULD} design APIs conservatively
 
-Designers of service provider APIs should be conservative and accurate in what
-they accept from clients:
+Designers of service provider APIs should be conservative and accurate in what they accept from clients:
 
-* Be accurate in defining input data constraints (like formats, ranges, lengths
-  etc.) — and check constraints and return dedicated error information in case
-  of violations.
-* Prefer being more specific and restrictive (if compliant to functional
-  requirements), e.g. by defining length range of strings. It may simplify
-  implementation while providing freedom for further evolution as compatible
-  extensions.
+* Be accurate in defining input data constraints (like formats, ranges, lengths etc.) — and check constraints and return dedicated error information in case of violations.
+* Prefer being more specific and restrictive (if compliant to functional requirements), e.g. by defining length range of strings.
+It may simplify implementation while providing freedom for further evolution as compatible extensions.
 
 [#108]
 == {MUST} prepare clients to accept compatible API extensions
 
 Service clients should apply the robustness principle:
 
-* Be conservative with API requests and data passed as input, e.g. avoid to
-  exploit definition deficits like passing megabytes of strings with
-  unspecified maximum length.
-* Be tolerant in processing and reading data of API responses, more
-  specifically service clients must be prepared for compatible API extensions
-  of response data:
+* Be conservative with API requests and data passed as input, e.g. avoid to exploit definition deficits like passing megabytes of strings with unspecified maximum length.
+* Be tolerant in processing and reading data of API responses, more specifically service clients must be prepared for compatible API extensions of response data:
 
 ** Be tolerant with unknown fields in the payload (see also Fowler’s
-  http://martinfowler.com/bliki/TolerantReader.html["TolerantReader"] post),
-  i.e. ignore new fields but do not eliminate them from payload if needed for
-  subsequent {PUT} requests.
-** Be prepared to handle HTTP status codes not explicitly specified in endpoint
-  definitions. Note also, that status codes are extensible. Default handling is
-  how you would treat the corresponding {x00} code (see
-  {RFC-9110}#section-15[RFC 9110 Section 15]).
-** Follow the redirect when the server returns HTTP status code {301} (Moved
-  Permanently).
+http://martinfowler.com/bliki/TolerantReader.html["TolerantReader"] post), i.e. ignore new fields but do not eliminate them from payload if needed for subsequent {PUT} requests.
+** Be prepared to handle HTTP status codes not explicitly specified in endpoint definitions.
+Note also, that status codes are extensible.
+Default handling is how you would treat the corresponding {x00} code (see
+{RFC-9110}#section-15[RFC 9110 Section 15]).
+** Follow the redirect when the server returns HTTP status code {301} (Moved Permanently).
 
-The <<handling-compatible-extensions>> section describes a best practice to implement the requirements in Java. 
+The <<handling-compatible-extensions>> section describes a best practice to implement the requirements in Java.
 
 [#111]
 == {MUST} treat OpenAPI specification as open for extension by default
 
-The OpenAPI specification is not very specific on default extensibility
-of objects, and redefines JSON-Schema keywords related to extensibility, like
-`additionalProperties`. Following our compatibility guidelines, OpenAPI
-object definitions are considered open for extension by default as per
+The OpenAPI specification is not very specific on default extensibility of objects, and redefines JSON-Schema keywords related to extensibility, like
+`additionalProperties`.
+Following our compatibility guidelines, OpenAPI object definitions are considered open for extension by default as per
 http://json-schema.org/latest/json-schema-validation.html#rfc.section.5.18[Section
 5.18 "additionalProperties"] of JSON-Schema.
 
-When it comes to OpenAPI, this means an `additionalProperties` declaration
-is not required to make an object definition extensible:
+When it comes to OpenAPI, this means an `additionalProperties` declaration is not required to make an object definition extensible:
 
-* API clients consuming data must not assume that objects are closed for
-  extension in the absence of an `additionalProperties` declaration and must
-  ignore fields sent by the server they cannot process. This allows API
-  servers to evolve their data formats.
-* For API servers receiving unexpected data, the situation is slightly
-  different. According to <<109>>, instead of ignoring fields,
-  servers _should_ reject requests whose entities contain undefined fields
-  in order to signal to clients that those fields would not be stored on behalf
-  of the client.
-  Otherwise, if unexpected fields are planned to be handled in some way instead
-  of being rejected, API designers *must* document clearly how unexpected
-  fields are being handled for {PUT}, {POST}, and {PATCH} requests.
+* API clients consuming data must not assume that objects are closed for extension in the absence of an `additionalProperties` declaration and must ignore fields sent by the server they cannot process.
+This allows API servers to evolve their data formats.
+* For API servers receiving unexpected data, the situation is slightly different.
+According to <<109>>, instead of ignoring fields, servers _should_ reject requests whose entities contain undefined fields in order to signal to clients that those fields would not be stored on behalf of the client.
+Otherwise, if unexpected fields are planned to be handled in some way instead of being rejected, API designers *must* document clearly how unexpected fields are being handled for {PUT}, {POST}, and {PATCH} requests.
 
-API formats must not declare `additionalProperties` to be false, as this
-prevents objects being extended in the future.
+API formats must not declare `additionalProperties` to be false, as this prevents objects being extended in the future.
 
-Note that this guideline concentrates on default extensibility and does not
-exclude the use of `additionalProperties` with a schema as a value, which might
-be appropriate in some circumstances, e.g. see <<216>>.
-
+Note that this guideline concentrates on default extensibility and does not exclude the use of `additionalProperties` with a schema as a value, which might be appropriate in some circumstances, e.g. see <<216>>.
 
 [#113]
-== {TODO} {SHOULD} avoid versioning
+== {SHOULD} avoid versioning
 
-When changing your RESTful APIs, do so in a compatible way and avoid generating
-additional API versions. Multiple versions can significantly complicate
-understanding, testing, maintaining, evolving, operating and releasing our
-systems
-(http://martinfowler.com/articles/enterpriseREST.html[supplementary
+When changing your RESTful APIs, do so in a compatible way and avoid generating additional API versions.
+Multiple versions can significantly complicate understanding, testing, maintaining, evolving, operating and releasing our systems (http://martinfowler.com/articles/enterpriseREST.html[supplementary
 reading]).
 
-If changing an API can’t be done in a compatible way, then proceed in one of
-these three ways:
+If changing an API can’t be done in a compatible way (for NUPANO Suite this explicitly means versioning by media type - see <<114>>, then proceed in one of these three ways **after** consulting with your peers:
 
-* create a new resource (variant) in addition to the old resource variant
-* create a new service endpoint — i.e. a new application with a new API (with a
-  new domain name)
-* create a new API version supported in parallel with the old API by the same
-  microservice
+* create a new, more appropriate resource in addition to the old resource
+* create a new service endpoint — i.e. a new application with a new API (with a new domain name)
+* create a new API version supported in parallel with the old API by the same microservice
 
-As we discourage versioning by all means because of the manifold disadvantages,
-we strongly recommend to only use the first two approaches.
-
+As we discourage versioning by all means because of the manifold disadvantages, we strongly recommend to only use the first two approaches.
 
 [#114]
-== {TODO} {MUST} use media type versioning
+== {MUST} use media type versioning
 
-However, when API versioning is unavoidable, you have to design your
-multi-version RESTful APIs using media type versioning (see <<115>>).
-Media type versioning is less tightly coupled since
-it supports content negotiation and hence reduces complexity of release
-management.
+However, when API versioning is unavoidable, you have to design your multi-version RESTful APIs using media type versioning (see <<115>>).
+Media type versioning is less tightly coupled since it supports content negotiation and hence reduces complexity of release management.
 
-Version information and media type are provided
-together via the HTTP `Content-Type` header — e.g.
-`application/x.nupano.app+json;version=2`. For incompatible changes, a new
-media type version for the resource is created. To generate the new
-representation version, consumer and producer can do <<244, content negotiation>> using
-the HTTP `Content-Type` and `Accept` headers.
+Version information and media type are provided together via the HTTP `Content-Type` header — e.g.
+`application/vnd.nupano.app+json;version=2;flavour=vanilla`.
+For incompatible changes, a new media type version for the resource is created.
+To generate the new representation version, consumer and producer can do <<244, content negotiation>> using the HTTP `Content-Type` and `Accept` headers.
 
-NOTE: This versioning method only applies to
-the request and response payload schema, not to URI or method semantics.
+NOTE: This versioning method only applies to the request and response payload schema, not to URI or method semantics.
 
 === Custom media type format
 
@@ -179,11 +124,23 @@ Custom media type format should have the following pattern:
 
 [source,http]
 ----
-application/x.<custom-media-type>+json;version=<version>
+application/vnd.<resource-name>.<sub-resource-name>+json;version=<version>;flavour=<flavour>
 ----
 
-* `<custom-media-type>` is a custom type name, e.g. `x.zalando.cart`
+* `<resource-name>` is the name of the resource that is represented in the request/response body, e.g. `app`, `machine` or `organization` - always lowercase, singular
 * `<version>` is a (sequence) number, e.g. `2`
+* `<flavour>` is a non-describing name for the type or representation, see below for more details
+
+=== Flavours
+
+In addition to using custom content types for versioning, we use them to offer options for data representation to users of our APIs.
+In accordance to our (mostly UI driven) use-cases we want to be able to use the same API to retrieve a list of resources with all possible details as well as the same list, but with only the basic attributes needed for any given use case (think large list of machines, but only the name is shown or same list of machines but we are also interested in the number of installed apps, components or tickets).
+
+However we do not want to bind representations of our models to exactly one use-case, hence we must avoid naming the flavours in accordance to the first use-case that warrants their existence.
+Example: the model that is used in the app inventory to show machines including their apps should not be called `machine-list-app-inventory`.
+This leads us to the introduction of generic flavours where the name solely exists to identify the representation itself, and not its use case.
+
+Flavours can have any name you seem fit, but they should follow the same theme within the same service (e.g ice cream flavours for machine models, star wars planets for ticket models, colors for organization models).
 
 === Example
 
@@ -191,61 +148,53 @@ In this example, a client wants only the new version of the response:
 
 [source,http]
 ----
-Accept: application/x.nupano.app+json;version=2
+Accept: application/vnd.nupano.app+json;version=2
 ----
 
-A server responding to this, as well as a client sending a request with content
-should use the `Content-Type` header, declaring that one is sending the new
-version:
+A server responding to this, as well as a client sending a request with content should use the `Content-Type` header, declaring that one is sending the new version:
 
 [source,http]
 ----
-Content-Type: application/x.nupano.app+json;version=2
+Content-Type: application/vnd.nupano.app+json;version=2
 ----
 
 Media type versioning should...
 
-* Use a custom media type, e.g. `application/x.nupano.app+json`
+* Use a custom media type, e.g. `application/vnd.nupano.app+json`
 * Include media type versions in request and response headers to increase visibility
-* Include `Content-Type` in the `Vary` header to enable proxy caches to differ
-  between versions
+* Include `Content-Type` in the `Vary` header to enable proxy caches to differ between versions
+* Include a `version` property as part of the media type, e.g `version=1`
+* (Optional) Include a `flavour` property to allow control of the granularity of the response model
 
 [source,http]
 ----
 Vary: Content-Type
 ----
 
-NOTE: Until an incompatible change is necessary, it is recommended to stay
-with the standard `application/json` media type without versioning.
+NOTE: Every endpoint has to always accept the `application/json` media type without versioning - however we cannot guarantee that the response will be stable forever, we always return the latest version of the content type in the flavour that returns the most data.
 
 Further reading:
 https://apisyouwonthate.com/blog/api-versioning-has-no-right-way[API
-Versioning Has No "Right Way"] provides an overview on different versioning
-approaches to handle breaking changes without being opinionated.
-
+Versioning Has No "Right Way"] provides an overview on different versioning approaches to handle breaking changes without being opinionated.
 
 [#115]
 == {MUST} not use URL versioning
 
 With URL versioning a (major) version number is included in the path, e.g.
-`/v1/customers`. The consumer has to wait until the provider has been released
-and deployed. If the consumer also supports hypermedia links — even in their
-APIs — to drive workflows (HATEOAS), this quickly becomes complex. So does
-coordinating version upgrades — especially with hyperlinked service
-dependencies — when using URL versioning. To avoid this tighter coupling and
-complexer release management we do not use URL versioning, instead we <<114>>
+`/v1/customers`.
+The consumer has to wait until the provider has been released and deployed.
+If the consumer also supports hypermedia links — even in their APIs — to drive workflows (HATEOAS), this quickly becomes complex.
+So does coordinating version upgrades — especially with hyperlinked service dependencies — when using URL versioning.
+To avoid this tighter coupling and complexer release management we do not use URL versioning, instead we <<114>>
 with content negotiation.
-
 
 [#110]
 == {MUST} always return JSON objects as top-level data structures
 
-In a response body, you must always return a JSON object (and not e.g. an
-array) as a top level data structure to support future extensibility. JSON
-objects support compatible extension by additional attributes. This allows you
-to easily extend your response and e.g. add pagination later, without breaking
-backwards compatibility. See <<161>> for an example.
+In a response body, you must always return a JSON object (and not e.g. an array) as a top level data structure to support future extensibility.
+JSON objects support compatible extension by additional attributes.
+This allows you to easily extend your response and e.g. add pagination later, without breaking backwards compatibility.
+See <<161>> for an example.
 
-Maps (see <<216>>), even though technically objects, are also forbidden as top
-level data structures, since they don't support compatible, future extensions.
+Maps (see <<216>>), even though technically objects, are also forbidden as top level data structures, since they don't support compatible, future extensions.
 
