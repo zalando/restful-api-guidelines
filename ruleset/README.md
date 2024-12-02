@@ -45,7 +45,7 @@ npx @stoplight/spectral-cli lint --ruleset <path to nupano.yml> example/example-
 | [#118a][#118a] | [MUST property names must be ASCII camelCase: `^[a-z]+((\d)([A-Z0-9][a-z0-9]+))*([A-Z])?$`][#118a]   | - | A |
 | [#120][#120]   | [SHOULD pluralize array names][#120]                                                                 | - | B |
 | [#122][#122]   | [MUST not use `null` for boolean properties][#122]                                                   | :grey_exclamation: | - |
-| [#123][#123]   | [MUST use same semantics for `null` and absent properties][#123]                                     | :grey_exclamation: | - |
+<!-- | [#123][#123]   | [MUST use same semantics for `null` and absent properties][#123]                                     | :grey_exclamation: | - | -->
 | [#124][#124]   | [SHOULD not use `null` for empty arrays][#124]                                                       | :grey_exclamation: | - |
 | [#125][#125]   | [SHOULD represent enumerations as strings][#125]                                                     | - | ? |
 | [#126][#126]   | [SHOULD define dates properties compliant with RFC 3339][#126]                                       | - | ? |
@@ -177,7 +177,7 @@ npx @stoplight/spectral-cli lint --ruleset <path to nupano.yml> example/example-
 [#118a]: ./doc/rules/property-names-must-be-ascii-camel-case.md
 [#120]: https://opensource.zalando.com/restful-api-guidelines/#120
 [#122]: https://opensource.zalando.com/restful-api-guidelines/#122
-[#123]: https://opensource.zalando.com/restful-api-guidelines/#123
+<!-- [#123]: https://opensource.zalando.com/restful-api-guidelines/#123 -->
 [#124]: https://opensource.zalando.com/restful-api-guidelines/#124
 [#125]: https://opensource.zalando.com/restful-api-guidelines/#125
 [#126]: https://opensource.zalando.com/restful-api-guidelines/#126
