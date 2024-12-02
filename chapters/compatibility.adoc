@@ -99,7 +99,7 @@ reading]).
 
 If changing an API can’t be done in a compatible way (for NUPANO Suite this explicitly means versioning by media type - see <<114>>, then proceed in one of these three ways **after** consulting with your peers:
 
-* create a new resource (variant) in addition to the old resource variant
+* create a new, more appropriate resource in addition to the old resource
 * create a new service endpoint — i.e. a new application with a new API (with a new domain name)
 * create a new API version supported in parallel with the old API by the same microservice
 
@@ -112,7 +112,7 @@ However, when API versioning is unavoidable, you have to design your multi-versi
 Media type versioning is less tightly coupled since it supports content negotiation and hence reduces complexity of release management.
 
 Version information and media type are provided together via the HTTP `Content-Type` header — e.g.
-`application/vnp.nupano.app+json;version=2;flavour=vanilla`.
+`application/vnd.nupano.app+json;version=2;flavour=vanilla`.
 For incompatible changes, a new media type version for the resource is created.
 To generate the new representation version, consumer and producer can do <<244, content negotiation>> using the HTTP `Content-Type` and `Accept` headers.
 
@@ -129,7 +129,7 @@ application/vnd.<resource-name>.<sub-resource-name>+json;version=<version>;flavo
 
 * `<resource-name>` is the name of the resource that is represented in the request/response body, e.g. `app`, `machine` or `organization` - always lowercase, singular
 * `<version>` is a (sequence) number, e.g. `2`
-* `<flavour>` is a non-describing name for the type or representations, see below for more details
+* `<flavour>` is a non-describing name for the type or representation, see below for more details
 
 === Flavours
 

@@ -204,32 +204,34 @@ It is strongly discouraged to add query options for attributes or filters that a
 Instead of using an attribute name as a query parameter and offering semantic options for specifying the filter to apply (e.g `count=gt:10` or `users=lt:100`) we aim to be specific by accurately naming the parameters and what their effect might be.
 
 Consider these points in particular when designing your query parameters:
-* no additional effort/logic to form the query * no ambiguity in meaning of the query parameters.
-For example in `GET /items?user_id=gt:100`, is `user_id` greater than `100` or is `user_id` equal to `gt:100`?
+
+* no additional effort/logic to form the query
+* no ambiguity in meaning of the query parameters:
+For example in `GET /items?userId=gt:100`, is `userId` greater than `100` or is `userId` equal to `gt:100`?
 * easy to read, no learning curve
 
 The following examples should serve as ideas for simple query language:
 
 === Equals
 
-* `name=NUPANO`, `creation_year=2023`, `updated_by=user1` (query elements based on property equality)
-* `created_at=2023-09-18T12:12:00.000Z`, `age=18` (query elements based on logical properties)
+* `name=NUPANO`, `creationYear=2023`, `updatedBy=user1` (query elements based on property equality)
+* `createdAt=2023-09-18T12:12:00.000Z`, `age=18` (query elements based on logical properties)
 * `color=red,green,blue,multicolored` (query elements based on multiple choice possibility)
 
 === Less than
 
-* `max_length=5` -- query elements based on upper/lower bounds (`min` and `max`)
-* `shorter_than=5` -- query elements using terminology specific e.g. to _length_
-* `price_lower_than=50` or `price_lower_than_or_equal=50`
-* `created_before=2019-07-17` or `active_until=2023-09-18T12:12:00.000Z`
+* `maxLength=5` -- query elements based on upper/lower bounds (`min` and `max`)
+* `shorterThan=5` -- query elements using terminology specific e.g. to _length_
+* `priceLowerThan=50` or `priceLowerThanOrEqual=50`
+* `createdBefore=2019-07-17` or `activeUntil=2023-09-18T12:12:00.000Z`
 ** Using terminology specific to time: _before_, _after_, _since_ and _until_
 
 === More than
 
-* `min_length=2` -- query elements based on upper/lower bounds (`min` and `max`)
-* `created_after=2019-07-17` or `modified_since=2019-07-17`
+* `minLength=2` -- query elements based on upper/lower bounds (`min` and `max`)
+* `createdAfter=2019-07-17` or `modifiedSince=2019-07-17`
 ** Using terminology specific to time: _before_, _after_, _since_ and _until_
-* `price_higher_than=50` or `price_equal_or_higher_than=50`
+* `priceHigherThan=50` or `priceEqualOrHigherThan=50`
 
 [#226]
 == {MUST} document implicit response filtering

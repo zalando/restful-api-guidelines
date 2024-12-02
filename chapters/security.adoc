@@ -65,7 +65,7 @@ If your API introduces a new entity, the following convention is to be upheld:
 
 [source,bnf]
 -----
-<resource ID>         ::= [resource-name]                    -- e.g machine, organization, app - lowercase and singular
+<resource ID>         ::= [resource-name]                    -- e.g machines, organizations, apps - lowercase and plural
 <access-type>         ::= create | read | update | delete    -- might be extended in future - lowercase
 -----
 
