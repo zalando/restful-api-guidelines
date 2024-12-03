@@ -3,14 +3,17 @@
 
 Guidelines for naming and designing resource paths and query parameters.
 
-[#135]
-== {TODO} {SHOULD} not use /api as base path
+[#135-NUP]
+== {MUST} use a dedicated hostname for API services
 
 In most cases, all resources provided by a service are part of the public API, and therefore should be made available under the root "/" base path.
+However since we want to use similar domains for Frontends and their corresponding API service, we opt for using dedicated hostnames, e.g
+`machines.nupanosuite.lenze.com` and `api.machines.nupanosuite.lenze.com`
 
 If the service should also support non-public, internal APIs — for specific operational support functions, for example — we encourage you to maintain two different API specifications and provide
 <<219, API audience>>.
-For both APIs, you should not use `/api` as base path.
+
+**For both APIs, you should not use `/api` as base path.**
 
 We see API's base path as a part of deployment variant configuration.
 Therefore, this information has to be declared in the
