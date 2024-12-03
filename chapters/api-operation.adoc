@@ -2,24 +2,17 @@
 = REST Operation
 
 [#192]
-== {TODO} {MUST} publish OpenAPI specification
+== {MUST} publish OpenAPI specification
 
 All service applications must publish OpenAPI specifications of their external APIs.
-While this is optional for internal APIs, i.e. APIs marked with the
-*component-internal* <<219, API audience>> group, we still recommend to do so to profit from the API management infrastructure.
+This is done by an dedicated service which provides *all* OpenAPI specifications and a nice UI to browse them.
 
-An API is published by copying its *OpenAPI specification* into the reserved
-*/zalando-apis* directory of the *deployment artifact* used to deploy the provisioning service.
-The directory must only contain *self-contained YAML*
-*files* that each describe one API (exception see <<234>>).
-We prefer this deployment artifact-based method over the past (now legacy)
-`.well-known/schema-discovery` service endpoint-based publishing process, that we only support for backward compatibility reasons.
+The development and release process is similar to other services. The content is located in a dedicated
+repository (api-docs) and its build process produces a docker container which is published as all other services
+in our infrastructure. The api-docs are available via "https://api-docs.nupano.com".
 
-Background: In our dynamic and complex service infrastructure, it is important to provide API client developers a central place with online access to the API specifications of all running applications.
-As a part of the infrastructure, the API publishing process is used to detect API specifications.
-The findings are published in the API Portal - the universal hub for all Zalando APIs.
+*Note*: Currently no code generation based the specs is in scope, neither for frond nor back end.
 
-*Note:* To publish an API, it is still necessary to deploy the artifact successful, as we focus the discovery experience on APIs supported by running services.
 
 [#193]
 == {MUST} monitor API usage
