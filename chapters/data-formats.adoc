@@ -120,7 +120,7 @@ which avoids misinterpretations and eliminates the need of an additional context
 
 
 [#127]
-== {TODO} {SHOULD} use standard formats for time duration and interval properties
+== {SHOULD} use standard formats for time duration and interval properties
 
 Properties and that are by design durations and time intervals should be
 represented as strings formatted as defined by {ISO-8601}[ISO 8601]
@@ -149,9 +149,9 @@ that are very convenient in searches and are included in the below
    period            = period-explicit / period-start / period-end
 ----
 
-A time interval query parameter should use `<time-property>_between` instead
-of the parameter pair `<time-property>_before`/`<time-property>_after`, while
-properties providing a time interval should be named `<time-property>_interval`.
+A time interval query parameter should use `<timeProperty>Between` instead
+of the parameter pair `<timeProperty>Before`/`<timeProperty>After`, while
+properties providing a time interval should be named `<timeProperty>Interval`.
 
 
 [#128]
