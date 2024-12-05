@@ -1,0 +1,42 @@
+name: Deploy to GitHub Pages
+
+on:
+  workflow_run:
+    workflows:
+      - 'Build'
+    types:
+      - completed
+    branches:
+      - gh-pages
+
+permissions:
+  contents: read
+  id-token: write
+  pages: write
+
+concurrency:
+  group: 'gh-pages'
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-22.04
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/configure-pages@v5
+
+      - run: make html
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: './output/'
+      
+      - uses: actions/deploy-pages@v4
+        id: deployment
