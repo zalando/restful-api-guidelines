@@ -55,12 +55,6 @@ components:
       $ref: 'https://opensource.zalando.com/restful-api-guidelines/models/headers-1.0.0.yaml#/Sunset'
 ----
 
-[source,yaml]
-----
-include::../includes/deprecation.yaml[]
-include::../includes/sunset.yaml[lines=3..-1]
-----
-
 *Note:* adding the {Deprecation} and {Sunset} header is not sufficient to gain client consent to shut down an API or feature.
 
 *Hint:* In earlier guideline versions, we used the {Warning} header to provide the deprecation info to clients.

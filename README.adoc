@@ -14,7 +14,7 @@ and adapt them four NUPANO needs. Mainly this means only small renamings and  ad
 
 == Usage
 
-See link:BUILD.adoc[BUILD documentation] for technical details.
+See link:BUILD.md[BUILD documentation] for technical details.
 
 == License
 

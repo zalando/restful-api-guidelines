@@ -34,12 +34,6 @@ components:
       $ref: 'https://opensource.zalando.com/restful-api-guidelines/models/headers-1.0.0.yaml#/Content-Encoding'
 ----
 
-[source,yaml]
-----
-include::../includes/accept-encoding.yaml[]
-include::../includes/content-encoding.yaml[line=3..-1]
-----
-
 *Note:* since most server and client frameworks still **do not** support
 `gzip`-compression *out-of-the-box* you need to manually activate it, e.g.
 https://www.callicoder.com/configuring-spring-boot-application/#enabling-gzip-compression-in-spring-boot[Spring Boot],
