@@ -74,8 +74,8 @@ Examples are:
 [cols="25%,20%,15%,40%",options="header",]
 |===
 |Resource ID      | Access Type | Example      |
-|machine          | read        | machine:read |
-|organization     | create      | organization:create |
+|machine          | read        | machines:read |
+|organization     | create      | organizations:create |
 |===
 
 *Note:* APIs should stick to component specific permissions without resource extension to avoid the complexity of too many fine grained permissions.

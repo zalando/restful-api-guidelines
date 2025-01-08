@@ -1,6 +1,8 @@
 [[pagination]]
 = REST Design - Pagination
 
-We explicitly don't use pagination. Instead resource collections are controllable using predefined content-types
-to transport only required data for particular use cases.
+We explicitly don't use pagination.
+Instead resource collections are controllable using predefined content-types to transport only required data for particular use cases.
 Based on content type backend services collect required data like app details, or org names and may cache them internally to provide data without additional requests in UI if required.
+
+If, at a later point in time, we are facing performance issues or encounter other problems that might be alleviated or solved by pagination, we will reconsider this decision.

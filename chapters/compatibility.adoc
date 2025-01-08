@@ -67,8 +67,6 @@ Default handling is how you would treat the corresponding {x00} code (see
 {RFC-9110}#section-15[RFC 9110 Section 15]).
 ** Follow the redirect when the server returns HTTP status code {301} (Moved Permanently).
 
-The <<handling-compatible-extensions>> section describes a best practice to implement the requirements in Java.
-
 [#111]
 == {MUST} treat OpenAPI specification as open for extension by default
 

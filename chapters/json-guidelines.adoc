@@ -105,8 +105,8 @@ This implies in turn that object names should be singular.
 [#118]
 == {MUST} property names must be camelCase (and never snake_case)
 
-Property names are restricted to ASCII snake_case strings matching regex `^[a-z_][a-z_0-9]*$`.
-The first character must be a lower case letter, or an underscore, and subsequent characters can be a letter, an underscore, or a number.
+Property names are restricted to ASCII camelCase strings matching regex `^[a-z]+([A-Z][a-z0-9]+)+`.
+The first character must be a lower case letter and subsequent characters can be a letter, an underscore, or a number.
 
 Examples:
 
@@ -187,12 +187,10 @@ An actual JSON object described by this might then look like this:
 }
 ```
 
-
 [#123-nup]
 == {MUST} use `undefined` for absent and nullable properties (never `null` or empty value)
 
-OpenAPI 3.x allows to mark properties as `required` and as `nullable` to
-specify whether properties may be absent (`{}`) or `null` (`{"example":null}`).
+OpenAPI 3.x allows to mark properties as `required` and as `nullable` to specify whether properties may be absent (`{}`) or `null` (`{"example":null}`).
 To avoid confusion between the semantics we only use `required` in our APIs, never `nullable`.
 
 `null` may still be used to store absent values in databases.
@@ -211,16 +209,13 @@ Moreover, many major libraries have somewhere between little to no support for a
 https://stackoverflow.com/questions/48465005/gson-distinguish-null-value-field-and-missing-field[Gson],
 https://github.com/square/moshi#borrows-from-gson[Moshi],
 https://github.com/FasterXML/jackson-databind/issues/578[Jackson],
-https://developer.ibm.com/articles/j-javaee8-json-binding-3/[JSON-B]). Especially
-strongly-typed languages suffer from this since a new composite type is required
-to express the third state. Nullable `Option`/`Optional`/`Maybe` types could be
-used but having nullable references of these types completely contradicts their
-purpose.
+https://developer.ibm.com/articles/j-javaee8-json-binding-3/[JSON-B]).
+Especially strongly-typed languages suffer from this since a new composite type is required to express the third state.
+Nullable `Option`/`Optional`/`Maybe` types could be used but having nullable references of these types completely contradicts their purpose.
 
 The situation is similar in the frontend:
 At worst, TypeScript developers will need to distinguish between `null`, `undefined`, & _not defined_.
 In line with https://github.com/sindresorhus/meta/discussions/7[this suggestion], we favor pragmatism over semantics here.
-
 
 [#122]
 == {MUST} not use `null` for boolean properties
