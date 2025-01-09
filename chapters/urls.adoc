@@ -228,11 +228,11 @@ See also <<118>>.
 
 **If** your service covers use cases that require it to provide query support for searching, sorting, filtering, and paginating, you must stick to the following naming conventions:
 
+* [[q]]{q}: default query parameter, e.g. used by browser tab completion; should have an entity specific alias, e.g. sku.
 * [[sort]]{sort}: comma-separated list of fields (as defined by <<154>>) to define the sort order.
 To indicate sorting direction, fields may be prefixed with `+` (ascending) or `-` (descending), e.g. /sales-orders?sort=+id.
 * [[offset]]{offset}: numeric offset of the first element provided on a page representing a collection request.
 See <<pagination>> section below.
-<<cursor-based-pagination>> or <<pagination>> section below.
 * [[limit]]{limit}: client suggested limit to restrict the number of entries on a page.
 See <<pagination>> section below.
 

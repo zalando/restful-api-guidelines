@@ -106,7 +106,7 @@ This implies in turn that object names should be singular.
 == {MUST} property names must be camelCase (and never snake_case)
 
 Property names are restricted to ASCII camelCase strings matching regex `^[a-z]+([A-Z][a-z0-9]+)+`.
-The first character must be a lower case letter and subsequent characters can be a letter, an underscore, or a number.
+The first character must be a lower case letter and subsequent characters can be a letter or a number.
 
 Examples:
 
