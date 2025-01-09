@@ -1,13 +1,17 @@
-name: Build
+name: Build AsciiDoc
 
-on:
-  pull_request:
-  push:
+on: [ push, pull_request ]
 
 jobs:
   build:
-    name: Build
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - run: make html
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v1
+
+      - name: Build AsciiDoc
+        run: docker run --interactive --volume=${{ github.workspace }}:/documents/ asciidoctor/docker-asciidoctor:latest asciidoctor -D /documents/output index.adoc
