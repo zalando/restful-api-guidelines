@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   workflow_run:
     workflows:
-      - 'Build'
+      - 'Build AsciiDoc'
     types:
       - completed
     branches:
@@ -30,9 +30,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
-      - run: make html
-      - uses: actions/upload-pages-artifact@v3
+      - name: Download artifact
+        uses: actions/download-artifact@v2
         with:
-          path: './output/'
+          name: asciidoc-output
       - uses: actions/deploy-pages@v4
         id: deployment

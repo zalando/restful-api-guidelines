@@ -15,3 +15,8 @@ jobs:
 
       - name: Build AsciiDoc
         run: docker run --interactive --volume=${{ github.workspace }}:/documents/ asciidoctor/docker-asciidoctor:latest asciidoctor -D /documents/output index.adoc
+      - name: Upload output
+        uses: actions/upload-artifact@v2
+        with:
+          name: html-output
+          path: output/
