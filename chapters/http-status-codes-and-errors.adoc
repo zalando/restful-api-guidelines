@@ -398,8 +398,8 @@ May be documented on endpoints that are planned to be implemented in the
 future to indicate that they are still not available.
 
 [[status-code-502]]
-==== 502 Bad Gateway {rfc-status-502} {ALL}
-[.indent]is meaningless
+==== 502 Bad Gateway {rfc-status-502} {use} {do-not-document} {ALL}
+[.indent]
 The server, while acting as a gateway or proxy, received an invalid response
 from an inbound server attempting to fulfill the request. May be used by a
 server to indicate that an inbound service is creating an unexpected result
@@ -415,7 +415,7 @@ exponential back off pattern. If possible, the service should indicate how long
 the client should wait by setting the {Retry-After} header.
 
 [[status-code-504]]
-==== 504 Gateway Timeout {rfc-status-504} {use} {ALL}
+==== 504 Gateway Timeout {rfc-status-504} {use} {do-not-document} {ALL}
 [.indent]
 The server, while acting as a gateway or proxy, did not receive a timely
 response. May be used by servers to indicate that an inbound service cannot
