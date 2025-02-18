@@ -136,7 +136,7 @@ Prefer:
       and report error conditions or lenient, i.e. robust and try to continue,
       if possible.
 
-    See [RFC 7340][rfc-7240] as well as [API Guideline Rule #181][api-181]
+    See [RFC 7240][rfc-7240] as well as [API Guideline Rule #181][api-181]
     for further details.
 
     [rfc-7240]: <https://tools.ietf.org/html/rfc7240>
