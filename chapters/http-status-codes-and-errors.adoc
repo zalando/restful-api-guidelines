@@ -9,15 +9,12 @@ You must only use official HTTP status codes consistently with their intended
 semantics. Official HTTP status codes are defined via RFC standards and
 registered in the
 https://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml[IANA
-Status Code Registry]. Main RFC standards are {RFC-7231}#section-6[RFC7231 -
-HTTP/1.1: Semantics] (or {RFC-7235}#page-6[RFC7235 - HTTP/1.1: Authentication])
-and {RFC-6585}[RFC 6585 - HTTP: Additional Status Codes] (and there are
-upcoming new ones, e.g.
-https://tools.ietf.org/html/draft-tbray-http-legally-restricted-status-05[draft
-legally-restricted-status]). An overview on the official error codes provides
-https://en.wikipedia.org/wiki/List_of_HTTP_status_codes[Wikipedia: HTTP status
-codes] (which also lists some unofficial status codes, e.g. defined by popular
-web servers like Nginx, that we do not suggest to use).
+Status Code Registry]. Main RFC standards are {RFC-9110}#name-status-codes[RFC 9110 -
+HTTP Semantics, section 15: Status Codes] and
+{RFC-6585}[RFC 6585 - HTTP: Additional Status Codes].
+https://en.wikipedia.org/wiki/List_of_HTTP_status_codes[Wikipedia: HTTP status codes]
+provides an overview on the official error codes (which also lists some unofficial
+status codes, e.g. defined by popular web servers like Nginx, that we do not suggest to use).
 
 
 [#151]
