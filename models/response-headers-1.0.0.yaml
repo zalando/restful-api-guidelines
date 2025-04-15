@@ -11,8 +11,8 @@ Cache-Control:
     The `Cache-Control` header field is providing directives to control how
     proxies and clients are allowed to cache responses results for performance.
     Clients and proxies are free to not support caching of results, however if
-    they do, they must obey all directives mentioned in [RFC-7234 Section
-    5.2.2](https://tools.ietf.org/html/rfc7234) to the word.
+    they do, they must obey all directives mentioned in [RFC-9111 Section
+    5.2.2](https://datatracker.ietf.org/doc/html/rfc9111#name-response-directives) to the word.
 
     In case of caching, the directive provides the scope of the cache entry,
     i.e. only for the original user (private) or shared between all users
@@ -33,7 +33,8 @@ Vary:
     request target path, might have influence the server in selecting the
     presented response. A client or proxy that caches the response must respect
     this information to ensure that it delivers the correct cache entry (see
-    [RFC-7231 Section 7.1.4](https://tools.ietf.org/html/rfc7231#section-7.1.4)).
+    [RFC 9110 Section 12.5.5. Vary](https://datatracker.ietf.org/doc/html/rfc9110#name-vary)
+    and [RFC 9111 Section 4.1 Calculating Cache Keys with the Vary Header Field](https://datatracker.ietf.org/doc/html/rfc9111#name-calculating-cache-keys-with)).
 
     The value consists of either a single asterisk (`*`) or a list of
     case-insensitive header field names.
@@ -52,8 +53,9 @@ ETag:
     resource changes, and thereby enabling optimistic updates.
 
     An identifier consists of an opaque quoted string, possibly prefixed by
-    a weakness indicator. For further details see [RFC 7232 Section
-    2.3](https://tools.ietf.org/html/rfc7232#section-2.3).
+    a weakness indicator. For further details see [RFC 9110 Section
+    8.8.3. ETag](https://datatracker.ietf.org/doc/html/rfc9110#name-etag) and
+    [RFC 9111 Section 4.3.1 Sending a Validation Request](https://datatracker.ietf.org/doc/html/rfc9111#name-sending-a-validation-reques)
   schema:
     type: string
     example: 'W/"xy", "5", "5db68c06-1a68-11e9-8341-68f728c1ba70"''
