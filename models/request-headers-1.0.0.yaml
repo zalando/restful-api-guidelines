@@ -17,8 +17,9 @@ If-Match:
     outdated on arrival of the change request to prevent lost updates.
 
     If the pre-condition fails the server will respond with status code `412`
-    (Precondition Failed). For further details see [RFC 7232 Section
-    3.1](https://tools.ietf.org/html/rfc7232#section-3.1).
+    (Precondition Failed). For further details see [RFC 9110 Section
+    13.1.1. If-Match](https://datatracker.ietf.org/doc/html/rfc9110#name-if-match)
+    and [RFC 9111 Section 4.3.1 Sending a Validation Request](https://datatracker.ietf.org/doc/html/rfc9111#name-sending-a-validation-reques).
   schema:
     type: array
     items:
@@ -40,8 +41,9 @@ If-None-Match:
     of a resource. Other use cases are possible but rare.
 
     If the pre-condition fails the server will respond with status code `412`
-    (Precondition Failed). For further details see [RFC 7232 Section
-    3.2](https://tools.ietf.org/html/rfc7232#section-3.2) for further details.
+    (Precondition Failed). For further details see [RFC 9110 Section
+    13.1.2](https://datatracker.ietf.org/doc/html/rfc9110#name-if-none-match)
+    and [RFC 9111 Section 4.3.1 Sending a Validation Request](https://datatracker.ietf.org/doc/html/rfc9111#name-sending-a-validation-reques).
   schema:
     type: array
     items:
