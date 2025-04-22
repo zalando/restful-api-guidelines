@@ -22,7 +22,12 @@ So such changes generally will be suggested by Zalando employees.
 Feel free to open an issue first outlining the need, or (if you are an employee) contact us in our
 internal #guild-api chat, or come to one of our bi-weekly meetings to discuss this.
 
-After we have some general alignment on what kind of rule (change) we want, someone will be assigned to write a PR. We welcome volunteers.
+After we have some general alignment on what kind of rule (change) we want,
+someone will be assigned to write a PR. We welcome volunteers (please note
+in your issue that you volunteer, if you can't be in the meeting).
+
+You may also directly create a PR, but to avoid spending time on big changes
+which won't be accepted, we recommend to start with an issue.
 
 == How to Contribute?
 
