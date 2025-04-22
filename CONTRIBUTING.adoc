@@ -15,7 +15,7 @@ If you see something wrong, but don't know how to fix it, please open an issue.
 For major changes to an existing rule (or adding a new rule), a discussion
 and decision by Zalando's API guild is needed.
 
-For this, we generally only consider arguments which are relevant to Zalando's
+For this, we generally only consider arguments which also apply to Zalando's
 situation, as these are Zalando's guidelines, not generic guidelines for everyone.
 
 So such changes generally will be suggested by Zalando employees.
