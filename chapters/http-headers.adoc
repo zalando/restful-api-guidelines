@@ -409,7 +409,7 @@ request or response. Hop-by-hop headers, on the contrary, are meaningful for a
 single connection only.] and must be propagated to the services down the call
 chain. The header names and values must remain unchanged.
 
-The values of custom headers can influence query results (e.g. {X‑Device‑Type} can 
+The values of custom headers can influence query results (e.g. {X-Device-Type} can
 affect recommendation results by conveying device‑type information).
 
 Sometimes the value of a proprietary header will be used as part of the entity
