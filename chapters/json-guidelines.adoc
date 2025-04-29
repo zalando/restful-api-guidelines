@@ -136,13 +136,15 @@ as if it came from the same hand.
 
 Enumerations should be represented as `string` typed OpenAPI definitions of
 request parameters or model properties.
-Enum values (using `enum` or {x-extensible-enum}) need to consistently use
-the upper-snake case format, e.g. `VALUE` or `YET_ANOTHER_VALUE`.
-This approach allows to clearly distinguish values from properties or other elements.
+Enum values (using `enum`, {x-extensible-enum} or extensible enums using `examples`)
+need to consistently use the upper-snake case format, e.g. `VALUE`
+or `YET_ANOTHER_VALUE`.
+This approach allows to clearly distinguish enum values from properties or
+other elements.
 
 **Exception:** This rule does not apply for case sensitive values sourced from outside
-API definition scope, e.g. for language codes from {ISO-639-1}[ISO 639-1], or when
-declaring possible values for a <<137,rule 137>> [`sort` parameter].
+of the API definition scope, e.g. for language codes from {ISO-639-1}[ISO 639-1],
+or when declaring possible values for a <<137,rule 137>> [`sort` parameter].
 
 
 [#235]
