@@ -18,7 +18,7 @@ and decision by Zalando's API guild is needed.
 For this, we generally only consider arguments which also apply to Zalando's
 situation, as these are Zalando's guidelines, not generic guidelines for everyone.
 
-So such changes generally will be suggested by Zalando employees.
+So such changes typically (but not exclusively) will be suggested by Zalando employees.
 Feel free to open an issue first outlining the need, or (if you are an employee) contact us in our
 internal #guild-api chat, or come to one of our bi-weekly meetings to discuss this.
 
