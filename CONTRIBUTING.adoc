@@ -1,19 +1,52 @@
 = Contributing
 
-== Pull requests only
+== When to contribute?
 
-*DON'T* push to the master branch directly. Always use pull requests and
+=== Minor improvements
+
+Minor improvements like grammar, spelling or link fixes are always welcome – both
+from Zalando employees and from outsiders.
+
+Just open a pull request. The maintainers will review it and usually merge.
+If you see something wrong, but don't know how to fix it, please open an issue.
+
+=== Major rule changes
+
+For major changes to an existing rule (or adding a new rule), a discussion
+and decision by Zalando's API guild is needed.
+
+For this, we generally only consider arguments which also apply to Zalando's
+situation, as these are Zalando's guidelines, not generic guidelines for everyone.
+
+So such changes typically (but not exclusively) will be suggested by Zalando employees.
+Feel free to open an issue first outlining the need, or (if you are an employee) contact us in our
+internal #guild-api chat, or come to one of our bi-weekly meetings to discuss this.
+
+After we have some general alignment on what kind of rule (change) we want,
+someone will be assigned to write a PR. We welcome volunteers (please note
+in your issue that you volunteer, if you can't be in the meeting).
+
+You may also directly create a PR, but to avoid spending time on big changes
+which won't be accepted, we recommend to start with an issue.
+
+== How to Contribute?
+
+=== Pull requests only
+
+*DON'T* push to the master branch directly. _(This mainly applies to people with write/admin access.)_ Always use pull requests and
 let people discuss changes in pull request.
 
 Pull requests should only be merged after all discussions have been
 concluded and at least 2 reviewers gave their approvals.
+_(This should be automatically enforced by Zalando's ComPR tool, but if it
+  doesn't work, please don't circumvent it.)_
 
-== Changelog for major changes
+=== Changelog for major changes
 
 When your pull request does major changes, please also add an entry to
 the changelog.
 
-== Rule IDs
+=== Rule IDs
 
 Each of the rules has a unique ID. A Rule ID is immutable and durable. It
 doesn't change until the content of the rule changes significantly so that
