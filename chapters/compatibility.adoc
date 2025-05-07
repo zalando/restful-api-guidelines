@@ -128,7 +128,7 @@ Service clients should apply the robustness principle:
   may deliver new values;
   either be agnostic or provide default behavior for unknown values, and
   do not eliminate them if needed for subsequent {PUT} requests.
-  (This means you can't simply map it to a limited enumeration type like a Java `enum`.)
+  (This means you cannot simply implement it by using a limited enumeration type like a Java `enum`.)
 ** Be prepared to handle HTTP status codes not explicitly specified in endpoint
   definitions. Note also, that status codes are extensible. Default handling is
   how you would treat the corresponding {x00} code (see
@@ -297,7 +297,7 @@ level data structures, since they don't support compatible, future extensions.
 JSON schema `enum` is per definition a closed set of values that is assumed to be
 complete and not intended for extension. This means, extending the list of values of
 `enum` is considered an incompatible change, and needs to be aligned with all consumers
-as other incompatible changes.
+like other incompatible changes.
 
 To avoid these issues, we recommend to use `enum` only if
 
@@ -308,10 +308,10 @@ To avoid these issues, we recommend to use `enum` only if
 
 In all other cases, where additional values are imaginable our recommendation is this:
 
-* Use `examples` with the list of currently known values
+* Use `examples` with the list of (currently known) values
 * Put "Extensible enum" in the description.
 
-This indicates that currently these listed values will be possible, but
+This indicates that only the listed values are currently possible, but
 consumers need to be aware that this list can be extended without notice
 (see below for details).
 
@@ -335,13 +335,13 @@ See <<240>> about enum value naming conventions.
   fallback / default behavior for unknown new values, see  <<108>>.
 * API owners must take care to extend these extensible enums in a compatible way, i.e.
   not changing the semantics of already existing / documented values.
-* For uses in input, API implementations should validate the values and only accept
-  values listed in `examples`. The list should not be reduced (that would be an incompatible change).
-* Before additional values are accepted or returned, API owners should extend
+* API implementations should validate the values provided with the input payload and only accept
+  values listed in `examples`. The list should not be reduced for inputs (that would be an incompatible change).
+* Before additional values are accepted or returned, API owners should update the API description and extend
   the `examples` list, see <<107>>.
 
 (Note that the last 3 bullet points do not apply for uses of `examples` _without_ the
- "Extensible enum" marker in the description – here any value at all needs
+ "Extensible enum." prefix in the description – here any value needs
  to be expected.)
 
 === Historic Note
@@ -378,4 +378,4 @@ JSON schema had neither).
 
 We also thought we could have some validations (e.g. by our event bus Nakadi),
 but the Nakadi team instead decided to not validate `x-extensible-enum`,
-and even reject it in schema definitions.
+and even reject it in event type schema definitions.
