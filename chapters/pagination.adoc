@@ -74,7 +74,7 @@ For iterating over collections (result sets) we propose to either use cursors
 these in a consistent way, we have defined a response page object pattern with
 the following field semantics:
 
-* [[self]]{self}:the link or cursor pointing to the same page.
+* [[self]]{self}: the link or cursor pointing to the same page.
 * [[first]]{first}: the link or cursor pointing to the first page.
 * [[prev]]{prev}: the link or cursor pointing to the previous page. 
 It is not provided, if it is the first page. 
@@ -88,13 +88,14 @@ transport the page content:
 * [[items]]{items}: array of resources, holding all the items of the current
   page ({items} may be replaced by a resource name).
 
-To simplify user experience, the applied query filters may be returned using
-the following field (see also {GET-with-body}):
+For responses to {GET-with-body} operations, the applied query filters **should** be
+(and for normal {GET} may be) returned using the following field:
 
 * [[query]]{query}: object containing the query filters applied in the search
-  request to filter the collection resource.
+  request to filter the collection resource. This can be directly used as the
+  request body when following the pagination links.
 
-As Result, the standard response page using <<160, cursors>> or <<161,
+In conclusion, the standard response page using plain <<160, cursors>> or <<161,
 pagination links>> may be defined as follows:
 
 [source,yaml]
@@ -128,6 +129,8 @@ ResponsePage:
     query:
       description: >
         Object containing the query filters applied to the collection resource.
+        This can be directly used as a request body (together with the cursors/links)
+        when requesting other pages.
       type: object
       properties: ...
 
@@ -139,7 +142,7 @@ ResponsePage:
         type: ...
 ----
 
-*Note:* While you may support cursors for {next}, {prev}, {first}, {last}, and
+*Note:* While you may support plain cursors for {next}, {prev}, {first}, {last}, and
 {self}, it is best practice to replace these with pagination links -- see
 <<161>>.
 
@@ -153,11 +156,11 @@ controls>> as standard pagination links where applicable:
 [source,json]
 ----
 {
-  "self": "http://my-service.zalandoapis.com/resources?cursor=<self-position>",
-  "first": "http://my-service.zalandoapis.com/resources?cursor=<first-position>",
-  "prev": "http://my-service.zalandoapis.com/resources?cursor=<previous-position>",
-  "next": "http://my-service.zalandoapis.com/resources?cursor=<next-position>",
-  "last": "http://my-service.zalandoapis.com/resources?cursor=<last-position>",
+  "self": "https://my-service.zalandoapis.com/resources?cursor=<self-position>",
+  "first": "https://my-service.zalandoapis.com/resources?cursor=<first-position>",
+  "prev": "https://my-service.zalandoapis.com/resources?cursor=<previous-position>",
+  "next": "https://my-service.zalandoapis.com/resources?cursor=<next-position>",
+  "last": "https://my-service.zalandoapis.com/resources?cursor=<last-position>",
   "query": {
     "query-param-<1>": ...,
     "query-param-<n>": ...
@@ -165,6 +168,10 @@ controls>> as standard pagination links where applicable:
   "items": [...]
 }
 ----
+
+For {GET-with-body} operations, the `query` object can to be used as a request
+body with either of these links. (It should be equivalent to just resend
+the original body.)
 
 See also <<248>> for details on the pagination fields and page result object.
 

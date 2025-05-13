@@ -69,10 +69,13 @@ switching to headers does not solve the original problem.
 *Hint:* As {GET-with-Body} is used to transport extensive query parameters,
 the {cursor} cannot any longer be used to encode the query filters in case of
 <<160, cursor-based pagination>>. As a consequence, it is best practice to
-transport the query filters in the body payload, while using <<161, pagination
-links>> containing the {cursor} that is only encoding the page position and
-direction. To protect the pagination sequence the {cursor} may contain a hash
-over all applied query filters (See also <<161>>).
+transport the query filters in the body payload, while keeping the
+pagination parameters ({cursor}, {limit}) in query parameters.
+This allows using <<161, pagination links>> containing the {cursor} that
+is only encoding the page position and direction.
+To protect the pagination sequence, the {cursor} may also contain a hash
+over all applied query filters, which is then validated against the request
+body. (See also <<161>>.)
 
 
 [[put]]
