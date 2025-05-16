@@ -394,8 +394,9 @@ specific gateway components (2. use case above). This include, for instance,
 non pass-through headers `X-Zalando-Customer`, `X-Zalando-Client-ID`,
 `X-Zalando-Request-Host`, `X-Zalando-Request-URI` defined by Fashion Shop API
 (RKeep), or `X-Consumer`, `X-Consumer-Signature`, `X-Consumer-Key-ID` defined
-by Merchant API gateway. All these proprietary headers are allowlisted in the
-API Linter (Zally) checking this rule.
+by Merchant API gateway, or `X-App-Version`, `X-Country-Code`, `X-Zalando-Auth`, 
+`X-Forwarded-For` defined by Transactions Checkout Platform. All these proprietary 
+headers are allowlisted in theAPI Linter (Zally) checking this rule.
 
 
 [#184]
