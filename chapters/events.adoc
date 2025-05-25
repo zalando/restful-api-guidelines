@@ -718,9 +718,9 @@ events in error situations, or to execute analytical use cases
 outside the context of the original event stream consumption.
 All general events (fka business events) *should* be provided with the explicit
 information about the business ordering of the events. To accomplish this
-event ordering the event type definition
+event ordering the event type definition:
 
-* *must* specify a the `ordering_key_fields` property to indicate which
+* *must* specify the `ordering_key_fields` property to indicate which
   field(s) contain the ordering key, and
 * *should* specify the `ordering_instance_ids` property to define which
   field(s) represents the business entity instance identifier.
@@ -942,8 +942,7 @@ stored as entity by the service.
 == {MUST} maintain backwards compatibility for events
 
 Changes to events must be based around making additive and backward
-compatible changes. This follows the guideline, "Must: Don’t Break
-Backward Compatibility" from the <<compatibility>> guidelines.
+compatible changes. This follows the <<106>> guideline.
 
 In the context of events, compatibility issues are complicated by the
 fact that producers and consumers of events are highly asynchronous and
