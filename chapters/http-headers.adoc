@@ -396,7 +396,7 @@ non pass-through headers `X-Zalando-Customer`, `X-Zalando-Client-ID`,
 (RKeep), or `X-Consumer`, `X-Consumer-Signature`, `X-Consumer-Key-ID` defined
 by Merchant API gateway, or `X-App-Version`, `X-Country-Code`, `X-Zalando-Auth`, 
 `X-Forwarded-For` defined by Transactions Checkout Platform. All these proprietary 
-headers are allowlisted in theAPI Linter (Zally) checking this rule.
+headers are allowlisted in the API Linter (Zally) checking this rule.
 
 
 [#184]
