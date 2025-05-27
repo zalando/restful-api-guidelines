@@ -4390,10 +4390,13 @@ switching to headers does not solve the original problem.</p>
 <p><strong>Hint:</strong> As <a href="#get-with-body"><code>GET with body</code></a> is used to transport extensive query parameters,
 the <a href="#cursor"><code>cursor</code></a> cannot any longer be used to encode the query filters in case of
 <a href="#160">cursor-based pagination</a>. As a consequence, it is best practice to
-transport the query filters in the body payload, while using <a href="#161">pagination
-links</a> containing the <a href="#cursor"><code>cursor</code></a> that is only encoding the page position and
-direction. To protect the pagination sequence the <a href="#cursor"><code>cursor</code></a> may contain a hash
-over all applied query filters (See also <a href="#161"><span class="should-keyword"><strong>SHOULD</strong></span> use pagination links</a>).</p>
+transport the query filters in the body payload, while keeping the
+pagination parameters (<a href="#cursor"><code>cursor</code></a>, <a href="#limit"><code>limit</code></a>) in query parameters.
+This allows using <a href="#161">pagination links</a> containing the <a href="#cursor"><code>cursor</code></a> that
+is only encoding the page position and direction.
+To protect the pagination sequence, the <a href="#cursor"><code>cursor</code></a> may also contain a hash
+over all applied query filters, which is then validated against the request
+body. (See also <a href="#161"><span class="should-keyword"><strong>SHOULD</strong></span> use pagination links</a>.)</p>
 </div>
 </div>
 <div class="sect3">
@@ -7839,7 +7842,7 @@ the following field semantics:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a id="self"></a><a href="#self"><code>self</code></a>:the link or cursor pointing to the same page.</p>
+<p><a id="self"></a><a href="#self"><code>self</code></a>: the link or cursor pointing to the same page.</p>
 </li>
 <li>
 <p><a id="first"></a><a href="#first"><code>first</code></a>: the link or cursor pointing to the first page.</p>
@@ -7870,19 +7873,20 @@ page (<a href="#items"><code>items</code></a> may be replaced by a resource name
 </ul>
 </div>
 <div class="paragraph">
-<p>To simplify user experience, the applied query filters may be returned using
-the following field (see also <a href="#get-with-body"><code>GET with body</code></a>):</p>
+<p>For responses to <a href="#get-with-body"><code>GET with body</code></a> operations, the applied query filters <strong>should</strong> be
+(and for normal <a href="#get"><code>GET</code></a> may be) returned using the following field:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
 <p><a id="query"></a><a href="#query"><code>query</code></a>: object containing the query filters applied in the search
-request to filter the collection resource.</p>
+request to filter the collection resource. This can be directly used as the
+request body when following the pagination links.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>As Result, the standard response page using <a href="#160">cursors</a> or <a href="#161">pagination links</a> may be defined as follows:</p>
+<p>In conclusion, the standard response page using plain <a href="#160">cursors</a> or <a href="#161">pagination links</a> may be defined as follows:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -7914,7 +7918,9 @@ request to filter the collection resource.</p>
 
     <span class="key">query</span>:
       <span class="key">description</span>: <span class="string"><span class="delimiter">&gt;</span><span class="content">
-        Object containing the query filters applied to the collection resource.</span></span>
+        Object containing the query filters applied to the collection resource.
+        This can be directly used as a request body (together with the cursors/links)
+        when requesting other pages.</span></span>
       <span class="key">type</span>: <span class="string"><span class="content">object</span></span>
       <span class="key">properties</span>: <span class="string"><span class="content">...</span></span>
 
@@ -7927,7 +7933,7 @@ request to filter the collection resource.</p>
 </div>
 </div>
 <div class="paragraph">
-<p><strong>Note:</strong> While you may support cursors for <a href="#next"><code>next</code></a>, <a href="#prev"><code>prev</code></a>, <a href="#first"><code>first</code></a>, <a href="#last"><code>last</code></a>, and
+<p><strong>Note:</strong> While you may support plain cursors for <a href="#next"><code>next</code></a>, <a href="#prev"><code>prev</code></a>, <a href="#first"><code>first</code></a>, <a href="#last"><code>last</code></a>, and
 <a href="#self"><code>self</code></a>, it is best practice to replace these with pagination links&#8201;&#8212;&#8201;see
 <a href="#161"><span class="should-keyword"><strong>SHOULD</strong></span> use pagination links</a>.</p>
 </div>
@@ -7941,11 +7947,11 @@ controls</a> as standard pagination links where applicable:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="json">{
-  <span class="key"><span class="delimiter">&quot;</span><span class="content">self</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">http://my-service.zalandoapis.com/resources?cursor=&lt;self-position&gt;</span><span class="delimiter">&quot;</span></span>,
-  <span class="key"><span class="delimiter">&quot;</span><span class="content">first</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">http://my-service.zalandoapis.com/resources?cursor=&lt;first-position&gt;</span><span class="delimiter">&quot;</span></span>,
-  <span class="key"><span class="delimiter">&quot;</span><span class="content">prev</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">http://my-service.zalandoapis.com/resources?cursor=&lt;previous-position&gt;</span><span class="delimiter">&quot;</span></span>,
-  <span class="key"><span class="delimiter">&quot;</span><span class="content">next</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">http://my-service.zalandoapis.com/resources?cursor=&lt;next-position&gt;</span><span class="delimiter">&quot;</span></span>,
-  <span class="key"><span class="delimiter">&quot;</span><span class="content">last</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">http://my-service.zalandoapis.com/resources?cursor=&lt;last-position&gt;</span><span class="delimiter">&quot;</span></span>,
+  <span class="key"><span class="delimiter">&quot;</span><span class="content">self</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">https://my-service.zalandoapis.com/resources?cursor=&lt;self-position&gt;</span><span class="delimiter">&quot;</span></span>,
+  <span class="key"><span class="delimiter">&quot;</span><span class="content">first</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">https://my-service.zalandoapis.com/resources?cursor=&lt;first-position&gt;</span><span class="delimiter">&quot;</span></span>,
+  <span class="key"><span class="delimiter">&quot;</span><span class="content">prev</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">https://my-service.zalandoapis.com/resources?cursor=&lt;previous-position&gt;</span><span class="delimiter">&quot;</span></span>,
+  <span class="key"><span class="delimiter">&quot;</span><span class="content">next</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">https://my-service.zalandoapis.com/resources?cursor=&lt;next-position&gt;</span><span class="delimiter">&quot;</span></span>,
+  <span class="key"><span class="delimiter">&quot;</span><span class="content">last</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">https://my-service.zalandoapis.com/resources?cursor=&lt;last-position&gt;</span><span class="delimiter">&quot;</span></span>,
   <span class="key"><span class="delimiter">&quot;</span><span class="content">query</span><span class="delimiter">&quot;</span></span>: {
     <span class="key"><span class="delimiter">&quot;</span><span class="content">query-param-&lt;1&gt;</span><span class="delimiter">&quot;</span></span>: <span class="error">.</span><span class="error">.</span><span class="error">.</span>,
     <span class="key"><span class="delimiter">&quot;</span><span class="content">query-param-&lt;n&gt;</span><span class="delimiter">&quot;</span></span>: <span class="error">.</span><span class="error">.</span><span class="error">.</span>
@@ -7953,6 +7959,11 @@ controls</a> as standard pagination links where applicable:</p>
   <span class="key"><span class="delimiter">&quot;</span><span class="content">items</span><span class="delimiter">&quot;</span></span>: [<span class="error">.</span><span class="error">.</span><span class="error">.</span>]
 }</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>For <a href="#get-with-body"><code>GET with body</code></a> operations, the <code>query</code> object can to be used as a request
+body with either of these links. (It should be equivalent to just resend
+the original body.)</p>
 </div>
 <div class="paragraph">
 <p>See also <a href="#248"><span class="should-keyword"><strong>SHOULD</strong></span> use pagination response page object</a> for details on the pagination fields and page result object.</p>
@@ -11067,7 +11078,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-05-27 13:08:16 UTC
+Last updated 2025-05-27 13:43:53 UTC
 </div>
 </div>
 </body>
