@@ -7604,7 +7604,7 @@ sensible values for <a href="https://tools.ietf.org/html/rfc9111#section-5.2"><c
 explain best practices below.</p>
 </li>
 <li>
-<p>Provide efficient methods to warm up and update caches (see ).</p>
+<p>Provide efficient methods to warm up and update caches (see <a href="#cache-support-patterns">Cache Support Patterns</a>).</p>
 </li>
 </ul>
 </div>
@@ -9581,12 +9581,12 @@ events in error situations, or to execute analytical use cases
 outside the context of the original event stream consumption.
 All general events (fka business events) <strong>should</strong> be provided with the explicit
 information about the business ordering of the events. To accomplish this
-event ordering the event type definition</p>
+event ordering the event type definition:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>must</strong> specify a the <code>ordering_key_fields</code> property to indicate which
+<p><strong>must</strong> specify the <code>ordering_key_fields</code> property to indicate which
 field(s) contain the ordering key, and</p>
 </li>
 <li>
@@ -9875,8 +9875,7 @@ stored as entity by the service.</p>
 <h3 id="209"><a class="link" href="#209"><span class="must-keyword"><strong>MUST</strong></span> maintain backwards compatibility for events</a></h3>
 <div class="paragraph">
 <p>Changes to events must be based around making additive and backward
-compatible changes. This follows the guideline, "Must: Don’t Break
-Backward Compatibility" from the <a href="#compatibility">REST Design - Compatibility</a> guidelines.</p>
+compatible changes. This follows the <a href="#106"><span class="must-keyword"><strong>MUST</strong></span> not break backward compatibility</a> guideline.</p>
 </div>
 <div class="paragraph">
 <p>In the context of events, compatibility issues are complicated by the
@@ -11067,7 +11066,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-05-07 11:21:00 UTC
+Last updated 2025-05-27 12:55:22 UTC
 </div>
 </div>
 </body>
