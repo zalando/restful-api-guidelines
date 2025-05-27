@@ -248,7 +248,7 @@ following rules:
   caching boundaries, i.e. time-to-live and cache constraints, by providing
   sensible values for {Cache-Control} and {Vary} in your service. We will
   explain best practices below.
-* Provide efficient methods to warm up and update caches (see ).
+* Provide efficient methods to warm up and update caches (see <<cache-support-patterns>>).
 
 Usually, you can reuse the standard {Cache-Control}, {Vary}, and {ETag}
 response header definitions provided by the guideline as follows:
