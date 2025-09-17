@@ -60,22 +60,28 @@ breaking effects on ongoing consumers. See also <<193>>.
 [#189]
 == {SHOULD} add `Deprecation` and `Sunset` header to responses
 
-During the deprecation phase, the producer should add a `Deprecation: <date-time>`
-(see https://tools.ietf.org/html/draft-ietf-httpapi-deprecation-header[draft: RFC
-Deprecation HTTP Header Field]) and - if also planned - a `Sunset: <date-time>`
-(see {RFC-8594}#section-3[RFC 8594]) header on each response affected by a
-deprecated element (see <<187>>).
+During the deprecation phase, the producer should add a
+`Deprecation: <timestamp>` (see {RFC-9754}#section-2[RFC 9745 section 2]) and
+- if also planned - a `Sunset: <date-time>` (see {RFC-8594}#section-3[RFC
+8594 section 3]) header on each response affected by a deprecated element (see
+<<187>>).
+
+*Note:* We explicitly discourage the use of `Link` relation headers using
+`rel="sunset|deprecation"` as defined in {RFC-9754}#section-3[RFC 9745 section
+3] and {RFC-8594}#section-6[RFC 8594 section 6] as these do not provide a
+significant benefit over the documentation provided via the API specification.
 
 The {Deprecation} header can either be set to `true` - if a feature is retired
--, or carry a deprecation time stamp, at which a replacement will become/became
-available and consumers must not on-board any longer (see <<191>>). The optional
-{Sunset} time stamp carries the information when consumers latest have to stop
-using a feature. The sunset date should always offer an eligible time interval
-for switching to a replacement feature.
+-, or carry a deprecation timestamp {RFC-9651}#section-3.3.7[RFC-9651 section
+3.3.7], at which a replacement will become/became available and consumers must
+not on-board any longer (see <<191>>). The optional {Sunset} time stamp carries
+the information when consumers latest have to stop using a feature. The sunset
+date should always offer an eligible time interval for switching to a
+replacement feature.
 
 [source,txt]
 ----
-Deprecation: Tue, 31 Dec 2024 23:59:59 GMT
+Deprecation: @1758095283
 Sunset: Wed, 31 Dec 2025 23:59:59 GMT
 ----
 

@@ -56,6 +56,8 @@
 :RFC-9110: https://tools.ietf.org/html/rfc9110
 :RFC-9111: https://tools.ietf.org/html/rfc9111
 :RFC-9457: https://tools.ietf.org/html/rfc9457
+:RFC-9651: https://tools.ietf.org/html/rfc9651
+:RFC-9754: https://tools.ietf.org/html/rfc9745
 
 :json-schema-validation: https://json-schema.org/draft/2020-12/draft-bhutton-json-schema-validation-00
 :iana-link-relations: http://www.iana.org/assignments/link-relations
