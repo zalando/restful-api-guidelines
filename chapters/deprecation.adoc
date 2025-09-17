@@ -74,10 +74,10 @@ significant benefit over the documentation provided via the API specification.
 The {Deprecation} header can either be set to `true` - if a feature is retired
 -, or carry a deprecation timestamp {RFC-9651}#section-3.3.7[RFC-9651 section
 3.3.7], at which a replacement will become/became available and consumers must
-not on-board any longer (see <<191>>). The optional {Sunset} time stamp carries
+not on-board any longer (see <<191>>). The optional {Sunset} date carries
 the information when consumers latest have to stop using a feature. The sunset
 date should always offer an eligible time interval for switching to a
-replacement feature.
+replacement feature. Note, the deprecation and sunset headers use different time formats due to historic reasons:
 
 [source,txt]
 ----
