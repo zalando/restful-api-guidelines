@@ -322,11 +322,10 @@ Deprecation:
   in: header
   required: false
   description: |-
-    The **Deprecation** response header (see [Draft "The Deprecation HTTP
-    Header Field"][draft]) announces an upcoming deprecation of a feature or
-    resource. The deprecation value is either a timestamp as defined in [RFC
-    9110 Section 5.6.7][rfc-9110-5.6.7] or `true` - if the feature is already
-    deprecated.
+    The **Deprecation** response header (see [RFC 9745][rfc-9745]) announces
+    an upcoming deprecation of a feature or resource. The deprecation value is
+    either a timestamp as defined in [RFC 9651 Section 3.3.7][rfc-9651-3.3.7]
+    or `true` - if the feature is already deprecated.
 
     The scope of the distinct deprecated feature or resource must be derived
     from the API spec. If the timestamp points to the past, the API spec also
@@ -336,13 +335,13 @@ Deprecation:
     about them in time, so that migration measures can be planned and executed
     timely (see also [API Guideline - Deprecation][api]).
 
-    [draft]: <https://datatracker.ietf.org/doc/html/draft-ietf-httpapi-deprecation-header-02>
-    [rfc-9110-5.6.7]: <https://tools.ietf.org/html/rfc9110#section-5.6.7>
+    [rfc-9745]: <https://tools.ietf.org/html/rfc9745>
+    [rfc-9651-3.3.7]: <https://tools.ietf.org/html/rfc9651#section-3.3.7>
     [api]: <https://opensource.zalando.com/restful-api-guidelines/#deprecation>
   schema:
     type: string
-    format: date-time
-  example: [ "Tue, 31 Dec 2024 23:59:59 GMT" ]
+    format: date-timestamp
+  example: "@1758093035"
 
 
 Sunset:
@@ -367,7 +366,7 @@ Sunset:
     [api-deprecation]: <https://opensource.zalando.com/restful-api-guidelines/#deprecation>
   schema:
     type: string
-    format: date-time
+    format: http-date
   example: "Wed, 31 Dec 2025 23:59:59 GMT"
 
 

@@ -8537,23 +8537,30 @@ breaking effects on ongoing consumers. See also <a href="#193"><span class="shou
 <div class="sect2">
 <h3 id="189"><a class="link" href="#189"><span class="should-keyword"><strong>SHOULD</strong></span> add <code>Deprecation</code> and <code>Sunset</code> header to responses</a></h3>
 <div class="paragraph">
-<p>During the deprecation phase, the producer should add a <code>Deprecation: &lt;date-time&gt;</code>
-(see <a href="https://tools.ietf.org/html/draft-ietf-httpapi-deprecation-header">draft: RFC
-Deprecation HTTP Header Field</a>) and - if also planned - a <code>Sunset: &lt;date-time&gt;</code>
-(see <a href="https://tools.ietf.org/html/rfc8594#section-3">RFC 8594</a>) header on each response affected by a
-deprecated element (see <a href="#187"><span class="must-keyword"><strong>MUST</strong></span> reflect deprecation in API specifications</a>).</p>
+<p>During the deprecation phase, the producer should add a
+<code>Deprecation: &lt;timestamp&gt;</code> (see <a href="https://tools.ietf.org/html/rfc9745#section-2">RFC 9745 section 2</a>) and
+- if also planned - a <code>Sunset: &lt;date-time&gt;</code> (see <a href="https://tools.ietf.org/html/rfc8594#section-3">RFC
+8594 section 3</a>) header on each response affected by a deprecated element (see
+<a href="#187"><span class="must-keyword"><strong>MUST</strong></span> reflect deprecation in API specifications</a>).</p>
+</div>
+<div class="paragraph">
+<p><strong>Note:</strong> We explicitly discourage the use of <code>Link</code> relation headers using
+<code>rel="sunset|deprecation"</code> as defined in <a href="https://tools.ietf.org/html/rfc9745#section-3">RFC 9745 section
+3</a> and <a href="https://tools.ietf.org/html/rfc8594#section-6">RFC 8594 section 6</a> as these do not provide a
+significant benefit over the documentation provided via the API specification.</p>
 </div>
 <div class="paragraph">
 <p>The <a href="https://tools.ietf.org/html/draft-ietf-httpapi-deprecation-header"><code>Deprecation</code></a> header can either be set to <code>true</code> - if a feature is retired
--, or carry a deprecation time stamp, at which a replacement will become/became
-available and consumers must not on-board any longer (see <a href="#191"><span class="must-keyword"><strong>MUST</strong></span> not start using deprecated APIs</a>). The optional
-<a href="https://tools.ietf.org/html/rfc8594"><code>Sunset</code></a> time stamp carries the information when consumers latest have to stop
-using a feature. The sunset date should always offer an eligible time interval
-for switching to a replacement feature.</p>
+-, or carry a deprecation timestamp <a href="https://tools.ietf.org/html/rfc9651#section-3.3.7">RFC-9651 section
+3.3.7</a>, at which a replacement will become/became available and consumers must
+not on-board any longer (see <a href="#191"><span class="must-keyword"><strong>MUST</strong></span> not start using deprecated APIs</a>). The optional <a href="https://tools.ietf.org/html/rfc8594"><code>Sunset</code></a> date carries
+the information when consumers latest have to stop using a feature. The sunset
+date should always offer an eligible time interval for switching to a
+replacement feature. Note, the deprecation and sunset headers use different time formats due to historic reasons:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="txt">Deprecation: Tue, 31 Dec 2024 23:59:59 GMT
+<pre class="CodeRay highlight"><code data-lang="txt">Deprecation: @1758095283
 Sunset: Wed, 31 Dec 2025 23:59:59 GMT</code></pre>
 </div>
 </div>
@@ -8581,11 +8588,10 @@ default definition below):</p>
     <span class="key">Deprecation</span>:
         <span class="key">required</span>: <span class="string"><span class="content">false</span></span>
         <span class="key">description</span>: <span class="string"><span class="delimiter">|-</span><span class="content">
-          The **Deprecation** response header (see [Draft &quot;The Deprecation HTTP
-          Header Field&quot;][draft]) announces an upcoming deprecation of a feature or
-          resource. The deprecation value is either a timestamp as defined in [RFC
-          9110 Section 5.6.7][rfc-9110-5.6.7] or `true` - if the feature is already
-          deprecated.
+          The **Deprecation** response header (see [RFC 9745][rfc-9745]) announces
+          an upcoming deprecation of a feature or resource. The deprecation value is
+          either a timestamp as defined in [RFC 9651 Section 3.3.7][rfc-9651-3.3.7]
+          or `true` - if the feature is already deprecated.
 
           The scope of the distinct deprecated feature or resource must be derived
           from the API spec. If the timestamp points to the past, the API spec also
@@ -8595,13 +8601,13 @@ default definition below):</p>
           about them in time, so that migration measures can be planned and executed
           timely (see also [API Guideline - Deprecation][api]).
 
-          [draft]: &lt;https://datatracker.ietf.org/doc/html/draft-ietf-httpapi-deprecation-header-02&gt;
-          [rfc-9110-5.6.7]: &lt;https://tools.ietf.org/html/rfc9110#section-5.6.7&gt;
+          [rfc-9745]: &lt;https://tools.ietf.org/html/rfc9745&gt;
+          [rfc-9651-3.3.7]: &lt;https://tools.ietf.org/html/rfc9651#section-3.3.7&gt;
           [api]: &lt;https://opensource.zalando.com/restful-api-guidelines/#deprecation&gt;</span></span>
         <span class="key">schema</span>:
           <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
-          <span class="key">format</span>: <span class="string"><span class="content">date-time</span></span>
-        <span class="key">example</span>: <span class="string"><span class="content">[ &quot;Tue, 31 Dec 2024 23:59:59 GMT&quot; ]</span></span>
+          <span class="key">format</span>: <span class="string"><span class="content">date-timestamp</span></span>
+        <span class="key">example</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">@1758093035</span><span class="delimiter">&quot;</span></span>
 
     <span class="key">Sunset</span>:
         <span class="key">required</span>: <span class="string"><span class="content">false</span></span>
@@ -8623,7 +8629,7 @@ default definition below):</p>
           [api-deprecation]: &lt;https://opensource.zalando.com/restful-api-guidelines/#deprecation&gt;</span></span>
         <span class="key">schema</span>:
           <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
-          <span class="key">format</span>: <span class="string"><span class="content">date-time</span></span>
+          <span class="key">format</span>: <span class="string"><span class="content">http-date</span></span>
         <span class="key">example</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">Wed, 31 Dec 2025 23:59:59 GMT</span><span class="delimiter">&quot;</span></span></code></pre>
 </div>
 </div>
@@ -11078,7 +11084,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-09-17 08:24:34 UTC
+Last updated 2025-09-18 07:14:00 UTC
 </div>
 </div>
 </body>
