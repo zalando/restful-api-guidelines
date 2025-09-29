@@ -13,10 +13,11 @@ implementing RESTful APIs.
 Cursor-based pagination is a very powerful and valuable technique (see also
 <<160>>) that allows to efficiently provide a stable view on changing data.
 This is obtained by using an anchor element that allows to retrieve all page
-elements directly via an ordering combined-index, usually based on `created_at`
-or `modified_at`. Simple said, the cursor is the information set needed to
-reconstruct the database query that retrieves the minimal page information from
-the data storage.
+elements directly via an ordering index, usually based on `created_at` or
+`modified_at` in combination with a tie breaker, mostly the resource `id` or a
+unique `key`. In addition, the cursor contains all other information needed
+to reconstruct a database query that retrieves a minimal information set from
+the data storage to create a response page.
 
 The {cursor} itself is an opaque string, transmitted forth and back between
 service and clients, that must never be *inspected* or *constructed* by
@@ -24,12 +25,10 @@ clients. Therefore, it is good practice to encode (encrypt) its content in a
 non-human-readable form.
 
 The {cursor} content usually consists of a pointer to the anchor element
-defining the page position in the collection, a flag whether the element is
-included or excluded into/from the page, the retrieval direction, and a hash
+defining the page position in the collection, a flag whether the anchor element
+is included or excluded into/from the page, the retrieval direction, and a hash
 over the applied query filters (or the query filter itself) to safely re-create
-the collection. It is important to note, that a {cursor} should be always
-defined in relation to the current page to anticipate all occurring changes
-when progressing.
+the collection.
 
 The {cursor} is usually defined as an encoding of the following information:
 
@@ -64,8 +63,8 @@ Cursor:
       description: >
         Flag for the retrieval direction that is defining which elements to
         choose from the collection resource starting from the anchor elements
-        position. It is either *ascending* or *descending* based on the
-        ordering combined index.
+        position. It is either *ascending* or *descending* in relation to the
+        ordering index - usually in sync with the pagination direction.
       type: string
       enum: [ ASCENDING, DESCENDING ]
 
@@ -88,17 +87,55 @@ Cursor:
     - direction
 ----
 
-*Note:* In case of complex and long search requests, e.g. when {GET-with-body}
-is already required, the {cursor} may not be able to include the `query` because
-of common HTTP parameter size restrictions. In this case the `query` filters
-should be transported via body - in the request as well as in the response,
-while the pagination consistency should be ensured via the `query_hash`.
+It is important to note, that {cursor} should always point to the last or first
+element of the current page - also `next` and `prev` cursors, depending on the
+retrieval direction. This allows the pagination to react on db-changes when
+(re-)evaluating a cursor, e.g. when elements are added or removed after the
+cursor was created.
 
-*Remark:* It is also important to check the efficiency of the data-access.
-You need to make sure that you have a fully ordered stable index, that allows
-to efficiently resolve all elements of a page. If necessary, you need to
-provide a combined index that includes the `id` to ensure the full order and
-additional filter criteria to ensure efficiency.
+image::assets/cursor.png[Cursor pagination illustration]
+
+[cols="15%,15%,25%,25%",options="header",]
+|=========================================
+|Cursor | Position | Element | Direction
+| prev | F | EXCLUDED | DESCENDING
+| self~next~ | F | INCLUDED | ASCENDING
+| self~prev~ | I | INCLUDED | DESCENDING
+| next | I | EXCLUDED | ASCENDING
+|=========================================
+
+*Remark:* In case of complex and long search requests, e.g. when
+{GET-with-body} is already required, the {cursor} may not be able to include
+the `query` because of common HTTP parameter size restrictions. In this case
+the `query` filters should be transported via body - in the request as well as
+in the response, while the pagination consistency should be ensured via the
+`query_hash`.
+
+*Note:* The efficiency of cursor-based pagination depends on the efficiency
+of the ordering index. In most cases a single ordering index, e.g. based on
+`modified_at` is sufficient. Only in case of a low selectivity a combined
+index including the `id` or other filter criteria is needed. This should be
+carefully evaluated regularly on a case-by-case basis to avoid unnecessary
+complexity but also to avoid scalability and performance issues.
+
+=== Example
+
+A real-world example can be found in
+https://github.com/zalando-build/api-repository/[api-repository] (internal
+link).
+
+* The actual {cursor} implementation in
+  https://github.com/zalando-build/api-repository/blob/main/src/main/java/org/zalando/infrastructure/api/repository/domain/model/ApiRevisions.kt#L16-L132[api-repository/domain/model/ApiRevisions.kt#L16-L132]
+  (internal) is varying from the above pattern using a cursor-`type` instead of
+  `element` to simplify cursor representation following above figure.
+* The {cursor} is passed down to data access object implementation in
+  https://github.com/zalando-build/api-repository/blob/main/src/main/java/org/zalando/infrastructure/api/repository/repository/ApiRevisionViewRepository.kt#L48-L76[api-repository/repository/ApiRevisionViewRepository.kt#L48-L76]
+  (internal) to create the SQL request.
+
+The API repository, in this case does not need any combined index, since the
+primary ordering based on `modified_at` allows to efficiently access the data
+in combination with the additional filter criteria such as `states`, `teams`,
+and `applications`.
 
 === Further reading
 
