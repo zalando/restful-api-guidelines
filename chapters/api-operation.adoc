@@ -3,30 +3,30 @@
 
 
 [#192]
-== {MUST} publish OpenAPI specification for non-component-internal APIs
+== {MUST} publish OpenAPI specification for APIs
 
 All service applications must publish OpenAPI specifications of their external
-APIs. While this is optional for internal APIs, i.e. APIs marked with the
-*component-internal* <<219, API audience>> group, we still recommend to do so
-to profit from the API management infrastructure.
+APIs. While this is optional for <<219, component-internal APIs>>, we still 
+recommend to do so to profit from our API management infrastructure.
 
-An API is published by copying its *OpenAPI specification* into the reserved
-*/zalando-apis* directory of the *deployment artifact* used to deploy the
-provisioning service. The directory must only contain *self-contained YAML*
-*files* that each describe one API (exception see <<234>>). We prefer this
-deployment artifact-based method over the past (now legacy)
-`.well-known/schema-discovery` service endpoint-based publishing process, that
-we only support for backward compatibility reasons.
+As described in https://cloud.docs.zalando.net/howtos/api-publishing/[How to publish API Specifications (internal_link)], 
+an API specification is published with the deployment of the implementing service 
+by copying it to the reserved `/zalando-apis` directory. The directory must only 
+contain _self-contained YAML files_ that each describe one API (exception see <<234>>). 
+*Legacy hint:* We prefer this deployment artifact-based method over the old
+`.well-known/schema-discovery` service endpoint-based publishing process
+(which still is supported for backward compatibility).
 
-Background: In our dynamic and complex service infrastructure, it is important
+*Motivation:* In our dynamic and complex service infrastructure, it is important
 to provide API client developers a central place with online access to the API
 specifications of all running applications. As a part of the infrastructure,
-the API publishing process is used to detect API specifications. The findings
-are published in the API Portal - the universal hub for all Zalando APIs.
+the API publishing process is used to detect API specifications and to make it 
+discoverable via 
+https://sunrise.zalando.net/apis?group=all[Sunrise (internal_link)] and the 
+https://apis.zalando.net/[API Portal (internal_link)].
 
-*Note:* To publish an API, it is still necessary to deploy the artifact
-successful, as we focus the discovery experience on APIs supported by running
-services.
+*Note:* APIs are discoverable only for recently running services. Hence, make sure 
+to always publish the API Specification as part of the service artifact deployment. 
 
 
 [#193]
