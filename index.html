@@ -10167,10 +10167,11 @@ implementing RESTful APIs.</p>
 <p>Cursor-based pagination is a very powerful and valuable technique (see also
 <a href="#160"><span class="should-keyword"><strong>SHOULD</strong></span> prefer cursor-based pagination, avoid offset-based pagination</a>) that allows to efficiently provide a stable view on changing data.
 This is obtained by using an anchor element that allows to retrieve all page
-elements directly via an ordering combined-index, usually based on <code>created_at</code>
-or <code>modified_at</code>. Simple said, the cursor is the information set needed to
-reconstruct the database query that retrieves the minimal page information from
-the data storage.</p>
+elements directly via an ordering index, usually based on <code>created_at</code> or
+<code>modified_at</code> in combination with a tie breaker, mostly the resource <code>id</code> or a
+unique <code>key</code>. In addition, the cursor contains all other information needed
+to reconstruct a database query that retrieves a minimal information set from
+the data storage to create a response page.</p>
 </div>
 <div class="paragraph">
 <p>The <a href="#cursor"><code>cursor</code></a> itself is an opaque string, transmitted forth and back between
@@ -10180,12 +10181,10 @@ non-human-readable form.</p>
 </div>
 <div class="paragraph">
 <p>The <a href="#cursor"><code>cursor</code></a> content usually consists of a pointer to the anchor element
-defining the page position in the collection, a flag whether the element is
-included or excluded into/from the page, the retrieval direction, and a hash
+defining the page position in the collection, a flag whether the anchor element
+is included or excluded into/from the page, the retrieval direction, and a hash
 over the applied query filters (or the query filter itself) to safely re-create
-the collection. It is important to note, that a <a href="#cursor"><code>cursor</code></a> should be always
-defined in relation to the current page to anticipate all occurring changes
-when progressing.</p>
+the collection.</p>
 </div>
 <div class="paragraph">
 <p>The <a href="#cursor"><code>cursor</code></a> is usually defined as an encoding of the following information:</p>
@@ -10221,8 +10220,8 @@ when progressing.</p>
       <span class="key">description</span>: <span class="string"><span class="delimiter">&gt;</span><span class="content">
         Flag for the retrieval direction that is defining which elements to
         choose from the collection resource starting from the anchor elements
-        position. It is either *ascending* or *descending* based on the
-        ordering combined index.</span></span>
+        position. It is either *ascending* or *descending* in relation to the
+        ordering index - usually in sync with the pagination direction.</span></span>
       <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
       <span class="key">enum</span>: <span class="string"><span class="content">[ ASCENDING, DESCENDING ]</span></span>
 
@@ -10246,18 +10245,103 @@ when progressing.</p>
 </div>
 </div>
 <div class="paragraph">
-<p><strong>Note:</strong> In case of complex and long search requests, e.g. when <a href="#get-with-body"><code>GET with body</code></a>
-is already required, the <a href="#cursor"><code>cursor</code></a> may not be able to include the <code>query</code> because
-of common HTTP parameter size restrictions. In this case the <code>query</code> filters
-should be transported via body - in the request as well as in the response,
-while the pagination consistency should be ensured via the <code>query_hash</code>.</p>
+<p>It is important to note, that <a href="#cursor"><code>cursor</code></a> should always point to the last or first
+element of the current page - also <code>next</code> and <code>prev</code> cursors, depending on the
+retrieval direction. This allows the pagination to react on db-changes when
+(re-)evaluating a cursor, e.g. when elements are added or removed after the
+cursor was created.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="assets/cursor.png" alt="Cursor pagination illustration">
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 18.75%;">
+<col style="width: 18.75%;">
+<col style="width: 31.25%;">
+<col style="width: 31.25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Cursor</th>
+<th class="tableblock halign-left valign-top">Position</th>
+<th class="tableblock halign-left valign-top">Element</th>
+<th class="tableblock halign-left valign-top">Direction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">prev</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">F</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">EXCLUDED</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DESCENDING</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">self<sub>next</sub></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">F</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">INCLUDED</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ASCENDING</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">self<sub>prev</sub></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">INCLUDED</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DESCENDING</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">next</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">EXCLUDED</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ASCENDING</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Remark:</strong> In case of complex and long search requests, e.g. when
+<a href="#get-with-body"><code>GET with body</code></a> is already required, the <a href="#cursor"><code>cursor</code></a> may not be able to include
+the <code>query</code> because of common HTTP parameter size restrictions. In this case
+the <code>query</code> filters should be transported via body - in the request as well as
+in the response, while the pagination consistency should be ensured via the
+<code>query_hash</code>.</p>
 </div>
 <div class="paragraph">
-<p><strong>Remark:</strong> It is also important to check the efficiency of the data-access.
-You need to make sure that you have a fully ordered stable index, that allows
-to efficiently resolve all elements of a page. If necessary, you need to
-provide a combined index that includes the <code>id</code> to ensure the full order and
-additional filter criteria to ensure efficiency.</p>
+<p><strong>Note:</strong> The efficiency of cursor-based pagination depends on the efficiency
+of the ordering index. In most cases a single ordering index, e.g. based on
+<code>modified_at</code> is sufficient. Only in case of a low selectivity a combined
+index including the <code>id</code> or other filter criteria is needed. This should be
+carefully evaluated regularly on a case-by-case basis to avoid unnecessary
+complexity but also to avoid scalability and performance issues.</p>
+</div>
+<div class="sect3">
+<h4 id="_example_3"><a class="link" href="#_example_3">Example</a></h4>
+<div class="paragraph">
+<p>A real-world example can be found in
+<a href="https://github.com/zalando-build/api-repository/">api-repository</a> (internal
+link).</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The actual <a href="#cursor"><code>cursor</code></a> implementation in
+<a href="https://github.com/zalando-build/api-repository/blob/main/src/main/java/org/zalando/infrastructure/api/repository/domain/model/ApiRevisions.kt#L16-L132">api-repository/domain/model/ApiRevisions.kt#L16-L132</a>
+(internal) is varying from the above pattern using a cursor-<code>type</code> instead of
+<code>element</code> to simplify cursor representation following above figure.</p>
+</li>
+<li>
+<p>The <a href="#cursor"><code>cursor</code></a> is passed down to data access object implementation in
+<a href="https://github.com/zalando-build/api-repository/blob/main/src/main/java/org/zalando/infrastructure/api/repository/repository/ApiRevisionViewRepository.kt#L48-L76">api-repository/repository/ApiRevisionViewRepository.kt#L48-L76</a>
+(internal) to create the SQL request.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The API repository, in this case does not need any combined index, since the
+primary ordering based on <code>modified_at</code> allows to efficiently access the data
+in combination with the additional filter criteria such as <code>states</code>, <code>teams</code>,
+and <code>applications</code>.</p>
+</div>
 </div>
 <div class="sect3">
 <h4 id="_further_reading"><a class="link" href="#_further_reading">Further reading</a></h4>
@@ -11084,7 +11168,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-09-18 07:14:00 UTC
+Last updated 2025-10-01 15:03:30 UTC
 </div>
 </div>
 </body>
