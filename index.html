@@ -1611,7 +1611,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 </li>
 <li><a href="#api-operation">17. REST Operation</a>
 <ul class="sectlevel2">
-<li><a href="#192"><span class="must-keyword"><strong>MUST</strong></span> publish OpenAPI specification for non-component-internal APIs</a></li>
+<li><a href="#192"><span class="must-keyword"><strong>MUST</strong></span> publish OpenAPI specification for APIs</a></li>
 <li><a href="#193"><span class="should-keyword"><strong>SHOULD</strong></span> monitor API usage</a></li>
 </ul>
 </li>
@@ -2039,28 +2039,31 @@ with <code>x-api-audience =/= component-internal</code> (see <a href="#219"><spa
 <div class="sect2">
 <h3 id="101"><a class="link" href="#101"><span class="must-keyword"><strong>MUST</strong></span> provide API specification using OpenAPI</a></h3>
 <div class="paragraph">
-<p>We use the <a href="http://swagger.io/specification/">OpenAPI specification</a> as standard
-to define API specification files. API designers are required to provide the API
-specification using a single <strong>self-contained YAML</strong> file to improve readability.
-We encourage to use <strong>OpenAPI 3.0</strong> version, but still support <strong>OpenAPI 2.0</strong>
-(a.k.a. Swagger 2).</p>
+<p>We use the standard provided by the <a href="https://www.openapis.org/">OpenAPI Initiative</a>
+to define API specifications. API designers are required to provide the API
+specification using a single self-contained YAML file for better readability.
+We encourage using <a href="https://swagger.io/specification/">OpenAPI 3.1 version</a>,
+especially for new APIs. The API specification files should be subject to version
+control using a source code management system, and you <a href="#192"><span class="must-keyword"><strong>MUST</strong></span> publish OpenAPI specification for APIs</a>.</p>
 </div>
 <div class="paragraph">
-<p>The API specification files should be subject to version control using a source
-code management system - best together with the implementing sources.</p>
+<p><strong>Hint:</strong> Our API infrastructure does not break, but might not yet fully support
+all OpenAPI 3.1 changes (e.g. displaying <code>examples</code> in Sunrise), and continues
+supporting OpenAPI 3.0 (and 2.0, aka Swagger 2).</p>
 </div>
 <div class="paragraph">
-<p>You <a href="#192">must / should publish</a> the component <a href="#219">external / internal</a>
-API specification with the deployment of the implementing service, and, hence,
-make it discoverable for the group via our <a href="https://apis.zalando.net/">API Portal (internal_link)</a>.</p>
+<p><strong>Hint:</strong> The <em>OpenAPI 3.1 mayor change</em> is that Schema Object definitions are now
+fully compliant with standard JSON Schema. It is an incompatible change since
+OpenAPI-specific overrides and keywords like <code>example</code>, <code>nullable</code>, <code>discriminator</code>, <code>xml</code>
+are removed from the Schema Object (see
+<a href="https://www.openapis.org/blog/2021/02/16/migrating-from-openapi-3-0-to-3-1-0">OpenAPI Blog: Migrating from OpenAPI 3.0 to 3.1</a>).
+Check out the <a href="https://github.com/OAI/OpenAPI-Specification/releases">OpenAPI release page</a>
+for all change details.</p>
 </div>
 <div class="paragraph">
-<p><strong>Hint:</strong> A good way to explore <strong>OpenAPI 3.0/2.0</strong> is to navigate through the
-<a href="https://openapi-map.apihandyman.io/">OpenAPI specification mind map</a> and use
-our <a href="https://plugins.jetbrains.com/search?search=swagger+Monte">Swagger Plugin
-for IntelliJ IDEA</a> to create your first API. To explore and validate/evaluate
-existing APIs the <a href="https://editor.swagger.io/">Swagger Editor</a> or our
-<a href="https://apis.zalando.net">API Portal</a> may be a good starting point.</p>
+<p><strong>Hint:</strong> You might find the <a href="https://openapi-map.apihandyman.io/">OpenAPI Map</a>
+a helpful tool supporting UI navigation for the OpenAPI 3.0 specification.
+(Newer OpenAPI versions are not yet supported.)</p>
 </div>
 <div class="paragraph">
 <p><strong>Hint:</strong> We do not yet provide guidelines for <a href="https://graphql.org/">GraphQL</a>
@@ -2247,7 +2250,7 @@ are free to decide whether they increment it or not.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="yaml"><span class="key">openapi</span>: <span class="string"><span class="content">3.0.1</span></span>
+<pre class="CodeRay highlight"><code data-lang="yaml"><span class="key">openapi</span>: <span class="string"><span class="content">3.1.0</span></span>
 <span class="key">info</span>:
   <span class="key">title</span>: <span class="string"><span class="content">Parcel Service API</span></span>
   <span class="key">description</span>: <span class="string"><span class="content">API for &lt;...&gt;</span></span>
@@ -2296,7 +2299,7 @@ immediately change the API identifier in it!</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="yaml"><span class="key">openapi</span>: <span class="string"><span class="content">3.0.1</span></span>
+<pre class="CodeRay highlight"><code data-lang="yaml"><span class="key">openapi</span>: <span class="string"><span class="content">3.1.0</span></span>
 <span class="key">info</span>:
   <span class="key">x-api-id</span>: <span class="string"><span class="content">d0184f38-b98d-11e7-9c56-68f728c1ba70</span></span>
   <span class="key">title</span>: <span class="string"><span class="content">Parcel Service API</span></span>
@@ -2386,7 +2389,7 @@ the target audience — even if this creates redundancies
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="yaml"><span class="key">openapi</span>: <span class="string"><span class="content">3.0.1</span></span>
+<pre class="CodeRay highlight"><code data-lang="yaml"><span class="key">openapi</span>: <span class="string"><span class="content">3.1.0</span></span>
 <span class="key">info</span>:
   <span class="key">x-audience</span>: <span class="string"><span class="content">company-internal</span></span>
   <span class="key">title</span>: <span class="string"><span class="content">Parcel Helper Service API</span></span>
@@ -8671,33 +8674,33 @@ the deprecation info (see hint in <a href="#189"><span class="should-keyword"><s
 <h2 id="api-operation"><a class="link" href="#api-operation">17. REST Operation</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="192"><a class="link" href="#192"><span class="must-keyword"><strong>MUST</strong></span> publish OpenAPI specification for non-component-internal APIs</a></h3>
+<h3 id="192"><a class="link" href="#192"><span class="must-keyword"><strong>MUST</strong></span> publish OpenAPI specification for APIs</a></h3>
 <div class="paragraph">
 <p>All service applications must publish OpenAPI specifications of their external
-APIs. While this is optional for internal APIs, i.e. APIs marked with the
-<strong>component-internal</strong> <a href="#219">API audience</a> group, we still recommend to do so
-to profit from the API management infrastructure.</p>
+APIs. While this is optional for <a href="#219">component-internal APIs</a>, we still
+recommend to do so to profit from our API management infrastructure.</p>
 </div>
 <div class="paragraph">
-<p>An API is published by copying its <strong>OpenAPI specification</strong> into the reserved
-<strong>/zalando-apis</strong> directory of the <strong>deployment artifact</strong> used to deploy the
-provisioning service. The directory must only contain <strong>self-contained YAML</strong>
-<strong>files</strong> that each describe one API (exception see <a href="#234"><span class="must-keyword"><strong>MUST</strong></span> only use durable and immutable remote references</a>). We prefer this
-deployment artifact-based method over the past (now legacy)
-<code>.well-known/schema-discovery</code> service endpoint-based publishing process, that
-we only support for backward compatibility reasons.</p>
+<p>As described in <a href="https://cloud.docs.zalando.net/howtos/api-publishing/">How to publish API Specifications (internal_link)</a>,
+an API specification is published with the deployment of the implementing service
+by copying it to the reserved <code>/zalando-apis</code> directory. The directory must only
+contain <em>self-contained YAML files</em> that each describe one API (exception see <a href="#234"><span class="must-keyword"><strong>MUST</strong></span> only use durable and immutable remote references</a>).
+<strong>Legacy hint:</strong> We prefer this deployment artifact-based method over the old
+<code>.well-known/schema-discovery</code> service endpoint-based publishing process
+(which still is supported for backward compatibility).</p>
 </div>
 <div class="paragraph">
-<p>Background: In our dynamic and complex service infrastructure, it is important
+<p><strong>Motivation:</strong> In our dynamic and complex service infrastructure, it is important
 to provide API client developers a central place with online access to the API
 specifications of all running applications. As a part of the infrastructure,
-the API publishing process is used to detect API specifications. The findings
-are published in the API Portal - the universal hub for all Zalando APIs.</p>
+the API publishing process is used to detect API specifications and to make it
+discoverable via
+<a href="https://sunrise.zalando.net/apis?group=all">Sunrise (internal_link)</a> and the
+<a href="https://apis.zalando.net/">API Portal (internal_link)</a>.</p>
 </div>
 <div class="paragraph">
-<p><strong>Note:</strong> To publish an API, it is still necessary to deploy the artifact
-successful, as we focus the discovery experience on APIs supported by running
-services.</p>
+<p><strong>Note:</strong> APIs are discoverable only for recently running services. Hence, make sure
+to always publish the API Specification as part of the service artifact deployment.</p>
 </div>
 </div>
 <div class="sect2">
@@ -10965,7 +10968,7 @@ to see a list of all changes.</p>
 <p><code>2018-01-10:</code> Moved meta information related aspects into new chapter <a href="#meta-information">REST Basics - Meta information</a>.</p>
 </li>
 <li>
-<p><code>2018-01-09:</code> Changed publication requirements for API specifications (<a href="#192"><span class="must-keyword"><strong>MUST</strong></span> publish OpenAPI specification for non-component-internal APIs</a>).</p>
+<p><code>2018-01-09:</code> Changed publication requirements for API specifications (<a href="#192"><span class="must-keyword"><strong>MUST</strong></span> publish OpenAPI specification for APIs</a>).</p>
 </li>
 <li>
 <p><code>2017-12-07:</code> Added best practices section including discussion about optimistic locking approaches.</p>
@@ -11168,7 +11171,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-10-01 15:03:30 UTC
+Last updated 2025-10-01 16:50:47 UTC
 </div>
 </div>
 </body>
