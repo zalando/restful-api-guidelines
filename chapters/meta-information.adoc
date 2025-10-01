@@ -50,7 +50,7 @@ Example:
 
 [source,yaml]
 ----
-openapi: 3.0.1
+openapi: 3.1.0
 info:
   title: Parcel Service API
   description: API for <...>
@@ -97,7 +97,7 @@ Example:
 
 [source,yaml]
 ----
-openapi: 3.0.1
+openapi: 3.1.0
 info:
   x-api-id: d0184f38-b98d-11e7-9c56-68f728c1ba70
   title: Parcel Service API
@@ -170,7 +170,7 @@ Example:
 
 [source,yaml]
 ----
-openapi: 3.0.1
+openapi: 3.1.0
 info:
   x-audience: company-internal
   title: Parcel Helper Service API
