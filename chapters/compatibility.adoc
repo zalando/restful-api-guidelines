@@ -58,7 +58,7 @@ services in a backward-compatible way:
 * You <<112>> that are used for output parameters and likely to
   be extended with growing functionality. The API definition should be updated
   first before returning new values.
-* Consider <<250>> in case a URL has to change.
+* Consider <<251>> in case a URL has to change.
 
 
 [#109]
