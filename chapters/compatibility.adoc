@@ -41,25 +41,66 @@ expected that code changes are necessary.
 == {SHOULD} prefer compatible extensions
 
 API designers should apply the following rules to evolve RESTful APIs for
-services in a backward-compatible way:
+services in a backward-compatible way.
 
-* Add only optional, never mandatory fields.
+In general:
+
 * Never change the semantic of fields (e.g. changing the semantic from
   customer-number to customer-id, as both are different unique customer keys)
+* Consider <<251>> in case a URL has to change.
+
+For schemas used in input only:
+
+* Add only optional, never mandatory fields (and don't make optional
+  fields mandatory).
+* Don't remove fields.
+   * While removing fields by itself doesn't break compatibility (if the
+     server would still accept it, possibly ignoring it, if sent by the client),
+     it then would allow later to add a same-named field with different type
+     or semantic (which is harder to catch). Therefore, this is also considered
+     a non-compatible change.
 * Input fields may have (complex) constraints being validated via server-side
   business logic. Never change the validation logic to be more restrictive and
   make sure that all constraints are clearly defined in description.
-* `enum` ranges can be reduced when used as input parameters, only if the server
-  is ready to accept and handle old range values too. The range can be reduced
-  when used as output parameters.
-* `enum` ranges cannot be extended when used for output parameters — clients may
-  not be prepared to handle it. However, enum ranges can be extended when used
-  for input parameters.
+* `enum` ranges can be reduced when used as input, only if the server
+  is ready to accept and handle old range values too.
+* `enum` ranges can be extended when used for input.
+
+For schemas used in output only:
+
+* New mandatory fields can be added, or existing optional ones be made mandatory.
+* Don't remove a mandatory field, or make it optional (clients might depend
+  on it being filled).
+* Don't remove optional fields either.
+   * While removing optional fields by itself doesn't break compatibility,
+     it then would allow later to add a same-named field with different type
+     or semantic (which is harder to catch). Therefore, this is also considered a non-compatible change.
+* `enum` ranges can be reduced when used as output.
+* `enum` ranges **cannot** be extended when used for output — clients may
+  not be prepared to handle it.
 * You <<112>> that are used for output parameters and likely to
   be extended with growing functionality. The API definition should be updated
   first before returning new values.
-* Consider <<251>> in case a URL has to change.
 
+For schemas used in both input and output (which is common and recommended in
+many cases), both of these rule sets combine, i.e. you can only do changes which
+are allowed in both input and output.
+
+* Add only optional, never mandatory fields.
+* Don't remove any fields.
+* Don't make mandatory fields optional or make optional fields mandatory.
+* Input fields may have (complex) constraints being validated via server-side
+  business logic. Never change the validation logic to be more restrictive and
+  make sure that all constraints are clearly defined in description.
+* `enum` ranges can be reduced only if the server is ready to still accept and
+   handle old values. They **cannot** be extended.
+* You <<112>> that are used for output parameters and likely to
+  be extended with growing functionality. The API definition should be updated
+  first before returning new values.
+
+Input/Output here is from the perspective of a service implementing and
+owning the API. For the rare case of APIs implemented by other services
+(and consumed by the owning service), this turns around.
 
 [#109]
 == {SHOULD} design APIs conservatively
