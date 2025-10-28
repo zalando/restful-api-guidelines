@@ -31,9 +31,9 @@ if no API consumer is using the affected API aspects (see also <<deprecation,
 Deprecation>> guidelines).
 
 *Hint:* Please note that the compatibility guarantees are for the "on the wire"
-format. Binary or source compatibility of code generated from an API definition
+format. Binary or source compatibility of code generated from an API specification
 is not covered by these rules. If client implementations update their
-generation process to a new version of the API definition, it has to be
+generation process to a new version of the API specification, it has to be
 expected that code changes are necessary.
 
 
@@ -56,7 +56,7 @@ services in a backward-compatible way:
   not be prepared to handle it. However, enum ranges can be extended when used
   for input parameters.
 * You <<112>> that are used for output parameters and likely to
-  be extended with growing functionality. The API definition should be updated
+  be extended with growing functionality. The API specification should be updated
   first before returning new values.
 * Consider <<251>> in case a URL has to change.
 
@@ -103,8 +103,8 @@ and be explicit in what is supported:
   that already use this field but with different type.
 
 In specific situations, where a (known) input field is not needed anymore, it
-either can stay in the API definition with "not used anymore" description or
-can be removed from the API definition as long as the server ignores this
+either can stay in the API specification with "not used anymore" description or
+can be removed from the API specification as long as the server ignores this
 specific parameter.
 
 
@@ -329,6 +329,6 @@ must implement a fallback / default behavior to handle unknown new enum values -
 API owners must take care to extend enums in a compatible way that does not change the 
 semantics of already existing enum values, for instance, do not split an old enum value 
 into two new enum values. Services should only extend {x-extensible-enum} ranges, and only accept 
-and return values listed in the API definition, i.e. the API definition needs to be updated first  
+and return values listed in the API specification, i.e. the API specification needs to be updated first  
 before the service accepts/returns new values -- see also <<107>>. 
 

@@ -4,16 +4,15 @@
 
 [#218]
 == {MUST} contain API meta information
-API specifications must contain the following OpenAPI meta information
-to allow for API management:
+API specifications must contain the following 
+https://spec.openapis.org/oas/latest.html#info-object[OpenAPI meta information]:
 
-- `#/info/title` as (unique) identifying, functional descriptive name of the API
-- `#/info/version` to distinguish API specifications versions following
-  <<116, semantic rules>>
-- `#/info/description` containing a proper description of the API
-- `#/info/contact/{name,url,email}` containing the responsible team
+- `#/info/title` a (unique) identifying, functional descriptive name of the API
+- `#/info/version` the API specification document version following <<116>>
+- `#/info/description`  a proper description of the API
+- `#/info/contact/{name,url,email}` contact info of the team owning the API specification
 
-Following OpenAPI extension properties *must* be provided in addition:
+The following OpenAPI extension properties *must* be additionally provided:
 
 - `#/info/x-api-id` unique identifier of the API (<<215, see rule 215>>)
 - `#/info/x-audience` intended target audience of the API (<<219, see rule 219>>)
@@ -22,11 +21,14 @@ Following OpenAPI extension properties *must* be provided in addition:
 [#116]
 == {MUST} use semantic versioning
 
-OpenAPI allows to specify the API specification version in
-`#/info/version`. To share a common semantic of version information we
-expect API designers to comply to http://semver.org/spec/v2.0.0.html[
-Semantic Versioning 2.0] rules `1` to `8` and `11` restricted to the format
-<MAJOR>.<MINOR>.<PATCH> for versions as follows:
+OpenAPI requires the definition of API specification version via `#/info/version`. 
+Note, this API specification document version is distinct from the 
+OpenAPI Specification version (also required, e.g. `openapi: 3.1.0`), 
+or the API Implementation version.
+
+We expect API designers to comply to http://semver.org/spec/v2.0.0.html[
+Semantic Versioning 2.0] rules `1 - 8` and `11` with the standard version format
+<MAJOR>.<MINOR>.<PATCH> as follows:
 
 * Increment the **MAJOR** version when you make incompatible API changes
 after having aligned the changes with consumers,
@@ -52,9 +54,9 @@ Example:
 ----
 openapi: 3.1.0
 info:
+  version: 1.3.7
   title: Parcel Service API
   description: API for <...>
-  version: 1.3.7
   <...>
 ----
 
