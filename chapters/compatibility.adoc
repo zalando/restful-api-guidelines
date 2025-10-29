@@ -301,7 +301,7 @@ like other incompatible changes.
 
 To avoid these issues, we recommend to use `enum` only if
 
-1. the API has full control of the enumeration values, i.e. the list of values
+1. the API owner has full control of the enumeration values, i.e. the list of values
   does not depend on any external tool or interface, and
 2. the list of values is complete with respect to any thinkable and unthinkable
   future feature.
@@ -326,7 +326,8 @@ delivery_method:
   description: Extensible enum. The chosen delivery method of the invoice.
 ----
 
-See <<240>> about enum value naming conventions.
+See <<240>> about enum value naming conventions – these apply here too.
+
 
 **Important**:
 
@@ -341,12 +342,16 @@ See <<240>> about enum value naming conventions.
   the `examples` list, see <<107>>.
 
 (Note that the last 3 bullet points do not apply for uses of `examples` _without_ the
- "Extensible enum." prefix in the description – here any value needs
- to be expected.)
+ "Extensible enum." prefix in the description – here any value fitting the rest
+ of the schema needs to be expected.)
 
-=== Historic Note
+Note that the plural `examples` on schemas was only introduced with OpenAPI 3.1 (with an update of the JSON schema version referenced).
+APIs defined with older OpenAPI versions can't use this format, and instead need to use
+the {x-extensible-enum} described below↓.
 
-Previously (until May 2025), this guideline recommended our own proprietary
+=== Historic Note: `x-extensible-enum`
+
+Previously (until October 2025), this guideline recommended our own proprietary
 {x-extensible-enum} JSON schema extension here, with a similar semantic:
 
 > This is the *complete* list of values *currently* possible, but consumers must be
@@ -376,6 +381,6 @@ This rule originated in the time before JSON schema and OpenAPI schema
 had the plural `examples` property (OpenAPI schema had singular `example`,
 JSON schema had neither).
 
-We also thought we could have some validations (e.g. by our event bus Nakadi),
-but the Nakadi team instead decided to not validate `x-extensible-enum`,
-and even reject it in event type schema definitions.
+We (the API guild) also thought we could have some validations (e.g. by our
+event bus Nakadi), but the Nakadi team instead decided to not validate
+`x-extensible-enum`, and even reject it in event type schema definitions.
