@@ -8,7 +8,6 @@ In the context of our REST API Guidelines, we differentiate the following entity
 * **API** -- the REST API interface provided via "the wire" (HTTP+TCP/IP) by a concrete service that is deployed and running. 
 * **API Implementation** -- the implementation of the API as part of a concrete service implementation. It is typically code written in a programming language like Java or Python, and there are countless concrete implementations for the same API.
 
-The API Specification, of course, might differ from the API provided by a concrete service, because the service implementation is incomplete, not up-to-date or faulty. The API Specification implemented by the service <<192, must / should be published with the service deployment>>. 
+The API Specification, of course, might differ from the API provided by a concrete service, because e.g. the service implementation is incomplete, not up-to-date or faulty. The API Specification that is supposed to be implemented by the service <<192, must / should be published with the service deployment>>. 
 
-Note, OpenAPI allows API Specifications being composed of an entry document and URL-referenced OpenAPI Documents defining path, component or webhook elements. 
-However, we require to provide the API specification using a single self-contained YAML document for better readability -- see <<101>>. 
+Note, OpenAPI allows API Specifications being composed of an entry document and URL-referenced OpenAPI Documents defining path, component or webhook elements. However, we require to provide the API specification using a single self-contained YAML document for better readability and consistent versioning and life-cycle handling -- see <<101>>. 
