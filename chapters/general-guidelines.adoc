@@ -21,7 +21,7 @@ You must follow the <<api-first, API First Principle>>, more specifically:
 
 
 [#101]
-== {MUST} provide an API Specification using OpenAPI
+== {MUST} provide API Specifications using OpenAPI
 
 We use the standard provided by the https://www.openapis.org/[OpenAPI Initiative] 
 to define API specifications. API designers are required to provide the API 
