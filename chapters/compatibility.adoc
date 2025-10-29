@@ -124,10 +124,10 @@ Service clients should apply the robustness principle:
   http://martinfowler.com/bliki/TolerantReader.html["TolerantReader"] post),
   i.e. ignore new fields but do not eliminate them from payload if needed for
   subsequent {PUT} requests.
-** Be prepared that "extensible enum" return parameters (see <<112, rule 112>>)
+** Be prepared that <<112, extensible enum>> return parameters
   may deliver new values;
   either be agnostic or provide default behavior for unknown values, and
-  do not eliminate them if needed for subsequent {PUT} requests.
+  do not eliminate them when passed to subsequent {PUT} requests.
   (This means you cannot simply implement it by using a limited enumeration type like a Java `enum`.)
 ** Be prepared to handle HTTP status codes not explicitly specified in endpoint
   definitions. Note also, that status codes are extensible. Default handling is
@@ -351,18 +351,11 @@ the {x-extensible-enum} described below↓.
 
 === Historic Note: `x-extensible-enum`
 
-Previously (until October 2025), this guideline recommended our own proprietary
-{x-extensible-enum} JSON schema extension here, with a similar semantic:
+Previously (until October 2025), this guideline recommended a proprietary
+{x-extensible-enum} JSON schema extension, with a similar semantic:
 
 > This is the *complete* list of values *currently* possible, but consumers must be
 prepared for other values in the future.
-
-Until all existing APIs using this have been updated, API providers and consumers
-still need to follow the rules under "Important" above for these cases.
-
-This completeness semantic would in theory allow some validation by
-intermediaries (but that was rarely implemented).
-It was visible in a few tools (e.g. Swagger UI), but ignored by most others.
 
 An open-ended list of values was specified as follows:
 
@@ -377,10 +370,18 @@ delivery_methods:
   description: The chosen delivery method of the invoice.
 ----
 
+Until all existing APIs using this have been updated, API providers and consumers
+still need to follow the rules under "Important" above for these cases.
+
 This rule originated in the time before JSON schema and OpenAPI schema
 had the plural `examples` property (OpenAPI schema had singular `example`,
 JSON schema had neither).
 
-We (the API guild) also thought we could have some validations (e.g. by our
-event bus Nakadi), but the Nakadi team instead decided to not validate
-`x-extensible-enum`, and even reject it in event type schema definitions.
+The completeness semantic would in theory allow some validation by
+intermediaries (but that was rarely implemented).
+It was visible in a few tools (e.g. Swagger UI), but ignored by most others.
+
+After the team responsible for Nakadi (our Zalando-internal event bus) decided
+to not validate x-extensible-enum, but instead even reject it in event type
+definitions, we (the API guideline maintainers) revisited this rule to
+recommend `examples` instead.
