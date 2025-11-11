@@ -49,6 +49,8 @@ In general:
   customer-number to customer-id, as both are different unique customer keys)
 * Consider <<251>> in case a URL has to change.
 
+The compatibility of schema changes depends on whether the input and/or output objects are defined.
+
 For schemas used in input only:
 
 * Add only optional, never mandatory fields (and don't make optional
@@ -62,9 +64,9 @@ For schemas used in input only:
 * Input fields may have (complex) constraints being validated via server-side
   business logic. Never change the validation logic to be more restrictive and
   make sure that all constraints are clearly defined in description.
-* `enum` ranges can be reduced when used as input, only if the server
-  is ready to accept and handle old range values too.
-* `enum` ranges can be extended when used for input.
+* `enum` ranges can be reduced, only if the server
+  continues to accept and handle old range values.
+* `enum` ranges can be extended.
 
 For schemas used in output only:
 
