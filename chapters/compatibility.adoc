@@ -53,20 +53,17 @@ The compatibility of schema changes depends on whether the input and/or output o
 
 For schemas used in input only:
 
-* Add only optional, never mandatory fields (and don't make optional
-  fields mandatory).
-* Don't remove fields.
-   * While removing fields by itself doesn't break compatibility (if the
-     server would still accept it, possibly ignoring it, if sent by the client),
-     it then would allow later to add a same-named field with different type
-     or semantic (which is harder to catch). Therefore, this is also considered
-     a non-compatible change.
+* Add optional fields, but never mandatory fields.
+* Make mandatory fields optional, but not vice-versa.
+* Don't remove fields(*).
 * Input fields may have (complex) constraints being validated via server-side
   business logic. Never change the validation logic to be more restrictive and
   make sure that all constraints are clearly defined in description.
 * `enum` ranges can be reduced, only if the server
   continues to accept and handle old range values.
 * `enum` ranges can be extended.
+
+(*) Hint: Removing a field can be considered as a compatible change that does not break clients, in case the service still accepts and possibly ignores it if sent by the client. However, removed fields allow later adding a same-named field with different type or semantic (which is harder to catch). We therefore define field removal as non-compatible.  
 
 For schemas used in output only:
 
