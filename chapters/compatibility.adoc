@@ -67,19 +67,17 @@ For schemas used in input only:
 
 For schemas used in output only:
 
-* New mandatory fields can be added, or existing optional ones be made mandatory.
-* Don't remove a mandatory field, or make it optional (clients might depend
-  on it being filled).
-* Don't remove optional fields either.
-   * While removing optional fields by itself doesn't break compatibility,
-     it then would allow later to add a same-named field with different type
-     or semantic (which is harder to catch). Therefore, this is also considered a non-compatible change.
+* Add (mandatory or optional) fields.
+* Make optional fields mandatory, but not vice-versa.
+* Don't remove fields (*).
 * `enum` ranges can be reduced when used as output.
 * `enum` ranges **cannot** be extended when used for output — clients may
   not be prepared to handle it.
 * You <<112>> that are used for output parameters and likely to
   be extended with growing functionality. The API definition should be updated
   first before returning new values.
+
+(*) Hint: Removing an optional field can be considered as a compatible change that does not break clients. However, removed fields allow later adding a same-named field with different type or semantic (which is harder to catch). We therefore define optional field removal as non-compatible. 
 
 For schemas used in both input and output (which is common and recommended in
 many cases), both of these rule sets combine, i.e. you can only do changes which
