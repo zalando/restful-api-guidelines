@@ -70,8 +70,8 @@ For schemas used in output only:
 * Add (mandatory or optional) fields.
 * Make optional fields mandatory, but not vice-versa.
 * Don't remove fields (*).
-* `enum` ranges can be reduced when used as output.
-* `enum` ranges **cannot** be extended when used for output — clients may
+* `enum` ranges can be reduced.
+* `enum` ranges *cannot* be extended — clients may
   not be prepared to handle it.
 * You <<112>> that are used for output parameters and likely to
   be extended with growing functionality. The API definition should be updated
