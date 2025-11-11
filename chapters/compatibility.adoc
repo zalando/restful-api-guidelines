@@ -79,7 +79,7 @@ For schemas used in output only:
 
 (*) Hint: Removing an optional field can be considered as a compatible change that does not break clients. However, removed fields allow later adding a same-named field with different type or semantic (which is harder to catch). We therefore define optional field removal as non-compatible. 
 
-For schemas used in both input and output (which is common and recommended in
+For schemas used in both input and output (which is typical in
 many cases), both of these rule sets combine, i.e. you can only do changes which
 are allowed in both input and output.
 
