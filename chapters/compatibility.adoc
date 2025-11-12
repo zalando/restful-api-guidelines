@@ -351,8 +351,8 @@ the {x-extensible-enum} described below↓.
 
 === Historic Note: `x-extensible-enum`
 
-Previously (until October 2025), this guideline recommended a proprietary
-{x-extensible-enum} JSON schema extension, with a similar semantic:
+Previously (until October 2025) this guideline recommended a proprietary
+JSON schema extension {x-extensible-enum} with a similar semantic:
 
 > This is the *complete* list of values *currently* possible, but consumers must be
 prepared for other values in the future.
