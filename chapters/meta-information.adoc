@@ -24,7 +24,7 @@ The following OpenAPI extension properties *must* be additionally provided:
 OpenAPI requires the definition of API specification version via `#/info/version`. 
 Note, this API specification document version is distinct from the 
 OpenAPI Specification version (also required, e.g. `openapi: 3.1.0`), 
-or the API Implementation version.
+or the API Implementation version -- see <<terminology>>.
 
 We expect API designers to comply to http://semver.org/spec/v2.0.0.html[
 Semantic Versioning 2.0] rules `1 - 8` and `11` with the standard version format
