@@ -336,8 +336,9 @@ See <<240>> about enum value naming conventions – these apply here too.
   fallback / default behavior for unknown new values, see  <<108>>.
 * API owners must take care to extend these extensible enums in a compatible way, i.e.
   not changing the semantics of already existing / documented values.
-* API implementations should validate the values provided with the input payload and only accept
-  values listed in `examples`. The list should not be reduced for inputs (that would be an incompatible change).
+* API implementations should validate the values provided with the input payload
+  and only accept values listed in `examples`.
+* The list should not be reduced for inputs (that would be an incompatible change).
 * Before additional values are accepted or returned, API owners should update the API description and extend
   the `examples` list, see <<107>>.
 
