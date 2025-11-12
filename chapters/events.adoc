@@ -420,7 +420,7 @@ on the use of `additionalProperties`.
 [#246]
 == {MUST} use semantic versioning of event type schemas
 
-Event schemas must be versioned -- analog to <<116>> for REST API definitions.
+Event schemas must be versioned -- analog to <<116>> for REST API specifications.
 The compatibility mode interact with revision numbers in the schema
 `version` field, which follows semantic versioning (MAJOR.MINOR.PATCH):
 

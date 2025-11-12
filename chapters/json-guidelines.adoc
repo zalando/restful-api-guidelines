@@ -141,7 +141,7 @@ the upper-snake case format, e.g. `VALUE` or `YET_ANOTHER_VALUE`.
 This approach allows to clearly distinguish values from properties or other elements.
 
 **Exception:** This rule does not apply for case sensitive values sourced from outside
-API definition scope, e.g. for language codes from {ISO-639-1}[ISO 639-1], or when
+API specification scope, e.g. for language codes from {ISO-639-1}[ISO 639-1], or when
 declaring possible values for a <<137,rule 137>> [`sort` parameter].
 
 
