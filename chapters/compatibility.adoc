@@ -323,7 +323,7 @@ delivery_method:
     - PARCEL
     - LETTER
     - EMAIL
-  description: Extensible enum. The chosen delivery method of the invoice.
+  description: [Extensible enum](https://opensource.zalando.com/restful-api-guidelines/#112). The chosen delivery method of the invoice.
 ----
 
 See <<240>> about enum value naming conventions – these apply here too.
