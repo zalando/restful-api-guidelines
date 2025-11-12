@@ -6,7 +6,7 @@ In the context of our REST API Guidelines, we differentiate the following entity
 * **OpenAPI Specification** (OAS) -- the REST API specification format defined as standard by the https://www.openapis.org/[OpenAPI Initiative]. We encourage using https://swagger.io/specification/[OpenAPI 3.1 version] for OpenAPI specifications. 
 * **API Specification** (aka https://spec.openapis.org/oas/latest.html#openapi-description-structure[OpenAPI Description (OAD)] -- the document in OAS format specifying an API, its syntax and semantics. It should provide all information for clients to use the API, and serves as the interface definition of the API implementation.
 * **API** -- the REST API interface provided via "the wire" (HTTP+TCP/IP) by a concrete service that is deployed and running. 
-* **API Implementation** -- the implementation of the API as part of a concrete service implementation. It is typically code written in a programming language like Java or Python, and there are countless concrete implementations for the same API.
+* **API Implementation** -- the implementation of the API as part of a concrete service implementation. It is typically code written in a programming language like Java or Python, and there can be multiple concrete implementations for the same API.
 
 The API Specification, of course, might differ from the actual API provided by a concrete service, because e.g. the service implementation is incomplete, not up-to-date or faulty. The API Specification that is intended to be implemented by the service <<192, must / should be published with the service deployment>>. 
 
