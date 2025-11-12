@@ -309,7 +309,7 @@ To avoid these issues, we recommend to use `enum` only if
 In all other cases, where additional values are imaginable our recommendation is this:
 
 * Use `examples` with the list of (currently known) values
-* Put "Extensible enum" in the description.
+* Add `[Extensible enum](https://opensource.zalando.com/restful-api-guidelines/#112).` as a standard prefix to the description.
 
 This indicates that only the listed values are currently possible, but
 consumers need to be aware that this list can be extended without notice
