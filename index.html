@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.23">
+<meta name="generator" content="Asciidoctor 2.0.26">
 <meta name="keywords" content="Zalando, Guidelines, RESTful, API, Events, Schema">
 <meta name="copyright" content="CC-BY-SA 4.0">
 <title>Zalando RESTful API and Event Guidelines</title>
@@ -1435,16 +1435,17 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#api-first">API first</a></li>
 </ul>
 </li>
-<li><a href="#general-guidelines">3. General guidelines</a>
+<li><a href="#terminology">3. Basic Terminology</a></li>
+<li><a href="#general-guidelines">4. General guidelines</a>
 <ul class="sectlevel2">
 <li><a href="#100"><span class="must-keyword"><strong>MUST</strong></span> follow API first principle</a></li>
-<li><a href="#101"><span class="must-keyword"><strong>MUST</strong></span> provide API specification using OpenAPI</a></li>
+<li><a href="#101"><span class="must-keyword"><strong>MUST</strong></span> provide API Specifications using OpenAPI</a></li>
 <li><a href="#102"><span class="should-keyword"><strong>SHOULD</strong></span> provide API user manual</a></li>
 <li><a href="#103"><span class="must-keyword"><strong>MUST</strong></span> write APIs using U.S. English</a></li>
 <li><a href="#234"><span class="must-keyword"><strong>MUST</strong></span> only use durable and immutable remote references</a></li>
 </ul>
 </li>
-<li><a href="#meta-information">4. REST Basics - Meta information</a>
+<li><a href="#meta-information">5. REST Basics - Meta information</a>
 <ul class="sectlevel2">
 <li><a href="#218"><span class="must-keyword"><strong>MUST</strong></span> contain API meta information</a></li>
 <li><a href="#116"><span class="must-keyword"><strong>MUST</strong></span> use semantic versioning</a></li>
@@ -1454,14 +1455,14 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#224"><span class="must-keyword"><strong>MUST</strong></span> follow naming convention for hostnames</a></li>
 </ul>
 </li>
-<li><a href="#security">5. REST Basics - Security</a>
+<li><a href="#security">6. REST Basics - Security</a>
 <ul class="sectlevel2">
 <li><a href="#104"><span class="must-keyword"><strong>MUST</strong></span> secure endpoints</a></li>
 <li><a href="#105"><span class="must-keyword"><strong>MUST</strong></span> define and assign permissions (scopes)</a></li>
 <li><a href="#225"><span class="must-keyword"><strong>MUST</strong></span> follow the naming convention for permissions (scopes)</a></li>
 </ul>
 </li>
-<li><a href="#data-formats">6. REST Basics - Data formats</a>
+<li><a href="#data-formats">7. REST Basics - Data formats</a>
 <ul class="sectlevel2">
 <li><a href="#238"><span class="must-keyword"><strong>MUST</strong></span> use standard data formats</a></li>
 <li><a href="#171"><span class="must-keyword"><strong>MUST</strong></span> define a format for number and integer types</a></li>
@@ -1473,7 +1474,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#144"><span class="should-keyword"><strong>SHOULD</strong></span> only use UUIDs if necessary</a></li>
 </ul>
 </li>
-<li><a href="#urls">7. REST Basics - URLs</a>
+<li><a href="#urls">8. REST Basics - URLs</a>
 <ul class="sectlevel2">
 <li><a href="#135"><span class="should-keyword"><strong>SHOULD</strong></span> not use /api as base path</a></li>
 <li><a href="#134"><span class="must-keyword"><strong>MUST</strong></span> pluralize resource names</a></li>
@@ -1494,7 +1495,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#137"><span class="must-keyword"><strong>MUST</strong></span> stick to conventional query parameters</a></li>
 </ul>
 </li>
-<li><a href="#json-guidelines">8. REST Basics - JSON payload</a>
+<li><a href="#json-guidelines">9. REST Basics - JSON payload</a>
 <ul class="sectlevel2">
 <li><a href="#167"><span class="must-keyword"><strong>MUST</strong></span> use JSON as payload data interchange format</a></li>
 <li><a href="#252"><span class="should-keyword"><strong>SHOULD</strong></span> design single resource schema for reading and writing</a></li>
@@ -1514,7 +1515,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#173"><span class="must-keyword"><strong>MUST</strong></span> use the common money object</a></li>
 </ul>
 </li>
-<li><a href="#http-requests">9. REST Basics - HTTP requests</a>
+<li><a href="#http-requests">10. REST Basics - HTTP requests</a>
 <ul class="sectlevel2">
 <li><a href="#148"><span class="must-keyword"><strong>MUST</strong></span> use HTTP methods correctly</a></li>
 <li><a href="#149"><span class="must-keyword"><strong>MUST</strong></span> fulfill common method properties</a></li>
@@ -1527,7 +1528,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#226"><span class="must-keyword"><strong>MUST</strong></span> document implicit response filtering</a></li>
 </ul>
 </li>
-<li><a href="#http-status-codes-and-errors">10. REST Basics - HTTP status codes</a>
+<li><a href="#http-status-codes-and-errors">11. REST Basics - HTTP status codes</a>
 <ul class="sectlevel2">
 <li><a href="#243"><span class="must-keyword"><strong>MUST</strong></span> use official HTTP status codes</a></li>
 <li><a href="#151"><span class="must-keyword"><strong>MUST</strong></span> specify success and error responses</a></li>
@@ -1540,7 +1541,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#251"><span class="should-keyword"><strong>SHOULD</strong></span> not use redirection codes</a></li>
 </ul>
 </li>
-<li><a href="#headers">11. REST Basics - HTTP headers</a>
+<li><a href="#headers">12. REST Basics - HTTP headers</a>
 <ul class="sectlevel2">
 <li><a href="#using-headers">Using Standard Header definitions</a></li>
 <li><a href="#133"><span class="may-keyword"><strong>MAY</strong></span> use standard headers</a></li>
@@ -1556,7 +1557,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#233"><span class="must-keyword"><strong>MUST</strong></span> support <code>X-Flow-ID</code></a></li>
 </ul>
 </li>
-<li><a href="#hypermedia">12. REST Design - Hypermedia</a>
+<li><a href="#hypermedia">13. REST Design - Hypermedia</a>
 <ul class="sectlevel2">
 <li><a href="#162"><span class="must-keyword"><strong>MUST</strong></span> use REST maturity level 2</a></li>
 <li><a href="#163"><span class="may-keyword"><strong>MAY</strong></span> use REST maturity level 3 - HATEOAS</a></li>
@@ -1566,7 +1567,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#166"><span class="must-keyword"><strong>MUST</strong></span> not use link headers with JSON entities</a></li>
 </ul>
 </li>
-<li><a href="#performance">13. REST Design - Performance</a>
+<li><a href="#performance">14. REST Design - Performance</a>
 <ul class="sectlevel2">
 <li><a href="#155"><span class="should-keyword"><strong>SHOULD</strong></span> reduce bandwidth needs and improve responsiveness</a></li>
 <li><a href="#156"><span class="should-keyword"><strong>SHOULD</strong></span> use <code>gzip</code> compression</a></li>
@@ -1575,7 +1576,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#227"><span class="must-keyword"><strong>MUST</strong></span> document cacheable <code>GET</code>, <code>HEAD</code>, and <code>POST</code> endpoints</a></li>
 </ul>
 </li>
-<li><a href="#pagination">14. REST Design - Pagination</a>
+<li><a href="#pagination">15. REST Design - Pagination</a>
 <ul class="sectlevel2">
 <li><a href="#159"><span class="must-keyword"><strong>MUST</strong></span> support pagination</a></li>
 <li><a href="#160"><span class="should-keyword"><strong>SHOULD</strong></span> prefer cursor-based pagination, avoid offset-based pagination</a></li>
@@ -1584,7 +1585,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#254"><span class="should-keyword"><strong>SHOULD</strong></span> avoid a total result count</a></li>
 </ul>
 </li>
-<li><a href="#compatibility">15. REST Design - Compatibility</a>
+<li><a href="#compatibility">16. REST Design - Compatibility</a>
 <ul class="sectlevel2">
 <li><a href="#106"><span class="must-keyword"><strong>MUST</strong></span> not break backward compatibility</a></li>
 <li><a href="#107"><span class="should-keyword"><strong>SHOULD</strong></span> prefer compatible extensions</a></li>
@@ -1598,7 +1599,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#112"><span class="should-keyword"><strong>SHOULD</strong></span> use open-ended list of values (<code>x-extensible-enum</code>) for enumeration types</a></li>
 </ul>
 </li>
-<li><a href="#deprecation">16. REST Design - Deprecation</a>
+<li><a href="#deprecation">17. REST Design - Deprecation</a>
 <ul class="sectlevel2">
 <li><a href="#187"><span class="must-keyword"><strong>MUST</strong></span> reflect deprecation in API specifications</a></li>
 <li><a href="#185"><span class="must-keyword"><strong>MUST</strong></span> obtain approval of clients before API shut down</a></li>
@@ -1609,13 +1610,13 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#191"><span class="must-keyword"><strong>MUST</strong></span> not start using deprecated APIs</a></li>
 </ul>
 </li>
-<li><a href="#api-operation">17. REST Operation</a>
+<li><a href="#api-operation">18. REST Operation</a>
 <ul class="sectlevel2">
 <li><a href="#192"><span class="must-keyword"><strong>MUST</strong></span> publish OpenAPI specification for APIs</a></li>
 <li><a href="#193"><span class="should-keyword"><strong>SHOULD</strong></span> monitor API usage</a></li>
 </ul>
 </li>
-<li><a href="#events">18. EVENT Basics - Event Types</a>
+<li><a href="#events">19. EVENT Basics - Event Types</a>
 <ul class="sectlevel2">
 <li><a href="#208"><span class="must-keyword"><strong>MUST</strong></span> define events compliant with overall API guidelines</a></li>
 <li><a href="#194"><span class="must-keyword"><strong>MUST</strong></span> treat events as part of the service interface</a></li>
@@ -1629,7 +1630,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#246"><span class="must-keyword"><strong>MUST</strong></span> use semantic versioning of event type schemas</a></li>
 </ul>
 </li>
-<li><a href="#event-categories">19. EVENT Basics - Event Categories</a>
+<li><a href="#event-categories">20. EVENT Basics - Event Categories</a>
 <ul class="sectlevel2">
 <li><a href="#198"><span class="must-keyword"><strong>MUST</strong></span> ensure that events conform to an event category</a></li>
 <li><a href="#247"><span class="must-keyword"><strong>MUST</strong></span> provide mandatory event metadata</a></li>
@@ -1641,7 +1642,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#204"><span class="should-keyword"><strong>SHOULD</strong></span> use the hash partition strategy for data change events</a></li>
 </ul>
 </li>
-<li><a href="#events-design">20. EVENT Design</a>
+<li><a href="#events-design">21. EVENT Design</a>
 <ul class="sectlevel2">
 <li><a href="#200"><span class="should-keyword"><strong>SHOULD</strong></span> avoid writing sensitive data to events</a></li>
 <li><a href="#214"><span class="must-keyword"><strong>MUST</strong></span> be robust against duplicates when consuming events</a></li>
@@ -1700,7 +1701,7 @@ external business partners to use via third-party applications.</p>
 <div class="paragraph">
 <p>With this in mind, we’ve adopted "API First" as one of our key
 engineering principles. Microservices development begins with API
-definition outside the code and ideally involves ample peer-review
+specification outside the code and ideally involves ample peer-review
 feedback to achieve high-quality APIs. API First encompasses a set of
 quality-related standards and fosters a peer review culture including a
 lightweight review procedure. We encourage our teams to follow them to
@@ -1955,8 +1956,7 @@ stack</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>Moreover, API definitions with standardized specification format also
-facilitate&#8230;&#8203;</p>
+<p>Moreover, API specifications using a standard format facilitate&#8230;&#8203;</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1994,7 +1994,7 @@ get it confirmed by peer review.</p>
 </div>
 <div class="paragraph">
 <p>On the other hand, API First obviously is in conflict with the bad
-practice of publishing API definition and asking for peer review after
+practice of publishing API specifications and asking for peer review after
 the service integration or even the service productive operation has
 started. It is crucial to request and get early feedback — as early as
 possible, but not before the API changes are comprehensive with focus
@@ -2005,11 +2005,40 @@ Guideline compliance), already confirmed via team internal reviews.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="general-guidelines"><a class="link" href="#general-guidelines">3. General guidelines</a></h2>
+<h2 id="terminology"><a class="link" href="#terminology">3. Basic Terminology</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The titles are marked with the corresponding labels: <span class="must-keyword"><strong>MUST</strong></span>,
-<span class="should-keyword"><strong>SHOULD</strong></span>, <span class="may-keyword"><strong>MAY</strong></span>.</p>
+<p>In the context of our REST API Guidelines, we differentiate the following entity types:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>OpenAPI Specification</strong> (OAS)&#8201;&#8212;&#8201;the REST API specification format defined as standard by the <a href="https://www.openapis.org/">OpenAPI Initiative</a>. We currently encourage using <a href="https://spec.openapis.org/oas/v3.1.0.html">OpenAPI 3.1 version</a> for API specifications.</p>
+</li>
+<li>
+<p><strong>API Specification</strong> (aka <a href="https://spec.openapis.org/oas/latest.html#openapi-description-structure">OpenAPI Description (OAD)</a>&#8201;&#8212;&#8201;the document in OAS format specifying an API, its syntax and semantics. It should provide all information for clients to use the API, and serves as the interface definition of the API implementation.</p>
+</li>
+<li>
+<p><strong>API</strong>&#8201;&#8212;&#8201;the REST API interface provided via "the wire" (HTTP+TCP/IP) by a concrete service that is deployed and running.</p>
+</li>
+<li>
+<p><strong>API Implementation</strong>&#8201;&#8212;&#8201;the implementation of the API as part of a concrete service implementation. It is typically code written in a programming language like Java or Python, and there can be multiple concrete implementations for the same API.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The API Specification, of course, might differ from the actual API provided by a concrete service, because e.g. the service implementation is incomplete, not up-to-date or faulty. The API Specification that is intended to be implemented by the service <a href="#192">must / should be published with the service deployment</a>.</p>
+</div>
+<div class="paragraph">
+<p>Note, OpenAPI allows API Specifications being composed of an entry document and URL-referenced OpenAPI Documents defining path, component or webhook elements. However, we require to provide the API specification using a single self-contained YAML document for better readability and consistent versioning and life-cycle handling&#8201;&#8212;&#8201;see <a href="#101"><span class="must-keyword"><strong>MUST</strong></span> provide API Specifications using OpenAPI</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="general-guidelines"><a class="link" href="#general-guidelines">4. General guidelines</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The titles are marked with the corresponding labels: <span class="must-keyword"><strong>MUST</strong></span>, <span class="should-keyword"><strong>SHOULD</strong></span>, <span class="may-keyword"><strong>MAY</strong></span>.</p>
 </div>
 <div class="sect2">
 <h3 id="100"><a class="link" href="#100"><span class="must-keyword"><strong>MUST</strong></span> follow API first principle</a></h3>
@@ -2037,13 +2066,13 @@ with <code>x-api-audience =/= component-internal</code> (see <a href="#219"><spa
 </div>
 </div>
 <div class="sect2">
-<h3 id="101"><a class="link" href="#101"><span class="must-keyword"><strong>MUST</strong></span> provide API specification using OpenAPI</a></h3>
+<h3 id="101"><a class="link" href="#101"><span class="must-keyword"><strong>MUST</strong></span> provide API Specifications using OpenAPI</a></h3>
 <div class="paragraph">
 <p>We use the standard provided by the <a href="https://www.openapis.org/">OpenAPI Initiative</a>
 to define API specifications. API designers are required to provide the API
 specification using a single self-contained YAML file for better readability.
 We encourage using <a href="https://swagger.io/specification/">OpenAPI 3.1 version</a>,
-especially for new APIs. The API specification files should be subject to version
+especially for new APIs. The API specification documents should be subject to version
 control using a source code management system, and you <a href="#192"><span class="must-keyword"><strong>MUST</strong></span> publish OpenAPI specification for APIs</a>.</p>
 </div>
 <div class="paragraph">
@@ -2160,33 +2189,32 @@ published via these sources, as suggested in <a href="#151"><span class="must-ke
 </div>
 </div>
 <div class="sect1">
-<h2 id="meta-information"><a class="link" href="#meta-information">4. REST Basics - Meta information</a></h2>
+<h2 id="meta-information"><a class="link" href="#meta-information">5. REST Basics - Meta information</a></h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="218"><a class="link" href="#218"><span class="must-keyword"><strong>MUST</strong></span> contain API meta information</a></h3>
 <div class="paragraph">
-<p>API specifications must contain the following OpenAPI meta information
-to allow for API management:</p>
+<p>API specifications must contain the following
+<a href="https://spec.openapis.org/oas/latest.html#info-object">OpenAPI meta information</a>:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>#/info/title</code> as (unique) identifying, functional descriptive name of the API</p>
+<p><code>#/info/title</code> a (unique) identifying, functional descriptive name of the API</p>
 </li>
 <li>
-<p><code>#/info/version</code> to distinguish API specifications versions following
-<a href="#116">semantic rules</a></p>
+<p><code>#/info/version</code> the API specification document version following <a href="#116"><span class="must-keyword"><strong>MUST</strong></span> use semantic versioning</a></p>
 </li>
 <li>
-<p><code>#/info/description</code> containing a proper description of the API</p>
+<p><code>#/info/description</code>  a proper description of the API</p>
 </li>
 <li>
-<p><code>#/info/contact/{name,url,email}</code> containing the responsible team</p>
+<p><code>#/info/contact/{name,url,email}</code> contact info of the team owning the API specification</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>Following OpenAPI extension properties <strong>must</strong> be provided in addition:</p>
+<p>The following OpenAPI extension properties <strong>must</strong> be additionally provided:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -2202,11 +2230,15 @@ to allow for API management:</p>
 <div class="sect2">
 <h3 id="116"><a class="link" href="#116"><span class="must-keyword"><strong>MUST</strong></span> use semantic versioning</a></h3>
 <div class="paragraph">
-<p>OpenAPI allows to specify the API specification version in
-<code>#/info/version</code>. To share a common semantic of version information we
-expect API designers to comply to <a href="http://semver.org/spec/v2.0.0.html">
-Semantic Versioning 2.0</a> rules <code>1</code> to <code>8</code> and <code>11</code> restricted to the format
-&lt;MAJOR&gt;.&lt;MINOR&gt;.&lt;PATCH&gt; for versions as follows:</p>
+<p>OpenAPI requires the definition of API specification version via <code>#/info/version</code>.
+Note, this API specification document version is distinct from the
+OpenAPI Specification version (also required, e.g. <code>openapi: 3.1.0</code>),
+or the API Implementation version&#8201;&#8212;&#8201;see <a href="#terminology">Basic Terminology</a>.</p>
+</div>
+<div class="paragraph">
+<p>We expect API designers to comply to <a href="http://semver.org/spec/v2.0.0.html">
+Semantic Versioning 2.0</a> rules <code>1 - 8</code> and <code>11</code> with the standard version format
+&lt;MAJOR&gt;.&lt;MINOR&gt;.&lt;PATCH&gt; as follows:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -2252,9 +2284,9 @@ are free to decide whether they increment it or not.</p>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="yaml"><span class="key">openapi</span>: <span class="string"><span class="content">3.1.0</span></span>
 <span class="key">info</span>:
+  <span class="key">version</span>: <span class="string"><span class="content">1.3.7</span></span>
   <span class="key">title</span>: <span class="string"><span class="content">Parcel Service API</span></span>
   <span class="key">description</span>: <span class="string"><span class="content">API for &lt;...&gt;</span></span>
-  <span class="key">version</span>: <span class="string"><span class="content">1.3.7</span></span>
   <span class="error">&lt;...&gt;</span></code></pre>
 </div>
 </div>
@@ -2506,13 +2538,13 @@ The API Linter maintains an allow-list for these exceptions (including e.g.
 </div>
 </div>
 <div class="sect1">
-<h2 id="security"><a class="link" href="#security">5. REST Basics - Security</a></h2>
+<h2 id="security"><a class="link" href="#security">6. REST Basics - Security</a></h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="104"><a class="link" href="#104"><span class="must-keyword"><strong>MUST</strong></span> secure endpoints</a></h3>
 <div class="paragraph">
 <p>Every API endpoint must be protected and armed with authentication and authorization.
-As part of the API definition you must specify how you protect your API using
+As part of the API specification you must define how you protect your API using
 either the <code>http</code> typed <code>bearer</code> or <code>oauth2</code> typed security schemes defined in the
 <a href="https://swagger.io/docs/specification/authentication/">OpenAPI Authentication Specification</a>.</p>
 </div>
@@ -2678,7 +2710,7 @@ or write is sufficient.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="data-formats"><a class="link" href="#data-formats">6. REST Basics - Data formats</a></h2>
+<h2 id="data-formats"><a class="link" href="#data-formats">7. REST Basics - Data formats</a></h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="238"><a class="link" href="#238"><span class="must-keyword"><strong>MUST</strong></span> use standard data formats</a></h3>
@@ -3182,7 +3214,7 @@ pagination use cases ordered along creation time.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="urls"><a class="link" href="#urls">7. REST Basics - URLs</a></h2>
+<h2 id="urls"><a class="link" href="#urls">8. REST Basics - URLs</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Guidelines for naming and designing resource paths and query parameters.</p>
@@ -3338,7 +3370,7 @@ filtering and <a href="#157">embedding</a>.</p>
 <p>API resources represent elements of the application’s domain model. Using
 domain-specific nomenclature for resource names helps developers to understand
 the functionality and basic semantics of your resources. It also reduces the
-need for further documentation outside the API definition. For example,
+need for further documentation outside the API specification. For example,
 "sales-order-items" is superior to "order-items" in that it clearly indicates
 which business object it represents. Along these lines, "items" is too general.</p>
 </div>
@@ -3489,7 +3521,7 @@ some services may choose to access the orders directly, for instance:</p>
 <div class="paragraph">
 <p>To keep maintenance and service evolution manageable, we should follow
 "functional segmentation" and "separation of concern" design principles and do
-not mix different business functionalities in same API definition. In practice
+not mix different business functionalities in same API. In practice
 this means that the number of resource types exposed via an API should be
 limited. In this context a resource type is defined as a set of highly related
 resources such as a collection, its members and any direct sub-resources.</p>
@@ -3608,7 +3640,7 @@ a page. See <a href="#pagination">REST Design - Pagination</a> section below.</p
 </div>
 </div>
 <div class="sect1">
-<h2 id="json-guidelines"><a class="link" href="#json-guidelines">8. REST Basics - JSON payload</a></h2>
+<h2 id="json-guidelines"><a class="link" href="#json-guidelines">9. REST Basics - JSON payload</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>These guidelines provides recommendations for defining JSON data at Zalando.
@@ -3789,7 +3821,7 @@ This approach allows to clearly distinguish values from properties or other elem
 </div>
 <div class="paragraph">
 <p><strong>Exception:</strong> This rule does not apply for case sensitive values sourced from outside
-API definition scope, e.g. for language codes from <a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">ISO 639-1</a>, or when
+API specification scope, e.g. for language codes from <a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">ISO 639-1</a>, or when
 declaring possible values for a <a href="#137">rule 137</a> [<code>sort</code> parameter].</p>
 </div>
 </div>
@@ -4306,7 +4338,7 @@ numbers as float / doubles.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="http-requests"><a class="link" href="#http-requests">9. REST Basics - HTTP requests</a></h2>
+<h2 id="http-requests"><a class="link" href="#http-requests">10. REST Basics - HTTP requests</a></h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="148"><a class="link" href="#148"><span class="must-keyword"><strong>MUST</strong></span> use HTTP methods correctly</a></h3>
@@ -5499,7 +5531,7 @@ also with company <em>Bar</em>.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="http-status-codes-and-errors"><a class="link" href="#http-status-codes-and-errors">10. REST Basics - HTTP status codes</a></h2>
+<h2 id="http-status-codes-and-errors"><a class="link" href="#http-status-codes-and-errors">11. REST Basics - HTTP status codes</a></h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="243"><a class="link" href="#243"><span class="must-keyword"><strong>MUST</strong></span> use official HTTP status codes</a></h3>
@@ -6252,7 +6284,7 @@ more explicit.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="headers"><a class="link" href="#headers">11. REST Basics - HTTP headers</a></h2>
+<h2 id="headers"><a class="link" href="#headers">12. REST Basics - HTTP headers</a></h2>
 <div class="sectionbody">
 <div id="standard-headers" class="paragraph">
 <p>In this section we explain a handful of (standard) HTTP headers, which we found
@@ -7013,7 +7045,7 @@ DB solutions).</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="hypermedia"><a class="link" href="#hypermedia">12. REST Design - Hypermedia</a></h2>
+<h2 id="hypermedia"><a class="link" href="#hypermedia">13. REST Design - Hypermedia</a></h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="162"><a class="link" href="#162"><span class="must-keyword"><strong>MUST</strong></span> use REST maturity level 2</a></h3>
@@ -7224,7 +7256,7 @@ As a result, the use of the <a href="https://tools.ietf.org/html/rfc8288#section
 </div>
 </div>
 <div class="sect1">
-<h2 id="performance"><a class="link" href="#performance">13. REST Design - Performance</a></h2>
+<h2 id="performance"><a class="link" href="#performance">14. REST Design - Performance</a></h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="155"><a class="link" href="#155"><span class="should-keyword"><strong>SHOULD</strong></span> reduce bandwidth needs and improve responsiveness</a></h3>
@@ -7721,7 +7753,7 @@ proxy cache.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="pagination"><a class="link" href="#pagination">14. REST Design - Pagination</a></h2>
+<h2 id="pagination"><a class="link" href="#pagination">15. REST Design - Pagination</a></h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="159"><a class="link" href="#159"><span class="must-keyword"><strong>MUST</strong></span> support pagination</a></h3>
@@ -7997,7 +8029,7 @@ support this requirement via the <a href="https://tools.ietf.org/html/rfc7240"><
 </div>
 </div>
 <div class="sect1">
-<h2 id="compatibility"><a class="link" href="#compatibility">15. REST Design - Compatibility</a></h2>
+<h2 id="compatibility"><a class="link" href="#compatibility">16. REST Design - Compatibility</a></h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="106"><a class="link" href="#106"><span class="must-keyword"><strong>MUST</strong></span> not break backward compatibility</a></h3>
@@ -8038,9 +8070,9 @@ if no API consumer is using the affected API aspects (see also <a href="#depreca
 </div>
 <div class="paragraph">
 <p><strong>Hint:</strong> Please note that the compatibility guarantees are for the "on the wire"
-format. Binary or source compatibility of code generated from an API definition
+format. Binary or source compatibility of code generated from an API specification
 is not covered by these rules. If client implementations update their
-generation process to a new version of the API definition, it has to be
+generation process to a new version of the API specification, it has to be
 expected that code changes are necessary.</p>
 </div>
 </div>
@@ -8076,7 +8108,7 @@ for input parameters.</p>
 </li>
 <li>
 <p>You <a href="#112"><span class="should-keyword"><strong>SHOULD</strong></span> use open-ended list of values (<code>x-extensible-enum</code>) for enumeration types</a> that are used for output parameters and likely to
-be extended with growing functionality. The API definition should be updated
+be extended with growing functionality. The API specification should be updated
 first before returning new values.</p>
 </li>
 <li>
@@ -8147,8 +8179,8 @@ that already use this field but with different type.</p>
 </div>
 <div class="paragraph">
 <p>In specific situations, where a (known) input field is not needed anymore, it
-either can stay in the API definition with "not used anymore" description or
-can be removed from the API definition as long as the server ignores this
+either can stay in the API specification with "not used anymore" description or
+can be removed from the API specification as long as the server ignores this
 specific parameter.</p>
 </div>
 </div>
@@ -8471,14 +8503,14 @@ must implement a fallback / default behavior to handle unknown new enum values&#
 API owners must take care to extend enums in a compatible way that does not change the
 semantics of already existing enum values, for instance, do not split an old enum value
 into two new enum values. Services should only extend <a href="#112"><code>x-extensible-enum</code></a> ranges, and only accept
-and return values listed in the API definition, i.e. the API definition needs to be updated first
+and return values listed in the API specification, i.e. the API specification needs to be updated first
 before the service accepts/returns new values&#8201;&#8212;&#8201;see also <a href="#107"><span class="should-keyword"><strong>SHOULD</strong></span> prefer compatible extensions</a>.</p>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="deprecation"><a class="link" href="#deprecation">16. REST Design - Deprecation</a></h2>
+<h2 id="deprecation"><a class="link" href="#deprecation">17. REST Design - Deprecation</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Sometimes it is necessary to phase out an API endpoint, an API version, or an
@@ -8671,14 +8703,15 @@ the deprecation info (see hint in <a href="#189"><span class="should-keyword"><s
 </div>
 </div>
 <div class="sect1">
-<h2 id="api-operation"><a class="link" href="#api-operation">17. REST Operation</a></h2>
+<h2 id="api-operation"><a class="link" href="#api-operation">18. REST Operation</a></h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="192"><a class="link" href="#192"><span class="must-keyword"><strong>MUST</strong></span> publish OpenAPI specification for APIs</a></h3>
 <div class="paragraph">
-<p>All service applications must publish OpenAPI specifications of their external
-APIs. While this is optional for <a href="#219">component-internal APIs</a>, we still
-recommend to do so to profit from our API management infrastructure.</p>
+<p>All service applications must publish API Specifications of their external
+APIs (see <a href="#219">API Audience definition</a>). While this is optional
+for <a href="#219">component-internal</a> APIs, we recommend doing so to profit from
+our API management infrastructure and review services.</p>
 </div>
 <div class="paragraph">
 <p>As described in <a href="https://cloud.docs.zalando.net/howtos/api-publishing/">How to publish API Specifications (internal_link)</a>,
@@ -8718,7 +8751,7 @@ of the client-id retrieved from the OAuth token.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="events"><a class="link" href="#events">18. EVENT Basics - Event Types</a></h2>
+<h2 id="events"><a class="link" href="#events">19. EVENT Basics - Event Types</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Zalando’s architecture centers around decoupled microservices and in
@@ -9234,7 +9267,7 @@ on the use of <code>additionalProperties</code>.</p>
 <div class="sect2">
 <h3 id="246"><a class="link" href="#246"><span class="must-keyword"><strong>MUST</strong></span> use semantic versioning of event type schemas</a></h3>
 <div class="paragraph">
-<p>Event schemas must be versioned&#8201;&#8212;&#8201;analog to <a href="#116"><span class="must-keyword"><strong>MUST</strong></span> use semantic versioning</a> for REST API definitions.
+<p>Event schemas must be versioned&#8201;&#8212;&#8201;analog to <a href="#116"><span class="must-keyword"><strong>MUST</strong></span> use semantic versioning</a> for REST API specifications.
 The compatibility mode interact with revision numbers in the schema
 <code>version</code> field, which follows semantic versioning (MAJOR.MINOR.PATCH):</p>
 </div>
@@ -9274,7 +9307,7 @@ removing fields, or adding new required fields.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="event-categories"><a class="link" href="#event-categories">19. EVENT Basics - Event Categories</a></h2>
+<h2 id="event-categories"><a class="link" href="#event-categories">20. EVENT Basics - Event Categories</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>An <em>event category</em> describes a generic class of event types. The
@@ -9736,7 +9769,7 @@ reason".</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="events-design"><a class="link" href="#events-design">20. EVENT Design</a></h2>
+<h2 id="events-design"><a class="link" href="#events-design">21. EVENT Design</a></h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="200"><a class="link" href="#200"><span class="should-keyword"><strong>SHOULD</strong></span> avoid writing sensitive data to events</a></h3>
@@ -11171,7 +11204,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-10-08 08:43:01 UTC
+Last updated 2025-11-12 18:03:57 UTC
 </div>
 </div>
 </body>
