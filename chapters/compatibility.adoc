@@ -367,8 +367,7 @@ delivery_methods:
   description: The chosen delivery method of the invoice.
 ----
 
-Until all existing APIs using this have been updated, API providers and consumers
-still need to follow the rules under "Important" above for these cases.
+The "important" rules above apply in an analog way for API providers and consumers using {x-extensible-enum}.
 
 This rule originated in the time before JSON schema and OpenAPI schema
 had the plural `examples` property (OpenAPI schema had singular `example`,
