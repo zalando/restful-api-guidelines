@@ -357,6 +357,8 @@ include::chapters/introduction.adoc[]
 
 include::chapters/design-principles.adoc[]
 
+include::chapters/terms.adoc[]
+
 include::chapters/general-guidelines.adoc[]
 
 include::chapters/meta-information.adoc[]

@@ -118,8 +118,7 @@ implementation aspects — APIs should be stable even if we replace
 complete service implementation including its underlying technology
 stack
 
-Moreover, API definitions with standardized specification format also
-facilitate...
+Moreover, API specifications using a standard format facilitate...
 
 * single source of truth for the API specification; it is a crucial part
 of a contract between service provider and client users
@@ -147,7 +146,7 @@ and can never produce code before you have defined the complete API and
 get it confirmed by peer review.
 
 On the other hand, API First obviously is in conflict with the bad
-practice of publishing API definition and asking for peer review after
+practice of publishing API specifications and asking for peer review after
 the service integration or even the service productive operation has
 started. It is crucial to request and get early feedback — as early as
 possible, but not before the API changes are comprehensive with focus

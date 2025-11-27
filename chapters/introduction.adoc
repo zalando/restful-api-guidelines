@@ -14,7 +14,7 @@ external business partners to use via third-party applications.
 
 With this in mind, we’ve adopted "API First" as one of our key
 engineering principles. Microservices development begins with API
-definition outside the code and ideally involves ample peer-review
+specification outside the code and ideally involves ample peer-review
 feedback to achieve high-quality APIs. API First encompasses a set of
 quality-related standards and fosters a peer review culture including a
 lightweight review procedure. We encourage our teams to follow them to
