@@ -8082,16 +8082,38 @@ expected that code changes are necessary.</p>
 <h3 id="107"><a class="link" href="#107"><span class="should-keyword"><strong>SHOULD</strong></span> prefer compatible extensions</a></h3>
 <div class="paragraph">
 <p>API designers should apply the following rules to evolve RESTful APIs for
-services in a backward-compatible way:</p>
+services in a backward-compatible way.</p>
+</div>
+<div class="paragraph">
+<p>In general:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Add only optional, never mandatory fields.</p>
-</li>
-<li>
 <p>Never change the semantic of fields (e.g. changing the semantic from
 customer-number to customer-id, as both are different unique customer keys)</p>
+</li>
+<li>
+<p>Consider <a href="#251"><span class="should-keyword"><strong>SHOULD</strong></span> not use redirection codes</a> in case a URL has to change.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The compatibility of schema changes depends on whether the input and/or output objects are defined.</p>
+</div>
+<div class="paragraph">
+<p>For schemas used in input only:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Add optional fields, but never mandatory fields.</p>
+</li>
+<li>
+<p>Make mandatory fields optional, but not vice-versa.</p>
+</li>
+<li>
+<p>Don&#8217;t remove fields(*).</p>
 </li>
 <li>
 <p>Input fields may have (complex) constraints being validated via server-side
@@ -8099,24 +8121,84 @@ business logic. Never change the validation logic to be more restrictive and
 make sure that all constraints are clearly defined in description.</p>
 </li>
 <li>
-<p><code>enum</code> ranges can be reduced when used as input parameters, only if the server
-is ready to accept and handle old range values too. The range can be reduced
-when used only as output parameters.</p>
+<p><code>enum</code> ranges can be reduced, only if the server
+continues to accept and handle old range values.</p>
 </li>
 <li>
-<p><code>enum</code> ranges cannot be extended when used for output parameters — clients may
-not be prepared to handle it. However, <code>enum</code> ranges can be extended when used
-only for input parameters.</p>
+<p><code>enum</code> ranges can be extended.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>(*) Hint: Removing a field can be considered as a compatible change that does not break clients, in case the service still accepts and possibly ignores it if sent by the client. However, removed fields allow later adding a same-named field with different type or semantic (which is harder to catch). We therefore define field removal as non-compatible.</p>
+</div>
+<div class="paragraph">
+<p>For schemas used in output only:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Add (mandatory or optional) fields.</p>
+</li>
+<li>
+<p>Make optional fields mandatory, but not vice-versa.</p>
+</li>
+<li>
+<p>Don&#8217;t remove fields (*).</p>
+</li>
+<li>
+<p><code>enum</code> ranges can be reduced.</p>
+</li>
+<li>
+<p><code>enum</code> ranges <strong>cannot</strong> be extended — clients may
+not be prepared to handle it.</p>
 </li>
 <li>
 <p>You <a href="#112"><span class="should-keyword"><strong>SHOULD</strong></span> use open-ended list of values (via <code>examples</code>) for enumeration types</a> that are used for output parameters and likely to
 be extended with growing functionality. The API specification should be updated
 first before returning new values.</p>
 </li>
+</ul>
+</div>
+<div class="paragraph">
+<p>(*) Hint: Removing an optional field can be considered as a compatible change that does not break clients. However, removed fields allow later adding a same-named field with different type or semantic (which is harder to catch). We therefore define optional field removal as non-compatible.</p>
+</div>
+<div class="paragraph">
+<p>For schemas used in both input and output (which is typical in
+many cases), both of these rule sets combine, i.e. you can only do changes which
+are allowed in both input and output.</p>
+</div>
+<div class="ulist">
+<ul>
 <li>
-<p>Consider <a href="#251"><span class="should-keyword"><strong>SHOULD</strong></span> not use redirection codes</a> in case a URL has to change.</p>
+<p>Add only optional, never mandatory fields.</p>
+</li>
+<li>
+<p>Don&#8217;t remove any fields.</p>
+</li>
+<li>
+<p>Don&#8217;t make mandatory fields optional or make optional fields mandatory.</p>
+</li>
+<li>
+<p>Input fields may have (complex) constraints being validated via server-side
+business logic. Never change the validation logic to be more restrictive and
+make sure that all constraints are clearly defined in description.</p>
+</li>
+<li>
+<p><code>enum</code> ranges can be reduced only if the server is ready to still accept and
+handle old values. They <strong>cannot</strong> be extended.</p>
+</li>
+<li>
+<p>You <a href="#112"><span class="should-keyword"><strong>SHOULD</strong></span> use open-ended list of values (via <code>examples</code>) for enumeration types</a> that are used for output parameters and likely to
+be extended with growing functionality. The API definition should be updated
+first before returning new values.</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>Input/Output here is from the perspective of a service implementing and
+owning the API. For the rare case of APIs implemented by other services
+(and consumed by the owning service), this turns around.</p>
 </div>
 </div>
 <div class="sect2">
@@ -11290,7 +11372,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-11-27 09:52:49 UTC
+Last updated 2025-11-27 16:58:44 UTC
 </div>
 </div>
 </body>
