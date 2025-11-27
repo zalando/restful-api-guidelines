@@ -952,23 +952,29 @@ maintain compatibility as they will not be in a position to serve
 versioned media types on demand.
 
 For event schema, these are considered backward compatible changes, as
-seen by consumers -
+seen by consumers:
 
 * Adding new optional fields to JSON objects.
 * Changing the order of fields (field order in objects is arbitrary).
 * Changing the order of values with same type in an array.
-* Removing optional fields.
+* Removing optional fields (or rather, stop sending values for the optional
+  field – actually removing it from the schema is not allowed, as otherwise
+  it could be added back with an incompatible type).
 * Removing an individual value from an enumeration.
-* Adding new value to a {x-extensible-enum} field (see <<112, rule 112>> and <<108, rule 108>>).
+* Adding new values to extensible enum fields (see <<112, rule 112>> and <<108, rule 108>>).
 
 These are considered backwards-incompatible changes, as seen by
-consumers -
+consumers:
 
 * Removing required fields from JSON objects.
 * Changing the default value of a field.
 * Changing the type of a field, object, enum or array.
 * Changing the order of values with different type in an array (also
 known as a tuple).
-* Adding a new optional field to redefine the meaning of an existing
-field (also known as a co-occurrence constraint).
-* Adding a value to an enumeration. Instead, you <<112>>. 
+* Adding a new optional field to redefine the meaning of a (previously)
+  existing field (also known as a co-occurrence constraint).
+* Adding a value to an `enum` enumeration. Instead, you <<112>>.
+
+When an incompatible change is required, it needs to be aligned with all consumers.
+Only start sending values not covered by the previous schema after all consumers
+are prepared to consume the new values.
