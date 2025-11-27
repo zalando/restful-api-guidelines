@@ -1596,7 +1596,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#114"><span class="must-keyword"><strong>MUST</strong></span> use media type versioning</a></li>
 <li><a href="#115"><span class="must-keyword"><strong>MUST</strong></span> not use URL versioning</a></li>
 <li><a href="#110"><span class="must-keyword"><strong>MUST</strong></span> always return JSON objects as top-level data structures</a></li>
-<li><a href="#112"><span class="should-keyword"><strong>SHOULD</strong></span> use open-ended list of values (<code>x-extensible-enum</code>) for enumeration types</a></li>
+<li><a href="#112"><span class="should-keyword"><strong>SHOULD</strong></span> use open-ended list of values (via <code>examples</code>) for enumeration types</a></li>
 </ul>
 </li>
 <li><a href="#deprecation">17. REST Design - Deprecation</a>
@@ -3815,13 +3815,15 @@ as if it came from the same hand.</p>
 <div class="paragraph">
 <p>Enumerations should be represented as <code>string</code> typed OpenAPI definitions of
 request parameters or model properties.
-Enum values (using <code>enum</code> or <a href="#112"><code>x-extensible-enum</code></a>) need to consistently use
-the upper-snake case format, e.g. <code>VALUE</code> or <code>YET_ANOTHER_VALUE</code>.
-This approach allows to clearly distinguish values from properties or other elements.</p>
+Enum values (using <code>enum</code>, <a href="#112"><code>x-extensible-enum</code></a> or extensible enums using <code>examples</code>)
+need to consistently use the upper-snake case format, e.g. <code>VALUE</code>
+or <code>YET_ANOTHER_VALUE</code>.
+This approach allows to clearly distinguish enum values from properties or
+other elements.</p>
 </div>
 <div class="paragraph">
 <p><strong>Exception:</strong> This rule does not apply for case sensitive values sourced from outside
-API specification scope, e.g. for language codes from <a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">ISO 639-1</a>, or when
+of the API specification scope, e.g. for language codes from <a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">ISO 639-1</a>, or when
 declaring possible values for a <a href="#137">rule 137</a> [<code>sort</code> parameter].</p>
 </div>
 </div>
@@ -8099,15 +8101,15 @@ make sure that all constraints are clearly defined in description.</p>
 <li>
 <p><code>enum</code> ranges can be reduced when used as input parameters, only if the server
 is ready to accept and handle old range values too. The range can be reduced
-when used as output parameters.</p>
+when used only as output parameters.</p>
 </li>
 <li>
 <p><code>enum</code> ranges cannot be extended when used for output parameters — clients may
-not be prepared to handle it. However, enum ranges can be extended when used
-for input parameters.</p>
+not be prepared to handle it. However, <code>enum</code> ranges can be extended when used
+only for input parameters.</p>
 </li>
 <li>
-<p>You <a href="#112"><span class="should-keyword"><strong>SHOULD</strong></span> use open-ended list of values (<code>x-extensible-enum</code>) for enumeration types</a> that are used for output parameters and likely to
+<p>You <a href="#112"><span class="should-keyword"><strong>SHOULD</strong></span> use open-ended list of values (via <code>examples</code>) for enumeration types</a> that are used for output parameters and likely to
 be extended with growing functionality. The API specification should be updated
 first before returning new values.</p>
 </li>
@@ -8209,8 +8211,11 @@ i.e. ignore new fields but do not eliminate them from payload if needed for
 subsequent <a href="#put"><code>PUT</code></a> requests.</p>
 </li>
 <li>
-<p>Be prepared that <a href="#112"><code>x-extensible-enum</code></a> return parameters (see <a href="#112">rule 112</a>) may deliver new values;
-either be agnostic or provide default behavior for unknown values, and do not eliminate them.</p>
+<p>Be prepared that <a href="#112">extensible enum</a> return parameters
+may deliver new values;
+either be agnostic or provide default behavior for unknown values, and
+do not eliminate them when passed to subsequent <a href="#put"><code>PUT</code></a> requests.
+(This means you cannot simply implement it by using a limited enumeration type like a Java <code>enum</code>.)</p>
 </li>
 <li>
 <p>Be prepared to handle HTTP status codes not explicitly specified in endpoint
@@ -8451,18 +8456,20 @@ level data structures, since they don&#8217;t support compatible, future extensi
 </div>
 </div>
 <div class="sect2">
-<h3 id="112"><a class="link" href="#112"><span class="should-keyword"><strong>SHOULD</strong></span> use open-ended list of values (<code>x-extensible-enum</code>) for enumeration types</a></h3>
+<h3 id="112"><a class="link" href="#112"><span class="should-keyword"><strong>SHOULD</strong></span> use open-ended list of values (via <code>examples</code>) for enumeration types</a></h3>
 <div class="paragraph">
 <p>JSON schema <code>enum</code> is per definition a closed set of values that is assumed to be
-complete and not intended for extension. This closed principle of enumerations
-imposes compatibility issues when an enumeration must be extended. To avoid
-these issues, we recommend to use an open-ended list of values instead
-of an enumeration unless:</p>
+complete and not intended for extension. This means, extending the list of values of
+<code>enum</code> is considered an incompatible change, and needs to be aligned with all consumers
+like other incompatible changes.</p>
+</div>
+<div class="paragraph">
+<p>To avoid these issues, we recommend to use <code>enum</code> only if</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>the API has full control of the enumeration values, i.e. the list of values
+<p>the API owner has full control of the enumeration values, i.e. the list of values
 does not depend on any external tool or interface, and</p>
 </li>
 <li>
@@ -8472,7 +8479,80 @@ future feature.</p>
 </ol>
 </div>
 <div class="paragraph">
-<p>To specify an open-ended list of values via the <a href="#112"><code>x-extensible-enum</code></a> property as follows:</p>
+<p>In all other cases, where additional values are imaginable our recommendation is this:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Use <code>examples</code> with the list of (currently known) values</p>
+</li>
+<li>
+<p>Add <code>[Extensible enum](<a href="https://opensource.zalando.com/restful-api-guidelines/#112" class="bare">https://opensource.zalando.com/restful-api-guidelines/#112</a>).</code> as a standard prefix to the description.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This indicates that only the listed values are currently possible, but
+consumers need to be aware that this list can be extended without notice
+(see below for details).</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="yaml"><span class="key">delivery_method</span>:
+  <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
+  <span class="key">examples</span>:
+    - <span class="string"><span class="content">PARCEL</span></span>
+    - <span class="string"><span class="content">LETTER</span></span>
+    - <span class="string"><span class="content">EMAIL</span></span>
+  <span class="key">description</span>: <span class="string"><span class="content">[Extensible enum](https://opensource.zalando.com/restful-api-guidelines/#112). The chosen delivery method of the invoice.</span></span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>See <a href="#240"><span class="should-keyword"><strong>SHOULD</strong></span> declare enum values using UPPER_SNAKE_CASE string</a> about enum value naming conventions – these apply here too.</p>
+</div>
+<div class="paragraph">
+<p><strong>Important</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>API consumers must be prepared for the fact that also other values can be returned
+with server responses (or be contained in consumed events), and implement a
+fallback / default behavior for unknown new values, see  <a href="#108"><span class="must-keyword"><strong>MUST</strong></span> prepare clients to accept compatible API extensions</a>.</p>
+</li>
+<li>
+<p>API owners must take care to extend these extensible enums in a compatible way, i.e.
+not changing the semantics of already existing / documented values.</p>
+</li>
+<li>
+<p>API implementations should validate the values provided with the input payload
+and only accept values listed in <code>examples</code>.</p>
+</li>
+<li>
+<p>The list should not be reduced for inputs (that would be an incompatible change).</p>
+</li>
+<li>
+<p>Before additional values are accepted or returned, API owners should update the API description and extend
+the <code>examples</code> list, see <a href="#107"><span class="should-keyword"><strong>SHOULD</strong></span> prefer compatible extensions</a>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>(Note that the last 3 bullet points do not apply for uses of <code>examples</code> <em>without</em> the
+ "Extensible enum." prefix in the description – here any value fitting the rest
+ of the schema needs to be expected.)</p>
+</div>
+<div class="paragraph">
+<p>Note that the plural <code>examples</code> on schemas was only introduced with OpenAPI 3.1 (with an update of the JSON schema version referenced).
+APIs defined with older OpenAPI versions can&#8217;t use this format, and instead need to use
+the <a href="#112"><code>x-extensible-enum</code></a> described below↓.</p>
+</div>
+<div class="sect3">
+<h4 id="_historic_note_x_extensible_enum"><a class="link" href="#_historic_note_x_extensible_enum">Historic Note: <code>x-extensible-enum</code></a></h4>
+<div class="paragraph">
+<p>Previously (until October 2025) this guideline recommended a proprietary
+JSON schema extension <a href="#112"><code>x-extensible-enum</code></a> with the same semantic.
+The example above would be specified as follows:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -8481,30 +8561,29 @@ future feature.</p>
   <span class="key">x-extensible-enum</span>:
     - <span class="string"><span class="content">PARCEL</span></span>
     - <span class="string"><span class="content">LETTER</span></span>
-    - <span class="string"><span class="content">EMAIL</span></span></code></pre>
+    - <span class="string"><span class="content">EMAIL</span></span>
+  <span class="key">description</span>: <span class="string"><span class="content">The chosen delivery method of the invoice.</span></span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><strong>Note:</strong> <a href="#112"><code>x-extensible-enum</code></a> is a proprietary extension of the JSON Schema standard that
-is e.g. visible via Swagger UI, but ignored by most other tools.</p>
+<p>The "important" rules above apply in an analog way for API providers and consumers using <a href="#112"><code>x-extensible-enum</code></a>.</p>
 </div>
 <div class="paragraph">
-<p>See <a href="#240"><span class="should-keyword"><strong>SHOULD</strong></span> declare enum values using UPPER_SNAKE_CASE string</a> about enum value naming conventions.</p>
+<p>This rule originated in the time before JSON schema and OpenAPI schema
+had the plural <code>examples</code> property (OpenAPI schema had singular <code>example</code>,
+JSON schema had neither).</p>
 </div>
 <div class="paragraph">
-<p>Note, <a href="#112"><code>x-extensible-enum</code></a> is a different concept than JSON schema <code>examples</code> which is
-just a list of a few example values, whereas <a href="#112"><code>x-extensible-enum</code></a> defines all valid
-values (for a specific API and service version) and has the advantage of an extensible
-full type-range specification that is validated by the service.</p>
+<p>The completeness semantic would in theory allow some validation by
+intermediaries (but that was rarely implemented).
+It was visible in a few tools (e.g. Swagger UI), but ignored by most others.</p>
 </div>
 <div class="paragraph">
-<p><strong>Important:</strong> Clients must be prepared for extensions of enums returned with server responses, i.e.
-must implement a fallback / default behavior to handle unknown new enum values&#8201;&#8212;&#8201;see <a href="#108"><span class="must-keyword"><strong>MUST</strong></span> prepare clients to accept compatible API extensions</a>.
-API owners must take care to extend enums in a compatible way that does not change the
-semantics of already existing enum values, for instance, do not split an old enum value
-into two new enum values. Services should only extend <a href="#112"><code>x-extensible-enum</code></a> ranges, and only accept
-and return values listed in the API specification, i.e. the API specification needs to be updated first
-before the service accepts/returns new values&#8201;&#8212;&#8201;see also <a href="#107"><span class="should-keyword"><strong>SHOULD</strong></span> prefer compatible extensions</a>.</p>
+<p>After the team responsible for Nakadi (our Zalando-internal event bus) decided
+to not validate x-extensible-enum, but instead even reject it in event type
+definitions, we (the API guideline maintainers) revisited this rule to
+recommend <code>examples</code> instead.</p>
+</div>
 </div>
 </div>
 </div>
@@ -9941,7 +10020,7 @@ versioned media types on demand.</p>
 </div>
 <div class="paragraph">
 <p>For event schema, these are considered backward compatible changes, as
-seen by consumers -</p>
+seen by consumers:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -9955,19 +10034,21 @@ seen by consumers -</p>
 <p>Changing the order of values with same type in an array.</p>
 </li>
 <li>
-<p>Removing optional fields.</p>
+<p>Removing optional fields (or rather, stop sending values for the optional
+field – actually removing it from the schema is not allowed, as otherwise
+it could be added back with an incompatible type).</p>
 </li>
 <li>
 <p>Removing an individual value from an enumeration.</p>
 </li>
 <li>
-<p>Adding new value to a <a href="#112"><code>x-extensible-enum</code></a> field (see <a href="#112">rule 112</a> and <a href="#108">rule 108</a>).</p>
+<p>Adding new values to extensible enum fields (see <a href="#112">rule 112</a> and <a href="#108">rule 108</a>).</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
 <p>These are considered backwards-incompatible changes, as seen by
-consumers -</p>
+consumers:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -9985,13 +10066,18 @@ consumers -</p>
 known as a tuple).</p>
 </li>
 <li>
-<p>Adding a new optional field to redefine the meaning of an existing
-field (also known as a co-occurrence constraint).</p>
+<p>Adding a new optional field to redefine the meaning of a (previously)
+existing field (also known as a co-occurrence constraint).</p>
 </li>
 <li>
-<p>Adding a value to an enumeration. Instead, you <a href="#112"><span class="should-keyword"><strong>SHOULD</strong></span> use open-ended list of values (<code>x-extensible-enum</code>) for enumeration types</a>.</p>
+<p>Adding a value to an <code>enum</code> enumeration. Instead, you <a href="#112"><span class="should-keyword"><strong>SHOULD</strong></span> use open-ended list of values (via <code>examples</code>) for enumeration types</a>.</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>When an incompatible change is required, it needs to be aligned with all consumers.
+Only start sending values not covered by the previous schema after all consumers
+are prepared to consume the new values.</p>
 </div>
 </div>
 </div>
@@ -10758,7 +10844,7 @@ to see a list of all changes.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>2024-06-27</code>: Clarified usage of <a href="#112"><code>x-extensible-enum</code></a> for events in <a href="#112"><span class="should-keyword"><strong>SHOULD</strong></span> use open-ended list of values (<code>x-extensible-enum</code>) for enumeration types</a>. <sup><a href="https://github.com/zalando/restful-api-guidelines/pull/807">#807</a></sup></p>
+<p><code>2024-06-27</code>: Clarified usage of <a href="#112"><code>x-extensible-enum</code></a> for events in <a href="#112"><span class="should-keyword"><strong>SHOULD</strong></span> use open-ended list of values (via <code>examples</code>) for enumeration types</a>. <sup><a href="https://github.com/zalando/restful-api-guidelines/pull/807">#807</a></sup></p>
 </li>
 <li>
 <p><code>2024-06-25</code>: Relaxed naming convention for date/time properties in <a href="#235"><span class="should-keyword"><strong>SHOULD</strong></span> use naming convention for date/time properties</a>. <sup><a href="https://github.com/zalando/restful-api-guidelines/pull/811">#811</a></sup></p>
@@ -10827,7 +10913,7 @@ to see a list of all changes.</p>
 <p><code>2022-03-22</code>: More clarity about when error specification definitions can be omitted in <a href="#151"><span class="must-keyword"><strong>MUST</strong></span> specify success and error responses</a>. More clarity around HTTP status codes in <a href="#243"><span class="must-keyword"><strong>MUST</strong></span> use official HTTP status codes</a>. More clarity for avoiding null for boolean fields in <a href="#122"><span class="must-keyword"><strong>MUST</strong></span> not use <code>null</code> for boolean properties</a>. <sup><a href="https://github.com/zalando/restful-api-guidelines/pull/715">#715</a></sup> <sup><a href="https://github.com/zalando/restful-api-guidelines/pull/720">#720</a></sup> <sup><a href="https://github.com/zalando/restful-api-guidelines/pull/721">#721</a></sup></p>
 </li>
 <li>
-<p><code>2022-01-26</code>: Exclude 'type' from common field names in <a href="#235"><span class="should-keyword"><strong>SHOULD</strong></span> use naming convention for date/time properties</a>. Improve clarity around usage of extensible enums in <a href="#112"><span class="should-keyword"><strong>SHOULD</strong></span> use open-ended list of values (<code>x-extensible-enum</code>) for enumeration types</a>. <sup><a href="https://github.com/zalando/restful-api-guidelines/pull/714">#714</a></sup> <sup><a href="https://github.com/zalando/restful-api-guidelines/pull/717">#717</a></sup></p>
+<p><code>2022-01-26</code>: Exclude 'type' from common field names in <a href="#235"><span class="should-keyword"><strong>SHOULD</strong></span> use naming convention for date/time properties</a>. Improve clarity around usage of extensible enums in <a href="#112"><span class="should-keyword"><strong>SHOULD</strong></span> use open-ended list of values (via <code>examples</code>) for enumeration types</a>. <sup><a href="https://github.com/zalando/restful-api-guidelines/pull/714">#714</a></sup> <sup><a href="https://github.com/zalando/restful-api-guidelines/pull/717">#717</a></sup></p>
 </li>
 <li>
 <p><code>2021-12-22</code>: Clarify that event id must not change in retry situations when producers <a href="#211"><span class="must-keyword"><strong>MUST</strong></span> provide unique event identifiers</a>. <sup><a href="https://github.com/zalando/restful-api-guidelines/pull/694">#694</a></sup></p>
@@ -11204,7 +11290,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-11-12 18:03:57 UTC
+Last updated 2025-11-27 09:52:49 UTC
 </div>
 </div>
 </body>
