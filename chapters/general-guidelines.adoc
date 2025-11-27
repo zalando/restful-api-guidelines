@@ -1,8 +1,7 @@
 [[general-guidelines]]
 = General guidelines
 
-The titles are marked with the corresponding labels: {MUST},
-{SHOULD}, {MAY}.
+The titles are marked with the corresponding labels: {MUST}, {SHOULD}, {MAY}.
 
 
 [#100]
@@ -22,13 +21,13 @@ You must follow the <<api-first, API First Principle>>, more specifically:
 
 
 [#101]
-== {MUST} provide API specification using OpenAPI
+== {MUST} provide API Specifications using OpenAPI
 
 We use the standard provided by the https://www.openapis.org/[OpenAPI Initiative] 
 to define API specifications. API designers are required to provide the API 
 specification using a single self-contained YAML file for better readability. 
 We encourage using https://swagger.io/specification/[OpenAPI 3.1 version], 
-especially for new APIs. The API specification files should be subject to version 
+especially for new APIs. The API specification documents should be subject to version 
 control using a source code management system, and you <<192>>.
 
 *Hint:* Our API infrastructure does not break, but might not yet fully support 

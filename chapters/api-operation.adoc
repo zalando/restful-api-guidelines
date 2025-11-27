@@ -5,9 +5,10 @@
 [#192]
 == {MUST} publish OpenAPI specification for APIs
 
-All service applications must publish OpenAPI specifications of their external
-APIs. While this is optional for <<219, component-internal APIs>>, we still 
-recommend to do so to profit from our API management infrastructure.
+All service applications must publish API Specifications of their external
+APIs (see <<219, API Audience definition>>). While this is optional 
+for <<219, component-internal>> APIs, we recommend doing so to profit from 
+our API management infrastructure and review services.
 
 As described in https://cloud.docs.zalando.net/howtos/api-publishing/[How to publish API Specifications (internal_link)], 
 an API specification is published with the deployment of the implementing service 

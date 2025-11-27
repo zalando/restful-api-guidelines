@@ -143,7 +143,7 @@ filtering and <<157, embedding>>.
 API resources represent elements of the application’s domain model. Using
 domain-specific nomenclature for resource names helps developers to understand
 the functionality and basic semantics of your resources. It also reduces the
-need for further documentation outside the API definition. For example,
+need for further documentation outside the API specification. For example,
 "sales-order-items" is superior to "order-items" in that it clearly indicates
 which business object it represents. Along these lines, "items" is too general.
 
@@ -284,7 +284,7 @@ some services may choose to access the orders directly, for instance:
 
 To keep maintenance and service evolution manageable, we should follow
 "functional segmentation" and "separation of concern" design principles and do
-not mix different business functionalities in same API definition. In practice
+not mix different business functionalities in same API. In practice
 this means that the number of resource types exposed via an API should be
 limited. In this context a resource type is defined as a set of highly related
 resources such as a collection, its members and any direct sub-resources.

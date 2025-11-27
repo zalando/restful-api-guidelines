@@ -6,7 +6,7 @@
 == {MUST} secure endpoints
 
 Every API endpoint must be protected and armed with authentication and authorization.
-As part of the API definition you must specify how you protect your API using
+As part of the API specification you must define how you protect your API using
 either the `http` typed `bearer` or `oauth2` typed security schemes defined in the
 https://swagger.io/docs/specification/authentication/[OpenAPI Authentication Specification].
 

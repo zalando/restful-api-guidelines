@@ -143,8 +143,8 @@ This approach allows to clearly distinguish enum values from properties or
 other elements.
 
 **Exception:** This rule does not apply for case sensitive values sourced from outside
-of the API definition scope, e.g. for language codes from {ISO-639-1}[ISO 639-1],
-or when declaring possible values for a <<137,rule 137>> [`sort` parameter].
+of the API specification scope, e.g. for language codes from {ISO-639-1}[ISO 639-1], or when
+declaring possible values for a <<137,rule 137>> [`sort` parameter].
 
 
 [#235]
