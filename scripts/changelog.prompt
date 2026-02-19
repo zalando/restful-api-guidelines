@@ -1,0 +1,42 @@
+Write a changelog highlighting ONLY the rule changes based on the git commit messages and diffs provided.
+Formatting, infrastructure, or similar non-rule changes should be omitted.
+
+The rule numbers should always be referenced using angle brackets. For example, rule 211 should be written as <<211>>.
+
+At the end of every changelog row, you should add a link to the related Pull Request in AsciiDoc format, like so: ^https://github.com/zalando/restful-api-guidelines/pull/<PR_NUMBER>[#PR_NUMBER]^
+
+If there is no relevant Pull Request, you should link to a commit in asciidoc format instead, like so: ^https://github.com/zalando/restful-api-guidelines/commit/<COMMIT_HASH>[SHORT_HASH]^
+
+Example changelog:
+
+* `2021-12-09`: event id must not change in retry situations when producers <<211>>.
+* `2021-11-24`: restructuring of the document and some rules.
+* `2021-10-18`: new rule <<244>>.
+* `2021-10-12`: improve clarity on {PATCH} usage in rule <<148>>.
+* `2021-08-24`: improve clarity on {PUT} usage in rule <<148>>.
+* `2021-08-24`: only use codes registered via IANA in rule <<243>>.
+* `2021-08-17`: update formats per OpenAPI 3.1 in <<238>>.
+* `2021-06-22`: <<238>> changed from {SHOULD} to {MUST}; consistency for rules around standards for data.
+* `2021-06-03`: <<104>> with clear distinction of OpenAPI security schemes, favoring `bearer` to `oauth2`.
+* `2021-06-01`: resolve uncertainties around 'occurred_at' semantics of <<event-metadata, event metadata>>.
+* `2021-05-25`: <<172>> with <<114, API endpoint versioning>> as only custom media type usage exception.
+* `2021-05-05`: define usage on resource-ids in {PUT} and {POST} in <<148>>.
+* `2021-04-29`: improve clarity of <<133>>.
+* `2021-03-19`: clarity on <<167>>.
+* `2021-03-15`: <<242>> changed from {SHOULD} to {MUST}; improve clarity around <<203, event ordering>>.
+* `2021-03-19`: best practice section <<cursor-based-pagination>>
+* `2021-02-16`: define how to reference models outside the api in <<234>>.
+* `2021-02-15`: improve guideline <<176>> -- clients must be prepared to not receive problem return objects.
+* `2021-01-19`: more details for {GET-with-Body} and {DELETE-with-Body} (<<148>>).
+* `2020-09-29`: include models for headers to be included by reference in API definitions (<<183>>)
+* `2020-09-08`: add exception for legacy host names to <<224>>
+* `2020-08-25`: change <<240>> from {MUST} to {SHOULD}, explain exceptions
+* `2020-08-25`: add exception for `self` to <<143>> and <<134>>.
+* `2020-08-24`: change "{MUST} avoid trailing slashes" to <<136>>.
+* `2020-08-20`: change <<183>> from {MUST} to {SHOULD}, mention gateway-specific headers (which are not part of the public API).
+* `2020-06-30`: add details to <<114>>
+* `2020-05-19`: new sections about DELETE with query parameters and {DELETE-with-Body} in <<148>>.
+* `2020-02-06`: new rule <<241>>
+* `2020-02-05`: add Sunset header, clarify deprecation producedure (<<185>>, <<186>>, <<187>>, <<188>>, <<189>>, <<190>>, <<191>>)
+* `2020-01-21`: new rule <<240>> (as MUST, changed later to SHOULD)
+* `2020-01-15`: change "Warning" to "Deprecation" header in <<189>>, <<190>>.

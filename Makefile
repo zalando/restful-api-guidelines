@@ -11,7 +11,7 @@ DIRWORK := $(shell pwd -P)
 
 .PHONY: all clean install lint format pull assets rules html pdf epub force
 .PHONY: check check-rules check-rules-duplicates check-rules-incorrects
-.PHONY: next-rule-id watch
+.PHONY: next-rule-id watch changelog
 
 all: clean html rules
 clean:
@@ -50,6 +50,9 @@ next-rule-id:
 	@IFS=$$'\r\n' GLOBIGNORE='*' command eval \
 	"RULE_IDS=($$(grep -rh "^.*\[#[0-9]\{1,5\}.*$$" $(DIRCONTENTS) | sort -r))"; \
 	echo $$(($$(echo $${RULE_IDS[0]} | tr -d '\[' | tr -d '\]' | tr -d '#') + 1));
+
+changelog:
+	$(DIRSCRIPTS)/changelog.sh --update
 
 assets:
 	mkdir -p $(DIRBUILDS);
