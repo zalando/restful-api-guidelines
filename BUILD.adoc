@@ -47,6 +47,19 @@ the following command to find the next unused rule identifier.
 make next-rule-id
 ----
 
+== Generate Changelog
+
+To automatically generate changelog entries from git history using AI analysis,
+use the following command. The script analyzes commits since the latest changelog
+entry and generates properly formatted AsciiDoc entries for rule changes.
+
+[source,bash]
+----
+make changelog
+----
+
+**Prerequisites:** The `zllm` command must be installed for this target to work.
+
 == Generate Custom CSS
 
 In order to generate custom CSS we have to use
