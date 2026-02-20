@@ -1,4 +1,4 @@
-#!/bin/bash
+#! /bin/bash
 
 # Generate changelog entries from git history using AI analysis
 # Usage: ./changelog.sh [OPTIONS] [YEAR|DATE]
@@ -100,7 +100,7 @@ case "$MODE" in
         fi
 
         # Look for first date entry after "== Rule Changes" section
-        LATEST_DATE=$(grep -oP "^\* \`\K[0-9]{4}-[0-9]{2}-[0-9]{2}" "$CHANGELOG_FILE" | head -1)
+        LATEST_DATE=$(grep -E '^\* `[0-9]{4}-[0-9]{2}-[0-9]{2}' "$CHANGELOG_FILE" | head -1 | sed -E 's/^\* `([0-9]{4}-[0-9]{2}-[0-9]{2}).*/\1/')
 
         if [[ -z "$LATEST_DATE" ]]; then
             echo "Error: Could not find any date entries in changelog" >&2
@@ -157,6 +157,10 @@ elif [[ "$UPDATE_FILE" == true ]]; then
     # Create temporary file with new entries inserted after "== Rule Changes" header
     # Split file into: header + new entries + rest
     HEADER_LINE=$(grep -n "^== Rule Changes$" "$CHANGELOG_FILE" | cut -d: -f1)
+    if [[ -z "$HEADER_LINE" ]]; then
+        echo "Error: '== Rule Changes' header not found in $CHANGELOG_FILE. Cannot update changelog." >&2
+        exit 1
+    fi
 
     {
         # Read file up to (but not including) "== Rule Changes"

@@ -71,7 +71,7 @@ to see a list of all changes.
 * `2020-06-30`: add details to <<114>>
 * `2020-05-19`: new sections about DELETE with query parameters and {DELETE-with-Body} in <<148>>.
 * `2020-02-06`: new rule <<241>>
-* `2020-02-05`: add Sunset header, clarify deprecation producedure (<<185>>, <<186>>, <<187>>, <<188>>, <<189>>, <<190>>, <<191>>)
+* `2020-02-05`: add Sunset header, clarify deprecation procedure (<<185>>, <<186>>, <<187>>, <<188>>, <<189>>, <<190>>, <<191>>)
 * `2020-01-21`: new rule <<240>> (as MUST, changed later to SHOULD)
 * `2020-01-15`: change "Warning" to "Deprecation" header in <<189>>, <<190>>.
 * `2019-10-10`: remove never-implemented rule "{MUST} Permissions on events must correspond to API permissions"
