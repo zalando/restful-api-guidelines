@@ -573,7 +573,7 @@ operation
 support automated processing and error handling when appropriate.
 
 ==== Problem object specification
-Problem detail objects can have the following members described in the OpenAPI
+The Problem object is specified in the OpenAPI
 schema definition
 https://opensource.zalando.com/restful-api-guidelines/models/problem-1.0.1.yaml[on
 GitHub].
