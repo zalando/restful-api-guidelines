@@ -606,9 +606,8 @@ https://opensource.zalando.com/restful-api-guidelines/models/problem-1.0.1.yaml#
 instead.
 
 ==== Usage of Problem Object
-Clients may utilize properties in the Problem Object, particularly those
-documented in the API specification. However, they *should not* depend on these
-properties being present or having specific values.
+Clients may use, but *should be robust and not* depend on the Problem 
+properties being present or having specific values of specific types.
 The examples of such cases are:
 
 - response might be created by infrastructure components (and have a different
