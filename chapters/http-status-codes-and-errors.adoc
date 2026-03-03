@@ -565,24 +565,26 @@ number of requests made within a given window for each named entity.
 
 {RFC-9457}[RFC 9457] defines a Problem JSON object using the media type
 `application/problem+json` to provide a standardized format for expressing
-errors in API responses. It serves several purposes:
-
-* Developers: to debug, diagnose and resolve issues during API integration or
-operation
-* Client applications: to inform users about errors (in user interface) and to
-support automated processing and error handling when appropriate.
+errors in API responses.
 
 ==== Problem object specification
 The Problem object is specified in the OpenAPI
 schema definition
 https://opensource.zalando.com/restful-api-guidelines/models/problem-1.0.1.yaml[on
-GitHub].
+GitHub]. You can reference it by using:
 
-**Note:** If a member's value type does not match the specified type,
-the member MUST be ignored -- i.e., processing will continue as if
-the member had not been present.
+[source,yaml]
+----
+responses:
+  503:
+    description: Service Unavailable
+    content:
+      "application/problem+json":
+        schema:
+          $ref: 'https://opensource.zalando.com/restful-api-guidelines/models/problem-1.0.1.yaml#/Problem'
+----
 
-{RFC-9457}[RFC 9457] encourages that problem types are URI
+*Note:* {RFC-9457}[RFC 9457] encourages that problem types are URI
 references that point to human-readable documentation, *but* we deliberately
 decided against that, as all important parts of the API must be documented
 using <<101, OpenAPI>> anyway. In addition, URLs tend to be fragile and not
@@ -619,21 +621,6 @@ In cases where the Problem Object lacks the required information, clients must
 implement fallback mechanisms, defaulting to reasonable behavior similar to
 handling errors without a Problem Object provided.
 
-The OpenAPI schema definition of the Problem JSON object can be found
-https://opensource.zalando.com/restful-api-guidelines/models/problem-1.0.1.yaml[on
-GitHub]. You can reference it by using:
-
-[source,yaml]
-----
-responses:
-  503:
-    description: Service Unavailable
-    content:
-      "application/problem+json":
-        schema:
-          $ref: 'https://opensource.zalando.com/restful-api-guidelines/models/problem-1.0.1.yaml#/Problem'
-----
-
 *Hint:* The media type `application/problem+json` is often not implemented as
 a subset of `application/json` by libraries and services, thus clients need to
 include `application/problem+json` in the {Accept}-Header to trigger delivery
@@ -663,10 +650,6 @@ associating an x-extensible-enum with the type property.
 3. Clients must handle scenarios where the type is absent or unrecognized and
 fallback to default behaviors.
 
-4. For collections of related APIs, using shared type values for similar errors
-and distinct values for different errors simplifies automated processing and
-error handling for clients working across APIs.
-
 *Note:* Include descriptions for each known error that can happen directly in
 the specification or reference external documentation to clarify their meanings
 and intended use.
@@ -684,26 +667,9 @@ Example:
 ----
 components:
   schemas:
-    Problem:
-      type: object
-      properties:
-        type:
-          type: string
-          format: uri
-          example: "https://example.com/errors/invalid-parameter"
-        title:
-          type: string
-          example: "Invalid Request Parameter"
-        status:
-          type: integer
-          example: 400
-        detail:
-          type: string
-          example: "The 'color' parameter is invalid"
-
     CustomProblem:
       allOf:
-        - $ref: "#/components/schemas/Problem"
+        - $ref: 'https://opensource.zalando.com/restful-api-guidelines/models/problem-1.0.1.yaml#/Problem'
       properties:
         errorCode:
           type: string
