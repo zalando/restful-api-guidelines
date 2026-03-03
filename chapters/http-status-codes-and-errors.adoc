@@ -639,7 +639,7 @@ a subset of `application/json` by libraries and services, thus clients need to
 include `application/problem+json` in the {Accept}-Header to trigger delivery
 of the extended failure information.
 
-==== Automated processing of Problem Object on client side
+==== Client processing of Problem Object
 Problem details are often not described explicitly in the API and may evolve
 over time.
 
