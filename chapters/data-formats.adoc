@@ -21,11 +21,14 @@ You *must* use these formats, whenever applicable:
 | `number` | `decimal` | arbitrarily precise signed decimal number | `3.141592653589793238462643383279`
 | `string` | `byte` | `base64url` encoded byte following {RFC-7493}#section-4.4[RFC 7493 Section 4.4] | `"VA=="`
 | `string` | `binary` | `base64url` encoded byte sequence following {RFC-7493}#section-4.4[RFC 7493 Section 4.4]  | `"VGVzdA=="`
-| `string` | `date` | {RFC-3339}[RFC 3339] internet profile -- subset of https://tools.ietf.org/html/rfc3339#ref-ISO8601[ISO 8601] | `"2019-07-30"`
-| `string` | `date-time` | {RFC-3339}[RFC 3339] internet profile -- subset of https://tools.ietf.org/html/rfc3339#ref-ISO8601[ISO 8601] |`"2019-07-30T06:43:40.252Z"`
-| `string` | `time` | {RFC-3339}[RFC 3339] internet profile -- subset of https://tools.ietf.org/html/rfc3339#ref-ISO8601[ISO 8601] | `"06:43:40.252Z"`
-| `string` | `duration` | {RFC-3339}[RFC 3339] -- subset of https://tools.ietf.org/html/rfc3339#ref-ISO8601[ISO 8601], see also <<#127,rule #127>> for details. | `"P1DT3H4S"`
-| `string` | `period` | {RFC-3339}[RFC 3339] -- subset of https://tools.ietf.org/html/rfc3339#ref-ISO8601[ISO 8601], see also <<#127,rule #127>> for details. | `"2022-06-30T14:52:44.276/PT48H" "PT24H/2023-07-30T18:22:16.315Z" "2024-05-15T09:48:56.317Z/.."`
+| `string` | `date` | Local date syntactically defined as `full-date in {RFC-3339}[RFC 3339] as subset of https://tools.ietf.org/html/rfc3339#ref-ISO8601[ISO 8601] | `"2019-07-30"`
+| `string` | `time` | UTC time defined as full-time in {RFC-3339}[RFC 3339] as subset of https://tools.ietf.org/html/rfc3339#ref-ISO8601[ISO 8601] | `"06:43:40.252Z"`
+| `string` | `date-time` | UTC time defined in {RFC-3339}[RFC 3339] as subset of https://tools.ietf.org/html/rfc3339#ref-ISO8601[ISO 8601] |`"2019-07-30T06:43:40.252Z"`
+| `string` | `time-local` | non-UTC wall time syntactically defined as `partial-time` without `time-offset` in {RFC-3339}[RFC 3339]. It is typically complemented with a separate time-zone field. | `"06:43:40"`
+| `string` | `date-time-local` | Format `date` and `time-local` separated by `"T". It is typically complemented with a separate time-zone field.  |`"2019-07-30T06:43:40"`
+| `string` | `tz-id` | Time-zone id as defined by the https://en.wikipedia.org/wiki/List_of_tz_database_time_zones[IANA time zone database] standard (including daylight saving times). |`"Europa/Berlin"`
+| `string` | `duration` | defined in {RFC-3339}[RFC 3339] according to https://tools.ietf.org/html/rfc3339#ref-ISO8601[ISO 8601], see also <<#127,rule #127>> for details. | `"P1DT3H4S"`
+| `string` | `period` | defined in {RFC-3339}[RFC 3339] according to https://tools.ietf.org/html/rfc3339#ref-ISO8601[ISO 8601], see also <<#127,rule #127>> for details. | `"2022-06-30T14:52:44/PT48H" "PT24H/2023-07-30T18:22:16.315Z" "2024-05-15T09:48:56/.."`
 | `string` | `password` |  | `"secret"`
 | `string` | `email` | {RFC-5322}[RFC 5322] | `"example@zalando.de"`
 | `string` | `idn-email` | {RFC-6531}[RFC 6531] | `"hello@bücher.example"`
@@ -94,59 +97,62 @@ encoding -- as also described in <<238>>.
 == {MUST} use standard formats for date and time properties
 
 As a specific case of <<238>>, you must use the `string` typed formats
-`date`, `date-time`, `time`, `duration`, or `period` for the definition of date and time properties.
-The formats are based on the standard {RFC-3339}[RFC 3339] internet profile -- a
+`date`, `time-local`, `date-time-local`, `time`, `date-time`, `duration`, or `period` for the definition of date and time properties.
+The formats are based on the standard {RFC-3339}[RFC 3339] internet profile which is a
 subset of https://tools.ietf.org/html/rfc3339#ref-ISO8601[ISO 8601].
-
 APIs {MUST} use the upper-case `T` as a separator between date and time and
-upper-case `Z` at the end when generating dates as opposed to lower-case `t`,
-`z`, space, or any other character. This is stricter than the
-https://datatracker.ietf.org/doc/html/rfc3339#section-5.6[date/time format
-as defined in RFC 3339], which leaves it up to the specification.
+upper-case `Z` at the end when generating `time` or `date-time` -- as opposed to lower-case `t`,
+`z` which are accepted in {RFC-3339}[RFC 3339]. 
 
 *Exception:* For passing date/time information via standard protocol headers,
 HTTP https://tools.ietf.org/html/rfc7231#section-7.1.1.1[RFC 7231] requires to
 follow the date and time specification used by the Internet Message Format
 https://tools.ietf.org/html/rfc5322[RFC 5322].
 
-As defined by the standard, time zone offset may be used, however, we recommend
-to only use times based on UTC without local offsets. For example `2015-05-28T14:07:17Z`
-rather than `2015-05-28T14:07:17+00:00`. From experience we have learned that zone
-offsets are not easy to understand and often not correctly handled. Note also that
-zone offsets are different from local times which may include daylight saving time.
-When it comes to storage, all dates should be consistently stored in UTC without
-a zone offset. Localization should be done locally by the services that provide
+As defined by the standard, `time` and `date-time` relates to UTC and may be optionally 
+equipped with an offset.However, we recommend to only use times without offsets, for example `2015-05-28T14:07:17Z`
+instead of `2015-05-28T14:07:17+00:00` or `2015-05-28T13:07:17+01:00`. 
+In particular, we recommend storing all dates consistently in UTC without offset. 
+It supports easy time comparisons, and from experience we learned that time
+offsets are not easy to understand, different to time-zones and often not correctly handled.
+Localization should be done locally by the services that provide
 user interfaces, if required.
 
 *Hint:* We discourage using numerical timestamps. It typically creates
 issues with precision, e.g. whether to represent a timestamp as 1460062925,
-1460062925000 or 1460062925.000. Date strings, though more verbose and requiring
-more effort to parse, avoid this ambiguity.
+1460062925000 or 1460062925.000. `date-time` strings avoid this ambiguity.
 
 
 [#255]
-== {SHOULD} select appropriate one of date or date-time format
+== {SHOULD} use appropriate formats for date and time properties
 
-When choosing between `date` and `datetime` formats you should take into account the following:
+When using <<169, standard formats for date and time properties>> you should take the following into account:
 
 * `date` should be used for properties where no exact point in time is required and day time-range is sufficient,
 for instance, document dates, birthdays, ETAs (estimated time of arrival).
 Without further context, `date` implies the time period from midnight to midnight in the local time zone.
 However, the timezone information can be also provided
-as an additional context information via other fields indicating location.
-* `datetime` should be used in all other cases where an exact point in time is required, 
-for instance, datetimes for supplier advice, specific processing events, fast delivery planning dates.
-As required in <<169>>,  `datetime` requires the explicit time zone offset to be provided,
-which avoids misinterpretations and eliminates the need of an additional context to provide.
+as an additional field in `tz-id format.
+* `datetime` should be used where an exact point in time is required, 
+for instance, datetimes for supplier advice or specific processing events.
+It explicitly relates to UTC (with an optional numeric offset)
+avoiding misinterpretations and eliminating the need for additional time-zone context.
+Note, UTC times with offsets are different from local times supplemented 
+with a time-zone field which may include daylight saving times.
+* `time-local` and `date-time-local` are not related to UTC and without offset 
+or Locale information. It must be supplemented with an additional time-zone field 
+in `tz-id format in order to define an exact point-in-time. 
+Local times e.g. are used for start dates of international campaigns where the 
+time-zone is part of the market configuration or for international calendars.
 
 
 [#127]
 == {SHOULD} use standard formats for time duration and interval properties
 
 Properties and that are by design durations and time intervals should be
-represented as strings formatted as defined by {ISO-8601}[ISO 8601]
-({RFC-3339}#appendix-A[RFC 3339 Appendix A contains a grammar] for `durations`
-and `periods` - the latter called time intervals in {ISO-8601}[ISO 8601]). ISO
+represented as strings in the format as defined by {ISO-8601}[ISO 8601]
+and the ({RFC-3339}#appendix-A[RFC 3339 Appendix A] grammar for `durations`
+and `periods` (the latter called time intervals in {ISO-8601}[ISO 8601]). ISO
 8601:1-2019 defines an  extension (`..`) to express open ended time intervals
 that are very convenient in searches and are included in the below
 {RFC-2234}[ABNF] grammar:
@@ -170,7 +176,7 @@ that are very convenient in searches and are included in the below
    period            = period-explicit / period-start / period-end
 ----
 
-A time interval query parameter should use `<time-property>_between` instead
+**Naming:** A time interval query parameter should use `<time-property>_between` instead
 of the parameter pair `<time-property>_before`/`<time-property>_after`, while
 properties providing a time interval should be named `<time-property>_interval`.
 
