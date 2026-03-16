@@ -1467,7 +1467,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#238"><span class="must-keyword"><strong>MUST</strong></span> use standard data formats</a></li>
 <li><a href="#171"><span class="must-keyword"><strong>MUST</strong></span> define a format for number and integer types</a></li>
 <li><a href="#169"><span class="must-keyword"><strong>MUST</strong></span> use standard formats for date and time properties</a></li>
-<li><a href="#255"><span class="should-keyword"><strong>SHOULD</strong></span> select appropriate one of date or date-time format</a></li>
+<li><a href="#255"><span class="should-keyword"><strong>SHOULD</strong></span> use appropriate formats for date and time properties</a></li>
 <li><a href="#127"><span class="should-keyword"><strong>SHOULD</strong></span> use standard formats for time duration and interval properties</a></li>
 <li><a href="#170"><span class="must-keyword"><strong>MUST</strong></span> use standard formats for country, language and currency properties</a></li>
 <li><a href="#244"><span class="should-keyword"><strong>SHOULD</strong></span> use content negotiation, if clients may choose from different resource representations</a></li>
@@ -2787,32 +2787,50 @@ You <strong>must</strong> use these formats, whenever applicable:</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>date</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://tools.ietf.org/html/rfc3339">RFC 3339</a> internet profile&#8201;&#8212;&#8201;subset of <a href="https://tools.ietf.org/html/rfc3339#ref-ISO8601">ISO 8601</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Local date syntactically defined as `full-date in <a href="https://tools.ietf.org/html/rfc3339">RFC 3339</a> as subset of <a href="https://tools.ietf.org/html/rfc3339#ref-ISO8601">ISO 8601</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>"2019-07-30"</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>date-time</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://tools.ietf.org/html/rfc3339">RFC 3339</a> internet profile&#8201;&#8212;&#8201;subset of <a href="https://tools.ietf.org/html/rfc3339#ref-ISO8601">ISO 8601</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"2019-07-30T06:43:40.252Z"</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>time</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://tools.ietf.org/html/rfc3339">RFC 3339</a> internet profile&#8201;&#8212;&#8201;subset of <a href="https://tools.ietf.org/html/rfc3339#ref-ISO8601">ISO 8601</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UTC time defined as full-time in <a href="https://tools.ietf.org/html/rfc3339">RFC 3339</a> as subset of <a href="https://tools.ietf.org/html/rfc3339#ref-ISO8601">ISO 8601</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>"06:43:40.252Z"</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>date-time</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UTC time defined in <a href="https://tools.ietf.org/html/rfc3339">RFC 3339</a> as subset of <a href="https://tools.ietf.org/html/rfc3339#ref-ISO8601">ISO 8601</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"2019-07-30T06:43:40.252Z"</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>time-local</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">non-UTC wall time syntactically defined as <code>partial-time</code> without <code>time-offset</code> in <a href="https://tools.ietf.org/html/rfc3339">RFC 3339</a>. It is typically complemented with a separate time-zone field.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"06:43:40"</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>date-time-local</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Format <code>date</code> and <code>time-local</code> separated by `"T". It is typically complemented with a separate time-zone field.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"2019-07-30T06:43:40"</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>tz-id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Time-zone id as defined by the <a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones">IANA time zone database</a> standard (including daylight saving times).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"Europa/Berlin"</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>duration</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://tools.ietf.org/html/rfc3339">RFC 3339</a>&#8201;&#8212;&#8201;subset of <a href="https://tools.ietf.org/html/rfc3339#ref-ISO8601">ISO 8601</a>, see also <a href="#127">rule #127</a> for details.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">defined in <a href="https://tools.ietf.org/html/rfc3339">RFC 3339</a> according to <a href="https://tools.ietf.org/html/rfc3339#ref-ISO8601">ISO 8601</a>, see also <a href="#127">rule #127</a> for details.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>"P1DT3H4S"</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>period</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://tools.ietf.org/html/rfc3339">RFC 3339</a>&#8201;&#8212;&#8201;subset of <a href="https://tools.ietf.org/html/rfc3339#ref-ISO8601">ISO 8601</a>, see also <a href="#127">rule #127</a> for details.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"2022-06-30T14:52:44.276/PT48H" "PT24H/2023-07-30T18:22:16.315Z" "2024-05-15T09:48:56.317Z/.."</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">defined in <a href="https://tools.ietf.org/html/rfc3339">RFC 3339</a> according to <a href="https://tools.ietf.org/html/rfc3339#ref-ISO8601">ISO 8601</a>, see also <a href="#127">rule #127</a> for details.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"2022-06-30T14:52:44/PT48H" "PT24H/2023-07-30T18:22:16.315Z" "2024-05-15T09:48:56/.."</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
@@ -3002,16 +3020,12 @@ encoding&#8201;&#8212;&#8201;as also described in <a href="#238"><span class="mu
 <h3 id="169"><a class="link" href="#169"><span class="must-keyword"><strong>MUST</strong></span> use standard formats for date and time properties</a></h3>
 <div class="paragraph">
 <p>As a specific case of <a href="#238"><span class="must-keyword"><strong>MUST</strong></span> use standard data formats</a>, you must use the <code>string</code> typed formats
-<code>date</code>, <code>date-time</code>, <code>time</code>, <code>duration</code>, or <code>period</code> for the definition of date and time properties.
-The formats are based on the standard <a href="https://tools.ietf.org/html/rfc3339">RFC 3339</a> internet profile -- a
-subset of <a href="https://tools.ietf.org/html/rfc3339#ref-ISO8601">ISO 8601</a>.</p>
-</div>
-<div class="paragraph">
-<p>APIs <span class="must-keyword"><strong>MUST</strong></span> use the upper-case <code>T</code> as a separator between date and time and
-upper-case <code>Z</code> at the end when generating dates as opposed to lower-case <code>t</code>,
-<code>z</code>, space, or any other character. This is stricter than the
-<a href="https://datatracker.ietf.org/doc/html/rfc3339#section-5.6">date/time format
-as defined in RFC 3339</a>, which leaves it up to the specification.</p>
+<code>date</code>, <code>time-local</code>, <code>date-time-local</code>, <code>time</code>, <code>date-time</code>, <code>duration</code>, or <code>period</code> for the definition of date and time properties.
+The formats are based on the standard <a href="https://tools.ietf.org/html/rfc3339">RFC 3339</a> internet profile which is a
+subset of <a href="https://tools.ietf.org/html/rfc3339#ref-ISO8601">ISO 8601</a>.
+APIs <span class="must-keyword"><strong>MUST</strong></span> use the upper-case <code>T</code> as a separator between date and time and
+upper-case <code>Z</code> at the end when generating <code>time</code> or <code>date-time</code>&#8201;&#8212;&#8201;as opposed to lower-case <code>t</code>,
+<code>z</code> which are accepted in <a href="https://tools.ietf.org/html/rfc3339">RFC 3339</a>.</p>
 </div>
 <div class="paragraph">
 <p><strong>Exception:</strong> For passing date/time information via standard protocol headers,
@@ -3020,26 +3034,25 @@ follow the date and time specification used by the Internet Message Format
 <a href="https://tools.ietf.org/html/rfc5322">RFC 5322</a>.</p>
 </div>
 <div class="paragraph">
-<p>As defined by the standard, time zone offset may be used, however, we recommend
-to only use times based on UTC without local offsets. For example <code>2015-05-28T14:07:17Z</code>
-rather than <code>2015-05-28T14:07:17+00:00</code>. From experience we have learned that zone
-offsets are not easy to understand and often not correctly handled. Note also that
-zone offsets are different from local times which may include daylight saving time.
-When it comes to storage, all dates should be consistently stored in UTC without
-a zone offset. Localization should be done locally by the services that provide
+<p>As defined by the standard, <code>time</code> and <code>date-time</code> relates to UTC and may be optionally
+equipped with an offset.However, we recommend to only use times without offsets, for example <code>2015-05-28T14:07:17Z</code>
+instead of <code>2015-05-28T14:07:17+00:00</code> or <code>2015-05-28T13:07:17+01:00</code>.
+In particular, we recommend storing all dates consistently in UTC without offset.
+It supports easy time comparisons, and from experience we learned that time
+offsets are not easy to understand, different to time-zones and often not correctly handled.
+Localization should be done locally by the services that provide
 user interfaces, if required.</p>
 </div>
 <div class="paragraph">
 <p><strong>Hint:</strong> We discourage using numerical timestamps. It typically creates
 issues with precision, e.g. whether to represent a timestamp as 1460062925,
-1460062925000 or 1460062925.000. Date strings, though more verbose and requiring
-more effort to parse, avoid this ambiguity.</p>
+1460062925000 or 1460062925.000. <code>date-time</code> strings avoid this ambiguity.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="255"><a class="link" href="#255"><span class="should-keyword"><strong>SHOULD</strong></span> select appropriate one of date or date-time format</a></h3>
+<h3 id="255"><a class="link" href="#255"><span class="should-keyword"><strong>SHOULD</strong></span> use appropriate formats for date and time properties</a></h3>
 <div class="paragraph">
-<p>When choosing between <code>date</code> and <code>datetime</code> formats you should take into account the following:</p>
+<p>When using <a href="#169">standard formats for date and time properties</a> you should take the following into account:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -3048,13 +3061,22 @@ more effort to parse, avoid this ambiguity.</p>
 for instance, document dates, birthdays, ETAs (estimated time of arrival).
 Without further context, <code>date</code> implies the time period from midnight to midnight in the local time zone.
 However, the timezone information can be also provided
-as an additional context information via other fields indicating location.</p>
+as an additional field in `tz-id format.</p>
 </li>
 <li>
-<p><code>datetime</code> should be used in all other cases where an exact point in time is required,
-for instance, datetimes for supplier advice, specific processing events, fast delivery planning dates.
-As required in <a href="#169"><span class="must-keyword"><strong>MUST</strong></span> use standard formats for date and time properties</a>,  <code>datetime</code> requires the explicit time zone offset to be provided,
-which avoids misinterpretations and eliminates the need of an additional context to provide.</p>
+<p><code>date-time</code> should be used where an exact point in time is required,
+for instance, datetimes for supplier advice or specific processing events.
+It explicitly relates to UTC (with an optional numeric offset)
+avoiding misinterpretations and eliminating the need for additional time-zone context.
+Note, UTC times with offsets are different from local times supplemented
+with a time-zone field which may include daylight saving times.</p>
+</li>
+<li>
+<p><code>time-local</code> and <code>date-time-local</code> are not related to UTC and without offset
+or Locale information. It must be supplemented with an additional time-zone field
+in `tz-id format in order to define an exact point-in-time.
+Local times e.g. are used for start dates of international campaigns where the
+time-zone is part of the market configuration or for international calendars.</p>
 </li>
 </ul>
 </div>
@@ -3063,9 +3085,9 @@ which avoids misinterpretations and eliminates the need of an additional context
 <h3 id="127"><a class="link" href="#127"><span class="should-keyword"><strong>SHOULD</strong></span> use standard formats for time duration and interval properties</a></h3>
 <div class="paragraph">
 <p>Properties and that are by design durations and time intervals should be
-represented as strings formatted as defined by <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>
-(<a href="https://tools.ietf.org/html/rfc3339#appendix-A">RFC 3339 Appendix A contains a grammar</a> for <code>durations</code>
-and <code>periods</code> - the latter called time intervals in <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>). ISO
+represented as strings in the format defined by <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>
+and the (<a href="https://tools.ietf.org/html/rfc3339#appendix-A">RFC 3339 Appendix A</a> grammar for <code>durations</code>
+and <code>periods</code> (the latter called time intervals in <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>). ISO
 8601:1-2019 defines an  extension (<code>..</code>) to express open ended time intervals
 that are very convenient in searches and are included in the below
 <a href="https://tools.ietf.org/html/rfc2234">ABNF</a> grammar:</p>
@@ -3090,7 +3112,7 @@ that are very convenient in searches and are included in the below
 </div>
 </div>
 <div class="paragraph">
-<p>A time interval query parameter should use <code>&lt;time-property&gt;_between</code> instead
+<p><strong>Naming:</strong> A time interval query parameter should use <code>&lt;time-property&gt;_between</code> instead
 of the parameter pair <code>&lt;time-property&gt;_before</code>/<code>&lt;time-property&gt;_after</code>, while
 properties providing a time interval should be named <code>&lt;time-property&gt;_interval</code>.</p>
 </div>
@@ -10935,7 +10957,7 @@ to see a list of all changes.</p>
 <p><code>2024-06-11</code>: Linked <a href="#127"><span class="should-keyword"><strong>SHOULD</strong></span> use standard formats for time duration and interval properties</a> (duration / period) from <a href="#238"><span class="must-keyword"><strong>MUST</strong></span> use standard data formats</a>. <sup><a href="https://github.com/zalando/restful-api-guidelines/pull/810">#810</a></sup></p>
 </li>
 <li>
-<p><code>2024-05-06</code>: Added new rule <a href="#255"><span class="should-keyword"><strong>SHOULD</strong></span> select appropriate one of date or date-time format</a> on selecting appropriate date or date-time format. <sup><a href="https://github.com/zalando/restful-api-guidelines/pull/808">#808</a></sup></p>
+<p><code>2024-05-06</code>: Added new rule <a href="#255"><span class="should-keyword"><strong>SHOULD</strong></span> use appropriate formats for date and time properties</a> on selecting appropriate date or date-time format. <sup><a href="https://github.com/zalando/restful-api-guidelines/pull/808">#808</a></sup></p>
 </li>
 <li>
 <p><code>2024-04-16</code>: Removed sort example from simple query language in <a href="#236"><span class="should-keyword"><strong>SHOULD</strong></span> design simple query languages using query parameters</a>. Enhanced clarity for 'uid' usage and permission naming convention in <a href="#105"><span class="must-keyword"><strong>MUST</strong></span> define and assign permissions (scopes)</a> and <a href="#225"><span class="must-keyword"><strong>MUST</strong></span> follow the naming convention for permissions (scopes)</a>. <sup><a href="https://github.com/zalando/restful-api-guidelines/pull/804">#804</a></sup> <sup><a href="https://github.com/zalando/restful-api-guidelines/pull/801">#801</a></sup></p>
@@ -11372,7 +11394,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-03-03 14:06:23 UTC
+Last updated 2026-03-16 11:47:02 UTC
 </div>
 </div>
 </body>

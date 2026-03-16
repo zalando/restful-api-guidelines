@@ -586,7 +586,7 @@
     },
     {
       "id": "#255",
-      "title": "SHOULD select appropriate one of date or date-time format"
+      "title": "SHOULD use appropriate formats for date and time properties"
     }
   ]
 }
