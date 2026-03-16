@@ -150,7 +150,7 @@ time-zone is part of the market configuration or for international calendars.
 == {SHOULD} use standard formats for time duration and interval properties
 
 Properties and that are by design durations and time intervals should be
-represented as strings in the format as defined by {ISO-8601}[ISO 8601]
+represented as strings in the format defined by {ISO-8601}[ISO 8601]
 and the ({RFC-3339}#appendix-A[RFC 3339 Appendix A] grammar for `durations`
 and `periods` (the latter called time intervals in {ISO-8601}[ISO 8601]). ISO
 8601:1-2019 defines an  extension (`..`) to express open ended time intervals
