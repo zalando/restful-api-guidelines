@@ -17,6 +17,15 @@ to see a list of all changes.
 [[rule-changes]]
 == Rule Changes
 
+* `2026-03-16`: define time-local and date-time-local formats in <<238>>, <<169>>, and <<255>>. ^https://github.com/zalando/restful-api-guidelines/pull/859[#859]^
+* `2025-11-27`: clearly separate compatibility rules for input and output schemas in <<108>>. ^https://github.com/zalando/restful-api-guidelines/pull/851[#851]^
+* `2025-11-27`: deprecate x-extensible-enum in favor of examples in <<112>>. ^https://github.com/zalando/restful-api-guidelines/pull/837[#837]^
+* `2025-11-12`: clarity about versions of API specifications in <<101>>, <<116>>, <<192>>, and new terminology section. ^https://github.com/zalando/restful-api-guidelines/pull/853[#853]^
+* `2025-10-01`: upgrade to OpenAPI 3.1 in <<101>>. ^https://github.com/zalando/restful-api-guidelines/pull/850[#850]^
+* `2025-10-01`: improve cursor best practices section. ^https://github.com/zalando/restful-api-guidelines/pull/849[#849]^
+* `2025-09-18`: fix deprecation and sunset header formats in <<189>>. ^https://github.com/zalando/restful-api-guidelines/pull/848[#848]^
+* `2025-05-27`: clarify interaction between get-with-body and pagination in <<148>> and <<161>>. ^https://github.com/zalando/restful-api-guidelines/pull/841[#841]^
+* `2025-05-27`: allow proprietary headers for internal audience in transactions checkout in <<183>>. ^https://github.com/zalando/restful-api-guidelines/pull/843[#843]^
 * `2024-06-27`: Clarified usage of {x-extensible-enum} for events in <<112>>. ^https://github.com/zalando/restful-api-guidelines/pull/807[#807]^
 * `2024-06-25`: Relaxed naming convention for date/time properties in <<235>>. ^https://github.com/zalando/restful-api-guidelines/pull/811[#811]^
 * `2024-06-11`: Linked <<127>> (duration / period) from <<238>>. ^https://github.com/zalando/restful-api-guidelines/pull/810[#810]^
