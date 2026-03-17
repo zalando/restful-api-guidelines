@@ -30,34 +30,34 @@ We encourage using https://swagger.io/specification/[OpenAPI 3.1 version],
 especially for new APIs. The API specification documents should be subject to version 
 control using a source code management system, and you <<192>>.
 
-*Hint:* Our API infrastructure does not break, but might not yet fully support 
-all OpenAPI 3.1 changes (e.g. displaying `examples` in Sunrise), and continues 
+TIP: Our API infrastructure does not break, but might not yet fully support
+all OpenAPI 3.1 changes (e.g. displaying `examples` in Sunrise), and continues
 supporting OpenAPI 3.0 (and 2.0, aka Swagger 2).
 
-*Hint:* The _OpenAPI 3.1 mayor change_ is that Schema Object definitions are now 
-fully compliant with standard JSON Schema. It is an incompatible change since 
-OpenAPI-specific overrides and keywords like `example`, `nullable`, `discriminator`, `xml` 
-are removed from the Schema Object (see 
-https://www.openapis.org/blog/2021/02/16/migrating-from-openapi-3-0-to-3-1-0[OpenAPI Blog: Migrating from OpenAPI 3.0 to 3.1]). 
-Check out the https://github.com/OAI/OpenAPI-Specification/releases[OpenAPI release page] 
-for all change details. 
+TIP: The _OpenAPI 3.1 mayor change_ is that Schema Object definitions are now
+fully compliant with standard JSON Schema. It is an incompatible change since
+OpenAPI-specific overrides and keywords like `example`, `nullable`, `discriminator`, `xml`
+are removed from the Schema Object (see
+https://www.openapis.org/blog/2021/02/16/migrating-from-openapi-3-0-to-3-1-0[OpenAPI Blog: Migrating from OpenAPI 3.0 to 3.1]).
+Check out the https://github.com/OAI/OpenAPI-Specification/releases[OpenAPI release page]
+for all change details.
 
-*Hint:* You might find the https://openapi-map.apihandyman.io/[OpenAPI Map] 
+TIP: You might find the https://openapi-map.apihandyman.io/[OpenAPI Map]
 a helpful tool supporting UI navigation for the OpenAPI 3.0 specification.
-(Newer OpenAPI versions are not yet supported.) 
+(Newer OpenAPI versions are not yet supported.)
 
-*Hint:* We do not yet provide guidelines for https://graphql.org/[GraphQL]
-and focus on resource oriented HTTP/REST API style (and related tooling 
+TIP: We do not yet provide guidelines for https://graphql.org/[GraphQL]
+and focus on resource oriented HTTP/REST API style (and related tooling
 and infrastructure support).
-Following our {techradar-public}[Zalando Tech Radar (internal_link)], we think 
-that GraphQL has no major benefits, but a couple of downsides compared to REST 
-as API technology for general purpose peer-to-peer microservice communication. 
-However, GraphQL can provide a lot of value for specific target domain problems, 
-especially backends for frontends (BFF) and mobile clients, where typically 
-many (domain object) resources from different services are queried and 
-multiple roundtrip overhead should be avoided due to (mobile or public) 
-network constraints. Therefore we list both technologies on ADOPT, though 
-GraphQL only supplements REST for the BFF-specific problem domain. 
+Following our {techradar-public}[Zalando Tech Radar (internal_link)], we think
+that GraphQL has no major benefits, but a couple of downsides compared to REST
+as API technology for general purpose peer-to-peer microservice communication.
+However, GraphQL can provide a lot of value for specific target domain problems,
+especially backends for frontends (BFF) and mobile clients, where typically
+many (domain object) resources from different services are queried and
+multiple roundtrip overhead should be avoided due to (mobile or public)
+network constraints. Therefore we list both technologies on ADOPT, though
+GraphQL only supplements REST for the BFF-specific problem domain.
 
 
 [#102]
@@ -105,7 +105,7 @@ service URLs:
   https://github.com/zalando/restful-api-guidelines/tree/main/models[restful-api-guidelines/models]
   for details).
 
-*Hint:* The formerly used remote references to the `Problem` API fragment
+TIP: The formerly used remote references to the `Problem` API fragment
 (aliases `https://opensource.zalando.com/problem/` and
 `https://zalando.github.io/problem/`) are deprecated, but still supported for
 compatibility (<<176>> on how to replace).

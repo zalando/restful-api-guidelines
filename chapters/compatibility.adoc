@@ -21,7 +21,7 @@ We strongly encourage using compatible API extensions and discourage versioning
 (<<107>>) and consumers (<<108>>) enable us (having Postel’s Law in mind) to
 make compatible changes without versioning.
 
-*Note:* There is a difference between incompatible and breaking changes.
+NOTE: There is a difference between incompatible and breaking changes.
 Incompatible changes are changes that are not covered by the compatibility
 rules below. Breaking changes are incompatible changes deployed into operation,
 and thereby breaking running API consumers. Usually, incompatible changes are
@@ -30,7 +30,7 @@ situations it is possible to deploy incompatible changes in a non-breaking way,
 if no API consumer is using the affected API aspects (see also <<deprecation,
 Deprecation>> guidelines).
 
-*Hint:* Please note that the compatibility guarantees are for the "on the wire"
+TIP: Please note that the compatibility guarantees are for the "on the wire"
 format. Binary or source compatibility of code generated from an API specification
 is not covered by these rules. If client implementations update their
 generation process to a new version of the API specification, it has to be
@@ -63,7 +63,7 @@ For schemas used in input only:
   continues to accept and handle old range values.
 * `enum` ranges can be extended.
 
-(*) Hint: Removing a field can be considered as a compatible change that does not break clients, in case the service still accepts and possibly ignores it if sent by the client. However, removed fields allow later adding a same-named field with different type or semantic (which is harder to catch). We therefore define field removal as non-compatible.
+TIP: Removing a field can be considered as a compatible change that does not break clients, in case the service still accepts and possibly ignores it if sent by the client. However, removed fields allow later adding a same-named field with different type or semantic (which is harder to catch). We therefore define field removal as non-compatible.
 
 For schemas used in output only:
 
@@ -77,7 +77,7 @@ For schemas used in output only:
   be extended with growing functionality. The API specification should be updated
   first before returning new values.
 
-(*) Hint: Removing an optional field can be considered as a compatible change that does not break clients. However, removed fields allow later adding a same-named field with different type or semantic (which is harder to catch). We therefore define optional field removal as non-compatible.
+TIP: Removing an optional field can be considered as a compatible change that does not break clients. However, removed fields allow later adding a same-named field with different type or semantic (which is harder to catch). We therefore define optional field removal as non-compatible.
 
 For schemas used in both input and output (which is typical in
 many cases), both of these rule sets combine, i.e. you can only do changes which
@@ -367,8 +367,8 @@ delivery_method:
 See <<240>> about enum value naming conventions – these apply here too.
 
 
-**Important**:
-
+[IMPORTANT]
+====
 * API consumers must be prepared for the fact that also other values can be returned
   with server responses (or be contained in consumed events), and implement a
   fallback / default behavior for unknown new values, see  <<108>>.
@@ -379,6 +379,7 @@ See <<240>> about enum value naming conventions – these apply here too.
 * The list should not be reduced for inputs (that would be an incompatible change).
 * Before additional values are accepted or returned, API owners should update the API description and extend
   the `examples` list, see <<107>>.
+====
 
 (Note that the last 3 bullet points do not apply for uses of `examples` _without_ the
  "Extensible enum." prefix in the description – here any value fitting the rest

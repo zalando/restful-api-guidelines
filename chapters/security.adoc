@@ -45,7 +45,7 @@ Please consult the
 https://swagger.io/docs/specification/authentication/oauth2/[OpenAPI OAuth 2.0 Authentication]
 section for details on how to define `oauth2` typed security schemes correctly.
 
-*Note:* Do not use OpenAPI `oauth2` typed security scheme flows (e.g. `implicit`)
+NOTE: Do not use OpenAPI `oauth2` typed security scheme flows (e.g. `implicit`)
 if your service does not fully support it and implements a simple bearer token scheme,
 because it exposes authentication server address details and may make use of redirection.
 
@@ -80,7 +80,7 @@ paths:
         - BearerAuth: [ business-partner-service.read ]
 ----
 
-*Hint:* Following a minimal API specification approach, the
+TIP: Following a minimal API specification approach, the
 `Authorization`-header does not need to be defined on each API endpoint, since
 it is required and so to say implicitly defined via the security section.
 
@@ -106,7 +106,7 @@ permission names in APIs must conform to the following naming pattern:
 <access-mode>         ::= read | write    -- might be extended in future
 -----
 
-**Note:** This naming convention only applies to scopes for service-to-service
+NOTE: This naming convention only applies to scopes for service-to-service
 communication using the Platform IAM tokens. For IAM systems with other naming
 rules (e.g. Zalando Partner IAM), the naming should be consistent with the
 existing conventions of those systems.
@@ -176,7 +176,7 @@ hostnames>> and <<213, event type names>>, and typical examples are:
 
 ////
 
-*Note:* APIs should stick to component specific permissions without resource
+NOTE: APIs should stick to component specific permissions without resource
 extension to avoid the complexity of too many fine grained permissions. For the
 majority of use cases, restricting access for specific API endpoints using read
 or write is sufficient.

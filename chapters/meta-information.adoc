@@ -38,8 +38,8 @@ backwards-compatible manner, and
 backwards-compatible bug fixes or editorial changes not affecting the
 functionality.
 
-*Additional Notes:*
-
+[NOTE]
+====
 * *Pre-release* versions (http://semver.org#spec-item-9[rule 9]) and
 *build metadata* (http://semver.org#spec-item-10[rule 10]) must not
 be used in API version information.
@@ -47,9 +47,10 @@ be used in API version information.
 are free to decide whether they increment it or not.
 * API designers should consider to use API version `0.y.z`
 (http://semver.org/#spec-item-4[rule 4]) for initial API design.
+====
 
-Example:
-
+[EXAMPLE]
+====
 [source,yaml]
 ----
 openapi: 3.1.0
@@ -59,6 +60,7 @@ info:
   description: API for <...>
   <...>
 ----
+====
 
 
 [#215]
@@ -89,14 +91,14 @@ API evolution. By using  <<116, API semantic version information>> or <<192,
 API publishing date>> as order criteria you get the *version* or
 *publication history* as a sequence of API specifications.
 
-*Note*: While it is nice to use human readable API identifiers based on
+NOTE: While it is nice to use human readable API identifiers based on
 self-managed URNs, it is recommend to stick to a UUID (freshly generated when
 first creating the API) to relief API designers from any urge of changing
 the API identifier while evolving the API. *Do not copy an API unless you
 immediately change the API identifier in it!*
 
-Example:
-
+[EXAMPLE]
+====
 [source,yaml]
 ----
 openapi: 3.1.0
@@ -107,6 +109,7 @@ info:
   version: 1.5.8
   <...>
 ----
+====
 
 
 [#219]
@@ -139,7 +142,7 @@ groups with clear organisational and legal boundaries:
 *external-public*::
   APIs with this audience can be accessed by anyone with Internet access.
 
-*Note:* a smaller audience group is intentionally included in the wider group
+NOTE: a smaller audience group is intentionally included in the wider group
 and thus does not need to be declared additionally.
 
 The API audience is provided as API meta information in the `info`-block of
@@ -161,15 +164,15 @@ the OpenAPI specification and must conform to the following specification:
     changeability, and permission granting.
 ----
 
-*Note:* Exactly *one audience* per API specification is allowed. For this
+NOTE: Exactly *one audience* per API specification is allowed. For this
 reason a smaller audience group is intentionally included in the wider group
 and thus does not need to be declared additionally. If parts of your API have
 a different target audience, we recommend to split API specifications along
 the target audience — even if this creates redundancies
 ({api-audience-narrative}[rationale (internal_link)]).
 
-Example:
-
+[EXAMPLE]
+====
 [source,yaml]
 ----
 openapi: 3.1.0
@@ -180,6 +183,7 @@ info:
   version: 1.2.4
   <...>
 ----
+====
 
 For details and more information on audience groups see the
 {api-audience-narrative}[API Audience narrative (internal_link)].
@@ -224,13 +228,14 @@ Please see the following rules for detailed functional naming patterns:
 // * <<225>>
 
 
-*Internal Guideance*:  You _must_ use the simple
-{functional-name-registry}[functional name registry (internal_link)] 
+NOTE: You _must_ use the simple
+{functional-name-registry}[functional name registry (internal_link)]
 to register your functional name before using
 it. The registry is a centralized infrastructure service to ensure uniqueness
 of your functional names (and available domains -- including subdomains) and
-to support hostname DNS resolution. +
-_Hint:_ Due to lexicalic restrictions of DNS names there is no specific separator
+to support hostname DNS resolution.
+
+TIP: Due to lexicalic restrictions of DNS names there is no specific separator
 to split a functional name into (sub) domain and component; this knowledge is only
 managed in the registry.
 
@@ -249,7 +254,7 @@ depending on the <<219, audience>> as follows (see <<223>> for details and
 <functional-hostname>  ::= <functional-name>.zalandoapis.com
 -----
 
-*Hint:* The following convention (e.g. used by legacy STUPS infrastructure) is deprecated
+TIP: The following convention (e.g. used by legacy STUPS infrastructure) is deprecated
 and *only* allowed for hostnames of <<219, component-internal>> APIs:
 
 [source,bnf]
@@ -259,7 +264,10 @@ and *only* allowed for hostnames of <<219, component-internal>> APIs:
 <organization-id>      ::= [a-z][a-z0-9-]*  -- organization unit identifier, e.g. team identifier
 -----
 
-*Exception:* There are legacy hostnames used for APIs with `external-partner` audience
+[EXCEPTION]
+====
+There are legacy hostnames used for APIs with `external-partner` audience
 which may not follow this rule due to backward compatibility constraints.
 The API Linter maintains an allow-list for these exceptions (including e.g.
 `api.merchants.zalando.com` and `api-sandbox.merchants.zalando.com`).
+====

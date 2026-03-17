@@ -1298,3 +1298,6 @@ a > code { background-color: #f0f0f0; padding: .1em .4em .1em .4em !important; f
 .literalblock pre, .literalblock pre[class], .listingblock pre, .listingblock pre[class] { padding: .5em !important; }
 
 #toc a { color: #364149; }
+
+.admonitionblock td.icon .icon-exception:before { content: "\f05e"; color: #8a0000; }
+.admonitionblock td.icon .icon-example:before { content: "\f19c"; color: #444; }

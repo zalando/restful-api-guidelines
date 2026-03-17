@@ -9,7 +9,7 @@ In this section we explain a handful of (standard) HTTP headers, which we found
 most useful in certain situations and that require additional explanation to be
 used effectively.
 
-*Note:* we generally discourage the usage of proprietary headers. However,
+NOTE: We generally discourage the usage of proprietary headers. However,
 they are sometimes useful to pass generic, service independent, overarching
 information relevant for our specific application architecture. We consistently
 define these proprietary headers below.
@@ -46,7 +46,7 @@ components:
           $ref: '#/components/(parameters|headers)/ETag'
 ----
 
-*Note:* It is a question of taste whether headers for responses are defined in
+NOTE: It is a question of taste whether headers for responses are defined in
 `\#/components/headers` or `#/components/parameters`. Unfortunately, headers
 in the first section cannot be referenced from a `parameters`-list, while it is
 possible to reference the second also from a `headers`-list.
@@ -75,7 +75,7 @@ Content-ID
 Language
 ----
 
-*Note:* The HTTP standard defines headers (now called HTTP fields) to be
+NOTE: The HTTP standard defines headers (now called HTTP fields) to be
 case-insensitive (see {RFC-9110}#section-5.1[RFC 9110 Section 5.1]). However,
 for the sake of readability and consistency, you should follow the convention
 when defining standard or proprietary headers. Exceptions are common
@@ -141,7 +141,7 @@ The {Content-Location} header can be used to support the following use cases:
   indicate that the body contains a status report resource in response to the
   requested action, which is available at provided location.
 
-*Note:* When using the {Content-Location} header, the {Content-Type} header
+NOTE: When using the {Content-Location} header, the {Content-Type} header
 has to be set as well. For example:
 
 [source,http]
@@ -173,7 +173,7 @@ The {Prefer} header can be defined in the API specification as follows:
 include::../includes/prefer.yaml[]
 ----
 
-*Note:* Please, copy only the behaviors into your {Prefer} header specification
+NOTE: Please, copy only the behaviors into your {Prefer} header specification
 that are supported by your API endpoint. If necessary, specify different
 {Prefer} headers for each supported use case.
 
@@ -249,13 +249,14 @@ serving the response. If the key is not in the key store, the request is
 executed as usual and the response is stored in the key cache.
 
 This allows clients to safely retry requests after timeouts, network outages,
-etc. while receive the same response multiple times. *Note:* The request retry
-in this context requires to send the exact same request, i.e. updates of the
+etc. while receive the same response multiple times.
+
+NOTE: The request retry in this context requires to send the exact same request, i.e. updates of the
 request that would change the result are off-limits. The request hash in the
 key cache can protection against this misbehavior. The service is recommended
 to reject such a request using status code {400}.
 
-*Important:* To grant a reliable <<idempotent>> execution semantic, the
+IMPORTANT: To grant a reliable <<idempotent>> execution semantic, the
 resource and the key cache have to be updated with hard transaction semantics
 – considering all potential pitfalls of failures, timeouts, and concurrent
 requests in a distributed systems. This makes a correct implementation
@@ -280,11 +281,11 @@ components:
       $ref: 'https://opensource.zalando.com/restful-api-guidelines/models/headers-1.0.0.yaml#/Idempotency-Key'
 ----
 
-*Hint:* The key cache is not intended as request log, and therefore should
+TIP: The key cache is not intended as request log, and therefore should
 have a limited lifetime, else it could easily exceed the data resource in
 size.
 
-*Note:* The {Idempotency-Key} header unlike other headers in this section
+NOTE: The {Idempotency-Key} header unlike other headers in this section
 is not standardized in an RFC. Our only reference are the usage in the
 https://stripe.com/docs/api/idempotent_requests[Stripe API].
 However, we do not want to change the header name and semantic, and
@@ -382,20 +383,23 @@ customer disables it in the settings for respective mobile platform.
 
 |=======================================================================
 
-*Exception:* The only exception to this guideline are the conventional
+[EXCEPTION]
+====
+The only exception to this guideline are the conventional
 hop-by-hop `X-RateLimit-` headers which can be used as defined in <<153>>.
+====
 
 As part of the guidelines we provide the default definition of all proprietary
 headers, so you can simply reference them when defining the API endpoint. For
 details see <<using-headers>>.
 
-*Hint:* This guideline does not standardize proprietary headers for our
+TIP: This guideline does not standardize proprietary headers for our
 specific gateway components (2. use case above). This include, for instance,
 non pass-through headers `X-Zalando-Customer`, `X-Zalando-Client-ID`,
 `X-Zalando-Request-Host`, `X-Zalando-Request-URI` defined by Fashion Shop API
 (RKeep), or `X-Consumer`, `X-Consumer-Signature`, `X-Consumer-Key-ID` defined
-by Merchant API gateway, or `X-App-Version`, `X-Country-Code`, `X-Zalando-Auth`, 
-`X-Forwarded-For` defined by Transactions Checkout Platform. All these proprietary 
+by Merchant API gateway, or `X-App-Version`, `X-Country-Code`, `X-Zalando-Auth`,
+`X-Forwarded-For` defined by Transactions Checkout Platform. All these proprietary
 headers are allow-listed in the API Linter (Zally) checking this rule.
 
 
@@ -447,12 +451,12 @@ The following formats are allowed:
 * Random unique string restricted to the character set `[a-zA-Z0-9/+_-=]`
   maximal of 128 characters.
 
-*Note:* If a legacy subsystem can only process `Flow-IDs` with a specific
+NOTE: If a legacy subsystem can only process `Flow-IDs` with a specific
 format or length, it must define this restriction in its API specification,
 and be generous and remove invalid characters or cut the length to the
 supported limit.
 
-*Hint:* In case distributed tracing is supported by
+TIP: In case distributed tracing is supported by
 {SRE-open-tracing}[OpenTracing (internal link)] you should ensure that created
 _spans_ are tagged using `flow_id` — see
 {SRE-open-tracing}/blob/master/wg-semantic-conventions/best-practices/flowid.md[How
@@ -468,7 +472,7 @@ practices (internal link)].
 ** Event listeners *must* support the metadata `flow-id` from events.
 
 
-*Note:* API-Clients *must* provide {Flow-ID} when calling a service or
+NOTE: API-Clients *must* provide {Flow-ID} when calling a service or
 producing events. If no {Flow-ID} is provided in a request or event, the
 service must create a new {Flow-ID}.
 
@@ -477,6 +481,6 @@ with API calls or consumed events as...
 ** input for all API called and events published during processing
 ** data field written for logging and tracing
 
-*Hint:* This rule also applies to application internal interfaces and events
+TIP: This rule also applies to application internal interfaces and events
 not published via Nakadi (but e.g. via AWS SQS, Kinesis or service specific
 DB solutions).

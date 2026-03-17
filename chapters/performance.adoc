@@ -67,7 +67,7 @@ include::../includes/accept-encoding.yaml[]
 include::../includes/content-encoding.yaml[line=3..-1]
 ----
 
-*Note:* since most server and client frameworks still **do not** support
+NOTE: Since most server and client frameworks still **do not** support
 `gzip`-compression *out-of-the-box* you need to manually activate it, e.g.
 https://www.callicoder.com/configuring-spring-boot-application/#enabling-gzip-compression-in-spring-boot[Spring Boot],
 or add a dedicated middleware, e.g. https://github.com/gin-contrib/gzip#usage[gin-gionic/gin].
@@ -158,7 +158,7 @@ https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form[BNF] grammar.
 <negation>          ::= "!"
 ----
 
-*Note:* Following the
+NOTE: Following the
 https://en.wikipedia.org/wiki/Principle_of_least_astonishment[principle of
 least astonishment], you should not define the {fields} query parameter using
 a default value, as the result is counter-intuitive and very likely not
@@ -224,7 +224,7 @@ As default, servers and clients should always set the {Cache-Control} header
 to {Cache-Control-no-store} and assume the same setting, if no {Cache-Control}
 header is provided.
 
-*Note:* There is no need to document this default setting. However, please make
+NOTE: There is no need to document this default setting. However, please make
 sure that your framework is attaching these header values by default, or ensure
 this manually, e.g. using the best practice of
 https://www.baeldung.com/spring-security-cache-control-headers[Spring Security]
@@ -286,7 +286,7 @@ efficient methods to warm up and update caches, e.g. as follows:
   changes since the provided {entity-tag}. *Note:* this is not supported by
   generic client and proxy caches on HTTP layer.
 
-*Hint:* For proper cache support, you must return {304} without content on a
+TIP: For proper cache support, you must return {304} without content on a
 failed {HEAD} or {GET} request with  <<182, `If-None-Match: <entity-tag>`>>
 instead of {412}. For {ETag} see also <<182>>.
 

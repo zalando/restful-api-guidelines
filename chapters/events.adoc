@@ -277,7 +277,7 @@ conform to the functional naming depending on the <<219, audience>> as follows:
 <version>               ::= [Vv][0-9.]* -- major version of non compatible schemas
 ----
 
-*Hint:* The following convention (e.g. used by legacy STUPS infrastructure) is deprecated
+TIP: The following convention (e.g. used by legacy STUPS infrastructure) is deprecated
 and *only* allowed for <<223, internal>> event type names:
 
 [source,bnf]
@@ -287,7 +287,7 @@ and *only* allowed for <<223, internal>> event type names:
 <application-id>   ::= [a-z][a-z0-9-]* -- application identifier
 ----
 
-**Note:** consistent naming should be used whenever the same entity is exposed
+NOTE: Consistent naming should be used whenever the same entity is exposed
 by a data change event and a RESTful API.
 
 
@@ -490,8 +490,8 @@ schema payload at the top-level of the document, with the
 information (the contents of <<event-metadata,metadata>> are
 described further down in this section).
 
-*Note:*
-
+[NOTE]
+====
 * The General Event was called a _Business Event_ in earlier versions of
 the guidelines. Implementation experience has shown that the
 category's structure gets used for other kinds of events, hence the name
@@ -501,6 +501,7 @@ defining events that drive a business process.
 * The Nakadi broker still refers to the General Category as the Business
 Category and uses the keyword `business` for event type registration.
 Other than that, the JSON structures are identical.
+====
 
 See <<201>> for more guidance on how to use the category.
 
@@ -673,11 +674,11 @@ the same `eid` value as the initial (possibly failed) attempt.
 The `eid` supports event consumers in detecting and being robust against 
 event duplicates -- see <<214>>.
 
-*Hint:* Using the same eid for retries can be ensured, for instance, by 
-generating a UUID either (i) as part of the event object construction and 
-using some form of intermediate persistence, like an event publish retry 
-queue, or (ii) via a deterministic function that computes the UUID value 
-from the event fields as input (without random salt). 
+TIP: Using the same eid for retries can be ensured, for instance, by
+generating a UUID either (i) as part of the event object construction and
+using some form of intermediate persistence, like an event publish retry
+queue, or (ii) via a deterministic function that computes the UUID value
+from the event fields as input (without random salt).
 
 
 [#201]
@@ -725,7 +726,7 @@ event ordering the event type definition:
 * *should* specify the `ordering_instance_ids` property to define which
   field(s) represents the business entity instance identifier.
 
-*Note:* The `ordering_instance_ids` restrict the scope in which the
+NOTE: The `ordering_instance_ids` restrict the scope in which the
 `ordering_key_fields` provide the strict order. If undefined, the ordering is
 assumed to be provided in scope of all events.
 
@@ -736,13 +737,13 @@ The business ordering information can be provided – among other ways – by ma
  * a strictly monotonically increasing sequence counter (maintained per partition
    or event type).
 
-*Hint:* timestamps are often a bad choice, since in distributed systems events
+TIP: Timestamps are often a bad choice, since in distributed systems events
 may occur at the same time, or clocks are not exactly synchronized, or
 jump forward and backward to compensate drifts or leap-seconds. If you use anyway
 timestamps to indicate event ordering, you _must_ carefully ensure that the designated
 event order is not messed up by these effects and use UTC time zone format.
 
-*Note:* The `received_at` and `partition_offset` metadata set by Nakadi typically is
+NOTE: The `received_at` and `partition_offset` metadata set by Nakadi typically is
 different from the business event ordering, since (1) Nakadi is a distributed concurrent
 system without atomic, ordered event creation and (2) the application's implementation
 of event publishing may not exactly reflect the business order. The business ordering
@@ -780,9 +781,12 @@ to keep transactional dataset replicas in sync as source for data analytics.
 For details about how to provide the data change ordering information,
 please check <<203>>.
 
-*Exception*: In situations where the transactional data is 'append only',
+[EXCEPTION]
+====
+In situations where the transactional data is 'append only',
 i.e. entity instances are only created, but never updated or deleted, the
 ordering information may not be provided.
+====
 
 
 [#204]
@@ -843,18 +847,21 @@ is required by the business, and duplicates need to be explicitly ignored, where
 customer behavior reporting (click rates) might not care about event duplicates 
 since accuracy in per-mille range is not needed.
 
-*Hint:* Event consumers are supported in deduplication: 
+[TIP]
+====
+Event consumers are supported in deduplication:
 
 * Deduplication can be based on the `eid` as mandatory standard for all events -- see <<211>>.
-* Processing data change events to replay data changes and keep transactional 
-data copies in sync (CDC) is robust against duplicates because it is based on 
-data keys and change ordering -- see <<202>> and <<242>>. 
-* Data analytics users of the Data Lake are well advised to use curated data as a 
-source for analytics. Raw event datasets materialized in the lake are typically 
-cleaned-up (including deduplication and data synchronization) and provided as 
-transactional data copy or curated data products, for instance 
-https://curated-product-data.docs.zalando.net/[curated product data [internal link]] or 
-https://curated-sales-data.docs.zalando.net/[curated sales data [internal link]]. 
+* Processing data change events to replay data changes and keep transactional
+data copies in sync (CDC) is robust against duplicates because it is based on
+data keys and change ordering -- see <<202>> and <<242>>.
+* Data analytics users of the Data Lake are well advised to use curated data as a
+source for analytics. Raw event datasets materialized in the lake are typically
+cleaned-up (including deduplication and data synchronization) and provided as
+transactional data copy or curated data products, for instance
+https://curated-product-data.docs.zalando.net/[curated product data [internal link]] or
+https://curated-sales-data.docs.zalando.net/[curated sales data [internal link]].
+====
 
 *Context:* One _source of duplicate events_ are the event producers, for instance, 
 due to publish call retries or publisher client failovers. Another source is 

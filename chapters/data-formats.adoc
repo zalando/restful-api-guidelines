@@ -47,7 +47,7 @@ You *must* use these formats, whenever applicable:
 | `string` | `regex` | regular expressions as defined in {ECMA-262}[ECMA 262] | `"^[a-z0-9]+$"`
 |=====================================================================
 
-*Note:* Formats `bigint` and `decimal` have been added to the OpenAPI defined formats --
+NOTE: Formats `bigint` and `decimal` have been added to the OpenAPI defined formats --
 see also <<171>> and <<169>> below.
 
 We add further OpenAPI formats that are useful especially in an e-commerce environment
@@ -64,7 +64,7 @@ You *must* use these formats, whenever applicable:
 | `string` | `gtin-13` | Global Trade Item Number -- see {GTIN}[GTIN] | `"5710798389878"`
 |=====================================================================
 
-*Remark:* Please note that this list of standard data formats is not exhaustive
+NOTE: Please note that this list of standard data formats is not exhaustive
 and everyone is encouraged to propose additions.
 
 
@@ -104,10 +104,13 @@ APIs {MUST} use the upper-case `T` as a separator between date and time and
 upper-case `Z` at the end when generating `time` or `date-time` -- as opposed to lower-case `t`,
 `z` which are accepted in {RFC-3339}[RFC 3339]. 
 
-*Exception:* For passing date/time information via standard protocol headers,
+[EXCEPTION]
+====
+For passing date/time information via standard protocol headers,
 HTTP https://tools.ietf.org/html/rfc7231#section-7.1.1.1[RFC 7231] requires to
 follow the date and time specification used by the Internet Message Format
 https://tools.ietf.org/html/rfc5322[RFC 5322].
+====
 
 As defined by the standard, `time` and `date-time` relates to UTC and may be optionally 
 equipped with an offset.However, we recommend to only use times without offsets, for example `2015-05-28T14:07:17Z`
@@ -118,7 +121,7 @@ offsets are not easy to understand, different to time-zones and often not correc
 Localization should be done locally by the services that provide
 user interfaces, if required.
 
-*Hint:* We discourage using numerical timestamps. It typically creates
+TIP: We discourage using numerical timestamps. It typically creates
 issues with precision, e.g. whether to represent a timestamp as 1460062925,
 1460062925000 or 1460062925.000. `date-time` strings avoid this ambiguity.
 
@@ -250,7 +253,7 @@ identifiers. This gives us more flexibility to evolve the identifier naming
 scheme. Accordingly, if used as identifiers, UUIDs should not be qualified
 using a format property.
 
-Hint: Usually, random UUID is used - see UUID version 4 in {RFC-4122}[RFC 4122].
+TIP: Usually, random UUID is used - see UUID version 4 in {RFC-4122}[RFC 4122].
 Though UUID version 1 also contains leading timestamps it is not reflected by
 its lexicographic sorting. This deficit is addressed by
 https://github.com/alizain/ulid[ULID] (Universally Unique Lexicographically
