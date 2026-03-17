@@ -44,7 +44,16 @@ _(This should be automatically enforced by Zalando's ComPR tool, but if it
 === Changelog for major changes
 
 When your pull request does major changes, please also add an entry to
-the changelog.
+the changelog. If you are a Zalando employee with access to the internal
+`zllm` tool, you can update it automatically by running:
+
+[source,bash]
+----
+make changelog
+----
+
+This detects the latest changelog entry date, analyzes commits since
+then, and inserts new entries into `chapters/changelog.adoc`.
 
 === Rule IDs
 
