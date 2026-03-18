@@ -26,7 +26,7 @@ You *must* use these formats, whenever applicable:
 | `string` | `date-time` | UTC time defined in {RFC-3339}[RFC 3339] as subset of https://tools.ietf.org/html/rfc3339#ref-ISO8601[ISO 8601] |`"2019-07-30T06:43:40.252Z"`
 | `string` | `time-local` | non-UTC wall time syntactically defined as `partial-time` without `time-offset` in {RFC-3339}[RFC 3339]. It is typically complemented with a separate time-zone field. | `"06:43:40"`
 | `string` | `date-time-local` | Format `date` and `time-local` separated by `"T". It is typically complemented with a separate time-zone field.  |`"2019-07-30T06:43:40"`
-| `string` | `tz-id` | Time-zone id as defined by the https://en.wikipedia.org/wiki/List_of_tz_database_time_zones[IANA time zone database] standard (including daylight saving times). |`"Europa/Berlin"`
+| `string` | `tz-id` | Time-zone id as defined by the https://en.wikipedia.org/wiki/List_of_tz_database_time_zones[IANA time zone database] standard (including daylight saving time definitions). |`"Europa/Berlin"`
 | `string` | `duration` | defined in {RFC-3339}[RFC 3339] according to https://tools.ietf.org/html/rfc3339#ref-ISO8601[ISO 8601], see also <<#127,rule #127>> for details. | `"P1DT3H4S"`
 | `string` | `period` | defined in {RFC-3339}[RFC 3339] according to https://tools.ietf.org/html/rfc3339#ref-ISO8601[ISO 8601], see also <<#127,rule #127>> for details. | `"2022-06-30T14:52:44/PT48H" "PT24H/2023-07-30T18:22:16.315Z" "2024-05-15T09:48:56/.."`
 | `string` | `password` |  | `"secret"`
@@ -102,7 +102,7 @@ The formats are based on the standard {RFC-3339}[RFC 3339] internet profile wh
 subset of https://tools.ietf.org/html/rfc3339#ref-ISO8601[ISO 8601].
 APIs {MUST} use the upper-case `T` as a separator between date and time and
 upper-case `Z` at the end when generating `time` or `date-time` -- as opposed to lower-case `t`,
-`z` which are accepted in {RFC-3339}[RFC 3339]. 
+`z` which are also accepted in {RFC-3339}[RFC 3339]. 
 
 *Exception:* For passing date/time information via standard protocol headers,
 HTTP https://tools.ietf.org/html/rfc7231#section-7.1.1.1[RFC 7231] requires to
@@ -120,7 +120,7 @@ user interfaces, if required.
 
 *Hint:* We discourage using numerical timestamps. It typically creates
 issues with precision, e.g. whether to represent a timestamp as 1460062925,
-1460062925000 or 1460062925.000. `date-time` strings avoid this ambiguity.
+1460062925000 or 1460062925.000. Using `date-time` strings avoid this ambiguity.
 
 
 [#255]
@@ -128,22 +128,24 @@ issues with precision, e.g. whether to represent a timestamp as 1460062925,
 
 When using <<169, standard formats for date and time properties>> you should take the following into account:
 
-* `date` should be used for properties where no exact point in time is required and day time-range is sufficient,
-for instance, document dates, birthdays, ETAs (estimated time of arrival).
-Without further context, `date` implies the time period from midnight to midnight in the local time zone.
-However, the timezone information can be also provided
-as an additional field in `tz-id format.
-* `date-time` should be used where an exact point in time is required, 
+* `date-time` should be used where an exact point-in-time is required, 
 for instance, datetimes for supplier advice or specific processing events.
 It explicitly relates to UTC (with an optional numeric offset)
-avoiding misinterpretations and eliminating the need for additional time-zone context.
+avoiding misinterpretations and eliminating the need for additional time-zone 
+context to determine the exact point-in-time.
 Note, UTC times with offsets are different from local times supplemented 
 with a time-zone field which may include daylight saving times.
+* `date` should be used for properties where no exact point in time is required and day time-range is represented,
+for instance, document dates, birthdays, ETAs (estimated time of arrival).
+Without further context, `date` implies the time period from midnight to midnight in the local time zone.
+However, the timezone information can be provided as an additional field in `tz-id` format.
 * `time-local` and `date-time-local` are not related to UTC and without offset 
-or Locale information. It must be supplemented with an additional time-zone field 
-in `tz-id format in order to define an exact point-in-time. 
-Local times e.g. are used for start dates of international campaigns where the 
-time-zone is part of the market configuration or for international calendars.
+or Locale information. A `date-time-local` field must be supplemented with an additional time-zone field 
+in `tz-id` format (which may include daylight saving time information) in order to define an exact point-in-time. 
+A `date-time-local` field is e.g. used as start date of international campaigns where the 
+time-zone is part of the market configuration determining the exact point-in-time.
+A `time-local` field represents local wall time and no exact point-in-time. It is e.g. used for the start time 
+of periodic events like shop opening hours, often supplemented with additional time-zone information.
 
 
 [#127]
