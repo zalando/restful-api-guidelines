@@ -2817,7 +2817,7 @@ You <strong>must</strong> use these formats, whenever applicable:</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>string</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>tz-id</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Time-zone id as defined by the <a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones">IANA time zone database</a> standard (including daylight saving times).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Time-zone id as defined by the <a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones">IANA time zone database</a> standard (including daylight saving time definitions).</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>"Europa/Berlin"</code></p></td>
 </tr>
 <tr>
@@ -3025,7 +3025,7 @@ The formats are based on the standard <a href="https://tools.ietf.org/html/rfc33
 subset of <a href="https://tools.ietf.org/html/rfc3339#ref-ISO8601">ISO 8601</a>.
 APIs <span class="must-keyword"><strong>MUST</strong></span> use the upper-case <code>T</code> as a separator between date and time and
 upper-case <code>Z</code> at the end when generating <code>time</code> or <code>date-time</code>&#8201;&#8212;&#8201;as opposed to lower-case <code>t</code>,
-<code>z</code> which are accepted in <a href="https://tools.ietf.org/html/rfc3339">RFC 3339</a>.</p>
+<code>z</code> which are also accepted in <a href="https://tools.ietf.org/html/rfc3339">RFC 3339</a>.</p>
 </div>
 <div class="paragraph">
 <p><strong>Exception:</strong> For passing date/time information via standard protocol headers,
@@ -3046,7 +3046,7 @@ user interfaces, if required.</p>
 <div class="paragraph">
 <p><strong>Hint:</strong> We discourage using numerical timestamps. It typically creates
 issues with precision, e.g. whether to represent a timestamp as 1460062925,
-1460062925000 or 1460062925.000. <code>date-time</code> strings avoid this ambiguity.</p>
+1460062925000 or 1460062925.000. Using <code>date-time</code> strings avoid this ambiguity.</p>
 </div>
 </div>
 <div class="sect2">
@@ -3057,26 +3057,28 @@ issues with precision, e.g. whether to represent a timestamp as 1460062925,
 <div class="ulist">
 <ul>
 <li>
-<p><code>date</code> should be used for properties where no exact point in time is required and day time-range is sufficient,
-for instance, document dates, birthdays, ETAs (estimated time of arrival).
-Without further context, <code>date</code> implies the time period from midnight to midnight in the local time zone.
-However, the timezone information can be also provided
-as an additional field in `tz-id format.</p>
-</li>
-<li>
-<p><code>date-time</code> should be used where an exact point in time is required,
+<p><code>date-time</code> should be used where an exact point-in-time is required,
 for instance, datetimes for supplier advice or specific processing events.
 It explicitly relates to UTC (with an optional numeric offset)
-avoiding misinterpretations and eliminating the need for additional time-zone context.
+avoiding misinterpretations and eliminating the need for additional time-zone
+context to determine the exact point-in-time.
 Note, UTC times with offsets are different from local times supplemented
 with a time-zone field which may include daylight saving times.</p>
 </li>
 <li>
+<p><code>date</code> should be used for properties where no exact point in time is required and day time-range is represented,
+for instance, document dates, birthdays, ETAs (estimated time of arrival).
+Without further context, <code>date</code> implies the time period from midnight to midnight in the local time zone.
+However, the timezone information can be provided as an additional field in <code>tz-id</code> format.</p>
+</li>
+<li>
 <p><code>time-local</code> and <code>date-time-local</code> are not related to UTC and without offset
-or Locale information. It must be supplemented with an additional time-zone field
-in `tz-id format in order to define an exact point-in-time.
-Local times e.g. are used for start dates of international campaigns where the
-time-zone is part of the market configuration or for international calendars.</p>
+or Locale information. A <code>date-time-local</code> field must be supplemented with an additional time-zone field
+in <code>tz-id</code> format (which may include daylight saving time information) in order to define an exact point-in-time.
+A <code>date-time-local</code> field is e.g. used as start date of international campaigns where the
+time-zone is part of the market configuration determining the exact point-in-time.
+A <code>time-local</code> field represents local wall time and no exact point-in-time. It is e.g. used for the start time
+of periodic events like shop opening hours, often supplemented with additional time-zone information.</p>
 </li>
 </ul>
 </div>
@@ -11394,7 +11396,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-03-16 11:47:02 UTC
+Last updated 2026-03-19 08:21:03 UTC
 </div>
 </div>
 </body>
