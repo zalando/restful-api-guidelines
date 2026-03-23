@@ -407,7 +407,7 @@ If you mainly aim to support safe retries, we suggest to apply <<182,
 conditional key>> and <<231,secondary key>> pattern before the <<230,
 idempotency key>> pattern.
 
-NOTE: like for {PUT}, successful {POST} or {PATCH} returns {200} or {204} (if
+NOTE: Like for {PUT}, successful {POST} or {PATCH} returns {200} or {204} (if
 the resource was updated -- with or without returning the resource), or {201}
 (if resource was created). Hence, clients can differentiate successful robust
 repetition from resource created server activity of idempotent {POST}.
