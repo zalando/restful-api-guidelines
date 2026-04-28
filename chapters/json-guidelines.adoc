@@ -119,13 +119,10 @@ Property names are restricted to ASCII snake_case strings matching regex `^[a-z_
 The first character must be a lower case letter, or an underscore, and subsequent
 characters can be a letter, an underscore, or a number.
 
-[EXAMPLE]
-====
 [source]
 ----
 customer_number, sales_order_number, billing_address
 ----
-====
 
 Rationale: No established industry standard exists, but many popular Internet
 companies prefer snake_case: e.g. GitHub, Stack Exchange, Twitter.
@@ -166,7 +163,7 @@ Examples of valid date/time property names:
 - `created_at`, `modified_at`, `occurred_at`, `returned_at`  -- instead of `created`, `modified`, ...
 - `campaign_start_time`, `arrival_date`, `checkout_time`  -- instead of `campaign_start`, `arrival`, ...
 
-TIP: Use `format: date-time` or `format: date` as required in <<238>>.
+NOTE: Make sure to use standard date-time formats like`format: date-time` or `format: date` as required in <<238>>.
 
 
 [#216]

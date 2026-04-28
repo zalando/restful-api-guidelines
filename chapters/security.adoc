@@ -176,7 +176,7 @@ hostnames>> and <<213, event type names>>, and typical examples are:
 
 ////
 
-NOTE: APIs should stick to component specific permissions without resource
+TIP: APIs should stick to component specific permissions without resource
 extension to avoid the complexity of too many fine grained permissions. For the
 majority of use cases, restricting access for specific API endpoints using read
 or write is sufficient.

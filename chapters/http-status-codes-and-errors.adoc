@@ -513,7 +513,7 @@ BatchOrBulkResponse:
         required: [id, status]
 ----
 
-NOTE: while a _batch_ defines a collection of requests triggering
+Terminology: While a _batch_ defines a collection of requests triggering
 independent processes, a _bulk_ defines a collection of independent
 resources created or updated together in one request. With respect to
 response processing this distinction normally does not matter.
@@ -619,7 +619,7 @@ identifiers in `type` and `instance` fields:
 * `/problems/user-deactivated`
 * `/problems/connection-error#read-timeout`
 
-TIP: The use of https://tools.ietf.org/html/rfc3986#section-4.3[absolute
+NOTE: The use of https://tools.ietf.org/html/rfc3986#section-4.3[absolute
 URIs] is not forbidden but strongly discouraged. If you use absolute URIs,
 please reference
 https://opensource.zalando.com/restful-api-guidelines/models/problem-1.0.0.yaml#/Problem[problem-1.0.0.yaml#/Problem]

@@ -277,7 +277,7 @@ conform to the functional naming depending on the <<219, audience>> as follows:
 <version>               ::= [Vv][0-9.]* -- major version of non compatible schemas
 ----
 
-TIP: The following convention (e.g. used by legacy STUPS infrastructure) is deprecated
+*Historic information*: The following convention (e.g. used by legacy STUPS infrastructure) is deprecated
 and *only* allowed for <<223, internal>> event type names:
 
 [source,bnf]
@@ -743,7 +743,7 @@ jump forward and backward to compensate drifts or leap-seconds. If you use anywa
 timestamps to indicate event ordering, you _must_ carefully ensure that the designated
 event order is not messed up by these effects and use UTC time zone format.
 
-NOTE: The `received_at` and `partition_offset` metadata set by Nakadi typically is
+The `received_at` and `partition_offset` metadata set by Nakadi typically is
 different from the business event ordering, since (1) Nakadi is a distributed concurrent
 system without atomic, ordered event creation and (2) the application's implementation
 of event publishing may not exactly reflect the business order. The business ordering
@@ -847,8 +847,6 @@ is required by the business, and duplicates need to be explicitly ignored, where
 customer behavior reporting (click rates) might not care about event duplicates 
 since accuracy in per-mille range is not needed.
 
-[TIP]
-====
 Event consumers are supported in deduplication:
 
 * Deduplication can be based on the `eid` as mandatory standard for all events -- see <<211>>.
@@ -861,7 +859,6 @@ cleaned-up (including deduplication and data synchronization) and provided as
 transactional data copy or curated data products, for instance
 https://curated-product-data.docs.zalando.net/[curated product data [internal link]] or
 https://curated-sales-data.docs.zalando.net/[curated sales data [internal link]].
-====
 
 *Context:* One _source of duplicate events_ are the event producers, for instance, 
 due to publish call retries or publisher client failovers. Another source is 

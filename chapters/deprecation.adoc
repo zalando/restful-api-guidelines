@@ -66,7 +66,7 @@ During the deprecation phase, the producer should add a
 8594 section 3]) header on each response affected by a deprecated element (see
 <<187>>).
 
-NOTE: We explicitly discourage the use of `Link` relation headers using
+We explicitly discourage the use of `Link` relation headers using
 `rel="sunset|deprecation"` as defined in {RFC-9754}#section-3[RFC 9745 section
 3] and {RFC-8594}#section-6[RFC 8594 section 6] as these do not provide a
 significant benefit over the documentation provided via the API specification.
@@ -110,7 +110,7 @@ include::../includes/sunset.yaml[lines=3..-1]
 NOTE: Adding the {Deprecation} and {Sunset} header is not sufficient to gain
 client consent to shut down an API or feature.
 
-TIP: In earlier guideline versions, we used the {Warning} header to provide
+*Historic information*: In earlier guideline versions, we used the {Warning} header to provide
 the deprecation info to clients. However, {Warning} header has a less specific
 semantics, will be obsolete with
 https://tools.ietf.org/html/draft-ietf-httpbis-cache-06[draft: RFC HTTP
@@ -126,7 +126,7 @@ to get information about future sunset of APIs and API features (see <<189>>).
 We recommend that client owners build alerts on this monitoring information to
 ensure alignment with service owners on required migration task.
 
-TIP: In earlier guideline versions, we used the `Warning` header to provide
+*Historic information*: In earlier guideline versions, we used the `Warning` header to provide
 the deprecation info (see hint in <<189>>).
 
 

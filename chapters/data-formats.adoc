@@ -47,7 +47,7 @@ You *must* use these formats, whenever applicable:
 | `string` | `regex` | regular expressions as defined in {ECMA-262}[ECMA 262] | `"^[a-z0-9]+$"`
 |=====================================================================
 
-NOTE: Formats `bigint` and `decimal` have been added to the OpenAPI defined formats --
+The formats `bigint` and `decimal` have been added to the numeric formats defined by OpenAPI --
 see also <<171>> and <<169>> below.
 
 We add further OpenAPI formats that are useful especially in an e-commerce environment

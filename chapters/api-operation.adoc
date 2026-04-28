@@ -15,7 +15,7 @@ an API specification is published with the deployment of the implementing servic
 by copying it to the reserved `/zalando-apis` directory. The directory must only
 contain _self-contained YAML files_ that each describe one API (exception see <<234>>).
 
-TIP: We prefer this deployment artifact-based method over the old
+Historic information: We prefer this deployment artifact-based method over the old
 `.well-known/schema-discovery` service endpoint-based publishing process
 (which still is supported for backward compatibility).
 
@@ -27,7 +27,7 @@ discoverable via
 https://sunrise.zalando.net/apis?group=all[Sunrise (internal_link)] and the
 https://apis.zalando.net/[API Portal (internal_link)].
 
-NOTE: APIs are discoverable only for recently running services. Hence, make sure
+TIP: APIs are discoverable only for recently running services. Hence, make sure
 to always publish the API Specification as part of the service artifact deployment.
 
 

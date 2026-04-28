@@ -49,8 +49,6 @@ are free to decide whether they increment it or not.
 (http://semver.org/#spec-item-4[rule 4]) for initial API design.
 ====
 
-[EXAMPLE]
-====
 [source,yaml]
 ----
 openapi: 3.1.0
@@ -60,7 +58,6 @@ info:
   description: API for <...>
   <...>
 ----
-====
 
 
 [#215]
@@ -91,14 +88,12 @@ API evolution. By using  <<116, API semantic version information>> or <<192,
 API publishing date>> as order criteria you get the *version* or
 *publication history* as a sequence of API specifications.
 
-NOTE: While it is nice to use human readable API identifiers based on
+TIP: While it is nice to use human readable API identifiers based on
 self-managed URNs, it is recommend to stick to a UUID (freshly generated when
 first creating the API) to relief API designers from any urge of changing
 the API identifier while evolving the API. *Do not copy an API unless you
 immediately change the API identifier in it!*
 
-[EXAMPLE]
-====
 [source,yaml]
 ----
 openapi: 3.1.0
@@ -109,7 +104,6 @@ info:
   version: 1.5.8
   <...>
 ----
-====
 
 
 [#219]
@@ -171,8 +165,7 @@ a different target audience, we recommend to split API specifications along
 the target audience — even if this creates redundancies
 ({api-audience-narrative}[rationale (internal_link)]).
 
-[EXAMPLE]
-====
+Here is an example for the definition of the audience as part of an API specification:
 [source,yaml]
 ----
 openapi: 3.1.0
@@ -183,7 +176,6 @@ info:
   version: 1.2.4
   <...>
 ----
-====
 
 For details and more information on audience groups see the
 {api-audience-narrative}[API Audience narrative (internal_link)].
@@ -228,7 +220,7 @@ Please see the following rules for detailed functional naming patterns:
 // * <<225>>
 
 
-NOTE: You _must_ use the simple
+You _must_ use the simple
 {functional-name-registry}[functional name registry (internal_link)]
 to register your functional name before using
 it. The registry is a centralized infrastructure service to ensure uniqueness
@@ -254,7 +246,7 @@ depending on the <<219, audience>> as follows (see <<223>> for details and
 <functional-hostname>  ::= <functional-name>.zalandoapis.com
 -----
 
-TIP: The following convention (e.g. used by legacy STUPS infrastructure) is deprecated
+The following convention (e.g. used by legacy STUPS infrastructure) is deprecated
 and *only* allowed for hostnames of <<219, component-internal>> APIs:
 
 [source,bnf]

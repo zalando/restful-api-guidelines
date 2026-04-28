@@ -30,11 +30,11 @@ We encourage using https://swagger.io/specification/[OpenAPI 3.1 version],
 especially for new APIs. The API specification documents should be subject to version 
 control using a source code management system, and you <<192>>.
 
-TIP: Our API infrastructure does not break, but might not yet fully support
+NOTE: Our API infrastructure does not break, but might not yet fully support
 all OpenAPI 3.1 changes (e.g. displaying `examples` in Sunrise), and continues
 supporting OpenAPI 3.0 (and 2.0, aka Swagger 2).
 
-TIP: The _OpenAPI 3.1 mayor change_ is that Schema Object definitions are now
+NOTE: The _OpenAPI 3.1 mayor change_ is that Schema Object definitions are now
 fully compliant with standard JSON Schema. It is an incompatible change since
 OpenAPI-specific overrides and keywords like `example`, `nullable`, `discriminator`, `xml`
 are removed from the Schema Object (see
@@ -46,7 +46,7 @@ TIP: You might find the https://openapi-map.apihandyman.io/[OpenAPI Map]
 a helpful tool supporting UI navigation for the OpenAPI 3.0 specification.
 (Newer OpenAPI versions are not yet supported.)
 
-TIP: We do not yet provide guidelines for https://graphql.org/[GraphQL]
+NOTE: We do not yet provide guidelines for **https://graphql.org/[GraphQL]**
 and focus on resource oriented HTTP/REST API style (and related tooling
 and infrastructure support).
 Following our {techradar-public}[Zalando Tech Radar (internal_link)], we think

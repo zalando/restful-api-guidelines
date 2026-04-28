@@ -46,7 +46,7 @@ components:
           $ref: '#/components/(parameters|headers)/ETag'
 ----
 
-NOTE: It is a question of taste whether headers for responses are defined in
+It is a question of taste whether headers for responses are defined in
 `\#/components/headers` or `#/components/parameters`. Unfortunately, headers
 in the first section cannot be referenced from a `parameters`-list, while it is
 possible to reference the second also from a `headers`-list.
@@ -141,7 +141,7 @@ The {Content-Location} header can be used to support the following use cases:
   indicate that the body contains a status report resource in response to the
   requested action, which is available at provided location.
 
-NOTE: When using the {Content-Location} header, the {Content-Type} header
+When using the {Content-Location} header, the {Content-Type} header
 has to be set as well. For example:
 
 [source,http]
@@ -173,7 +173,7 @@ The {Prefer} header can be defined in the API specification as follows:
 include::../includes/prefer.yaml[]
 ----
 
-NOTE: Please, copy only the behaviors into your {Prefer} header specification
+Please, copy only the behaviors into your {Prefer} header specification
 that are supported by your API endpoint. If necessary, specify different
 {Prefer} headers for each supported use case.
 
@@ -285,7 +285,7 @@ TIP: The key cache is not intended as request log, and therefore should
 have a limited lifetime, else it could easily exceed the data resource in
 size.
 
-NOTE: The {Idempotency-Key} header unlike other headers in this section
+Background information: The {Idempotency-Key} header unlike other headers in this section
 is not standardized in an RFC. Our only reference are the usage in the
 https://stripe.com/docs/api/idempotent_requests[Stripe API].
 However, we do not want to change the header name and semantic, and
@@ -393,7 +393,7 @@ As part of the guidelines we provide the default definition of all proprietary
 headers, so you can simply reference them when defining the API endpoint. For
 details see <<using-headers>>.
 
-TIP: This guideline does not standardize proprietary headers for our
+*Hint:* This guideline does not standardize proprietary headers for our
 specific gateway components (2. use case above). This include, for instance,
 non pass-through headers `X-Zalando-Customer`, `X-Zalando-Client-ID`,
 `X-Zalando-Request-Host`, `X-Zalando-Request-URI` defined by Fashion Shop API
@@ -472,7 +472,7 @@ practices (internal link)].
 ** Event listeners *must* support the metadata `flow-id` from events.
 
 
-NOTE: API-Clients *must* provide {Flow-ID} when calling a service or
+API-Clients *must* provide {Flow-ID} when calling a service or
 producing events. If no {Flow-ID} is provided in a request or event, the
 service must create a new {Flow-ID}.
 
@@ -481,6 +481,6 @@ with API calls or consumed events as...
 ** input for all API called and events published during processing
 ** data field written for logging and tracing
 
-TIP: This rule also applies to application internal interfaces and events
+This rule also applies to application internal interfaces and events
 not published via Nakadi (but e.g. via AWS SQS, Kinesis or service specific
 DB solutions).

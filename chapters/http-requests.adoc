@@ -190,7 +190,7 @@ be described in the API specification by using specific media types.
   updated -- with or without returning the resource), and {202} (if the request
   was accepted for asynchronous processing).
 
-NOTE: Since implementing {PATCH} correctly is a bit tricky, we strongly
+Since implementing {PATCH} correctly is a bit tricky, we strongly
 suggest to choose one and only one of the following patterns per endpoint
 (unless forced by a <<106,backwards compatible change>>). In preference order:
 
@@ -262,7 +262,7 @@ control the operation behavior.
 DELETE /resources?param1=value1&param2=value2...&paramN=valueN
 ----
 
-NOTE: When providing {DELETE} with query parameters, API designers must
+When providing {DELETE} with query parameters, API designers must
 carefully document the behavior in case of (partial) failures to manage client
 expectations properly.
 
@@ -351,7 +351,7 @@ to {RFC-9110}#section-9.2[RFC 9110 Section 9.2]:
 | {TRACE}   | {YES} | {YES}      | {NO}
 |====================================================
 
-NOTE: <<227>>.
+Do not forget: You <<227>>.
 
 
 [#229]
@@ -400,7 +400,7 @@ following table showing the major properties of each pattern:
 | Usable without previous {GET}         | {NO}    | {YES}   | {YES}
 |==============================================================================
 
-NOTE: The patterns applicable to {PATCH} can be applied in the same way to
+The patterns applicable to {PATCH} can be applied in the same way to
 {PUT} and {DELETE} providing the same properties.
 
 If you mainly aim to support safe retries, we suggest to apply <<182,
