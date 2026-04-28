@@ -194,20 +194,21 @@ be described in the API specification by using specific media types.
 suggest to choose one and only one of the following patterns per endpoint
 (unless forced by a <<106,backwards compatible change>>). In preference order:
 
-1. Use {PUT} with complete objects to update a resource as long as feasible
-   (i.e. do not use {PATCH} at all).
-   *Note:* this choice by the API server imposes additional requirements on
-   the client (<<108>>) which can be implemented e.g. in Java following the 
-   practice <<handling-compatible-extensions>>.
-2. Use {PATCH} with {RFC-7396}[JSON Merge Patch] standard, a
+1. Use {PATCH} with {RFC-7396}[JSON Merge Patch] standard, a
    specialized media type `application/merge-patch+json` for partial
    resource representation to update parts of resource objects.
-3. Use {PATCH} with {RFC-6902}[JSON Patch] standard, a specialized media type
+2. Use {PATCH} with {RFC-6902}[JSON Patch] standard, a specialized media type
    `application/json-patch+json` that includes instructions on how to change
    the resource.
-4. Use {POST} (with a proper description of what is happening) instead of
+3. Use {POST} (with a proper description of what is happening) instead of
    {PATCH}, if the request does not modify the resource in a way defined by
    the semantics of the standard media types above.
+
+*Note:* In earlier versions we proposed to use {PUT} with complete objects to
+update a (sub)-resource as long as feasible, however, due to the complexity
+this imposes on clients to <<prepare for compatibe extensions,108>>, we
+reconsidered this approach in favor of solutions that simplify clients while
+having a lower incident risk.
 
 In practice {RFC-7396}[JSON Merge Patch] quickly turns out to be too limited,
 especially when trying to update single objects in large collections (as part
