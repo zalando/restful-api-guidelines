@@ -208,7 +208,7 @@ suggest to choose one and only one of the following patterns per endpoint
 update a (sub)-resource as long as feasible, however, due to the complexity
 this imposes on clients to <<prepare for compatible extensions,108>>, we
 reconsidered this approach in favor of solutions that simplify clients while
-having a lower incident risk.
+having a lower failure risk.
 
 In practice {RFC-7396}[JSON Merge Patch] quickly turns out to be too limited,
 especially when trying to update single objects in large collections (as part
