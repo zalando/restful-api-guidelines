@@ -206,7 +206,7 @@ suggest to choose one and only one of the following patterns per endpoint
 
 *Note:* In earlier versions we proposed to use {PUT} with complete objects to
 update a (sub)-resource as long as feasible, however, due to the complexity
-this imposes on clients to <<prepare for compatibe extensions,108>>, we
+this imposes on clients to <<prepare for compatible extensions,108>>, we
 reconsidered this approach in favor of solutions that simplify clients while
 having a lower incident risk.
 
