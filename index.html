@@ -4658,13 +4658,6 @@ suggest to choose one and only one of the following patterns per endpoint
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Use <a href="#put"><code>PUT</code></a> with complete objects to update a resource as long as feasible
-(i.e. do not use <a href="#patch"><code>PATCH</code></a> at all).
-<strong>Note:</strong> this choice by the API server imposes additional requirements on
-the client (<a href="#108"><span class="must-keyword"><strong>MUST</strong></span> prepare clients to accept compatible API extensions</a>) which can be implemented e.g. in Java following the
-practice <a href="#handling-compatible-extensions">Handling compatible API extensions</a>.</p>
-</li>
-<li>
 <p>Use <a href="#patch"><code>PATCH</code></a> with <a href="https://tools.ietf.org/html/rfc7396">JSON Merge Patch</a> standard, a
 specialized media type <code>application/merge-patch+json</code> for partial
 resource representation to update parts of resource objects.</p>
@@ -4680,6 +4673,13 @@ the resource.</p>
 the semantics of the standard media types above.</p>
 </li>
 </ol>
+</div>
+<div class="paragraph">
+<p><strong>Note:</strong> In earlier versions we proposed to avoid <a href="#patch"><code>PATCH</code></a> and use <a href="#put"><code>PUT</code></a> with
+complete objects to update a (sub)-resource as long as feasible, however, due
+to the complexity this imposes on clients to <a href="#prepare for compatible
+extensions">108</a>, we reconsidered this approach in favor of solutions that
+simplify clients while having a lower failure risk.</p>
 </div>
 <div class="paragraph">
 <p>In practice <a href="https://tools.ietf.org/html/rfc7396">JSON Merge Patch</a> quickly turns out to be too limited,
@@ -11423,7 +11423,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-14 13:17:59 UTC
+Last updated 2026-05-04 12:13:06 UTC
 </div>
 </div>
 </body>
