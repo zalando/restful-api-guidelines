@@ -381,3 +381,225 @@ following one:
 @JsonAnySetter
 private Map<String, JsonNode> additionalProperties = new HashMap<>();
 ----
+
+[[implementing-intervals]]
+== Implementing Intervals in RESTful APIs
+
+Unfortunately the out-of-the-box library support for open intervals in most
+programming languages is very limited. As a consequence, you will likely need
+to implement your own parser for ISO 8601 compliant intervals, which also supports open boundaries using `..`. The following sections provide example implementations for Java/Kotlin/Scala, Go, and Python.
+
+[[intervals-java]]
+=== In Java/Kotlin/Scala
+
+In Java/Kotlin/Scala you can use the Time4J library, which provides
+a powerful and flexible API for working with date and time, including support
+for intervals. However, it does not provide a built-in parser for ISO 8601 compliant intervals, but a custom format using `-` to signal open ends.
+
+A common approach to implement ISO 8601 compliant interval parsing is to use regular expressions to identify and transform the input string into the format expected by Time4J. Below is an example implementation of such a parser:
+
+[source,java]
+----
+import java.util.regex.Pattern;
+import net.time4j.range.MomentInterval;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class IntervalParser {
+    private static final Logger log = 
+        LoggerFactory.getLogger(IntervalParser.class);
+
+    // Pre-compile the patterns for performance
+    private static final Pattern ISO_INCOMPLIANT_INTERVAL = 
+        Pattern.compile("(^-/|/-$)");
+    private static final Pattern ISO_OPEN_START_INTERVAL = 
+        Pattern.compile("^(\\.\\.)?/");        
+    private static final Pattern ISO_OPEN_END_INTERVAL = 
+        Pattern.compile("/(\\.\\.)?$");
+
+    public MomentInterval parseDateTimeInterval(String interval) {
+        if (ISO_INCOMPLIANT_INTERVAL.matcher(interval).find()) {
+            return null;
+        }
+
+        try {
+            // Apply the regex replacements sequentially
+            String formattedInterval = ISO_OPEN_START_INTERVAL
+                .matcher(interval).replaceAll("-/");
+                
+            formattedInterval = ISO_OPEN_END_INTERVAL
+                .matcher(formattedInterval).replaceAll("/-");
+            
+            return MomentInterval.parseISO(formattedInterval);
+            
+        } catch (Exception except) {
+            log.debug("parsing interval failed", except);
+            return null;
+        }
+    }
+}
+----
+
+[[intervals-go]]
+=== In Go
+
+In Go, the approach is a bit more complex, since there is no built-in library
+for intervals and we also need to implement the parsing logic for ISO 8601
+durations due to the lack of native duration support. Below is an example
+implementation of an ISO 8601 compliant interval and duration parser in Go:
+
+[source,go]
+----
+package interval
+
+import (
+	"fmt"
+	"regexp"
+	"strconv"
+	"strings"
+	"time"
+)
+
+type MomentInterval struct {
+	Start *time.Time
+	End   *time.Time
+}
+
+// Regex to extract Days, Hours, Minutes, and Seconds from an ISO duration (e.g., P6DT2H5M)
+var durationRegex = regexp.MustCompile(`^P(?:(\d+)D)?(?:T(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?)?$`)
+
+// parseISODuration converts an ISO duration string into a native time.Duration
+func parseISODuration(str string) (time.Duration, error) {
+	matches := durationRegex.FindStringSubmatch(str)
+	if matches == nil {
+		return 0, fmt.Errorf("invalid or unsupported ISO duration")
+	}
+
+	var total time.Duration
+
+	// Note: We only parse exact time units (Days, Hours, Minutes, Seconds).
+	if matches[1] != "" { // Days (assumed 24 hours for machine-time math)
+		d, _ := strconv.Atoi(matches[1])
+		total += time.Duration(d) * 24 * time.Hour
+	}
+	if matches[2] != "" { // Hours
+		h, _ := strconv.Atoi(matches[2])
+		total += time.Duration(h) * time.Hour
+	}
+	if matches[3] != "" { // Minutes
+		m, _ := strconv.Atoi(matches[3])
+		total += time.Duration(m) * time.Minute
+	}
+	if matches[4] != "" { // Seconds
+		s, _ := strconv.Atoi(matches[4])
+		total += time.Duration(s) * time.Second
+	}
+
+	return total, nil
+}
+
+func ParseDateTimeInterval(interval string) *MomentInterval {
+	parts := strings.Split(interval, "/")
+	if len(parts) != 2 {
+		return nil
+	}
+
+	startStr := parts[0]
+	endStr := parts[1]
+
+	if startStr == "-" || endStr == "-" {
+		return nil
+	}
+
+	result := &MomentInterval{}
+
+	// Identify if either side is a duration (starts with 'P')
+	isStartDuration := strings.HasPrefix(startStr, "P")
+	isEndDuration := strings.HasPrefix(endStr, "P")
+
+	// An interval cannot be made of two durations
+	if isStartDuration && isEndDuration {
+		return nil
+	}
+
+	// 1. Parse the Start boundary (if it is a timestamp or open)
+	if !isStartDuration && startStr != "" && startStr != ".." {
+		if t, err := time.Parse(time.RFC3339, startStr); err != nil {
+			return nil
+		}
+		result.Start = &t
+	}
+
+	// 2. Parse the End boundary (if it is a timestamp or open)
+	if !isEndDuration && endStr != "" && endStr != ".." {
+		if t, err := time.Parse(time.RFC3339, endStr); err != nil {
+			return nil
+		}
+		result.End = &t
+	}
+
+	// 3. Resolve Durations
+	if isStartDuration {
+		// Duration/End scenario -> Calculate Start
+		if result.End == nil {
+			return nil // Cannot subtract a duration from an open/infinite end
+		} else if d, err := parseISODuration(startStr); err != nil {
+			return nil
+		}
+		t := result.End.Add(-d)
+		result.Start = &t
+
+	} else if isEndDuration {
+		// Start/Duration scenario -> Calculate End
+		if result.Start == nil {
+			return nil // Cannot add a duration to an open/infinite start
+		} else if d, err := parseISODuration(endStr); err != nil {
+			return nil
+		}
+		t := result.Start.Add(d)
+		result.End = &t
+	}
+
+	return result
+}
+----
+
+[[intervals-python]]
+=== In Python
+
+In Python, the approach is more straightforward, since there are libraries like
+`aniso8601`, that provide built-in support for parsing ISO 8601 compliant
+intervals without open boundaries (".."). Below is an example implementation of
+how such a parser can be used to implement ISO 8601 compliant interval parsing
+in Python, including handling of open boundaries:
+
+[source,python]
+----
+import aniso8601
+from datetime import datetime
+from typing import Optional, Tuple
+
+def parse_datetime_interval(interval: str) -> Optional[Tuple[datetime, datetime]]:
+    if interval.startswith("-/") or interval.endswith("/-"):
+        return None
+
+    try:
+        # 2. Intercept open boundaries ("..") manually
+        if interval.startswith("../"):
+            end_str = interval.split("/")[1].replace("Z", "+00:00")
+            return (None, datetime.fromisoformat(end_str))
+            
+        if interval.endswith("/.."):
+            start_str = interval.split("/")[0].replace("Z", "+00:00")
+            return (datetime.fromisoformat(start_str), None)
+
+        # 3. THE SHORTCUT: aniso8601 handles Start/End, Start/Duration, and
+        # Duration/End! (We use sorted() because if the string is Duration/End,
+        # aniso8601 returns the tuple backwards as (End, Start))
+        start, end = sorted(aniso8601.parse_interval(interval))
+        
+        return (start, end)
+        
+    except Exception:
+        return None
+----
