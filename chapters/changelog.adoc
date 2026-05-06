@@ -8,9 +8,9 @@ Non-major changes are editorial-only changes or minor changes of existing guidel
 Major changes are changes that come with additional obligations, or even change an existing guideline obligation.
 Major changes are listed as "Rule Changes" below.
 
-*Hint:* Most recent major changes might be missing in the list since we update it 
+NOTE: Most recent major changes might be missing in the list since we update it
 only occasionally, not with each pull request, to avoid merge commits.
-Please have a look at the 
+Please have a look at the
 https://github.com/zalando/restful-api-guidelines/commits/main[commit list in Github]
 to see a list of all changes.
 

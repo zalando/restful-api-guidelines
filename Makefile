@@ -70,7 +70,8 @@ $(DIRINCLUDES): models/headers-1.0.0.yaml $(DIRSCRIPTS)/generate-includes.sh
 html: $(DIRINCLUDES) check assets pull
 	$(DOCKER) run --interactive --user=$$(id -u):$$(id -g) \
 	  --volume=$(DIRWORK):$(DIRMOUNTS)/ \
-	  $(ASCIIDOC) asciidoctor -D $(DIRMOUNTS)/$(DIRBUILDS) index.adoc;
+	  $(ASCIIDOC) asciidoctor -r $(DIRMOUNTS)/extensions/custom-admonitions.rb \
+	  -D $(DIRMOUNTS)/$(DIRBUILDS) index.adoc;
 
 watch:
 	watchexec --exts adoc,css --ignore output -r make html

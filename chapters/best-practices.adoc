@@ -111,7 +111,7 @@ the `query` filters should be transported via body - in the request as well as
 in the response, while the pagination consistency should be ensured via the
 `query_hash`.
 
-*Note:* The efficiency of cursor-based pagination depends on the efficiency
+TIP: The efficiency of cursor-based pagination depends on the efficiency
 of the ordering index. In most cases a single ordering index, e.g. based on
 `modified_at` is sufficient. Only in case of a low selectivity a combined
 index including the `id` or other filter criteria is needed. This should be

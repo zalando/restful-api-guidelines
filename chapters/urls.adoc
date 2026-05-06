@@ -30,8 +30,11 @@ be modeled as a collection with cardinality 1 including definition of
 `maxItems` = `minItems` = 1 for the returned `array` structure
 to make the cardinality constraint explicit.
 
-**Exception:** the _pseudo identifier_ `self` used to specify a resource endpoint
+[EXCEPTION]
+====
+The _pseudo identifier_ `self` used to specify a resource endpoint
 where the resource identifier is provided by authorization information (see <<143>>).
+====
 
 
 [#228]
@@ -41,10 +44,10 @@ To simplify encoding of resource IDs in URLs they must match the regex `[a-zA-Z0
 Resource IDs only consist of ASCII strings using letters, numbers, underscore, minus, colon,
 period, and - on rare occasions - slash.
 
-**Note:** slashes are only allowed to build and signal resource identifiers
+NOTE: Slashes are only allowed to build and signal resource identifiers
 consisting of <<241, compound keys>>.
 
-**Note:** to prevent ambiguities of <<136, unnormalized paths>> resource
+NOTE: To prevent ambiguities of <<136, unnormalized paths>> resource
 identifiers must never be empty. Consequently, support of empty strings for
 path parameters is forbidden.
 
@@ -56,14 +59,15 @@ Path segments are restricted to ASCII kebab-case strings matching regex `^[a-z][
 The first character must be a lower case letter, and subsequent
 characters can be a letter, or a dash(`-`), or a number.
 
-Example:
-
+[EXAMPLE]
+====
 [source,http]
 ----
 /shipment-orders/{shipment-order-id}
 ----
+====
 
-*Hint:* kebab-case applies to concrete path segments and not necessarily the names of path parameters.
+TIP: kebab-case applies to concrete path segments and not necessarily the names of path parameters.
 
 
 [#136]
@@ -73,7 +77,7 @@ You must not specify paths with duplicate or trailing slashes, e.g.
 `/customers//addresses` or `/customers/`. As a consequence, you must also not
 specify or use path variables with empty string values.
 
-*Note:* Non standard paths have no clear semantics. As a result, behavior
+NOTE: Non standard paths have no clear semantics. As a result, behavior
 for non standard paths varies between different HTTP infrastructure components
 and libraries. This may leads to ambiguous and unexpected results during
 request handling and monitoring.
@@ -90,7 +94,7 @@ GET /orders/{order-id}/
 GET /orders//{order-id}
 ----
 
-**Note:** path normalization is not supported by all framework out-of-the-box.
+NOTE: Path normalization is not supported by all framework out-of-the-box.
 Services are required to support at least the normalized path while rejecting
 all alternatives paths, if failing to deliver the same resource.
 
@@ -189,16 +193,19 @@ also `/partners/{partner-id}/addresses`, `/partners/{partner-id}` and
 /content/images
 ----
 
-**Note:** resource identifiers may be build of multiple other resource
+NOTE: Resource identifiers may be build of multiple other resource
 identifiers (see <<241>>).
 
-**Exception:** In some situations the resource identifier is not passed as a
+[EXCEPTION]
+====
+In some situations the resource identifier is not passed as a
 path segment but  via the authorization information, e.g. an authorization
 token or session cookie. Here, it is reasonable to use **`self`** as
 _pseudo-identifier_ path segment. For instance, you may define `/employees/self`
 or `/employees/self/personal-details` as resource paths --  and may additionally
 define endpoints that support identifier passing in the resource path, like
 define `/employees/{empl-id}` or `/employees/{empl-id}/personal-details`.
+====
 
 
 [#241]
@@ -225,7 +232,7 @@ Example paths:
 /article-size-advices/{sku}/{sales-channel}
 ----
 
-*Note*: Exposing a compound key as described above limits ability to
+NOTE: Exposing a compound key as described above limits ability to
 evolve the structure of the resource identifier as it is no longer opaque.
 
 To compensate for this drawback, APIs must apply a compound key abstraction
@@ -252,7 +259,7 @@ POST /article-size-advices { "sku": "sku-1", "sales_channel_id": "sid-1", "size"
 Where `id-1` is representing the opaque provision of the compound key
 `sku-1/sid-1` as technical resource identifier.
 
-**Remark:** A compound key component may itself be used as another resource
+NOTE: A compound key component may itself be used as another resource
 identifier providing another resource endpoint, e.g `/article-size-advices/{sku}`.
 
 

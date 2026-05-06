@@ -26,7 +26,7 @@ instance, jumping to a specific page is far less used than navigation via
 {next}/{prev} page links (see <<161>>). This favors an API design using
 cursor-based instead of offset-based pagination -- see <<160>>.
 
-**Note:** To provide a consistent look and feel of pagination patterns,
+NOTE: To provide a consistent look and feel of pagination patterns,
 you must stick to the common query parameter names defined in <<137>>.
 
 
@@ -142,7 +142,7 @@ ResponsePage:
         type: ...
 ----
 
-*Note:* While you may support plain cursors for {next}, {prev}, {first}, {last}, and
+NOTE: While you may support plain cursors for {next}, {prev}, {first}, {last}, and
 {self}, it is best practice to replace these with pagination links -- see
 <<161>>.
 

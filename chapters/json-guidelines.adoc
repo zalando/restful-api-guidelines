@@ -45,7 +45,7 @@ addressed by
 * marking properties `readOnly` that are only available in a response, e.g.
   resource identifiers.
 
-**Note:** A resource with property marked `readOnly` in the API according to
+NOTE: A resource with property marked `readOnly` in the API according to
 the {json-schema-validation}#rfc.section.9.4[JSON schema validation] may be
 ignored or rejected by a server. Both are in line with the idea behind <<#109,
 the compatibility guidance>>, however, we suggest to document when rejecting
@@ -71,7 +71,7 @@ should check that these tools fully support the JSON or unicode standard. If
 not, they should reject or sanitize unicode characters not supported by the
 tools.
 
-**Note:** A sanitization and rejection are actions that change the API
+NOTE: A sanitization and rejection are actions that change the API
 behavior and therefore should be described by the API specification.
 
 [#168]
@@ -98,8 +98,11 @@ You should avoid using custom media types like `application/x.zalando.article+js
 Custom media types beginning with `x` bring no advantage compared to the
 standard media type for JSON, and make automated processing more difficult.
 
-*Exception:* Custom media type should be only used in situations where you need to provide
+[EXCEPTION]
+====
+Custom media type should be only used in situations where you need to provide
 <<114, API endpoint versioning>> (with content negotiation) due to incompatible changes.
+====
 
 
 [#120]
@@ -115,8 +118,6 @@ This implies in turn that object names should be singular.
 Property names are restricted to ASCII snake_case strings matching regex `^[a-z_][a-z_0-9]*$`.
 The first character must be a lower case letter, or an underscore, and subsequent
 characters can be a letter, an underscore, or a number.
-
-Examples:
 
 [source]
 ----
@@ -142,9 +143,12 @@ or `YET_ANOTHER_VALUE`.
 This approach allows to clearly distinguish enum values from properties or
 other elements.
 
-**Exception:** This rule does not apply for case sensitive values sourced from outside
+[EXCEPTION]
+====
+This rule does not apply for case sensitive values sourced from outside
 of the API specification scope, e.g. for language codes from {ISO-639-1}[ISO 639-1], or when
 declaring possible values for a <<137,rule 137>> [`sort` parameter].
+====
 
 
 [#235]
@@ -159,7 +163,7 @@ Examples of valid date/time property names:
 - `created_at`, `modified_at`, `occurred_at`, `returned_at`  -- instead of `created`, `modified`, ...
 - `campaign_start_time`, `arrival_date`, `checkout_time`  -- instead of `campaign_start`, `arrival`, ...
 
-**Hint:** Use `format: date-time` or `format: date` as required in <<238>>.
+NOTE: Make sure to use standard date-time formats like`format: date-time` or `format: date` as required in <<238>>.
 
 
 [#216]

@@ -37,7 +37,9 @@ guidance on application-specific errors and is referenced via links from the
 API specification. This can reduce service support tasks and contribute to
 service client and provider performance.
 
-**Exception:** Standard client and server errors, e.g. {401} (unauthenticated),
+[EXCEPTION]
+====
+Standard client and server errors, e.g. {401} (unauthenticated),
 {403} (unauthorized), {404} (not found), {500} (internal server error), or
 {503} (service unavailable), where the semantic can be easily derived from the
 end endpoint specification need no individual definition. Instead these can be
@@ -45,6 +47,7 @@ included by applying the `default` shown pattern below. However, error codes
 that provide endpoint specific indications for clients on how to avoid calling
 the endpoint in the wrong way, or be prepared to react on specific error
 situation must be specified explicitly.
+====
 
 [source,yaml]
 ----
@@ -67,7 +70,7 @@ the official HTTP status codes and consistent with their semantics in the RFCs.
 We avoid less commonly used codes that easily create misconceptions due to
 less familiar semantics and API specific interpretations.
 
-**Important:** As long as your HTTP status code usage is well covered by the
+IMPORTANT: As long as your HTTP status code usage is well covered by the
 semantic defined here, you should not describe it to avoid an overload with
 common sense information and the risk of inconsistent definitions. Only if the
 HTTP status code is not in the list below or its usage requires additional
@@ -469,7 +472,7 @@ define the following approach:
   a multi-status response containing item specific status and/or monitoring
   information for each part of the batch or bulk request.
 
-**Note:** These rules apply _even in the case_ that processing of all
+NOTE: These rules apply _even in the case_ that processing of all
 individual parts _fail_ or each part is executed _asynchronously_!
 
 The rules are intended to allow clients to act on batch and bulk responses in
@@ -510,7 +513,7 @@ BatchOrBulkResponse:
         required: [id, status]
 ----
 
-*Note*: while a _batch_ defines a collection of requests triggering
+Terminology: While a _batch_ defines a collection of requests triggering
 independent processes, a _bulk_ defines a collection of independent
 resources created or updated together in one request. With respect to
 response processing this distinction normally does not matter.
@@ -569,12 +572,12 @@ endpoints must be capable of returning a Problem JSON on client usage errors
 ({4xx} status codes) as well as server side processing errors ({5xx} status
 codes).
 
-*Note:* Clients must be robust and *not rely* on a Problem JSON object
+NOTE: Clients must be robust and *not rely* on a Problem JSON object
 being returned, since (a) failure responses may be created by infrastructure
 components not aware of this guideline or (b) service may be unable to comply
 with this guideline in certain error situations.
 
-*Hint:* The media type `application/problem+json` is often not implemented as
+TIP: The media type `application/problem+json` is often not implemented as
 a subset of `application/json` by libraries and services! Thus clients need to
 include `application/problem+json` in the {Accept}-Header to trigger delivery
 of the extended failure information.
@@ -598,7 +601,7 @@ You may define custom problem types as extensions of the Problem JSON object
 if your API needs to return specific, additional, and more detailed error
 information.
 
-*Note:* Problem `type` and `instance` identifiers in our APIs are not meant
+NOTE: Problem `type` and `instance` identifiers in our APIs are not meant
 to be resolved. {RFC-9457}[RFC 9457] encourages that problem types are URI
 references that point to human-readable documentation, *but* we deliberately
 decided against that, as all important parts of the API must be documented
@@ -616,7 +619,7 @@ identifiers in `type` and `instance` fields:
 * `/problems/user-deactivated`
 * `/problems/connection-error#read-timeout`
 
-*Hint:* The use of https://tools.ietf.org/html/rfc3986#section-4.3[absolute
+NOTE: The use of https://tools.ietf.org/html/rfc3986#section-4.3[absolute
 URIs] is not forbidden but strongly discouraged. If you use absolute URIs,
 please reference
 https://opensource.zalando.com/restful-api-guidelines/models/problem-1.0.0.yaml#/Problem[problem-1.0.0.yaml#/Problem]
