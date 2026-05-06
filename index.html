@@ -1672,6 +1672,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#cursor-based-pagination">Cursor-based pagination in RESTful APIs</a></li>
 <li><a href="#optimistic-locking">Optimistic locking in RESTful APIs</a></li>
 <li><a href="#handling-compatible-extensions">Handling compatible API extensions</a></li>
+<li><a href="#implementing-intervals">Implementing Intervals in RESTful APIs</a></li>
 </ul>
 </li>
 <li><a href="#appendix-changelog">Appendix D: Changelog</a>
@@ -10925,6 +10926,233 @@ following one:</p>
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="implementing-intervals"><a class="link" href="#implementing-intervals">Implementing Intervals in RESTful APIs</a></h3>
+<div class="paragraph">
+<p>Unfortunately the out-of-the-box library support for open intervals in most
+programming languages is very limited. As a consequence, you will likely need
+to implement your own parser for ISO 8601 compliant intervals, which also supports open boundaries using <code>..</code>. The following sections provide example implementations for Java/Kotlin/Scala, Go, and Python.</p>
+</div>
+<div class="sect3">
+<h4 id="intervals-java"><a class="link" href="#intervals-java">In Java/Kotlin/Scala</a></h4>
+<div class="paragraph">
+<p>In Java/Kotlin/Scala you can use the Time4J library, which provides
+a powerful and flexible API for working with date and time, including support
+for intervals. However, it does not provide a built-in parser for ISO 8601 compliant intervals, but a custom format using <code>-</code> to signal open ends.</p>
+</div>
+<div class="paragraph">
+<p>A common approach to implement ISO 8601 compliant interval parsing is to use regular expressions to identify and transform the input string into the format expected by Time4J. Below is an example implementation of such a parser:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="keyword">import</span> <span class="include">java.util.regex.Pattern</span>;
+<span class="keyword">import</span> <span class="include">net.time4j.range.MomentInterval</span>;
+<span class="keyword">import</span> <span class="include">org.slf4j.Logger</span>;
+<span class="keyword">import</span> <span class="include">org.slf4j.LoggerFactory</span>;
+
+<span class="directive">public</span> <span class="type">class</span> <span class="class">IntervalParser</span> {
+    <span class="directive">private</span> <span class="directive">static</span> <span class="directive">final</span> <span class="predefined-type">Logger</span> log =
+        LoggerFactory.getLogger(IntervalParser.class);
+
+    <span class="comment">// Pre-compile the patterns for performance</span>
+    <span class="directive">private</span> <span class="directive">static</span> <span class="directive">final</span> <span class="predefined-type">Pattern</span> ISO_INCOMPLIANT_INTERVAL =
+        <span class="predefined-type">Pattern</span>.compile(<span class="string"><span class="delimiter">&quot;</span><span class="content">(^-/|/-$)</span><span class="delimiter">&quot;</span></span>);
+    <span class="directive">private</span> <span class="directive">static</span> <span class="directive">final</span> <span class="predefined-type">Pattern</span> ISO_OPEN_START_INTERVAL =
+        <span class="predefined-type">Pattern</span>.compile(<span class="string"><span class="delimiter">&quot;</span><span class="content">^(</span><span class="char">\\</span><span class="content">.</span><span class="char">\\</span><span class="content">.)?/</span><span class="delimiter">&quot;</span></span>);
+    <span class="directive">private</span> <span class="directive">static</span> <span class="directive">final</span> <span class="predefined-type">Pattern</span> ISO_OPEN_END_INTERVAL =
+        <span class="predefined-type">Pattern</span>.compile(<span class="string"><span class="delimiter">&quot;</span><span class="content">/(</span><span class="char">\\</span><span class="content">.</span><span class="char">\\</span><span class="content">.)?$</span><span class="delimiter">&quot;</span></span>);
+
+    <span class="directive">public</span> MomentInterval parseDateTimeInterval(<span class="predefined-type">String</span> interval) {
+        <span class="keyword">if</span> (ISO_INCOMPLIANT_INTERVAL.matcher(interval).find()) {
+            <span class="keyword">return</span> <span class="predefined-constant">null</span>;
+        }
+
+        <span class="keyword">try</span> {
+            <span class="comment">// Apply the regex replacements sequentially</span>
+            <span class="predefined-type">String</span> formattedInterval = ISO_OPEN_START_INTERVAL
+                .matcher(interval).replaceAll(<span class="string"><span class="delimiter">&quot;</span><span class="content">-/</span><span class="delimiter">&quot;</span></span>);
+
+            formattedInterval = ISO_OPEN_END_INTERVAL
+                .matcher(formattedInterval).replaceAll(<span class="string"><span class="delimiter">&quot;</span><span class="content">/-</span><span class="delimiter">&quot;</span></span>);
+
+            <span class="keyword">return</span> MomentInterval.parseISO(formattedInterval);
+
+        } <span class="keyword">catch</span> (<span class="exception">Exception</span> except) {
+            log.debug(<span class="string"><span class="delimiter">&quot;</span><span class="content">parsing interval failed</span><span class="delimiter">&quot;</span></span>, except);
+            <span class="keyword">return</span> <span class="predefined-constant">null</span>;
+        }
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="intervals-go"><a class="link" href="#intervals-go">In Go</a></h4>
+<div class="paragraph">
+<p>In Go, the approach is a bit more complex, since there is no built-in library
+for intervals and we also need to implement the parsing logic for ISO 8601
+durations due to the lack of native duration support. Below is an example
+implementation of an ISO 8601 compliant interval and duration parser in Go:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="go"><span class="keyword">package</span> interval
+
+<span class="keyword">import</span> (
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">fmt</span><span class="delimiter">&quot;</span></span>
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">regexp</span><span class="delimiter">&quot;</span></span>
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">strconv</span><span class="delimiter">&quot;</span></span>
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">strings</span><span class="delimiter">&quot;</span></span>
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">time</span><span class="delimiter">&quot;</span></span>
+)
+
+<span class="keyword">type</span> MomentInterval <span class="keyword">struct</span> {
+        Start *time.Time
+        End   *time.Time
+}
+
+<span class="comment">// Regex to extract Days, Hours, Minutes, and Seconds from an ISO duration (e.g., P6DT2H5M)</span>
+<span class="keyword">var</span> durationRegex = regexp.MustCompile(<span class="shell"><span class="delimiter">`</span><span class="content">^P(?:(\d+)D)?(?:T(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?)?$</span><span class="delimiter">`</span></span>)
+
+<span class="comment">// parseISODuration converts an ISO duration string into a native time.Duration</span>
+<span class="keyword">func</span> parseISODuration(str <span class="predefined-type">string</span>) (time.Duration, <span class="predefined-type">error</span>) {
+        matches := durationRegex.FindStringSubmatch(str)
+        <span class="keyword">if</span> matches == <span class="predefined-constant">nil</span> {
+                <span class="keyword">return</span> <span class="integer">0</span>, fmt.Errorf(<span class="string"><span class="delimiter">&quot;</span><span class="content">invalid or unsupported ISO duration</span><span class="delimiter">&quot;</span></span>)
+        }
+
+        <span class="keyword">var</span> total time.Duration
+
+        <span class="comment">// Note: We only parse exact time units (Days, Hours, Minutes, Seconds).</span>
+        <span class="keyword">if</span> matches[<span class="integer">1</span>] != <span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span> { <span class="comment">// Days (assumed 24 hours for machine-time math)</span>
+                d, _ := strconv.Atoi(matches[<span class="integer">1</span>])
+                total += time.Duration(d) * <span class="integer">24</span> * time.Hour
+        }
+        <span class="keyword">if</span> matches[<span class="integer">2</span>] != <span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span> { <span class="comment">// Hours</span>
+                h, _ := strconv.Atoi(matches[<span class="integer">2</span>])
+                total += time.Duration(h) * time.Hour
+        }
+        <span class="keyword">if</span> matches[<span class="integer">3</span>] != <span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span> { <span class="comment">// Minutes</span>
+                m, _ := strconv.Atoi(matches[<span class="integer">3</span>])
+                total += time.Duration(m) * time.Minute
+        }
+        <span class="keyword">if</span> matches[<span class="integer">4</span>] != <span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span> { <span class="comment">// Seconds</span>
+                s, _ := strconv.Atoi(matches[<span class="integer">4</span>])
+                total += time.Duration(s) * time.Second
+        }
+
+        <span class="keyword">return</span> total, <span class="predefined-constant">nil</span>
+}
+
+<span class="keyword">func</span> ParseDateTimeInterval(interval <span class="predefined-type">string</span>) *MomentInterval {
+        parts := strings.Split(interval, <span class="string"><span class="delimiter">&quot;</span><span class="content">/</span><span class="delimiter">&quot;</span></span>)
+        <span class="keyword">if</span> <span class="predefined">len</span>(parts) != <span class="integer">2</span> {
+                <span class="keyword">return</span> <span class="predefined-constant">nil</span>
+        }
+
+        startStr := parts[<span class="integer">0</span>]
+        endStr := parts[<span class="integer">1</span>]
+
+        <span class="keyword">if</span> startStr == <span class="string"><span class="delimiter">&quot;</span><span class="content">-</span><span class="delimiter">&quot;</span></span> || endStr == <span class="string"><span class="delimiter">&quot;</span><span class="content">-</span><span class="delimiter">&quot;</span></span> {
+                <span class="keyword">return</span> <span class="predefined-constant">nil</span>
+        }
+
+        result := &amp;MomentInterval{}
+
+        <span class="comment">// Identify if either side is a duration (starts with 'P')</span>
+        isStartDuration := strings.HasPrefix(startStr, <span class="string"><span class="delimiter">&quot;</span><span class="content">P</span><span class="delimiter">&quot;</span></span>)
+        isEndDuration := strings.HasPrefix(endStr, <span class="string"><span class="delimiter">&quot;</span><span class="content">P</span><span class="delimiter">&quot;</span></span>)
+
+        <span class="comment">// An interval cannot be made of two durations</span>
+        <span class="keyword">if</span> isStartDuration &amp;&amp; isEndDuration {
+                <span class="keyword">return</span> <span class="predefined-constant">nil</span>
+        }
+
+        <span class="comment">// 1. Parse the Start boundary (if it is a timestamp or open)</span>
+        <span class="keyword">if</span> !isStartDuration &amp;&amp; startStr != <span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span> &amp;&amp; startStr != <span class="string"><span class="delimiter">&quot;</span><span class="content">..</span><span class="delimiter">&quot;</span></span> {
+                <span class="keyword">if</span> t, err := time.Parse(time.RFC3339, startStr); err != <span class="predefined-constant">nil</span> {
+                        <span class="keyword">return</span> <span class="predefined-constant">nil</span>
+                }
+                result.Start = &amp;t
+        }
+
+        <span class="comment">// 2. Parse the End boundary (if it is a timestamp or open)</span>
+        <span class="keyword">if</span> !isEndDuration &amp;&amp; endStr != <span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span> &amp;&amp; endStr != <span class="string"><span class="delimiter">&quot;</span><span class="content">..</span><span class="delimiter">&quot;</span></span> {
+                <span class="keyword">if</span> t, err := time.Parse(time.RFC3339, endStr); err != <span class="predefined-constant">nil</span> {
+                        <span class="keyword">return</span> <span class="predefined-constant">nil</span>
+                }
+                result.End = &amp;t
+        }
+
+        <span class="comment">// 3. Resolve Durations</span>
+        <span class="keyword">if</span> isStartDuration {
+                <span class="comment">// Duration/End scenario -&gt; Calculate Start</span>
+                <span class="keyword">if</span> result.End == <span class="predefined-constant">nil</span> {
+                        <span class="keyword">return</span> <span class="predefined-constant">nil</span> <span class="comment">// Cannot subtract a duration from an open/infinite end</span>
+                } <span class="keyword">else</span> <span class="keyword">if</span> d, err := parseISODuration(startStr); err != <span class="predefined-constant">nil</span> {
+                        <span class="keyword">return</span> <span class="predefined-constant">nil</span>
+                }
+                t := result.End.Add(-d)
+                result.Start = &amp;t
+
+        } <span class="keyword">else</span> <span class="keyword">if</span> isEndDuration {
+                <span class="comment">// Start/Duration scenario -&gt; Calculate End</span>
+                <span class="keyword">if</span> result.Start == <span class="predefined-constant">nil</span> {
+                        <span class="keyword">return</span> <span class="predefined-constant">nil</span> <span class="comment">// Cannot add a duration to an open/infinite start</span>
+                } <span class="keyword">else</span> <span class="keyword">if</span> d, err := parseISODuration(endStr); err != <span class="predefined-constant">nil</span> {
+                        <span class="keyword">return</span> <span class="predefined-constant">nil</span>
+                }
+                t := result.Start.Add(d)
+                result.End = &amp;t
+        }
+
+        <span class="keyword">return</span> result
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="intervals-python"><a class="link" href="#intervals-python">In Python</a></h4>
+<div class="paragraph">
+<p>In Python, the approach is more straightforward, since there are libraries like
+<code>aniso8601</code>, that provide built-in support for parsing ISO 8601 compliant
+intervals without open boundaries (".."). Below is an example implementation of
+how such a parser can be used to implement ISO 8601 compliant interval parsing
+in Python, including handling of open boundaries:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="python"><span class="keyword">import</span> <span class="include">aniso8601</span>
+<span class="keyword">from</span> <span class="include">datetime</span> <span class="keyword">import</span> <span class="include">datetime</span>
+<span class="keyword">from</span> <span class="include">typing</span> <span class="keyword">import</span> <span class="include">Optional</span>, <span class="include">Tuple</span>
+
+<span class="keyword">def</span> <span class="function">parse_datetime_interval</span>(interval: <span class="predefined">str</span>) -&gt; Optional[Tuple[datetime, datetime]]:
+    <span class="keyword">if</span> interval.startswith(<span class="string"><span class="delimiter">&quot;</span><span class="content">-/</span><span class="delimiter">&quot;</span></span>) <span class="keyword">or</span> interval.endswith(<span class="string"><span class="delimiter">&quot;</span><span class="content">/-</span><span class="delimiter">&quot;</span></span>):
+        <span class="keyword">return</span> <span class="predefined-constant">None</span>
+
+    <span class="keyword">try</span>:
+        <span class="comment"># 2. Intercept open boundaries (&quot;..&quot;) manually</span>
+        <span class="keyword">if</span> interval.startswith(<span class="string"><span class="delimiter">&quot;</span><span class="content">../</span><span class="delimiter">&quot;</span></span>):
+            end_str = interval.split(<span class="string"><span class="delimiter">&quot;</span><span class="content">/</span><span class="delimiter">&quot;</span></span>)[<span class="integer">1</span>].replace(<span class="string"><span class="delimiter">&quot;</span><span class="content">Z</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">+00:00</span><span class="delimiter">&quot;</span></span>)
+            <span class="keyword">return</span> (<span class="predefined-constant">None</span>, datetime.fromisoformat(end_str))
+
+        <span class="keyword">if</span> interval.endswith(<span class="string"><span class="delimiter">&quot;</span><span class="content">/..</span><span class="delimiter">&quot;</span></span>):
+            start_str = interval.split(<span class="string"><span class="delimiter">&quot;</span><span class="content">/</span><span class="delimiter">&quot;</span></span>)[<span class="integer">0</span>].replace(<span class="string"><span class="delimiter">&quot;</span><span class="content">Z</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">+00:00</span><span class="delimiter">&quot;</span></span>)
+            <span class="keyword">return</span> (datetime.fromisoformat(start_str), <span class="predefined-constant">None</span>)
+
+        <span class="comment"># 3. THE SHORTCUT: aniso8601 handles Start/End, Start/Duration, and</span>
+        <span class="comment"># Duration/End! (We use sorted() because if the string is Duration/End,</span>
+        <span class="comment"># aniso8601 returns the tuple backwards as (End, Start))</span>
+        start, end = <span class="predefined">sorted</span>(aniso8601.parse_interval(interval))
+
+        <span class="keyword">return</span> (start, end)
+
+    <span class="keyword">except</span> <span class="exception">Exception</span>:
+        <span class="keyword">return</span> <span class="predefined-constant">None</span></code></pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -11423,7 +11651,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-05-04 12:13:06 UTC
+Last updated 2026-05-06 13:56:17 UTC
 </div>
 </div>
 </body>
