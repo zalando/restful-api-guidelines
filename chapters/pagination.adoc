@@ -173,6 +173,12 @@ For {GET-with-body} operations, the `query` object can to be used as a request
 body with either of these links. (It should be equivalent to just resend
 the original body.)
 
+An endpoint might be exposed under different URLs (the protocols, hostnames and ports may vary).
+The protocol, hostame and port of the pagination links should match the ones used in the request
+this response is for. This avoids scenarios where one would configure access-list rules that
+allow the first request to succeed only for the integration to fail the moment the number of entities
+overflows to the second page.
+
 See also <<248>> for details on the pagination fields and page result object.
 
 
