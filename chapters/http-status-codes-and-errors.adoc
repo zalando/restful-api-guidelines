@@ -424,7 +424,7 @@ exactly once, to check whether warming up the service solved the problem.
 ==== 505 HTTP Version Not Supported {rfc-status-505} {do-not-use} {ALL}
 [.indent]
 The server does not support the HTTP protocol version used in the request.
-Technical response code that serves not use case in RESTful APIs.
+Technical response code that serves no use case in RESTful APIs.
 
 [[status-code-507]]
 ==== 507 Insufficient Storage {rfc-status-507} {do-not-document} {POST} {PUT} {PATCH}
