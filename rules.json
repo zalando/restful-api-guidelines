@@ -446,7 +446,7 @@
     },
     {
       "id": "#217",
-      "title": "MUST use full, absolute URI for resource identification"
+      "title": "MUST use full, absolute URI for resource identification (with same host, if applicable)"
     },
     {
       "id": "#218",

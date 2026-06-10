@@ -1563,7 +1563,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#163"><span class="may-keyword"><strong>MAY</strong></span> use REST maturity level 3 - HATEOAS</a></li>
 <li><a href="#164"><span class="must-keyword"><strong>MUST</strong></span> use common hypertext controls</a></li>
 <li><a href="#165"><span class="should-keyword"><strong>SHOULD</strong></span> use simple hypertext controls for pagination and self-references</a></li>
-<li><a href="#217"><span class="must-keyword"><strong>MUST</strong></span> use full, absolute URI for resource identification</a></li>
+<li><a href="#217"><span class="must-keyword"><strong>MUST</strong></span> use full, absolute URI for resource identification (with same host, if applicable)</a></li>
 <li><a href="#166"><span class="must-keyword"><strong>MUST</strong></span> not use link headers with JSON entities</a></li>
 </ul>
 </li>
@@ -7258,7 +7258,7 @@ corresponding <a href="http://www.iana.org/assignments/link-relations">link rela
 </div>
 </div>
 <div class="sect2">
-<h3 id="217"><a class="link" href="#217"><span class="must-keyword"><strong>MUST</strong></span> use full, absolute URI for resource identification</a></h3>
+<h3 id="217"><a class="link" href="#217"><span class="must-keyword"><strong>MUST</strong></span> use full, absolute URI for resource identification (with same host, if applicable)</a></h3>
 <div class="paragraph">
 <p>Links to other resource must always use full, absolute URI.</p>
 </div>
@@ -7269,6 +7269,14 @@ complexity. It also requires clarity on the base URI, which might not be given
 when using features like embedding subresources. The primary advantage of
 non-absolute URI is reduction of the payload size, which is better achievable
 by following the recommendation to use <a href="#156">gzip compression</a></p>
+</div>
+<div class="paragraph">
+<p>If the linked resource belongs to the same [API](<a href="https://opensource.zalando.com/restful-api-guidelines/#terminology" class="bare">https://opensource.zalando.com/restful-api-guidelines/#terminology</a>) i.e. running service, the link should use the same scheme + host + port combination as the original request URI. (This only comes into play when the API is available at e.g. multiple host names.)</p>
+</div>
+<div class="paragraph">
+<p><strong>Motivation:</strong> This avoids inconsistent client experience situations, for instance, where authorization is configured for one host
+name and not the other, or the second one might not even be accessible from the
+network location of the client (like Kubernetes cluster-internal host names).</p>
 </div>
 </div>
 <div class="sect2">
@@ -8029,6 +8037,10 @@ the original body.)</p>
 </div>
 <div class="paragraph">
 <p>See also <a href="#248"><span class="should-keyword"><strong>SHOULD</strong></span> use pagination response page object</a> for details on the pagination fields and page result object.</p>
+</div>
+<div class="paragraph">
+<p>See also <a href="#217"><span class="must-keyword"><strong>MUST</strong></span> use full, absolute URI for resource identification (with same host, if applicable)</a> for what kind of URLs to use (absolute ones, with the same base
+URL as the original request).</p>
 </div>
 </div>
 <div class="sect2">
@@ -11651,7 +11663,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-06-09 12:24:25 UTC
+Last updated 2026-06-10 11:32:11 UTC
 </div>
 </div>
 </body>
