@@ -5,19 +5,23 @@ Problem:
       type: string
       format: uri-reference
       description: >
-        A URI reference that uniquely identifies the problem type only in the
-        context of the provided API. Opposed to the specification in RFC-9457,
-        it is neither recommended to be dereferenceable and point to a
-        human-readable documentation nor globally unique for the problem type.
+        An optional member, URI identifying the problem type, typically more
+        specific than the HTTP status code. In many cases, an error code can be
+        placed in the type property. It may support automated client decisions
+        in certain failure modes. If the type doesn’t provide additional 
+        information, it can be omitted (defaulting to `"about:blank"`).
       default: 'about:blank'
-      example: '/some/uri-reference'
+      examples:
+        - 'https://example.com/errors/invalid-parameter'
+        - 'https://example.com/errors/ERR12345'  # with error code
     title:
       type: string
       description: >
-        A short summary of the problem type. Written in English and readable
-        for engineers, usually not suited for non technical stakeholders and
-        not localized.
-      example: some title for the error situation
+        A short, human-readable summary of the problem type. It *SHOULD NOT*
+        change from occurrence to occurrence of the problem. Written in English
+        and readable for engineers, usually not suited for non-technical
+        stakeholders and not localized.
+      example: 'Invalid parameter'
     status:
       type: integer
       format: int32
@@ -27,6 +31,7 @@ Problem:
       minimum: 100
       maximum: 600
       exclusiveMaximum: true
+      example: 400
     detail:
       type: string
       description: >
@@ -34,12 +39,16 @@ Problem:
         problem that is helpful to locate the problem and give advice on how
         to proceed. Written in English and readable for engineers, usually not
         suited for non technical stakeholders and not localized.
-      example: some description for the error situation
+      example: 'The \"color\" parameter is invalid'
     instance:
       type: string
       format: uri-reference
       description: >
         A URI reference that identifies the specific occurrence of the problem,
         e.g. by adding a fragment identifier or sub-path to the problem type.
-        May be used to locate the root of this problem in the source code.
-      example: '/some/uri-reference#specific-occurrence-context'
+        This field should serve the purpose of defining a clear error instance 
+        from which a developer can determine the source location of the error.
+        Additionally, it may include relevant contextual information, such as 
+        parameters associated with the error and optionally `Flow-ID` for 
+        debugging purposes.
+      example: '/errors/12345'
