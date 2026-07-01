@@ -26,7 +26,7 @@ Problem:
         of the problem.
       minimum: 100
       maximum: 600
-      maximumExclusive: true
+      exclusiveMaximum: true
     detail:
       type: string
       description: >
