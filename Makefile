@@ -48,7 +48,7 @@ check-rules-incorrects:
 
 next-rule-id:
 	@IFS=$$'\r\n' GLOBIGNORE='*' command eval \
-	"RULE_IDS=($$(grep -rh "^.*\[#[0-9]\{1,5\}.*$$" $(DIRCONTENTS) | sort -r))"; \
+	"RULE_IDS=($$(grep -rh "^\s*\[#[0-9]\{1,5\}\]\s*$$" $(DIRCONTENTS) | sort -r))"; \
 	echo $$(($$(echo $${RULE_IDS[0]} | tr -d '\[' | tr -d '\]' | tr -d '#') + 1));
 
 changelog:

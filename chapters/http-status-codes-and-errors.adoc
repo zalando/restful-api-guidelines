@@ -21,8 +21,8 @@ status codes, e.g. defined by popular web servers like Nginx, that we do not sug
 == {MUST} specify success and error responses
 
 APIs should define the functional, business view and abstract from
-implementation aspects. Success and error responses are a vital part to
-define how an API is used correctly.
+implementation aspects. Success and error responses are a vital part to define
+how an API is used correctly.
 
 Therefore, you must define **all** success and service specific error responses
 in your API specification. Both are part of the interface definition and
@@ -40,7 +40,7 @@ service client and provider performance.
 **Exception:** Standard client and server errors, e.g. {401} (unauthenticated),
 {403} (unauthorized), {404} (not found), {500} (internal server error), or
 {503} (service unavailable), where the semantic can be easily derived from the
-end endpoint specification need no individual definition. Instead these can be
+endpoint specification need no individual definition. Instead these can be
 included by applying the `default` shown pattern below. However, error codes
 that provide endpoint specific indications for clients on how to avoid calling
 the endpoint in the wrong way, or be prepared to react on specific error
@@ -57,6 +57,38 @@ responses:
         schema:
           $ref: 'https://opensource.zalando.com/restful-api-guidelines/models/problem-1.0.1.yaml#/Problem'
 ----
+
+[#256]
+== {MUST} observe end-to-end semantics of HTTP status codes
+
+When implementing services and middleware (see {RFC-3234}[RFC-3234]), designers
+and implementers must ensure that the end-to-end semantics of HTTP status codes
+are preserved (see also {RFC-3439}#section-2.1[RFC-3439 - Section 2.1 - The
+End-to-End Argument and Simplicity]). This means that any intermediate
+component (e.g., sidecar, proxies, gateways, load balancers etc) must not alter
+the meaning of a status code returned by the service, nor must it return status
+codes that could be interpreted as an authoritative answer on behalf of the
+service without clear consent of the service.
+
+Particular, a middleware must not return a status code {404}, if the service
+would have returned a different status code, as this could mislead clients into
+thinking that the resource does not exist when it actually does. Without clear
+contract and explicit indication by the service a middleware must always return
+a temporary, non-authoritative status code, such as:
+
+* **{502} — Bad Gateway**,
+* **{503} — Service Unavailable**, or
+* **{504} — Gateway Timeout**.
+
+This also applies to coupled middleware components, e.g. sidecars deployed with
+the service, whenever they pose the risk of returning misleading status codes
+to clients.
+
+**Note:** It is important for API designers and consumers to understand that
+the end-to-end semantics of HTTP status codes is a fundamental part of the API
+contract that consumers rely on. Therefore, any middleware that is deployed in
+the path of an API must comply with this guideline and must not violate the
+end-to-end semantics of HTTP status codes.
 
 
 [#150]
@@ -216,6 +248,13 @@ being implicitly kept in some state based on a previous redirect. See also
 
 [[client-side-error-codes]]
 === Client side error codes
+
+Clients can safely assume that {4xx} status codes are always authoritative and
+comply with the end-to-end principle (see <<256>>). While a middleware is not
+can authenticate a request and return {401} or {403} on behalf of the service,
+it must never return a misleading status code, e.g. {404} or {410}, if the
+service is not configured or not responding.
+
 
 [[status-code-400]]
 ==== 400 Bad Request {rfc-status-400} {use} {document} {ALL}
