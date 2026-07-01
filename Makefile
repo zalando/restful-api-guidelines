@@ -58,7 +58,7 @@ assets:
 	mkdir -p $(DIRBUILDS);
 	cp -r assets $(DIRBUILDS)/;
 	cp -r models $(DIRBUILDS)/;
-	cp -r models/{problem-1.0.{0,1},money-1.0.0}.yaml $(DIRBUILDS);
+	cp -r models/{problem-1.0.{0,1,2},money-1.0.0}.yaml $(DIRBUILDS);
 
 rules: check-rules
 	$(DIRSCRIPTS)/generate-rules-json.sh  | \
