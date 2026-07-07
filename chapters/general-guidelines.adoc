@@ -34,7 +34,7 @@ control using a source code management system, and you <<192>>.
 all OpenAPI 3.1 changes (e.g. displaying `examples` in Sunrise), and continues 
 supporting OpenAPI 3.0 (and 2.0, aka Swagger 2).
 
-*Hint:* The _OpenAPI 3.1 mayor change_ is that Schema Object definitions are now 
+*Hint:* The _OpenAPI 3.1 major change_ is that Schema Object definitions are now 
 fully compliant with standard JSON Schema. It is an incompatible change since 
 OpenAPI-specific overrides and keywords like `example`, `nullable`, `discriminator`, `xml` 
 are removed from the Schema Object (see 

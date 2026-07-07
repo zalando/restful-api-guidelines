@@ -175,6 +175,8 @@ the original body.)
 
 See also <<248>> for details on the pagination fields and page result object.
 
+See also <<217>> for what kind of URLs to use (absolute ones, with the same base
+URL as the original request).
 
 [#254]
 == {SHOULD} avoid a total result count

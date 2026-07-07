@@ -59,36 +59,38 @@ responses:
 ----
 
 [#256]
-== {MUST} observe end-to-end semantics of HTTP status codes
+== {MUST} preserve end-to-end semantics of HTTP status codes
 
-When implementing services and middleware (see {RFC-3234}[RFC-3234]), designers
-and implementers must ensure that the end-to-end semantics of HTTP status codes
-are preserved (see also {RFC-3439}#section-2.1[RFC-3439 - Section 2.1 - The
-End-to-End Argument and Simplicity]). This means that any intermediate
-component (e.g., sidecar, proxies, gateways, load balancers etc) must not alter
-the meaning of a status code returned by the service, nor must it return status
-codes that could be interpreted as an authoritative answer on behalf of the
-service without clear consent of the service.
+Implementers of middleware services (see {RFC-3234}[RFC-3234]) must ensure
+that the end-to-end semantics of HTTP status codes are preserved (see also
+{RFC-3439}#section-2.1[RFC-3439 - Section 2.1 - The End-to-End Argument and
+Simplicity]). Any intermediate middleware component (e.g., sidecar, proxies,
+gateways, load balancers etc) must not alter the meaning of a status code
+returned by the application service, nor must it return status codes that
+could be interpreted as an authoritative answer on behalf and without clear
+consent of the application service.
 
-Particular, a middleware must not return a status code {404}, if the service
-would have returned a different status code, as this could mislead clients into
-thinking that the resource does not exist when it actually does. Without clear
-contract and explicit indication by the service a middleware must always return
-a temporary, non-authoritative status code, such as:
+In particular, a middleware must not return a status code {404}, if the
+service would have returned a different status code, as this could mislead
+clients into thinking that the resource does not exist when it actually does.
+Without explicit indication by the application service a middleware must
+always return a temporary, non-authoritative server-side status code, such
+as:
 
 * **{502} — Bad Gateway**,
 * **{503} — Service Unavailable**, or
 * **{504} — Gateway Timeout**.
 
-This also applies to coupled middleware components, e.g. sidecars deployed with
-the service, whenever they pose the risk of returning misleading status codes
-to clients.
+For instance, a Kubernetes ingress router like
+https://github.com/zalando/skipper[Skipper] must be configured to return
+the status code {503}  instead of {404}, if there is no route for an
+application service endpoint available.
 
-**Note:** It is important for API designers and consumers to understand that
-the end-to-end semantics of HTTP status codes is a fundamental part of the API
-contract that consumers rely on. Therefore, any middleware that is deployed in
-the path of an API must comply with this guideline and must not violate the
-end-to-end semantics of HTTP status codes.
+**Note:** The end-to-end semantics of HTTP status codes is a fundamental part
+of the API contract. Middleware services not preserving the end-to-end
+semantics impose a high risk of creating critical issues, such as incorrect
+assumptions about the resource states and subsequent loss of data.
+
 
 
 [#150]
@@ -250,10 +252,10 @@ being implicitly kept in some state based on a previous redirect. See also
 === Client side error codes
 
 Clients can safely assume that {4xx} status codes are always authoritative and
-comply with the end-to-end principle (see <<256>>). While a middleware is not
-can authenticate a request and return {401} or {403} on behalf of the service,
-it must never return a misleading status code, e.g. {404} or {410}, if the
-service is not configured or not responding.
+comply with the end-to-end principle (see <<256>>). While a middleware can
+authenticate a request and return {401} or {403} on behalf of the service, it
+must never return a misleading status code, e.g. {404} or {410}, if the service
+is not configured or not responding.
 
 
 [[status-code-400]]
@@ -283,12 +285,12 @@ the second case.
 [[status-code-404]]
 ==== 404 Not found {rfc-status-404} {use} {do-not-document} {ALL}
 [.indent]
-The target resource was not found. This will be returned by most paths on most
-APIs (with out being documented), and for endpoints with parameters when those
-parameters cannot be map to an existing entity. For a {PUT} endpoint which only
-supports updating existing resources, this might be returned if the resource
-does not exist. Apart from these special cases, this does not need to be
-documented.
+The target resource was not found. This will be returned by most paths in most
+APIs (without being documented), and for endpoints with parameters when those
+parameters cannot be mapped to an existing entity. For a {PUT} endpoint which
+only supports updating existing resources, this might be returned if the
+resource does not exist. Apart from these special cases, this does not need to
+be documented.
 
 [[status-code-405]]
 ==== 405 Method Not Allowed {rfc-status-405} {document} {ALL}
@@ -463,7 +465,7 @@ exactly once, to check whether warming up the service solved the problem.
 ==== 505 HTTP Version Not Supported {rfc-status-505} {do-not-use} {ALL}
 [.indent]
 The server does not support the HTTP protocol version used in the request.
-Technical response code that serves not use case in RESTful APIs.
+Technical response code that serves no use case in RESTful APIs.
 
 [[status-code-507]]
 ==== 507 Insufficient Storage {rfc-status-507} {do-not-document} {POST} {PUT} {PATCH}
@@ -658,7 +660,7 @@ identifiers in `type` and `instance` fields:
 *Hint:* The use of https://tools.ietf.org/html/rfc3986#section-4.3[absolute
 URIs] is not forbidden but strongly discouraged. If you use absolute URIs,
 please reference
-https://opensource.zalando.com/restful-api-guidelines/models/problem-1.0.0.yaml#/Problem[problem-1.0.0.yaml#/Problem]
+https://opensource.zalando.com/restful-api-guidelines/models/problem-1.0.1.yaml#/Problem[problem-1.0.1.yaml#/Problem]
 instead.
 
 
