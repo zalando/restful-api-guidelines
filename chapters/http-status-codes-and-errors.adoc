@@ -58,39 +58,51 @@ responses:
           $ref: 'https://opensource.zalando.com/restful-api-guidelines/models/problem-1.0.1.yaml#/Problem'
 ----
 
-[#256]
-== {MUST} preserve end-to-end semantics of HTTP status codes
 
-Implementers of middleware services (see {RFC-3234}[RFC-3234]) must ensure
+[#256]
+== {SHOULD} preserve end-to-end semantics of HTTP status codes
+
+Implementers of middleware services (see {RFC-3234}[RFC-3234]) should ensure
 that the end-to-end semantics of HTTP status codes are preserved (see also
 {RFC-3439}#section-2.1[RFC-3439 - Section 2.1 - The End-to-End Argument and
 Simplicity]). Any intermediate middleware component (e.g., sidecar, proxies,
-gateways, load balancers etc) must not alter the meaning of a status code
-returned by the application service, nor must it return status codes that
+gateways, load balancers etc) should not alter the meaning of a status code
+returned by the application service, nor should it return status codes that
 could be interpreted as an authoritative answer on behalf and without clear
 consent of the application service.
 
-In particular, a middleware must not return a status code {404}, if the
-service would have returned a different status code, as this could mislead
-clients into thinking that the resource does not exist when it actually does.
-Without explicit indication by the application service a middleware must
-always return a temporary, non-authoritative server-side status code, such
+For instance, a router or proxy should not return a client-side error code {404}
+in case of missing or wrong route configuration for the server endpoint. 
+Instead, the router or proxy, without explicit indication by the application service, 
+should always return a temporary, non-authoritative server-side status code, such
 as:
 
 * **{502} — Bad Gateway**,
 * **{503} — Service Unavailable**, or
 * **{504} — Gateway Timeout**.
 
-For instance, a Kubernetes ingress router like
-https://github.com/zalando/skipper[Skipper] must be configured to return
-the status code {503}  instead of {404}, if there is no route for an
-application service endpoint available.
+The Kubernetes ingress router 
+https://github.com/zalando/skipper[Skipper] should be configured such that 
+routing errors are reported as {503} e.g. via catch-all route definitions.
 
 **Note:** The end-to-end semantics of HTTP status codes is a fundamental part
 of the API contract. Middleware services not preserving the end-to-end
-semantics impose a high risk of creating critical issues, such as incorrect
+semantics impose high risks of creating critical issues and incorrect
 assumptions about the resource states and subsequent loss of data.
 
+
+[#257]
+== {MUST} be careful with interpreting 404 status code 
+Infrastructure components, like routers or proxies, may be configured 
+inconsistently not following the <<256>> guideline, and return {404} status code 
+instead of {503} when routes are missing. For example, the Kubernetes ingress 
+router https://github.com/zalando/skipper[Skipper] returns {404} per default 
+in case of missing routes. 
+
+Clients cannot generally rely on {404} representing the backend application resource 
+state. Depending on the network environment, clients must be careful with how to 
+interpret {404} error responses and may need to exclude e.g. routers as error source 
+via tests and inspection of router response headers or log information.
 
 
 [#150]
