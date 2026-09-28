@@ -300,10 +300,10 @@ the second case.
 [[status-code-404]]
 ==== 404 Not found {rfc-status-404} {use} {do-not-document} {ALL}
 [.indent]
-The target resource instance was not found. This will be returned by the API application 
-service for invalid paths and endpoints with parameters that 
-cannot be mapped to an existing resource instance. For a {PUT} endpoint which
-only supports updating existing resources, it is returned in case the
+The target resource was not found. This will be returned by most {GET}
+endpoints (without being documented) when the path and/or query parameters
+cannot be mapped to an existing resource instance. For a {PUT} endpoint
+which only supports updating existing resources, this might be returned if the
 resource does not exist. Apart from these special cases, this does not need to
 be documented.
 
