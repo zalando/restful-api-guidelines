@@ -97,7 +97,7 @@ assumptions about the resource states and subsequent loss of data.
 == {SHOULD} be careful with interpreting 404 status code 
 Clients cannot always rely on {404} representing the backend application resource 
 state. Depending on the network environment, clients should be careful with how to 
-interpret {404} error responses, avoid drawing terminal conclusions, and may need
+interpret {404} error responses, avoid drawing hasty, definitive conclusions, and may need
 to exclude e.g. routers as error source via tests and inspection of router response
 headers or log information.
 
