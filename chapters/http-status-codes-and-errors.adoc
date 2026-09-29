@@ -71,13 +71,13 @@ returned by the application service, nor return status codes that
 could be interpreted as an authoritative answer on behalf and without clear
 consent of the application service.
 
-Preserving end-to-end semantics is particularly important in the case of the {404} (Not Found) 
-status code providing information about the application resource state. 
-A router or proxy must not return a client-side error code {404}
-in case of missing or wrong route configuration for the server endpoint. 
-Instead, the router or proxy, without explicit indication by the application service, 
-must always return a temporary, non-authoritative server-side status code, such
-as:
+Preserving end-to-end semantics is particularly important in the case of the
+{404} (Not Found) status code providing information about the application
+resource state. A router or proxy must not return a client-side error code
+{404} in case of missing or wrong route configuration for the server endpoint. 
+Instead, the router or proxy, without explicit indication by the application
+service, must always return a temporary, non-authoritative server-side status
+code, such as:
 
 * **{502} — Bad Gateway**,
 * **{503} — Service Unavailable**, or
@@ -95,17 +95,18 @@ assumptions about the resource states and subsequent loss of data.
 
 [#257]
 == {SHOULD} be careful with interpreting 404 status code 
-Clients cannot always rely on {404} representing the backend application resource 
-state. Depending on the network environment, clients should be careful with how to 
-interpret {404} error responses, avoid drawing hasty, definitive conclusions, and may need
-to exclude e.g. routers as error source via tests and inspection of router response
-headers or log information.
+Clients cannot always rely on {404} representing the backend application 
+resource state. Depending on the network environment, clients should be
+careful with how to interpret {404} error responses, avoid drawing hasty,
+definitive conclusions, and may need to exclude e.g. routers as error source
+via tests and inspection of router response headers or log information.
 
-This rule is motivated by the fact that infrastructure components of the network environment, 
-like routers or proxies, may be configured not following consistently the <<256>> guideline, 
-and return {404} instead of {503} in case routes are missing. For example, the Kubernetes 
-ingress router https://github.com/zalando/skipper[Skipper] returns {404} per default 
-if no route is configured. 
+This rule is motivated by the fact that infrastructure components of the
+network environment, like routers or proxies, may be configured not following
+consistently the <<256>> guideline, and return {404} instead of {503} in case
+routes are missing. For example, the Kubernetes ingress router
+https://github.com/zalando/skipper[Skipper] returns {404} per default  if no
+route is configured. 
 
 
 [#150]
@@ -308,8 +309,8 @@ resource does not exist. Apart from these special cases, this does not need to
 be documented.
 
 [.indent]
-Hint: Clients <<257>> since some infrastructure components of the network environment 
-might not follow the <<256>> rule.
+Hint: Clients <<257>> since some infrastructure components of the network 
+environment might not follow the <<256>> rule.
 
 [[status-code-405]]
 ==== 405 Method Not Allowed {rfc-status-405} {document} {ALL}
