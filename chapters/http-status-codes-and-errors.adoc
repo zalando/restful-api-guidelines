@@ -58,6 +58,7 @@ responses:
           $ref: 'https://opensource.zalando.com/restful-api-guidelines/models/problem-1.0.1.yaml#/Problem'
 ----
 
+
 [#256]
 == {MUST} preserve end-to-end semantics of HTTP status codes
 
@@ -66,31 +67,45 @@ that the end-to-end semantics of HTTP status codes are preserved (see also
 {RFC-3439}#section-2.1[RFC-3439 - Section 2.1 - The End-to-End Argument and
 Simplicity]). Any intermediate middleware component (e.g., sidecar, proxies,
 gateways, load balancers etc) must not alter the meaning of a status code
-returned by the application service, nor must it return status codes that
+returned by the application service, nor return status codes that
 could be interpreted as an authoritative answer on behalf and without clear
 consent of the application service.
 
-In particular, a middleware must not return a status code {404}, if the
-service would have returned a different status code, as this could mislead
-clients into thinking that the resource does not exist when it actually does.
-Without explicit indication by the application service a middleware must
-always return a temporary, non-authoritative server-side status code, such
+Preserving end-to-end semantics is particularly important in the case of the {404} (Not Found) 
+status code providing information about the application resource state. 
+A router or proxy must not return a client-side error code {404}
+in case of missing or wrong route configuration for the server endpoint. 
+Instead, the router or proxy, without explicit indication by the application service, 
+must always return a temporary, non-authoritative server-side status code, such
 as:
 
 * **{502} — Bad Gateway**,
 * **{503} — Service Unavailable**, or
 * **{504} — Gateway Timeout**.
 
-For instance, a Kubernetes ingress router like
-https://github.com/zalando/skipper[Skipper] must be configured to return
-the status code {503}  instead of {404}, if there is no route for an
-application service endpoint available.
+For instance, the Kubernetes ingress router 
+https://github.com/zalando/skipper[Skipper] must be configured such that 
+routing errors are reported as {503} e.g. via catch-all route definitions.
 
 **Note:** The end-to-end semantics of HTTP status codes is a fundamental part
 of the API contract. Middleware services not preserving the end-to-end
-semantics impose a high risk of creating critical issues, such as incorrect
+semantics impose high risks of creating critical issues and incorrect client
 assumptions about the resource states and subsequent loss of data.
 
+
+[#257]
+== {SHOULD} be careful with interpreting 404 status code 
+Clients cannot always rely on {404} representing the backend application resource 
+state. Depending on the network environment, clients should be careful with how to 
+interpret {404} error responses, avoid drawing hasty, definitive conclusions, and may need
+to exclude e.g. routers as error source via tests and inspection of router response
+headers or log information.
+
+This rule is motivated by the fact that infrastructure components of the network environment, 
+like routers or proxies, may be configured not following consistently the <<256>> guideline, 
+and return {404} instead of {503} in case routes are missing. For example, the Kubernetes 
+ingress router https://github.com/zalando/skipper[Skipper] returns {404} per default 
+if no route is configured. 
 
 
 [#150]
@@ -285,12 +300,16 @@ the second case.
 [[status-code-404]]
 ==== 404 Not found {rfc-status-404} {use} {do-not-document} {ALL}
 [.indent]
-The target resource was not found. This will be returned by most paths in most
-APIs (without being documented), and for endpoints with parameters when those
-parameters cannot be mapped to an existing entity. For a {PUT} endpoint which
-only supports updating existing resources, this might be returned if the
+The target resource was not found. This will be returned by most {GET}
+endpoints (without being documented) when the path and/or query parameters
+cannot be mapped to an existing resource instance. For a {PUT} endpoint
+which only supports updating existing resources, this might be returned if the
 resource does not exist. Apart from these special cases, this does not need to
 be documented.
+
+[.indent]
+Hint: Clients <<257>> since some infrastructure components of the network environment 
+might not follow the <<256>> rule.
 
 [[status-code-405]]
 ==== 405 Method Not Allowed {rfc-status-405} {document} {ALL}
