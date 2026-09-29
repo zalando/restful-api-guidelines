@@ -587,6 +587,14 @@
     {
       "id": "#255",
       "title": "SHOULD use appropriate formats for date and time properties"
+    },
+    {
+      "id": "#256",
+      "title": "MUST preserve end-to-end semantics of HTTP status codes"
+    },
+    {
+      "id": "#257",
+      "title": "SHOULD be careful with interpreting 404 status code "
     }
   ]
 }
